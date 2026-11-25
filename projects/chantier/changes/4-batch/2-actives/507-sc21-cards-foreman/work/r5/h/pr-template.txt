@@ -1,0 +1,105 @@
+## PR template
+1 L3 [=:3] The default description of a CR's PR, written by the CR Driver and checked by the Inspector.
+## Scope and precedence
+2 L7 [pr-template.md:5 0.48] It is the description of a CR's PR, on GitHub and on GitLab (merge request), written by the CR Driver in `<work folder>/pr-body.md` and checked by the Inspector.
+3 L8 [pr-template.md:5 0.67 | verifier.md:9 0.38] A fix CR is a CR: its PR follows it too.
+4 L9 [=:7] A stack driver opens no PR; a release PR keeps its form.
+5 L10 [pr-template.md:8 0.66] The project ranks above it: a template file the forge reads (GitHub: `pull_request_template.md` in the root, `docs/` or `.github/`, any case, or a template in `.github/PULL_REQUEST_TEMPLATE/
+6 L13 [pr-template.md:7 0.73] Then the project's template is used as written, and this file only fills where the project is silent.
+7 L15 [pr-template.md:7 0.61] With a project template, the Issues References lines go where that template puts its issue links; with no such place, the `## Issues References` section is added after its first section.
+8 L17 [release-chief-p1.md:3 0.65 | spec-critic.md:5 0.38] A project rule on the reference ranks above this file.
+## The rules
+9 L21 [pr-template.md:33 0.68] Title and body in English, for a reader outside the team: reviewers, stakeholders, future maintainers.
+10 L22 [pr-template.md:12 0.63] They do not know the backlog, and `.agents/changes/` is not in git (but see the archive below).
+11 L24 [pr-template.md:13 0.50] When `take` says `archive: in the PR at <path>`, that archive folder is part of the diff: the description names it only in its Internal references section, as any `.agents/changes/` path, an
+12 L28 [pr-template.md:13 0.65 | demo-explorer.md:3 0.37] When `take` says `archive: not in the PR`, the diff holds no archive folder and the description names none.
+13 L30 [pr-template.md:10 0.82] Explain the change from the reader's side: what was wrong or missing, what the PR changes, what they will notice.
+14 L31 [pr-template.md:12 0.68] Name features by what they do, not by internal ids.
+15 L31 [=:12] Define a project term on first use.
+16 L33 [pr-template.md:13 0.81] No internal reference in the title or the body text: no CR name, number or slug, no batch, round or order, no path under `.agents/changes/`, and no agent role of chantier (Chief of Staff, Fo
+17 L37 [pr-template.md:14 0.75] The CR's name ("CR-142 grill-rules") and any other reference that helps maintainers go in the last section, "Internal references", and nowhere else.
+18 L39 [pr-template.md:14 0.66] A role name may appear in any section when it is a term of the project's own product: the diff changes that role's behaviour, card or agent file (as in chantier's own repository, where the r
+19 L41 [pr-template.md:13 0.62] It is then a project term, defined on first use.
+20 L41 [pr-template.md:14 0.28] In a project whose product defines no such role, this never applies.
+21 L42 [pr-template.md:13 0.50] A file path the diff changes (for instance `skills/chantier/references/driver.md`) may be named in Changes whatever its name.
+22 L44 [=:16] When the CR's specification has an `issue:` line, the body has a section `## Issues References`, one line per 
+23 L45 [status-layout.md:53 0.39] when it has none, the section is left out entirely (no heading, no "None").
+24 L46 [pr-template.md:14 0.35] The form of each line, the project's rules first (form, keyword, title or body, for instance `Closes JIRAJPT-1245`); where they say nothing, chantier's default:
+25 L48 [concepts.md:12 0.42] Jira: `Closes <KEY>-<n>` (for instance `Closes JIRAJPT-1245`);
+26 L49 [pr-template.md:14 0.68] GitHub and GitLab: `Closes #<n>` for an issue of the PR's own repository; `Closes owner/repo#<n>` (GitHub) or `Closes group/project#<n>` (GitLab) for another one;
+27 L51 [=:16] any other tracker: the ticket's link.
+28 L53 [pr-template.md:16 0.66] The verb is what closes the issue at the merge (a bare `#<n>` only links it); a project that wants a link only says so in its rules.
+29 L54 [pr-template.md:14 0.75] The ticket's reference is not an internal reference: it is allowed there, and it is the only place the PR names the ticket; the Driver never comments on the issue.
+30 L57 [=:16] The title says what changes; where the project's rules give no style, a Conventional Commit subject (`feat: …`
+31 L59 [=:18] Every section is kept and filled; "None" rather than a deleted section.
+32 L59 [pr-template.md:16 0.50] One exception: Human decisions is omitted, never written "None", when the CR has no decision to show: it had no grill (for instance a quick fix, or a fix CR, whose specification is a `fix-<n
+33 L63 [=:19] The layout: Summary, Issues References (when present), Deliverables, Blast radius, Autonomous decisions and Kn
+34 L64 [pr-template.md:17 0.79] the rest goes in one `<details><summary>Details</summary>` block, in this order: Changes, Human decisions, Impacts, Test plan, Internal references.
+35 L66 [pr-template.md:18 0.55] A blank line after `</summary>` and before `</details>`, or the forge does not render the Markdown inside; nothing follows `</details>`.
+36 L68 [pr-template.md:18 0.65 | demo-explorer.md:5 0.45] The before/after screenshots of a visible change stay in Deliverables, outside the fold.
+37 L70 [pr-template.md:18 0.67] Deliverables, right after Summary: what the reader gets, shown with one or more small visuals, each next to the one or two sentences it supports, and the impactful choices the change made, b
+38 L72 [pr-template.md:60 0.57] for an architecture, the architecture choices; for a rework or refactoring, the targets set (for instance scores to reach).
+39 L74 [cr-rounds.md:4 0.28] The visuals are one kind, sometimes several, rarely all:
+40 L75 [pr-template.md:56 0.47] a Mermaid `flowchart` of the modules or layers that change, arrows for the calls or allowed imports (about 10 nodes at most);
+41 L77 [=:56] a Mermaid `sequenceDiagram` of one real flow, before and after when the order is the fix;
+42 L78 [pr-template.md:20 0.47] a before/after tree or table (files moved or split, sizes, settings);
+43 L79 [pr-template.md:18 0.60] before/after screenshots for a visible change, its main visual, side by side, attached as [driver](driver.md) says (the forge's own CLI);
+44 L80 [pr-template.md:20 0.49] a link into a commit of the CR's branch (`/blob/<sha>/`, `raw.githubusercontent.com/.../<sha>/`, GitLab's `/-/raw/<sha>/`) is not an upload: a restack drops that commit and the forge may del
+45 L83 [pr-template.md:19 0.54] a 5 to 15 line code sketch of the new interface, message or registration a contributor will reuse, with `...` for the rest.
+46 L86 [pr-template.md:18 0.42] Only the calls, files, props and boundaries the reviewer needs, with real names checked against the diff.
+47 L87 [=:62] A one-line fix may write "None"; a structural change never does.
+48 L88 [pr-template.md:19 0.68] Impacts, inside the fold: what users and developers will notice.
+49 L88 [pr-template.md:99 0.64 | demo-explorer.md:5 0.41] The Verifier's before/after screenshots are in Deliverables, not here; Impacts says in one line what they show.
+50 L89 [pr-template.md:20 0.55] A file the forge's CLI cannot upload is named under "Internal references" (its path is under `work/`), not in the text.
+51 L91 [=:100] With nothing visible: one line, e.g.
+52 L91 [=:100] "No visual change".
+53 L92 [pr-template.md:20 0.80] Each proof names the SHA it covers (seven characters): the Test plan items, and the captions of the before/after visuals in Deliverables (before at the base's SHA, after at the head's).
+54 L93 [retake.md:3 0.39] A proof carried over a move says so (`at <head7> (carried from <sha7>)`: it names the head it now stands at and the SHA it came from; only the SHA after `carried from` may lie outside the he
+55 L96 [conflicts.md:1 0.34] a clean rebase carries every proof whose patch it left unchanged.
+56 L96 [pr-template.md:20 0.67] A proof the head has moved past, not yet judged again, is marked `STALE (judged at <sha7>, head now <sha7>)`.
+57 L97 [pr-template.md:20 0.55] A claim in Summary, Deliverables, Changes or Impacts with no proof (no test, no gate, no Verifier claim, no evidence) starts with `**UNVERIFIED:**`, or is narrowed to what is proven;
+58 L99 [concepts.md:45 0.38] it is never left as a plain fact.
+59 L100 [=:22] The Review item cites the SHA of a pass the Driver recorded with `$CHANTIER note`, and stays unchecked while n
+60 L102 [pr-template.md:21 0.42] Human decisions, inside the fold: the impactful decisions the user took during the grill, extracted from the CR's `02-answers.md` (in the CR's folder, the parent of the work folder): only th
+61 L104 [=:94] one bullet each.
+62 L104 [pr-template.md:12 0.72] No internal reference (no CR, batch, round, agent role, `.agents/changes/` path), written for a reader outside the team.
+63 L106 [pr-template.md:16 0.44] Omitted when there is no such decision (no grill, or a grill with none).
+64 L107 [=:24] Blast radius: one grade kept, explained in one or two lines (what could break, how to roll back).
+65 L109 [pr-template.md:23 0.60] Autonomous decisions, visible right after Blast radius: each decision an agent took without the user (in the investigation, a round, a conflict resolution), one bullet each, with its reason;
+66 L111 [pr-template.md:93 0.83 | demo-explorer.md:3 0.67] "None" when there is none.
+67 L112 [pr-template.md:24 0.63] Known gaps, visible right after Autonomous decisions: each gap the PR leaves on purpose, one bullet each, saying what is missing and why it was left (and, when known, what would close it).
+68 L114 [pr-template.md:24 0.36] A gap is anything not done or not proven that the PR knowingly ships that way: a part of the specification not delivered;
+69 L115 [pr-template.md:81 0.41] a claim marked `**UNVERIFIED:**` (each such mark has its bullet here);
+70 L116 [pr-template.md:24 0.54] evidence the plan named and the Verifier could not capture (`before-after.md` says why);
+71 L117 [pr-template.md:24 0.41] a defect a review or the Verifier reported that the Driver accepted rather than fixed, a cosmetic defect included.
+72 L118 [pr-template.md:24 0.66] A `STALE` proof is never a gap: it is fixed before the hand-back.
+73 L119 [pr-template.md:93 0.57 | demo-explorer.md:3 0.36] "None" when there is none; the section is never deleted.
+74 L119 [=:125] No internal reference in it.
+75 L120 [pr-template.md:25 0.52] The body describes the PR as it is now, not its history: it is updated whenever the scope changes (a new round, a dropped item, a rebase that changes what the PR holds).
+## The template
+76 L125 [=:31] To copy into `pr-body.md`:
+77 L127 [pr-template.md:20 0.25] ```<!-- Title and body in English, for a reader outside the team: no internal ids (CR, batch, / round, .agents/changes/ paths), no agent role as the doer of the work; a role name only as a /
+78 L213 [concepts.md:39 0.27] The studio's Test plan item on requirements (SwRS, `just requirements-update`) is specific to that project and is left out;
+79 L214 [release-evidence.md:1 0.40] an Evidence item replaces it, as chantier's Verifier produces the before/after.
+## The audit
+80 L219 [=:121] What the Inspector checks, one line each, so a defect names its section:
+81 L221 [pr-template.md:123 0.81] Every section of the template present (Known gaps included), in order, each filled or "None", except Human decisions, present when the CR's `02-answers.md` records a decision that shapes the
+82 L225 [=:123] Internal references last.
+83 L226 [=:124] The fold in place: one `<details><summary>Details</summary>` block, after Autonomous decisions, holding Change
+84 L229 [=:19] Summary, Issues References (when present), Deliverables, Blast radius, Autonomous decisions and Known gaps out
+85 L230 [pr-template.md:18 0.83 | demo-explorer.md:3 0.52] the before/after screenshots of a visible change in Deliverables.
+86 L232 [pr-template.md:123 0.68] No internal reference, the CR's name included, in the title or outside Internal references (Human decisions included): no CR name, batch, round or `.agents/changes/` path outside it;
+87 L233 [=:125] no role name as the doer of the work outside it; a role name elsewhere only as a product term of a change to t
+88 L236 [=:126] Deliverables has at least one visual, unless the change is a one-line fix; the names in it exist in the diff o
+89 L238 [=:127] Changes and Impacts match the diff and the specification (nothing claimed that the diff does not do, nothing t
+90 L240 [=:128] Blast radius has one grade and its explanation.
+91 L241 [=:129] Autonomous decisions lists the decisions the round's notes record as taken without the user, or says "None".
+92 L243 [pr-template.md:130 0.78] Human decisions matches the CR's `02-answers.md`: each decision that shapes the change is there, nothing dropped, nothing invented; absent only when there is no such decision.
+93 L245 [pr-template.md:130 0.79] When the CR's specification has an `issue:` line, Issues References holds one line per ticket in the form the rules give (else the default), and the body names the ticket nowhere else;
+94 L246 [pr-template.md:16 0.60 | demo-explorer.md:3 0.35] when it has none, no Issues References section.
+95 L248 [=:130] Known gaps present, visible, right after Autonomous decisions; one bullet per `**UNVERIFIED:**` claim of the b
+96 L251 [=:134] With a project template, the audit is: that template's sections, filled as it asks, and the project's PR rules
+## A customised version
+97 L256 [pr-template.md:136 0.72 | griller-skill.md:3 0.38] When the user asks for their own version, the Chief of Staff files it as a CR (`$CHANTIER file`), grilled and specified like any CR; a CR Driver delivers it by PR.
+98 L257 [pr-template.md:136 0.69] The CR writes a guideline (the rules) and a template in the user's project, starting from this file and the user's wishes, at the place the agent judges right unless the user's answers name 
+99 L262 [=:138] Once merged, the project's version ranks above this file.

@@ -1,0 +1,2 @@
+## Copilot startup capability core
+1 L3 [config-p1.md:3 0.29] The host provides the documented Copilot tools and agent sessions described by the deferred host reference.

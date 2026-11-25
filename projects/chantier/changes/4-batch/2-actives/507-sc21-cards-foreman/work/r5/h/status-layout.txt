@@ -1,0 +1,101 @@
+## The reports
+1 L3 [=:3] The shape of a Progress report and of a Completion report.
+2 L3 [status-layout.md:1 0.83] The user follows a batch through them, often on a phone, and reads them at a glance: a report in another shape is a defect.
+3 L4 [status-layout.md:1 0.84 | foreman.md:1 0.39] This card is read whole before every report, by the Chief of Staff and by `/chantier:status`.
+4 L7 [=:5] `$CHANTIER` is the CLI of the prompt or the skill that sent you here.
+## Before a report
+5 L11 [=:9] Run `$CHANTIER status --refresh` with no epoch: it records the current spend and `STATUS.md` and leaves the Fo
+## The rules of every report
+6 L16 [status-layout.md:13 0.69] **A CR's name:** name every CR by its number and slug together, like "CR-142 grill-rules", never one alone; an item with no number yet is named by its slug.
+7 L18 [=:14] **The batch's state and the ready CRs:** the batch's state in the header is copied from `status`'s first line 
+8 L19 [=:14] A CR named in **Notes** or **For you** as ready to merge or in draft is written from its `handed back:` line, 
+9 L21 [=:14] The skeleton and the columns do not change.
+10 L22 [=:15] A cost or a time chantier did not observe is written `unknown` (or as the CLI prints it: `-`, `never`, `not me
+11 L24 [status-layout.md:15 0.66] A Progress report and a Completion report always have the same shape: the columns are fixed, the text around them is yours to judge, in the user's language.
+12 L25 [status-layout.md:14 0.55] Say "MR" on a GitLab remote, in the column and in the text, "PR" elsewhere (you know the forge from the remote).
+13 L27 [=:16] Icons, each with its word beside it: ⚪ not started or dropped, 🟡 working, 🟠 waiting, 🟣 ready locally, 🟤 PR in 
+14 L28 [status-layout.md:15 0.79] Each icon is the one `status` draws in the CR's `label` (the same as `STATUS.md` and the board; read it there, in the Status column of the batch's `STATUS.md`, or in `label` of its `STATUS.j
+15 L31 [=:16] ⚪ is a queued CR that could start now. 🔴 is a CR that nothing moves until someone decides or repairs it.
+16 L33 [status-layout.md:15 0.61] `STATUS.md`, `status` and `STATUS.json` carry each CR's long gate: a "Long gate" column in the tables, one `gate` object in the JSON, the same words in each: `passed abc1234`, `carried from 
+17 L37 [=:17] Copy the words when a report names a CR's long gate; a report adds no column for it.
+## Progress
+18 L42 [=:21] On a CR ready to merge or merged and on "status?", written in this order, exactly this skeleton (angle bracket
+19 L45 [status-layout.md:24 0.34] ```**<batch> <name>** · <who steers> · <shape> · slots <live>/<slots> · <done> CRs done · spent <spent> of <budget> /  / ⚪ not started or dropped · 🟡 working · 🟠 waiting · 🟣 ready locally · 
+20 L75 [status-layout.md:64 0.66] **Header line:** the batch's number and name, who steers it and its shape, the slots in use, the CRs done, the spend and the budget.
+21 L76 [=:53] Who steers (`direct (the Chief of Staff)` or `Foreman`) and the shape (`parallel`, `series` or `stack`) are co
+22 L78 [status-layout.md:53 0.75] `unknown` stays `unknown`; the spend is copied as `status` prints it (`at least $1.61` while calls are not priced), without its age (`, <n> min old`): a report runs right after `status --ref
+23 L81 [=:54] **CR table:** one row per CR: CR, subject (a few words, not the title), state, PR as a link, cost (from the ro
+24 L83 [=:54] rows with one cause get the same words, whatever each Driver wrote.
+25 L84 [status-layout.md:53 0.73] **Notes and Cost notes are the only places for extra messages:** short lines in the user's language (explanations, warnings, tips on reading the figures).
+26 L85 [=:55] An empty place is left out, not written "none".
+27 L86 [status-layout.md:53 0.57] **Notes** holds what a 🟠 or 🔴 CR waits for and who unblocks it, a chain and its reason, a force push run for a Driver, the remaining floor and the delivery time (`chief-of-staff-any.md`, "Th
+28 L87 [=:55] **Cost notes** holds the CLI's not-priced lines (`<model> has no price: add it under prices: in chantier.yaml 
+29 L90 [retake-stack.md:3 0.51 | chief-of-staff.md:24 0.37] Nothing but the Tip follows **For you**.
+30 L91 [status-layout.md:54 0.74] **For you:** always there: what the user has to review or decide, or "nothing" (only a Tips line can follow it, see below).
+31 L94 [=:58] 🟢 ready to merge is a PR out of draft whose CR is ready to merge;
+32 L94 [=:58] a PR in draft is 🟤 and says what it waits for (and "do not merge");
+33 L95 [=:58] **For you** asks the user to merge only a PR ready to merge.
+34 L96 [=:58] A CR ready locally (🟣) has no PR yet.
+35 L98 [status-notes.md:3 0.73] When a CR is chained (queued after another by the Foreman's decision or the plan's, with no real dependency), your next report has a line with the chain and its reason, in **Notes**.
+36 L100 [status-notes.md:3 0.92] Every Progress report has one line in **Notes** with the remaining floor and the delivery time: `floor: at least about <h> h left (lock <n> gates × <m> min; chain <d> levels × (<m> + <c> min
+37 L100 [status-notes.md:3 0.95] and, when that time moved an hour or more later since the last report, one more line with the earlier time and the cause.
+38 L100 [status-notes.md:3 0.66] Beside the floor line, one line names the mergeable partial stack as it stands: `partial stack mergeable below <commit>`.
+39 L100 [status-layout.md:14 0.45] The header line and the tables stay as they are: no new column.
+40 L100 [status-layout.md:84 0.52] The Completion report gets no floor line: nothing remains.
+41 L102 [status-notes.md:3 0.69] When a Driver's refused force push was run since the last report (by the Foreman, by you, or by you on the user's yes), your next report has one line per push in **Notes**: the CR (number an
+42 L102 [routing.md:11 0.64 | chief-of-staff.md:5 0.36] In Foreman mode you learn of the Foreman's push from its `pushed <branch>` line.
+43 L102 [status-notes.md:3 0.75] A push held for the user's word or failed was already told at once; **For you** still names a push question while it is open.
+44 L104 [status-notes-more.md:3 0.58] In a stack batch with a native stack on the forge, every Progress report has one line in **Notes**, in the user's language, the CRs by number and slug: `partial stack mergeable below <sha7> 
+45 L104 [status-notes-more.md:1 0.90 | stack-driver.md:3 0.64] With no stack on the forge yet: `no stack yet: <k> of 2 PRs handed back ready`.
+46 L104 [status-notes.md:3 0.69 | chief-of-staff.md:35 0.38] The Completion report has none (nothing remains).
+47 L104 [status-layout.md:15 0.49 | griller-skill.md:3 0.36] It adds no column and no CLI line in `STATUS.md` or `STATUS.json`; it sits beside a floor line when the batch has one.
+48 L106 [status-notes-more.md:3 0.60] When a CR merged since the last report carries a `main checkout:` note, your next report has one line in **Notes**: `main checkout: fast-forwarded to <sha7>` (with `; uv.lock changed: sync p
+49 L106 [status-layout.md:53 0.64 | chief-of-staff.md:35 0.36] The Completion report has it too, by the same skeleton.
+50 L106 [status-notes-more.md:4 0.57] It is not a **For you** item: nothing waits on the user, but a sync pending more than 3 minutes: then one **For you** item, `sync pending: held by <holders>`, with the offer to stop your own
+51 L106 [status-notes-more.md:3 0.82] after a no, the holders only, plus "a later yes still counts";
+52 L106 [allow-rules-more-p1.md:4 0.72 | demo-explorer.md:5 0.43] or what the user may stop otherwise.
+53 L106 [status-notes-more.md:3 0.39] That item is one item, its latest state, in each Progress and Completion report while the sync is pending, gone once synced, never a second chat question;
+54 L106 [sync-offer.md:3 0.51] outside a batch, the skill's chat line, and its one offer line when the offer could not be in it.
+55 L106 [cleanup.md:1 0.30] A `tracked changes` or `on <branch>` line may leave the user something to do, which they judge.
+56 L108 [status-notes-more.md:3 0.61] When you named a trace in the main checkout since the last report (`chief-of-staff-steering.md`, "Reports": `git status --porcelain`, a path outside the planning folder), your next report ha
+57 L110 [=:60] On the Foreman's `ready-to-merge` that is the last of a stack, when no CR of the batch is working, end the Pro
+## Completion
+58 L115 [=:64] On the `final` message (Foreman mode) or right after your own `pause` (direct mode): the same skeleton as a Pr
+59 L119 [=:66] the header line has the batch, who steers it and its shape as in a Progress report, the CRs merged out of how 
+60 L121 [=:67] the CR table has the columns CR, subject, result, PR, rounds, cost;
+61 L122 [=:68] after **Cost notes**, in this order:
+62 L123 [status-layout.md:69 0.83] **What the batch did not prove:** each CR handed back with `--no-gate` and its reason (the CR's "Long gate" step shows `exempt: <reason>`), and each CR handed back under a waiver (`order wai
+63 L128 [=:70] the **Retro**: the points of `4-batch/retro.md` written at this pause (and of the release's `work/retro.md` if
+64 L131 [status-layout.md:68 0.80] the points are the ones the retro critic kept, followed by one line `<d> points dropped by the critic; the list is on request.`, or, when it kept none, `Retro: nothing worth changing (<d> po
+65 L133 [=:70] a `project` point that matches an inbox or backlog item names that item, a `chantier` point that matches an op
+66 L135 [status-layout.md:69 0.80] **For you:** the batch is paused, which `project` points to file as inbox items (by their numbers), which `chantier` points to draft as an issue (by their numbers; several may go in one issu
+67 L140 [status-layout.md:69 0.67] the Retro is offered before the close, which writes `4-batch/retro.md` into `5-archives/batches/batch-NN.md` (only a Tips line can follow it, see below).
+## Cost
+68 L146 [=:75] The cost of a report is two tables and one line, never raw output in a code block.
+69 L146 [=:75] The rows are the lines of `$CHANTIER cost`, in its order (a CR's own figure is the last field of its row in `s
+70 L150 [=:77] **First table, the batch's spend:** the steering session (the Foreman; in direct mode `Chief of Staff, steerin
+71 L152 [status-layout.md:77 0.79] Each row has its cost, its share of the spend and its calls, as printed.
+72 L153 [=:77] Below it, the ratio line `Orchestration (steering + Drivers): N% of the batch's spend`, as printed.
+73 L155 [status-layout.md:78 0.72] **Second table, outside the batch's spend:** the `Chief of Staff, ...` lines of that output: `steering the batch` (Foreman mode: what you spent relaying and reporting; in direct mode the lin
+74 L165 [status-layout.md:78 0.83] `whole session` is copied as printed, its parenthesis included: it is the one `Chief of Staff, ...` line that holds a part of the batch's spend, and the parenthesis says how much.
+75 L167 [=:78] These lines carry no share.
+76 L167 [=:78] In a direct batch the grill and specifications are outside the batch's spend, as the spec-writer and the spec 
+77 L170 [status-layout.md:80 0.78] The CLI knows who is who from the record, not from a role name: the Foreman is the main agent (the steering session), a Driver has no parent, a worker has one, and a Driver of the user's own
+78 L172 [=:80] No line that starts with "Driver" names the steering session or its own subagents.
+79 L173 [status-layout.md:78 0.83] A Driver's line covers its own rebases, gates and file writes, besides the workers it starts, which have their own lines.
+80 L174 [=:78] Your session is in the batch's spend and budget only as the steering row of a direct batch.
+81 L177 [=:82] **You copy, you compute nothing.** Every amount, share, call count and the ratio come from `cost` as printed.
+82 L178 [status-layout.md:80 0.72] You group, add and regroup nothing: the ratio line is the one grouping, and the CLI makes it.
+83 L179 [status-layout.md:82 0.84] Give no figure when it fails; `unknown`, `not measured` and `share not measured` stay as printed (never `$0.00`; the compactions leave no record: they are counted, not priced, and the count 
+84 L185 [=:84] **A floor.** A figure that leaves calls of a model with no price out of it is a floor: it is shown as `cost` p
+85 L190 [status-layout.md:84 0.81] **Explaining the figures:** in the Completion report, and when the user asks why it cost that, run `$CHANTIER cost --explain` and say it in a few plain lines in the user's language (in **Cos
+86 L196 [status-layout.md:84 0.70] Say only what the output says; no subagent is started for it, and nothing is guessed where it says `not measured`.
+## Tips
+87 L200 [compacting-p1.md:3 0.60] A tip comes only at four key moments: first use, after a status (a Progress report), the end of a batch (a Completion report or the bilan of `close`), and during a release.
+88 L201 [=:90] It is one short line, starting with 💡, in the user's language, with the exact words to type: the last line of 
+89 L203 [status-layout.md:88 0.83 | griller-skill.md:3 0.42] At most one per moment and per session.
+90 L203 [status-layout.md:88 0.67] A report that asks a question or reports a blocker carries none, so the question stays last in mind.
+91 L204 [compacting-p1.md:3 0.71] A tip names only what chantier really answers, and never a command the host refuses in this session, nor what the user cannot take from where they are (the host's signal of where the user is
+92 L206 [chief-of-staff.md:39 0.46] It may name `/chantier:status`, for a progress table at once.
+93 L207 [=:90] After "plus de conseils" (or the same in any language) a report carries none for the rest of the session.
+94 L208 [status-layout.md:88 0.42] The examples and the full rule are in [chief-of-staff-any](chief-of-staff-any.md), "Compacting and tips".

@@ -1,0 +1,82 @@
+## Init: a guided tour for a newcomer
+1 L3 [=:3] The Chief of Staff reads this card when the user asks for `init` ("init", "I am new here", "chantier, initiali
+2 L4 [=:3] The tour writes nothing in the project; only the five empty stage folders, which `$CHANTIER init` creates, and
+3 L6 [=:3] The first-turn introduction is skipped: the tour covers it.
+## 1. Run `$CHANTIER init`
+4 L10 [=:7] It creates the empty stage folders of the planning folder, `.agents/changes/` or, in a planning surface (`--pr
+5 L16 [=:9] On exit 2 for no git repository, explain what chantier needs: a git repository, a remote on GitHub or GitLab, 
+6 L17 [=:9] Offer `git init`; run it only on the user's yes, then run `init` again.
+7 L18 [init.md:7 0.72 | chief-of-staff.md:12 0.53] Nothing else is created on the user's behalf.
+8 L18 [=:9] On exit 2 in a linked worktree, say init runs in the main checkout and stop.
+## 2. Read the project, lightly
+9 L23 [=:13] `$CHANTIER rules` (the instruction file and what it links), the README, the build files (`package.json`, `just
+10 L25 [=:13] No code reading, no gate run.
+## 3. Ask once: the chat or an HTML page?
+11 L29 [=:17] The chat is the default.
+12 L29 [=:17] For a page, copy [tour.html](../assets/tour.html) to `<system temp>/chantier-tour-<project folder name>/index.
+13 L31 [=:17] Nothing is written in the project.
+14 L31 [=:17] The slots are the story, the three diagrams (inline SVG you generate), the two previews, money and decisions, 
+## 4. Give the tour, in the user's language
+15 L37 [=:21] **The thread is the story of one CR of this project,** from the request to the archive: filed in `1-inbox`, gr
+16 L41 [=:21] The example CR is a real, small improvement you pick from what you read; its paths, branch name and gate comma
+17 L43 [=:22] **Steering.** A batch is steered either by the **Foreman**, a separate session, or by you in **direct mode**: 
+18 L46 [=:22] Direct mode is used where the session is under Remote Control or the host cannot start a Foreman session, or w
+19 L48 [=:22] the plan names it and why, the go approves it.
+20 L48 [=:22] The story follows the Foreman; one or two sentences after step 4 give direct mode, and the first diagram notes
+21 L49 [=:22] Present it as how chantier works, never as new.
+22 L50 [=:23] **Concepts appear when they serve,** in bold.
+23 L50 [=:23] A role is first an image of the building site (chief of staff, foreman, team lead, workers), then its exact te
+24 L52 [=:24] **About ten core terms** in the story: CR, specification, batch, Chief of Staff, Foreman, Driver, slot, round,
+25 L53 [=:24] The others go to the glossary.
+26 L54 [=:25] **Three diagrams, generated for this project:** who talks to whom (the user, the Chief of Staff, the Foreman, 
+27 L56 [=:25] the five folders and what moves a CR between them; one CR over time (rounds, gate, PR, CI, Verifier, the user'
+28 L57 [=:25] In the chat they are text diagrams.
+29 L58 [=:26] **Two previews:** the CR's folder tree with this project's real paths, and a `status` table.
+30 L59 [=:26] Money in it is shown as `$…`: the tour gives no cost figure.
+31 L60 [=:27] **Money and decisions:** the budget, slots (4 by default, `batch.slots`) and rounds (3 by default) as mechanic
+32 L61 [=:27] what only the user does (prioritize, say go, merge, release, raise a limit);
+33 L62 [=:27] "what did it cost?" gives the measured detail.
+34 L63 [=:28] No comprehension check, no quiz.
+## 5. End the tour, in this order
+35 L67 [=:32] **Getting started here:** what you saw of the project's harness and what you propose to improve, each with its
+36 L68 [=:32] A rule (a gate, the merge method, the commit convention) is proposed as the exact `AGENTS.md` text, written on
+37 L70 [init-checks.md:3 0.69] Check the two gates in particular: whether the project's rules declare a fast gate (run after every round, and again by the Driver before the CR's first push; an extra pre-push check may be 
+38 L73 [init-checks.md:3 0.83] Offer the exact pre-push line, for example "- Before the first push, for a change under `src/`: `<cmd>`.", only when the project has a check too slow for every round and too important to lea
+39 L75 [init-checks.md:3 0.95] When one is missing, propose the exact lines, for example "- Fast gate (after each change): `<cmd>`." and "- Long gate (before a pull request): `<cmd>`.", one command per item, never chained
+40 L77 [init-checks.md:3 0.97] the impact when missing: a long gate the Driver cannot run is a `--no-gate` the steering session must question.
+41 L79 [init-checks.md:3 0.53] When the project declares a long gate, or you propose one, ask once whether it is isolated per worktree (its own ports, temporary folders and services, so that two runs in two worktrees do n
+42 L81 [init-checks.md:3 0.92] on a yes, ask how many runs at once the machine carries, then propose `long_gate:` / `parallel: <n>` for `chantier.yaml`, written only on the user's yes;
+43 L83 [init-checks.md:3 0.60] on a no, propose `parallel: 1`, so the question is not asked again.
+44 L83 [init-checks.md:3 0.64] Not asked when `chantier.yaml` already has `long_gate.parallel` (a `long_gate:` holding only `commands` still gets the parallel question).
+45 L84 [init-checks.md:4 0.91] The `long_gate.commands` entry (a name and the long gate's command) is proposed too, on the same yes, for the code repository's root `chantier.yaml`: it makes the gate runnable (`gate <cr> <
+46 L84 [griller-skill.md:3 0.47] The write is the one of the Chief of Staff's offer, with the same inbox CR offered.
+47 L84 [init-checks.md:3 0.68] The impact when the key is missing: long gates run one at a time, and four CRs in `3-ready` wait their turns.
+48 L85 [init-checks.md:4 0.58] Point to `docs/gates.md`.
+49 L85 [=:32] Work that needs code (tests, CI) is proposed as a CR filed in the inbox, only on the user's yes.
+50 L86 [=:32] For an in-project planning folder, the `.gitignore` line is explained only: keep `.agents/changes/` out of git
+51 L87 [=:32] the user adds it themself.
+52 L87 [=:32] In a surface it does not apply: the planning folder is the surface's, and the tour says where it is.
+53 L89 [=:32] The example CR is offered for the inbox.
+54 L89 [init.md:32 0.66] The tour runs every check a user's machine needs: preflight's P5 (`uv`, `git`) and P10 (the allow rules), P9 with the forge's rights and branch rules ("Forge permissions" of `chief-of-staff-
+55 L91 [init-tools.md:1 0.92] For each missing piece it asks and fixes it:
+56 L93 [init-tools.md:5 0.59] **The allow rules:** the Chief of Staff's question and write ([chief-of-staff](chief-of-staff.md), "The project"), and the command line of your host's "Allow rules to add" when the host refu
+57 L95 [init-tools.md:5 0.73 | chief-of-staff.md:12 0.45] The tour writes in the user's settings only the allow rules P10 named, on the user's yes, as the Chief of Staff does at a first turn.
+58 L96 [init-tools.md:5 0.70] When the first turn already asked the question in this session, the tour does not ask it again: it says what P10 says now.
+59 L97 [init-tools.md:3 1.00] The tour checks the capability "every batch" only; it names the others (a stack, a release on its own, fixes on a grant) as checked at the go, and runs no trial.
+60 L100 [project-rules.md:5 0.77] **The long gate:** the exact `AGENTS.md` lines above, written on the user's yes.
+61 L101 [init-tools.md:5 0.83] **The forge's tools:** when the project's forge is GitHub and `gh` is missing or not logged in, or the `gh stack` extension (github/gh-stack) is not installed, recommend it and say why (the 
+62 L106 [init-tools.md:5 1.00] `gh auth login` is interactive and stays the user's.
+63 L107 [init-tools.md:5 0.79] The same for `glab` on a GitLab project (no stack extension).
+64 L107 [init-tools.md:5 0.77] When an install is refused by the host or fails, give the user the exact commands to run at the computer, as for the allow rules.
+65 L109 [init-tools.md:5 1.00 | inspector.md:3 0.37] Check the result (`gh --version`, `gh extension list`) and say what you found.
+66 L110 [init-tools.md:5 1.00 | release-driver.md:7 0.36] Other missing tools (`uv`, `git`): the exact install command, for the user to run.
+67 L111 [init-tools.md:5 0.85] **The forge's settings** (rights, branch rules): chantier changes no forge setting; say the exact change for the user to make.
+68 L113 [=:33] **Phrases to say:** "file this: …", "make it a P1", "run the P1s", "status?", "drop CR-<n>", "I merged #<n>", 
+69 L114 [=:33] The tour's end is the first-use moment of the Tips rule: these phrases stand for its tip, so add no 💡 line.
+70 L115 [=:34] **Glossary:** one line per term not in the story: stack, fast gate, long gate, Investigator, Debugger, Conflic
+## 6. Length
+71 L121 [=:38] About 90 lines in the chat, glossary included; under 100.
+## 7. Run again
+72 L125 [=:42] On a project that already has the folders the command changes nothing.
+73 L125 [=:42] Assess the improvements again and say what changed.
+74 L126 [=:42] Offer the tour; do not impose it.

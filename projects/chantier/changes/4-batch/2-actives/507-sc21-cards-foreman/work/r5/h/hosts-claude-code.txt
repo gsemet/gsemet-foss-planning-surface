@@ -1,0 +1,558 @@
+## Claude Code (Claude Desktop)
+1 L3 [batch-plan.md:3 0.47 | investigator.md:7 0.38] What is proper to this host: the tools, the heartbeat, the sessions, and what only the user can do.
+2 L4 [ticket-summary-p1.md:5 0.33] The cards say what a role judges and point here.
+3 L4 [refused-push-route.md:3 0.51 | demo-explorer.md:5 0.39] Read it with your card when you run on Claude Code.
+## Startup core
+4 L9 [config-p1.md:3 0.41] The host provides the role's named startup prompt and its declared tools.
+5 L11 [grill-critic-steps.md:3 0.38] Each behaviour carries a mark:
+6 L13 [release-chief-after-p1.md:1 0.52] **proved**: seen on the host, with where and when;
+7 L14 [compacting-p1.md:3 0.40 | chief-of-staff.md:35 0.35] **documented**: the host's documentation says so, with the link; not seen here;
+8 L15 [concepts.md:13 0.31] **unproved**: nobody has seen it, and the trial that settles it is named.
+9 L15 [host-configuration.md:3 0.55] Never tell the user an unproved behaviour as a fact: say it is not known, and what would settle it.
+## Tools
+10 L20 [concepts.md:13 0.42] | Generic | Claude Code | Mark |
+11 L22 [row claude-code:start-foreman 0.35] | Start the Foreman's session | `mcp__ccd_session__start_session` with `initiation: "user_asked"`, `title: "<title>"`, `context: "fresh"`, no `cwd`, no `preset`, `use_worktree: false`, `mode
+12 L23 [row claude-code:own-session-id 0.71] | Own session id and title | `get_session("self")`; the transcript's id is `$CLAUDE_CODE_SESSION_ID` | proved, same |
+13 L24 [row claude-code:set-own-title 0.42] | Set a session's own title (the Chief of Staff, a Griller, the Foreman) | `set_session_title` | proved for a Chief of Staff's own session, 2026-11-08 (Battlestation, a session renamed itsel
+14 L25 [row claude-code:skills 0.30] | The skills | `/chantier:chantier` (the router), `/chantier:chief-of-staff [foreman|direct]`, `/chantier:griller`, `/chantier:status`, `/chantier:chantier reload` (the router with the argum
+15 L26 [row claude-code:load-skill 0.42] | Load another skill (the router) | the host's Skill tool | unproved until the router runs; trial: `/chantier:chantier` in a session with no Chief of Staff, answer a role, see the skill load
+16 L27 [row claude-code:list-sessions 0.63] | List the sessions and their state; is the seat's session alive | the session tools found in the `mcp__ccd_session__` set: the exact tool and its states are not recorded | unproved; trial: 
+17 L28 [compacting-p1.md:3 0.38] | Message another session of the user (hand-over, a Griller's line) | `SendMessage` to its session id | proved for the Chief of Staff's session (the row above); between two sessions of the u
+18 L29 [row claude-code:session-link 0.48] | A session's link (for the seat) | what `get_session` gives | unproved until recorded; trial: `get_session("self")` and note the link field |
+19 L30 [row claude-code:start-driver 0.44] | Start a Driver or a worker | `Agent`, `run_in_background: true` for a Driver, `subagent_type: <agent>`; the plugin's agent is `chantier:<role>`; the model, only when `$CHANTIER` printed on
+20 L31 [row claude-code:start-spec-writer 0.45] | Start the Spec-writer (Chief of Staff) | `Agent`, `run_in_background: true`, `subagent_type: chantier:spec-writer`; the `model` parameter as in the row above, only when `$CHANTIER playbook
+21 L32 [row claude-code:start-spec-critic 0.37] | Start the Spec critic (Chief of Staff, Griller) | `Agent`, `run_in_background: true`, `subagent_type: chantier:spec-critic`; the `model` parameter as for the Spec-writer, only when `$CHANT
+22 L33 [row claude-code:message-driver 0.52 | chief-of-staff.md:20 0.37] | Message a Driver | `SendMessage` to the agent id | proved, same |
+23 L34 [row claude-code:message-chief 0.58 | griller-skill.md:19 0.46] | Message the Chief of Staff | `SendMessage` to its session id | proved, same |
+24 L35 [row claude-code:driver-hand-back 0.32] | A Driver messages its steering session (the Foreman; in direct mode the Chief of Staff, which is `main` there) | For a steering session of Claude Desktop (a session id `local_…`: every For
+25 L36 [row claude-code:stop-driver 0.57] | Stop a Driver | `TaskStop` | proved, same; after its own `TaskStop` with no restart at once, the steering session clears the recorded id (`foreman-lost-driver.md`, "A Driver stopped from o
+26 L37 [foreman-start-more.md:3 0.34] | A CR Driver's start folder | the mod's, as "The write guard" says | unproved; trial: the first CR Driver of the batch after the merge runs `pwd` (or `Get-Location`) and gets its worktree, 
+27 L38 [row claude-code:stop-own-background-task 0.42] | Stop a background task of one's own (a shell, a monitor) | `TaskStop` with the id its start returned (`Bash` or `PowerShell` with `run_in_background: true`, or `Monitor`); the Driver agent
+28 L39 [row claude-code:name-env-holders 0.27] | Name the holders of the checkout's environment (before a dev-mode sync) | on Windows, the `PowerShell` tool: `Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -like '<plugi
+29 L40 [row claude-code:stop-woken-driver 0.49] | Stop an ended Driver that wakes again (`foreman-lost-driver.md`, "An ended Driver that wakes again") | `TaskStop` with the Driver's agent id, as "Stop a Driver" | the stop: proved, same as
+30 L41 [row claude-code:stop-session 0.52] | Stop another session (a Foreman not answering, on the user's yes) | `mcp__ccd_session_mgmt__stop_session` with the session's id | unproved. Trial: the first switch to direct mode with a Fo
+31 L42 [row claude-code:agent-ids 0.76] | Agent ids of the project | the `name:` of a file in `.claude/agents/` or `~/.claude/agents/` | proved, same |
+32 L43 [row claude-code:start-retro-critic 0.45] | Start the Retro critic (Foreman, Chief of Staff) | `Agent`, `subagent_type: chantier:retro-critic`; the `model` parameter only when `$CHANTIER playbook` printed one or the user asked for F
+33 L44 [row claude-code:models 0.55] | Models | the Spec-writer, the Spec critic and the Retro critic run Opus 5.5; the Foreman, every Driver and the workers run Sonnet 5.5, unless the configuration (`hosts.<host>.roles`) sets 
+34 L45 [row claude-code:model-at-start 0.31] | Models at an agent's start (capability, start value) | capability: yes; named agent with a model: yes (`NAMED_AGENT_MODEL_AT_START`); a model changed in the configuration starts the role's
+35 L46 [row claude-code:session-skills-tools 0.49] | Skills and tools of a session (what the Chief of Staff compares a role's needs with) | not recorded: how a session lists its skills and its tools, and whether a subagent sees what the sess
+36 L47 [row claude-code:preflight-p2 0.42] | Preflight P2 | `mcp__ccd_session__start_session` loads | proved, same |
+37 L48 [row claude-code:ask-questions 0.58] | Ask the user a series of questions (grill, specification) | the host's question tool (`AskUserQuestion`), at most 4 questions per call, at most 4 options per question, plus the tool's own 
+38 L49 [row claude-code:run-board 0.57] | Run the board | `Bash` with `run_in_background: true` and the command `$CHANTIER serve --seat <id>`, with `--forge-always` on a host that cannot run the watcher (`session-start-chief-of-st
+39 L50 [row claude-code:board-griller 0.35] | The board's Griller (the surface server starts it) | `claude -p` with the JSON output, as the agent `chantier:board-griller` with `--model <effective model>`, the conversation fixed by an 
+40 L51 [row claude-code:workspace-trust 0.40] | Trust of a workspace inside a trusted folder | a folder the user has trusted once in Claude Desktop at the desk covers every new folder created inside it later, so a session started on suc
+41 L52 [row claude-code:move-session 0.49] | Move a started session to another folder | a session started with no `cwd` may move with `mcp__ccd_directory__change_directory` into a folder inside a trusted folder (the `Projets` tree): 
+42 L53 [row claude-code:prompt-cache-ttl 0.29] | Prompt cache TTL (the `cache_ttl` defaults) | a session's cache writes are 1-hour (`cache_creation.ephemeral_1h_input_tokens` in its transcript's usage), a subagent's 5-minute (`ephemeral_
+43 L54 [row claude-code:steering-wake-bound 0.23] | Steering wake bound (60 minutes) | the CLI refuses a `steering_wake` over 60 minutes | proved: 30 minutes (real-direct run 1, 2026-11-12); unproved: 55 minutes, the shipped default since C
+44 L55 [row claude-code:run-watcher 0.24] | Run the watcher | `Monitor`, with no timeout, running the command the `watch: not running`, `still running` or `no event for <name> in 2 h` line prints, as is (it ends with `--stream`); ea
+45 L56 [row claude-code:watcher-session-end 0.32] | The watcher when the session ends | whether the host ends a background command when the session ends | unproved; trial as for the board's row. Until then an orphaned watcher ends once the 
+46 L57 [row claude-code:board-session-end 0.50] | The board when the session ends | whether the host ends a background command when the session ends (closed, or stopped) | unproved; trial: start the board, end the session, ask `GET /api/b
+47 L59 [hosts/claude-code.md:149 0.21] "Proved, same" means seen in use in every batch since v0.3, with no dated trial kept: re-prove a line by a trial before relying on it for something new.
+48 L62 [row claude-code:message-limit 0.97 | griller-skill.md:27 0.36] **Limit on messages.** Claude Desktop limits messages between sessions (10 since someone last typed): a refused send is reported, never sent another way.
+49 L63 [batch-plan-mode-p1.md:3 0.29] Proved in use, same; the figure comes from the earlier card, with no dated trial.
+50 L64 [row claude-code:message-limit 1.00 | griller-skill.md:1 0.38] The limit applies to the lines between a Griller and the Chief of Staff, and to a hand-over's.
+## Heartbeat
+51 L69 [host-heartbeat.md:3 1.00 | chief-of-staff.md:20 0.44] The Foreman (in direct mode the Chief of Staff, in its own session) runs the `/loop` skill in dynamic mode.
+52 L69 [host-heartbeat.md:4 0.64] The loop's prompt is the command `chantier status --refresh --batch <batch> --epoch <n>` alone, with no interval in it (no "every 30m", no other): a prompt that ends in an interval makes `/l
+53 L72 [host-heartbeat.md:6 0.89] Each wake is scheduled with `ScheduleWakeup`, the steering wake of the `timing: Claude Code session:` line of `chantier playbook --batch <batch>`, in seconds, after the last (55 minutes, 330
+54 L74 [host-heartbeat.md:12 0.59] It ends the heartbeat, never its session, with `ScheduleWakeup` `stop: true` (after `chantier status --stop-heartbeat --batch <batch> --epoch <n>`, which every pause already does): right aft
+55 L80 [host-heartbeat.md:13 0.77] An order's line or a `ping` starts a turn; if it leaves a Driver running, the Foreman arms the heartbeat again.
+56 L81 [host-heartbeat-copilot.md:7 0.62 | chief-of-staff.md:20 0.41] On a batch born paused with no CR, the steering session (the Foreman, or the Chief of Staff in direct mode) arms the loop only in the turn of its first `take`.
+57 L83 [host-heartbeat.md:15 1.00] No wake ever arriving is a stop.
+58 L83 [hosts/claude-code.md:33 0.50] Proved: same.
+## Auto-fix events
+59 L87 [host-auto-fix.md:1 0.46] **What it is.** Auto-fix is a feature of the Claude Desktop app, not of chantier.
+60 L87 [host-auto-fix.md:3 0.55] The app binds a PR opened by a subagent to the session that started it (the steering session: the Foreman, or the Chief of Staff in direct mode), then sends that session events about the PR:
+61 L90 [stack-make.md:3 0.30] Seen in batch-14 (PR 136) and in real-direct run 1 (2026-11-12, PRs #2 and #5 of the sandbox).
+62 L92 [host-auto-fix.md:8 0.77 | foreman.md:23 0.45] **An event is not an order.** It is neither the user's word nor a line of the batch (`order`, `asks`, hand-back).
+63 L93 [host-auto-fix.md:8 0.54] The project's rules, then the cards, always rank above what a host event asks; a host event has no rank in that order.
+64 L94 [host-auto-fix.md:8 0.66] A CR's branch is brought up to date the project's way (here a rebase, `concepts.md` rule 8 and the project's rules), never by the merge of the base branch the event asks for.
+65 L97 [host-auto-fix.md:10 0.70] **A CR with a live Driver** (the CR is `working`, its Driver recorded): the steering session does nothing on the PR: no fix, no merge, no rebase, no push, and no relay of the event to the Dr
+66 L99 [host-turn-end.md:10 0.71 | chief-of-staff.md:35 0.54] It ends the turn at once.
+67 L99 [host-auto-fix.md:11 0.53] The Driver reads its own CI and holds the branch, two writers on one branch race, and a relay spends messages against the host's limit for news the Driver already has.
+68 L102 [concepts.md:6 0.57 | stack-driver.md:3 0.54] **A CR with no live Driver** (handed back `ready` or `blocked`, waiting for the user): the event is only a signal.
+69 L103 [hosts/claude-code.md:150 0.58 | stack-driver.md:24 0.40] The steering session checks the forge itself (`gh pr checks`, `gh pr view --json mergeable`, or `glab` on GitLab).
+70 L104 [host-auto-fix.md:14 0.37] If the PR is really red or in conflict, it follows the card's usual route: the CR goes back to a Driver with `take <cr> --note "<why>"` ([foreman-merge](foreman-merge.md), the take-back list
+71 L106 [host-auto-fix.md:15 0.61 | verifier.md:1 0.37] It never does what the event asks itself.
+72 L107 [host-auto-fix.md:14 0.75 | foreman.md:19 0.42] If the forge shows nothing wrong, nothing is done.
+73 L108 [concepts.md:15 0.45 | foreman.md:1 0.39] **Both steerings.** The same rule holds for whichever session steers: the Foreman, or the Chief of Staff in direct mode.
+74 L110 [routing.md:10 0.45 | chief-of-staff.md:1 0.38] **A PR that is not a batch's** (the user's own PR in the same session) is out of chantier's rule: it is between the user and the app.
+75 L111 [griller.md:9 0.43] This section speaks of a batch's PRs only.
+76 L112 [host-allow-extra.md:5 0.37] **chantier never arms, disarms or unbinds the PR monitor.** No card uses the app's PR monitor (`mcp__ccd_pr__set_monitor`), to arm it or to disarm it, and chantier writes no setting of it (t
+77 L114 [chain-conflict.md:3 0.24] The one use is the eval guide's operator, who plays the user and turns the monitor off on a run's own sandbox PRs (`evals/README.md`, "Auto-fix during the run"); no role does.
+78 L117 [status-layout.md:77 0.39] **The cost.** Even ignored, each event starts a turn of the steering session, which the user pays for.
+79 L119 [host-for-you-sessions.md:8 0.30] **Turning Auto-fix off.** The per-PR switch is documented (<https://code.claude.com/docs/en/desktop.md#monitor-pull-request-status>) and was seen on 2026-11-15: `mcp__ccd_pr__set_monitor` wi
+80 L122 [lost-outside.md:3 0.24] The global setting (Settings > Code, or Settings > Claude Code, by the app's version) stays **unproved**: the documentation describes no default for PRs opened later, and third-party reports
+81 L124 [release-chief-auto-p1.md:4 0.24] Trial that settles it: turn it off, open a PR from a subagent, and see that no Auto-fix event arrives; record the labels and the date here.
+82 L126 [chain-conflict.md:3 0.41] Turning it off also loses Auto-fix for the user's own PRs.
+83 L127 [host-auto-fix.md:18 0.30] **During a normal batch chantier stays silent** about Auto-fix: it does not ask the user to turn it off, has no preflight check for it and gives no "For you" line for it (chantier cannot see
+84 L129 [chief-of-staff.md:21 0.30] It only ignores the events as above.
+85 L130 [batch-plan-show.md:3 0.30] Only the eval guide turns Auto-fix off: before a real campaign, and on each of the run's own PRs.
+86 L130 [concepts.md:13 0.25] A tip may come later, from a measure of the ignored turns' cost in a real batch.
+87 L132 [host-auto-fix.md:4 0.28] **Mark of the section.** The rule (the live Driver, no live Driver and both-steerings points, and the event-is-not-an-order point) is **unproved** until the next real campaign shows it.
+88 L134 [wakes-forge.md:3 0.29] Trial: an Auto-fix event arrives on a CR's PR during a real eval campaign, and the steering session ends its turn with no tool call on that PR and no message to its Driver (a CR with a live 
+## The Foreman's turn-end notice
+89 L140 [host-allow-add.md:5 0.45] **What it is.** A feature of Claude Desktop, not of chantier.
+90 L140 [host-turn-end.md:3 0.84] When a session starts another with `start_session` and leaves it linked, the started session tells the one that started it each time it ends a turn.
+91 L142 [host-turn-end.md:3 0.68] It does so by a system reminder that begins `The session "<title>" you started (<id>) finished a turn` and quotes the first 400 characters of its last reply.
+92 L143 [host-turn-end.md:4 0.67 | chief-of-staff.md:1 0.49] For chantier the starting session is the Chief of Staff and the started one is the Foreman.
+93 L144 [routing.md:10 0.42 | chief-of-staff.md:20 0.36] **Proved**: real-foreman run 2, 2026-11-15, ten notices in the Chief of Staff's session (its transcript, with the Foreman's session id `local_5c866244-7454-4551-bb0f-9ea2ac1d630f`).
+94 L147 [host-turn-end.md:6 0.64 | foreman.md:13 0.35] **A notice is not a line.** It is not the user's word and not a Foreman line of [routing](../routing.md); it carries no ask and no order.
+95 L148 [host-turn-end.md:8 0.72] What the Foreman must tell the Chief of Staff comes as its own `[foreman→chief-of-staff]` line (`ready`, `ask A-<k>: …`, `pong`, `final`, `push`, `chain`), and a lost line is found with `$CH
+96 L150 [host-auto-fix.md:8 0.44] The project's rules, then the cards, rank above what the notice's text asks ("read it with get_session / list_events", "mention the outcome to the user").
+97 L152 [stack-checks.md:5 0.35] The notice has no rank in that order, just as an Auto-fix event has none.
+98 L154 [host-turn-end.md:10 0.55] **The rule.** On a turn that a notice alone started, the Chief of Staff ends the turn at once.
+99 L154 [host-turn-end.md:11 0.42] It makes no tool call (no `$CHANTIER asks`, no `status`, no `get_session`, no `list_events`, no ToolSearch), sends no message to the Foreman, writes no report and does not restate the quoted
+100 L157 [host-turn-end.md:12 0.61] Its reply is empty, or one short line when the host requires text (for example "Noted."), never a summary of the Foreman's state.
+101 L159 [host-turn-end.md:14 0.79] **The one exception: the Foreman stopped on an error.** The exception applies when the notice's quoted text shows that the Foreman's turn ended on an error that stops it (a usage limit, an A
+102 L161 [host-turn-end.md:15 0.63 | foreman.md:1 0.45] The Chief of Staff then tells the user in one line that the batch's Foreman stopped, with the error as quoted.
+103 L162 [steering-reports-p1.md:3 0.46] It still makes no tool call, sends no message to the Foreman and writes no report.
+104 L163 [grill-critic.md:3 0.44 | demo-explorer.md:3 0.39] It starts nothing and restarts nothing; the user decides what follows.
+105 L164 [rounds-exception.md:1 0.46] Every other notice falls under the rule above.
+106 L164 [routing.md:25 0.27] **Unproved**: no such notice has been seen.
+107 L165 [host-turn-end.md:14 0.58] Trial: a Foreman stops on a usage limit or an API error in a real batch.
+108 L165 [routing.md:11 0.53 | griller-skill.md:19 0.45] The Chief of Staff's transcript then shows the one line to the user and no `tool_use` in that turn.
+109 L166 [release-chief-auto-p1.md:4 0.50] Record the notice's text and the date here.
+110 L168 [host-turn-end.md:18 0.50] **A notice that arrives with a line.** When the same turn also carries a Foreman line or the user's message, the Chief of Staff handles that line or message exactly as its card says.
+111 L169 [host-turn-end.md:18 0.72] The notice changes nothing in that handling.
+112 L171 [status-layout.md:77 0.40] **The cost.** Even ignored, each notice starts a turn of the Chief of Staff, which re-reads its context once.
+113 L172 [status-layout.md:84 0.27] The rule keeps that to one model call with almost no output, instead of several calls with tool results.
+114 L173 [hosts/claude-code.md:150 0.31] Run 2 had ten notices, and $2.55 for 49 calls of steering.
+115 L174 [stack.md:3 0.39] **Mark of the rule.** **Unproved** until the next real-foreman campaign shows it.
+116 L174 [remote-login.md:3 0.30] Trial: in that campaign's Chief of Staff transcript, every turn started by a notice alone holds no `tool_use` and no `SendMessage`.
+117 L176 [routing.md:11 0.37] The report's `Chief of Staff, steering the batch` line should also count fewer calls than run 2's for a comparable batch.
+## A Driver's silence
+118 L181 [host-driver-silence.md:3 1.00] Between its start and its final report a Driver sends nothing to a Claude Desktop steering session.
+119 L181 [host-driver-silence.md:3 1.00] Silence is no sign of a lost Driver, however long, and no reason to start another.
+120 L182 [host-driver-silence.md:6 0.63] A Driver's life is read from two things only: the `activity` line of `$CHANTIER status --refresh` (an age, `gate running`, `gate queued`), and the host's notices (the rows `A background suba
+121 L182 [host-driver-silence.md:6 1.00] `Agent "<name>" is waiting on its own background work` is not an end.
+122 L183 [host-driver-silence.md:9 0.74] An `anomaly` comes as a note on the CR (`$CHANTIER status --notes`) and again in the Driver's final report; handle it when the report arrives, as the card says for the line.
+123 L184 [host-driver-silence.md:9 1.00] **The `ping`.** No `pong` can come.
+124 L184 [host-driver-silence.md:9 0.76] A `ping` to a suspect is still sent (it wakes a waiting Driver).
+125 L184 [host-driver-silence.md:10 1.00] At the next wake, the proof of life is that unit's `activity` age, younger than the ping.
+126 L184 [host-driver-silence.md:12 0.77] An age older than the ping, with no `gate running` and no `gate queued`, is the missing `pong` of the proof of death in [foreman-lost-driver](foreman-lost-driver.md).
+127 L184 [host-driver-silence.md:13 0.63] **Unproved**; trial: in a Foreman batch, ping a Driver that waits on its own background work, and read at the next `status --refresh` an `activity` age younger than the ping;
+128 L184 [release-chief-auto-p1.md:4 0.75 | chief-of-staff.md:1 0.42] record the batch and the date here.
+129 L185 [host-driver-silence.md:16 0.76] A second Driver for a unit (a CR, the stack, a QA order) is started only by the restart path of [foreman-lost-driver](foreman-lost-driver.md), after one of its proofs of death or the first o
+130 L185 [host-driver-silence.md:17 0.85] For the stack: `agents set stack -` only once the stack driver's report arrived or a proof of death holds.
+131 L186 [stack-merge.md:4 0.34] Seen: Studio batch-06, 2026-11-20, a second stack Driver started 25 minutes before the first one's hand-back arrived.
+## Configuration
+132 L190 [allow-rules.md:4 0.46 | chief-of-staff.md:12 0.38] What the user configures so chantier runs on Claude Code with few interruptions. chantier never writes the user's settings in one case only: on the user's yes, the Chief of Staff adds to `~/
+133 L192 [allow-rules.md:4 0.68 | foreman.md:1 0.45] Preflight's P10 compares; the Chief of Staff asks.
+134 L193 [host-auto-mode.md:14 0.35] Marks as above; a doc-check of 2026-11-09 against <https://code.claude.com/docs> gave the **documented** lines, each with its page (`https://code.claude.com/docs/en/<page>`).
+## Who reads it, when
+135 L199 [host-configuration.md:6 0.61 | foreman.md:22 0.39] The Chief of Staff, at its first turn of a session and at each batch's preflight: it runs the check (P5, P9, P10).
+136 L200 [init.md:30 0.47 | chief-of-staff.md:3 0.36] For missing allow rules it asks the question of `chief-of-staff.md` ("The project") and adds the rules on the yes;
+137 L201 [host-configuration.md:7 0.63] it gives the command line of "Allow rules to add" only when the host refuses the edit or when the file cannot be read.
+138 L202 [init.md:32 0.61] P10 checks the commands the agents run, not the rules' text; P9 checks the forge's rights.
+139 L203 [host-configuration.md:9 0.32] Each P10 line's `<k> of <n>` counts commands of its capability: `<n>` is that capability's samples that apply to the project (any forge, the remote's forge, and for a stack `gh stack` when `
+140 L206 [host-configuration.md:10 0.79] On Windows a command counts as allowed only when both its Bash and PowerShell forms are.
+141 L207 [delivery-time-p1.md:3 0.39] A count from before 0.9.0 counted rule strings and is not comparable.
+142 L209 [first-turn-p2.md:3 0.51 | chief-of-staff.md:33 0.46] The Foreman reads this file with its card.
+143 L209 [release-chief-after-p1.md:3 0.24] A Driver reads the sections its card's "Opening reads" names ("Tools", "Auto mode", "Compacting", "The write guard"), when the step comes: "Auto mode" tells it what a refusal means and that 
+144 L212 [session-shell.md:7 0.41] The workers do not read this file; what they need (one command per call, read before you overwrite, no leading assignment, `git -C`) is in each worker's own card.
+## Prerequisites
+145 L217 [hosts/claude-code.md:149 0.30] | Tool | Needed for | Checked by | Missing |
+146 L219 [concepts.md:5 0.38 | verifier.md:5 0.38] | `git` | every Driver, the CLI's reads | P5 (CLI) | preflight fails |
+147 L220 [=:151] | `uv` | `$CHANTIER` (`uv run --no-sync --project` in chantier's own checkout, when the session's project is c
+148 L221 [init-tools.md:5 0.44] | `gh` or `glab`, logged in to the remote's host | the Drivers' PRs and CI | P9 (the Chief of Staff: `gh auth status` / `glab auth status`) | preflight fails |
+149 L222 [host-configuration.md:13 0.25] | `python` | none directly: `uv run` and `uvx` provide the interpreter | not checked | say so; on Windows a `python` that resolves to the Microsoft Store alias fails (seen 15 times in the us
+150 L223 [host-configuration.md:13 0.34] | `bash` | Claude Code's Bash tool on POSIX | not checked | **unproved** whether chantier needs it on Windows, where the PowerShell tool is used |
+151 L224 [host-configuration.md:13 0.33] | `claude` | not a batch's need | not checked | seen missing from PATH 5 times in the user's week; no card calls it |
+152 L226 [retro-route-p2.md:3 0.32] The last three rows are not checked: a default the Driver of this change chose to keep, and may change on its judgment.
+## Windows PowerShell 5.1
+153 L231 [host-configuration.md:16 0.61] On Windows PowerShell 5.1 (the PowerShell tool), a `gh` or `glab` argument that holds spaces or double quotes, such as a `--jq` or `--template` expression, can reach the program split or str
+## Allow rules
+154 L238 [host-allow-rules.md:3 0.56] How rules match (each line **documented**, <https://code.claude.com/docs/en/permissions>):
+155 L240 [host-allow-rules.md:4 1.00] `*` matches anywhere; `cmd *` (with a space) is a word boundary and also matches bare `cmd`.
+156 L241 [host-allow-rules.md:6 1.00 | foreman.md:21 0.38] `Bash(git push …)` does not match `git -C <path> push …`: the `-C` form needs its own rule.
+157 L242 [host-allow-rules.md:6 0.70] `PowerShell(...)` rules have the Bash shape; aliases are canonicalized; matching is case-insensitive.
+158 L244 [host-allow-rules.md:8 0.69] A compound command passes only when every part is allowed (Bash: `&&`, `||`, `;`, `|`, `&`, newline; PowerShell: `|`, `;`, and `&&`, `||` from PowerShell 7).
+159 L246 [host-allow-rules.md:8 0.57] Bash: an allow rule does not match past a leading assignment (`X=1 cmd`), except known-safe environment variables; deny and ask rules do.
+160 L247 [host-allow-rules.md:9 0.46] PowerShell assignments (`$w='…'; cmd`): **unproved**, not documented (checked 2026-11-09).
+161 L249 [host-allow-rules.md:10 0.48] `mcp__<server>__<tool>` is an exact tool name; a bare tool name matches all its uses.
+162 L250 [host-allow-not-add.md:3 0.32] `Edit(~/path/**)`: `~` is the home folder, `**` gitignore-style; an Edit rule covers Write and NotebookEdit (<https://code.claude.com/docs/en/tools-reference>).
+163 L252 [host-allow-rules.md:11 0.49] Settings precedence: managed > command line > local > project > user; deny > ask > allow; a user deny blocks a project allow (<https://code.claude.com/docs/en/settings>, permissions).
+164 L255 [=:8] The recommended rules, in the order P10 lists them.
+165 L255 [=:8] Each has a `Bash(…)` and a `PowerShell(…)` form (P10 checks the Bash forms on POSIX, both on Windows).
+166 L256 [hosts/claude-code.md:9 0.84] P10 does not compare these strings: it holds the commands the cards make the agents write, and asks whether some allow rule of your settings lets each one through.
+167 L258 [=:11] A narrower or different rule of yours counts when it matches the same commands, for instance `PowerShell(git p
+168 L260 [hosts/claude-code.md:11 0.64 | conflict-resolver.md:3 0.36] In the rules below, `origin` is the project's remote name.
+169 L262 [=:15] | Rule | chantier's use | Risk accepted | Mark |
+170 L264 [=:17] | `Bash(git push -u origin chantier/*)` and `PowerShell(…)` | a Driver's plain push (`driver.md`: `git push -u
+171 L265 [=:18] | `Bash(git -C * push -u origin chantier/*)` and `PowerShell(…)` | the same with `git -C <worktree>` | as abov
+172 L266 [=:19] | `Bash(git push --force-with-lease -u origin chantier/*)` and `PowerShell(…)` | a Driver's push after a rebas
+173 L267 [hosts/claude-code.md:20 0.57] | `Bash(git -C * push --force-with-lease -u origin chantier/*)` and `PowerShell(…)` | the same from outside the worktree, the form refused 4 times as "Git Destructive" | as above, in any rep
+174 L268 [=:21] | `Bash(git push --force-with-lease=chantier/* origin *chantier/*)` and `PowerShell(…)` | the steering session
+175 L269 [=:21] | `Bash(git -C * push --force-with-lease=chantier/* origin *chantier/*)` and `PowerShell(…)` | the steering se
+176 L270 [hosts/claude-code.md:21 0.80] | `Bash(git -C * rebase origin/*)` and `PowerShell(…)` | the Driver's rebase onto the base (`driver.md`, "Means: rebase and push"): `git -C <worktree> rebase <remote>/<branch>`, a CR on the 
+177 L271 [hosts/claude-code.md:22 0.79] | `Bash(git -C * rebase chantier/*)` and `PowerShell(…)` | the same onto the bare `chantier/` branch of the CR under it in a series or a stack (the command refused in markdown-okf-schema-stu
+178 L272 [hosts/claude-code.md:23 0.80] | `Bash(git -C * rebase --onto chantier/* *)` and `PowerShell(…)` | a restack onto a `chantier/` base: `git -C <worktree> rebase --onto <chantier/ branch> <sha or branch>` (`driver.md`) | a 
+179 L273 [hosts/claude-code.md:24 0.80] | `Bash(git -C * rebase --onto origin/* *)` and `PowerShell(…)` | the CR at the bottom after a drop: `git -C <worktree> rebase --onto <remote>/<default branch> <branch>` (`driver.md`) | a lo
+180 L274 [hosts/claude-code.md:27 0.82] | `Bash(git -C * rebase --continue)` and `PowerShell(…)` | a rebase stopped at a conflict, continued by the conflict-resolver (`conflict-resolver.md`) | a local rebase of the branch checked 
+181 L275 [hosts/claude-code.md:27 0.79] | `Bash(git -C * rebase --abort)` and `PowerShell(…)` | a rebase given up (`driver.md`) | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a 
+182 L276 [hosts/claude-code.md:27 0.77] | `Bash(git rebase origin/*)` and `PowerShell(…)` | the same without `-C`, from the checkout the session stands in (`chief-of-staff.md`, the surface's checkout) | a local rebase of the branc
+183 L277 [hosts/claude-code.md:28 0.77] | `Bash(git rebase chantier/*)` and `PowerShell(…)` | the same onto a `chantier/` branch, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of t
+184 L278 [hosts/claude-code.md:29 0.77] | `Bash(git rebase --onto chantier/* *)` and `PowerShell(…)` | the same restack, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote
+185 L279 [hosts/claude-code.md:29 0.76] | `Bash(git rebase --onto origin/* *)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `cha
+186 L280 [hosts/claude-code.md:27 0.76] | `Bash(git rebase --continue)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/`
+187 L281 [hosts/claude-code.md:28 0.76] | `Bash(git rebase --abort)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` br
+188 L282 [hosts/claude-code.md:34 0.64] | `Bash(uv run --no-sync --project "<checkout>" chantier *)` and `PowerShell(…)`, `<checkout>` filled with the checkout's real path as P10 prints it | every `$CHANTIER` command in chantier's
+189 L283 [hosts/claude-code.md:35 0.84] | `Bash(uv sync --locked --project "<checkout>")` and `PowerShell(…)`, `<checkout>` filled the same way | the steering session's checked sync of chantier's own checkout, which waits for hold
+190 L284 [hosts/claude-code.md:36 0.54] | `Bash(uv sync --locked --check --project "<checkout>")` and `PowerShell(…)`, `<checkout>` filled the same way | the steering session's read-only check before a sync, the dev mode: exit 0 i
+191 L285 [hosts/claude-code.md:36 0.70] | `Bash(uvx --from "<plugin root>" chantier *)` and `PowerShell(…)`, `<plugin root>` filled with the plugin's real path as P10 prints it | every `$CHANTIER` command of an installed plugin, o
+192 L286 [hosts/claude-code.md:37 0.67] | `Bash(gh pr create*)` and `PowerShell(…)` | a Driver opens its PR (refused once as "Git Destructive") | any PR on any repository `gh` can reach | documented (rule form) |
+193 L287 [hosts/claude-code.md:38 0.81] | `Bash(gh pr edit*)` and `PowerShell(…)` | a Driver's body (`--body-file`) and the stack driver's retarget (`--base`); refused in batch-15 | any edit of any PR `gh` can reach | documented (
+194 L288 [hosts/claude-code.md:39 0.83] | `Bash(gh pr ready*)` and `PowerShell(…)` | a PR turned ready, or back to draft (`--undo`) | a PR turned ready, or back to draft | documented (rule form) |
+195 L289 [hosts/claude-code.md:40 0.81] | `Bash(gh pr checks*)` and `PowerShell(…)` | a Driver reads its CI | read-only | documented (rule form) |
+196 L290 [hosts/claude-code.md:41 0.84] | `Bash(gh pr view*)` and `PowerShell(…)` | a Driver or the steering session reads a PR | read-only | documented (rule form) |
+197 L291 [=:44] | `Bash(gh pr close*)` and `PowerShell(…)` | the Chief of Staff's drop of a CR to the trash closes its PR (`or
+198 L292 [hosts/claude-code.md:43 0.84] | `Bash(gh pr reopen*)` and `PowerShell(…)` | a restored CR's PR reopens | reopening any PR `gh` can reach | documented (rule form) |
+199 L293 [hosts/claude-code.md:44 0.57] | `Bash(gh stack*)` and `PowerShell(…)` | the stack on the forge, only when `gh extension list` names `gh-stack` | any operation of the extension | **unproved**: the rule form for an extensi
+200 L294 [hosts/claude-code.md:45 0.84] | `Bash(glab mr create*)` and `PowerShell(…)` | a Driver opens its MR on GitLab (`driver.md`: `glab mr create --draft`) | any MR on any project `glab` can reach | documented (rule form) |
+201 L295 [=:48] | `Bash(glab mr update*)` and `PowerShell(…)` | a Driver's description or the stack's retarget on GitLab | any
+202 L296 [hosts/claude-code.md:47 0.83] | `Bash(glab mr view*)` and `PowerShell(…)` | a Driver reads its MR | read-only | documented (rule form) |
+203 L297 [=:50] | `Bash(glab mr close*)` and `PowerShell(…)` | the same close, on GitLab | closing any MR `glab` can reach | d
+204 L298 [=:51] | `Bash(glab mr reopen*)` and `PowerShell(…)` | a restored CR's MR reopens | reopening any MR `glab` can reach
+205 L299 [=:52] | `Bash(glab ci status*)` and `PowerShell(…)` | a Driver reads its CI on GitLab (`glab ci status --live`) | re
+206 L300 [hosts/claude-code.md:51 0.48] | `SendMessage` | the Foreman and the Drivers message each other (refused twice) | any message between this session's agents and sessions | **unproved**: `SendMessage` as a rule is not docum
+207 L302 [host-allow-broad.md:3 0.59] A broad chantier rule, a `*` where the path belongs (`uvx --from * chantier *`, `uv run --no-sync --project * chantier *`, `uv sync --locked --project *`, `uv sync *`, and the older `uv run 
+208 L306 [host-allow-broad.md:5 0.56] P10 judges by matching, finds each broad rule in your settings, names it with its file and the real-path rule that replaces it (marked `present` when it is set too), or says "no chantier com
+209 L308 [host-allow-broad.md:4 1.00] it warns even when every command is allowed.
+210 L309 [host-allow-broad.md:6 0.63] The Chief of Staff offers to add the replacing rules at once, and you remove the broad rule by hand: chantier never removes or edits a rule of yours, so no command meets a prompt in between.
+211 L313 [host-allow-broad.md:9 0.80] The plugin's real path changes when the host moves the plugin's folder (an update, if the host's folder holds the version: **unproved**): the old rule then stops matching, P10 names the new 
+212 L316 [allow-rules-more-p1.md:3 0.60] you remove the stale rule by hand.
+213 L316 [host-allow-broad.md:10 0.89] In the plugin mode P10 takes any other plugin-form path as an old copy, on the assumption of one plugin copy per install (**unproved**);
+214 L318 [host-allow-broad.md:11 0.88] in the dev mode it leaves plugin-form rules alone, and names a dev rule stale only when its folder no longer exists.
+215 L321 [host-allow-broad.md:12 1.00] There is no `gh api` rule: it would allow any API write.
+216 L321 [hosts/claude-code.md:151 0.59] The stack on the forge is changed only by `$CHANTIER forge-stack` (covered by the two `chantier` rules) or the `gh stack` extension.
+217 L324 [host-allow-extra.md:3 0.69] The base set holds no release, merge or tag rule, by design: a release is rare, public and irreversible, and the host's check is a second guard at publication.
+218 L325 [host-allow-extra.md:3 0.67] When the user grants a release to run on its own, or fixes to merge on a grant, the Chief of Staff offers the rules of that capability ("Capabilities and their commands"), and only then.
+219 L329 [=:55] The same rules as one block, ready to paste into the `permissions.allow` array of `~/.claude/settings.json` (a
+220 L332 [hosts/claude-code.md:150 0.63] ```{ / "permissions": { / "allow": [ / "Bash(git push -u origin chantier/*)", / "PowerShell(git push -u origin chantier/*)", / "Bash(git -C * push -u origin chantier/*)", / "PowerShell(git -
+221 L414 [host-allow-extra.md:4 0.64] Two rules described here that P10 does not check:
+222 L416 [row claude-code:message-session 0.36] `mcp__ccd_pr__set_monitor`: Claude Desktop's PR monitor (auto-fix), refused twice in the user's week.
+223 L417 [host-allow-extra.md:5 0.46] No chantier card uses it, to arm or to disarm (see "Auto-fix events").
+224 L417 [hosts/claude-code.md:151 0.42] Risk: the session arms auto-fix on a PR.
+225 L417 [hosts/claude-code.md:150 0.41] Rule form documented; the tool itself is Claude Desktop's, **unproved** here.
+226 L418 [concepts.md:5 0.21] The eval kit's workspace allows it for its operator (`evals/README.md`).
+227 L420 [host-allow-extra.md:5 0.45] `Edit(<the folder that holds the repository and its .worktrees>/**)` (the user's form: `Edit(~/Projets/**)`): lets agents edit in the CR worktrees next to the repository.
+228 L421 [host-allow-extra.md:6 0.53 | griller.md:5 0.35] Risk: every file below that folder.
+229 L422 [skills/chantier-SKILL.md:25 0.60 | coder.md:10 0.50] Not checked: the path is the user's.
+230 L424 [host-allow-not-add.md:3 0.73] What not to add, and why (**documented**, <https://code.claude.com/docs/en/permission-modes>, <https://code.claude.com/docs/en/auto-mode-config>): auto mode drops on entry, and restores on l
+231 L427 [host-allow-not-add.md:5 0.65] So no `Agent(chantier:cr-driver)` rule is recommended: starting a Driver in auto mode stays the classifier's call (refused 3 times in the user's week).
+232 L429 [host-allow-not-add.md:5 0.61] The `Agent(Name)` form exists (documented); plugin agent names in it (`chantier:<role>`): **unproved**, not documented.
+## Capabilities and their commands
+233 L434 [=:142] The one table of what chantier's agents run, by capability.
+234 L434 [=:142] P10's `SAMPLES` follow its order and a test compares them.
+235 L435 [=:143] P10 checks only the capabilities the batch will use (`$CHANTIER preflight --mode stack --autonomous-releases N
+236 L437 [hosts/claude-code.md:145 0.68] Each rule is written `Bash(<rule>)` and, on Windows, `PowerShell(<rule>)`; `origin` is the project's remote name.
+237 L438 [=:145] A missing rule is a strong warning, never a failure: the host's auto-mode classifier judges each command at ru
+238 L442 [=:149] | Capability | Used when | Commands its agents run | Rules | Trial before the go | Mark |
+239 L444 [hosts/claude-code.md:151 0.83] | Every batch | always | `$CHANTIER ...` (dev, chantier's own checkout, when the session's project is chantier: `uv run --no-sync --project "<checkout>" chantier ...`, after the steering ses
+240 L445 [=:152] | A stack | `--mode stack` (or `order mode --note stack`, from any mode) | the above, plus the native stack: `
+241 L446 [=:151] | A release on its own | `--autonomous-releases N` at `open`, or `order grant <release-cr> --note "releases=<n
+242 L447 [=:152] | Fixes on a grant | `--grant-fixes` at `open`, or `order grant ... fixes=on` | the merge of a fix PR by the s
+243 L449 [hosts/claude-code.md:154 0.60] The rows "A release on its own" and "Fixes on a grant" are offered only when the user grants them: without a grant, the host's prompt and its classifier keep guarding these commands.
+244 L450 [hosts/claude-code.md:156 0.76 | inspector.md:3 0.38] They are not in the pasteable block above.
+245 L451 [=:157] A tag whose name does not start with `v` is not covered by the tag rule and gets the strong warning.
+## What stays refused
+246 L456 [host-refused.md:3 0.89] No allow rule for these; when the host refuses or asks, the agent reports it (concepts rule 7), and chantier does not do them unasked.
+247 L457 [pr-template.md:81 0.75 | demo-explorer.md:3 0.58] Each with why:
+248 L459 [host-refused.md:4 1.00] `git commit --amend --reset-author`: rewrites authorship.
+249 L460 [host-refused.md:6 1.00] `git branch -D` with `git push origin --delete`, and `git update-ref -d`: delete refs;
+250 L460 [host-refused.md:7 0.84 | foreman.md:24 0.39] the Foreman's removal of a merged CR's branch and the Chief of Staff's of a dropped CR's (on the user's word) stay asked, not allowed.
+251 L463 [host-refused.md:9 0.84] `Remove-Item -Recurse -Force` (or `rm -rf`) on `.claude`, or on temporary folders named by a wildcard (`claude-eval-*`, `chsmoke-*`): a pattern can reach what is not chantier's.
+252 L465 [host-refused.md:12 0.97] A subagent's Write of a `.md` file whose name starts with `report`, `summary`, `findings` or `analysis` (case-insensitive, the file name only): the host refuses it before any permission chec
+253 L467 [host-refused.md:13 0.25] Include this content in your final response instead." The rule is as users report it in <https://github.com/anthropics/claude-code/issues/44657> and <https://github.com/anthropics/claude-cod
+254 L470 [concepts.md:119 0.27] Proof by probe (Write by a subagent, 2026-11-10): refused `report.md`, `findings.md`, `report-format.md`, `summary.md`, `analysis.md`;
+255 L472 [host-refused.md:15 0.51] accepted `04-result.md`, `04-report.md`, `04-summary.md`, `04-findings.md`, `04-analysis.md`, `status-layout.md`, `progress-report.md` and the other chantier names (`delivery.md`, `STATUS.md
+256 L475 [host-refused.md:15 0.64] Name a subagent's file with a number first, such as `04-result.md` (the rule: concepts, "Starting an agent");
+257 L476 [host-refused.md:13 0.45] this is the host's own rule on the name, before the auto-mode classifier and any permission check.
+## Auto mode
+258 L481 [host-auto-mode.md:3 1.00] Allow, ask and deny matches resolve at once in auto mode, without the classifier, except protected paths, critical-path `rm`/`rmdir` and per-command domains (**documented**, <https://code.cl
+259 L483 [host-auto-mode.md:3 1.00] Seen otherwise for a subagent.
+260 L483 [host-auto-mode.md:5 0.65] In batch-23 (CR-318), the classifier refused a Driver's `git -C <worktree> push --force-with-lease -u origin chantier/...` that the user's allow rule matched (P10 said allowed).
+261 L485 [host-auto-mode.md:7 0.71] Whether the classifier judges a subagent's command despite a matching allow rule is **unproved**, not documented.
+262 L486 [retro-route-p1.md:3 0.55 | foreman.md:20 0.53] A refusal goes the route of `driver.md`.
+263 L488 [hosts/claude-code.md:151 0.40] 2026-11-23 (markdown-okf-schema-studio, batch-09, stack mode, no rebase rule set): the classifier refused the stack driver's `git rebase` of the CR-470 worktree onto CR-471, then its `git pu
+264 L490 [allow-rules-more-p1.md:3 0.65 | griller-skill.md:19 0.52] the question climbed Driver, Foreman, Chief of Staff, user.
+265 L491 [host-auto-mode.md:9 0.65] P10 now names the rebase rules, and a Driver's prompt holds a `Rewrites:` line that names the rebase and the push and their scope ("A Driver's prompt", `concepts.md`).
+266 L493 [trials.md:6 0.37] Trial, to record here with its date and exact text: the next batch in auto mode where a Driver, with the `Rewrites:` line and the rules set, rebases onto a `chantier/` base and force-pushes,
+267 L495 [host-auto-mode.md:10 0.86] Whether the line changes the classifier's judgement is **unproved**.
+268 L497 [host-auto-mode.md:12 0.68] The classifier label "Git Destructive" and `claude auto-mode defaults`, which lists the classifier's rules: **documented** (<https://code.claude.com/docs/en/auto-mode-config>).
+269 L498 [host-auto-mode.md:13 0.54] The labels "Merge Without Review" and "Create Public Surface", and "Destructive or Unwanted Actions" (batch-23), seen in the user's week: **unproved**, not documented (checked 2026-11-09).
+270 L502 [host-auto-mode.md:16 0.79 | floor.md:11 0.53] A refusal is reported with its exact text (concepts rule 7).
+271 L502 [refused-push-steering.md:1 0.61] A refused force push climbs the ladder written in `foreman-refused.md`, "A Driver's refused force push" (Driver, Foreman, Chief of Staff, the user's yes);
+272 L504 [host-auto-mode.md:16 0.74] the Driver records the refused command and text before it sends the push line (`driver.md`), so a refusal on a command an allow rule matches is told apart from one with no rule.
+273 L506 [host-auto-mode-steering.md:1 0.74] Cause: the classifier blocks destructive git in subagents ("Git Destructive");
+274 L506 [host-auto-mode-steering.md:3 0.59] the steering session's own `git -C <worktree> push --force-with-lease=...` went through (**proved by use**, 2026-11-11, batch-09; not always: refused on 2026-11-13 as a loop).
+275 L508 [status-layout.md:77 0.44] Batch-09 was a direct batch, the Chief of Staff steering (its archive: `5-archives/261111-1247-171-batch-09-retro-fixes/work/retro.md`, "direct mode, the Chief of Staff steering"; `261111-08
+276 L512 [host-auto-mode-steering.md:4 0.57] The Foreman's push, per case: the Foreman is not a subagent but a session of its own, started with the user's permission mode (row "Start the Foreman's session");
+277 L515 [host-auto-mode-steering.md:8 0.76] **with the route rule set:** an allow rule resolves a matching command before the classifier for a steering session (**documented**, <https://code.claude.com/docs/en/permission-modes>; not y
+278 L518 [host-auto-mode-steering.md:9 0.90] **without it** (P10 names it missing): the Foreman does not try (`push not tried: route rule missing`); whether the classifier would pass it is **unproved**;
+279 L520 [routing.md:10 0.46] trial: the next Driver refusal in a Foreman batch, the Foreman's push accepted or refused, its exact text recorded here with the date.
+280 L522 [host-auto-mode-steering.md:11 0.53 | chief-of-staff.md:1 0.37] **The user's yes:** the classifier judges a command with the conversation as context;
+281 L522 [host-auto-mode-steering.md:11 0.59] a user's own yes in the Chief of Staff's conversation, to a question that names the exact command, is what lets it see that the push is wanted.
+282 L524 [host-auto-mode.md:12 0.36] Mark: **unproved** unless the auto-mode docs say it (the Driver checks <https://code.claude.com/docs/en/auto-mode-config> and marks it documented with the link, or unproved with "checked <da
+283 L526 [allow-rules-more-p1.md:4 0.38] trial: the first push asked to the user this way, accepted or refused, recorded here.
+284 L528 [hosts/claude-code.md:151 0.36] Batch-15 (night of 2026-11-12 to 13): the classifier refused lease-protected force pushes of `chantier/` branches to the stack driver, then to the steering session itself (a PowerShell loop)
+285 L531 [host-auto-mode-steering.md:6 0.65] An allow rule resolves a matching command before the classifier (except batch-23, CR-318, above);
+286 L531 [host-auto-mode.md:18 1.00 | stack-driver.md:15 0.40] a loop, a script or a chain matches no prefix rule, so the classifier judges it alone: one command per branch.
+287 L533 [host-auto-mode-trials.md:1 0.45] What a trial before the go can and cannot prove (the Chief of Staff's trials, "Capabilities and their commands"):
+288 L535 [host-auto-mode-steering.md:8 0.77] an allow rule resolves a matching command at once, before the classifier (documented), for the steering session;
+289 L535 [hosts/claude-code.md:151 0.50] for a Driver, see batch-23 above: a trial that runs where P10 says a rule matches proves the host honours that rule's form, which settles the unproved rows (the auto-mode fate of `uv run --n
+290 L538 [host-auto-mode-trials.md:9 1.00] the host offers no way to try a rule ahead for the commands with no harmless form (`gh release create`, `gh pr merge`, `gh api -X PUT .../merge-async`, `gh pr edit --base`, `SendMessage`): t
+291 L540 [host-auto-mode-trials.md:9 1.00] Their only check before the go is P10's rule match;
+292 L541 [host-auto-mode-trials.md:11 0.97] a harmless form the classifier lets through with no rule proves nothing for the real command: it judges each command on its own;
+293 L543 [host-auto-mode-trials.md:13 0.83] a trial runs in the Chief of Staff's session; the classifier blocks destructive git in subagents, so a trial that passes there with no rule says nothing about a Driver.
+294 L545 [host-auto-mode-steering.md:13 0.75] The alert the Chief of Staff gives, once, at its first turn: "Auto mode's classifier refuses some rebases and force pushes.
+295 L546 [hosts/claude-code.md:17 0.53] They come with every rebase: a Driver's rebase and its push after it, and the stack driver's restack of every PR above a change.
+296 L547 [host-auto-mode-steering.md:15 0.88] Without the rules below, an unattended batch waits for you at the first one; with them, a Driver's force push may still be refused (batch-23).
+297 L548 [host-auto-mode-steering.md:16 0.77] A refused one goes to the Foreman, then to the Chief of Staff, who each run a legitimate one on the Driver's own branch without asking you;
+298 L548 [refused-push-steering.md:1 0.66] you are asked only if the host refuses the Chief of Staff too, or when a judgement finds a push not legitimate;
+299 L548 [host-auto-mode-steering.md:17 1.00 | chief-of-staff.md:15 0.42] a push of a branch that is not chantier's is never run, you are told of it;
+300 L548 [=:146] and in a remote session nobody may be there to answer."
+## What the docs do not say
+301 L552 [host-auto-mode-trials.md:14 0.45] Each **unproved**, not documented (checked 2026-11-09):
+302 L554 [host-auto-mode-trials.md:15 0.60] `CLAUDE_CODE_ENTRYPOINT` and its values (`claude-desktop`): preflight P1 relies on it, and it holds in use; the env-vars page does not list it.
+303 L556 [host-auto-mode-trials.md:15 1.00] The exact text "File has not been read yet".
+304 L556 [host-allow-not-add.md:1 0.25] Documented: a Write to an existing file not read first fails on older models; newer models may overwrite under conditions (v2.1.228+) (<https://code.claude.com/docs/en/tools-reference>).
+305 L558 [status-layout.md:77 0.28] Seen 177 times in the user's week, mostly from subagents.
+306 L560 [host-allow-rules-copilot.md:1 0.45] PowerShell assignments and allow rules; `SendMessage` as a rule;
+307 L560 [hosts/claude-code.md:151 0.77] plugin names in `Agent(…)`; the auto-mode fate of `uv run --no-sync --project "<checkout>" chantier *` (chantier's own checkout, when the session's project is chantier) and `uvx --from "<plu
+308 L562 [host-auto-mode-trials.md:16 0.57] Whether a running session picks up a change of the settings files: not checked; the block of "Allow rules to add" says to start a new session.
+## Compacting
+309 L567 [host-compact.md:3 0.50] Auto-compact is on by default.
+310 L567 [compacting-p1.md:3 0.40] What the user sets is its window: the `/autocompact` command and the `autoCompactWindow` setting.
+311 L568 [host-allow-not-add.md:1 0.85] Documented: <https://code.claude.com/docs/en/settings>.
+312 L569 [row claude-code:compact 0.91] `/compact` continues the same conversation, connected devices follow it, and `$CHANTIER cost` keeps the transcript; `/clear` may replace it.
+313 L570 [row claude-code:compact 1.00] No role runs it: the person types it.
+314 L572 [host-compact.md:3 0.81] Documented (<https://code.claude.com/docs/en/settings-reference>, <https://code.claude.com/docs/en/prompt-caching>):
+315 L575 [row claude-code:compact 0.66] `autoCompactWindow`: 100000 to 1000000; the default is tuned per model; capped at the model's context window.
+316 L577 [host-compact.md:4 0.68] `idleCompaction`: default true; compacts after about an hour idle; Claude Code v2.1.290 and later.
+317 L579 [host-compact.md:5 0.51] The prompt cache lasts 1 h on a subscription within plan usage, 5 min on an API key or a cloud provider; `promptCacheTtl` sets it.
+318 L580 [host-compact.md:10 0.33] Why it matters: Chief of Staff and Foreman sessions last days (393 messages and 50 compactions in 45 h for one), with pauses past the cache's life.
+319 L583 [host-compact.md:9 0.19] **Measured** (batch-16 and batch-17, 2026-11-13): agents set to `autoCompactWindow: 200000` on `claude-sonnet-5-5` compacted after a last prompt of 161,951 to 166,684 tokens (three Coders).
+320 L585 [host-compact.md:9 0.36] Sessions set to 300000 compacted around 165 to 170k (the user's week).
+321 L585 [host-compact.md:11 0.30] This matches a window capped at the model's 200,000 with a reserve of about 35k, but the cap's value stays unproved until the trial reads it back: one session, the setting read with `/autoco
+322 L588 [concepts.md:57 0.17] Drivers of batch-18 and of both eval runs of 2026-11-15 peaked at 80k to 124k with no compaction.
+323 L591 [host-compact.md:9 0.78] **Recommendation**, not a proved fact: keep `idleCompaction` on (its default), and set `autoCompactWindow` to 300000 in `~/.claude/settings.json` for the Chief of Staff's and the Foreman's s
+324 L593 [status-layout.md:84 0.28] Why: long sessions with pauses past the cache's life.
+325 L594 [row claude-code:compact 0.38] The window is capped at the model's context window (documented, above): if Sonnet 5.5's window is below 300K, the cap applies.
+326 L595 [host-compact.md:11 0.28] Whether 300000 holds, given the measured 165 to 170k compaction above (which concerns this very value), is unproved: the same trial settles the recommendation and records the cap.
+327 L599 [host-compact.md:15 1.00] ```{ "idleCompaction": true, "autoCompactWindow": 300000 }```
+## Reload after a compaction
+328 L605 [row claude-code:reload-after-compact 0.62] The plugin's mod hooks the engine's `session.compact` event.
+329 L605 [row claude-code:reload-after-compact 0.41] After every compaction of the main conversation, manual (`/compact`) or automatic, of a session that loaded the `chantier`, `chief-of-staff` or `griller` skill, it adds one message to the co
+330 L610 [skills/chantier-SKILL.md:25 0.44] The skill then reads the seat and follows `session-start.md`, "5.
+331 L611 [row claude-code:reload-after-compact 0.59] Reload" (loading the other role's skill when the seat says so), and the answer opens with one line saying chantier's rules were reloaded.
+332 L612 [demo-p2.md:1 0.43 | spec-critic.md:10 0.36] It does not rely on the summary or on the model noticing.
+333 L613 [row claude-code:reload-after-compact 0.65] It never vetoes a compaction, and it leaves a subagent's own compaction alone (a Driver's, a worker's).
+334 L614 [seat-handover.md:5 0.52] The `status` skill does not count as a role.
+335 L616 [pr-template.md:18 0.16] The contract is the engine's own (`claude-code/index.d.ts`: the hook's `next(e)` resolves `{ messages }`, to which the mod adds its message), checked 2026-11-10 against the engine's types as
+336 L618 [row claude-code:reload-after-compact 0.34] **Unproved** until seen in a session; trial: a Chief of Staff session, `/compact`, then the next turn calls a chantier skill with `reload` (Skill tool call visible: record which one the mode
+337 L621 [host-compact.md:19 0.49] The mod is Claude Code's only (`CONTRIBUTING.md`): the automatic reload exists only where the plugin's mod loads.
+338 L622 [host-compact.md:20 0.54] The manual reload ("chantier reload", or `/chantier:chantier reload`, `/chantier:chief-of-staff reload`, `/chantier:griller reload`) works everywhere, and is what a session without the mod h
+## The write guard
+339 L627 [row claude-code:reload-after-compact 0.41] The plugin's mod also hooks `agent.spawn` and `tool.call`.
+340 L627 [host-write-guard.md:3 0.77] It reads one line of a spawn's prompt, `writes: <absolute folder>; <absolute folder>` (a worker's prompt holds it, with the worktree first and the CR folder second; a CR Driver's holds its C
+341 L630 [skills/chantier-SKILL.md:6 0.33] It knows no role and no card wording.
+342 L631 [host-write-guard.md:4 0.84] A spawn whose prompt holds the line starts in the first folder, except a spawn whose prompt also holds a `worktree:` line (a CR Driver's).
+343 L632 [hosts/claude-code.md:20 0.49] That one starts in that worktree, or, while the worktree does not exist yet, in the project's root its first line names (the main checkout, or the project's clone with a planning surface).
+344 L634 [concepts.md:119 0.41] With neither, it starts in its parent's folder, still guarded, with the board's note.
+345 L635 [host-write-guard.md:6 0.71] The mod rewrites the spawn's `cwd`, except on a resume.
+346 L636 [row claude-code:write-guard 0.57 | chief-of-staff.md:20 0.36] The mod records its agent id with the folders.
+347 L637 [host-write-guard.md:10 0.80] That agent's Write, Edit or NotebookEdit outside every folder is refused, with the one message `refused: <path> is outside the folders this agent may write in (<folder>; <folder>); write the
+348 L639 [inspector-audit.md:5 0.52 | griller.md:9 0.37] a relative path is read against the folder it runs in.
+349 L639 [host-write-guard.md:11 0.49] On Windows a Git Bash drive path (`/c/Users/...`) is read as its drive form (`C:/Users/...`), for Write, Edit, NotebookEdit and the shell targets alike.
+350 L639 [steering-reports-p1.md:4 0.27] The arguments of a `tool.call` sit flat beside `tool` (`file_path` for Write and Edit, `notebook_path` for NotebookEdit), and the mod reads nothing else.
+351 L641 [host-write-guard.md:10 0.73] An entry is a bare absolute path: the guard reads anything after it as part of the folder's name, so every write is refused.
+352 L644 [host-write-guard-shell.md:3 0.47] The same agent's Bash or PowerShell call is judged by the same rule, on the write forms the mod can see with a target path: a redirection `>` or `>>`, `tee`, `sed -i`, `perl -i`, `cp`, `mv`,
+353 L647 [row claude-code:write-guard 0.55] A target outside every folder, read against the agent's folder like a relative path of Write, is refused with `refused: a shell write to <path> is outside the folders this agent may write in
+354 L650 [host-write-guard-shell.md:5 0.40] Passed: a write to a null device (`$null`, `/dev/null`, `NUL`) or `2>&1`, and a command that is `git`, `gh`, `glab` or the chantier CLI, which write by their nature.
+355 L652 [row claude-code:write-guard 0.42] The guard is role-free: a worker's shell writes in its worktree and CR folder pass, as its Write does.
+356 L655 [host-write-guard-shell.md:9 0.37] A guard that cannot judge lets the call pass and says so in the CR board's note, for instance `Write guard: could not read the Write call of agent <id> (no file_path); the call passed.`: a m
+357 L660 [main-checkout.md:1 0.42] A guard at fault costs nothing.
+358 L662 [host-write-guard-shell.md:10 0.40] Not guarded: the main session (the Chief of Staff, the Foreman), the Release driver, the stack driver, the QA driver, the Spec-writer, the Spec critic, the Griller, the Demo explorer, any ag
+359 L667 [host-write-guard-shell.md:11 0.91 | investigator.md:14 0.41] The host's scratchpad is outside the worktree: a worker writes in its work folder instead.
+360 L668 [concepts.md:39 0.44] The host's instruction to send scripts and intermediate results to its scratchpad does not apply to a CR's work, which goes in the CR's folder ([concepts](../concepts.md)).
+361 L670 [host-write-guard-shell.md:11 0.82] Copilot has no such guard, and the line is inert there.
+362 L672 [inspector.md:8 0.30] The refusals are proved by `hooks/register.test.tsx`, run with `just mod`.
+363 L672 [ci-beside-gate.md:3 0.28] The passes are proved by the next real eval's normal use, and the audit checks each worker's prompt holds the line: **Unproved** until that eval reports.
+364 L674 [chief-of-staff.md:26 0.25] No refusal is planted.
+## Classes of session
+365 L678 [foreman-start-p2.md:1 0.47] | Class | How it is known | Can start a session | Fit for a Foreman |
+366 L680 [host-sessions.md:4 0.75] | Desktop, typed at the keyboard | no Remote Control notice | yes | yes, it starts it alone |
+367 L681 [host-sessions.md:4 0.53] | Desktop, driven by Remote Control | the host's Remote Control notice | yes, with no `cwd` and no `preset`, in its own folder; a start with `cwd` or `preset` is refused (proved 2026-11-20) 
+368 L682 [host-sessions.md:7 0.94 | foreman.md:5 0.62] | Session on the main checkout | `git rev-parse --git-dir` equals `--git-common-dir` | n/a | yes |
+369 L683 [host-sessions.md:7 0.69] | Session in a worktree | they differ | n/a | no: Write refuses the main checkout, `change_directory` is refused, `request_directory` does not help |
+370 L684 [host-sessions.md:9 0.56] | Remote or app session | often starts in a linked worktree, `.claude/worktrees/<name>`: the row above | n/a | no, as the worktree row says; proved 2026-11-10, Battlestation, session `epic-l
+371 L685 [host-sessions.md:8 1.00 | foreman.md:22 0.43] | Cloud | the host's environment | n/a | no: no main checkout |
+372 L686 [host-sessions.md:9 0.48] | Session in a planning surface | its folder is the surface's checkout, or the project's main checkout (its clone) with the surface added as a working directory; preflight P6 and P7 accept b
+373 L688 [host-sessions.md:13 0.72] With no argument the Chief of Staff's batches are direct in the Remote Control row and on any entry where the Foreman-mode P1 fails (terminal, VS Code), and Foreman in the "Desktop, typed" r
+374 L692 [init.md:21 0.27] Proved: the worktree row, batch-06, 2026-11 (the user picked the `chantier` entry under "Remote Control": it names the main checkout, shows no worktree option, the session landed in a worktr
+375 L694 [host-remote.md:5 0.69] The refusal on a Remote Control session to start a session in another place: proved in use, 2026-11-20 (a start with a `cwd`, the planning surface or the eval root, or with a saved `preset` 
+376 L695 [host-sessions.md:8 0.53] The cloud row: unproved; trial: start a Foreman there and run `git rev-parse --show-toplevel`; the same trial tells a cloud session, for `Remote` in the title.
+377 L697 [batch-plan-mode-p2.md:1 0.40] A Remote Control session is told by its notice (the Remote Control row), for the offer to fork.
+378 L700 [init-checks.md:4 0.26] `mcp__ccd_directory__change_directory` to the repository's root was refused for a session in an isolated worktree, even clean with no commit (proved 2026-11-10, same session).
+379 L701 [session-start.md:1 0.60] So moving to the main checkout is the user's step: a new session on the main checkout, without worktree ("For you" below).
+380 L705 [host-remote.md:3 0.77] **The rule: starting a session from Remote Control (proved 2026-11-20).** From a session driven by Remote Control, every session start (a Foreman, a Griller) is `mcp__ccd_session__start_sess
+381 L707 [host-remote.md:5 0.72] Remote Control refuses a start in another place, not every start: a `cwd` (the planning surface, the eval root) or a saved `preset` gets "The user is working over Remote Control, and this tu
+382 L709 [host-remote.md:7 0.74] With neither, the new session lands in the steering session's own folder, its main checkout (`--git-dir` equals `--git-common-dir`).
+383 L711 [host-sessions.md:9 0.54] That folder must be a main checkout, in one of two setups: the planning surface's checkout, or the project's main checkout with the surface added as a working directory.
+384 L713 [host-sessions.md:9 0.70] Preflight P6 and P7 accept both main checkouts (the surface's, the project's clone) and refuse a linked worktree of either;
+385 L713 [merge-recorded.md:3 0.38] a Foreman started with no `cwd` lands in the same folder and its preflight passes the same way.
+386 L713 [foreman-start-more.md:3 0.50] A worktree session is unfit, as the worktree row says.
+387 L713 [host-remote.md:7 0.42] What lies outside that folder reaches the new session by absolute paths in its prompt (`$CHANTIER` already carries `--project <absolute folder>`; the Foreman's prompt gives `Repository:` and
+388 L716 [cr-rounds.md:3 0.36] At the desk the same start works and stays the default; no card names a `cwd`.
+389 L717 [hosts/claude-code.md:20 0.25] Seen 2026-11-20, Battlestation: the Studio's Chief of Staff ran in the Studio's main checkout, and its batch-07 Foreman (Sonnet 5.5, effort medium), started with no `cwd`, landed there, pass
+390 L720 [griller-skill.md:19 0.28] two Grillers were started the same way. chantier's own Chief of Staff runs in `C:\Users\gaeta\Projets\chantier` with the surface added: its batch-29 Foreman landed in that folder, and sessio
+391 L724 [host-remote.md:13 0.65] **A Chief of Staff and Grillers in remote.** Proved, batch-06 (2026-11-10): a session the user creates from the remote client's "Remote Control" entry lands in a worktree, which blocks chant
+392 L726 [hosts/claude-code.md:20 0.39] Proved 2026-11-20: a session started *by* a Chief of Staff driven by Remote Control, with no `cwd`, lands on that Chief of Staff's main checkout (the rule above).
+393 L728 [host-remote.md:11 0.79] So the Chief of Staff is still started locally (desktop, no worktree), then put in remote (Remote Control).
+394 L729 [host-remote.md:11 0.46] From there it can start a Foreman in its own folder, and a Griller session on the user's word; a Griller in a never-merged worktree is no longer the only way to have a Griller in remote.
+395 L731 [seat-handover.md:4 0.64 | chief-of-staff.md:1 0.51] The Chief of Staff's own next batch is direct by itself.
+396 L733 [host-remote.md:18 0.64] Documented, not proved here: the desktop docs say Worktree is off by default and is set per environment (<https://code.claude.com/docs/en/desktop>);
+397 L734 [host-remote.md:18 0.77] `claude remote-control --spawn same-dir` keeps the folder and `--spawn worktree` isolates (<https://code.claude.com/docs/en/remote-control>).
+398 L736 [allow-rules.md:4 0.37] Not documented: creating a session from a phone on a Desktop host, and its options.
+399 L739 [hosts/claude-code.md:20 0.31] **The trial that settles a new Foreman from a remote client.** Settled 2026-11-20 for a Foreman started by the Chief of Staff with no `cwd` (the rule above, the trials quoted there).
+400 L740 [host-remote.md:14 0.51] Still unproved: a session the user creates from the remote client's own New session on a chosen folder (trial, on the user's word: from the remote client, pick the "Remote Control" entry and
+## Surfaces and options
+401 L748 [host-surfaces.md:1 0.57] The surfaces where the user can be: the phone (or another device) on Remote Control; the desktop app, typed at the keyboard; a terminal (the CLI).
+402 L751 [host-surfaces.md:4 0.54] How the host signals the surface: the desktop app adds a Remote Control notice to the conversation when the user works through Remote Control (proved 2026-11-10, Battlestation: said at each 
+403 L753 [host-surfaces.md:4 0.72] A terminal gives no signal, and no signal is said when the user is at the desktop app's keyboard: the absence of the notice does not prove the user is at the machine.
+404 L754 [host-sessions.md:3 0.42] The class row "no Remote Control notice" ("Desktop, typed") above is qualified by this.
+405 L755 [options.md:1 0.67] Where there is no notice, the host says nothing: offer every option that fits, each with its condition ("Offering options", `chief-of-staff-any.md`).
+406 L756 [host-surfaces.md:5 0.80] The notice also sets the mode of a batch planned with no argument: direct (`chief-of-staff-batch-start.md`, "Starting a batch").
+407 L757 [host-surfaces.md:6 0.65] Whether the notice appears on a turn typed at the desktop in a session connected to Remote Control (the setting "Connect new sessions to Remote Control") is **unproved**;
+408 L759 [options.md:3 0.32] trial: in such a session, type one turn at the desktop and one from the phone, and record which carries the notice.
+409 L760 [batch-plan-mode-p2.md:1 0.50] Until then the rule holds as written and a forced `foreman` is the user's way.
+410 L761 [concepts.md:41 0.30] The rest of this section is **unproved** except where a mark says otherwise.
+411 L764 [host-surfaces.md:8 0.47] | Option | Desktop, typed | Remote Control | Terminal | Why and mark |
+412 L766 [foreman-start-more.md:3 0.35] | Switch to Foreman mode | yes | yes: a new Foreman with no `cwd`, or a reused one ("Reusing the last Foreman") | no | preflight P1 fails in a terminal; proved 2026-11-20 for the first two (
+413 L767 [options.md:3 0.34] | Switch to direct mode | yes | yes, except the stop of a Foreman not answering (needs the machine) | yes | needs only the Chief of Staff's own session; unproved until a real switch runs (tr
+414 L768 [host-surfaces.md:12 0.50] | Run a command in a terminal | yes | no | yes | Remote Control has no shell; unproved |
+415 L769 [host-surfaces.md:14 0.67] | Open `localhost` or a file path | yes | no: send the file or a forge link | yes | unproved |
+416 L770 [host-surfaces.md:14 0.57] | `/permissions`, `/config` | no: the app's own settings | no | yes | terminal dialogs; unproved |
+417 L771 [host-surfaces.md:15 0.52] | Restart the app, `/reload-plugins`, open in an editor | yes (terminal: restart the CLI) | no | restart the CLI | the machine; unproved |
+418 L772 [host-surfaces.md:17 0.52] | `/chantier-board` | yes | the pane does not show in a Remote Control view (`docs/boards.md`) | yes | documented in `docs/boards.md` |
+419 L773 [host-surfaces.md:18 0.45] | The remote board (`chantier serve`) | yes | yes, from any device on the local network, through the link, once `board.host: network` (or `--host`) opens it to the local network | yes | unpr
+420 L774 [options.md:3 0.58 | foreman.md:20 0.40] | Review renders, review and merge a PR | yes | yes | yes | the forge, from any device |
+421 L775 [host-surfaces.md:19 0.41] | A host feature (scheduled wake, start a session, a monitor) | where the host has it | `start_session` with no `cwd` and no `preset` works; with either, it is refused | where the host has i
+422 L776 [project-rules.md:5 0.41] | Work in the main checkout | not during an eval, not from a worktree session | same | same | the classes table and the project's rules |
+423 L777 [row claude-code:resume-subagent 0.41] | Resume a stopped subagent | `SendMessage` to its agent id resumes it with its context | same | same | proved, batch-15 (a refused spec-writer resumed by a message); not for a subagent the 
+424 L778 [row claude-code:end-turn-background 0.69] | End a subagent's turn with nothing running in the background | the host asks for its hand-back at once (`[handback-send-enforce] Your report has not been delivered. Call SubagentHandback…`
+425 L779 [row claude-code:subagent-stops 0.51] | A background subagent stops | `<task-notification>` summary `Agent "<name>" is waiting on its own background work`: the agent stopped with background work of its own running, and resumes w
+426 L780 [row claude-code:subagent-stopped-outside 0.39] | A background subagent is stopped from outside | what chantier detects, and nothing else: the stop a compaction snapshot reports (the steering transcript's `attachment` record `task_status`
+## A Foreman in a worktree asks
+427 L784 [host-foreman-worktree.md:1 1.00] The Foreman checks before it claims its epoch (its card).
+428 L784 [host-foreman-worktree.md:3 1.00] In a worktree it takes no CR and sends the ask.
+429 L785 [host-foreman-worktree.md:3 1.00 | demo-explorer.md:3 0.38] The Chief of Staff tells the user the impact: Write is refused in the planning folder, so no Driver can leave its work and evidence there.
+430 L786 [host-foreman-worktree.md:4 1.00 | foreman.md:6 0.38] Then it gives the "For you" block of a new Foreman, to start again on the main checkout.
+431 L787 [host-foreman-worktree.md:5 0.76] This reference names no way around the refusal.
+432 L787 [host-foreman-worktree.md:6 1.00 | chief-of-staff.md:1 0.36] A user may allow one for a batch: that word stays in that batch, is sent with the user's own words, and never becomes a rule.
+## Reusing the last Foreman
+433 L793 [host-reuse-foreman.md:3 1.00] When the previous batch's Foreman session still exists, even stopped, the Chief of Staff may reuse it with the new batch and its epoch 1 (a new batch starts at 0).
+434 L794 [host-reuse-foreman.md:3 0.83 | chief-of-staff.md:33 0.37] It does not continue the old Foreman's epoch.
+435 L795 [host-reuse-foreman.md:3 1.00] Its title names the old batch: the prompt's title makes it rename itself.
+436 L797 [host-reuse-foreman.md:7 0.51] An idle session answers a message (`SendMessage`): **proved**, a Chief of Staff's message started a turn in an idle Foreman session.
+437 L799 [host-reuse-foreman.md:8 0.82] `foreman set --epoch 1` accepted in a reused session: **proved**, same trial.
+438 L800 [host-reuse-foreman.md:7 1.00] A session whose process has ended (closed): **unproved**.
+439 L800 [host-reuse-foreman.md:9 0.50] Claude Code's docs do not say a message reaches it, and describe waking it by a reply from the user, who pastes the prompt into it.
+440 L802 [host-reuse-foreman.md:9 0.64] Trial: after closing a Foreman session, send it a message from the Chief of Staff and see whether a turn starts.
+441 L803 [host-reuse-foreman.md:9 0.69 | griller.md:13 0.52] Do not tell the user that a message wakes a closed session.
+442 L805 [host-reuse-foreman.md:13 0.81] What a choice costs, said first: a new session starts with an empty context; a reused Foreman carries its old context, and the batch pays for it.
+443 L806 [host-reuse-foreman.md:13 0.68] Before a reuse, always recommend `/compact` in the Foreman's session, not `/clear`.
+## Sessions of one repository
+444 L811 [host-sessions-more.md:3 1.00] The seat: liveness is asked of the host (the Tools row), never read from a date.
+445 L811 [host-sessions-more.md:5 0.92] Where the host cannot tell, the session asks the user (the "looks stopped" line of `session-start.md`).
+446 L813 [host-sessions-more.md:1 1.00] Unproved until the session tool is recorded.
+447 L814 [host-sessions-more.md:6 0.62] A fork: what it inherits (the conversation), whether it gets its own session id and transcript id (`$CLAUDE_CODE_SESSION_ID`), and whether anything tells it it is a fork: unproved;
+448 L815 [host-sessions-more.md:7 1.00 | chief-of-staff.md:1 0.42] trial: fork a Chief of Staff session, compare `get_session("self")` and the variable with the seat.
+449 L816 [host-sessions-more.md:8 0.53] If the fork has its own id, comparing it with the seat at its next turn makes it a Griller;
+450 L817 [host-sessions-more.md:9 0.67] if not, record here that a fork cannot be told apart and that the user says "you are a griller" in it.
+451 L819 [row claude-code:griller-in-worktree 1.00] A Griller in a worktree sends its files by `SendMessage` to the seat's session, naming the absolute paths;
+452 L820 [host-sessions-more.md:11 1.00 | foreman.md:22 0.41] the Chief of Staff on the main checkout reads them under `.claude/worktrees/<name>/`.
+453 L821 [pr-gitlab.md:3 0.52] Unproved; trial: one file sent and placed.
+454 L822 [host-sessions-more.md:14 0.57] The two-Chiefs case and the hand-over lines travel by `SendMessage` like the rest (unproved between two sessions of the user, as the Tools row says).
+## The "For you" block
+455 L827 [host-for-you.md:3 0.54] Whenever a step is the user's, the Chief of Staff gives one block, in the user's language, always these four parts, and says first what the choice costs when it has one:
+456 L830 [options.md:3 0.70 | demo-explorer.md:3 0.40] **Where:** the device and the app.
+457 L831 [host-for-you.md:3 1.00] **Do:** each choice by its label on screen, in order.
+458 L832 [host-for-you.md:3 1.00] **Paste:** the text in its own code block, complete: no placeholder left.
+459 L833 [host-for-you.md:4 0.89] **You should see:** what comes next and within how long; otherwise, say what you see.
+460 L835 [host-for-you.md:5 0.56] Every block below is **unproved** until it was followed once by hand; the Chief of Staff says "I have not tested this path" for it.
+## A new Foreman, at the desktop
+461 L840 [host-for-you.md:7 0.82 | investigator.md:7 0.53] Nothing for the user: `start_session` as above.
+462 L840 [host-for-you.md:9 1.00 | floor.md:9 0.62] The user only gives the go.
+## A new Foreman, from a remote client
+463 L844 [demo-explorer.md:3 0.49] Nothing for the user: the Chief of Staff starts it with no `cwd`, as at the desk (proved 2026-11-20).
+464 L845 [session-start.md:1 0.40] Cost: none beyond a fresh context; a worktree session blocks writes, so the Chief of Staff's session must be on a main checkout.
+465 L846 [host-for-you.md:9 1.00 | floor.md:9 0.62] The user only gives the go.
+466 L846 [host-remote.md:13 0.68] A session the user creates from the remote client's own New session on a chosen folder stays unproved (trial above).
+## A planning surface: the project's folders
+467 L851 [concepts.md:13 0.50] Cost: none.
+468 L851 [host-for-you.md:10 0.41] **Unproved** (trial: a Chief of Staff in a surface whose Driver creates a worktree from the clone and commits there).
+469 L852 [row claude-code:surface-session-writes 0.84] A session in the surface writes in the project's clone and worktrees, outside its folder; the host must allow them.
+470 L855 [row copilot:surface-session-writes 0.62 | chief-of-staff.md:1 0.35] **Where:** Claude Code, the surface's session.
+471 L856 [host-for-you.md:11 0.91] **Do:** add the project's clone and its worktrees folder as additional working directories (`/add-dir <path>`, or `additionalDirectories` in `.claude/settings.json`).
+472 L858 [host-for-you.md:12 0.88] **Paste:** the two absolute paths `checkout.yml` resolves to, complete.
+473 L859 [host-for-you.md:14 0.73] **You should see:** the Driver's `git worktree add` and commit accepted; else tell me the refusal as written.
+## A reused Foreman
+474 L864 [host-reuse-foreman.md:13 0.69 | demo-explorer.md:3 0.40] Cost: its context is carried, and the batch pays for it.
+475 L866 [options.md:3 0.80 | chief-of-staff.md:20 0.35] **Where:** the Foreman's session, on any device.
+476 L867 [demo-p2.md:1 0.42] **Do:** type `/compact`; wait for it to end.
+477 L868 [host-for-you-sessions.md:5 0.72 | foreman.md:13 0.35] **Paste:** nothing; I send the prompt by message.
+478 L868 [host-for-you-sessions.md:5 0.75] If the session is closed, paste the prompt into it (next block).
+479 L870 [host-for-you-sessions.md:5 0.64] **You should see:** `ready <batch>` in my session within a few minutes.
+## A closed Foreman session
+480 L874 [host-reuse-foreman.md:13 0.50] Cost: as a reuse.
+481 L874 [host-reuse-foreman.md:9 0.52 | chief-of-staff.md:20 0.37] Unproved that a message wakes it, so the user pastes.
+482 L876 [options.md:3 0.74] **Where:** the desktop app, the Foreman's session in the list.
+483 L877 [host-for-you-sessions.md:5 0.61 | chief-of-staff.md:35 0.36] **Do:** open the session, then click its input.
+484 L878 [host-for-you.md:3 0.79] **Paste:** the prompt, in its own code block, complete.
+485 L879 [host-for-you-sessions.md:5 0.51] **You should see:** the session starts a turn and I hear `ready <batch>` within a few minutes.
+## A session on the main checkout
+486 L883 [host-for-you-sessions.md:7 0.48] Cost: a fresh context; the files hold the state, nothing is lost once the start check found the worktree clean with no commit.
+487 L884 [host-for-you.md:5 1.00] **Unproved** until followed once.
+488 L886 [host-for-you-sessions.md:8 0.57] **Where:** the Claude Desktop app (or the remote client).
+489 L887 [host-for-you-sessions.md:8 0.76] **Do:** start a new session on the repository's folder, with Worktree off (the labels as the desktop docs give them; documented: <https://code.claude.com/docs/en/desktop>).
+490 L889 [host-for-you-sessions.md:9 1.00 | griller-skill.md:29 0.38] **Paste:** `/chantier:chief-of-staff` or `/chantier:griller`.
+491 L890 [host-for-you-sessions.md:9 0.42] **You should see:** the session's introduction with no start-check failure; else tell me what the session shows.
+## A Chief of Staff and Grillers in remote
+492 L895 [host-remote.md:11 0.43] Built on the batch-06 finding (2026-11-10: a session the user creates from the remote client lands in a worktree) and the 2026-11-20 rule (a session the Chief of Staff starts with no `cwd` l
+493 L897 [first-turn-p2.md:4 0.46] Chantier explains the steps and never does them.
+494 L898 [host-for-you.md:5 0.65] The path is **unproved** as a whole until followed once by hand.
+495 L900 [demo-p1.md:3 0.37] Start the Chief of Staff locally, in the desktop app, with no worktree and the tools allowed in auto mode (your own steps), then run `/chantier:chief-of-staff` (or `/chantier:chantier`).
+496 L902 [host-remote.md:5 0.60] Put that session in remote (Remote Control).
+497 L902 [seat-handover.md:5 0.38] In remote, reuse this session; with no argument its next batch is direct by itself, and a forced `foreman` starts a new Foreman in its own folder.
+498 L905 [status-layout.md:77 0.48 | demo-explorer.md:3 0.44] Optionally, on your word the Chief of Staff starts a Griller session with no `cwd`, in its own folder;
+499 L906 [griller-worktree.md:3 0.45] or you start Griller sessions in worktrees that are never merged: they send their files to the Chief of Staff, which places them.
+500 L908 [seat-handover.md:5 0.54] Each session renames itself.
+501 L910 [compacting-p1.md:3 0.34] What is not possible on the host (a fork that cannot be told apart) is written here as found, with no workaround.
+## `/compact`
+502 L915 [row claude-code:compact 0.44] Cost: none beyond the summary; the same conversation continues.
+503 L917 [host-for-you-sessions.md:5 0.52] **Where:** the session to compact, typed at its input.
+504 L918 [host-for-you-sessions.md:5 0.83] **Do:** type `/compact` and send.
+505 L919 [host-for-you.md:3 0.43] **Paste:** when I ask to keep something, the line I give you in its own code block.
+506 L920 [host-for-you.md:15 0.52] **You should see:** a summary and a smaller context size within a minute.
+## Allow rules to add
+507 L924 [host-allow-add.md:3 0.72] The command line the Chief of Staff gives when the host refused its edit of `~/.claude/settings.json`, or when that file cannot be read as JSON (P10 prints `unreadable: ...`).
+508 L926 [host-allow-add.md:3 0.72 | chief-of-staff.md:1 0.43] Otherwise the Chief of Staff adds the rules itself, on the user's yes (`chief-of-staff.md`, "The project").
+509 L927 [host-for-you.md:5 0.47] Unproved until a user has followed it once, like every block above.
+510 L930 [host-allow-add.md:5 0.74] **Where:** at the computer running Claude Desktop, not on the phone, in your shell (Windows PowerShell 5.1, or a POSIX shell).
+511 L932 [host-allow-add.md:7 0.66] **Do:** run one command line, the one for your shell, with the rules P10 named in its list.
+512 L932 [host-allow-add.md:7 0.69] Then start a new session: whether a running session picks up a settings change is **unproved** (see "What the docs do not say").
+513 L935 [concepts.md:105 0.58 | conflict-resolver.md:3 0.58] **Paste:** that line.
+514 L935 [host-allow-add.md:8 0.69 | chief-of-staff.md:12 0.42] It merges exactly the rules P10 named into `permissions.allow` of `~/.claude/settings.json`.
+515 L936 [host-allow-add.md:9 0.43] It creates the file and the keys when they are absent, keeps every other key and rule, adds no rule twice, and never replaces or removes anything.
+516 L937 [host-allow-add.md:10 0.69] It writes valid JSON in UTF-8 with no byte-order mark.
+517 L939 [host-allow-add.md:11 0.92] **You should see:** at the next preflight, `P10 ok`, or a P10 line that no longer names them.
+518 L941 [host-allow-add.md:15 0.47] The Chief of Staff fills in only the list of rules: the strings P10 named, in their table order, with the project's remote name in place of `origin` and the real path in place of `<checkout>
+519 L943 [host-allow-add.md:15 0.42] A path holding a `'` breaks the quoting of the two command lines below: the Chief of Staff says so instead of giving them.
+520 L944 [allow-rules.md:4 0.30] Each was run by hand on a scratch home folder in three cases (file absent, file with other keys, file already holding some of the rules), twice each: valid JSON, no byte-order mark, no dupli
+521 L949 [batch-plan-cut.md:3 0.31] Windows PowerShell 5.1 (the file is rewritten as compact JSON, with the same keys and values; a character such as `<` or `'` in another value of the file may come back as its `\u` escape):
+522 L952 [host-allow-add-lines.md:8 1.00] ```Add-Type -AssemblyName System.Web.Extensions; $r = '<rule 1>','<rule 2>'; $p = Join-Path $HOME '.claude\settings.json'; $js = New-Object System.Web.Script.Serialization.JavaScriptSerializ
+523 L956 [host-allow-add-lines.md:10 0.33] POSIX shell (needs `uv`, which chantier needs anyway; the file is rewritten with a two-space indent):
+524 L959 [host-allow-add-lines.md:14 1.00] ```uv run --no-project python -c 'import json,os,sys;p=os.path.expanduser("~/.claude/settings.json");d=json.load(open(p,encoding="utf-8-sig")) if os.path.exists(p) else {};a=d.setdefault("pe

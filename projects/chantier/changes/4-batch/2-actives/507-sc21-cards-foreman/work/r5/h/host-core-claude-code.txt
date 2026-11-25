@@ -1,0 +1,2 @@
+## Claude Code startup capability core
+1 L3 [seat-p2.md:1 0.26] The host provides the documented Claude tools and hooks described by the deferred host reference.

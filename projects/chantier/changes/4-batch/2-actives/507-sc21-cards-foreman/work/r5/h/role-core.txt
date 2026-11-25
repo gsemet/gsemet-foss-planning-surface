@@ -1,0 +1,2 @@
+## Role startup core
+1 L3 [batch-plan-cut.md:3 0.28] At boot read only the cores, your wrapper and the manifest's startup sections for your role; read the rest of a card only before an action whose readings name it.

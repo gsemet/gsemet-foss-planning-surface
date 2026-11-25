@@ -1,0 +1,23 @@
+## Routing
+1 L3 [=:3] Who talks to whom.
+2 L3 [=:3] A message is one line, prefixed by `[sender→receiver]`, in plain words, with full URLs.
+3 L4 [=:4] The CLI prints the lines that carry state (an order, an ask, a hand-back); the sender passes them as printed.
+4 L5 [=:5] A lost line loses nothing: the Chief of Staff reads `$CHANTIER asks`, the Foreman `$CHANTIER status`, a new Dr
+5 L8 [=:8] | From → to | Lines |
+6 L10 [=:10] | Chief of Staff → Foreman | `order O-<k>: …` (printed by `$CHANTIER order`), `ping` |
+7 L11 [=:11] | Foreman → Chief of Staff | `ready <batch>`, `ask <A-k>: …` (printed by `$CHANTIER asks`), `pong <status line
+8 L12 [=:12] | Chief of Staff → Foreman | also `pushed <branch>`, `push failed <branch> <text>`, `push refused <branch>: <r
+9 L13 [=:13] | Chief of Staff → Chief of Staff (hand-over) | `your turn, you are the Chief of Staff`; back: `I have the bat
+10 L14 [=:14] | Griller → Chief of Staff | `<slug> specified` (required for a CR marked for the running batch, optional othe
+11 L15 [=:15] | Foreman → Driver | `note <text>`, `fix <fix-cr>`, `ping`, `stop`, `stop hold: <O-n>` (the user held the CR),
+12 L16 [=:16] | Driver → Foreman | `hand-back ready to merge <link> [<text>]` or `hand-back PR in draft <link> [<text>]` (th
+13 L17 [=:17] | QA driver → Foreman | `qa done <folder> <n> findings` |
+14 L18 [=:18] | Stack driver → Foreman | `hand-back ready to merge <stack link> <cr>=<link>…`, `anomaly <cr> <text>` |
+15 L20 [=:20] In direct mode the steering session is the Chief of Staff: the rows between the Chief of Staff and the Foreman
+16 L25 [=:25] A host's notice that the Foreman's session ended a turn is not a line of this table.
+17 L25 [routing.md:25 0.84] The Chief of Staff acts on no such notice, except one that shows the Foreman stopped on an error, which it tells the user in one line ([Claude Code](hosts/claude-code.md), "The Foreman's tur
+18 L29 [=:29] The Chief of Staff's subagents (the Demo explorer, the Spec-writer, the Spec critic) answer the Chief of Staff
+19 L30 [=:30] they send no line to the Foreman or a Driver.
+20 L32 [=:32] Grillers send nothing else, to no Foreman and no Driver.
+21 L32 [=:32] The user talks with the Chief of Staff and with Grillers, about the backlog only in a Griller.
+22 L35 [=:35] The user talks about a batch only with the Chief of Staff; a Driver's question reaches them as a `blocked <cr>

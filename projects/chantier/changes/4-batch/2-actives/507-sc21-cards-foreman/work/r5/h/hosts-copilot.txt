@@ -1,0 +1,91 @@
+## Copilot (SDK host)
+1 L3 [row claude-code:list-sessions 0.53] What is proper to this host: the tools, the heartbeat, the sessions.
+2 L3 [ticket-summary-p1.md:5 0.33] The cards say what a role judges and point here.
+3 L4 [batch-close-stopped-p1.md:5 0.45 | demo-explorer.md:5 0.38] Read it with your card when you run on Copilot.
+## Startup core
+4 L8 [config-p1.md:3 0.41] The host provides the role's named startup prompt and its declared tools.
+5 L10 [concepts.md:88 0.25] The lines below moved from the cards as they were, unchanged in substance.
+6 L10 [forge-permissions-say.md:1 0.23] Copilot's marks: nothing here was re-tried when they moved, so each line is **unproved** as to date and place unless it says otherwise;
+7 L12 [grill-critic.md:3 0.27] no new Copilot finding, with two exceptions, each unproved like the rest: the question tool's row, a user's statement dated 2026-11-14 (CR-250 answer 10), and the line that starts the Spec c
+8 L14 [host-reuse-foreman.md:9 0.61 | griller.md:13 0.45] Never tell the user an unproved behaviour as a fact.
+## Tools
+9 L19 [config-p1.md:3 0.50] | Generic | Copilot |
+10 L21 [row copilot:start-foreman 0.96] | Start the Foreman's session | `create_session` with `model: "claude-opus-5.5"`, `workspace` = the repository, `worktree: false`, `title: "<title>"` |
+11 L22 [row copilot:set-own-title 0.82] | Set the Foreman's own title, first | when the host offers a way; else the title stays |
+12 L23 [row copilot:own-session-id 0.80 | griller-skill.md:19 0.35] | Own session id | `$COPILOT_AGENT_SESSION_ID` (also the transcript's id) |
+13 L24 [row copilot:start-driver 0.74] | Start a Driver or a worker | `task`, `mode: background`, `agent_type: <agent>`; the plugin's agent is `chantier-<role>`; no model, as the CLI prints the plugin's or your agent; when the CL
+14 L25 [row copilot:start-spec-writer 0.64] | Start the Spec-writer (Chief of Staff) | `task`, `mode: background`, `agent_type: chantier-spec-writer`; no model, as the CLI prints the plugin's or your agent; when the CLI prints `agent=
+15 L26 [row copilot:start-spec-critic 0.67] | Start the Spec critic (Chief of Staff, Griller) | `task`, `mode: background`, `agent_type: chantier-spec-critic`; no model, as the CLI prints the plugin's or your agent; when the CLI print
+16 L27 [row copilot:start-retro-critic 0.63] | Start the Retro critic (Foreman, Chief of Staff) | `task`, `agent_type: chantier-retro-critic`; no model, as the CLI prints the plugin's or your agent; when the CLI prints `agent=(generic)
+17 L28 [row copilot:models 0.41] | Models | each plugin agent's file names its model (`[display name, id]`): Luna, Sol, Terra, Sonnet 5.5 or Opus 5.5; the file's model runs when no model is passed. Every plugin agent's file
+18 L29 [row copilot:model-at-start 0.30] | Models at an agent's start (capability, start value) | named agent with a model: no, until the probe of `evals/copilot/RUNBOOK.md`, "Models", shows a named agent ran a requested model (`NA
+19 L30 [row copilot:start-generic-agent 0.42] | Start a generic agent (a role configured with another model) | `task`, `mode: background` where the role's start row has it, the generic agent (`agent_type: general-purpose`, unproved as t
+20 L31 [row copilot:model-ran-on 0.31] | The model a role ran on | the steering session's `events.jsonl`, `subagent.started` and `subagent.completed`: `model`, `firstDispatchedModel`, `modelSelectionSource`, observed in CR-296 ro
+21 L32 [row copilot:session-skills-tools 0.43] | Skills and tools of a session (what the Chief of Staff compares a role's needs with) | not known (unproved); trial: a `chantier.yaml` naming one skill that is installed and one that is not
+22 L33 [row copilot:resume-subagent 0.88 | chief-of-staff.md:20 0.53] | Message a Driver | `write_agent` to the agent id |
+23 L34 [row copilot:message-chief 0.72 | griller-skill.md:19 0.58] | Message the Chief of Staff | `send_message` to its session link |
+24 L35 [row copilot:driver-hand-back 0.86 | chief-of-staff.md:20 0.39] | A Driver's hand-back to its steering session (the Foreman; in direct mode the Chief of Staff) | the Driver's final answer; in direct mode it returns to the Chief of Staff that started the 
+25 L36 [row copilot:stop-driver 0.80 | foreman.md:24 0.38] | Stop a Driver | `write_agent` `[foreman→driver <cr>] stop` |
+26 L37 [concepts.md:39 0.39] | A Driver's start folder | the host's; no mod moves it (unproved; trial: a Copilot CR Driver runs its first shell and records the folder) |
+27 L38 [row copilot:stop-own-background-task 0.65] | Stop a background task of one's own | the host's stop of a background shell, within the agent's `execute` tool set (unproved; trial: a Copilot CR Driver stops its CI watch before its hand-
+28 L39 [row copilot:name-env-holders 0.55] | Name the holders of the checkout's environment (before a dev-mode sync) | the same commands through the host's shell tool: on Windows `Get-CimInstance Win32_Process | Where-Object { $_.Exe
+29 L40 [row copilot:agent-ids 0.94] | Agent ids of the project | a file in `.github/agents/` or `~/.copilot/agents/` |
+30 L41 [row copilot:preflight-p2 0.88] | Preflight P2 | `create_session` and `send_message` load |
+31 L42 [row copilot:ask-questions 0.53] | Ask the user a series of questions (grill, specification) | the host's question tool, at most 5 questions per call, at most 4 options per question (the general rule), the reference opening
+32 L43 [row copilot:run-board 0.55] | Run the board | the host's background shell with the command `$CHANTIER serve --seat <id>`, with `--forge-always` on a host that cannot run the watcher (`session-start-chief-of-staff.md`);
+33 L44 [row claude-code:board-griller 0.25] | The board's Griller | `copilot -p` | **unproved**: the Grill action refuses on Copilot ("the board's Griller is not proved on Copilot yet: grill in a session with the Griller skill") until
+34 L45 [row copilot:prompt-cache-ttl 0.31] | Prompt cache TTL (the `cache_ttl` default, `5m`) | not known | unproved. Trial: a Copilot session's record that shows how long its prompt cache keeps a prefix (a cached read after a pause 
+35 L46 [row copilot:steering-wake-bound 0.31] | `/every` in whole minutes | the CLI refuses a Copilot duration that is not whole minutes | proved: `/every 4m` (the heartbeat today); unproved: another value. Trial: `/every` armed with a 
+36 L47 [row copilot:run-watcher 0.28] | Run the watcher | the host's background shell with the command the `watch: not running` or `still running` line prints, as is (no `--stream` here: it ends after each block); its end must s
+37 L48 [row claude-code:board-session-end 0.54] | The board when the session ends | whether the host ends a background command when the session ends (unproved; trial: start the board, end the session, ask `GET /api/board` with the key). U
+38 L49 [row copilot:skills 0.81] | The skills | the same four, same names: `skills/chantier` (the router), `skills/chief-of-staff`, `skills/griller`, `skills/status`, declared in `.github/plugin/plugin.json`; how Copilot pa
+39 L50 [row copilot:set-own-title 0.60] | Set a session's own title (the Chief of Staff, a Griller) | when the host offers a way; else nothing (unproved) |
+40 L51 [row copilot:list-sessions 0.83] | List the sessions; is the seat's session alive | not known: the seat's session always "looks stopped" to a new session, and the "looks stopped" line of `session-start.md` is asked (unprove
+41 L52 [row copilot:message-session 0.69 | griller-skill.md:19 0.42] | Message another session of the user (hand-over, a Griller's line) | `send_message` to its link (unproved) |
+42 L53 [row copilot:griller-in-worktree 0.50] | A Griller in a worktree | its files sent as for a Griller on Claude Code (unproved) |
+43 L54 [row copilot:surface-session-writes 0.67] | A session in a planning surface writing in the project's clone and worktrees (outside its folder); the session's folder may be the surface's main checkout or the project's clone (P6 and P7
+44 L56 [host-configuration-copilot.md:12 0.47] Known host issues: a `model` array once refused by the CLI ([copilot-cli#2133](https://github.com/github/copilot-cli/issues/2133));
+45 L56 [host-configuration-copilot.md:13 0.59] an SDK-provided agent's model dropped at `session.create` ([copilot-sdk#1609](https://github.com/github/copilot-sdk/issues/1609));
+46 L56 [host-configuration-copilot.md:14 0.64] an unknown identifier falling back silently ([copilot-sdk#2856](https://github.com/github/copilot-sdk/issues/2856));
+47 L56 [host-configuration-copilot.md:15 0.51] sub-agents on another model than the session's with no sign, fixed in CLI v1.0.62 ([copilot-cli#3824](https://github.com/github/copilot-cli/issues/3824)).
+## Heartbeat
+48 L60 [row copilot:heartbeat 0.69] In direct mode there is no Foreman chat: the Chief of Staff runs the same `/every` in its own session (unproved), its wake read from the batch's `timing: Copilot other models:` line.
+49 L61 [orders-queue.md:3 0.47] For a batch born paused with no CR, the Chief of Staff does not send `/every` on `ready <batch>` (it tells the user to delete the `/every` at the pause, as at every pause): it arms it with t
+50 L63 [init.md:21 0.65 | chief-of-staff.md:20 0.38] in direct mode it runs no `/every` until its first `take`.
+51 L65 [host-heartbeat-copilot.md:3 0.77] Otherwise the Chief of Staff arms it: on the Foreman's `ready <batch>`, it sends the Foreman chat `/every <steering wake> chantier status --refresh --batch <batch> --epoch <n>`, the wake rea
+52 L68 [host-heartbeat-copilot.md:5 1.00 | chief-of-staff.md:35 0.42] The Foreman cannot end `/every`.
+53 L68 [host-heartbeat-copilot.md:11 0.74] At every pause, the automatic one (when the last CR ends) included, the Chief of Staff tells the user to delete the `/every` in the Foreman chat (in direct mode, in its own session).
+54 L70 [host-heartbeat-copilot.md:12 0.79] The Foreman also ends its heartbeat on the first wake that sees no Driver run for 30 minutes or more, whatever the wake's interval (nothing can move): the Chief of Staff then tells the user 
+55 L74 [row copilot:heartbeat 0.79] Whoever ends the heartbeat (the Foreman, or in direct mode the Chief of Staff) first records it with `chantier status --stop-heartbeat --batch <batch> --epoch <n>` (`pause` already does);
+56 L76 [host-heartbeat-copilot.md:14 1.00] while an `/every` still fires, its next wake clears the mark, which is true.
+## Configuration
+57 L80 [host-configuration-copilot.md:3 0.65] Prerequisites, the same as Claude Code's for a batch: `git` and `uv` (P5), `gh` or `glab` logged in (P9).
+58 L81 [init.md:30 0.43] P9's forge side (rights and branch rules) runs on Copilot as on Claude Code: it is the card's check.
+59 L82 [host-allow-rules-copilot.md:1 0.76] P10 does not run on Copilot, and no host rule is recorded.
+60 L82 [host-configuration-copilot.md:8 0.35] A refusal of a force push on Copilot is reported like any refusal (rule 7), and the general rule of [concepts](../concepts.md) holds: a CR's branches must be force-pushable at all times.
+61 L84 [refused-push-steering.md:1 0.52 | chief-of-staff.md:15 0.36] The ladder of [foreman](../foreman-refused.md#a-drivers-refused-force-push), "A Driver's refused force push", holds.
+62 L86 [host-configuration-copilot.md:9 0.47] P10 does not run on Copilot and no allow rule is recorded for it, so the Foreman skips the route-rule read (step 3) and tries the push, as a Driver already does there.
+63 L87 [host-configuration-copilot.md:10 0.54] The risk, **unproved**: Copilot may stop the Foreman's unwatched session on a prompt instead of refusing the push, which would halt the batch;
+64 L89 [concepts.md:119 0.35] the first Copilot batch that meets a refused push records here what Copilot did, with the date.
+65 L91 [grill-critic.md:3 0.25] No permission configuration is recorded for Copilot: **unproved**; nothing is recommended until a Copilot trial records one.
+66 L93 [allow-rules.md:3 0.40] The capability table is the cards' commands, the same on both hosts: read it from [claude-code](claude-code.md), "Capabilities and their commands"; its rules are Claude Code's.
+67 L95 [host-configuration-copilot.md:7 0.40] The trials run as on Claude Code (the Chief of Staff's own calls, one per used capability), and a refusal is told and recorded with its exact text (`chief-of-staff-batch-start.md`, "The tria
+68 L97 [grill-specify-p1.md:3 0.46 | chief-of-staff.md:3 0.38] P9's forge probes are the card's and run unchanged.
+69 L99 [release-merged.md:6 0.39] The command hygiene of `concepts.md` rule 9 applies on both hosts.
+## Compacting
+70 L103 [host-compact-copilot.md:1 1.00 | chief-of-staff.md:10 0.35] Name no compacting command or setting to the user.
+## Reload after a compaction
+71 L107 [pr-template.md:79 0.58] Not done yet.
+72 L107 [batch-plan.md:3 0.47 | demo-explorer.md:5 0.41] This change covers Claude Code only (the user's choice, 2026-11-10).
+73 L107 [host-compact-copilot.md:3 0.82] Copilot has no mod (its manifest names no hooks) and its own way to react to a compaction is not known.
+74 L108 [host-compact-copilot.md:3 0.48] Until then the manual reload ("chantier reload", `session-start.md`, "Reload") is the only one, and the Chief of Staff names no compacting command (the "Compacting" section holds).
+## Surfaces and options
+75 L114 [pr-template.md:79 0.58] Not done yet.
+76 L114 [griller-worktree.md:3 0.46 | demo-explorer.md:3 0.38] How Copilot signals where the user is is not known.
+77 L114 [options.md:1 0.42] Until then the Chief of Staff offers every option, each with its condition (the "host says nothing" case of "Offering options", `chief-of-staff-any.md`).
+78 L115 [host-sessions-copilot.md:4 0.64] With no Remote Control signal known on Copilot, the no-argument mode follows P1 and P2 only (`chief-of-staff-batch-start.md`, "Starting a batch"), unproved.
+## Sessions
+79 L120 [host-sessions-copilot.md:1 1.00 | chief-of-staff.md:5 0.42] The Foreman is started by `create_session`.
+80 L120 [host-sessions-copilot.md:1 1.00 | floor.md:11 0.54] A refused start is reported with its exact text.
+81 L121 [host-sessions-copilot.md:3 0.68] Nothing else is recorded here about Copilot's sessions.
+82 L123 [host-sessions-copilot.md:5 0.64] A Driver stopped from outside on Copilot is unproved; the card's rule (`foreman-lost-driver.md`, "A Driver stopped from outside") holds when the host says the Driver was stopped.

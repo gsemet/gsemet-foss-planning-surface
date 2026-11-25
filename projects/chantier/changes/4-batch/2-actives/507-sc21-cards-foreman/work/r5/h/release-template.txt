@@ -1,0 +1,121 @@
+## Release template
+1 L3 [=:3] The default release notes and announcement thread, written by the release Driver.
+## Scope and precedence
+2 L7 [=:3] It is the default form of a release's notes and announcement thread, written by the release Driver.
+3 L8 [=:7] The project's own release procedure, and what `$CHANTIER rules` reaches, rank above it.
+4 L9 [release-template.md:5 0.65] Where the project says how its notes or its announcement are written, the Driver follows the project as written, and this file only fills where the project is silent.
+5 L11 [release-template.md:7 0.83] The mechanics (version, tag, publication, gates) are always the project's own, and this file adds none.
+## The notes
+6 L16 [=:12] Written for the project's users, with no CR, batch or agent-role reference, as in [pr-template](pr-template.md
+7 L17 [=:12] The structure, in order:
+8 L19 [release-template.md:12 0.83] a title: the product name and the full version (`X.Y.Z`, never `X.Y`), then a subtitle line that names the release's kind first, then the two or three main changes, in the kind's words (not 
+9 L23 [=:15] a line of links: install, docs, full changes;
+10 L24 [=:16] two to four highlights;
+11 L25 [=:17] the smaller changes, one line each;
+12 L26 [=:18] every fix and every detail, in folded sections.
+13 L28 [=:20] Every changelog line (each `feat:` and `fix:` commit since the previous version) appears once, as a highlight,
+## The kind
+14 L33 [release-template.md:22 0.65] Before writing a line, decide the release's kind from what ships, one of five:
+15 L34 [=:25] **feature**: the user can do something they could not do before;
+16 L35 [=:26] **fix**: something that should have worked now works; nothing new;
+17 L36 [release-template.md:25 0.53] **restore**: it undoes a mistake of an earlier release (a revert, a behaviour put back);
+18 L37 [=:28] **breaking**: something the user relied on is removed or behaves differently and they must act;
+19 L38 [release-template.md:27 0.58] **internal**: nothing the user sees changes (tooling, tests, docs process).
+20 L39 [release-template.md:30 0.83] The subtitle names the kind in its first words (for instance "A bug-fix release: ...", "Restores ... that 1.12.0 broke", "A breaking release: ..."), and every highlight and line keeps the to
+21 L42 [=:30] A release that holds several kinds: the subtitle names first the kind that comes first in this order: breaking
+22 L43 [release-template.md:30 0.57] Each highlight and line keeps the tone of its own change's kind (a fix inside a feature release still starts "Fixed:").
+23 L45 [=:32] When the kind the notes need does not match the version (a patch version whose content needs feature wording, 
+24 L47 [=:32] the version PR's description says the version is probably wrong and why, and the user decides.
+25 L48 [release-template.md:30 0.56 | demo-explorer.md:5 0.40] The Driver does not change the version on its own: this is a statement in the PR, not a question.
+## Writing rules
+26 L53 [=:36] Write like a maintainer telling a colleague what changed: short, complete sentences, plain verbs, "you".
+27 L55 [=:36] For the user: no ticket number, no internal term, no implementation.
+28 L56 [=:37] Never use "Before:" or "Now:" labels, an invented scene, a punchy fragment ("Two gestures."), a praise word (s
+29 L58 [status-layout.md:14 0.53 | debugger.md:3 0.35] Banned constructions, each with its fix:
+30 L60 [=:40] | Banned | Before | After |
+31 L62 [=:42] | A fix worded as a new ability | "You can now edit a block without losing your cursor." | "Fixed: the cursor 
+32 L63 [=:43] | A restore shown as new | "New: paste whole blocks at once." | "Restored: pasting whole blocks, which 1.12.0 
+33 L64 [=:44] | A closing "why it matters" line | "... This means you stay in the flow." | (line removed) |
+34 L65 [=:45] | Mechanism instead of consequence | "The parser now debounces change events on the block node." | "Typing fas
+35 L66 [=:46] | Bad news softened or buried | "We streamlined the settings (the `legacy.view` option is gone) and ..." | "Re
+36 L67 [=:46] | A sentence about a missing image | "No screenshot: this change has nothing to show." | (sentence removed; th
+37 L68 [=:48] | Feature tone in a fix release | subtitle "Faster editing, smarter blocks" for a fix release | subtitle "A bu
+## A highlight
+38 L72 [=:52] In this order: a heading saying the change in its kind's words, at most two sentences, then the picture.
+39 L73 [=:52] A feature: what you can now do; a fix: "Fixed: <what works again>";
+40 L73 [=:52] a restore: what works again and, in one clause, that the earlier release broke it ("<X> works again; 1.12.0 br
+41 L75 [=:52] a breaking change: what changed and what the user must do.
+42 L76 [release-template.md:52 0.64] When the change replaces a visible behaviour, the picture puts the before and the after side by side in one image, built from the Verifier's before/after (below), and the text does not descr
+43 L79 [release-template.md:52 0.59] When the picture shows the whole change, the highlight is the heading and the picture, with no text.
+44 L81 [=:54] A setting is named as a setting: "the setting `full.name`", with its default value and where to turn it on.
+## One line per change
+45 L86 [=:78] Each smaller change and each folded line is one sentence.
+46 L87 [release-template.md:56 0.41] A fix starts with "Fixed:" and says what works now, as the user sees it: "Fixed: the editor keeps the cursor in the block you were editing." Never a fix worded as a new ability.
+47 L89 [=:58] A restore owns the earlier release's mistake in one clause: "Restored: copy and paste of whole blocks, which 1
+48 L91 [release-template.md:56 0.52 | demo-explorer.md:5 0.48] Say the consequence for the user, not the mechanism: what they see or can do, not how the code does it.
+## Bad news
+49 L96 [=:62] A removal, a change of behaviour the user relies on, and a user-facing known issue each get a labelled line in
+50 L99 [release-template.md:60 0.76] Never only in a folded section (a user-facing known issue is not a contributor's detail), never inside a paragraph about something else, never softened ("streamlined", "simplified") when the
+## Length
+51 L105 [=:66] A judgement, not a check.
+52 L107 [=:66] Subtitle at most 16 words; each smaller change or folded line at most 20 words; each highlight's text at most 
+53 L109 [release-template.md:64 0.78] The visible part (everything above the first folded section, the link line and HTML tags not counted) at most 120 words for a fix, restore or internal release, at most 250 for a feature rele
+54 L111 [=:66] A release of several kinds takes the budget of the kind its subtitle names first.
+55 L113 [=:66] Over a budget, cut words, not facts: a fact that does not fit moves to a folded line.
+## Self-check
+56 L117 [release-template.md:70 0.71] Before the notes are final (before `note --draft` on the last version and before the version PR's body is refreshed from them), answer these ten yes/no questions; fix each "no" first:
+57 L120 [=:72] Does the subtitle name the release's kind in its first words?
+58 L121 [=:73] Does the title carry the full version (`X.Y.Z`)?
+59 L122 [=:74] Does every highlight and line keep the tone of the release's kind?
+60 L123 [release-template.md:73 0.73] Does every fix start with "Fixed:" and say what works now, with no fix worded as a new ability?
+61 L124 [=:76] Does every restore own, in one clause, the earlier release that broke it?
+62 L125 [=:77] Is every removal, behaviour change and user-facing known issue on a `Removed:`, `Changed:` or `Known issue:` l
+63 L127 [=:78] Is each smaller change and folded line one sentence, and is every budget of "Length" kept?
+64 L128 [release-template.md:77 0.80] Does every line say the consequence for the user, not the mechanism, with none of the banned constructions?
+65 L130 [=:80] Does every image show only the changed element, within the size of "Visible evidence", its alt text saying wha
+66 L132 [=:81] Does the version match the kind, or does the version PR say it is probably wrong?
+## Visible evidence
+67 L136 [release-evidence.md:1 0.61] Each highlight shows what ships, with one image: for a change that replaces a visible behaviour, the before and the after side by side, built from the Verifier's before/after.
+68 L137 [release-evidence.md:5 0.75] The sources are:
+69 L139 [release-evidence.md:1 0.60] the Verifier's before/after in the merged CRs' `evidence/` folders (`4-batch/3-done/`, and `5-archives/` for earlier batches);
+70 L140 [release-evidence.md:1 0.58] the screenshots in the merged PRs' Deliverables sections;
+71 L141 [release-evidence.md:1 0.58] captures of the product running, made by the Driver;
+72 L142 [release-evidence.md:1 1.00 | verifier.md:5 0.50] CLI output.
+73 L144 [release-notes.md:3 0.51] When the release CR's folder holds `report.md` or `conversation.md`, they are sources too.
+74 L144 [release-evidence.md:1 0.35] They are anonymised: no personal path, user name, email, private repository or session id, replaced by `~`, `user`, `user@example.com`, `<session>` and `example/app`.
+75 L146 [pr-extras.md:7 0.58] The Driver reads each image it produced before it keeps it.
+76 L147 [merge-gaps.md:3 0.58] The image protocol:
+77 L149 [release-evidence.md:3 1.00] Only a visible change gets an image; one image per change.
+78 L150 [release-evidence.md:3 0.50] Crop to the changed element (the control, the panel, the lines of output), never the whole window or page; 900 to 1200 px wide, at most 600 px high.
+79 L152 [release-evidence.md:3 0.64] A before/after is one joined image, both halves the same region at the same scale.
+80 L153 [release-evidence.md:3 0.55] The alt text is the caption: it says what the image shows, in one plain phrase; no separate caption line.
+81 L155 [hosts/claude-code.md:151 0.55 | stack-driver.md:3 0.40] The Driver crops with the project's own means and names no tool.
+82 L156 [release-evidence.md:5 0.56] A visible change, a fix included, whose sources hold no image: the Driver captures it itself with the project's own capture means before the notes are final.
+83 L158 [release-evidence.md:5 0.44] When the capture is impossible, or the image cannot be cropped to the changed element within the bounds (900 to 1200 px wide, at most 600 px high): the notes go out without that image and sa
+84 L160 [release-evidence.md:5 0.94 | cr-driver.md:5 0.40] the version PR's Known gaps names it as `no picture for <change>: <why>`.
+85 L160 [release-evidence.md:5 0.52 | release-driver.md:3 0.39] The project's own capture means are tried first.
+86 L162 [release-evidence.md:5 0.37] A release whose procedure opens no version PR has no Known gaps: the missing picture is named, with the same words, in a `note` (`$CHANTIER note`) and in the Driver's hand-back report.
+87 L163 [merge-gaps.md:1 0.53] The notes still say nothing about it.
+88 L165 [pr-template.md:19 0.51] Nothing visible to show: no image and no sentence about it.
+89 L166 [release-evidence.md:5 0.37] The Release Driver reads each image it produced before it keeps it and checks there: the crop shows the change, the size is within the bounds, the alt text matches, and the look of [driver](
+90 L170 [release-evidence.md:5 0.63 | chief-of-staff.md:1 0.48] A diagram of the project's docs is shown only on the user's word in the release CR's grill.
+91 L172 [release-evidence.md:6 0.75] In the skeleton, name an image in `<img src="...">` form or in prose, never as a Markdown image link to a file that may not exist.
+92 L173 [allow-rules-more-p1.md:3 0.50] The same goes for the version PR's body.
+## The thread
+93 L177 [release-thread.md:1 1.00] Three posts:
+94 L179 [release-thread.md:1 0.76] the story, which may be long: first person, a concrete moment of work the release improves, then what is different now, at most three changes in plain words;
+95 L180 [release-thread.md:1 0.78] it carries the thread's one image;
+96 L182 [release-thread.md:1 1.00 | chief-of-staff.md:3 0.50] the link to the release notes;
+97 L183 [release-thread.md:1 0.82] one sentence (install or update, the price, the licence) and the install link.
+98 L185 [release-thread.md:1 0.44] The tone is organic: no launch words ("excited to announce", "game changer"), at most two emoji, no list of hashtags.
+99 L186 [release-thread.md:1 0.93 | release-driver.md:5 0.50] No agent posts: the thread is a draft for the user.
+## Where they go
+100 L190 [release-notes.md:3 0.37] By default the Driver writes `release-notes.md`, `tweet.md` and the images in `<work folder>/release/` and runs `note --draft` on each text, as [driver](driver.md) says.
+101 L191 [release-notes.md:4 0.51] When the release has a version PR, the Driver also shows `release-notes.md` and then `tweet.md` in the PR's body, under the PR's own description, rendered, each after a `---` rule, the threa
+102 L193 [release-notes.md:4 0.53] The files stay the source and the body is refreshed from them before the merge, as [driver](driver.md) says.
+103 L194 [release-notes.md:5 0.43 | release-driver.md:5 0.36] An image shows in the body once it is on the forge (its upload is an irreversible action, `release go`), else it is named in prose.
+104 L196 [release-notes.md:6 0.51] What the forge's size limit leaves out is named by its path.
+105 L196 [release-notes.md:3 0.90 | release-driver.md:5 0.43] A release with no PR keeps the drafts only.
+106 L197 [release-driver.md:5 0.49] Where the procedure publishes notes (a forge release, a changelog entry), the Driver uses the reviewed text there.
+107 L198 [pr-template.md:18 0.54 | release-driver.md:5 0.38] The images are attached with the forge's own CLI, and that is an irreversible action (`release go`).
+108 L199 [release-driver.md:5 0.90] Where the procedure publishes no notes, they stay a draft for the user.

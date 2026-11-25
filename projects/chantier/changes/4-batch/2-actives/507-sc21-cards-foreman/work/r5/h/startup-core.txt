@@ -1,0 +1,18 @@
+## Chantier startup core
+1 L3 [concepts.md:69 0.46] `$CHANTIER` is the CLI, prepared only as your skill or prompt says.
+2 L3 [coder.md:25 0.30] Write `$CHANTIER` out in full, as given, in each shell call, never in a shell variable.
+3 L4 [session-start.md:1 0.27] If it cannot run (the launch fails: uv or uvx cannot set it up or start it, or it crashes on start), in either mode, at any call, report the exact error and stop: no work as the role, no sea
+4 L7 [griller.md:9 0.19] Do not upgrade, reinstall, repair, relaunch another way or choose another source or tool; retry once only on a transient network error.
+5 L8 [concepts.md:45 0.42] A steering session tells the user; a started agent ends its turn with the error as text.
+6 L9 [trials.md:6 0.39] A CLI refusal, a command's own error exit and a host's permission denial keep their handling.
+7 L10 [config-p2.md:3 0.68 | verifier.md:5 0.37] The CLI is never a tool a role works without.
+8 L11 [skills/chantier-SKILL.md:23 0.33] One named exception: in the dev mode, a `uv sync` that chantier's own processes block (holding the checkout's `.venv`; Windows os error 32) is not a launch failure: the session goes on unsyn
+9 L16 [release-merged.md:7 0.25] No fallback: a tool, a model, an agent or a `$CHANTIER` command not available exactly as named is a stop, reported with its error, never replaced by a look-alike, workaround or estimate.
+10 L17 [worker-shell.md:11 0.62] A skill or tool the playbook names but the session lacks is no stop: your card says how.
+11 L20 [hosts/claude-code.md:156 0.23] Other checks are read-only and block only actions whose prerequisite failed.
+12 L20 [hosts/claude-code.md:151 0.30] Permissions are scoped to session, project and effect; a started agent inherits only its role's, never merge or publication permission.
+13 L22 [matrix.md:5 0.14] Report role, project, checked state, blocked actions and causes, pending permissions, authorized effects, evidence limits (failed, unavailable, not performed, available, documented, exercise
+14 L24 [routing.md:9 0.22] Never invent capacity: a host path not exercised is labelled untested.
+15 L27 [release-driver.md:5 0.36] Before an action, read every reading the manifest lists for it; an unreadable one blocks that action only.
+16 L30 [session-shell.md:5 0.72] No shell call changes its folder (`cd`, `Set-Location`, `pushd`, alone or chained before a command) into a CR folder (any stage), whatever your role: name the target with absolute paths.
+17 L32 [concepts.md:8 0.27] On Windows a folder that holds a process's current folder cannot be moved (WinError 32), so the CR's next move fails.
