@@ -1,21 +1,82 @@
 ## Summary
 
-CR-502 carries three parts of the `simplify-cards-and-prompts` program in one PR (children 16, 17, 18), one commit per part:
+Three additions to the plugin, each a tool built before any card uses it, so every intermediate `main` keeps working with today's cards:
 
-1. SC16: `chantier retro draft` drafts the retro points from the batch's events (prints; `--write` appends once to `retro.md`).
-2. SC17: one launcher (`skills/chantier/scripts/chantier.py`) that picks the mode and runs the CLI.
-3. SC18: role data in `skills/chantier/roles.yaml` and a `just roles` check of the wrappers.
-
-Spec: `03-change-spec.md` of the CR folder.
-
-## Review
-
-- [ ] Part 1 inspector approved (pending)
+- `chantier retro draft` reads the batch's events and drafts the retro's points (asks, refusals, blocks, Driver restarts, red long gates, cost outliers). The author still judges each point. Until now the steering session read the notes, events and costs by hand to find them.
+- A launcher, `skills/chantier/scripts/chantier.py`, picks the dev or plugin mode and runs the CLI by the one method AGENTS.md describes, and runs the dev mode's checked sync (`--sync`) itself. The four `SKILL.md` files keep their long `$CHANTIER` paragraph for now.
+- The 18 roles become one data file, `skills/chantier/roles.yaml`, read by `brief` and `help --for` (their output is unchanged), and `just roles` checks that the hand-written wrappers of both hosts agree with it and that their bodies are identical.
 
 ## Deliverables
 
-Part 1: `retro draft` command, tests (`tests/test_retro_draft.py`, 23 cases, 1.74 s), scenario step, AGENTS.md line.
+| New file | What it gives |
+| --- | --- |
+| `src/commands/retro.py`, `retro_draft.py`, `declare/retro.py` | `retro draft --epoch N [--since SEQ] [--write]`: prints the draft; `--write` appends it to `4-batch/retro.md` only when it has no draft section |
+| `skills/chantier/scripts/chantier.py`, `src/launcher.py` | `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>`; `--print`, `--sync` |
+| `skills/chantier/roles.yaml`, `src/roles_data.py`, `scripts/roles_check.py` | role data, its one reader, and `just roles` |
+
+```mermaid
+flowchart LR
+  events[events.jsonl] --> draft[retro draft]
+  cost[cost transcripts] --> draft
+  draft --> out[printed draft or retro.md draft section]
+  roles[roles.yaml] --> brief
+  roles --> help[help --for]
+  roles --> check[just roles]
+  check --> wrappers[wrappers of both hosts]
+  launcher[chantier.py] --> mode{dev or plugin}
+  mode --> cli[chantier CLI]
+```
+
+Choices made: the draft prints by default and writes nothing; `--write` only appends when no draft section exists. The launcher runs from uv's own script environment, never the checkout's `.venv`, runs no `uv sync` but under `--sync`, and stops no process. The wrappers stay hand-written.
+
+Launcher trial in a real session (Claude Code 2.1.326, Windows 11, `claude -p --permission-mode dontAsk`): the launcher ran under its allow rule with Bash and PowerShell, exactly as today's dev form does, and was refused with the rule removed. Median of 5 `--version` calls: dev 370 ms against 242 ms for today's form (+128 ms), plugin 439 ms against 294 ms (+145 ms).
+
+## Blast radius
+
+Grade: 1. New commands and files only; `cost`'s output is unchanged (its top moved into a function), `brief` and `help --for` produce the same bytes. A `git revert` restores the previous state.
+
+## Autonomous decisions
+
+- `retro` was added to the epoch-command list that a test requires.
+- `explicit_package_bases` and `mypy_path` were added to the mypy settings so the launcher script type-checks beside the package.
+- `roles.yaml` follows the order of the existing role table, not the order of the specification's table.
+- A text cut "at 160 characters" in the draft keeps 160 characters and adds `…`.
 
 ## Known gaps
 
-- Parts 2 and 3 not yet done in this body.
+- **The launcher leaves the CLI running after its stop on Windows**: stopping only its top `uv` process left the CLI chain serving (found by the stop check, then ended by hand). Nothing uses the launcher yet; the cards must not switch to it until this is fixed.
+- The launcher trial proves Claude Code's main session in `dontAsk` only. **UNVERIFIED:** auto mode without rules, a Driver (subagent) session, Copilot, macOS and Linux, a cold uv cache with `UV_OFFLINE=1`.
+- The launcher adds about 130 to 145 ms per call on the trial machine.
+- An unfilled draft section left in `retro.md` would be archived as is at the batch's close; nothing writes one until the cards say to.
+- The draft reads only the batch's events and the spend: red CI, refused host commands and rounds past the first are left to the author.
+- Seconds added to `just test`: see the Test plan.
+
+<details>
+<summary>Details</summary>
+
+## Changes
+
+- `retro draft`: window by pause events or `--since`; six kinds of points; `batch_rows` extracted from `cost`; `--write` under the batch lock; scenario step and coverage bullet; AGENTS.md exception.
+- Launcher: mode rule written once in `launch.py` (`project_is_chantier`, parity-tested against `Repo.find`), `launcher.py` (stdlib only), `--print`, `--sync`; scenario section `launcher_modes`.
+- Roles: `roles.yaml`, `roles_data.py`, `brief` and `help --for` read it, `scripts/roles_check.py` and `just roles`, the wrapper-identity half of `test_plugin_files.py` moved into the check.
+
+## Impacts
+
+No visual change. Developers get `just roles`, the launcher and `retro draft`; users see no change in any existing command.
+
+## Test plan
+
+- [ ] New tests: `test_retro_draft.py`, `test_launcher.py`, `test_roles_data.py`
+- [ ] Local gates at the head: `just check`, `just eval-dry-run` (to fill)
+- [ ] Evidence: launcher trial recorded above
+- [ ] Review: approved per part (to fill at the head)
+- [ ] Verified (to fill)
+- [ ] CI green (to fill)
+
+Seconds added to `just test`: (to fill: before at the base, after at the head).
+
+## Internal references
+
+CR-502, three parts of the `simplify-cards-and-prompts` program (children 16, 17, 18).
+
+</details>
