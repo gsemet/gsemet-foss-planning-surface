@@ -54,12 +54,12 @@ The pane shows the project's board in the Studio layout; no change when the sess
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just mod`, `just check`
-- [ ] Evidence: none (no real-session screenshot)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `f7e9910`: `just mod` 106 pass; `just check` 2631 passed; long gate `just scenario` pass
+- [ ] Evidence: none; no real-session screenshot could be captured (see Known gaps)
+- [x] Review: approved at `f7e9910` (carried from `2dbfcc7`)
+- [x] Verified at `f7e9910`
+- [x] CI green at `f7e9910`: all five checks pass
 
 ## Internal references
 

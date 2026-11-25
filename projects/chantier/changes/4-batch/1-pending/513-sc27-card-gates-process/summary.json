@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC27: The retro ladder, the approval reminder, the measure's place",
+  "summary": "Specified for one Driver (child 27, on child 26): validate checks retro points' home/count/why not code; Retro critic and Inspector card checks; behaviour-accepted.md with re-ask; CI approval reminder proved on a probe PR; release claims carry just behaviour; two AGENTS.md edits. 2 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b37e6cb8618cb9a3c633dcb788542078470b390bc9ebe175df30c5b19edf46c2",
+    "02-answers.md": "89c76a29e2e84b1a144dea75b89f2122f5e3c8dffc4a248401ae53222a6afacb",
+    "03-change-spec.md": "86e06138d501a9d2610deb1b8fc4e000bcbb2e5eae0f1820d986599258ae3859",
+    "intake/request.md": "15e84e30b925ebbe0f9585471e29058795154fc91ce234acca2e4992bf10d3f7"
+  },
+  "summarized": "2026-11-25T00:36:57Z"
+}

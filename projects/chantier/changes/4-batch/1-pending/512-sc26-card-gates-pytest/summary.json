@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC26: Budgets, history lint and rule ids as pytest gates",
+  "summary": "Specified: one stack PR on child 25 adds rules.json with [R-nnn] ids, budgets.json frozen at child 24's sizes, the history lint, detectors moved from evals/kit, id pins and the 40-character pin scan; 4 open questions with defaults; merges with child 28.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3749dbd9e7a0a85b6409417f02fbdb08bacec496bb8caebf886a29d37e3c8ca1",
+    "02-answers.md": "dd98b4a3e34be6779dda38a5cc6b09d9b3e869d970288fad3ded7045c3578aed",
+    "03-change-spec.md": "55fceab3d0d92c42fb3b44b2faceff80fb917ba2eab0718707b2f166dc26eb0b",
+    "intake/request.md": "c7c45672ec409b967fd653f5fc5acd22480f2b9eb14bbaab1e5b0da5373bfb39"
+  },
+  "summarized": "2026-11-25T00:36:47Z"
+}
