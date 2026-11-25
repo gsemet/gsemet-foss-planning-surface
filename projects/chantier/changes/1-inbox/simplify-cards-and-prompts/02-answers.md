@@ -63,3 +63,8 @@ The owner asked to group the queued children into bigger CRs. Done, in the runni
 # Answer 24 (2026-11-25, the owner, in chat)
 
 Rounds: the owner granted up to 6 rounds for CR-497 and, in general, 'it must pass; I no longer want the batch blocked; sort it out'. Standing grant used by the Chief of Staff: a CR that is out of rounds on a red it did not cause by negligence gets rounds up to 6, with no question; beyond 6, ask.
+
+
+# Answer 25 (2026-11-25, the owner, in chat)
+
+Rounds: "Oui tu peux aller jusqu'à 10 round pour ce batch pour toutes les tâches" (yes, you may go up to 10 rounds, in this batch, for every task). Applied at once to the six remaining CRs (CR-507, 510, 511, 512, 513, 514: orders O-152 to O-157). Replaces Answer 24's limit of 6 for this batch: a CR added to it later gets up to 10 with no question; beyond 10, ask. Budget: raised to $600 the same day (order O-151).

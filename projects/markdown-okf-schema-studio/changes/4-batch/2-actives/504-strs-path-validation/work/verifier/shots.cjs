@@ -3,7 +3,7 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const { pathToFileURL } = require("node:url");
-const { chromium } = require("playwright");
+const { chromium } = require("playwright-core");
 
 const [scratch, out] = process.argv.slice(2);
 const pages = {

@@ -46,3 +46,14 @@ Spec critic: yes, it changes what `show` refuses (CLI contract and public API).
     Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-25: comment
     https://github.com/gsemet/okf-schema/issues/56#issuecomment-7170886026; plan "none"; demo
     "none".
+
+## 2026-11-25: after the spec critic (5 findings; 3 fixed by the spec-writer, 2 asked)
+
+11. show-names-Q11: **Where the outside-bundle rule is written.** "B. Nouvelle exigence": create
+    now a new proposed requirement "stay inside the bundle"; CORE-005 references it instead of
+    carrying the rule, and the follow-up CR `bundle-outside-symlinks` only adds commands to it.
+12. show-names-Q12: **Release.** "A. fix → 0.18.2 (recommandé)": a plain `fix(show): ...`
+    commit, no `!` and no `BREAKING CHANGE:` section; reading outside the bundle was never
+    documented, so it was a defect (the option's words).
+13. show-names-Q13: **macOS case.** "A. Documenter (recommandé)": the refusal of an absolute path
+    spelled in another case than `--path` is accepted and written in the command reference.
