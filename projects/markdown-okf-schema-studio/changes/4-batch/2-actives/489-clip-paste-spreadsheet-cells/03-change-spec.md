@@ -498,6 +498,14 @@ The new tests run on Windows locally and on Linux and Windows in `ci-static`.
 6. The PR is a draft; its body plays the GIF and links the MP4 and WebM at the head sha (or on the
    `-assets` branch, said so), and holds the "Deviation from the recipe" section.
 
+## Amendment (2026-11-25, Chief of Staff, owner asleep): no reopen check, no Done click
+
+The trial take showed that after the CDP paste the table is correct (Task, Owner, Due, four rows) but the TABLE-120 cell editor does not reopen on "Task" (3 of 3 runs, also after Ctrl+A). The real-input integration test passes the reopen check, so this may be a CDP artefact; it is not established, and it is filed apart as a bug. This amendment overrides the steps above:
+
+- Step 6 no longer waits for the cell editor to reopen: it waits only for `tableShape` to give the headers `Task`, `Owner`, `Due` and the four rows of `EXPECTED`, and `pasteWidgets` of 0.
+- Step 7 (the move to Done and the click on `button[aria-label="Done editing"]`) is dropped; the scene ends on the pasted table. The storyboard's "Done" beat and its timing (Done at 4.5 s) go with it; the zoom of step 8 follows the paste directly.
+- The reopen check stays covered by the real-input integration test. The clip makes no claim about the editor reopening.
+
 ## Open questions
 
 None. The dependency on CR 485 is settled by clip-paste-cells-Q4: `depends.json` names CR 485, and this CR goes above it in the stack.
