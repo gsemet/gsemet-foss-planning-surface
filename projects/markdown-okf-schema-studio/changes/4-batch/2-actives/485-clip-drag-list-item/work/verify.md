@@ -23,3 +23,19 @@ Motion, rhythm, the loop as watched, raw screencast rate, non-Windows filming.
 The body's "just preflight pending" is a Test plan line not claimed as fact.
 
 VERIFIED
+
+## Description pass
+
+Head: 8197e4fd6b49d655dac95b3ef567db25c4f3a795
+
+Judged at 8197e4f on the live body (`gh pr view 503 --json body,headRefOid`; headRefOid equals the head).
+
+- Renders: sections, code block, fold (details/summary), list and links are well formed. PASS.
+- Images: the GIF URL pinned at 8197e4f answers `HTTP/1.1 200`, `Content-Type: image/gif` (curl -sI -L); the committed file is the one the body names (`git ls-files -s`). Contact sheet of the same clip viewed: no username, no home folder, only the made-up `release-steps.md`. PASS.
+- Consistent with the diff: `git diff --stat <base>...HEAD` (25 files) matches Summary and Changes (kit lib, tests, clip folder, editing.md, siteClips.test.ts, recipe); no `src/` change, as the Blast radius says. PASS.
+- Known gaps: motion/rhythm/loop, 3.6 fps raw rate, Windows only, draft state; no `UNVERIFIED` claim in the log (closing note: UNVERIFIED: none). PASS.
+- Test plan: preflight pass at 8197e4f ("before first push at 8197e4f: just preflight: pass"); CI at 8197e4f (`gh pr checks 503`: static, static-windows, viewer-graph, visual, report, checks pass; others skipped); tests 25 and 9 from my earlier claims 1 and 3 above. PASS.
+- Review box: log notes "r1 approved at f42acf7c, committed as 8197e4fd" matches the box SHA. PASS.
+- Role names: none outside Internal references. PASS.
+
+VERIFIED

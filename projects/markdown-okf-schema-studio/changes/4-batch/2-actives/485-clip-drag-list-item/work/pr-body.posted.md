@@ -62,12 +62,12 @@ The editing page of the docs shows the new clip. No visual change in the extensi
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `just clip-kit-test` 25 tests, site test
-- [ ] Requirements: no behaviour change (`just requirements-update`, 0 files changed; a test marker added to an existing SwRS)
-- [ ] Changelog: No user-facing change
-- [ ] Local gates: `just clip drag-list-item all` pass; `just check` pass; `just preflight` pending
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code): `just clip-kit-test` 25 tests pass, site test 9 pass, at 8197e4f
+- [x] Requirements: no behaviour change (`just requirements-update`, 0 files changed; a test marker added to an existing SwRS)
+- [x] Changelog: No user-facing change
+- [x] Local gates at 8197e4f: `just clip drag-list-item all` pass; `just check` pass; `just preflight` pass (Windows static stage; CI runs the others)
+- [x] Review: approved at 8197e4f
+- [x] CI green at 8197e4f (`gh pr checks 503`: static, static-windows, viewer-graph, visual, report pass)
 
 ## Internal references
 
