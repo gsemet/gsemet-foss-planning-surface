@@ -42,13 +42,14 @@ Measured on 2026-11-25 by the spec-writer in Chromium (Playwright, the page buil
 `test/page/runtimeHarness.ts`; hand-written renderer markup, a 688 px column in a 1100 px pane, Auto,
 the default settings). The figures are `clientWidth/scrollWidth` of the `pre` after the Auto pass:
 
-| Block | Line of 90 characters | Line of 100 characters | Line of 110 characters |
-| --- | --- | --- | --- |
-| Top-level fence, numbered (Python) | breakout 19 px, 705/707: scrolls 2 px | breakout 90 px, 776/778: scrolls 2 px | breakout 160 px, 846/848: scrolls 2 px |
-| Top-level diff, dark background | breakout 8 px, 694/696: scrolls 2 px | breakout 79 px, 765/767: scrolls 2 px | breakout 149 px, 835/837: scrolls 2 px |
-| Captioned `code-block` (top-level `figure`) | fits | not marked, 686/749: scrolls 63 px | not marked, 686/820: scrolls 134 px |
-| Fence inside an ordered list item | fits | not eligible, 658/756 | not eligible, 658/827 |
-| Fence of 200 characters (wider than the pane) | capped at 380 px, scrolls (expected) | same | same |
+| Block | Line length | After the Auto pass |
+| --- | --- | --- |
+| Top-level fence, numbered (Python) | 90 characters | breakout 19 px, `pre` 707 px wide, 705/707: scrolls by 2 px |
+| Top-level diff, dark background | 90 characters | `pre` 696 px wide, 694/696: scrolls by 2 px |
+| Top-level plain fence | 100 characters | breakout 33 px, 719/721: scrolls by 2 px |
+| Captioned `code-block` (top-level `figure`) | 100 characters | figure 688 px, not marked; inner `pre` 686/749: scrolls by 63 px |
+| Fence inside an ordered list item | 100 characters | not eligible, 658/756: scrolls (Known issue, D5) |
+| Fence of 200 characters (wider than the pane) | 200 characters | capped at 380 px, scrolls (expected) |
 
 In Margin at 100 characters every block scrolls inside the column, as `SwRS-MDOKFSTUDIO-LAYOUT-022`
 requires. The same page with the rule of "What changes" (below) simulated in the page (needed width =
