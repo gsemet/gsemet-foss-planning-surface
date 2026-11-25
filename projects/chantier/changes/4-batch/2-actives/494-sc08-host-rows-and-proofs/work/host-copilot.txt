@@ -1,0 +1,260 @@
+host: copilot (this session)
+start-foreman: Start the Foreman's session (untested)
+  `create_session` with `model: "claude-opus-5.5"`, `workspace` = the repository, `worktree: false`, `title: "<title>"`.
+  A refused start is reported with its exact text.
+  This path was never tried for real here.
+
+own-session-id: Own session id and title (untested)
+  `$COPILOT_AGENT_SESSION_ID`, which is also the transcript's id.
+  Reading the session's own title is not recorded on this host.
+  This path was never tried for real here.
+
+set-own-title: Set a session's own title (untested)
+  When the host offers a way, the session sets its own title (the Foreman first); else the title stays.
+  The tool that does it is not recorded on this host.
+  This path was never tried for real here.
+
+skills: The skills (untested)
+  The same four skills, same names: `skills/chantier` (the router), `skills/chief-of-staff`, `skills/griller`, `skills/status`.
+  Declared in `.github/plugin/plugin.json`; how Copilot passes the arguments `foreman`, `direct` or `reload` is not known.
+  This path was never tried for real here.
+
+load-skill: Load another skill (the router) (untested)
+  Not recorded on this host: which tool loads another skill.
+  The four skills are declared in `.github/plugin/plugin.json`.
+  This path was never tried for real here.
+
+list-sessions: List the sessions and their state (untested)
+  Not known on this host: how a session lists the sessions or tells the seat's session alive.
+  The seat's session always looks stopped to a new session; the "looks stopped" line of `session-start.md` is asked.
+  This path was never tried for real here.
+
+message-session: Message another session of the user (untested)
+  `send_message` to the other session's link (a hand-over, a Griller's line).
+  Whether a limit applies is not recorded on this host.
+  This path was never tried for real here.
+
+session-link: A session's link (for the seat) (untested)
+  Not recorded on this host: where a session reads its own link.
+  `send_message` takes a session link (see `message-chief`).
+  This path was never tried for real here.
+
+start-driver: Start a Driver or a worker (untested)
+  `task`, `mode: background`, `agent_type: <agent>`; the plugin's agent is `chantier-<role>`; no model, no effort.
+  The CLI prints the plugin's agent or yours; when it prints `agent=(generic)`, use `start-generic-agent` instead.
+  This path was never tried for real here.
+
+model-at-start: Models at an agent's start (untested)
+  A named plugin agent runs on its file's model: given another model, the host replaces it with the file's.
+  A generic agent takes the model passed; the start value is the identifier (the display name in lower case, spaces as `-`, dots kept).
+  A model changed in the configuration starts a generic agent; the user's own agent with a model is refused.
+  This path was never tried for real here.
+
+start-generic-agent: Start a generic agent (untested)
+  `task`, `mode: background`, the generic agent (`agent_type: general-purpose`), `model:` the printed start value.
+  The prompt carries the printed contract lines; its tools are the caller's, not restricted.
+  This path was never tried for real here.
+
+model-ran-on: The model a role ran on (untested)
+  The steering session's `events.jsonl`: `subagent.started` and `subagent.completed` carry `model`, `firstDispatchedModel`, `modelSelectionSource`.
+  After a start with a model, read that `model`; when it differs from the printed identifier, stop the agent's work and report both.
+  This path was never tried for real here.
+
+start-spec-writer: Start the Spec-writer (untested)
+  `task`, `mode: background`, `agent_type: chantier-spec-writer`; no model, no effort.
+  The CLI prints the plugin's agent or yours; when it prints `agent=(generic)`, use `start-generic-agent` instead.
+  This path was never tried for real here.
+
+start-spec-critic: Start the Spec critic (untested)
+  `task`, `mode: background`, `agent_type: chantier-spec-critic`; no model, no effort; Fable is not recorded on Copilot.
+  The CLI prints the plugin's agent or yours; when it prints `agent=(generic)`, use `start-generic-agent` instead.
+  This path was never tried for real here.
+
+start-retro-critic: Start the Retro critic (untested)
+  `task` with `agent_type: chantier-retro-critic`; no model, no effort; Fable is not recorded on Copilot.
+  The CLI prints the plugin's agent or yours; when it prints `agent=(generic)`, use `start-generic-agent` instead.
+  This path was never tried for real here.
+
+message-driver: Message a Driver (untested)
+  `write_agent` to the Driver's agent id.
+  A stop is the same tool with `[foreman→driver <cr>] stop` (see `stop-driver`).
+  This path was never tried for real here.
+
+message-chief: Message the Chief of Staff (untested)
+  `send_message` to the Chief of Staff's session link.
+  The Foreman's lines and a Griller's `ready` line travel the same way.
+  This path was never tried for real here.
+
+driver-hand-back: A Driver's final report to a Foreman's Desktop session (untested)
+  The Driver's final answer is its hand-back to its steering session (the Foreman).
+  In direct mode the final answer returns to the Chief of Staff that started the Driver.
+  This path was never tried for real here.
+
+driver-messages-steering-direct: A Driver messages its steering session in direct mode (untested)
+  In direct mode the Driver's final answer returns to the Chief of Staff that started the Driver.
+  No earlier message from the Driver to that session is recorded on this host.
+  This path was never tried for real here.
+
+stop-driver: Stop a Driver (untested)
+  `write_agent` to the Driver's agent id with `[foreman→driver <cr>] stop`.
+  The steering session sends it; no other route is used.
+  This path was never tried for real here.
+
+stop-woken-driver: Stop an ended Driver that wakes again (untested)
+  Not recorded on this host: the stop of an ended Driver that wakes again.
+  A Driver stopped from outside is read when the host says it was stopped (`foreman-lost-driver.md`).
+  This path was never tried for real here.
+
+driver-start-folder: A CR Driver's start folder (untested)
+  A Driver starts in the folder the host gives it; no mod moves it.
+  The write guard's start folder does not apply here (see `write-guard`).
+  This path was never tried for real here.
+
+stop-own-background-task: Stop a background task of one's own (untested)
+  The host's stop of a background shell, within the agent's `execute` tool set.
+  A Driver stops its CI watch before its hand-back.
+  This path was never tried for real here.
+
+name-env-holders: Name the holders of the checkout's environment (untested)
+  The same commands through the host's shell tool: on Windows `Get-CimInstance Win32_Process` under `<plugin root>\.venv\`.
+  On macOS and Linux `ps -eo pid,ppid,args | grep -F "<plugin root>/.venv/"`, the grep line itself excluded.
+  Read as on Claude Code, "own" by its evidence (`--seat <this session's id>`).
+  Read-only: never a stop or a kill of a holder.
+  This path was never tried for real here.
+
+stop-session: Stop another session (untested)
+  Not recorded on this host: how a session stops another session.
+  A missing tool is reported with its text; no other route is used.
+  This path was never tried for real here.
+
+agent-ids: Agent ids of the project (untested)
+  A file in `.github/agents/` or `~/.copilot/agents/`.
+  The plugin's own agents are `chantier-<role>`.
+  This path was never tried for real here.
+
+models: Models (untested)
+  Each plugin agent's file names its model (Luna, Sol, Terra, Sonnet 5.5 or Opus 5.5); it runs when no model is passed.
+  Each file sets `model-policy: required` except `chantier-coder`'s; defaults are `config/chantier.defaults.yml`'s unless `hosts.<host>.roles` sets one.
+  An identifier is the display name in lower case, spaces as `-`, dots kept; the list comes from `just copilot-models`.
+  An escalated role (`coder`, `debugger`, `conflict-resolver`) starts as a generic agent on its model, printed `(generic)`.
+  This path was never tried for real here.
+
+session-skills-tools: Skills and tools of a session (untested)
+  Not known on this host: how a session lists its skills and tools.
+  The Chief of Staff compares a role's needs with what it can tell.
+  This path was never tried for real here.
+
+preflight-p2: Preflight P2 (untested)
+  `create_session` and `send_message` load.
+  Preflight P2 passes when both tools are available to the session.
+  This path was never tried for real here.
+
+ask-questions: Ask the user a series of questions (untested)
+  The host's question tool, at most 5 questions per call, at most 4 options per question.
+  The reference opens each question's text; the tool's exact name and its free answer are not recorded here.
+  This path was never tried for real here.
+
+run-board: Run the board (untested)
+  The host's background shell with the command `$CHANTIER serve --seat <id>`; `serve --restart --seat <id>` runs the same way.
+  Add `--forge-always` on a host that cannot run the watcher; read the first lines from the output; stop it with the host's stop of a background shell.
+  If the host has no background command, give the one line of `session-start.md` and go on: no workaround.
+  This path was never tried for real here.
+
+board-griller: The board's Griller (untested)
+  `copilot -p` is the intended run.
+  The Grill action refuses on Copilot with one line: grill in a session with the Griller skill.
+  This path was never tried for real here.
+
+workspace-trust: Trust of a workspace inside a trusted folder (untested)
+  Not recorded on this host: how Copilot trusts a workspace.
+  A refused start is reported with its exact text.
+  This path was never tried for real here.
+
+move-session: Move a started session to another folder (untested)
+  Not recorded on this host: moving a started session to another folder.
+  A refused start or move is reported with its exact text; no other route is used.
+  This path was never tried for real here.
+
+prompt-cache-ttl: Prompt cache TTL (untested)
+  Not known on this host: how long a session's prompt cache keeps a prefix.
+  The `cache_ttl` default is `5m`.
+  This path was never tried for real here.
+
+steering-wake-bound: Steering wake bound (60 minutes) (untested)
+  `/every` takes whole minutes: the CLI refuses a Copilot duration that is not whole minutes.
+  The heartbeat uses `/every 4m` today.
+  This path was never tried for real here.
+
+heartbeat: Heartbeat (untested)
+  The Chief of Staff sends the Foreman chat `/every <steering wake> chantier status --refresh --batch <batch> --epoch <n>` on its `ready <batch>`.
+  The wake comes from the batch's `timing: Copilot <family> models:` line, else `timing: Copilot other models:`, in `/every`'s form (`4m` by default).
+  The Foreman cannot end `/every`: at every pause the Chief of Staff tells the user to delete it; in direct mode it runs `/every` in its own session.
+  Whoever ends the heartbeat first records it with `chantier status --stop-heartbeat --batch <batch> --epoch <n>`.
+  This path was never tried for real here.
+
+run-watcher: Run the watcher (untested)
+  The host's background shell with the command the `watch: not running` or `still running` line prints, as is (no `--stream`: it ends after each block).
+  Its end must start a turn of the idle Chief of Staff session; its output is read from the task.
+  Until then the Chief of Staff also runs the printed `watch --once` command at each user message.
+  With no background command, or an end that starts no turn, no watcher starts and one line says so: no workaround.
+  This path was never tried for real here.
+
+watcher-session-end: The watcher when the session ends (untested)
+  Not recorded on this host: whether the host ends a background command when the session ends.
+  An orphaned watcher ends by the CLI's own rules, once the project's seat is another session's.
+  This path was never tried for real here.
+
+board-session-end: The board when the session ends (untested)
+  Not recorded on this host: whether the host ends a background command when the session ends.
+  The board stops when the seat moves (the CLI); a board a watcher started stops 30 minutes after its last client.
+  This path was never tried for real here.
+
+message-limit: Limit on messages (untested)
+  Not recorded on this host.
+  A refused send is reported, never sent another way.
+  This path was never tried for real here.
+
+end-turn-background: End a subagent's turn with nothing running in the background (untested)
+  Not recorded on this host: how a subagent's turn ends with nothing running in the background.
+  A Driver's final answer is its hand-back (see `driver-hand-back`).
+  This path was never tried for real here.
+
+subagent-stops: A background subagent stops (untested)
+  Not recorded on this host: the notices that tell a background subagent stopped or finished.
+  A Driver's final answer is its hand-back (see `driver-hand-back`).
+  This path was never tried for real here.
+
+subagent-stopped-outside: A background subagent is stopped from outside (untested)
+  A Driver stopped from outside is read when the host says the Driver was stopped (`foreman-lost-driver.md`).
+  What a user's stop leaves in the session's record is not recorded on this host.
+  This path was never tried for real here.
+
+resume-subagent: Resume a stopped subagent (untested)
+  Not recorded on this host: resuming a stopped subagent.
+  `write_agent` to the agent id is the message to a Driver; whether it resumes a stopped one is not known.
+  This path was never tried for real here.
+
+compact: Compacting (untested)
+  Name no compacting command or setting to the user.
+  The manual reload ("chantier reload") is the only reload after a compaction.
+  This path was never tried for real here.
+
+reload-after-compact: Reload after a compaction (untested)
+  Not done on this host: Copilot has no mod (its manifest names no hooks).
+  The manual reload ("chantier reload", `session-start.md`, "Reload") is the only one.
+  This path was never tried for real here.
+
+write-guard: The write guard (untested)
+  Copilot has no hook (its manifest names none): no guard refuses a write outside the `writes:` folders.
+  The `writes:` line is inert there; the card's rule alone covers a worker's writes.
+  This path was never tried for real here.
+
+griller-in-worktree: A Griller in a worktree (untested)
+  A Griller in a worktree sends its files as on Claude Code: by message to the seat's session, naming the absolute paths.
+  The message is `send_message` to the session's link (see `message-session`).
+  This path was never tried for real here.
+
+surface-session-writes: A session in a planning surface writing in the project's clone (untested)
+  A session in a planning surface writes the project's clone and worktrees outside its own folder; that folder may be the surface's checkout or the clone.
+  The host must allow those folders; the remote finding is Claude Code's and was not run on Copilot.
+  This path was never tried for real here.
