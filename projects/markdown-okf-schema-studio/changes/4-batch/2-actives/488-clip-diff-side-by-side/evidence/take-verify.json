@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "checks": {
+    "editMode": "off",
+    "paste": false
+  },
+  "error": "the page marks 3 changed blocks (P, P, P), expected 2"
+}
