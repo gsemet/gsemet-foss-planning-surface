@@ -28,6 +28,51 @@ What changes:
 Unchanged: `generated.by` and `sources[].author` are still not checked, `okfkb` still writes
 `bot:okf-schema`, and the `human:` match stays case-sensitive.
 
+### Product surfaces
+
+| Surface | Change |
+|---|---|
+| Runtime | `src/okf_schema/validator.py` |
+| Human documentation | validation code reference, standalone-file how-to, feature and evidence map. `README.md` is unaffected: it holds no trust tier or W10 text. |
+| Agent skills | packaged skills `okf-schema` (W10 row) and `okfkb-record-findings` (actor example). The bundled OKF 0.2 reference is the upstream text, left verbatim. |
+| Scaffold guidance | `src/okf_schema/data/kb/_schema/Base.schema.yaml`. The packaged knowledge base guideline already uses `human:alice`. |
+| Examples | `examples/okfkb-hw-knowledge-base/_schema/Base.schema.yaml`, edited by hand because no recipe refreshes it. Their `bot:okf-schema` actors stay valid. |
+| Requirements | `SwRS-OKFSCHEMA-CORE-006` S5 and the requirements log. |
+| Verification and packaging | new tests only. `pyproject.toml`, `justfile` and CI are unaffected: no file, dependency, command or job is added or moved. |
+
+### Example command
+
+For a file whose frontmatter has
+`verified: [{by: reference_agent/gemini-2.5-pro, at: "2024-01-02T00:00:00Z"}]`, with a
+`concept.schema.json` in the schemas directory:
+
+```
+uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
+```
+
+### Validation results
+
+- Example command: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
+  `verified entry [0]` twice. `show_bundle(...).trust_tier` is `machine-confirmed` for both.
+- `just style-check`, `just lint`, `just typecheck`, `just requirements-lint`: pass.
+- `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
+  0 errors, 0 warnings. `okfreq update-coverage` and `okfreq lint`: pass.
+- Tests of the four changed test files and `tests/test_project_contract.py`: 295 passed.
+- `just test` on Windows: 1118 passed, 14 skipped, 8 failed, coverage 95.46%. The 8 failures
+  are symbolic link tests that this host refuses to run (`WinError 1314`), in files this change
+  does not touch; they were not rerun on the base commit.
+
+Evidence status: marker linkage for S5 is defined in `validator.py` and in the tests
+(`okfreq trace`); the marked tests were executed and passed; no stakeholder approval is claimed,
+the requirement stays `proposed`.
+
+### Decisions taken by the maintainer
+
+- `<prefix>:<identifier>` stays accepted beside the specification's forms.
+- An actor in no recognized form counts as machine-confirmed and is still warned.
+- A dot is allowed in the producer and in the prefix.
+- `human:` with no identifier counts as machine-confirmed and is still warned.
+
 ### Blast radius
 
 2 of 3: the trust tier that `show` and the Python API report changes for actors that read as
@@ -42,6 +87,11 @@ Unchanged: `generated.by` and `sources[].author` are still not checked, `okfkb` 
 ### Known gaps
 
 - `just preflight` has not passed yet.
+- `show_bundle` reports a different `trust_tier` for some actors without a
+  `.. versionchanged::` note in its docstring.
+- The skill row and the validation code reference say an unrecognized actor still counts as
+  machine-confirmed; a `by` that is not a string (for example `42`) is warned W10 and does not
+  count.
 
 ## Type of Change
 

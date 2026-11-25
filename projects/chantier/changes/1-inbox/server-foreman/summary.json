@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The Foreman runs as a long task in the chantier server",
+  "summary": "Move the Foreman out of a session into a long-running task of the chantier server, able to last days and manage hundreds of agents. Not grilled: goal, what runs in the server, how the user talks to it and its permissions are open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a59d4ed6a99555fd00d941f700919220bfaaeac838ef6d39394239209ccdd370",
+    "02-answers.md": "831256df31817c1cbda74a5030c3c0e7fb7fa39332472517d9863ba5b318407f",
+    "intake/request.md": "aa42d67831f3ebfb7947dd09ca7bf10701bfbabc600024ee9f4934c5d2db2b17"
+  },
+  "summarized": "2026-11-25T21:20:18Z"
+}
