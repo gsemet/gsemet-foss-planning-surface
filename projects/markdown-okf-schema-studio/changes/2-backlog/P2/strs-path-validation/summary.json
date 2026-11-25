@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "title": "StRS acceptance tests that walk each main path end to end",
-  "summary": "Per-StRS tested/accepted counters from @accepts_req StRS-X#S<n> tests on the simulated and real VS Code benches; shared scenarios: frontmatter; sort of the 185 StRS markers. P2, blocked by okf-schema strs-acceptance-scenarios.",
+  "title": "StRS acceptance paths and SwRS scenarios on okfreq 0.18",
+  "summary": "Switch to linked-swrs-and-acceptance-paths: scenarios: with Path S<n>/Scenario S<n> headings on StRS and SwRS, fragment on all 185 StRS and 3962 SwRS markers, missing tests written, viewer path and scenario scores. P2, waits for okf-schema 0.18.0 on PyPI.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "c43cecc62b33cded07d1d63e55deff9c07871933ccb09e0ef499668253108b6b",
-    "02-answers.md": "9f8af2d30622da552ca0f8ba1034f116ac43402bd8a290a1dab3c0e1841ea9e7",
+    "02-answers.md": "c0bd97e3ea57055afefbfbde70c09c4b6cb92827aa0c6ed9919ec71aaa308d81",
     "intake/request.md": "0dcf876908c7a6a47345a9c6eea35824ae3c44457c3e224e33c113157de4e315"
   },
-  "summarized": "2026-11-23T13:47:40Z"
+  "summarized": "2026-11-25T12:23:34Z"
 }

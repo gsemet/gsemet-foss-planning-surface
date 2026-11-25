@@ -37,13 +37,13 @@ Grade: **1**. Two new commands (`judge` writes only with `--record`, through the
 
 ## Autonomous decisions
 
-- A CR that the batch does not hold exits 2 with a message naming the batch; the existing `unknown CR` form exits 1. Every refusal of `judge` thus has the one precondition code the specification lists.
-- `--record` prints only the lines `asks` prints (`[foreman→chief-of-staff] ask A-n: …`, then the supersede lines), not the `ask:` and facts lines first. The specification's output section lists `ask:` first, but its scenario step says the `--record` run's first line starts with `[foreman→`; the scenario was followed. Open question for the specification's owner.
+- A CR that the batch does not hold exits 2 with a message naming the batch; the existing `unknown CR` form exits 1. Every refusal of `judge` thus has the one precondition exit code.
+- `--record` prints only the lines `asks` prints (`[foreman→chief-of-staff] ask A-n: …`, then the supersede lines), not the `ask:` and facts lines first, because the scenario's check needs the recorded line first and the plain run already shows the ask. Open for the maintainers: whether `--record` should print `ask:` first.
 - `near_misses.EPOCH_COMMANDS` gained `judge`, because a test keeps that list equal to the parsers that declare `--epoch`.
 - `conflicts` checks the git version first on every call, before any other work, so an old git is refused at once.
 - A pair whose PR base is not recorded counts as on the default branch.
 - `conflicts` only prints the ask (`next: asks "..."`) and records none; the steering session sends it.
-- `conflicts` counts a pair as a conflict only when `git merge-tree` exits 1 with a tree id on its first stdout line; git also exits 1 for a missing ref, so that case is "not run" with git's first line. This widens the specification's "any other exit is not run" rule.
+- `conflicts` counts a pair as a conflict only when `git merge-tree` exits 1 with a tree id on its first stdout line; git also exits 1 for a missing ref, so that case is "not run" with git's first line. Any other exit is also "not run".
 - The `conflicts` handler is split in two functions to keep within the 50-line function limit enforced by a test.
 - The scenario step for `conflicts` lives in the series-deps unit, where chained batches run.
 - The two private status helpers `_gaps` and `_owed` became public (`gaps`, `owed`); the ready line keeps its bytes.
@@ -59,7 +59,7 @@ Grade: **1**. Two new commands (`judge` writes only with `--record`, through the
 
 ## Changes
 
-- `declare/judge.py`: the parser; `commands/judge.py`: the handler (epoch required, stale epoch refused, the CR must be in the batch, ready or blocked, anything else refused); `status/judge_words.py`: `ask_text`, nine parts in the specification's order, plus `stack_open`, `stack_pairs`, `local_gate_clause`.
+- `declare/judge.py`: the parser; `commands/judge.py`: the handler (epoch required, stale epoch refused, the CR must be in the batch, ready or blocked, anything else refused); `status/judge_words.py`: `ask_text`, nine parts in a fixed order, plus `stack_open`, `stack_pairs`, `local_gate_clause`.
 - `status/ready_line.py`: `gaps` and `owed` made public.
 - `cli.py`: registration; `near_misses.py`: `judge` in `EPOCH_COMMANDS`.
 - `scenario/run_scenario.py` and `scenario/README.md`: a step in the parallel unit and its Coverage bullet; `AGENTS.md`: the named-exception line for `judge`.
@@ -73,14 +73,14 @@ No visual change. The steering session gets one command to word the ready ask an
 
 ## Test plan
 
-- [ ] New tests (they fail on the previous code): `tests/test_judge.py`, 26 tests, 0.94 s; `tests/test_conflicts.py`, 21 cases (about 19 s alone: git setup per test); the tests ran on git 2.56.0 (Windows)
-- [ ] Local gates at `d05934da`: `just check`, `just eval-dry-run`, `just scenario --unit parallel` (parallel unit 294/294 at round 1), `just scenario --unit series-deps` (85/85 at round 2)
-- [ ] Evidence: none (no visual change)
-- [ ] Review: approved at `d05934da` (code unchanged since the pass)
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New tests (they fail on the previous code): `tests/test_judge.py`, 26 tests, 0.94 s; `tests/test_conflicts.py`, 21 cases (about 19 s alone: git setup per test); the tests ran on git 2.56.0 (Windows)
+- [x] Local gates at `d05934d`: `just check`, `just eval-dry-run`, `just scenario --unit parallel` (parallel unit 294/294 at 6bbfcc7 plus the first part's working tree), `just scenario --unit series-deps` (85/85 at d05934d)
+- [x] Evidence: none (no visual change)
+- [x] Review: approved at `d05934d` (code unchanged since the pass)
+- [x] Verified at `d05934d`
+- [x] CI green at `d05934d`: `gh pr checks 483`, five checks pass (the ubuntu scenario job included)
 
-`just test` seconds: base 154.6 s (2745 passed, run alone on origin/main eb1f4d05), head about 172 s (2872 passed; noise on this machine is 166-185 s).
+`just test` seconds: base 154.6 s (2745 passed, run alone on origin/main eb1f4d0), head about 172 s (2872 passed; noise on this machine is 166-185 s).
 
 ## Internal references
 

@@ -52,3 +52,22 @@ Griller's sample audit (Q23), 2026-11-23, in `experiments/02-audit-sample.md` (3
 
 25. strs-validation-Q25: **Where the okf-schema request goes.** A: a CR filed in the inbox of the surface's `okf-schema` project (marker `@accepts_req`, shared frontmatter field `scenarios:` with stable ids, fragment `#S<n>` on both markers, the two counters per StRS by bench), citing this audit; this Studio CR goes to the backlog, blocked by it. Forge-neutral; nothing posted on a tracker.
 26. strs-validation-Q26: **Grilled enough.** A: back to the backlog at P2, blocked by `okf-schema/changes/1-inbox/strs-acceptance-scenarios` (filed 2026-11-23); specified once okfreq ships the marker and `scenarios:`. Critique: yes (requirements incl. 14 approved StRS, CI with two benches, a large migration). Not for batch-09.
+
+## Series 8, 2026-11-25 (okf-schema 0.18.0 design, see `work/okf-schema-0.18-plan.md`)
+
+27. strs-validation-Q27: **Mode switch.** A: switch `strs_test_coverage_mode` to `linked-swrs-and-acceptance-paths` in this CR and show the honest number (a StRS is `covered` only when every path is accepted or waived).
+28. strs-validation-Q28: **Bench convention** (okfreq 0.18 has none). A: in the Studio, `@tests_req StRS-X#S<n>` = path walked on the simulated bench (every PR); `@accepts_req StRS-X#S<n>` = path walked in real VS Code (`test/integration`, pushes to `main`). Written in CONTRIBUTING and the okfreq skill. (Supersedes Q22's wording.)
+29. strs-validation-Q29: **Required fragment.** Follows from 0.18 (fragmentless marker on a target with `scenarios:` is an error): the sort covers all 185 `@tests_req StRS` markers; each ends `@tests_req …#S<n>`, `@accepts_req …#S<n>`, or removed. None stays fragmentless. (Replaces Q23's sample-only scope for the CR.)
+30. strs-validation-Q30: **SwRS scenarios.** B: yes, in this CR, on all SwRS. Every `@tests_req SwRS-X` marker (3962) gets its `#S<n>`, one marker per scenario the test checks. User: a SwRS never declares a scenario that is not tested: for each scenario without a test, write the test, or remove the scenario if it is not really useful.
+31. strs-validation-Q31: **Headings.** B: rename the body headings to explicit ids, `#### Path S<n>: <title>` on StRS (LIFE-023's `Path 0` included, renumbered). Owner's agreement given now for this scripted rename on the 15 approved StRS: logged in `tiers/log.md`, `approved_by`/`approved_at` unchanged; any other normative change of an approved StRS still goes to the owner one by one.
+32. strs-validation-Q31b: **SwRS headings.** A: same form, `### Scenario S<n>: <title>`, matching the `scenarios:` ids.
+33. strs-validation-Q30b: **Pruning an untested SwRS scenario.** A: the coder writes the test by default; it removes a scenario only when another scenario or SwRS already says the same, or it is not observable. Every removal is listed in the PR with its reason and logged in `tiers/log.md`.
+34. strs-validation-Q32: **Acceptance waiver.** A: only for a StRS with no automatable step; a path with a human step (CORE-007 path 1) gets an acceptance test that stops before that step. Candidates listed in the spec for the owner.
+35. strs-validation-Q33: **Viewer (HTML report and scores).** All four: home cards "StRS paths tested t/151", "accepted a/151", "StRS covered c/95" (replace "StRS with a stakeholder validation test"); area table columns "Paths tested", "Paths accepted"; StRS page: each path with its tested and accepted files, waiver badge; SwRS page: each scenario with its tests and the missing ones, plus a home card for scenarios tested.
+36. strs-validation-Q34: **Cutting.** B: one CR for everything (as decided before).
+37. strs-validation-Q35: **Counts.** A: marker-based, as okfreq counts; the proof a test passes is its bench's CI job.
+
+Blocked only by the release of okf-schema 0.18.0 on PyPI (PyPI serves 0.17.0 on 2026-11-25; the okf-schema CR is merged as PR #63). Spec-writer reads the released docs first. Critique: yes (scale: 185 StRS markers, 3962 SwRS markers, missing tests, 15 approved StRS).
+
+okf-schema 0.18.1 is on PyPI (2026-11-25); the owner: "take it at once, in the current batch".
+Destination: running batch batch-09. Critic: yes.
