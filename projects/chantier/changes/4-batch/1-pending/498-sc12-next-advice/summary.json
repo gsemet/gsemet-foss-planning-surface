@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC12: chantier next and the next: lines",
+  "summary": "Change Specification written: a read-only next command (steering due list, a CR's next step, the Chief of Staff's view) and one next: line on eight commands, from one function; tests, scenario case, AGENTS.md line. Three open questions for the owner.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d1ff471f27d0a01cb1431b9127b2e088399368d72016f1b927d8ceabb10aa252",
+    "02-answers.md": "1d498326fe095a9abf84e3fab3cbaa0c682e9164c70b424a7cd9accff8bd45c9",
+    "03-change-spec.md": "7e5bb183ccefac0ca7f55fb37ab54815b8511dde4bdc7714f6087751a5315e5e",
+    "intake/request.md": "4de9807100c279ca6d826404613f45e3e0bc8bc565c7ae38c09473d7b4daee0f"
+  },
+  "summarized": "2026-11-25T00:00:31Z"
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC14: chantier judge words the ask to the user",
+  "summary": "Specified (child 14 of 28, stack batch-31, after child 13): new judge <cr> --epoch N words the readiness ask from the record, prints facts with no ask when blocked or in a stack not alone; --record records it via asks with one sentence. Two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "784798d7a7a611245664ea291f4e8c8394ac6029fee000f38797107811538d8b",
+    "02-answers.md": "d81836eca39330ec4ba9b8ee5d56ecd1b037a4034d534401f9a9036894541fcc",
+    "03-change-spec.md": "2c92d8554a8c7ef5fd9608bb535c11b000006757e1b50605692d9258ce800b3d",
+    "intake/request.md": "f4148a16f90c71cc560a1d473695c3ed2a81b8c9de55f9910bbdeab14ebc08e0"
+  },
+  "summarized": "2026-11-25T00:01:03Z"
+}
