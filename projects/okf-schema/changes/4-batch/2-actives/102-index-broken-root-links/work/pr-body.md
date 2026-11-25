@@ -14,6 +14,22 @@ before:  - [api](./api/) — [Health Check](health-check.md)  [API Endpoint]
 after:   - [api](./api/) — Auto-generated index for concepts in `api`.
 ```
 
+Before: the line reported with the defect; the base, `1a742d7`, was not run (see Known gaps).
+After: run at `125952d`.
+
+Two more runs at `125952d`: a link to a missing file in the root `index.md`, then the link count
+once an anchor-only link and a link to a missing file were added to a concept. `<project>` stands
+for the throwaway project folder.
+
+```text
+$ okf-schema validate --strict --path kb/bundle
+  WARNING [W2] Broken cross-link 'nope.md' in '<project>\kb\bundle\index.md'
+
+$ okf-schema stats --path kb/bundle
+  3 links (1 broken)
+  Health: 90% — 1 broken link
+```
+
 How a subdirectory summary is chosen (a schema summary still comes first):
 
 ```mermaid
@@ -34,8 +50,9 @@ flowchart TD
   sentence are recomputed. Other summaries are kept as written, a trailing `[...]` included,
   whether the entry links `tables/`, `./tables/` or `./tables`.
 - Broken links in every `index.md` and in `log.md` are reported as W2. Bundles holding such
-  links get new warnings, so `validate --strict` can start failing until they are fixed. This
-  also applies to `okfkb validate` and `okfreq validate`.
+  links get new warnings, so `validate --strict` can start failing until they are fixed.
+  `okfkb validate` and `okfreq validate` report these warnings too; `okfreq validate` still
+  exits 0 on them.
 - W2 and `stats` ignore `#...` anchors (the anchor is not verified) and percent-decode paths
   before checking them. A broken target is reported as written.
 

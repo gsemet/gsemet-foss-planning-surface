@@ -167,3 +167,9 @@ Log: macOS and the four preflight jobs `1198 passed`; Windows `1186 passed, 12 s
 - A file starting with a byte order mark reads as no frontmatter (`trust: unverified`), same
   `show_bundle` values as the base.
 - Worktree at the end: `git status --porcelain` empty, HEAD `6572527`; base worktree removed.
+
+## Handoff checklist
+
+`chantier handoff CR-103`, before the verdict, `gates before handback ready, at the PR's head
+6572527608200cb688c0ae0224427e8b8bb44539`: `[x] long gate passed carried from 3776ca4 (clean
+rebase onto main)`; the verdict box was still open. PR 73: open draft, head `6572527`.
