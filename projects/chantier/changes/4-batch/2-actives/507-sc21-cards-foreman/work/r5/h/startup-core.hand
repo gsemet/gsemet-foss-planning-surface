@@ -1,0 +1,17 @@
+1 e c:skills/chantier-SKILL.md:15
+2 e c:skills/chantier-SKILL.md:21
+3 a f:4
+4 a f:3
+5 e f:4
+6 e f:9
+7 a f:4
+8 e c:skills/chantier-SKILL.md:23
+9 a f:3
+10 e t:worker-shell
+11 e c:chief-of-staff.md:30
+12 a f:1
+13 b B
+14 e F
+15 b B
+16 c t:session-shell
+17 c I

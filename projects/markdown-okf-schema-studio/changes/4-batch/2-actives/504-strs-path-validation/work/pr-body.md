@@ -26,7 +26,7 @@ Choices made:
 - The 97 retired SwRS get an explicit exemption so they declare no scenarios.
 - A new SwRS (`SwRS-MDOKFSTUDIO-CORE-096`) states the behaviour of the marker check, each rule tested by its own test; a seventh rule, `implements-fragment`, rejects a `#S<n>` on `@implements_req`.
 - All 16 requirement groups declare `scenarios:` and carry `Scenario S<n>` / `Path S<n>` headings; each SwRS test marker is one line per scenario.
-- StRS markers in tests were sorted (table in Details): 61 on a real VS Code path (`@accepts_req`), 2 simulated paths, 122 removed because a SwRS marker already covers them.
+- StRS markers in tests were sorted (table in Details): 61 became `@accepts_req` (walks in real VS Code, and the walks of CORE-007, CORE-008 and TRUST-014 outside it), 2 simulated paths, 122 removed because a SwRS marker already covers them.
 - The mutation report reads the `#S<n>` fragments.
 - The requirements viewer reads `scenarios:` from the requirement files and joins them with the okfreq trace: home cards "StRS paths tested", "StRS paths accepted", "StRS covered" and "SwRS scenarios tested" (the "StRS with a stakeholder validation test" card is removed), area columns "Paths tested" and "Paths accepted", the tested and accepted files of each path on a use case page, and the tests of each scenario, or "missing", on a behaviour page. Without a trace the declared counts stay and the file figures read "n/a". SwRS CORE-069, CORE-080 and CORE-082 gain the scenarios for this.
 - `just requirements-report` and `just requirements-report-json` also write `out/reports/requirements/requirements-trace.json`.
@@ -39,7 +39,7 @@ The 15 approved StRS only get `approved_at` set to the time of the scripted rena
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-A scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validates with 0 errors and 64 warnings: W004 x38 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change (CR-505).
+A scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validates with 0 errors and 64 warnings: W004 x38 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change.
 
 ## Blast radius
 
@@ -54,12 +54,14 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The viewer's new behaviour is stated as new scenarios of three existing `proposed` SwRS (CORE-069, CORE-080, CORE-082), with no new SwRS.
 - `requirements/guidelines/okfreq-baseline.guidelines.md` is left as it is: it matches no okf-schema file.
 - The project guidelines state their own SwRS scenario heading, with the kind, which overrides the refreshed shared guideline.
+- Two deliveries, decided during preparation: this PR declares the paths and scenarios in the current coverage mode; the mode switch is deferred to a follow-up change.
+- No simulated walk is written for every StRS path: the viewer shows what the marker sort finds and says so. The release, site and package StRS (CORE-007, CORE-008, TRUST-014) may be accepted outside VS Code; CORE-006 stays in VS Code.
 
 ## Known gaps
 
-Left for CR-505:
+Left for the follow-up change:
 
-- 722 of 2617 in-force SwRS scenarios have no scenario marker.
+- 722 of 2622 in-force SwRS scenarios have no scenario marker.
 - 94 of 156 StRS paths have no marker (counts per group in Details).
 - 38 StRS have no acceptance test (W004, markers scanned).
 
@@ -69,7 +71,6 @@ Others:
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
 - Fragments scored good in the first pass of the sweep were not re-read.
 - The new viewer cards and pages are checked by unit tests only; the site was not looked at in a browser.
-- The project guidelines still say "one to three paths" per StRS (LIFE-023 declares four, as before).
 
 <details>
 <summary>Details</summary>
@@ -81,7 +82,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
 | test/build/test_plugin_manifests.py | 93 | StRS-MDOKFSTUDIO-CORE-006 | removed | marker removed | - |
-| test/build/test_release.py | 322 | StRS-MDOKFSTUDIO-CORE-007 | real VS Code path | @accepts_req #S1 | 328 |
+| test/build/test_release.py | 322 | StRS-MDOKFSTUDIO-CORE-007 | product path outside VS Code | @accepts_req #S1 | 328 |
 | test/core/frontmatter/diagReq.frontmatter.requirements.test.ts | 54 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | removed | marker removed | - |
 | test/core/render/writingSkill.test.ts | 134 | StRS-MDOKFSTUDIO-CORE-006 | removed | marker removed | - |
 | test/integration/blockClipboard.test.ts | 82 | StRS-MDOKFSTUDIO-BLOCK-025 | real VS Code path | @accepts_req #S2 | 82 |
@@ -188,9 +189,9 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 | test/page/modules/alertLazyEditAction.test.ts | 32 | StRS-MDOKFSTUDIO-PALETTE-020 | removed | marker removed | - |
 | test/security/package-contract.test.ts | 20 | StRS-MDOKFSTUDIO-TRUST-012 | simulated path | @tests_req #S2 | 20 |
 | test/security/package-contract.test.ts | 35 | StRS-MDOKFSTUDIO-LIFE-021 | removed | marker removed | - |
-| test/security/package-contract.test.ts | 385 | StRS-MDOKFSTUDIO-TRUST-014 | real VS Code path | @accepts_req #S1 | 388 |
+| test/security/package-contract.test.ts | 385 | StRS-MDOKFSTUDIO-TRUST-014 | product path outside VS Code | @accepts_req #S1 | 388 |
 | test/security/userFacingText.test.ts | 131 | StRS-MDOKFSTUDIO-TRUST-012 | simulated path | @tests_req #S1 | 131 |
-| test/site/requirementsViewer/write.test.ts | 65 | StRS-MDOKFSTUDIO-CORE-008 | real VS Code path | @accepts_req #S1 | 61 |
+| test/site/requirementsViewer/write.test.ts | 65 | StRS-MDOKFSTUDIO-CORE-008 | product path outside VS Code | @accepts_req #S1 | 61 |
 | test/visual/capture_layout_checks.py | 206 | StRS-MDOKFSTUDIO-TOOLBAR-002 | removed | marker removed | - |
 | test/visual/mathScenarios.ts | 22 | StRS-MDOKFSTUDIO-MYST-006 | removed | marker removed | - |
 | test/visual/releaseShowcaseScenarios.ts | 15 | StRS-MDOKFSTUDIO-CORE-001 | removed | marker removed | - |
@@ -266,7 +267,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 | test/visual/svgPictureScenarios.ts | 40 | StRS-MDOKFSTUDIO-DIAG-015 | removed | marker removed | - |
 | test/visual/svgPictureScenarios.ts | 54 | StRS-MDOKFSTUDIO-DIAG-015 | removed | marker removed | - |
 
-Totals: 185 markers; removed 122, real VS Code path 61, simulated path 2. Markers now with no pre-sort counterpart: 1.
+Totals: 185 markers; removed 122, accepted 61 (real VS Code, or the product path outside it), simulated path 2. Markers now with no pre-sort counterpart: 1.
 
 
 ## Declared scenarios with no marker
@@ -294,9 +295,11 @@ The per-scenario list is not inlined (it is about 800 lines); the counts above a
 
 - Paths of a StRS and scenarios of a SwRS share one `scenarios:` field with stable ids `S<n>`, never reused, and the fragment `#S<n>` on both markers.
 - Acceptance tests use a distinct marker, `@accepts_req`.
+- Bench convention: `@tests_req StRS-...#S<n>` is a path walked on the simulated bench (every pull request), `@accepts_req StRS-...#S<n>` a path walked in real VS Code (pushes to `main`).
+- The viewer shows home cards for paths tested, paths accepted, StRS covered and scenarios tested, area columns for paths tested and accepted, each path of a use case page with its files and waiver, and each scenario of a behaviour page with its tests or "missing".
 - Headings are renamed to `Path S<n>:` and `Scenario S<n>:`.
 - The scripted rename of the 15 approved StRS headings is agreed; their re-approval is the owner's review of this PR.
-- A SwRS never declares a scenario that is not tested: agreed as the target; 722 scenarios still have no marker, and closing that gap is deferred to a later CR.
+- A SwRS never declares a scenario that is not tested: agreed as the target; 722 scenarios still have no marker, and closing that gap is deferred to the follow-up change.
 
 ## Impacts
 
@@ -313,16 +316,21 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): the marker-check tests for the new rules (fragments, `@accepts_req`, integration baseline, `implements-fragment`) fail on the old script
-- [ ] Local gates at `77a8d07`: pending
+- [ ] New or changed tests (they fail on the previous code): `test/build/checkMarkers.test.ts` (the new marker rules), `test/build/mutationReport.test.ts`, and in `test/site/requirementsViewer/` `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts` and `mainPaths.test.ts`
+- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+  - `SwRS-MDOKFSTUDIO-CORE-069`, `CORE-080`, `CORE-082` (viewer: `test/site/requirementsViewer/model.ts`, `home.ts`, `pages.ts`; tests `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts`)
+  - `SwRS-MDOKFSTUDIO-CORE-096` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
+- [ ] Changelog: no user-facing change
+- [ ] Local gates: pending
 - [ ] Evidence: none for a visible change
 - [ ] Review: pending
-- [ ] Verified at `77a8d07`
-- [ ] CI green at `77a8d07`
+- [ ] Verified: pending
+- [ ] CI green: pending
 
 ## Internal references
 
-- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r4.md`, `evidence/`.
+- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r5.md`, `evidence/`.
+- The follow-up change is CR-505; it takes the first three Known gaps and the coverage-mode switch.
 
 </details>
 
