@@ -41,3 +41,11 @@ VERIFIED
 - `gh pr view 481` body: renders, no image, Summary/Deliverables/Changes match the diff as judged above, Test plan boxes ticked, Review box "approved at ac03671 (carried to d2c55f0)" matches log notes "r1 inspector approved at ac03671" and "r1 approved at d2c55f0 carried from ac03671", Known gaps present, no role name outside Internal references. PASS.
 
 VERIFIED
+
+## Description-only pass 2 (judged at d2c55f0f4f7906d712e4c834684f84dbd49c106b)
+
+Head: d2c55f0f4f7906d712e4c834684f84dbd49c106b
+
+- `gh pr view 481 --json body,headRefOid` (headRefOid = d2c55f0): renders, no image; Summary, Deliverables and Changes match `git diff --stat origin/main...HEAD` (20 files); Test plan names no SHA outside d2c55f0 history (wording "before the rebase onto main"); Review box "approved on the tree before the rebase onto main (carried to d2c55f0)" matches log notes "r1 inspector approved at ac03671" and "r1 approved at d2c55f0 carried from ac03671"; Known gaps present; no role name outside Internal references. PASS.
+
+VERIFIED
