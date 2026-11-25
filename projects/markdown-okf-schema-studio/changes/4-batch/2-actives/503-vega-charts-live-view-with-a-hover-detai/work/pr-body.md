@@ -6,11 +6,11 @@ Stacked on the chart text pull request (#520).
 
 ## Deliverables
 
-Hover detail on the grouped bar chart, Cream and Dark, at 4404b98 (unchanged by the last commit, which touches only a clip scenario; the pointer is on the first bar):
+Hover detail on the grouped bar chart, Cream and Dark (pictures taken before the restack onto the current base; the chart code is unchanged since; the pointer is on the first bar):
 
 | Cream | Dark |
 | --- | --- |
-| ![Hover detail on the grouped bar chart, Cream theme](./chart-hover-cream.png) | ![Hover detail on the grouped bar chart, Dark theme](./chart-hover-dark.png) |
+| ![Hover detail on the grouped bar chart, Cream theme](https://github.com/user-attachments/assets/c8a8acc7-6941-4312-8dc8-94d5f0616b20) | ![Hover detail on the grouped bar chart, Dark theme](https://github.com/user-attachments/assets/8bbc11dd-17ef-4479-87ad-a1ae436013d1) |
 
 ```mermaid
 flowchart LR
@@ -27,7 +27,7 @@ flowchart LR
 - `chartViewCache.ts`: keeps at most 16 detached live views; a view is reused only when detached, so two identical charts each get their own; evicted detached views are finalized.
 - `chartTooltip.ts` and `chartTooltipStyles.ts`: one shared box on `body`, rows built as text, positioned through the CSSOM, hidden on scroll, content replacement, redraw and finalize.
 - Find skips `.myst-vega-view`; the export rewrites gradient `url(<page>#id)` references to `url(#id)`.
-- Clip scenarios, the showcase scenario, docs, skill row, glossary, changelog and requirements follow the new markup; a real-window `live-chart` scenario is added.
+- The theme-switch clip, the showcase scenario, docs, skill row, glossary, changelog and requirements follow the new markup; a real-window `live-chart` scenario is added.
 
 ## Impacts
 
@@ -42,19 +42,21 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: DIAG-123, DIAG-128, DIAG-009 and StRS DIAG-015 updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just preflight` (static stage, Windows) passes at 4404b98
-- [x] Real window: the `live-chart` scenario passes in the heavy run [45617988132](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45617988132) at 4404b98 (`PASS real-input screenshot: diagrams/r01-live-chart-hover`)
-- [x] Review: approved at 4404b98 (reviewed as the uncommitted diff on 3df0c86, committed as 4404b98); round 4 (one line of `docs/demo-video/clips/export-html/scenario.mjs`) approved, committed as 124a348
-- [x] CI green: static, static-windows, visual and viewer-graph pass at 124a348 (and at 4404b98); heavy run [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) at 124a348: live-chart scenario passes
-- [x] Clip: `just clip export-html take` (verify included) passes at 124a348 on a fresh VSIX
+- [x] Local gates: `just preflight` (static stage, Windows) passes at 1f209e1
+- [x] Real window: the `live-chart` scenario passes in the heavy run [45706313890](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45706313890) at 1f209e1 (`PASS real-input screenshot: diagrams/r01-live-chart-hover`)
+- [x] Review: approved before the restack; the move to 1f209e1 reviewed (one commit, clip changes left out, see Autonomous decisions)
+- [x] CI green: static, static-windows, visual, viewer-graph, checks and report pass at 1f209e1 (pull request run)
+
+## Autonomous decisions
+
+- Restacked off the clip changes: this branch no longer edits the advanced renderings tour clip (not in its base) or the export-html clip (its base holds the older clip, which reads no chart). Both edits belong with the clip pull requests that sit above, which must follow the live chart markup; no export-html clip take covers this head.
 
 ## Known gaps
 
-- The heavy run's `integration` job failed on a launch timeout of the trusted suite at the `diff-preview` step, which is not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`).
+- The `integration` job of the heavy run [45706313890](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45706313890) at 1f209e1 failed on its first attempt on a launch timeout of the trusted suite (step `diff-preview-scroll`), not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`). Its stress and viewer-graph jobs pass.
 - The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
-- The heavy run 45625193289's `report` job also failed ("integration manifest status is failed"), a consequence of its `integration` failure.
-- The `live-chart` real-window pass is the heavy run at 4404b98; the heavy run [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) at 124a348 passes it again (`PASS real-input screenshot: diagrams/r01-live-chart-hover`); its `integration` job failed again on a launch timeout of the trusted suite (step `generic-markdown`), the same class as above, and static, visual, stress and viewer-graph pass.
 
 ## Internal references
 
 - CR-503 (batch-09), after CR-502.
+
