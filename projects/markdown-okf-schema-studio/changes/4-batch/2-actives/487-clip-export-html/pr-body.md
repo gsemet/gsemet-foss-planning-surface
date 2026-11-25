@@ -6,7 +6,9 @@ This PR stays a draft until the owner approves the storyboard ([clip.md](docs/de
 
 GIF, MP4 and WebM (links move to the head at each push):
 
-PLAYER_PLACEHOLDER
+![Export to HTML clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/743d2741f44228227f32e96bf0e2e1c5861675c6/docs/demo-video/clips/export-html/export-html.gif)
+
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/743d2741f44228227f32e96bf0e2e1c5861675c6/docs/demo-video/clips/export-html/export-html.mp4) | [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/743d2741f44228227f32e96bf0e2e1c5861675c6/docs/demo-video/clips/export-html/export-html.webm)
 
 ## Deliverables
 
