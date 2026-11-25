@@ -34,7 +34,7 @@ path; the server never holds the kit's process open.
 | Logo | top right |
 | Setting filmed | `markdownOkfSchemaStudio.preview.maxContentWidth`: 720 (default 960), so the wide table breaks out of a clearly narrower column; `files.simpleDialog.enable`: on (the save dialog is VS Code's own, inside the window) |
 | Filmed on | Windows, the VS Code version and the extension version written in `check.json`, VSIX built from the branch |
-| Stage | `stage/platform-report.md` (Studio, the whole window, reading mode, Cream theme, Auto width): a heading, a card grid, a 16-column table, a Mermaid flowchart and a Vega-Lite bar chart, a Mermaid sequence diagram and a Vega-Lite line chart, a small table, a second card grid |
+| Stage | `stage/platform-report.md` (Studio, the whole window, reading mode, Cream theme, Auto width): a heading, a card grid, a 16-column table, a Mermaid flowchart and a Vega-Lite bar chart, a Mermaid sequence diagram and a Vega line chart (a full `vega` spec), a small table, a second card grid |
 
 Off camera (`setup`): reading mode; the page in Cream, the default, so no Theme click; the toolbar
 expanded, the Width button clicked from Margin (the default) to Auto, the toolbar collapsed again;
@@ -88,7 +88,7 @@ Integrated Browser's page):
   `src` or `href` to a local file.
 - Its `<html>` carries `data-sphinx-preview-theme-mode="cream"` and
   `data-sphinx-preview-width="auto"`; the wide table's wrapper keeps `data-sphinx-preview-wide`.
-- The two Mermaid diagrams and the two Vega-Lite charts are embedded: four
+- The two Mermaid diagrams, the Vega-Lite chart and the Vega chart are embedded: four
   `data:image/svg+xml` images (`img.myst-mermaid-image` and `img.myst-vega-image`).
 - In the Integrated Browser: those four images are loaded (`complete`, `naturalWidth` above 0); the
   wide table's width equals its width in Studio within 2 px, it is wider than a paragraph, and its

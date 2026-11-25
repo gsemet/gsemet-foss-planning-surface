@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: the block editor and its palette modes",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 12 s, on main; the mode changes the buttons, not the render.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ac280859f727d5313bf597358ab07778e336f0dd541a20efb9193813a13a490f",
+    "02-answers.md": "18536393c9e6250f5afe81d811a0bacf27c53b2a722bbeec1965bee7179fe2e1",
+    "intake/request.md": "f8f9640423c89c3c25b60791b5ad6aed4170872eaa54d456b562f2110809138f"
+  },
+  "summarized": "2026-11-25T09:04:04Z"
+}

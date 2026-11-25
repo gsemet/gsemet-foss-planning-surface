@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: the figure editor",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 12 s, on main.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "be41c3a06fb9761fa31a65de5a2060cb37eb32d819636fbc854a7405c389bb56",
+    "02-answers.md": "316c50aee78738e751a042e71cca950f479427d5154469da7f2294085b74e249",
+    "intake/request.md": "b332f4eb6ad06c0df1df8b77a460018b6a34e9cc4320b8403cc242616302ccd6"
+  },
+  "summarized": "2026-11-25T09:04:02Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: export a long report page to HTML",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 18 s, after the renderings tour; Mermaid, Vega-Lite and Vega.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "78873feb2b077afcb9fb87e961598c185a4199c2238692cc9d02196fd7e378af",
+    "02-answers.md": "8b6d8c0f71fd24391c801223c6078028acee11ec1890e1770b1ea59b0a8e6fe3",
+    "intake/request.md": "ed030032df7a8d481489f3313fb27a430e2991a1a73892f8021a917eaa68f102"
+  },
+  "summarized": "2026-11-25T09:04:05Z"
+}

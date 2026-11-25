@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: radio buttons in a plan",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 10.5 s, on main.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9902cb1e200bb3cfb9946f610a8c7a8ef79b22363a5c95aa342849199a84b8f8",
+    "02-answers.md": "f3d6f2a434cb5ad8814963c0ef945c537e13bccb38a52dbb5cb8d76be52c75eb",
+    "intake/request.md": "f28344123bb1a4fdd603e05aafa7685ba3c0bd97b33433e3c317ea6b3e018001"
+  },
+  "summarized": "2026-11-25T09:03:59Z"
+}

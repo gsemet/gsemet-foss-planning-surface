@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: the Auto width mode on a very wide table",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 10.6 s, on main.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fb8a9fe238f4cf84638bb9f36bced09cf0b999b43473d7a24b42129cfe8003cb",
+    "02-answers.md": "fc06533dbead82e293e30cdc15e9c617124c0030793617ddde5d90dec8d4b392",
+    "intake/request.md": "ea97118b520bbddfead7ecb2e92daa821f9f465596682cb4d5ebbebecad9c2c6"
+  },
+  "summarized": "2026-11-25T09:04:07Z"
+}

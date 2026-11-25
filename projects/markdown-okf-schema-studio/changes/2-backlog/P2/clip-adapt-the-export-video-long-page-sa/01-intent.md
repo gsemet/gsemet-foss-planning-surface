@@ -1,7 +1,7 @@
 # Feature clip: export a long page, same render in the browser
 
 This clip reworks the merged `export-html` clip with a stronger story. Studio shows a long report
-page in its default Cream theme, with card grids, tables, Mermaid diagrams and Vega-Lite charts,
+page in its default Cream theme, with card grids, tables, Mermaid diagrams, a Vega-Lite chart and a Vega chart,
 and one table so wide that it breaks out of the centred text column (the Auto width mode). The clip
 scrolls through that page, exports it with the Export button, then opens the exported file in a
 browser: the same page, the wide table still breaking out, the diagrams and charts drawn. A reader

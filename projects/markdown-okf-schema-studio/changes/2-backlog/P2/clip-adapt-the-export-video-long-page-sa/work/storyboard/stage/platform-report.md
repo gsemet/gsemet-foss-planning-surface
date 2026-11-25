@@ -64,23 +64,33 @@ sequenceDiagram
   Team-->>On-call: Fix deployed
 ```
 
-```vega-lite
+```vega
 {
   "width": 520,
   "height": 120,
-  "data": { "values": [
+  "padding": 5,
+  "data": [{ "name": "restore", "values": [
     { "month": "Jan", "minutes": 52 },
     { "month": "Mar", "minutes": 41 },
     { "month": "May", "minutes": 38 },
     { "month": "Jul", "minutes": 33 },
     { "month": "Sep", "minutes": 29 },
     { "month": "Nov", "minutes": 24 }
-  ] },
-  "mark": { "type": "line", "point": true },
-  "encoding": {
-    "x": { "field": "month", "type": "ordinal", "sort": null },
-    "y": { "field": "minutes", "type": "quantitative", "title": "Minutes to restore" }
-  }
+  ] }],
+  "scales": [
+    { "name": "x", "type": "point", "range": "width", "domain": { "data": "restore", "field": "month" } },
+    { "name": "y", "type": "linear", "range": "height", "zero": true, "nice": true, "domain": { "data": "restore", "field": "minutes" } }
+  ],
+  "axes": [
+    { "orient": "bottom", "scale": "x" },
+    { "orient": "left", "scale": "y", "title": "Minutes to restore" }
+  ],
+  "marks": [
+    { "type": "line", "from": { "data": "restore" }, "encode": { "enter": {
+      "x": { "scale": "x", "field": "month" }, "y": { "scale": "y", "field": "minutes" }, "strokeWidth": { "value": 2 } } } },
+    { "type": "symbol", "from": { "data": "restore" }, "encode": { "enter": {
+      "x": { "scale": "x", "field": "month" }, "y": { "scale": "y", "field": "minutes" } } } }
+  ]
 }
 ```
 

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Clip: frontmatter in an OKF-Schema bundle",
+  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write: 12 s, on main; twin of the standard frontmatter clip.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "44775bed987b8c28ff6be3eee86bf76a2699891815e81f31624097c398356046",
+    "02-answers.md": "d7a058ec82962034556453ac619a0fff81e5534977314516faf82337d32bef01",
+    "intake/request.md": "2f64dd271fa2676d7ef480432c090c9146966c33dd7bdfe9487c1346c1e43a27"
+  },
+  "summarized": "2026-11-25T09:04:16Z"
+}
