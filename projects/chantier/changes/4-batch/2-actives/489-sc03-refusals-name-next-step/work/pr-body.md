@@ -26,7 +26,7 @@ Grade: 1. Refusal texts only gain a tail; a plain `git revert` restores them.
 
 ## Known gaps
 
-- Local Windows long gate not yet run at this head.
+- None.
 
 <details>
 <summary>Details</summary>
@@ -43,8 +43,8 @@ Roles that hit a refusal are told the command to run next. No other behaviour ch
 
 ## Test plan
 
-- [ ] New tests fail on the previous code (the gate flags the uncompleted refusals)
-- [ ] Local gates: `just check` green (2688 passed)
+- [x] New tests fail on the previous code (the gate flags the uncompleted refusals)
+- [x] Local gates at `42da173`: `just check` (2688 passed), `just eval-dry-run` (19 of 19), `just scenario` pass
 
 ## Internal references
 
