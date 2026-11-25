@@ -110,3 +110,12 @@ spellings, `stats`). "A. Poster (recommandé)".
 Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
 https://github.com/gsemet/okf-schema/issues/57#issuecomment-7174489046; plan "none"; demo
 "none".
+
+## 2026-11-25: pull request link and release announcement
+
+Said while answering the same question for issue 56: "Oui, poster. poste les liens quand tu les
+as, et quanbd la release sera faite tu postes des commentaires pour annoncer la dispo". No further
+question is needed for either comment.
+
+Due: the pull request link on https://github.com/gsemet/okf-schema/issues/57 once the pull request
+exists, then the release announcement once the release holding it is published.

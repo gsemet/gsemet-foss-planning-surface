@@ -57,7 +57,8 @@ flowchart TD
 - Examples: unaffected, no example holds a broken, anchored or encoded link in an index or a log.
 - Feature and evidence map: unaffected, it has no row for bundle index generation or W2.
 - `index` command help: unaffected, it does not describe summaries.
-- `CHANGELOG.md`: the generated heading of the released 0.18.1 version, unrelated to this change.
+- `CHANGELOG.md`: the generated unreleased entry for this fix, and the generated heading of the
+  released 0.18.1 version.
 
 ### Example
 

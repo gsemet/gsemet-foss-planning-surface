@@ -1,0 +1,7 @@
+docs(changelog): list the index summary link fix
+
+Readers of the changelog can see that the broken links in subdirectory
+summaries are fixed before the next release is cut.
+
+Assisted-by: Claude:Sonnet-5.5
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>

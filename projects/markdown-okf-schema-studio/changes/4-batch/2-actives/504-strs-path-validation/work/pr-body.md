@@ -48,10 +48,10 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 ## Autonomous decisions
 
 - The project guidelines' limit of "one to three paths" per StRS is reworded, since every live StRS now declares a path and LIFE-023 declares four.
-- A drafted second TRUST-014 path (lint and draw the use case diagrams, SwRS CORE-087 and CORE-090) was dropped before merge: they are build-time checks no path cites.
+- TRUST-014 has no second path for linting and drawing the use case diagrams (SwRS CORE-087 and CORE-090): they are build-time checks no path cites.
 - The StRS markers' sort was carried out by an agent by the agreed classes; the re-approval of the 15 approved StRS by the review of this PR follows the owner's agreement to the scripted rename.
-- A migration script, run group by group, declared `scenarios:` and renamed the headings; each group commit carries its markers' fragments.
-- The first fragment sweep was a keyword heuristic; its 486 weak entries were then read one by one (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). Fragments scored good, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
+- A migration script, run group by group, declared `scenarios:` and renamed the headings; each migration commit carries its markers' fragments.
+- The scenario fragments of the test markers are checked with a keyword heuristic; the 486 entries it matches poorly are read one by one (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). Fragments it matches well, and 45 lines on 6 SwRS with generic scenarios, are not re-read.
 - StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path, a duplicate of a SwRS marker, or another reason named in the table); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
 - The exemption reason of a replaced SwRS names its successor with one shared text; LIFE-174 and LIFE-182 to 185, archived with no successor, each have their own reason.
 - The viewer's new behaviour is stated as new scenarios of three existing `proposed` SwRS (CORE-069, CORE-080, CORE-082), with no new SwRS.
@@ -72,18 +72,18 @@ Left for the follow-up change:
 
 Also left for the follow-up change, found in review:
 
-- The review of the fragments dropped 136 marker blocks whose test checks no declared scenario. The specification asks to either declare the missing scenario or move the marker to the SwRS the test does check; neither was done for these blocks.
-- Some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments scored good in the first pass of the sweep, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
-- The dropped blocks removed the last `test/integration` marker of 11 SwRS: BLOCK-053, BLOCK-216, CORE-022, CORE-043, DIAG-001, FMEDIT-024, FMSCHEMA-001, FMSCHEMA-084, PALETTE-031, PALETTE-217 and THEME-001.
+- The review of the fragments dropped 136 marker blocks whose test checks no declared scenario. Each needs either the missing scenario declared or the marker moved to the SwRS the test does check; neither is done for these blocks.
+- Some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments that a first keyword check matched well, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
+- The dropped blocks removed the last `test/integration` marker of 12 SwRS: BLOCK-053, BLOCK-216, CORE-022, CORE-043, DIAG-001, FMEDIT-024, FMSCHEMA-001, FMSCHEMA-084, LIFE-001, PALETTE-031, PALETTE-217 and THEME-001.
 
 Others:
 
 - "StRS covered" reads 1 of 95 in the current coverage mode (see Impacts).
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
-- Under the strict marker rule, 66 StRS paths whose tests walk only part of them lose their last marker and are uncovered: BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 keeps a marker: their tests run outside a real VS Code and do not walk the path.
+- These 66 StRS paths are uncovered: the strict marker rule allows no marker on a partial walk, a single-state snapshot or the other cases named in the table. BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 has a marker: their tests run outside a real VS Code and do not walk the path.
 - A test that walks only part of a path, or injects or fakes one of its steps, carries no marker for it, even where it exercises most of the path (for example MYST-007 S1, TABLE-015 S1, TABLE-001 S1, LIFE-014 S1, TRUST-004 S1, BLOCK-011 S2, CODE-004 S1, MYST-009 S1 and DIAG-001 S2).
 - No screenshot of the requirements site is posted. The "Tested by" block of a scenario card has no horizontal padding: its label and file rows touch the card border.
-- The paths of TRUST-012 and TRUST-014 do not start from the built VSIX, although that was asked: their steps start from the running Studio and from a maintainer's install, because a path cites only SwRS that state what the extension does today.
+- The paths of TRUST-012 and TRUST-014 do not start from the built VSIX: their steps start from the running Studio and from a maintainer's install, because a path cites only SwRS that state what the extension does today.
 - A scenario of CORE-069 says the counts do not depend on the coverage mode, while the "StRS covered" count follows it.
 
 <details>

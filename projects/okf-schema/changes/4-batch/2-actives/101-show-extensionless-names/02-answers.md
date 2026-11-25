@@ -90,3 +90,18 @@ Poster (recommandé)".
 Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-25: comment
 https://github.com/gsemet/okf-schema/issues/56#issuecomment-7174488614; plan "none"; demo
 "none".
+
+## 2026-11-25: pull request link and release announcement
+
+Asked: post `work/issue-followup.md` (the pull request link) on issue 56. "Oui, poster. poste les
+liens quand tu les as, et quanbd la release sera faite tu postes des commentaires pour annoncer la
+dispo". Standing word from this answer: post each pull request link on its ticket once the pull
+request exists, and a comment announcing availability once the release is published, both with no
+further question.
+
+Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-25: comment
+https://github.com/gsemet/okf-schema/issues/56#issuecomment-7175763450; plan "none"; demo
+"none".
+
+Due: the release announcement, once the release holding
+https://github.com/gsemet/okf-schema/pull/68 is published.
