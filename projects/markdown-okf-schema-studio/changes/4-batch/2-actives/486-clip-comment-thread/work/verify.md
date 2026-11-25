@@ -61,3 +61,11 @@ No before/after pair: a new clip has no before. The captures judged are the comm
 Verifier's scratch frames are outside the CR folder (not kept).
 
 VERIFIED
+
+## Description-only pass (posted PR body)
+
+Head: 7a02a841ed5a119ac951e3e36b4100a4edf9bfc5
+
+Judged at 7a02a84: `gh pr view 504` headRefOid equals the head; raw links for GIF, MP4, WebM at that sha exist as blobs (`git cat-file -t`) and the GIF URL returns HTTP 200 (curl -IL). check.json: 11.3 s, 1280x720 at 15 fps, GIF 960 px at 12 fps, SSIM 0.996608, playback 1.005, reading mode off, 0 paste widgets, passed true: all match the text. scenario.mjs holds the quote, the comment, author Reviewer, resolved false, proposal.md unchanged. Changes list matches the diff against the base branch (clip folder plus docs/user/review-comments.md one image line). Known gaps carries the UNVERIFIED GIF playback. CI checks, report, static, static-windows, viewer-graph, visual pass (`gh pr checks 504`). Draft: true. No STALE mark.
+
+VERIFIED
