@@ -5,7 +5,7 @@
   "skip-retired": 672,
   "no-paths": 3,
   "swrs": 457,
-  "no-scenarios": 1,
+  "swrs-headings-only": 1,
   "skip-exempt": 2
  },
  "items": [
@@ -5578,7 +5578,8 @@
   {
    "file": "out/mig/requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-096.md",
    "id": "SwRS-MDOKFSTUDIO-CORE-096",
-   "action": "no-scenarios"
+   "action": "swrs-headings-only",
+   "entries": 6
   },
   {
    "file": "out/mig/requirements/tiers/swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-001.md",
