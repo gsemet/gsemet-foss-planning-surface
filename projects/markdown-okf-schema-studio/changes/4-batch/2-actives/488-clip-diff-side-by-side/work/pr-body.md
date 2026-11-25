@@ -48,12 +48,14 @@ Grade: 1. Documentation, clip files and tests only; `git revert` restores everyt
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: No behaviour change
-- [ ] Changelog: No user-facing change
-- [ ] Local gates: `just clip-kit-test`, `just check`, `just preflight`
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code): the storyboard case, the scenario `checks`, `scenarioRepository.test.mjs`, `siteClips.test.ts`
+- [x] Requirements: No behaviour change
+- [x] Changelog: No user-facing change
+- [x] Local gates at `c8cebf2`: `just clip-kit-test`, `just check`, `just preflight` (static stage on Windows) pass
+- [x] Evidence: after at `c8cebf2` (clip, key frames, `check.json`); no before, the clip is new
+- [x] Review: approved at `8197e4f`, committed as `c8cebf2`
+- [x] Verified at `c8cebf2`
+- [x] CI green at `c8cebf2`
 
 ## Internal references
 
