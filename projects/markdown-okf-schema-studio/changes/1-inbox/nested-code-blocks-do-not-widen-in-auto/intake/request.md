@@ -1,0 +1,3 @@
+# Nested code blocks do not widen in Auto
+
+In Auto width mode, code blocks inside lists, admonitions, tabs or cards keep a horizontal scroll bar even when more room is available: only top-level blocks widen (known issue, left out of the Auto code-block fix). Design points: eligibleWrappers and wrapperOf accept top-level blocks only; the CSS rule is #content > [wide] and centres the block; a nested block can grow to the right only, within the room from its left edge; .myst-grid-card clips with overflow hidden; tab panels, dropdowns and admonitions need checking; the frozen-breakout export and the list-item and row-move overlays need re-checking.
