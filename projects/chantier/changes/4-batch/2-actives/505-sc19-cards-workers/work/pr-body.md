@@ -8,17 +8,19 @@ Sizes of the old cards against the new ones (bytes, read from git):
 
 | Role | Old card | New card | Budget |
 | --- | --- | --- | --- |
-| coder | 4609 | 1434 | 1500 |
+| coder | 4609 | 1417 | 1500 |
 | conflict-resolver | 3893 | 1378 | 1500 |
 | debugger | 3682 | 1165 | 1500 |
 | investigator | 3554 | 1370 | 1500 |
-| demo-explorer | 3422 | 1487 | 1500 |
-| spec-writer | 3254 | 1498 | 1500 |
+| demo-explorer | 3422 | 1496 | 1500 |
+| spec-writer | 3254 | 1493 | 1500 |
 | spec-critic | 3729 | 1499 | 1500 |
 | retro-critic | 2901 | 1492 | 1500 |
-| inspector | 6044 | 1985 | 2000 |
-| verifier | 14581 | 2991 | 3000 |
-| board Griller section | 2198 | 1630 | 2000 |
+| inspector | 6044 | 1999 | 2000 |
+| verifier | 14581 | 2996 | 3000 |
+| board Griller section | 2198 | 1758 | 2000 |
+
+Brief sizes (old cards against new, bytes, `brief <role> --cards cards-next`): coder 7549 to 4357, conflict-resolver 6833 to 4318, debugger 6622 to 4105, investigator 6494 to 4310, verifier 17521 to 5936, inspector 8984 to 4939, spec-writer 4815 to 3054, spec-critic 5290 to 3060, board Griller 11964 to 2965, retro-critic 4225 to 2816, demo-explorer 4746 to 2820. The full table, with the study's declared boot figures, is in the change's evidence.
 
 Also added: a copy of `floor.md` (byte-identical to `skills/chantier/references/floor.md`), nine topic files under `cards-next/topics/` (each at most 1,500 bytes) and their index `cards-next/topics.json`.
 
@@ -28,7 +30,7 @@ Grade: 1. Only new, unloaded files are added; `git revert` restores everything. 
 
 ## Autonomous decisions
 
-- The inventory is grouped by rule group, not one row per sentence, to keep it readable; it names how the sources were walked.
+- The inventory has one row per rule sentence of the old cards (374 rows), walked file by file, line by line; its line numbers are read from the old cards at the base of this change (the main branch).
 - `brief` refuses a change in `4-batch/` for spec-writer, spec-critic and board-griller, so the brief sizes for those three use an inbox folder as the unit.
 
 ## Known gaps
@@ -44,7 +46,9 @@ Grade: 1. Only new, unloaded files are added; `git revert` restores everything. 
 
 - `skills/chantier/cards-next/<role>.md` for the eleven roles, each within its byte budget.
 - `skills/chantier/cards-next/floor.md`, `topics.json` and these topics: worker-shell, verifier-scratch, verifier-description, verifier-review-box, verifier-delta-matrix, verifier-before-after, verifier-images, inspector-audit, spec-writer-extras.
-- The rule inventory (one row per rule sentence of the old cards, 374 rows) and the byte, brief-size, link and reply-block checks are kept as evidence files of the change, not in this diff.
+- The rule inventory (`evidence/cards-inventory-workers.md` of the change folder: one row per rule sentence of the old cards, 374 rows) and the byte, brief-size, link and reply-block checks are evidence files of the change, not in this diff.
+- `git grep -n cards-next HEAD -- . ':(exclude)skills/chantier/cards-next'` prints no line at this head: nothing outside the folder names it.
+- `just test`: no test is added or changed, so 0 s are added; the full `just check` passed at the rebased head (2932 passed, 20 skipped).
 - No change outside `skills/chantier/cards-next/`.
 
 ## Impacts
