@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC23: New shared cards, host topics, topics.json and SKILL.md texts",
+  "summary": "Specified: child 23 of 28, on child 22's branch. Unloaded cards-next/ shared files, host topics, final topics.json and floor, four SKILL.md texts (launcher and brief lines), inventory with a completeness table. Long gate owed, 0 s on just test. Two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "63c18bc73142e3009add1e30739749e2ec4fc8678b61d439f510d678db22ff96",
+    "02-answers.md": "dd24da18eeefdd9eeb286f82ac801fe1ab6bbfd83ae339a7d07a6f73e100e981",
+    "03-change-spec.md": "564ab3dd5c1f5d5532598ab11c629a934c860510116196154f5f13cd8b4f99b5",
+    "intake/request.md": "ecd2070cb08f74fa36867a38e5b19025301152325e3a529a73c2e37215422265"
+  },
+  "summarized": "2026-11-25T00:22:03Z"
+}
