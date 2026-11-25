@@ -233,7 +233,7 @@ keep both sets of changes, and keep every log entry under one day heading.
 - Run `okfreq update-coverage requirements`, then `okfreq lint requirements` (navigation), then
   the checks of `requirements/guidelines/project.guidelines.md`, "After editing".
 - `requirements/tiers/log.md`: under the day's `## YYYY-MM-DD` heading (one per date, newest
-  first; share it with CR 58 and other batch-01 entries), add `### Trust tier actor forms`:
+  first; share it with CR-103 (issue 58) and other batch-01 entries), add `### Trust tier actor forms`:
   - Why: OKF 0.2 sections 5.3 and 7.
   - What: CORE-006 gained S5. Any actor that is not `human:<id>` counts as machine-confirmed
     (`human:` alone included). W10 accepts `<producer>/<version>` and `<prefix>:<identifier>`,
