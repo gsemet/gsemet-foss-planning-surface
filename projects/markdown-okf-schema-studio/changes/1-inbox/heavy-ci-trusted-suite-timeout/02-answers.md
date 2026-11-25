@@ -8,3 +8,5 @@ Short name: `heavy-ci`
 Spec critic: no, it changes CI and tests only; a product change found by the diagnosis would reopen this.
 
 Destination: running batch batch-09.
+
+Owner's overnight grant (2026-11-25, near midnight, the owner to the Chief of Staff: "je vais aller au lit. tu as toute latitude pour finaliser la stack cette nuit: tu peux passer les contexts a 300K des driver, faire 10 rework max"): the Chief of Staff decides alone to get the stack finished tonight; a CR may take up to 10 rounds; a Driver or stack driver hands back for context only at 300,000 tokens.

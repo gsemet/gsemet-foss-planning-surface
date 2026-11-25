@@ -1,0 +1,7 @@
+docs(changelog): list the show lookup fix
+
+Readers of the changelog can see that show accepts names without .md and
+stays inside the bundle before the next release is cut.
+
+Assisted-by: Claude:Sonnet-5.5
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>

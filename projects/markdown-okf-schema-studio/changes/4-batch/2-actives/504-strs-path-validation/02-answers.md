@@ -81,3 +81,5 @@ okf-schema 0.18.1 is on PyPI (2026-11-25); the owner: "take it at once, in the c
 Destination: running batch batch-09. Critic: yes.
 
 45. strs-validation-Q43 (2026-11-25, night, decided by the Chief of Staff, owner's word "no question"; ask A-19): **Round 8 also covers what the restack onto main needs.** (a): after the merges of CR-508, CR-506, CR-502 and CR-503, round 8 may fix requirements, scenarios and test markers from main that fail CR-504's stricter marker check beyond conflict resolution, besides a Verifier gap in A, F, B or C. CR-504 renumbers its own `CORE-096` (the one on main keeps the number). When in doubt about a restored StRS marker, remove it. The cap stays 8.
+
+Owner's overnight grant (2026-11-25, near midnight, the owner to the Chief of Staff: "je vais aller au lit. tu as toute latitude pour finaliser la stack cette nuit: tu peux passer les contexts a 300K des driver, faire 10 rework max"): the Chief of Staff decides alone to get the stack finished tonight; a CR may take up to 10 rounds; a Driver or stack driver hands back for context only at 300,000 tokens.
