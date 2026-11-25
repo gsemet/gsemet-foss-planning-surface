@@ -1,12 +1,21 @@
 CR-103 acceptance tests against an installed wheel, Windows, Python 3.12.10
+Run at head 6572527608200cb688c0ae0224427e8b8bb44539.
 
 The repository fixture `installed_product` skips on Windows (it looks for `bin/`). The
 harness `work/scratch/acceptance_windows.py` calls the unchanged test functions of
 `tests/test_acceptance_core.py` with a product whose console scripts are in `Scripts/`.
-The wheel was built from the CR worktree with `uv build --wheel` and installed in a
-fresh virtual environment. <S> is the CR work/scratch folder, <W> the CR worktree.
+The wheel was built from the CR worktree at that head with `uv build --wheel` and installed
+in a fresh virtual environment. <S> is the CR work/scratch folder.
 
-$ uv run --no-sync -- python -X utf8 <S>/acceptance_windows.py <W> <S>/accvenv <S>/accwork
-package under test: <S>\accvenv\Lib\site-packages\okf_schema\__init__.py
+$ uv build --wheel --out-dir <S>/v1/wh .
+Successfully built <S>\v1\wh\okf_schema-0.18.1-py3-none-any.whl
+
+$ uv run --no-sync -- python -X utf8 <S>/acceptance_windows.py . <S>/v1/vh <S>/v1/ah
+package under test: <S>\v1\vh\Lib\site-packages\okf_schema\__init__.py
 pass: test_inspection_reports_matching_concepts_and_changes_no_file
 pass: test_init_then_new_creates_a_valid_bundle_that_keeps_the_authored_concept
+exit code: 0
+
+The same head test functions against a wheel built from the base 1a742d7 fail:
+test_inspection_reports_matching_concepts_and_changes_no_file stops on
+`okf-schema trust ... concepts/clock`, exit status 2 (no such command).

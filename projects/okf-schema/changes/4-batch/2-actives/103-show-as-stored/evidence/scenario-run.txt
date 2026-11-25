@@ -1,4 +1,5 @@
 CR-103 scenario steps, Windows, Python 3.12.10
+Run at head 6572527608200cb688c0ae0224427e8b8bb44539.
 <S> is a disposable folder under the CR work/scratch folder.
 
 $ uv run --no-sync -- okf-schema init <S>\my-knowledge-base
@@ -105,7 +106,7 @@ $ uv run --no-sync -- okf-schema trust --path <S>\my-knowledge-base\bundle latin
 exit code: 2
 stdout:
 
-stderr (215 bytes): Error: Concept file is not valid UTF-8: <S>\my-knowledge-base\bundle\latin1.md
+stderr (218 bytes): Error: Concept file is not valid UTF-8: <S>\my-knowledge-base\bundle\latin1.md
 CHECK trust latin1 exits 2: pass
 CHECK trust latin1 writes one error line: pass
 CHECK trust latin1 has no traceback: pass
