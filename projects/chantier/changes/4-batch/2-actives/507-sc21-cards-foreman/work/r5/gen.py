@@ -595,7 +595,9 @@ TAIL = HERE / "inventory_tail.md"
 if TAIL.exists():
     doc += [TAIL.read_text(encoding="utf-8").rstrip(), ""]
 
-OUT.write_text("\n".join(doc), encoding="utf-8", newline="\n")
+# no home folder in a published file: a quoted source sentence names one
+text = re.sub(r"(?i)([A-Z]:[\\/]Users[\\/])[^\\/<>`\s|]+", r"\1<user>", "\n".join(doc))
+OUT.write_text(text, encoding="utf-8", newline="\n")
 print(f"{len(rows)} rows, kinds {dict(sorted(kinds.items()))}, {len(a_rows)} kind a, "
       f"{len(actions)} actions, {len(complete)} files; findings: {findings}")
 print("written", OUT, OUT.stat().st_size, "bytes")

@@ -293,7 +293,7 @@ The named test reads today's `references/hosts/claude-code.md`, which this child
 ```text
 $ pytest skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks
 .                                                                        [100%]
-1 passed in 1.02s
+1 passed in 0.10s
 (exit 0)
 ```
 
@@ -327,10 +327,16 @@ $ git grep --untracked -n "Read this short role contract at boot\|# chantier-age
 (no line; exit 1)
 ```
 
+## 12. Gates (round 5, on the uncommitted working tree)
+
+- `just check` from the PowerShell tool, whose environment sets `NO_COLOR=1`: exit 1, `2 failed, 2930 passed, 20 skipped`; both failures are `test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, which rich drops under `NO_COLOR`). No file of `src/` or `tests/` is changed by this CR.
+- `just check` from the Bash tool, where `NO_COLOR` is not set, same tree: exit 0, `2932 passed, 20 skipped`.
+- Not run here: `just quiz`, `just scenario (ubuntu-latest)` and the local `scenario` gate (they need the pushed head; the Driver's part).
+
 ## Known gaps
 
 - **"Each exits 0" (item 4) is not met**: cr-driver, release-driver, stack-driver, qa-driver, spec-writer, spec-critic, board-griller are refused as specified (quoted above). The four Drivers with `--cards` need `roles.yaml`'s `card` changed at the swap (child 24).
-- **Cards over budget** (Q4): `coder.md` 1,533 (over by 33; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,759 (over by 687; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; only the owner raises a budget.
+- **Cards over budget** (Q4): `coder.md` 1,533 (over by 33; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,759 (over by 687; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; a sibling card's other lines are not this child's to cut (section 1), and only the owner raises a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it they are within, and the folder-change ban reaches them through the topic's role list only.
 - **Topics over 1,500** (Q4): 24, listed in item 3; all exist at `bf4e4c42`. This round grew `release-notes.md` and `cr-rounds.md` (a link and a pointer).
 - Real run not done (child 28). Quiz not run (item 5). Copilot untested.
 - Do not merge: merges with children 19 to 28 as one unit, after child 28's campaign.

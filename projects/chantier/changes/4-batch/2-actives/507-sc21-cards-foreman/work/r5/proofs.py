@@ -397,6 +397,16 @@ for args in (["grep", "--untracked", "-n", "cards-next", "--", ".", EXCLUDE],
 tests = [p for p in git("status", "--porcelain", "--untracked-files=all")[1].splitlines() if "tests/" in p]
 assert not tests, tests
 
+say("## 12. Gates (round 5, on the uncommitted working tree)", "",
+    "- `just check` from the PowerShell tool, whose environment sets `NO_COLOR=1`: exit 1, `2 failed, "
+    "2930 passed, 20 skipped`; both failures are `test_live_ready.py::"
+    "test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, "
+    "which rich drops under `NO_COLOR`). No file of `src/` or `tests/` is changed by this CR.",
+    "- `just check` from the Bash tool, where `NO_COLOR` is not set, same tree: exit 0, `2932 passed, "
+    "20 skipped`.",
+    "- Not run here: `just quiz`, `just scenario (ubuntu-latest)` and the local `scenario` gate "
+    "(they need the pushed head; the Driver's part).", "")
+
 # gaps
 say("## Known gaps", "",
     "- **\"Each exits 0\" (item 4) is not met**: " + ", ".join(bad) + " are refused as specified "
@@ -405,12 +415,24 @@ say("## Known gaps", "",
     "- **Cards over budget** (Q4): " + "; ".join(
         f"`{n}` {s:,} (over by {o:,}; {b:,} at `{BASE}`)" for n, s, o, b in over_cards) + ". The "
     "bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; "
-    "only the owner raises a budget.",
+    "a sibling card's other lines are not this child's to cut (section 1), and only the owner raises "
+    "a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it "
+    "they are within, and the folder-change ban reaches them through the topic's role list only.",
     f"- **Topics over 1,500** (Q4): {len(over_topics)}, listed in item 3; all exist at `{BASE}`. "
     "This round grew `release-notes.md` and `cr-rounds.md` (a link and a pointer).",
     "- Real run not done (child 28). Quiz not run (item 5). Copilot untested.",
     "- Do not merge: merges with children 19 to 28 as one unit, after child 28's campaign.", "")
-OUT.write_bytes(("\n".join(out).rstrip("\n") + "\n").encode("utf-8"))
+# no home folder in a published file
+final = "\n".join(out).rstrip("\n") + "\n"
+surface = CR.parents[5]
+for path, name in ((WT, "<worktree>"), (surface / "projects/chantier", "<planning>"), (surface, "<surface>")):
+    for form in (path.as_posix(), str(path)):
+        final = re.sub(re.escape(form), name, final, flags=re.I)
+assert not re.search(r"(?i)Users[\\/](?!<user>)", final), re.findall(r"(?i).{40}Users[\\/].{40}", final)
+say_note = ("Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, "
+            "`<planning>` its `projects/chantier` folder.")
+final = final.replace("Written by `work/r5/proofs.py`.", f"Written by `work/r5/proofs.py`. {say_note}")
+OUT.write_bytes(final.encode("utf-8"))
 print(f"wrote {OUT.as_posix()}: {OUT.stat().st_size} bytes; links {len(links)}; broken {len(broken)}; "
       f"over cards {[(n, o) for n, _, o, _ in over_cards]}; over topics {len(over_topics)}; "
       f"new topics {len(new_topics)}; roles changed {len(roles_changed)}; chantier {chantier.__version__}")

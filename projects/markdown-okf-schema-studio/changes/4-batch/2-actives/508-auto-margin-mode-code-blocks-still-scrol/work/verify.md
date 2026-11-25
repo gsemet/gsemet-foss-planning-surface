@@ -5,13 +5,17 @@ Head: 09e8acf1a1581cb3803ad5f99b31a5c650f601cf
 Base: 4a47151e8d055b7f096b69b1fca2d9bf9636f863 (origin/main). `<worktree>` is the CR worktree,
 `<base>` a detached worktree of the base (removed). Logs are in `work/gates/`.
 
-Verdict: NOT VERIFIED, for the pull request description only (claim 13). Every code, test, host and
-evidence claim (1 to 12) is VERIFIED.
+Verdict: VERIFIED (claims 1 to 13).
+
+Claims 1 to 11 were judged at this head, `09e8acf1a1581cb3803ad5f99b31a5c650f601cf`, by the earlier
+pass and are kept as written: the head has not moved (`git rev-parse HEAD` and PR `headRefOid` are
+both that SHA, base `4a47151e...`), and no code, test or window check was rerun. Claims 12 and 13
+were judged again, on the body now posted, by a description-only pass at the same head.
 
 Gate pass cited (no long gate in `chantier.yaml`): `work/gates/preflight-final.log`, first line
 `09e8acf1a1581cb3803ad5f99b31a5c650f601cf`.
 
-## 1. Pushed head: VERIFIED (09e8acf)
+## 1. Pushed head: VERIFIED (09e8acf, earlier pass)
 
 - `git rev-parse HEAD` -> `09e8acf1a1581cb3803ad5f99b31a5c650f601cf`; `git status --porcelain` -> empty
   (also after all runs below).
@@ -19,7 +23,7 @@ Gate pass cited (no long gate in `chantier.yaml`): `work/gates/preflight-final.l
   `09e8acf1... draft=true OPEN MERGEABLE`. Checks static, static-windows, visual, viewer-graph,
   report, checks: SUCCESS; the others skipped.
 
-## 2. Unit tests of the measure fail before, pass after (Evidence 1): VERIFIED (09e8acf)
+## 2. Unit tests of the measure fail before, pass after (Evidence 1): VERIFIED (09e8acf, earlier pass)
 
 Command, in `<worktree>` and in `<base>` with the head's test file, after `npm run compile`:
 `node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec --test-name-pattern="code block|Mermaid figure" out/test/page/runtimePageControls.test.js`
@@ -30,7 +34,7 @@ Command, in `<worktree>` and in `<base>` with the head's test file, after `npm r
   "overflows by 1 px still breaks out" (`null !== ''`). Passing on both: fits at a fractional
   width, capped, inside a list item, Mermaid figure.
 
-## 3. Real browser test fails before, passes after (Evidence 2): VERIFIED (09e8acf)
+## 3. Real browser test fails before, passes after (Evidence 2): VERIFIED (09e8acf, earlier pass)
 
 `env STUDIO_REQUIRE_CHROMIUM=1 fnm exec -- npm run test:breakout` at head, on Windows ->
 `tests 14, pass 14, fail 0, skipped 0` (6 code block, 8 table). Defaults, Auto:
@@ -46,12 +50,12 @@ CI visual job at the head (`ci-visual-139401739913.log`): checkout `Merge 09e8ac
 plain097 694.0W 692/692, plain100 715.0W 713/713, python097 722.0W 720/720, captioned103 736.0W
 734/734, listed100 660.0s 658/713, huge300 1068.0W 1066/2113.
 
-## 4. Table breakout unchanged and passing (Evidence 3): VERIFIED (09e8acf)
+## 4. Table breakout unchanged and passing (Evidence 3): VERIFIED (09e8acf, earlier pass)
 
 `git diff --stat 4a47151e...HEAD -- test/page/tableBreakout.test.ts src/core src/page/features/scrollCore.ts skills justfile .github package-lock.json requirements/tiers/strs`
 -> empty. Its 8 tests pass in claim 3.
 
-## 5. Overflow of 1 to 3 px, and the 2 px short breakout: VERIFIED (09e8acf)
+## 5. Overflow of 1 to 3 px, and the 2 px short breakout: VERIFIED (09e8acf, earlier pass)
 
 `probe.js` (`verify-probe-head.log`, `verify-probe-base.log`): one 100-character plain fence, Auto,
 column widened one pixel at a time (wrapper width, `pre` client/scroll).
@@ -64,17 +68,17 @@ column widened one pixel at a time (wrapper width, `pre` client/scroll).
 | 690 | 1 px | 690.0 not wide, 688/689 | 691.0 wide, 689/689 |
 | 691 | 0 | 691.0 not wide, 689/689 | 691.0 not wide, 689/689 |
 
-## 6. Code inside admonition, quote, tab, card, list is unchanged and scrolls: VERIFIED (09e8acf)
+## 6. Code inside admonition, quote, tab, card, list is unchanged and scrolls: VERIFIED (09e8acf, earlier pass)
 
 Same probe, containers page, column 688: Margin and Auto, base and head give the same figures, no
 block marked wide: admonition 653/689, quote 654/689, tab 656/689, card 656/689, list 658/689.
 
-## 7. Capped at the area left of the table of contents, unchanged: VERIFIED (09e8acf)
+## 7. Capped at the area left of the table of contents, unchanged: VERIFIED (09e8acf, earlier pass)
 
 "TOC open auto", huge300: base `812.0W 810/2041` (`verify-breakout-base.log`), head
 `812.0W 810/2041` (claim 3).
 
-## 8. Margin, Full width, tables, images, diagrams, settings unchanged: VERIFIED (09e8acf)
+## 8. Margin, Full width, tables, images, diagrams, settings unchanged: VERIFIED (09e8acf, earlier pass)
 
 - Margin: probe figures identical base and head; the two Margin screenshots are byte identical.
 - `src/page/modules/widthMode.ts`: `measureWide` returns before any breakout unless `mode === "auto"`
@@ -84,7 +88,7 @@ block marked wide: admonition 653/689, quote 654/689, tab 656/689, card 656/689,
   `details`, not directly in a figure. Mermaid unit test and the table tests pass.
 - `git diff 4a47151e...HEAD -- package.json`: only the `test:breakout` script changes.
 
-## 9. Requirements, docs, changelog, static checks (Evidence 4): VERIFIED (09e8acf)
+## 9. Requirements, docs, changelog, static checks (Evidence 4): VERIFIED (09e8acf, earlier pass)
 
 - `okfreq validate requirements --check-links --project-root .` -> exit 0,
   `1226 requirements, 0 errors, 26 warnings` (`verify-okfreq-validate.log`).
@@ -97,7 +101,7 @@ block marked wide: admonition 653/689, quote 654/689, tab 656/689, card 656/689,
 - LAYOUT-023 stays `proposed`; its implemented and tested file lists match the description's.
 - `just check`: from the gate log at this head (claim 11), not rerun by me.
 
-## 10. Screenshots (Evidence 5) and real VS Code preview (Evidence 6): VERIFIED (09e8acf)
+## 10. Screenshots (Evidence 5) and real VS Code preview (Evidence 6): VERIFIED (09e8acf, earlier pass)
 
 Pairs, figures and reproduction: `work/verifier/evidence/before-after.md`. All six images opened:
 they show what is claimed, no user name or home path.
@@ -119,7 +123,7 @@ profile paths remained. `~\.vscode-shared\sharedStorage\state.vscdb` (VS Code's 
 storage) has a modification time inside the run; whether the test window or the owner's open VS Code
 wrote it is not established.
 
-## 11. Preflight, Windows static stage (Evidence 7): VERIFIED (09e8acf)
+## 11. Preflight, Windows static stage (Evidence 7): VERIFIED (09e8acf, earlier pass)
 
 `work/gates/preflight-final.log` (the Driver's run, first line the head SHA): unit `tests 5242,
 pass 5221, fail 0, skipped 21`; pytest `205 passed`; sphinx 4 passed; `ci-static: passed`; visual,
@@ -128,29 +132,53 @@ claim 1).
 
 ## 12. Description matches the diff and its figures are right: VERIFIED (09e8acf)
 
-Posted body equals `work/pr-body.md` (only a trailing blank line differs). Summary, Deliverables,
-Changes, Blast radius scope and Autonomous decisions match the diff; the unit failure output, the
-browser table, the gate counts and the Known gaps bullet match claims 2, 3, 6 and 11. No internal
-reference, no image yet, no user name. The unit output block is condensed (names cut, the four
-passing tests on one line).
+- `gh pr view 525 --json body` piped to `diff --strip-trailing-cr - work/pr-body.md` -> one trailing
+  blank line only. `gh pr view 525 --json headRefOid,isDraft,state` -> `09e8acf1...`, draft, OPEN.
+- Summary, Deliverables, Changes, Blast radius and Autonomous decisions: the head is the one claims
+  2 to 9 and the earlier claim 12 judged; the posted text matches them. Unit output and browser
+  table figures match claims 2 and 3 (base `python097 696.0W 694/696`, `plain100 688.0s 686/689`,
+  `captioned103 688.0s 686/709`; head `698.0W 696/696`, `691.0W 689/689`, `711.0W 709/709`); gate
+  counts match claims 3 and 11.
+- Images in Impacts: `git ls-tree 62364df7aaf8a35a3735dbd349915fa6e39316e9` lists six blobs equal,
+  one by one, to `git hash-object --no-filters` of the six files of `work/verifier/evidence/`
+  (`666a4ee`, `ce9c0e6`, `1450a04`, `5401541`, `ce9c0e6`, `08df109`). The six raw URLs of the body
+  -> `200 image/png`; `sha256sum` of the downloads equals that of the evidence files. `git
+  ls-remote origin`: the commit is the tip of
+  `refs/heads/chantier/batch-09/cr-508-auto-width-a-code-block-widens-until-its-assets`.
+- Each downloaded image opened. Auto before: the numbered fence is widened with a scroll bar, the
+  captioned block keeps the column with a scroll bar. Auto after: both widened, caption bar
+  included, no scroll bar. Margin before and after: both keep the column and scroll; same blob. VS
+  Code before: widened block with a scroll bar; after: widened, whole longest line, no scroll bar.
+  Headings (`4a47151` before, `09e8acf` after), alt texts and lead sentences fit what each shows
+  and `before-after.md`. No user name or home path in any image (the one path on screen is the
+  literal placeholder `<full path>`).
+- Known gaps, two bullets: nested containers (claim 6) and the longest line flush against the right
+  border. The second matches `work/gates/verify-edge-head.log` (`free -0.41 px ... padding-right
+  12.88px, client/scroll 742/742`; `free -0.08 px ... 689/689`) and claim 5 (the same line needs the
+  same 689 px at base and head). Its reason matches the specification's unchanged block look; "adding
+  that padding to the measured width would close it" is a proposed remedy, not a run claim.
+  `before-after.md` names no missing pair; the body has no `UNVERIFIED` or `STALE` mark. This closes
+  the earlier pass's observation.
+- Body text: a search of `work/pr-body.md` for the user name, local paths, CR, batch, planning
+  folder and agent role names -> only URL schemes and the `Claude Code` line.
 
-## 13. Description meets the rules: NOT VERIFIED (09e8acf)
+## 13. Description meets the rules: VERIFIED (09e8acf)
 
-- No proof names its SHA: none of the Test plan items, the unit output or the browser table carries
-  `09e8acf` (or `4a47151` for the before figures). A search of `work/pr-body.md` for
-  `\b[0-9a-f]{7,40}\b|!\[|No visual change` -> 0 matches. The card and chantier's pr-template require it; the project template and
-  guideline are silent.
-- Impacts holds text only: neither before/after images nor "No visual change", which the project's
-  pull request guideline says the Verifier fails. The brief says the images are added after this
-  pass; the six files are in `work/verifier/evidence/`.
-
-To close: add the images to Impacts and name the SHAs, then a description-only pass.
+- Rendering: `gh api -H "Accept: application/vnd.github.full+json" .../pulls/525 --jq .body_html`
+  -> the project template's sections as headings (plus Autonomous decisions and Known gaps), tables,
+  code blocks, six `<img>` with alt text, six checked task items.
+- SHA marks: all six Test plan items name `09e8acf` (the first also `4a47151` for the failure); the
+  unit output, the browser table and the three image tables name `4a47151` and `09e8acf`. The
+  Deliverables behaviour table is a summary, proved by claims 3 and 5 to 7, not a capture.
+- Impacts holds the before/after screenshots, as the project's pull request guideline asks.
+- Review box: `chantier log CR-508` -> `r2 inspector approved at 15abd31..., committed as
+  09e8acf1a1581cb3803ad5f99b31a5c650f601cf`; the box cites `09e8acf`.
+- CI box: `gh api .../commits/09e8acf1.../check-runs` -> checks, report, static, static-windows,
+  visual, viewer-graph `success`; pages, release, tag-release, gallery, stress, toc-loop,
+  integration, release-check `skipped`; none failed or pending.
 
 ## Observation (not a failed claim)
 
-In a widened block the longest line ends flush against the right border (measured at head: text
-right edge within 0.41 px of the `pre`'s inner right edge, computed `padding-right` 12.88px;
-`verify-edge-head.log`), visible in both after screenshots. Chromium does not count that padding in
-the `pre`'s `scrollWidth`, at base as at head (the same 100-character line needs 689 px of
-`scrollWidth` in both), and the specification leaves the block's look unchanged. If it is accepted
-as a cosmetic defect, it needs a Known gaps bullet.
+The two VS Code images show the text of a planning page, with its backlog ids (`QA215-09`, `P3`,
+`QA215-06`). The specification asks for a real planning-surface page, and the project's rule on
+internal ids covers the body text.
