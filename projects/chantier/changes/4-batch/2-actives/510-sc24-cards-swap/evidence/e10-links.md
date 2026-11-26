@@ -12,14 +12,20 @@ relative and is not fetched.
 
 ## Result at head
 
+Rerun in round 3 on `b85be4cb` plus the uncommitted link lines of that round (2026-11-26):
 `uv run --no-sync --project $W python -I -B $S/links.py $W`, exit 0:
 
 ```text
 files read: 617
-relative links resolved: 311
+relative links resolved: 343
 broken: 0
 links into cards-next/: 0
 ```
+
+Round 2's run found 311. The 32 more are the one `docs/proofs/` link, with its heading anchor, that
+each of 32 `references/topics/host-*.md` files gained (hand-over row 4): 27 into
+`docs/proofs/claude-code.md`, 5 into `docs/proofs/copilot.md`. `host-claude-only.md` has none: it
+has no subject of its own.
 
 ## Before round 2's docs fixes
 

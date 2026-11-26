@@ -55,7 +55,7 @@ One run per name the source prints, each its readings with exit 0:
 
 ```text
 help board: exit 0, 14 lines, 2095 bytes, first: topic board: the board, the surface server, `serve`, a `board` line (chief-of-staff)
-help host-allow-not-add: exit 0, 11 lines, 701 bytes, first: topic host-allow-not-add: a rule auto mode drops, a rule not to propose (chief-of-staff)
+help host-allow-not-add: exit 0, 13 lines, 763 bytes, first: topic host-allow-not-add: a rule auto mode drops, a rule not to propose (chief-of-staff)
 help lease: exit 0, 22 lines, 3052 bytes, first: topic lease: a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes (cr-driver, stack-driver, qa-driver, release-driver, foreman, chief-of-staff)
 help merge: exit 0, 13 lines, 1627 bytes, first: topic merge: an `order merged`, a CR ready to merge, a merge recorded (foreman, chief-of-staff)
 help refused-push: exit 0, 65 lines, 9203 bytes, first: topic refused-push: `push <cr>` exit 4, a force push or rebase the host refuses (cr-driver, stack-driver, release-driver, foreman, chief-of-staff)
@@ -63,6 +63,10 @@ help stack: exit 0, 15 lines, 2568 bytes, first: topic stack: a stack batch: `st
 help stack-merge: exit 0, 10 lines, 1577 bytes, first: topic stack-merge: a merge recorded in a stack batch (foreman, chief-of-staff)
 help watcher: exit 0, 9 lines, 1618 bytes, first: topic watcher: a `watch: not running` line, the session's first yes (chief-of-staff)
 ```
+
+The runs of `e4_help.py` were repeated in round 3 on `b85be4cb` plus its uncommitted link lines
+(`$S/r3-e4.log`, exit 0, `failed runs: 0`): `help host-allow-not-add` grew by its `docs/proofs/`
+link (11 lines and 701 bytes before), the other figures of its output did not change.
 
 The same eight names through the CLI's entry point,
 `uv run --no-sync --project $W chantier help <name>`, one run each: all `exit=0`.

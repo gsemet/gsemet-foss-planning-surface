@@ -65,6 +65,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Review steps are read when `brief` runs, while two docs pages say a running batch keeps the team it started with.
 - The generic agent's contract heading still says "after the opening lines", though it is now in the worker's brief.
 - Cards over their size target, in bytes (target): `release-driver.md` 3,809 (3,072), `spec-writer.md` 1,667 (1,500), `coder.md` 1,603 (1,500), `verifier.md` 3,112 (3,000), `demo-explorer.md` 1,612 (1,500), `spec-critic.md` 1,572 (1,500), `retro-critic.md` 1,565 (1,500).
+- Nine host topics are over the 1,500-byte target since the added link line, in bytes: `host-turn-end.md` 1,578, `host-auto-fix.md` 1,571, `host-surfaces.md` 1,561, `host-auto-mode-trials.md` 1,558, `host-allow-add-lines.md` 1,540, `host-configuration.md` 1,524, `host-allow-rules.md` 1,522, `host-auto-mode-steering.md` 1,520, `host-allow-broad.md` 1,509.
 - The Drivers' briefs are over their start targets: CR 9,773 (6 KB), stack 9,179 (6 KB), release 9,531 (5 KB), QA 6,032 (4 KB).
 - Two data files kept byte-identical still hold removed file names: `hosts/claude-code.json` (`driver.md`, `session-start.md`) and `hosts/copilot.json` (`session-start.md`, `foreman-lost-driver.md`).
 - Wording of the old set not found in the new one: some sentences of the sync offer, "A release with no PR yet is no anomaly", the Foreman's pointer to `help session-shell`; "say it once to the user as printed" became "offer the restart once".
@@ -111,6 +112,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
   - The four `SKILL.md`: the new texts, with today's `$CHANTIER` paragraph kept ("is a stop: report its exact error (floor 4)") and the reload sentences of the router, Chief of Staff and Griller adjusted to it.
   - `references/sync-checkout.md`: today's title, intro and four steps kept; step 2, step 4 and the closing sentence now name `help` and `host` lines and the floor.
   - `references/topics/host-allow-rules.md` and `host-allow-rules-copilot.md`: the launcher sentences say unproved or no longer name it.
+  - 32 of the 33 `references/topics/host-*.md` files: one added line each, `[Trials](...)`, linking the host's history in `docs/proofs/` (the one without it only says it is for one host).
 
 ## Human decisions
 
@@ -138,9 +140,9 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 | # | What | State |
 | --- | --- | --- |
 | 1 | The quiz boots from `brief`; the dry run checks that boot; `--cards` of a pre-swap head works | done |
-| 2 | Quiz on every role against the baseline | not done: skipped on the owner's word, 2026-11-26 |
+| 2 | Quiz on every role against the baseline | owner answered otherwise: no evaluation run in this batch, 2026-11-26 |
 | 3 | `topics.json` swapped; every `help <name>` resolves; docs links fixed | done |
-| 4 | Host cards' history in `docs/proofs/` or `docs/incidents.md` | done |
+| 4 | Host cards' history in `docs/proofs/` or `docs/incidents.md`; the host topics link `docs/proofs/` | done |
 | 5 | `AGENTS.md`'s role sentences true; `CONTRIBUTING.md` aligned | done |
 | 6 | `take` prints the `brief` command; no worker opening lines; the Foreman runs `brief foreman` | done |
 | 7 | `test_brief_bytes.py` replaces `test_start_reading.py`; the manifest check goes | done |
