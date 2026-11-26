@@ -126,11 +126,11 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [x] Local gates: `just check` (2748 passed, 19 skipped) and `just mod` (119 pass) at `4380df5`; `just eval-dry-run` (25 of 25 cases) at `b85be4c`, the head before the topic links
+- [x] Local gates: `just check` (2748 passed, 19 skipped) and `just mod` (119 pass) at `4380df5`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the topic links, and on CI at `4380df5`
 - [ ] Evidence: before at `ea11a9e`, after at `4380df5`
 - [x] Review: approved at `4380df5`
 - [ ] Verified
-- [ ] CI green at `4380df5`
+- [x] CI green at `4380df5`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
 
 ## Internal references
 
