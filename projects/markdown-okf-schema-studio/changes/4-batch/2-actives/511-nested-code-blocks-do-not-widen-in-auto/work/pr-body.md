@@ -73,7 +73,9 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
 - [x] Local gates at `5f7658a`: `just preflight` passes (static stage on Windows): 5336 unit tests,
       5328 pass, 0 fail, 8 skipped
 - [x] Review: approved at `5f7658a`
-- [ ] CI green
+- [ ] CI green: not green at `5f7658a`. The `visual` job was cancelled at its 15 minute limit on
+      the first run and on its re-run (on the re-run its checks had passed before the cancellation);
+      `checks` fails as a consequence. `static`, `static-windows`, `viewer-graph` and `report` pass
 
 ## Internal references
 

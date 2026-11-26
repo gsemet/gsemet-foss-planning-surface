@@ -203,8 +203,8 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - [x] Evidence at `9d7e788a`:
   - [Heavy run 45794286167](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45794286167) at `9d7e788a`: `integration`, `stress` and the `acceptance (trust-security)` shard passed on the first attempt, and `report` and `checks` passed.
   - The shard under its limits of 5 minutes (job) and 3 minutes (test step): job 82 s, test step 52 s; launches 30 s (trusted), 6 s (Restricted Mode), 10 s (built VSIX).
-  - The limits were set from the first measured run ([45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331), at an earlier commit): job 115 s, test step 77 s.
-  - Re-run of the shard alone, on an earlier head of this change ([run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144)): job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
+  - The limits were set from the first measured run ([45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331), at `9d7e788a` (carried from `0feab1d`: the run the limits were set from)): job 115 s, test step 77 s.
+  - Re-run of the shard alone ([run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144)), at `9d7e788a` (carried from `5a8a593`): job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
   - Requirements bundle copied and checked in the new coverage mode at `9d7e788a`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
 - [x] Review: approved at `9d7e788a`
 - [ ] Verified
