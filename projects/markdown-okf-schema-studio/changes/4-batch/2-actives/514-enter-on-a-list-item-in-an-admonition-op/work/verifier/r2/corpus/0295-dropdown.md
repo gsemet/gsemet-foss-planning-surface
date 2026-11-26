@@ -1,0 +1,9 @@
+:::::::::{dropdown} T
+Before.
+
+```{div} callout-note
+Callout body.
+```
+
+After.
+:::::::::

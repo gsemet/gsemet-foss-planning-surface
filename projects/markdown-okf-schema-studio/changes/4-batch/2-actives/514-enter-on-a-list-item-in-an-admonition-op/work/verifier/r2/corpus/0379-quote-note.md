@@ -1,0 +1,8 @@
+> :::::::::{note}
+> Before.
+>
+> > quoted
+> > text
+>
+> After.
+> :::::::::

@@ -1,0 +1,5 @@
+> :::::::::{note}
+> Before.
+>
+> ```{rubric} Rub
+> ```

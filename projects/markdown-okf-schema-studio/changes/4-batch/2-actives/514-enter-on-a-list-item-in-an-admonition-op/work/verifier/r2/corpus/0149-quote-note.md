@@ -1,0 +1,7 @@
+> :::::::::{note}
+> Before.
+>
+> ![alone](x.png)
+>
+> After.
+> :::::::::

@@ -1,0 +1,10 @@
+> [!NOTE]
+> Before.
+>
+> ```{deprecated} 1.2
+>
+>
+> Late body.
+> ```
+>
+> After.

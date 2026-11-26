@@ -1,0 +1,10 @@
+> [!NOTE]
+> Before.
+>
+> ```{topic} Topic title
+> Topic body one.
+>
+> Topic body two.
+> ```
+>
+> After.

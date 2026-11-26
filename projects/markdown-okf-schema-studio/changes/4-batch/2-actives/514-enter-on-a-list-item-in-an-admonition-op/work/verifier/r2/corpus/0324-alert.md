@@ -1,0 +1,8 @@
+> [!NOTE]
+> Before.
+>
+> ```{eval-rst}
+> .. note:: x
+> ```
+>
+> After.

@@ -1,0 +1,8 @@
+> [!NOTE]
+> Before.
+>
+> ```{div} callout-note
+> Callout body.
+> ```
+>
+> After.

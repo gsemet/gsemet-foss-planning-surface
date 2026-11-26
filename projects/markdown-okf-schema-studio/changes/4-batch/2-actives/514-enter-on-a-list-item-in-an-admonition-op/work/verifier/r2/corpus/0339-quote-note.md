@@ -1,0 +1,10 @@
+> :::::::::{note}
+> Before.
+>
+> ```{glossary}
+> Term
+>   Definition
+> ```
+>
+> After.
+> :::::::::

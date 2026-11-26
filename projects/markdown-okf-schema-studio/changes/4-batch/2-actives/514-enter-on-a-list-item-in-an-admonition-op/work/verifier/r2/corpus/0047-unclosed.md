@@ -1,0 +1,7 @@
+:::::::::{note}
+Before.
+
+```{code-block} python
+:caption: C
+print(1)
+```
