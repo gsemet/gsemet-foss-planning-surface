@@ -1,6 +1,6 @@
-# PART 3 proofs (rounds 6 to 11)
+# PART 3 proofs (rounds 6 to 12)
 
-Worktree `<worktree>`, head `03f973e4` plus the uncommitted changes of rounds 7 to 11 (under `cards-next/`: role cards, shared cards, `forges/`, the four `skills/*-SKILL.md`, `topics.json` and topic files; 41 topic files are not in `03f973e4` and 14 of its files are gone, each split into parts). `03f973e4` holds the work of rounds 4 to 6, committed as `bb6a5639` and rebased (`git diff` between the two is empty). Comparisons stay against `bf4e4c42`, the head before round 4. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Where the specification says `HEAD` the working tree is what is compared. Written by `work/r10/proofs.py`; round 11 changed `topics/merge-gaps.md` only and updated by hand the other-topics total (section 3) and the gate lines (section 12). Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
+Worktree `<worktree>`, head `03f973e4` plus the uncommitted changes of rounds 7 to 12 (under `cards-next/`: role cards, shared cards, `forges/`, the four `skills/*-SKILL.md`, `topics.json` and topic files; 43 topic files are not in `03f973e4` and 15 of its files are gone, each split into parts). `03f973e4` holds the work of rounds 4 to 6, committed as `bb6a5639` and rebased (`git diff` between the two is empty). Comparisons stay against `bf4e4c42`, the head before round 4. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Where the specification says `HEAD` the working tree is what is compared. Written by `work/r10/proofs.py`; round 11 changed `topics/merge-gaps.md` only and updated by hand the other-topics total (section 3) and the gate lines (section 12). Round 12 split that file in two, edited topics beside it and updated by hand this line, section 3 (the topic counts, sizes and the new files), the counts of sections 6 and 7 (rerun with `work/r12/measure.py` and `work/r5/topics_check.py`), section 10 and section 12. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
 
 ## 2. Byte-identical copies
 
@@ -35,14 +35,14 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 | hosts/copilot.md | 18,947 | none | not carried: its text is in `topics/host-*.md` | no target (file not carried) |
 | floor.md | 554 | 554 | 1,200, byte-identical | within |
 | topics/host-*.md: 33 files | part of the above | 37,088 in all, largest 1,500 | 1,500 each | within |
-| topics/<name>.md (others): 262 files | part of the above | 311,940 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
-| topics.json | 8,866 | 64,280 | none set | no target |
+| topics/<name>.md (others): 263 files | part of the above | 313,650 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
+| topics.json | 8,866 | 64,356 | none set | no target |
 | skills/chantier-SKILL.md | 3,537 | 2,705 | section 6 (no byte target) | no target |
 | skills/chief-of-staff-SKILL.md | 3,664 | 2,785 | section 6 (no byte target) | no target |
 | skills/griller-SKILL.md | 3,223 | 2,347 | section 6 (no byte target) | no target |
 | skills/status-SKILL.md | 3,644 | 2,784 | section 6 (no byte target) | no target |
 
-New topic files since the base (not in `bf4e4c42`): 81, largest 1,500 bytes (host-allow-rules.md); over 1,500: none.
+New topic files since the base (not in `bf4e4c42`): 83, largest 1,500 bytes (host-allow-rules.md); over 1,500: none.
 
 Every topic over 1,500 (each exists at the base head of this round):
 
@@ -202,7 +202,7 @@ Quiz case change of round 4: `evals/quiz/chief-of-staff/a8-ask-foreign-branch.js
 
 ## 6. Links
 
-333 `.md` and `.json` files under `cards-next/` read; fenced blocks skipped. `skills/*-SKILL.md` links resolve under section 6's mapping (`../chantier/references/` to `cards-next/`, `./` to `skills/<skill>/`); `forges/` links to `docs/` resolve from the same depth as `references/forges/`. Links: 22; broken: 0; no link points into `references/`. Outside `cards-next/`: the two `forges/` links to `docs/`, and one more the specification's wording does not name, `init.md`'s link to the shipped asset `assets/tour.html` (today's link, unchanged; it resolves from the same depth after the swap).
+334 `.md` and `.json` files under `cards-next/` read; fenced blocks skipped. `skills/*-SKILL.md` links resolve under section 6's mapping (`../chantier/references/` to `cards-next/`, `./` to `skills/<skill>/`); `forges/` links to `docs/` resolve from the same depth as `references/forges/`. Links: 22; broken: 0; no link points into `references/`. Outside `cards-next/`: the two `forges/` links to `docs/`, and one more the specification's wording does not name, `init.md`'s link to the shipped asset `assets/tour.html` (today's link, unchanged; it resolves from the same depth after the swap).
 
 | file:line | link | resolves to |
 | --- | --- | --- |
@@ -258,7 +258,7 @@ Throwaway script `work/r5/topics_check.py`, with `load_topics` from `commands/he
 ```text
 $ uv run --no-sync --project <worktree> python work/r5/topics_check.py
 load_topics: 240 topics loaded
-readings resolved: 463 (0 with a #heading, 27 host maps)
+readings resolved: 465 (0 with a #heading, 27 host maps)
 CLI `help <word>` matches: --for, board, from, h, lease, lists, merge, of, refused-push, stack-merge, takes, topic, topics, watcher
   not topic names (prose or code): --for, from, h, lists, of, takes, topic, topics
 base names: 38; missing from cards-next: none
@@ -316,7 +316,7 @@ No test is added or changed (`git diff --name-only` against the base shows nothi
 
 ## 10. Inventory and completeness table
 
-`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`; round 6 changed its rows with `work/r6/host_rows.py` and its sibling-card table by hand. Round 7 changed the rows of all four inventories after reading each protecting row's cited home (`work/r7/apply.py`, `work/r7/apply_host.py`) and added `evidence/boundaries-split.md`. Round 8 read each section's rows against the cited home and re-homed those the home did not hold (`work/r8/rehome.py`, `sync.py`, `citefix.py`, `quotefix.py`), and updated the sibling-card edits (`sibling.py`, `sibling2.py`) and two boundary rows (`bounds.py`). Round 9 re-homed further rows (`work/r9/rehome.py`) and redid the topic rows of the sibling-card edits (`siblings_rows.py`, checked by `siblings.py`). Round 10 read the rows with a text home against that home for lost clauses (`work/r10/audit.py`, then by hand; method and counts in `work/r10.md`), re-homed rows (`work/r10/rehome.py`) and rebuilt the sibling-card table (`work/r10/gentable.py`, checked by `work/r10/siblings.py`). Round 11 redid the table's `topics/merge-gaps.md` row by hand.
+`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`; round 6 changed its rows with `work/r6/host_rows.py` and its sibling-card table by hand. Round 7 changed the rows of all four inventories after reading each protecting row's cited home (`work/r7/apply.py`, `work/r7/apply_host.py`) and added `evidence/boundaries-split.md`. Round 8 read each section's rows against the cited home and re-homed those the home did not hold (`work/r8/rehome.py`, `sync.py`, `citefix.py`, `quotefix.py`), and updated the sibling-card edits (`sibling.py`, `sibling2.py`) and two boundary rows (`bounds.py`). Round 9 re-homed further rows (`work/r9/rehome.py`) and redid the topic rows of the sibling-card edits (`siblings_rows.py`, checked by `siblings.py`). Round 10 read the rows with a text home against that home for lost clauses (`work/r10/audit.py`, then by hand; method and counts in `work/r10.md`), re-homed rows (`work/r10/rehome.py`) and rebuilt the sibling-card table (`work/r10/gentable.py`, checked by `work/r10/siblings.py`). Round 11 redid the table's `topics/merge-gaps.md` row by hand. Round 12 split `topics/merge-gaps.md` in two, restored lost clauses in the merge topics, re-homed rows C-691, C-709, C-710 and C-785, updated the completeness row of `references/chief-of-staff-merge.md`, and redid the sibling-card rows of the topics it changed (checked by `work/r10/siblings.py`), adding by hand those of `topics/batch-plan-mode-p3.md` and `topics/config-p3.md`, which that script takes as new files and prints as listed with no change, its only two lines against the table.
 
 ## 11. Unloaded
 
