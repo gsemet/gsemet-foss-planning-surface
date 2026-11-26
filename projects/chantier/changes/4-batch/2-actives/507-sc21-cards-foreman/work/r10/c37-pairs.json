@@ -1,0 +1,3 @@
+[
+  ["topics/recovery.md", "(their transcripts are listed apart and need no `--stopped`).", "(their transcripts are listed apart and need no `--stopped`), nor do the session's other subagents; the CLI judges a transcript by its end, never the file's age."]
+]

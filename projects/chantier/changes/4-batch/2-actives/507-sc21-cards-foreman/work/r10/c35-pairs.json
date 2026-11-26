@@ -1,0 +1,9 @@
+[
+  ["concepts.md", "`open` creates it running (paused when it holds no CR): ", "`open` creates it running (paused when it holds no CR, with no cost, retro or close offer at that pause): "],
+  ["concepts.md", "the budget is dollars; ", "the budget is the dollars the Foreman's session and its agents may spend; "],
+  ["topics/writer.md", "within 5 minutes. ", "within 5 minutes; with no writer a write to the surface is refused. "],
+  ["topics/pr-extras.md", "No other version and no `experiments/`.", "No other version, no `experiments/`; none retained: nothing from `prototypes/`."],
+  ["topics/pr-extras.md", "`ship` says `archive missing from the PR at <path>` when it is off.", "`ship` prints `archive missing from the PR at <path>` when off."],
+  ["topics/pr-extras.md", "it is captured again only when a Verifier is due anyway.", "recaptured only if a Verifier is due anyway."],
+  ["topics/pr-extras.md", "it attaches the images the Verifier or the Demo explorer names, by path and caption.", "it attaches those the Verifier or the Demo explorer names, by path and caption."]
+]

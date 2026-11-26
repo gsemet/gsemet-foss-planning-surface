@@ -4,10 +4,10 @@ Studio already lets a reader move a table row or column by dragging its handle i
 
 ## Deliverables
 
-![Dragging the row "Fix the login bug" by its handle to the top, then the "Due" column to the first place; the raw text follows](https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.gif)
+![Dragging the row "Fix the login bug" by its handle to the top, then the "Due" column to the first place; the raw text follows](https://github.com/gsemet/markdown-okf-schema-studio/raw/c3c3a57ed16874bf56f5834ef6d789443e842fbb/docs/demo-video/clips/table-anchors/table-anchors.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/c3c3a57ed16874bf56f5834ef6d789443e842fbb/docs/demo-video/clips/table-anchors/table-anchors.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/c3c3a57ed16874bf56f5834ef6d789443e842fbb/docs/demo-video/clips/table-anchors/table-anchors.webm
 - Storyboard to review: `docs/demo-video/clips/table-anchors/clip.md`
 
 ## Changes
@@ -41,7 +41,7 @@ For the owner to judge: motion, rhythm, the loop as watched, the absence of a fl
 
 ## Deviation from the feature clip process
 
-The recipe has the maintainer review the storyboard before the take. Under the owner's rule of the first clip stack that review moved after the take, into this pull request, which stays a draft until the owner approves the storyboard and the clip. The take was filmed from the drafted storyboard (the trial take was clean and is the take). A review lands as follows: an *(on screen)* row changed is a render (`just clip table-anchors render`, then `check`); a *(filmed)* row is a retake, a follow-up.
+The recipe has the maintainer review the storyboard before the take. Under the owner's rule of the first clip stack that review moved after the take, into this pull request. The take was filmed from the drafted storyboard (the trial take was clean and is the take). A review lands as follows: an *(on screen)* row changed is a render (`just clip table-anchors render`, then `check`); a *(filmed)* row is a retake, a follow-up. The owner then approved the storyboard and the clip.
 
 ## Autonomous decisions
 

@@ -1,0 +1,7 @@
+[
+  ["concepts.md", "The **Griller** keeps the inbox and the backlog with the user: it opens no batch", "The **Griller** keeps the inbox and the backlog with the user (file, triage, grill, answers, specification) and may prepare work for the Chief of Staff: it opens no batch"],
+  ["topics/host-auto-mode-steering.md", "`git -C <worktree> push --force-with-lease=...` goes through for the Chief of Staff in direct", "`git -C <worktree> push --force-with-lease=...` goes through (not always) for the Chief of Staff in direct"],
+  ["topics/host-surfaces.md", "The notice also sets the mode of a\nbatch planned with no argument: direct.", "The notice also brings the offer to fork and a\nno-argument batch's mode: direct."],
+  ["topics/host-surfaces.md", "Whether it appears on a turn typed at the desktop in a\nsession connected to Remote Control is **unproved**.", "Whether it appears on a desktop-typed turn of a\nRemote Control session is **unproved**."],
+  ["topics/merge-words-p2.md", "its `owed before the merge` clauses in the user's language, never the prefix.", "its `owed before the merge` clauses (the user may merge anyway: record it as any merge) in the user's language, never the prefix."]
+]
