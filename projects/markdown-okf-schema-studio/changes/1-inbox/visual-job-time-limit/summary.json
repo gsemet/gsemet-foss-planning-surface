@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The CI visual job runs at its 15-minute limit",
+  "summary": "The CI visual job takes 804 to 890 s of its 900 s on main and was cancelled twice on one pull request: split or speed it up, without raising the limit or dropping a check.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "00c96b2656c4219f2606efff7ef4934283dd57c9318393f118bf4b43a11c4f33",
+    "02-answers.md": "33cf176f9463836f1405fec06775bc478dda6992287050715986b924f1c3d489",
+    "intake/request.md": "90074db10c77cb9cb5dbc515bfc775cb02a37881667d89510d1e215564987af2"
+  },
+  "summarized": "2026-11-26T11:09:30Z"
+}
