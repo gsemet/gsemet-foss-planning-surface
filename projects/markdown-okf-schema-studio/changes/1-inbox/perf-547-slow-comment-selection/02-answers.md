@@ -27,3 +27,20 @@ All were measured or read in the reproduction (see `intake/request.md`).
 Destination: running batch batch-09.
 
 Spec critic: yes (a layout rule the user sees changes; the change spans page styles, the comments code, tests and CI).
+
+Critic, 2026-11-26: 6 findings; 3 applied as fixes (the measure on the reporter's document, the rules
+of the new CI job, what "faster" means on hosted runners), 3 asked below.
+
+3. perf547-Q3, "does the fix go as one CR or two?", choices "A. two CRs (recommended): 1) measure,
+   `:has()` rules, comment button; 2) changed threads only and the Git author name, stacked above, in
+   batch-09", "B. one CR". Answer, verbatim: "A. Deux CR (reco.)". The second CR is
+   `perf-547-comment-update-and-author`.
+
+4. perf547-Q4, "what about the three other points of the ticket (the whole-document fallback, the
+   hover listeners, the selection copied on each scroll)?", choices "A. fix only those the 'before'
+   runs show to cost (recommended)", "B. fix them all", "C. leave them". Answer, verbatim: "B. Tous
+   corriger" (as offered: all three are fixed, even with no measured cost).
+
+5. perf547-Q5, "where is the wait for the Git author name measured?", choices "A. in CI
+   (recommended): a test folder as a Git repository with a user name; the report says so", "B. local
+   only", "C. drop the point". Answer, verbatim: "A. En CI (reco.)". It applies to the second CR.
