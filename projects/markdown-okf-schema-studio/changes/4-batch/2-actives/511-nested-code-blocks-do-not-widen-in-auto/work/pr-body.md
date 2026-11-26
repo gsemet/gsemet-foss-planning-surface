@@ -11,7 +11,7 @@ The requirement for Auto width now says what the page does:
 
 | Wide block in Auto | Requirement before | Requirement after |
 | --- | --- | --- |
-| Top-level table, figure, image, code block or Mermaid diagram | Widens (top level not stated) | Widens; "a direct child of the page content" |
+| Top-level table, figure, image, code block or Mermaid diagram | Widens (top level not stated in the rule) | Widens; "a direct child of the page content" |
 | Image alone in a top-level paragraph | Widens (said only in the known issue) | Widens, stated in the rule; the exceptions below are a known issue |
 | Linked image alone in a top-level paragraph | Not stated | Known issue: not widened |
 | Block inside a list item, admonition, block quote, tab set, dropdown or card | Known issue | Specified: keeps the layout it has in Margin |
@@ -50,8 +50,8 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
 ## Known gaps
 
 - In a real browser, only the list-item case of a nested block is checked. The new unit test fakes
-  an admonition, a block quote and a card by their element tags, and no test builds a tab set or a
-  dropdown; the widening rule looks only at a block's parent.
+  an admonition, a block quote and a card by their element tags, and no test of this rule puts a
+  block in a tab set or a dropdown; the rule does not depend on the kind of container.
 - A linked image alone in a top-level paragraph is not widened, and a paragraph holding no text
   and several images, at least one of them not wrapped in another element, is measured as a whole
   from its first image. The requirement records both as a known issue; no test checks them, and
@@ -62,22 +62,20 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
+- [x] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
       passes on the current code and fails (`AssertionError: TABLE`) when the widening rule is
       temporarily changed to accept any element, and (`AssertionError: P`) when only the check that
-      an image's paragraph is at the top level is removed (both
-      STALE (judged at `5f7658a`, head now `abfa71e`)).
+      an image's paragraph is at the top level is removed (both at `abfa71e`).
 - [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
       `src/page/modules/widthMode.ts` (unchanged), tests `test/page/runtimePageControls.test.ts`
-      and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` run
+      and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` leaves no diff at
+      `abfa71e`
 - [x] Changelog: no user-facing change
-- [ ] Local gates STALE (judged at `5f7658a`, head now `abfa71e`): `just preflight` passed (static
-      stage on Windows): 5336 unit tests, 5328 pass, 0 fail, 8 skipped
-- [ ] Review: STALE (judged at `5f7658a`, head now `abfa71e`)
-- [ ] CI green: STALE (judged at `5f7658a`, head now `abfa71e`): it was not green there. The `visual`
-      job was cancelled at its 15 minute limit on the first run and on its re-run (on the re-run its
-      checks had passed before the cancellation); `checks` failed as a consequence. `static`,
-      `static-windows`, `viewer-graph` and `report` passed
+- [x] Local gates at `abfa71e`: `just preflight` passes (static stage on Windows): 5367 unit tests,
+      5359 pass, 0 fail, 8 skipped
+- [x] Review: approved at `abfa71e`
+- [x] CI green at `abfa71e`: `checks`, `report`, `static`, `static-windows`, `viewer-graph`,
+      `visual` and `visual-2` pass; the jobs that do not run for this pull request are skipped
 
 ## Internal references
 
