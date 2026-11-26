@@ -1,0 +1,13 @@
+$ fnm exec -- npm run compile
+
+> markdown-okf-schema-studio@1.12.1 compile
+> tsc -p .
+
+exit 0
+$ just --unstable --fmt --check
+exit 0
+$ uv run --group docs --group release --group requirements pytest test/build/test_workflows.py -q
+........................................................................ [ 64%]
+.......................................                                  [100%]
+111 passed in 8.39s
+exit 0
