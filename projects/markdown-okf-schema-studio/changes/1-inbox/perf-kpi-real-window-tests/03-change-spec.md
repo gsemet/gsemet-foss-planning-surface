@@ -12,11 +12,17 @@ ratio to the maximum (1 or less means met). The campaign runs in GitHub CI, wher
 turns the job red and so blocks a release, and by a local command, to compare. The site shows the
 latest run only.
 
-This CR is the upper of a stack of two in batch-09. The lower CR, `perf-547-slow-comment-selection`,
-fixes the issue and adds the real-window measure of selection and comment creation on that document,
-with the document's generator. This CR builds on that measure, at the head where it is merged, and
-never repeats it: it repeats the measure, turns its samples into scores, checks them against the
-maximums, runs it in CI and shows it on the site.
+This CR is the upper of a stack of two in batch-09. The lower CR, CR-516
+`perf-547-slow-comment-selection` (its `03-change-spec.md`, Part 1), fixes the issue and adds the
+real-window measure of selection and comment creation on that document, with the document's
+deterministic generator in `test/probe/`: the scenario `perf-547`
+(`STUDIO_REAL_INPUT_SCENARIO=perf-547`, beside `test/integration/performanceProbe.ts`), one window
+launch per run, which writes `out/reports/probe/perf-547.json` with every sample and the median per
+interaction, among them `selectionRelease` (from the mouse release that ends a selection to the
+Comment button shown) and `commentCreate` (from the save of a new comment to its highlight drawn). It
+sets no limit and leaves the maximums to this CR. This CR builds on that measure, at the head where
+it is merged, and never repeats it: it runs the scenario three times, turns its samples into scores,
+checks them against the maximums, runs it in CI and shows it on the site.
 
 ## Decisions (from `02-answers.md`)
 
@@ -43,15 +49,15 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
 ### The KPI definitions and the maximums: `test/shared/perfKpi.ts` (new)
 
 - `PERF_KPIS`, one entry per KPI, in this order:
-  - `comment-selection`: "Text selection on the issue 547 document": the time from the mouse release
-    that ends a text selection in the preview to the Comment button shown.
-  - `comment-create`: "Comment creation on the issue 547 document": the time from the Save of a new
-    comment to the highlight of its thread drawn in the preview.
+  - `comment-selection`: "Text selection on the issue 547 document": the samples `selectionRelease`
+    of `perf-547.json` (from the mouse release that ends a text selection to the Comment button
+    shown).
+  - `comment-create`: "Comment creation on the issue 547 document": the samples `commentCreate` of
+    `perf-547.json` (from the save of a new comment to its highlight drawn).
   Each entry holds its id, title, the requirement scenario it checks (`SwRS-...#S1`, `#S2`, see
   "Requirements") and `maximumMs`.
-- The two spans are the spans the measure of `perf-547-slow-comment-selection` times for these
-  paths; the KPI reads the measure's samples of those spans. If that measure records neither span
-  for a path, this CR adds only the missing timing to it (see the open questions).
+- The KPI reads the samples of the report as CR-516 writes them; it never reads the report's own
+  medians, since it pools the samples of three launches.
 - `maximumMs` is about twice the median of the first heavy CI run of this branch made after the fix
   (the CI runner, not a local machine), rounded up to the next 10 ms. The run id that gave each
   value is written in a comment next to it, and in the SwRS's rationale.
@@ -63,9 +69,9 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
 
 ### The campaign script: `test/integration/perfKpiCampaign.ts` (new, compiled to `out/test/integration/perfKpiCampaign.js`)
 
-- Reads the reports of the three launches from `out/reports/perf/runs/run-<k>.json` (k = 1, 2, 3,
-  the measure's own report, copied there by the target after each launch), pools the samples of
-  each KPI over the three launches, scores them with `scoreKpi`.
+- Reads the reports of the three launches from `out/reports/perf/runs/run-<k>.json` (k = 1, 2, 3:
+  `out/reports/probe/perf-547.json`, copied there by the target after each launch), pools the
+  samples `selectionRelease` and `commentCreate` over the three launches, scores them with `scoreKpi`.
 - Writes `out/reports/perf/kpi.json`:
   `{ "schema": 1, "commit": <full sha>, "runId": <STUDIO_E2E_RUN_ID, or "local">, "startedAt",
   "machine": { "os", "cpuModel", "cpus" }, "launches": 3, "kpis": [ <one score per KPI> ] }`,

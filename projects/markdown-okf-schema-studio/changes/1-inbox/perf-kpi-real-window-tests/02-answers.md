@@ -38,3 +38,16 @@ The text before these questions said, with no objection: unless told otherwise, 
 the latest run only, with no history.
 
 Spec critic: yes (a maximum of the CI job can block a release; the change spans the tests, CI, requirements and the site).
+
+Critic, 2026-11-26: 6 findings; 2 applied as fixes (the lower CR's scenario, report and sample names;
+the "how we test" page and header order with CR-507), 4 asked (the lower CR's manual job, the place
+above CR-517, what `just preflight` runs, the site page as its own CR).
+
+Notes on the specification's open questions (Chief of Staff):
+- Open question 1: settled by the lower CR's final specification, CR-516
+  `perf-547-slow-comment-selection`.
+- Open question 3: left as the specification says; answer 4 asks for a red heavy job that blocks a
+  release, and nothing more.
+- Open question 4: answered in chat on 2026-11-26 (no "ISO 28149" found; likely ISO/IEC/IEEE
+  29148:2018, with ISO/IEC 25010:2023 and ISO/IEC 25023:2016 for time behaviour). No mention was
+  asked for; the specification claims no conformance.
