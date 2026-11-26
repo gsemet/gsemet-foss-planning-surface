@@ -39,7 +39,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - [x] Changelog at `d6ae0d0`: No user-facing change
 - [x] Local gates at `d6ae0d0`: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
 - [x] Review: approved at `d6ae0d0`
-- [ ] CI green at `d6ae0d0`
+- [x] CI green at `d6ae0d0`: checks, static, static-windows, visual, viewer-graph and report pass; the heavy and release jobs are skipped, as on any pull request
 
 ## Known gaps
 
