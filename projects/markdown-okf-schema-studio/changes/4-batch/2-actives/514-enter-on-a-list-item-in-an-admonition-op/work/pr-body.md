@@ -39,9 +39,9 @@ flowchart LR
   target; a block of the body opens on its own lines, and a list around the box never takes it
   over. The nearest box decides when they are nested.
 - A new render pass, `mapBoxSourceLines`, runs inside admonitions, alerts, callouts and dropdowns:
-  no block there maps part of a fence around it, and a diagram, formula, code or table directive
-  maps its whole directive. The body of a version admonition maps the lines it is written on.
-  Blocks outside a box are mapped as before.
+  no block there maps part of a fence around it, and a diagram, formula, code, `{list-table}` or
+  `{csv-table}` directive maps its whole directive. The body of a version admonition maps the
+  lines it is written on. Blocks outside a box are mapped as before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
   quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
@@ -104,7 +104,23 @@ behaviour, with no data or settings change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [ ] New or changed tests (they fail on the previous code). On the previous code, 36 tests of the
+  changed unit and page files fail, among them:
+  - "Enter on an element of a MyST admonition reached with the arrows opens that element only"
+    (and the same for a GitHub alert);
+  - "a click on a paragraph of a MyST admonition opens that paragraph, its title the whole
+    directive";
+  - "Right, Down, Right walk into a list item of an admonition and Enter opens that item only";
+  - "Down at the end of the last item and Up at the start of the first, of a list in an admonition,
+    keep the editor";
+  - "the chord in the editor of a block of an admonition moves it among the blocks of that
+    admonition";
+  - "two blocks of an alert body swap and keep the quote's empty line between them";
+  - "an erased paragraph of an alert body leaves the alert's prefix, so the alert stays whole".
+
+  The 14 tests of `boxBlockSourceLines.test.ts` fail without the renderer change, and the new
+  visual checks of a click in an alert body, a click in an admonition body and Enter on an element
+  of an admonition fail on the previous code.
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
