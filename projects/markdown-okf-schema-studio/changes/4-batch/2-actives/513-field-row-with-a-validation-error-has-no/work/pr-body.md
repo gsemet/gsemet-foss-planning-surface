@@ -32,14 +32,14 @@ A visible change: rows with an error or a warning are coloured in the properties
 
 Current preview mode, pages of the visual test harness. The pictures before the change set no status colour on the page; the pictures after it set the status colours of a VS Code theme (in the light pictures the warning colour is a darker stand-in).
 
-| | Before (at `abfa71e`, carried from `9d7e788`) | After (at `cd3b8e6`, carried from `7f7cc06`) |
+| | Before (at `e2b2235`, carried from `9d7e788`) | After (at `223a8c4`, carried from `7f7cc06`) |
 | --- | --- | --- |
 | Field rows, light | ![Field rows before, light](https://github.com/user-attachments/assets/1ac3d1bd-7598-4268-8eb5-ad2665250e16) | ![Field rows after, light](https://github.com/user-attachments/assets/6c9459ee-c35d-4a18-80f8-f1a35546b781) |
 | Field rows, dark | ![Field rows before, dark](https://github.com/user-attachments/assets/3c77d15d-7b8c-46d3-a3aa-cbedd572371d) | ![Field rows after, dark](https://github.com/user-attachments/assets/a8a387fd-d5e9-4d57-91a5-62824e2543fc) |
 | Whole-table warning, light | ![Table warning before, light](https://github.com/user-attachments/assets/c016f740-069f-4b0b-9002-4677f065dbcf) | ![Table warning after, light](https://github.com/user-attachments/assets/17821188-0654-4c86-a6dd-e851e3d902ae) |
 | Whole-table warning, dark | ![Table warning before, dark](https://github.com/user-attachments/assets/28155425-22fb-4cb5-932a-5f2fcea1a739) | ![Table warning after, dark](https://github.com/user-attachments/assets/9bae17fa-9f2f-450d-a393-9fc6cb484b93) |
 
-The default **Cream** mode with the colour values of a dark VS Code theme set on the page (at `cd3b8e6`, carried from `7f7cc06`): the marked rows keep the colours of the Cream palette.
+The default **Cream** mode with the colour values of a dark VS Code theme set on the page (at `223a8c4`, carried from `7f7cc06`): the marked rows keep the colours of the Cream palette.
 
 ![Field rows in Cream over a dark theme](https://github.com/user-attachments/assets/b544bb92-19fe-4ec1-a56d-c8b8972873a0)
 
@@ -71,14 +71,14 @@ Grade: **1**. Style rules of the properties table and two new colour variables i
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test/core/preview/fieldIssueStyles.test.ts` and the four visual scenarios of `test/visual/scenarioDefinitions2.ts`
-- [x] Requirements at `cd3b8e6` (carried from `7f7cc06`): `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` updated. Source files `src/core/preview/styles/propertiesStyles.ts` and `src/core/preview/styles/pageChromeStyles.ts` (markers in their `.markers.ts` files); test files `test/core/preview/fieldIssueStyles.test.ts` and `test/visual/scenarioDefinitions2.ts`. `just requirements-update` changes no file; requirement validation reports 0 errors and 26 warnings
-- [x] Changelog at `cd3b8e6` (carried from `7f7cc06`): one line under `## Unreleased` in `CHANGELOG.md`, with the number of this pull request
-- [x] Local gates at `cd3b8e6` (carried from `7f7cc06`): `just preflight` passed on Windows, where it runs the static stage only (unit tests: 5375, 5367 pass, 0 fail, 8 skipped; other Node runs 56/56 and 116/116; Python 254 and 4 passed); the `frontmatter-schema` visual group passed (35 scenarios)
-- [x] Evidence: before at `abfa71e` (carried from `9d7e788`), after at `cd3b8e6` (carried from `7f7cc06`), under Impacts
-- [x] Review: approved at `cd3b8e6` (carried from `7f7cc06`)
-- [ ] Verified at `cd3b8e6`
-- [ ] CI green at `cd3b8e6`
+- [x] New or changed tests at `223a8c4` (carried from `cd3b8e6`; they fail on the previous code): `test/core/preview/fieldIssueStyles.test.ts` and the four visual scenarios of `test/visual/scenarioDefinitions2.ts`
+- [x] Requirements at `223a8c4` (carried from `cd3b8e6`): `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` updated. Source files `src/core/preview/styles/propertiesStyles.ts` and `src/core/preview/styles/pageChromeStyles.ts` (markers in their `.markers.ts` files); test files `test/core/preview/fieldIssueStyles.test.ts` and `test/visual/scenarioDefinitions2.ts`. `just requirements-update` changes no file; requirement validation reports 0 errors and 26 warnings
+- [x] Changelog at `223a8c4` (carried from `cd3b8e6`): one line under `## Unreleased` in `CHANGELOG.md`, with the number of this pull request
+- [x] Local gates at `223a8c4` (carried from `cd3b8e6`): `just preflight` passed on Windows, where it runs the static stage only (unit tests: 5375, 5367 pass, 0 fail, 8 skipped; other Node runs 56/56 and 116/116; Python 296 and 4 passed); the `frontmatter-schema` visual group passed (35 scenarios)
+- [x] Evidence: before at `e2b2235` (carried from `9d7e788`), after at `223a8c4` (carried from `7f7cc06`), under Impacts
+- [x] Review: approved at `223a8c4` (carried from `7f7cc06`)
+- [x] Verified at `223a8c4` (carried from `cd3b8e6`)
+- [x] CI green at `223a8c4`
 
 ## Internal references
 
