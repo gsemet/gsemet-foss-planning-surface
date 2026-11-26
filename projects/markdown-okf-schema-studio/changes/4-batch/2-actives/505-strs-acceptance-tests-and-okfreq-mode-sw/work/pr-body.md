@@ -7,7 +7,7 @@ A stakeholder requirement (StRS) declares its main paths, but until now no CI jo
 ```mermaid
 flowchart LR
   runner["run-tests.js --acceptance-only"] --> suite["acceptance-suite.ts, one file per window"]
-  suite --> manifest["acceptance-manifest.json per group"]
+  runner --> manifest["acceptance-manifest.json per group"]
   manifest --> select["select-acceptance-attempts.mjs"]
   select --> campaign["e2e-campaign.mjs report"]
   campaign --> gate["checks, tag-release, Pages"]
@@ -45,7 +45,7 @@ Groups with no acceptance file yet: rendering-core, code-blocks, gfm, myst, diag
 - Built-VSIX window: the VSIX is packaged and unpacked by `scripts/unpack_vsix.py`.
 - CI: the heavy `acceptance` job; `report`, `tag-release` and the Pages reuse (`scripts/select_e2e_run.py`) require it.
 - Tests: trust and security acceptance files (trusted, Restricted Mode, built VSIX). The built-VSIX window checks the installed texts and icon and accepts no path. A new check under `test/security/` builds the bundles and lists the package files.
-- Requirements and docs: `SwRS-MDOKFSTUDIO-CORE-076` states the new heavy job; `SwRS-MDOKFSTUDIO-TRUST-092` names the new check; CI and release guidelines, `AGENTS.md` and `CONTRIBUTING.md`.
+- Requirements and docs: the software requirement (SwRS) `SwRS-MDOKFSTUDIO-CORE-076` states the new heavy job; `SwRS-MDOKFSTUDIO-TRUST-092` names the new check; CI and release guidelines, `AGENTS.md` and `CONTRIBUTING.md`.
 - No file under `src/` changes.
 
 ## Impacts
