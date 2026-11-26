@@ -9,8 +9,8 @@ the admonition, or a click on its title or its frame); otherwise exactly the ele
 the arrows, or the element under the pointer, opens.
 
 Short name: `enter-admonition`. Destination: running batch batch-09 (stack). Found while filming
-the keyboard navigation clip (CR-501), frame
-`changes/4-batch/2-actives/501-clip-keyboard-navigation-in-nested-admon/evidence/finding-enter-on-item-opens-admonition.jpg`.
+the keyboard navigation clip (CR-501, merged with PR #522), frame
+`changes/4-batch/3-done/501-clip-keyboard-navigation-in-nested-admon/evidence/finding-enter-on-item-opens-admonition.jpg`.
 No issue.
 
 ## Goal, in the user's terms
@@ -64,13 +64,19 @@ New rule, for the click and the keyboard alike:
 - A nested admonition: the nearest one decides. A click in the body of the inner one opens the
   pointed block; on the inner title or frame, the inner admonition; the outer one opens only from
   its own title or frame.
-- Update the comment at the head of `editingElementFor` and the comment in
-  `src/core/render/mystNormalize.ts` next to `data-okf-github-alert` ("a click in its body opens
-  the whole alert") to the new rule.
+- Reword to the new rule the comments that state the old one:
+  - the comment at the head of `editingElementFor`;
+  - `src/core/render/mystNormalize.ts`, next to `data-okf-github-alert` ("a click in its body
+    opens the whole alert");
+  - `src/core/render/mystGithubAlerts.ts`, the doc comment of `mapAlertSourceLines` (about line
+    166-170: the `githubAlert` flag "so the page can open the whole alert in one block editor"):
+    the flag lets the title or the frame open the whole alert in one block editor.
 
-No change is needed in `structuralNavigationView.ts`, `blockSelectionView.ts`, `pageInput.ts` or
-`editMode.ts`: they all go through `editingElementFor`. As a consequence, which the requirements
-below record:
+Which element opens is decided in `editingElementFor` only: `structuralNavigationView.ts`,
+`blockSelectionView.ts`, `pageInput.ts` and `editMode.ts` need no change for it, since they all
+go through it. The keys of the editor that then opens are not decided there: what they do from
+the editor of an item inside an admonition is open question 2, and this change does not alter
+them. As a consequence of the new rule, which the requirements below record:
 
 - the edit-hover outline (`editHoverTarget` in `src/page/features/editMode.ts`, SwRS-MDOKFSTUDIO-BLOCK-017)
   outlines the pointed body block, and the admonition only over its title or frame, since it
@@ -123,8 +129,16 @@ change, stop and report, per "Approved requirements" of
 - **SwRS-MDOKFSTUDIO-BLOCK-017** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-017.md`): S2 gets
   two rows: "a paragraph or a list item in the body of an admonition or an alert": the pointed
   paragraph or item; "the title or the frame of an admonition or an alert": the whole admonition.
-- **SwRS-MDOKFSTUDIO-GFM-009**: no normative change. Its `@implements_req` comment in
-  `mystNormalize.ts` is reworded (section 1).
+- **SwRS-MDOKFSTUDIO-BLOCK-262** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-262.md`): S5 row
+  "A click on an item of a list in an alert or an admonition | The whole container opens in its
+  editor, as before (SwRS-MDOKFSTUDIO-BLOCK-014)" becomes: the clicked item opens in its editor;
+  a click on the title or the frame of the alert or admonition opens the whole container
+  (SwRS-MDOKFSTUDIO-BLOCK-014). The Related requirements line "SwRS-MDOKFSTUDIO-BLOCK-014: a
+  click on a list item edits that item; in an alert or an admonition, the whole container"
+  becomes: a click on a list item edits that item, also in an alert or an admonition, whose title
+  or frame edits the whole container.
+- **SwRS-MDOKFSTUDIO-GFM-009**: no normative change. Its comments in `mystNormalize.ts` and
+  `mystGithubAlerts.ts` are reworded (section 1).
 - `just requirements-update`, then a dated `## 2026-11-26` (or the day of the change) entry in
   `requirements/tiers/log.md`, sub-heading `### Enter and click in an admonition open the selected element`,
   naming the reversal of the 2026-10-29 entry "A click in the body of a GitHub alert opens the
@@ -179,6 +193,18 @@ behaviour on 2026-11-26.
   admonition with the editor texts the current scenarios assert. One keyboard scenario: Down to
   the admonition, Right, Down, Right, Enter opens the first list item only. The file's header
   comment is updated.
+- Visual scenarios that open an admonition by a click on its body to reach its head line: in
+  `test/visual/admonitionTypePickerScenarios.ts`, `palette-slash/v36` to `v39` (the
+  `OPEN_ON_TYPE` helper, marker `SwRS-MDOKFSTUDIO-PALETTE-269#S1`, called on
+  `aside.admonition.note > p:last-child`), and in `test/visual/releaseShowcaseScenarios.ts`
+  `rendering-core/v27-release-1-3-showcase-cream-1200` (same target, then ArrowUp and ArrowLeft).
+  They rely on the whole admonition opening so that ArrowUp reaches `> [!NOTE]` or `:::{note}`;
+  after the change that click opens the paragraph only. They now open the admonition by a click
+  on its `.admonition-title` (`aside.admonition.note > .admonition-title`), with the caret moves
+  adjusted so the caret still lands on the last letter of the type, and the comments next to
+  `OPEN_ON_TYPE` and in the showcase scenario ("The click lands mid-way along the ... body, so
+  ArrowUp ...") rewritten to the new gesture. Their screenshots and assertions stay the same (the
+  type list at the caret); the intent of no assertion changes.
 - Real VS Code window (optional, the Driver's call): a step in
   `test/integration/realInput/blockKeys.ts` doing the same keyboard walk into an admonition item
   (runs on push to main only).
@@ -209,10 +235,10 @@ enter-admonition, PR #<n>)".
 - Cards, tabs, grids, block quotes and context-tag panels: no behaviour change intended; only
   their wording in BLOCK-254 is checked against the code.
 - Opening the editor on the title line alone.
-- The keyboard navigation clip (CR-501): its storyboard
-  (`docs/demo-video/clips/keyboard-navigation/clip.md`, shot "Enter: the admonition's editor
-  opens (the whole admonition source...)") films the old behaviour; adjusting it belongs to
-  CR-501, coordinated by the Chief of Staff.
+- The keyboard navigation clip and the user guide: what this change does about them is open
+  question 3; this specification does not decide it.
+- The keys of an item editor inside an admonition (chord move, Down past the last item): open
+  question 2; unchanged by this specification.
 - The writing skill: no rendered syntax changes.
 
 ## Evidence
@@ -243,3 +269,20 @@ enter-admonition, PR #<n>)".
    in the file, like a block of a plain block quote today). Is that acceptable, or should the
    editor hide the markers and put them back on save? This specification assumes the markers stay
    (no new mechanism); a change would be a further CR.
+2. After a click (or Enter) opens one list item inside an admonition, the editor's keys act on
+   the top-level block, not on the admonition's inside: Cmd/Ctrl+Alt+Up/Down from that item
+   editor saves the item and moves the whole admonition (`moveBlockFromEditor` uses
+   `topLevelBlockOf` in `src/page/features/blockEditor.ts`, for an `LI` target), and Down at the
+   end of the last item (Up at the start of the first) leaves the admonition for the block after
+   (before) it (`adjacentMappedBlock`, same file, steps past `topLevelBlockOf(item)`). Today this
+   was hardly reachable, since an item in an admonition never opened alone. Keep it as is, or
+   should the chord move only the list inside the admonition and Down stop at the admonition's
+   edge (a further change to SwRS-MDOKFSTUDIO-BLOCK-130 and SwRS-MDOKFSTUDIO-BLOCK-079)?
+3. The keyboard navigation clip (CR-501, merged in PR #522) films the old behaviour:
+   `docs/demo-video/clips/keyboard-navigation/clip.md` (lines 68-129: "Enter on the item opens the
+   whole admonition in its editor", the caret walked Up five times inside the whole admonition
+   source, and the checks that follow), its `scenario.mjs`, frames and GIF; and the user guide
+   `docs/user/editing.md` (around lines 126-132) shows that GIF with the alt text "Right selects
+   the first item, Enter opens the admonition editor". Should this change re-film the clip and
+   update the guide in the same pull request, update only the guide's text and alt text and leave
+   the re-filming to a new CR, or leave both to a new CR?

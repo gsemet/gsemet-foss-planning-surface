@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Release after batch-09's fixes and the three open changes",
+  "summary": "Waits: to be added to batch-09 as its release once CR-505, CR-507 and CR-509 are merged; it also ships the four anomaly fixes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "18a94d94a2ede20daa194885ce35606cd78e91685ac9ea2a447590a0f35c17d7",
+    "intake/request.md": "3c7287f7425648d047ec18aefcd5912b23f3fcf98a570c81319b65c140f260e8"
+  },
+  "summarized": "2026-11-26T08:00:01Z"
+}

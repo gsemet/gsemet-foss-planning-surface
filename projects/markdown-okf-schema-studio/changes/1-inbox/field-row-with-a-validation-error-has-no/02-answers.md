@@ -11,3 +11,5 @@ Short name: `field-error`
 
 Destination: running batch batch-09.
 Spec critic: no, style only.
+
+3. field-error-Q3 (2026-11-26, the specification's open question): **Whole-document warning rows (`.okf-info-row.okf-warning`):** "A. Les colorer aussi (recommandé)": they take the warning colour on a light background, as the whole-document error row does in red.

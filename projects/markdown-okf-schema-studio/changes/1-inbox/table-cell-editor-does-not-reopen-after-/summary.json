@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Table cell editor reopens after a pasted table fill, or why not",
-  "summary": "Grilled; being specified for batch-09. Reproduce with real input, then fix or record as an artefact of the driving tool.",
+  "title": "Cell editor reopen after a grid paste: reproduce, then fix or record",
+  "summary": "Specified for batch-09. Reproduce the clip's conditions (header-cell start, copy from VS Code, auto-save) in a real-window test; fix with that test if the reopen fails, else record the artefact in TABLE-120 and the clip guidelines.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "8f60bc1d83e285c8510e03de4c565fdaddc3749648aa445ea65195a3ed3e0003",
     "02-answers.md": "45cdeadeaff5a9d19c8c302505e23f4833654c945e507662794918b87069b84f",
+    "03-change-spec.md": "934cef1806ee1e46f835dd7c7944e45493b58302a046ddac2fe7cc30879164d6",
     "intake/request.md": "995a568693bff505b6c20ffff6efa05bb7592b5f08617967616a369fb9cfdf51"
   },
-  "summarized": "2026-11-26T07:58:27Z"
+  "summarized": "2026-11-26T08:01:33Z"
 }

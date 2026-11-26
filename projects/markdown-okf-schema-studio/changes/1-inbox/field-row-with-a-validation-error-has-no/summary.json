@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Mark frontmatter field rows that carry an error or a warning",
-  "summary": "Specified for batch-09. Error field rows: name in red on a light red background, wavy red underline under the value; warnings the same in the warning colour. One open question: whole-document warning rows.",
+  "title": "Mark frontmatter rows that carry an error or a warning",
+  "summary": "Specified for batch-09. Error field rows: name in red on a light red background, wavy red underline under the value; warnings the same in the warning colour. Whole-table warning rows take the warning colour too.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "5ace4da236c2df7642fe5a052d339c375afd142c4bda3e32f9a98a6e7c57eabe",
-    "02-answers.md": "c9bb365cca394d643584c4c8c4641da3919a7fa8dd0cfa7093ed98d7be3dd6e1",
-    "03-change-spec.md": "88269256f67bbf35d6a01428747ba33b0a299e343afbd7bc9891936c0bdcac0f",
+    "02-answers.md": "8aca8d864a0138fc63e34ef84bfa7977d2ebf73fdc7658b80dfb7f28a567ae36",
+    "03-change-spec.md": "cbf9575a904ef44712bc47c66d431e125aa28843486fad45130dc56076d2eb3e",
     "intake/request.md": "67c9312805e72a7c3769ada40a77e9e20e91ab85a0a1fa02cdc8ca26ba034c0a"
   },
-  "summarized": "2026-11-26T07:55:02Z"
+  "summarized": "2026-11-26T08:01:15Z"
 }
