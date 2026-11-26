@@ -25,7 +25,7 @@ flowchart LR
 
 Brief sizes in bytes (old start reading to new brief, test fixture): Foreman 91,612 to 22,125; Chief of Staff 202,936 to 24,351; CR Driver 27,834 to 9,773; Coder 14,226 to 3,939.
 
-What `take` prints for the agent that will drive a change, excerpts. Before, at `ea11a9e`:
+What `take` prints for the agent that will drive a change, excerpts of a test project with paths and identifiers replaced by placeholders. Before, at `ea11a9e`:
 
 ```text
 cr-driver prompt (copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
