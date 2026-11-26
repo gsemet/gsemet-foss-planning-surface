@@ -1,0 +1,80 @@
+## Summary
+
+The CI job `visual`, which captures and checks the screenshot campaign, ran out of its 15-minute
+limit: it took 804 to 890 seconds of 900 on `main`, and one pull request run printed its pass line
+one second after the limit and was cancelled. The campaign now runs in two jobs side by side,
+`visual` and `visual-2`, and the `report` job merges their results. The limit stays at 15 minutes,
+every scenario and check still runs, and no retry is added.
+
+## Deliverables
+
+Each part runs about half of the campaign's end-to-end groups (the named sets of screenshot
+scenarios), and the report job puts them back together:
+
+```mermaid
+flowchart LR
+  v1["visual: just ci-visual 1<br>(+ table breakout tests)"] -->|e2e-visual-attempt-n| r
+  v2["visual-2: just ci-visual 2"] -->|e2e-visual-2-attempt-n| r
+  r["report: just ci-report<br>merge_parts.py first"] --> c[checks]
+```
+
+| | Before | After |
+| --- | --- | --- |
+| Jobs | `visual` | `visual` and `visual-2`, in parallel |
+| Scenarios per job (this branch) | 523 | 269 (`rendering-core` to `layout-width`) and 254 (`theme-zoom` to `trust-security`) |
+| Job limit | 15 minutes | 15 minutes each |
+| Local run | `just ci-visual` | `just ci-visual` (both parts, then the merge), or `just ci-visual 1` / `2` |
+
+## Changes
+
+- `test/visual/capture.py --part 1|2` runs the groups listed for that part (`VISUAL_PARTS`) and
+  writes its own manifest, index and machine-check report. A group in no part, or in two parts,
+  stops the script with exit code 2 and names the group.
+- `test/visual/merge_parts.py` (new) writes the same full manifest, index and machine-check report
+  as a full run. It fails, naming the cause, on a missing part, a scenario in no part, parts from
+  another revision or run, a failed part, or identical screenshots across the parts.
+- `test/visual/capture_report.py` (new) is the one writer of those files.
+- `justfile`: `ci-visual` takes an optional part, and `ci-report` merges the parts first.
+- `.github/workflows/ci.yml`: new job `visual-2`, which restores the system package cache that
+  `visual` saves; `report` and `checks` need both jobs.
+- `scripts/select_e2e_run.py`: the site deployment reuses a run's reports only when the run also
+  holds the second part's artifact.
+- Contributor docs and the CI requirement describe the two parts.
+
+## Impacts
+
+No visual change: only CI, its scripts, its tests and the contributor docs change.
+
+- CI shows one more job, `visual-2`.
+- A run made before this change has no second artifact, so the site deployment runs the end-to-end
+  suite itself for such a run instead of reusing its reports.
+
+## Blast radius
+
+- **2**: several features or shared code; revert is possible but needs checks or follow-ups.
+
+Grade: 2. It changes the CI jobs that gate merges and which runs the site deployment reuses. A
+`git revert` restores the single job; the first runs after it show whether the time limit holds.
+
+## Autonomous decisions
+
+- The merge step also sets the start time recorded for the visual campaign to the merged run's
+  start. Each part records its own start, and the final review check requires it to match the
+  merged manifest.
+- `test/visual` is added to the source folders of the requirements bundle
+  (`requirements/config.yml`), so that the requirement can list the new files.
+
+## Test plan
+
+- [ ] New or changed tests (they fail on the previous code)
+- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [ ] Changelog: No user-facing change
+- [ ] Local gates:
+- [ ] Review
+- [ ] CI green
+
+## Internal references
+
+- Change request 515.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
