@@ -62,20 +62,22 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
+- [ ] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
       passes on the current code and fails (`AssertionError: TABLE`) when the widening rule is
       temporarily changed to accept any element, and (`AssertionError: P`) when only the check that
-      an image's paragraph is at the top level is removed (both at `5f7658a`).
+      an image's paragraph is at the top level is removed (both
+      STALE (judged at `5f7658a`, head now `928ebd7`)).
 - [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
       `src/page/modules/widthMode.ts` (unchanged), tests `test/page/runtimePageControls.test.ts`
       and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` run
 - [x] Changelog: no user-facing change
-- [x] Local gates at `5f7658a`: `just preflight` passes (static stage on Windows): 5336 unit tests,
-      5328 pass, 0 fail, 8 skipped
-- [x] Review: approved at `5f7658a`
-- [ ] CI green: not green at `5f7658a`. The `visual` job was cancelled at its 15 minute limit on
-      the first run and on its re-run (on the re-run its checks had passed before the cancellation);
-      `checks` fails as a consequence. `static`, `static-windows`, `viewer-graph` and `report` pass
+- [ ] Local gates STALE (judged at `5f7658a`, head now `928ebd7`): `just preflight` passed (static
+      stage on Windows): 5336 unit tests, 5328 pass, 0 fail, 8 skipped
+- [ ] Review: STALE (judged at `5f7658a`, head now `928ebd7`)
+- [ ] CI green: STALE (judged at `5f7658a`, head now `928ebd7`): it was not green there. The `visual`
+      job was cancelled at its 15 minute limit on the first run and on its re-run (on the re-run its
+      checks had passed before the cancellation); `checks` failed as a consequence. `static`,
+      `static-windows`, `viewer-graph` and `report` passed
 
 ## Internal references
 
