@@ -16,7 +16,8 @@ conflict with theirs. `perf-kpi-real-window-tests` sits above it and builds on t
 generator and scripts in `experiments/`. In short: comment creation, Save to highlight, 45 ms on a
 small document, 65 ms on the issue's shape, 114 ms on one four times larger (164 and 488 ms with the
 CPU slowed four times on the last two). A comment's DOM change restyles 1893 elements on the issue's
-shape; 16 with the `:has()` rules removed. Slow selection was not reproduced there.
+shape; 16 with the `:has()` rules removed. Slow selection was not reproduced there, nor on the
+reporter's own document (`intake/reporter-document.md`).
 
 ## Part 1: measure first, in a real window
 
@@ -37,6 +38,12 @@ First commit, before any fix:
 Then three runs in CI on that commit (the "before"). Local runs on a real desktop are added when the
 conditions of `.agents/guidelines/local-worktree.guidelines.md` for window tests are met; when they
 are not, say that they were not run.
+
+The reporter's document (the issue's gist, downloaded on the owner's word, `02-answers.md` item 2)
+was measured without a window at intake (`intake/reporter-document.md`): no stall at normal speed,
+longest task in a selection 12 ms at worst, but about 3160 elements in the page against 1873 for the
+first generated document, and a comment restyling 3222 elements. The generator therefore aims at that
+density (inline code and bold in the cells, some blockquotes), about 3000 elements.
 
 ## Part 2: the fixes
 
@@ -71,9 +78,15 @@ are not, say that they were not run.
   content changes.
 - A test shows that creating a comment keeps the highlight elements of the unchanged threads.
 - Three CI runs of the real-window scenario after the fix, against the three before: the pull
-  request's body and the CR's evidence give each run and the medians per interaction. Comment
-  creation is faster after; any interaction that got slower is explained. No target time is set
-  here: the maximums belong to `perf-kpi-real-window-tests`.
+  request's body and the CR's evidence give each run and the medians per interaction, and the number
+  of elements restyled by a comment creation in the real window, which drops. Hosted runners vary:
+  when the two sets of medians overlap, "not separable from runner noise" is an accepted result,
+  said as such. Any interaction that got slower beyond that spread is explained. No target time is
+  set here: the maximums belong to `perf-kpi-real-window-tests`.
+- The new manual CI job follows `.agents/guidelines/ci.guidelines.md` (a `just ci-<name>` target,
+  `timeout-minutes`, its line in rule 13's on-demand jobs). The "how we test" page of CR-507 lists
+  every job of `ci.yml`: whichever of the two changes is higher in the stack adds this job to
+  `docs/how-we-test.md`.
 - Requirements: every behaviour changed or added has its SwRS and markers (project rules). No StRS
   is changed.
 - `just preflight` passes and a heavy CI run of the head is green.
