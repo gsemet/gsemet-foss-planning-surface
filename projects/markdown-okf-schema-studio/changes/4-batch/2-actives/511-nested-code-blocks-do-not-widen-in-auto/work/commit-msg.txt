@@ -1,0 +1,8 @@
+docs: say only top-level blocks widen in the Auto width mode
+
+A wide block inside a list item, admonition, block quote, tab set, dropdown
+or card keeps its Margin layout in Auto. The requirements now state this as
+the intended behaviour instead of a known issue, and record that a linked
+image alone in a paragraph is not widened.
+
+Assisted-by: Claude:Sonnet-5.5
