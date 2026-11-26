@@ -25,3 +25,5 @@ content root; the tear-down and re-anchoring of every thread with `scroll.measur
 All were measured or read in the reproduction (see `intake/request.md`).
 
 Destination: running batch batch-09.
+
+Spec critic: yes (a layout rule the user sees changes; the change spans page styles, the comments code, tests and CI).
