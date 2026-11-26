@@ -1,0 +1,5 @@
+[
+  ["topics/host-auto-fix.md", "A CR's branch is brought up to date the project's way (a rebase),", "A CR's branch is updated the project's way (a rebase),"],
+  ["topics/batch-plan-mode-p1.md", "The mode question, asked at every opening with the plan, is", "The mode question, asked at each opening with the plan, is"],
+  ["topics/host-allow-rules.md", "- Precedence: managed > command line > local > project > user;", "- Order: managed > command line > local > project > user;"]
+]

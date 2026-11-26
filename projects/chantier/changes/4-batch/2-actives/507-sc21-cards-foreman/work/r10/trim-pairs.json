@@ -1,0 +1,23 @@
+[
+  ["topics/batch-plan-mode-p1.md", "nothing about the merge path is recorded in `brief.md`", "the merge path is not recorded in `brief.md`"],
+  ["topics/batch-plan.md", "Only in the turn where the user gave the go.", "Only in the turn the user gave the go."],
+  ["topics/merge-gaps.md", "- A project rule that asks a local run:", "- A rule asking a local run:"],
+  ["topics/merge-gaps.md", "When the ask and the `long gate` clause differ, the ask wins.", "Ask and `long gate` clause differing: the ask wins."],
+  ["topics/merge-gaps.md", "before saying the stack can be merged", "before calling the stack mergeable"],
+  ["topics/host-allow-rules.md", "The table and the block to paste are in `hosts/claude-code.md`. Documented", "Table and block to paste: `hosts/claude-code.md`. Documented"],
+  ["topics/host-allow-rules.md", "variables (deny and ask rules do); for PowerShell assignments (`$w='...'; cmd`) that is\n  **unproved**.", "variables (deny and ask rules do). PowerShell assignments (`$w='...'; cmd`): **unproved**."],
+  ["topics/host-allow-rules.md", "P10 holds the commands the cards make agents write and asks whether some allow rule lets each\nthrough: a narrower or different rule of the user's counts when it matches the same commands.", "P10 asks whether some allow rule lets through each command the cards make agents write; a\nnarrower or other rule of the user's counts when it matches the same commands."],
+  ["topics/host-allow-rules.md", "**Unproved** as a rule (matching, and its fate in auto mode\nand in a Driver).", "**Unproved** (matching, auto mode, a Driver)."],
+  ["topics/host-auto-fix.md", "Auto-fix is a Claude Desktop feature: the app binds a PR a subagent opened to the session that\nstarted it", "Claude Desktop's Auto-fix binds a PR a subagent opened to the session that\nstarted it"],
+  ["topics/host-auto-fix.md", "A CR's branch is brought up to date the project's way\n  (a rebase),", "A CR's branch is updated the project's way\n  (a rebase),"],
+  ["topics/host-auto-fix.md", "a relay costs messages against the host's limit.", "a relay spends the host's message limit."],
+  ["topics/host-auto-fix.md", "Nothing wrong: nothing is done.", "Nothing wrong: do nothing."],
+  ["topics/host-auto-fix.md", "(`mcp__ccd_pr__set_monitor`) and writes\n  no setting of it; it stays silent about Auto-fix (no preflight, no \"For you\" line).", "(`mcp__ccd_pr__set_monitor`), writes no\n  setting of it and stays silent about it (no preflight, no \"For you\" line)."],
+  ["topics/release-notes.md", "Their captures come from the release's batch (its `STATUS.md`, the board, CLI output) and from `report.md` and `conversation.md` in the release CR's folder when written;", "Captures come from the release's batch (`STATUS.md`, the board, CLI output) and the release CR's `report.md` and `conversation.md` when written;"],
+  ["topics/release-notes.md", "each capture kept passes", "each capture passes"],
+  ["topics/release-notes.md", "The thread is never posted by an agent.", "No agent posts the thread."],
+  ["topics/release-notes.md", "A project whose procedure says where notes are reviewed is followed as written", "A procedure that says where notes are reviewed is followed as written"],
+  ["topics/release-notes.md", "and once more just before `handback ready <pr link>`", "and just before `handback ready <pr link>`"],
+  ["topics/release-notes.md", "Images are anonymised before they leave the machine", "Anonymise images before they leave the machine"],
+  ["topics/release-notes.md", "with a line saying the body is not the whole", "with a line saying the body is partial"]
+]
