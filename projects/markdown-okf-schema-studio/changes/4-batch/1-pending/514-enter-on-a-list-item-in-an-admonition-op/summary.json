@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Enter and click in an admonition open the selected element",
+  "summary": "Specified for batch-09: in an admonition or alert, Enter on an arrow-reached element and a body click open it alone; title or frame open it whole. The chord moves a direct block inside it, edges keep the caret, an erased alert block leaves '>'. Clip re-filmed to a sub-item, guide updated.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b9b9e0ffe990d1565ec545e7f5d91e8f872f66f15e0e6a866fe7ca8b18b2d6f6",
+    "02-answers.md": "d764be76f4ff99840f2dd55b1c8e871e0d9887aa8e6ddec4b625106f58b33307",
+    "03-change-spec.md": "160fa4b4e4dc6a9eec9306329eb4c3ab9ab4f60cc0397e83c4f5c56a7395a8ee",
+    "intake/request.md": "5372a8a90d9227f1582fdcab329f1aaae5bd1c8eebcab560060762bc64f477cb"
+  },
+  "summarized": "2026-11-26T08:35:35Z"
+}

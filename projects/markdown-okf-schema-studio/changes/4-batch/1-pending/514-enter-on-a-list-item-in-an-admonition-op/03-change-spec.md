@@ -6,10 +6,12 @@ block, whatever the writer aims at: Enter on a list item or a paragraph reached 
 opens the whole admonition, and so does a click in its body. After this change, the whole
 admonition opens only when the admonition itself is selected or pointed at (keyboard selection of
 the admonition, or a click on its title or its frame); otherwise exactly the element reached with
-the arrows, or the element under the pointer, opens. From the editor of a list item inside an
-admonition, the move chord moves that list inside the admonition, and Down or Up at the edge of
-the list keeps the caret in the editor. The keyboard navigation clip is re-filmed to show it, down
-to an item of a nested sub-list, and the user guide follows.
+the arrows, or the element under the pointer, opens. From the editor of a direct block of an
+admonition (a paragraph, a list or one of its items, a code block, a nested admonition), the move
+chord moves that block among the admonition's blocks, and Down or Up at the edge of a list there
+keeps the caret in the editor. An item or a paragraph of an alert erased and committed leaves the
+alert whole. The keyboard navigation clip is re-filmed to show it, down to an item of a nested
+sub-list, and the user guide follows.
 
 Short name: `enter-admonition`. Destination: running batch batch-09 (stack). Found while filming
 the keyboard navigation clip (CR-501, merged with PR #522), frame
@@ -26,9 +28,14 @@ No issue.
 - With the mouse, the writer points straight at the element to open: a click on a list item or a
   paragraph of the body opens it; a click on the title or the frame opens the whole admonition.
   GitHub alerts behave the same (answer 3).
-- In the editor of a list item inside an admonition, Cmd+Alt+Up/Down (Ctrl+Alt elsewhere) moves
-  that list among the blocks of the admonition, never out of it (answer 5); Down at the end of the
-  last item and Up at the start of the first keep the caret in the editor (answer 6).
+- In the editor of a direct block of an admonition or alert, Cmd+Alt+Up/Down (Ctrl+Alt elsewhere)
+  moves that block among the blocks of the admonition, never out of it; from a list item or the
+  list, the list moves (answers 5, 10); a list inside a quote, card or grid of the admonition, and
+  a block inside a list item, do not move (answers 10, 13). A refused move says why next to the
+  admonition's insert point (answer 11). Down at the end of the last item and Up at the start of
+  the first keep the caret in the editor (answer 6).
+- Erasing an item or a paragraph opened alone in an alert, then Done, writes only the alert's
+  prefix `>`: the alert stays whole, with an empty quoted line (answer 12).
 - The keyboard navigation clip shows the new path: from the keyboard only, down to an item of the
   nested sub-list of the admonition, Enter opens that item alone, one word changes, save (answers
   7 and 9). The `> ` markers of an alert block stay in its editor (answer 8).
@@ -47,9 +54,12 @@ mapped element without the `admonition` class. The click path (`pageInput.ts` cl
 S1 and S3 rows on admonitions and alerts, added on 2026-10-29).
 
 The editor keys of an item (`src/page/features/blockEditor.ts`) only know top-level blocks:
-`moveBlockFromEditor` moves `topLevelBlockOf(item)` past its top-level neighbour, and
-`adjacentMappedBlock` steps from the last item to the top-level block after `topLevelBlockOf(item)`.
-Today this was hardly reachable, since an item in an admonition never opened alone.
+`moveBlockFromEditor` moves `topLevelBlockOf(item)` past its top-level neighbour (and, for any
+other editor, the edited block past a top-level neighbour, which an inner block never has, so
+nothing moves), and `adjacentMappedBlock` steps from the last item to the top-level block after
+`topLevelBlockOf(item)`. An erased inner block, committed, writes an empty line in place of its
+lines (SwRS-MDOKFSTUDIO-BLOCK-264 S4), which cuts an alert in two. Today this was hardly
+reachable, since an item or a paragraph in an admonition never opened alone.
 
 ## What changes
 
@@ -103,55 +113,76 @@ The editor of a body block holds the lines of that block exactly as they are in 
 indentation of an indented alert) are part of the text, as they are for a block in a plain block
 quote today (answer 8: the markers stay; no new mechanism).
 
-### 2. The move chord from an item editor inside an admonition (answer 5)
+### 2. The move chord from the editor of a direct block of an admonition (answers 5, 10, 11, 13)
 
-Scope: the editor of a list item (`edit.target` is an `LI`, the case `moveBlockFromEditor` turns
-into `topLevelBlockOf` today) whose nearest admonition (the same selector and the same
-context-tag exception as in section 1) lies inside its top-level block. The chord from any other
-editor is unchanged (see open questions 1 and 2). An item with no admonition around it is
-unchanged (the whole top-level list moves, BLOCK-130 S6).
+Page side, `moveBlockFromEditor` in `src/page/features/blockEditor.ts` and
+`src/page/features/blockMoves.ts`. Let `edited` be the editor's target and `adm` its nearest
+admonition (the same selector and the same context-tag exception as in section 1; an editor opened
+on a whole admonition looks at the admonition around that one). With no `adm`, everything stays as
+today (BLOCK-130 S6, S7): the whole top-level list moves from an item editor, a top-level block
+moves, an inner block moves nothing.
 
-Page side, `src/page/features/blockEditor.ts` and `src/page/features/blockMoves.ts`:
-
-- **What moves.** The body block of `adm` that holds the item: the member of
-  `rt.blocks.mappedChildren(adm)` that contains the `LI`, that is the outermost list of the
-  admonition's body around the item. For an item of a nested sub-list, that outermost list moves
-  with all its items, as the top-level rule does today for a nested item.
+- **What moves** (answers 5, 10):
+  - the editor of a list item: the list that holds it, climbing through `UL`, `OL` and `LI` only to
+    the outermost such list; for an item of a nested sub-list, that outermost list, with all its
+    items, as the top-level rule does today;
+  - the editor of a list (opened by Enter on the selected list): that list;
+  - the editor of any other block: that block (a paragraph, a code block, a table opened in its raw
+    editor, a nested admonition opened whole, any other block);
+  - the candidate moves only when it is a **direct block** of `adm`: a member of
+    `rt.blocks.mappedChildren(adm)` with no element between it and `adm` other than `adm`'s own
+    body wrapper when the renderer has one (the Driver checks the dropdown `details`). Otherwise the
+    key is consumed and nothing moves (BLOCK-130 S7): a block inside a list item stays, as outside
+    admonitions (answer 10); a list inside a block quote, a card or a grid inside the admonition is
+    not a direct block, whether that container is mapped or not, and stays (answer 13).
 - **Past which neighbour.** The previous or next member of `mappedChildren(adm)`, in source order:
-  a paragraph, another list, a code block, a nested admonition taken whole. Included blocks
-  (`isIncludedBlock`) are not neighbours, as in `bodyBlockNeighbour`. The admonition's title
-  is not a mapped child and is never crossed; nor is the fence or the alert marker line. A new
-  inner-neighbour function sits beside `bodyBlockNeighbour` (which stays top-level only).
-- **No neighbour inside the admonition** (the list is the first block of the body and the chord is
-  up, or the last and the chord is down): the key is consumed and nothing happens, as BLOCK-130 S7
-  says for the last block; nothing is saved by the chord, the editor stays open, the list never
+  a paragraph, a list, a code block, a nested admonition taken whole, a quote, card or grid taken
+  whole. Included blocks (`isIncludedBlock`) neither move nor are neighbours, as in
+  `bodyBlockNeighbour`. The admonition's title is not a mapped child and is never crossed; nor is
+  the fence or the alert marker line. A new inner-neighbour function sits beside
+  `bodyBlockNeighbour` (which stays top-level only).
+- **No neighbour inside the admonition** (the block is the first of the body and the chord is up,
+  or the last and the chord is down): the key is consumed and nothing happens, as BLOCK-130 S7
+  says for the last block; nothing is saved by the chord, the editor stays open, the block never
   leaves the admonition.
-- **Nested admonitions.** The nearest admonition around the item bounds the move: a list in the
-  body of an inner admonition moves among the inner admonition's body blocks only. An alert
-  indented in a list item: the alert bounds the move, the outer item and its list are not moved.
+- **Nested admonitions.** The nearest admonition around the edited block bounds the move: a block
+  in the body of an inner admonition moves among the inner admonition's blocks only; the inner
+  admonition opened whole moves among the outer one's blocks. An alert indented in a list item: the
+  alert bounds the move, the outer item and its list are not moved.
 - **The host message.** The same `previewBlockMove` as today (`postBlockMove`): `line` and
-  `endLine` of the inner list, `neighbourLine` and `neighbourEndLine` of the inner neighbour, the
+  `endLine` of the moved block, `neighbourLine` and `neighbourEndLine` of the inner neighbour, the
   direction. No new message, no new field (SwRS-MDOKFSTUDIO-BLOCK-259 unchanged). Both paths of
   `moveBlockFromEditor` reach it through `requestBlockMove` in `blockMoves.ts`:
-  - nothing to save: `closeBlockEdit(true)`, then `requestBlockMove(list, direction, "edit", offset)`
+  - nothing to save: `closeBlockEdit(true)`, then `requestBlockMove(block, direction, "edit", offset)`
     at once;
-  - unsaved text: `rememberPendingBlockNavigation(list, "end", undefined, undefined, {direction,
+  - unsaved text: `rememberPendingBlockNavigation(block, "end", undefined, undefined, {direction,
     caretOffset})`, then `postBlockEditSave(true)`; after the save renders,
     `resumePendingBlockNavigation` (`src/page/features/editMode.ts`, the `thenMove` branch) finds the
-    list again (its breadth-first walk already reaches inner blocks) and calls
+    block again (its breadth-first walk already reaches inner blocks) and calls
     `rt.blockMoves.requestBlockMove(target, direction, "edit", caretOffset)`; when that returns
-    false it only reopens the list's editor (`openMappedEditor(target, target, {offset}, false)`).
+    false it only reopens the block's editor (`openMappedEditor(target, target, {offset}, false)`).
   - `requestBlockMove` takes its neighbour from `bodyBlockNeighbour`, which knows top-level blocks
-    only: for an inner list it finds none and returns false. So the inner neighbour (above) must be
+    only: for an inner block it finds none and returns false. So the inner neighbour (above) must be
     used by `requestBlockMove` itself (or by a variant both paths call), not only by
-    `moveBlockFromEditor`; otherwise the save path saves the item, reopens the editor and moves
+    `moveBlockFromEditor`; otherwise the save path saves the block, reopens the editor and moves
     nothing.
-- **After the render.** `settleBlockMove`, `resumeBlockMove`, `runStaleRetry` and
-  `finishMoveRefusal` find the moved block with `rt.blocks.bodyBlockAtLine`, which knows
-  top-level blocks only. They must find an inner list too (for example the breadth-first walk
-  that `resumePendingBlockNavigation` already does over mapped children), so that the moved list's
-  editor opens at its new place with the caret at the remembered offset, as for a top-level list
-  (BLOCK-130 S6), and so that a stale or refused move settles on it.
+- **After the render, and repeated chords.** `settleBlockMove`, `resumeBlockMove`, `runStaleRetry`
+  and `finishMoveRefusal` find the moved block with `rt.blocks.bodyBlockAtLine`, which knows
+  top-level blocks only. They must find an inner block too (for example the breadth-first walk
+  that `resumePendingBlockNavigation` already does over mapped children), so that the moved block's
+  editor opens at its new place with the caret at the remembered offset, as for a top-level block
+  (BLOCK-130 S6), and so that a stale or refused move settles on it. The editor that reopens
+  (`openMappedEditor(block, block, ..., false)`: for a moved list the list's editor, for a paragraph
+  the paragraph's) is itself the editor of a direct block of `adm`, so the next chord moves the
+  same block again, and so on until it reaches the first or last place of the body (answer 10).
+  The in-flight guard (`blockMoveInFlight`) is cleared by the settle as today, so a chord pressed
+  after the editor reopened is not swallowed.
+- **A refused inner move** (answer 11, BLOCK-109 S8): `finishMoveRefusal` shows the reason next to
+  the insert point of the admonition: the bar whose `rt.insertPoints.moves.get(bar).block` is the
+  top-level block that holds the moved block (the admonition itself, or the top-level block around
+  a nested admonition), with the same status element, role and 6 s as for a top-level move. Today
+  it looks for the bar of `bodyBlockAtLine(line)`, which finds no inner block, so nothing would
+  show.
 
 Host side, `planBlockMove` in `src/core/mapping/blockMove.ts` (via `planBlockMoveEdit` in
 `src/core/edits/sourceEdits.ts`, `handleBlockMove` in `src/session/features/sourceEdits.ts`):
@@ -184,6 +215,45 @@ last row). Between items of the same list, Down and Up still open the next or pr
 outside admonitions are unchanged (the next or previous top-level block opens). For an item of a
 nested sub-list inside an admonition, Down past its last sibling keeps the caret too (the rule
 looks at the item's own siblings and the admonition around it).
+
+### 3b. An erased item or paragraph of an alert keeps the alert (answer 12)
+
+Today (origin/main): the page sends `deleteWhenEmpty` only for a top-level body block or an item
+of a top-level list (`deletesWhenEmpty` in `src/page/features/blockEditor.ts`); for any block
+inside a container the host writes the empty edited text over the block's lines
+(`drainActiveBlockEdit` in `src/session/features/blockEdits.ts`, `planBlockTextEdit`), which leaves
+one empty line where the block was: the "placeholder line" of BLOCK-264 S4 (asserted for a
+top-level block without the field in `test/session/emptiedBlockDelete.test.ts`, "without
+deleteWhenEmpty the placeholder line is written"). Inside a GitHub alert that empty line ends the
+quote: the lines after it start a new block quote without the `[!TYPE]` marker, rendered as a
+plain quote.
+
+The change, host side (the host has the source; no page field and no protocol change):
+
+- When `drainActiveBlockEdit` writes an edited text that is whitespace only, not deleting (no
+  `deleteWhenEmpty`), and the block's lines lie in the body of a GitHub alert, it writes instead one
+  line holding only the alert's prefix without its trailing space (`>` for an alert at the top
+  level, the indentation then `>` for an alert indented in a list item), followed by the
+  document's line ending.
+  "In the body of a GitHub alert" is read from the source: every line of the block carries the
+  same quote prefix, and the quote that holds it opens with an alert marker line, recognised the
+  way `src/core/render/mystGithubAlerts.ts` recognises it (reuse its recogniser; the Driver puts the
+  helper in `src/core/edits/sourceEdits.ts` or next to the recogniser, pure and unit tested). This
+  holds for the final save (Done, Ctrl or Cmd+Enter, a blur that commits) and for an autosave of the
+  empty text, so the document never holds a cut alert while the writer types.
+- `edit.lastSavedText` becomes the text actually written (the prefix line), since the next drain
+  checks the document against it; an unchanged empty editor text then writes nothing more (the
+  Driver compares against the planned text, not the raw empty one, so autosaves do not loop).
+- A block quote that is not an alert keeps today's empty line (out of scope); top-level blocks and
+  top-level list items keep the deletion of BLOCK-264 S1 to S3.
+- A MyST admonition has no prefix: an erased paragraph or item of its body writes the empty line
+  as today. Its effect, on origin/main: the directive stays whole (a blank line does not close a
+  backtick or colon fence); the body gets one more blank line where the block was (two or three
+  blank lines between its neighbours, or a blank line right after the opening fence or option lines
+  or before the closing fence, all rendered as nothing); an erased item of a tight list leaves a
+  blank line between two items, which makes that list loose (its items render spaced). The same
+  holds in an alert: the `>` line between two items makes that list loose. This change keeps that
+  effect (answer 12 asks for the prefix only).
 
 ### 4. Requirements (`requirements/tiers/`)
 
@@ -230,25 +300,36 @@ it must change, stop and report, per "Approved requirements" of
     editor; a click on the title or the frame of the alert or admonition opens the whole container
     (SwRS-MDOKFSTUDIO-BLOCK-014).
   - S2 sentence "In an open list item editor, the Cmd/Ctrl+Alt chord still moves the whole list
-    (BLOCK-130)" gains: for a list inside an admonition or an alert, the list moves among the
-    blocks of that admonition (SwRS-MDOKFSTUDIO-BLOCK-130).
+    (BLOCK-130)" gains: for a list that is a direct block of an admonition or an alert, the list
+    moves among the blocks of that admonition (SwRS-MDOKFSTUDIO-BLOCK-130).
   - Related requirements: the line "SwRS-MDOKFSTUDIO-BLOCK-014: a click on a list item edits that
     item; in an alert or an admonition, the whole container" becomes: a click on a list item edits
     that item, also in an alert or an admonition, whose title or frame edits the whole container;
     the BLOCK-130 line (the chord in a list item editor moves the whole list) adds "inside its
     admonition when it has one".
 - **SwRS-MDOKFSTUDIO-BLOCK-130** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-130.md`): new
-  scenario `S8 (nominal): The move chord in a list item editor inside an admonition`, declared in
-  `scenarios:`:
+  scenario `S8 (nominal): The move chord in the editor of a block inside an admonition`, declared
+  in `scenarios:`; the normative statement and description say that inside an admonition or an
+  alert the chord moves the edited direct block among the admonition's blocks:
 
   | Input | Outcome |
   | --- | --- |
   | The chord down in the editor of an item of a list in the body of a MyST admonition, a paragraph after the list | The item is saved if changed, the list and the paragraph swap inside the admonition, the fence and the title stay, and the list's editor opens at its new place with the caret at the same offset |
+  | The same from the editor of the list, of a paragraph or of a code block of the body | That list, paragraph or code block swaps with its neighbour inside the admonition and its editor reopens |
   | The same in a GitHub alert, also an alert indented in a list item | The same; every line keeps its quote prefix |
   | An item of a nested sub-list | The outermost list of the admonition's body moves, with all its items |
-  | The list is the first block of the body and the chord is up, or the last and the chord is down | The key is consumed and nothing happens; the list never leaves the admonition |
-  | A list in the body of an admonition nested in another | The list moves among the inner admonition's blocks only |
+  | The chord again in the editor that reopened, and again | The block moves one more place each time, until the first or last place of the body |
+  | The block is the first of the body and the chord is up, or the last and the chord is down | The key is consumed and nothing happens; the block never leaves the admonition |
+  | A block in the body of an admonition nested in another; the inner admonition opened whole | The block moves among the inner admonition's blocks only; the inner admonition moves among the outer one's blocks |
+  | The editor of a block inside a list item of the admonition; the editor of an item of a list inside a block quote, a card or a grid of the admonition | The key is consumed and nothing moves |
 
+  S7's first row ("The chord in the editor of the last block (no neighbour)") stays true; the
+  Related requirements line on SwRS-MDOKFSTUDIO-BLOCK-109 also names the reason of a refused move
+  inside an admonition.
+- **SwRS-MDOKFSTUDIO-BLOCK-109** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-109.md`), S8: a row
+  "The host refuses a move asked by the chord from the editor of a block inside an admonition or an
+  alert | The reason appears next to the insert point bar of the admonition (of the top-level block
+  that holds it, for a nested admonition), and disappears after 6 s".
 - **SwRS-MDOKFSTUDIO-BLOCK-117** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-117.md`): new
   scenario `S7 (boundary): Two blocks inside one quote prefix`: two blocks of a GitHub alert body
   (also indented in a list item) swap; the `>` separator line is kept as it is; an added separator
@@ -263,13 +344,25 @@ it must change, stop and report, per "Approved requirements" of
   item's editor, or ArrowUp at the start of the first item's editor (or of a block inside them), of
   a list inside an admonition or an alert, a nested sub-list included | The key stays with the text
   box and the editor stays open".
+- **SwRS-MDOKFSTUDIO-BLOCK-264** (`swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-264.md`), see
+  section 3b: S4 "Cases that keep the placeholder line" says what the placeholder line is: an empty
+  line, except for a block of a GitHub alert body, whose placeholder is the alert's prefix alone;
+  new scenario `S5 (boundary): An emptied block of an alert body keeps the alert`, declared in
+  `scenarios:`: GIVEN an alert whose body holds two paragraphs (also a list, also an alert indented
+  in a list item), the editor of one paragraph or one item opened alone and erased; WHEN the writer
+  commits it (Done, Ctrl or Cmd+Enter, a blur that commits), or an autosave writes the empty text;
+  THEN its lines are replaced by one line holding only the alert's prefix without its trailing space
+  (`>`, or the indentation then `>`), with the document's line ending; the alert renders whole, with
+  the same type, and no plain quote appears after it. The Verification notes name the new tests;
+  `implemented_in_files` gains `src/core/edits/sourceEdits.ts` (already listed) or the file of the
+  new helper.
 - **SwRS-MDOKFSTUDIO-GFM-009**: no normative change. Its comments in `mystNormalize.ts` and
   `mystGithubAlerts.ts` are reworded (section 1).
 - `just requirements-update`, then a dated `## 2026-11-26` (or the day of the change) entry in
   `requirements/tiers/log.md`, sub-heading `### Enter and click in an admonition open the selected element`,
   naming the reversal of the 2026-10-29 entry "A click in the body of a GitHub alert opens the
-  whole alert", the chord and the edge keys of an item editor in an admonition, and the owner's
-  answers of 2026-11-26.
+  whole alert", the chord and the edge keys of a block editor in an admonition, the placeholder of
+  an emptied alert block, and the owner's answers of 2026-11-26.
 
 ### 5. Tests
 
@@ -311,18 +404,41 @@ behaviour on 2026-11-26.
   the hover outline over a body paragraph of an `aside.admonition` is the paragraph, over its
   title the admonition. Marker `@tests_req SwRS-MDOKFSTUDIO-BLOCK-017#S2`.
 - The chord (section 2), `test/page/runtimeBlockMoves.test.ts` (or the block editor tests that hold
-  BLOCK-130 S6 and S7 today), marker `@tests_req SwRS-MDOKFSTUDIO-BLOCK-130#S8`: from an item
-  editor of a list in an `aside.admonition` (and in a `data-okf-github-alert`), the chord posts
-  `previewBlockMove` with the lines of the inner list and of its inner neighbour, not of the
-  admonition; with a nested sub-list item, the outermost body list; the first or last body block
-  posts nothing and the editor stays open; a list in an inner admonition takes its neighbour in the
-  inner admonition; after the rendered move, the list's editor opens at its new lines with the
-  caret offset (the settle finds an inner block). With unsaved text: the save is posted first and
-  no move yet; then, after the save renders (the pending navigation resumes through
-  `resumePendingBlockNavigation` and `requestBlockMove`), `previewBlockMove` is posted with the
-  lines of the inner list and of its inner neighbour, and after that move renders the list's editor
-  opens at its new lines with the caret offset. Each fails on origin/main (today the whole
-  admonition, or nothing, is sent; on the save path the editor reopens with no move).
+  BLOCK-130 S6 and S7 today), marker `@tests_req SwRS-MDOKFSTUDIO-BLOCK-130#S8`, on an
+  `aside.admonition` and on a `data-okf-github-alert`:
+  - from an item editor, the chord posts `previewBlockMove` with the lines of the list and of its
+    inner neighbour, not of the admonition; with a nested sub-list item, the outermost body list;
+  - from the editor of the list, of a paragraph and of a code block of the body: that block's lines
+    and its inner neighbour's;
+  - the first or last body block posts nothing and the editor stays open;
+  - a block in an inner admonition takes its neighbour in the inner admonition; the inner
+    admonition opened whole takes its neighbour in the outer one;
+  - the editor of a block inside an item, and of an item of a list inside a `blockquote` (and a
+    card) inside the admonition, posts nothing;
+  - after the rendered move, the block's editor opens at its new lines with the caret offset (the
+    settle finds an inner block); a second chord in that editor posts a second `previewBlockMove`
+    with the new lines, and after its render a third one stops at the edge of the body;
+  - with unsaved text: the save is posted first and no move yet; after the save renders (the
+    pending navigation resumes through `resumePendingBlockNavigation` and `requestBlockMove`),
+    `previewBlockMove` is posted with the lines of the block and of its inner neighbour, and after
+    that move renders the block's editor opens at its new lines with the caret offset;
+  - a refusal (`previewBlockMoveResult` ok false with a reason) shows the status next to the
+    admonition's insert point bar, marker `@tests_req SwRS-MDOKFSTUDIO-BLOCK-109#S8`.
+  Each fails on origin/main (today the whole admonition, or nothing, is sent; on the save path the
+  editor reopens with no move; no reason shows).
+- The emptied alert block (section 3b), markers `@tests_req SwRS-MDOKFSTUDIO-BLOCK-264#S4` and
+  `#S5`:
+  - core unit tests of the new helper (beside `test/core/edits/blocksDelete.test.ts` or in
+    `test/core/edits/sourceEdits.test.ts`): a paragraph and an item of an alert body give `>`;
+    an alert indented in a list item gives its indentation then `>`; a plain block quote, a MyST
+    admonition body and a top-level block give no prefix (the empty line); LF, CR LF and lone CR;
+  - `test/session/emptiedBlockDelete.test.ts` (or a sibling): the final save of an erased paragraph
+    of a two-paragraph alert writes `>` in its place and the document still opens with
+    `> [!NOTE]` and keeps the other paragraph quoted; the same for an autosave, then a final save
+    (no second write); the existing "without deleteWhenEmpty the placeholder line is written" test
+    stays (a top-level block, the empty line);
+  - the erased paragraph of a MyST admonition still writes the empty line (no change, pinned).
+  The alert cases fail on origin/main (an empty line is written).
 - The planner (section 2), `test/core/mapping/blockMove.test.ts`, marker
   `@tests_req SwRS-MDOKFSTUDIO-BLOCK-117#S7`: two blocks of an alert body swap with their `>`
   separator kept; the same in an alert indented in a list item (`   > `); a swap that needs an
@@ -491,8 +607,9 @@ GIF are replaced by the new take's (Git LFS).
 - the keyboard paragraph (about lines 124-130): Enter on an admonition opens it whole, and on an
   element reached with the arrows opens that element only, also inside an admonition; in the
   editor of an item of a list inside an admonition, Down at the end of the last item and Up at the
-  start of the first keep the caret, and Cmd+Alt+Up/Down (Ctrl+Alt elsewhere) moves that list
-  among the admonition's blocks;
+  start of the first keep the caret; in the editor of a block of an admonition (an item or the
+  list: the list), Cmd+Alt+Up/Down (Ctrl+Alt elsewhere) moves that block among the admonition's
+  blocks; erasing a paragraph or an item of an alert keeps the alert, with an empty `>` line;
 - the GIF alt text (line 132) follows the new clip, for example: "In edit mode, from the keyboard
   only: E turns edit mode on, Down selects a note admonition, Enter opens it whole and Escape
   closes it, Right goes inside it, Down reaches its list, the arrows go down to an item of a nested
@@ -503,8 +620,9 @@ GIF are replaced by the new take's (Git LFS).
 One line under `## Unreleased` in `CHANGELOG.md`, per "CHANGELOG line" of
 `.agents/guidelines/pull-request.guidelines.md`, for example: "In edit mode, Enter on an element
 reached with the arrows inside an admonition or a GitHub alert, and a click on one, now open that
-element only (the title or the frame opens the admonition whole); in an item editor there, the move
-chord moves the list inside the admonition and Down or Up at its edge keeps the caret (CR-<n>
+element only (the title or the frame opens the admonition whole); in the editor of one of its
+blocks, the move chord moves that block inside the admonition, Down or Up at the edge of a list
+keeps the caret, and an erased alert paragraph or item leaves the alert whole (CR-<n>
 enter-admonition, PR #<n>)".
 
 ## Decisions carried from `02-answers.md`
@@ -518,7 +636,7 @@ enter-admonition, PR #<n>)".
 - Answer 4: grilled enough, specified for batch-09.
 - Answer 5 (B): from the editor of a list item inside an admonition or alert, the move chord moves
   that list inside the admonition, not the whole admonition. Sections 2, 4 (BLOCK-130, BLOCK-117,
-  BLOCK-262), 5.
+  BLOCK-262), 5; widened by answer 10.
 - Answer 6 (A): Down at the end of the last item, Up at the start of the first, of such a list keep
   the caret in the editor. Sections 3, 4 (BLOCK-079), 5.
 - Answer 7 (B): this change re-films the keyboard navigation clip and keeps the user guide in
@@ -526,6 +644,18 @@ enter-admonition, PR #<n>)".
 - Answer 8 (A): a block of a GitHub alert body opens with its `> ` markers. Section 1.
 - Answer 9 (A): the re-filmed clip goes down, keyboard only, to an item of the nested sub-list,
   opens that item alone, changes a word and saves; no second clip. Section 6.
+- Answer 10 (A): the chord works from the editor of every direct block of an admonition or alert:
+  from a list item or the list, the list moves; from a paragraph, a code block or another direct
+  block, that block moves among the admonition's blocks; a block inside a list item does not move,
+  as outside an admonition. Repeated chords keep working (the editor that reopens moves again).
+  Sections 2, 4 (BLOCK-130), 5.
+- Answer 11 (A): the reason of a refused move inside an admonition shows next to the admonition's
+  insert point. Sections 2, 4 (BLOCK-109), 5.
+- Answer 12 (C): an item or a paragraph opened alone in an alert, erased and committed, writes only
+  the alert's prefix `>`; a MyST admonition, which has no prefix, gets today's empty line (its
+  effect is in section 3b). Sections 3b, 4 (BLOCK-264), 5.
+- Answer 13 (A): a list inside a quote, card or grid inside an admonition is not a direct block:
+  the chord moves nothing. Sections 2, 4 (BLOCK-130), 5.
 - The inbox anomalies join batch-09 and ship in the next release (owner, 2026-11-26).
 
 ## Out of scope
@@ -534,9 +664,11 @@ enter-admonition, PR #<n>)".
 - Cards, tabs, grids, block quotes and context-tag panels: no behaviour change intended; only
   their wording in BLOCK-254 is checked against the code.
 - Opening the editor on the title line alone.
-- The chord from an editor that is not a list item's (a paragraph, the list itself, a block inside
-  an item) inside an admonition: unchanged by this specification (open questions 1 and 2).
-- Lists outside admonitions: their chord and edge keys are unchanged.
+- The chord from the editor of a block inside a list item, and from a list inside a quote, card or
+  grid of an admonition: nothing moves, as today (answers 10, 13).
+- Blocks outside admonitions: their chord and edge keys are unchanged.
+- An erased block of a plain block quote (not an alert): today's empty line stays.
+- Making a list stay tight after one of its items is erased inside an admonition or alert.
 - The writing skill: no rendered syntax changes.
 
 ## Evidence
@@ -560,28 +692,26 @@ enter-admonition, PR #<n>)".
      at its end: the caret stays. In the last sub-item's editor, Down at its end: the caret stays.
   4. In an item's editor, Ctrl+Alt+Down (Cmd+Alt on macOS): the list and the sentence after it
      swap inside the note, the list's editor opens at its new place; Ctrl+Alt+Down again: nothing
-     happens (last block of the body). Ctrl+Alt+Up twice: back in place, then nothing.
+     happens (last block of the body). Ctrl+Alt+Up twice: the list moves up one place, then one
+     more, to the first place of the body; once more: nothing. Open the sentence, Ctrl+Alt+Up and
+     Down: the sentence moves among the note's blocks. Select the second item, Right to a block
+     inside it, Enter, Ctrl+Alt+Down: nothing moves.
   5. Click the sentence of the note: only the sentence opens. Click the second item: only that
      item opens. Click the title "Note": the whole note opens. Click the padding of the frame:
      the whole note opens.
   6. Same on the alert: a paragraph opens alone with its `> ` marker, an item opens alone, the
      title opens the alert from `> [!TIP]` to its last quoted line; in an item's editor, the chord
-     swaps the list with a paragraph and every line keeps its `> `.
-  7. Hover the sentence: only the sentence is outlined; hover the title: the whole note is
+     swaps the list with a paragraph and every line keeps its `> `. Make the host refuse a move (for
+     example a `> <!-- x -->` comment line between the list and the paragraph, which BLOCK-117
+     refuses as text between the blocks) and press the chord: the reason shows next to the alert's
+     insert point for about 6 s.
+  7. In the alert, open its first paragraph alone, erase it, Done: the file holds `>` in its place,
+     the alert still renders as a tip with its other paragraph and its list. Do the same in the
+     note: the note stays whole, an empty line is left in its body.
+  8. Hover the sentence: only the sentence is outlined; hover the title: the whole note is
      outlined.
 - No host or setting dependency: no host and default matrix.
 
 ## Open questions
 
-1. The chord from the editor of a paragraph (or any non-list block) of an admonition body moves
-   nothing today (`bodyBlockNeighbour` finds no top-level neighbour for it, BLOCK-130 S7 "the key
-   is consumed"). Answer 5 covers the list item editor only. Should it also move that block among
-   the admonition's blocks, which the section 2 machinery would allow at little cost, or stay as it
-   is?
-2. The same for the editor of the list itself (opened by Enter on the selected list) and of a block
-   inside an item, inside an admonition: today they move nothing either. Same choice as question 1.
-3. When the host refuses an inner move (for example text between the two blocks), the reason is
-   shown today next to the "+" insert point of the moved top-level block (BLOCK-109); inner blocks
-   have no insert point bar. Where should the reason show: next to the admonition's insert point,
-   a short message in the editor, or nowhere (the key is consumed and nothing moves)? This
-   specification does not decide it.
+None. Answers 10 to 13 settled the three questions of the previous version.
