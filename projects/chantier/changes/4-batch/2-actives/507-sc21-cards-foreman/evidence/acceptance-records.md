@@ -1,6 +1,6 @@
 # Acceptance records
 
-Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus the uncommitted changes of rounds 7 to 13 unless a line says otherwise.
+Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus the uncommitted changes of rounds 7 to 14 unless a line says otherwise.
 
 ## `just test`, base and head (Part 1.7, Part 2.8, Part 3.9)
 
@@ -13,7 +13,7 @@ head 03f973e4:  2932 passed, 20 skipped in 171.16s (wall 172.6 s)
 
 0 seconds added; the difference between the two is run-to-run variation, not a speed-up.
 
-`just check` on round 13's working tree (tests beside the other checks, so not a timing comparison): `2933 passed, 19 skipped in 269.96s`.
+`just check` on round 14's working tree (tests beside the other checks, so not a timing comparison): `2933 passed, 19 skipped in 156.49s`.
 
 ## Brief bytes beside the old start readings (Part 1.3, Part 2.3)
 
