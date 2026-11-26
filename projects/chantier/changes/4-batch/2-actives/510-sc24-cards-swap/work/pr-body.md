@@ -64,6 +64,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `docs/incidents.md` holds the stories that only one of the card inventories marked for it.
 - The tests' file-and-heading pins are gathered in one test; the board read-key test now scans the topics too.
 - The generic-agent case of the host matrix is left as a known gap, with no further work: it expects contract lines that no Claude Code configuration produces, before or after this change, and the brief already holds the card and the floor.
+- The refusal paragraph of the worker agent files changed, though the specification said to keep it: as it was, a worker could refuse the short prompt of `brief`. It now accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (decided during the batch, to be confirmed by the owner).
 
 ## Known gaps
 
@@ -77,7 +78,9 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Launcher not switched: it leaves the CLI running after its stop on Windows.
 - The board Griller does not read the floor.
 - Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`, `topics/wakes-p1.md`. Card content was not rewritten here; these sentences should be fixed before a real batch runs on these cards.
-- A worker's agent file refuses a prompt that names no path to its card (`coder.md`), while the short prompt of `brief` names `.../<unit>-coder.md`. Not tried with a real agent.
+- The new refusal paragraph of the worker agent files was not tried with a real agent.
+- A worker started with a prompt that names its card and no brief is accepted, but two sentences of its agent file, about the brief that the prompt names, do not read true for it; they are unchanged.
+- The test that ties that paragraph to the short prompt of `brief` was only seen passing: it was not made to fail on a changed brief name.
 - `AGENTS.md` says `brief` reads the record and the planning folder only; it now also reads the project's instructions for the review steps. `AGENTS.md` is unchanged here.
 - Review steps are read when `brief` runs, while two docs pages say a running batch keeps the team it started with.
 - The generic agent's contract heading still says "after the opening lines", though it is now in the worker's brief.
@@ -103,13 +106,14 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `skills/chantier/references/` now holds the new cards; the old files and the staging folder are removed. The floor, the two host row files and the review step's reply block are unchanged.
 - The four skills' `SKILL.md` carry the new texts.
 - `skills/chantier/roles.yaml` and the agent files of both hosts point at the new cards and replies.
+- The seven agent files of the workers that named their card in the refusal paragraph (coder, conflict resolver, debugger, demo explorer, inspector, investigator, verifier), on both hosts with identical bodies, accept the name of the brief file or of the card. The other agent files check the first line only, and the board Griller's is unchanged.
 - The CLI's own lines (`take`, `take stack`, `order qa`, `round`, `handoff`, `brief`, `open`, `foreman set`, `status`, `preflight`, the board Griller and refusal texts) name only files that exist; the host rows that `brief` and `host` print from the data files still hold some removed names (see Known gaps).
 - Comments that named a removed host-card section now name a row or topic: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`.
 - `hooks/register.tsx`: the reload message after a compaction names the floor.
 - Eval kit: the audit expects a brief for a role started that way; the dry run checks `brief`'s boot; the quiz boots from `brief`, and `--cards <ref>` of a head before the swap still walks that head's manifest.
 - Scenario: every Driver is started from the printed `brief` command; the new fact lines and the stack line are checked.
 - Docs: links and sentences that named removed files are fixed; `docs/incidents.md` is new.
-- New tests: `test_card_names.py` (names the CLI prints), `test_card_homes.py` (where each rule lives) and `test_brief_bytes.py` (each brief's size); a Driver brief's `Team:` line is checked. Other tests that pinned removed files are converted.
+- New tests: `test_card_names.py` (names the CLI prints), `test_card_homes.py` (where each rule lives) and `test_brief_bytes.py` (each brief's size); a Driver brief's `Team:` line is checked; a case in `test_brief.py` ties each agent file's refusal paragraph, board Griller aside, to the first line and the file name that `brief` prints. Other tests that pinned removed files are converted, and the pins of the old refusal sentences are removed.
 - Deleted tests, each with what replaces its rules (`test_card_homes.py` holds one home per old phrase; the phrase-by-phrase list is in a comment on this pull request):
 
 | Deleted | Replaced by |
@@ -143,12 +147,12 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py` and `test_brief_bytes.py` pass at `4380df5`; they were not run against the previous code
-- [x] Local gates: `just check` (2748 passed, 19 skipped) and `just mod` (119 pass) at `4380df5`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the topic links, and on CI at `4380df5`
-- [x] Evidence: before at `ea11a9e`, after at `4380df5` (the command captures carried from `b85be4c`)
-- [x] Review: approved at `4380df5`
-- [x] Verified at `4380df5` (claims the topic links cannot change carried from `b85be4c`); the bound on the added test time is not proved, see Known gaps
-- [x] CI green at `4380df5`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
+- [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py`, `test_brief_bytes.py` and the refusal paragraph case in `test_brief.py` pass in the working tree; they were not run against the previous code
+- [ ] Local gates: pending at the new head
+- [ ] Evidence: before at `ea11a9e`, after at `4380df5` (the command captures carried from `b85be4c`)
+- [ ] Review: pending at the new head
+- [ ] Verified: pending at the new head
+- [ ] CI: pending at the new head
 
 ## Internal references
 
