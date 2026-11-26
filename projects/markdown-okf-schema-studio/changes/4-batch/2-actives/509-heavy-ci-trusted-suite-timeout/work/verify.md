@@ -30,9 +30,11 @@ difference is one context line in `test/integration/trusted-suite.ts`
 the whole diff differs (`c6347e87` / `ccc6e005`), so nothing carries by patch identity.
 `git merge-base origin/main 89cae5f` and `git rev-parse origin/main` both print `B`.
 
-What the base brought that the proofs exercise: `git diff --name-only Bo B` lists 87 files under
-`test/integration`, `CONTRIBUTING.md`, `justfile`, requirements, marker scripts and `test/build`;
-nothing under `src`, `test/shared`, `.github`, `package.json` or the lock file.
+What the base brought that the proofs exercise (`git diff --name-only Bo B`): 87 changed files
+under `test/integration`, `justfile` and `CONTRIBUTING.md` together, plus requirements, marker
+scripts, `test/build`, documentation and `uv.lock` (`okf-schema`, the requirements tool, 0.17.0 to
+0.18.1; the worktree environment holds `okf_schema-0.18.1`); nothing under `src`, `test/shared`,
+`.github`, `package.json` or `package-lock.json`.
 `git diff -U0 Bo B -- test/integration test/shared` without `previewEditing.test.ts` and
 `previewEditingSchemaSteps.ts`, comment lines removed, leaves no changed code line.
 `previewEditing.test.ts` moved its schema steps to `previewEditingSchemaSteps.ts` and joined its
@@ -234,8 +236,9 @@ head's runs (E2): to rewrite (brief: not counted as a failure on its own).
 ### D5 Changes match the diff (89cae5f) - VERIFIED
 
 `git diff --stat B HEAD`: the same 12 files (536+, 158-), each covered by Changes and the Test
-plan; checks S3 to S5. `justfile` and probe users of the scenario variable: carried, the base's
-`justfile` change touches the requirements report targets only (`git diff Bo B -- justfile`).
+plan; checks S3 to S5. `git grep STUDIO_REAL_INPUT_SCENARIO HEAD`: `justfile` L404
+(`ci-stress`) and L422 (`ci-toc-loop`), `performanceProbe.ts` L3; `trustedParts.ts` L43 and L84
+keep such a run one launch with no part.
 
 ### D6 Impacts, Blast radius, Autonomous decisions (89cae5f) - NOT VERIFIED
 
