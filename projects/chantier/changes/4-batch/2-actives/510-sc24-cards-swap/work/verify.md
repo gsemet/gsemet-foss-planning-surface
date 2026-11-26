@@ -259,3 +259,35 @@ anywhere."
 - **Slip of this pass:** about nine of my shell calls changed directory into the CR folder or a
   subfolder of it (`work`, `work/coder`, `evidence`, its root), against the brief. All were reads
   (`grep`, `sed`, `cat`); nothing was written by them.
+
+## Third description pass on the posted body (133640b)
+
+**VERIFIED.** This pass decides at this head and supersedes the two `NOT VERIFIED` description
+passes above. The body posted at 11:45:15Z (log) holds no false or unproved sentence in the places
+changed since the second pass, and nothing else changed. Short pass under order O-181: only the
+changed places were judged; the rest is carried from the second pass. All rows judged at 133640b.
+`BASE`, `HEAD`, `OLD`, `<CR>` as above; `<v7>` = `<CR>/work/scratch/v7` (one throwaway script,
+removed at the end of the pass). Nothing was edited in the PR or the code; no gate, test, quiz or
+eval was run.
+
+| # | Claim | Command and output | Verdict |
+| --- | --- | --- | --- |
+| G1 | Head, base, draft, checks, posted body | `<v7>/diff_body.py` (`gh pr view 488 --json ...`) -> HEAD, `main`, BASE, draft, `OPEN`, updated `11:45:11Z`; five checks `SUCCESS`; `posted == local: True`, 19675 characters; `git status --porcelain` in the worktree empty | VERIFIED |
+| G2 | Nothing else changed | same script: `git show 571467fe:<pr-body.md>` (the body the second pass judged) against the posted one -> only the Deliverables `Team:` row, one Autonomous decision, two added Known gaps bullets, two Changes lines, one added Human decision, the Test plan "Evidence" line | VERIFIED |
+| G3 | F1 fixed: "The new refusal paragraph ... accepts a path to the brief file ... or to the card ... (decided during implementation)" | `git grep -c -E '<unit>-[a-z-]+\.md. nor one to my card' HEAD -- agents com.github.copilot/agents` -> 1 in each of 14 files (7 per host); "to be confirmed" gone | VERIFIED |
+| G4 | F1 fixed: Human decision "changed in one more round, though the specification said to keep it ... confirmed by the owner on 2026-11-26" | `02-answers.md` item 6: dated 2026-11-26, the owner confirms O-175; spec line 237 "Kept: ... the refusal paragraph" | VERIFIED |
+| G5 | F2 fixed: comments "now name a host row, a help topic or a section of the new host card, or no longer point anywhere" (five files) | `git diff BASE HEAD -- <the five files>`: `griller_host.py` a row and a removed pointer; `models.py`, `timing_check.py` rows; `allow_samples.py` the file and its sections; `permissions.py` `help host-allow-not-add`. `git grep` at HEAD: rows `board-griller`, `model-at-start`, `steering-wake-bound` in both host JSON files; headings "Allow rules" (line 6) and "Capabilities and their commands" (line 140) in `hosts/claude-code.md`; `topics/host-allow-not-add.md` and its `topics.json` entry | VERIFIED |
+| G6 | Deliverables: `Team:` "filled by hand ..., but for the team part when the configuration set a team" | at BASE: `driver_prompt.py` prints the whole `Team:` placeholder when `block.team` is empty, else `Team: <team lines>; <review steps>`; `commands/driver.py` and `brief.py` fill `block.team` with `team_lines(d.playbook)`, one line per configured role | VERIFIED |
+| G7 | Changes: `sync-checkout.md` "today's title and first four steps kept, and its intro, which now counts four; step 2, step 4 and the closing sentence now name `help` and `host` lines and the floor" | `git diff BASE HEAD -- skills/chantier/references/sync-checkout.md`: title unchanged; "Six steps" -> "Four steps"; steps 5 and 6 gone; step 2 a `host` line, step 4 `help reload`, closing `help sync-offer` and "floor 4" | VERIFIED |
+| G8 | Known gaps: `docs/proofs/claude-code.md` still holds a local home path, as before | `git grep -c -i -E <home path patterns>` -> 1 at HEAD and 1 at BASE; `git diff --stat BASE HEAD` of the file empty | VERIFIED |
+| G9 | Known gaps: `just test` was far above the `AGENTS.md` budget before this change | `evidence/e9-test-seconds.md` base row: 157.82 s (165.0 s wall) at `88d9ab40`; `git log --no-walk --format='%H %T' 88d9ab40 ea11a9e0` -> same tree `b6c77cd5`; budget 18.5 + 30 = 48.5 s. Carried measurement, not run again | VERIFIED |
+| G10 | Test plan "Evidence": pairs and their SHAs, "a host topic's trial link at `4380df5`" | `verifier/evidence/before-after.md` head and pairs 9 and 10; `git diff --name-only 4380df5 HEAD` -> no `references/` file | VERIFIED |
+| G11 | Rendering, structure, marks, images, private paths | script: ten `h2` in order, 10 fence lines, 1 `details` opened and closed, `STALE` 0, `UNVERIFIED` 1, 0 images, no user name or home folder; `gh api .../pulls/488` full media type -> 10 `h2`, 3 tables, 1 `details`, 5 `pre`, 0 `img` | VERIFIED |
+| G12 | The rest of the body | unchanged text (G2), same head and base; carried from the second pass (E3 to E5) | VERIFIED |
+
+### Observations (no effect on the verdict)
+
+- `commands/allow_samples.py` line 33, a comment this PR does not change, says "the host card shows
+  them" and names no section. It is still true of the new host card (the placeholders are in its
+  "Allow rules" tables), so it is not read as a pointer at a removed one; the Changes sentence (G5)
+  is judged on the comments that were repointed.
