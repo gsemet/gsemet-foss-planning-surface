@@ -73,6 +73,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - One sentence of `evals/README.md` still names a removed test.
 - The new hook test case reads only the test's own constants; the cases next to it tie them to what the hook sends.
 - The type checker's warnings on `hooks/register.tsx` were there before.
+- **UNVERIFIED:** the test suite's added time stays within the expected 3 seconds: one pair of runs on the same machine gives 165.0 to 167.2 seconds of wall time (157.8 to 162.5 as the test runner counts), while runs of the new head span 139 to 265 seconds.
 
 <details>
 <summary>Details</summary>
