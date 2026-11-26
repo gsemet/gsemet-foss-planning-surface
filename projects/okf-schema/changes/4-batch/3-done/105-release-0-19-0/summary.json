@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "Release 0.19.0",
-  "summary": "Version pull request 76 merged 2026-11-26. A Release driver is checking CI, the tag and PyPI, then publishes the GitHub release notes with the user's approval.",
+  "summary": "0.19.0 published 2026-11-26 (version pull request 76): PyPI and GitHub release with hand-written notes, checked. Docstrings of show still say 0.18.2; no picture for the announcement thread, which is left to the user to post.",
   "origin": {
     "kind": "verbal"
   },
@@ -9,7 +9,8 @@
     "01-intent.md": "274ca7ac70995deec3e65479dcdf6cf134f195426a734899dbeae8f9fcc58ed3",
     "02-answers.md": "84236694f89ff2d3d29975ba8f7b6cbdca5c9d9ff0ae6a2d286969f64f9ba70e",
     "03-change-spec.md": "e543cb101db14c60b61f6e8f93142c8ba6c3c9e6f4def25ce2f09bfc405dd15d",
+    "delivery.md": "f0d802c28b504071cffe5bb09b3d798d3c50c6deb3e5784c87fe469568fd5710",
     "intake/request.md": "c3351e5d9b5f033c0588fe0272928f269f1c5dc96d674b965efe2b64713e1757"
   },
-  "summarized": "2026-11-26T06:54:24Z"
+  "summarized": "2026-11-26T07:05:55Z"
 }

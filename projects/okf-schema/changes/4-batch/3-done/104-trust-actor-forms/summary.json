@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "Trust tier: count the actor forms allowed by OKF 0.2",
-  "summary": "Specified for batch-01 before CR-103 (issue 58), beside CR-102: actors other than human:<id> count as machine-confirmed (alice, bare human: too); W10 accepts <producer>/<version> and prefix:id, dot allowed; message index fixed; docs, skills, Base schema; CORE-006 S5. No open question.",
+  "summary": "Merged (pull request 69) and released in 0.19.0: actors other than human:<id> count as machine-confirmed; W10 accepts <producer>/<version> and prefix:id; docs, skills and Base schema updated.",
   "origin": {
     "kind": "verbal"
   },
@@ -12,5 +12,5 @@
     "delivery.md": "7e64e28daae73d97ebfd180f66786c37d74e21d47031935860bde4f7c23dfdea",
     "intake/request.md": "05c321f4128d4bb11fd4ed6d9629057631132c934b7b239c0e2cc4d527df3d18"
   },
-  "summarized": "2026-11-25T23:08:31Z"
+  "summarized": "2026-11-26T07:05:55Z"
 }

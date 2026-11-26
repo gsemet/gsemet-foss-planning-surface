@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "show: print the stored file; new trust command for the tier",
-  "summary": "Merged 2026-11-26 (pull request 73): show writes the stored bytes; new trust command; ConceptDetail gains raw. 7 known gaps recorded. In release 0.19.0; availability comment on #58 due once published.",
+  "summary": "Merged (pull request 73) and released in 0.19.0: show writes the stored bytes; new trust command; ConceptDetail gains raw. 7 known gaps recorded. Release comment posted on #58.",
   "origin": {
     "kind": "github",
     "ref": "#58",
@@ -9,10 +9,10 @@
   },
   "sources": {
     "01-intent.md": "d00c35cfd72b47dff511266b86acd0d8675f36d63367b0893753a96dd9b6518d",
-    "02-answers.md": "3c9bfd7ce9f248c921c0d9d85cdefe9028cbe4a5902b93e2fa8b8621fdff4eaf",
+    "02-answers.md": "4d7be0d0b1439ed05c0936bdcd8a2e3d1119046c917eb389fcdbd4810302f4a4",
     "03-change-spec.md": "14b8602e629d24880a14cb728bc126a316d65478eae1e26be34f1373d64e1bf8",
     "delivery.md": "d799fc59a64a1579791c6fc718f74c21b933613ffdb4426f41de34bb12859f17",
     "intake/request.md": "27e058b56ad6970397ae4ed5db8fdc3528c1d93e5fe5889aadfb26b6bb51d369"
   },
-  "summarized": "2026-11-26T06:34:00Z"
+  "summarized": "2026-11-26T07:05:54Z"
 }
