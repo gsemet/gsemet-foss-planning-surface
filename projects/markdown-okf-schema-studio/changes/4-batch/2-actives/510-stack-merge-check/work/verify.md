@@ -2,11 +2,12 @@
 
 Head: 7d35be3430689c4979a58f471d4cd588ecb93fac
 
-Verdict: **VERIFIED** (fourth description pass; see claim 11 and the verdict at the end). All
+Verdict: **VERIFIED** (fifth description pass, the closing; see claim 12 and the verdict at the end). All
 claims were judged at `7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first pass at this
 same head and base (no move): they were not re-run since, except where claim 11 says so.
 `<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. The earlier passes'
-throwaway files and detached worktree are removed; the third and fourth passes made none.
+throwaway files and detached worktree are removed; the third and fourth passes made none, and the
+fifth removed its own (saved copies of the posted body and its edit history).
 Evidence: `verifier/evidence/before-after.md`.
 
 ## 1. Head, diff and scope: VERIFIED (7d35be3)
@@ -201,5 +202,54 @@ past what that lower branch contains, no first parent of the chain would be an a
 base, and the merges would be reported. The one observed stack run names the default branch; the
 specification keeps the lower-base case as "should the forge report it". The first CI run after
 the pull request is linked into the stack shows which base the forge gives.
+
+**VERIFIED** (7d35be3).
+
+## 12. Posted description, fifth pass (closing): VERIFIED (7d35be3)
+
+Claims 1 to 11 are carried: no move (head, base and code unchanged), nothing re-run.
+
+State: `git rev-parse HEAD` `7d35be3430689c4979a58f471d4cd588ecb93fac`, `git status --porcelain`
+empty, `git ls-remote origin` head `7d35be34...` and base branch `5a73b6eb...`. `gh pr view 530
+--json ...`: open, draft, head and base as above.
+
+Only two places changed. `gh api graphql ... userContentEdits`: the one edit after the version claim
+11 judged (03:56:49Z) is 03:59:56Z, which equals the posted body (`latest edit equals posted body:
+True`). Unified diff of the two versions:
+
+```text
+@@ -57,0 +58 @@
++- If the forge checked out a chain while naming a lower branch of the stack as the base, and the default branch had moved past what that branch contains, the chain would not be recognised and its merges would be reported. The one stack run observed named the default branch; this is read from the script, not tested.
+@@ -69 +70 @@
+-- [ ] Verified at `7d35be3`
++- [x] Verified at `7d35be3`
+```
+
+New Known gaps bullet: true.
+
+- The behaviour, read in `scripts/check-no-merge-commits.sh` lines 33 to 48: `HEAD^2` is taken only
+  once a first parent of the walk is an ancestor of the base. In a forge chain the first parents are
+  the forge's own test merges, then the default branch tip. With a lower branch as base and that tip
+  not in it, none is an ancestor of the base; the walk ends at the tip (not a two-parent merge, the
+  history being linear), `head` stays `HEAD`, and `base..HEAD` lists the chain's merges.
+- "The one stack run observed named the default branch": `gh run view 45741461955 --log-failed`,
+  `static` and `static-windows` both run the script with `"origin/main"` on a ten-merge chain rooted
+  on `17b779d5` (main). `gh run list --branch <this branch>`: only 45748406898, a single test merge
+  (claim 9), and the open stack 528 (`gh api .../stacks`: 512 to 522 and 516) does not hold 530.
+- "not tested": `test/build/test_no_merge_commits.py` has one lower-base chain case
+  (`..._passes_against_the_lower_branch_base`, lines 182 to 188), where main has not moved; none
+  moves it past the lower branch. It does not contradict the Test plan's Evidence line (claim 7:
+  passes against the lower branch of the replayed chain).
+- Reader outside the team: plain words, "chain" is defined in the Summary, no internal reference,
+  role name or team term. It states the condition, the effect and the strength of the proof.
+
+Verified box: `chantier log CR-510`, `verdict result=VERIFIED head=7d35be34...` at 03:59:27Z,
+before the edit; this pass confirms it at the same head.
+
+Whole body: `gh api .../pulls/530` full body_html renders the sections, the new bullet as its own
+list item and the box ticked. Search of the posted body for the username, home paths, images,
+`STALE`, `UNVERIFIED`, change numbers and role names: two matches, the Known gaps UNVERIFIED bullet
+and the change number under Internal references. `gh pr checks 530`: `checks`, `report`, `static`,
+`static-windows`, `viewer-graph`, `visual` pass, the others skipping (run 45748406898).
 
 **VERIFIED** (7d35be3).
