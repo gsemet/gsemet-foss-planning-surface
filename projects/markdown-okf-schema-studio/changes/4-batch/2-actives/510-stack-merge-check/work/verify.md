@@ -2,8 +2,10 @@
 
 Head: 7d35be3430689c4979a58f471d4cd588ecb93fac
 
-Verdict: **NOT VERIFIED**. One failure, in the posted description (claim 11). Every claim about
-the code, tests, gates and CI is VERIFIED. All claims were judged at `7d35be3`; base `5a73b6e`.
+Verdict: **NOT VERIFIED**. One failure, in the posted description (claim 11, second description
+pass). Every claim about the code, tests, gates and CI is VERIFIED. All claims were judged at
+`7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first pass at this same head and base
+(no move): they were not re-run in the second pass, except where claim 11 says so.
 `<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. My throwaway files and my
 detached worktree are removed. Evidence: `verifier/evidence/before-after.md`.
 
@@ -126,28 +128,56 @@ lower branch moved, upper not rebased:             previous exit 1 / head exit 1
 - No test builds an octopus: the test file only merges one branch at a time.
 - Lower pull requests keep the old script (the file changes only in `7d35be3`, above them), and
   the old script fails any chain of two or more (claims 4, 6).
-- Deliverables table: rows 1 to 4 match claims 3, 4, 6. Diagram matches the code and renders
+- Deliverables table (as posted at the first pass, 4 rows): rows 1 to 4 match claims 3, 4, 6. Diagram matches the code and renders
   (headless Mermaid render looked at). Changes matches the three files; seven cases, six on
   stack branches, one on unrelated branches.
 - Subjects of the failing run: claim 6. "212 build tests, 4 Sphinx": claim 8. CI box: claim 9.
 - `Review: approved at 7d35be3`: `chantier log CR-510`, `r1 approved at 5a73b6e..., committed as
   7d35be3430689c4979a58f471d4cd588ecb93fac`.
 - Changelog and requirements boxes: `ci` change, no `src/` change (claim 1).
+- The wording of the UNVERIFIED bullet changed since this claim was judged: see claim 11.
 
-## 11. Posted description: NOT VERIFIED (7d35be3)
+## 11. Posted description, second pass: NOT VERIFIED (7d35be3)
 
-`gh pr view 530 --json body` equals `work/pr-body.md` (only a trailing newline differs). It
-renders (`body_html`: sections, table, task list, Mermaid block), has every section of the
-project's template plus Autonomous decisions and Known gaps, no image, no username or home path,
-no internal reference outside the last section, title a Conventional Commit.
+State: `git rev-parse HEAD` `7d35be34...`, `git status --porcelain` empty, `git ls-remote` head and
+base unchanged. `diff --strip-trailing-cr <(gh pr view 530 --json body --jq .body) work/pr-body.md`:
+only one trailing empty line differs. `gh api .../pulls/530 --jq .body_html`: sections, table,
+task list and Mermaid block render. `grep -inE "gaeta|C:.Users|/home/|/Users/|!\[|<img"` on the
+posted body: exit 1 (no image, no username or home path). `gh pr checks 530`: same results as
+claim 9; `gh run list --commit 7d35be3...`: the one run 45748406898, success. `gh api .../stacks`:
+stack 528 still without 530.
 
-Failure: the first Test plan proof names no SHA.
-`gh pr view 530 --json body --jq .body | grep -n "7d35be3\|5a73b6e\|19 passed"`, line 60:
+Passed:
+
+- The failure of the first pass is fixed: the first Test plan proof reads `19 passed at 7d35be3`
+  and `on the previous script (5a73b6e)` (`tests-after.txt`, `tests-before.txt`).
+- Real-chain row and caption: SHAs named; ten merges listed and exit 1 before, `passed (24
+  commits since origin/main, no merge commit)` after (`real-chain.txt`).
+- New Evidence item: SHAs named; first sentence matches `real-chain.txt` and `before-after.md`,
+  second matches claim 7 (`1f63061c` is the chain's merge of `5a73b6e`; both bases pass; a merge
+  carried by a branch above is still listed).
+- "Verified at" unchecked, as intended before the verdict. Review and CI boxes: claim 10, claim 9.
+
+Failure: one sentence added to the Known gaps UNVERIFIED bullet is contradicted by the CI log.
 
 ```text
-- [x] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`, 19 passed; on the previous script 4 of the new cases fail, and the 3 others guard against a looser check, so they pass on both by design
+- **UNVERIFIED:** the check passing on a real chain in CI, [...] It was run locally only, on the
+  tests' chains and on the failing run's real chain. [...]
 ```
 
-Every proof in the description must name its SHA. The facts are true (claims 3, 4). Fix: edit
-that line to say `19 passed at 7d35be3` and `on the previous script (5a73b6e)`, in
-`pr-body.md` and on the pull request, then a description-only pass. No code change needed.
+`grep -nE "test_no_merge_commits|passed in" work/ci-45748406898.log` (run at `7d35be3`):
+
+```text
+6064: static-windows  uv run ... pytest ... test/build/test_no_merge_commits.py ...
+6079: static-windows  test\build\test_no_merge_commits.py ...................   [ 94%]
+6082: static-windows  212 passed in 55.15s
+13377: static         uv run ... pytest ... test/build/test_no_merge_commits.py ...
+13392: static         test/build/test_no_merge_commits.py ...................   [ 94%]
+13395: static         212 passed in 12.49s
+```
+
+The check ran on the tests' chains in CI too, on Linux and Windows; only the real-chain replays
+were local only. The gap itself (no real forge chain in CI) is correct and stays.
+Fix, in `pr-body.md` and on the pull request, for that sentence: "Its tests run it on the chains
+they build, locally and in the CI run at `7d35be3`; the failing run's real chain was replayed
+locally only." Then a description-only pass. No code change needed.

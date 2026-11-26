@@ -56,7 +56,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 - A merge of three or more parents at the checked-out commit is no longer ignored (the forge's test merge has two). No test builds such a merge.
 - A stack whose lower branch moved without the branches above being rebased on it is not nested: the check still fails there, until the stack is rebased.
 - Pull requests below this one in the stack, above the bottom, do not contain the fixed script: a new CI run of theirs stays red until the fix reaches the default branch.
-- **UNVERIFIED:** the check passing on a real chain in CI, on this pull request above the bottom of its stack. It was run locally only, on the tests' chains and on the failing run's real chain. The CI run at `7d35be3` checked out a single test merge, because this pull request was not linked into the stack yet; the first run after it is linked is the live proof.
+- **UNVERIFIED:** the check passing on a real chain in CI, on this pull request above the bottom of its stack. Its tests run it on the chains they build, locally and in the CI run at `7d35be3`; the failing run's real chain was replayed locally only. The CI run at `7d35be3` checked out a single test merge, because this pull request was not linked into the stack yet; the first run after it is linked is the live proof.
 
 ## Test plan
 
