@@ -1,4 +1,4 @@
-:::::::::{note}
+:::{note}
 Before.
 
 - Text
@@ -8,6 +8,5 @@ Before.
   y = 2
   $$
 
-
-- next
-:::::::::
+After.
+:::
