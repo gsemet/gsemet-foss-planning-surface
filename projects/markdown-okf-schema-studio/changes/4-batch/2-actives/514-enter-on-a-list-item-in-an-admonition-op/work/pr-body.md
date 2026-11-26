@@ -133,8 +133,10 @@ holds):
 - A paragraph holding one plain image, or an `{image}` directive, opens the box, and the move chord
   cannot cross it: such a move is refused, with the message about a comment or a link definition
   between the two blocks.
-- A `{table}` caption opens the admonition around it, and a tab panel its tab item (as before this
-  change).
+- A `{table}` caption opens the admonition around it (as before this change), and a tab panel its
+  tab item.
+- A paragraph holding only one tag of an HTML element (`<b>One` then `Two</b>`, or
+  `Para</details>`) opens the whole box (as before this change).
 - When a `:::` admonition is left open at the end of the file and ends on a quoted one
   (`> :::{tip}` up to `> :::`), the title and frame of that quoted tip open the whole outer
   admonition, so emptying that editor removes all of it (before this change the tip's title opened
