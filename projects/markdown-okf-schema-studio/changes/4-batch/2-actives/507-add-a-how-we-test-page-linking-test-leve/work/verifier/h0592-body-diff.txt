@@ -1,0 +1,63 @@
+62c62,63
+< Header before, at `4e4eeb4`:
+---
+> Header before, at `f9dc2c6` (carried from `4e4eeb4`: the files of the site header did not change
+> between them):
+66c67,68
+< Header after, at `6c5106e`:
+---
+> Header after, at `0592dde` (carried from `6c5106e`: a clean rebase that left the files behind
+> these pictures unchanged):
+70c72
+< Top of the new page with its diagram, at `6c5106e`:
+---
+> Top of the new page with its diagram, at `0592dde` (carried from `6c5106e`):
+74c76
+< The table, at `6c5106e`:
+---
+> The table, at `0592dde` (carried from `6c5106e`):
+78c80
+< "What is not enforced yet", at `6c5106e`:
+---
+> "What is not enforced yet", at `0592dde` (carried from `6c5106e`):
+148c150
+<   changed test files fail on the base `4e4eeb4`; all 49 pass at `6c5106e`
+---
+>   changed test files fail on the base `f9dc2c6`; all 49 pass at `0592dde`
+150c152
+<   `6c5106e`, `just requirements-lint` passes with nothing left to update
+---
+>   `0592dde`, `just requirements-lint` passes with nothing left to update
+152,153c154,155
+< - [x] Local gates at `6c5106e`: `just preflight` (static stage on Windows) passed: unit 5443 tests,
+<   5435 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;
+---
+> - [x] Local gates at `0592dde`: `just preflight` (static stage on Windows) passed: unit 5515 tests,
+>   5507 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;
+155,157c157,159
+< - [x] Review: approved at `6c5106e` (carried from `166532f`: a clean rebase after the last review
+<   left the files unchanged)
+< - [x] Verified at `6c5106e`: the tests against the base, `just requirements-lint`, the site build and
+---
+> - [x] Review: approved at `0592dde` (carried from `166532f`: the clean rebases after the last review
+>   left the patch of both commits unchanged)
+> - [x] Verified at `0592dde`: the tests against the base, `just requirements-lint`, the site build and
+159c161
+< - [x] CI green at `6c5106e`: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
+---
+> - [x] CI green at `0592dde`: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
+162c164
+< The tests that fail on the base `4e4eeb4`:
+---
+> The tests that fail on the base `f9dc2c6`:
+174c176
+< Built site at `6c5106e`, made with the reports of a green full CI run on a commit with the same
+---
+> Built site at `0592dde`, made with the reports of a green full CI run on a commit with the same
+180,181c182
+< Drift probes at `6c5106e`, each a temporary edit then `just unit`, each with one failing test (5443
+< tests, 5435 pass, 1 fail, 7 skipped):
+---
+> Drift probes at `0592dde`, each a temporary edit then `just unit`, each with one failing test:
+195d195
+< 
