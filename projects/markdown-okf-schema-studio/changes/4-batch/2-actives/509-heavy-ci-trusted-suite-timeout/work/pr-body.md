@@ -27,7 +27,7 @@ A launch or part lasts from its `setup` step to its last step.
 
 | Duration | Before: run 45476952370 at `63ef752` | Before: run 45713440510 at `17b779d` | After: run 45729384181 at `5e7b4a3` |
 | --- | --- | --- | --- |
-| Single trusted launch (deadline 900 s) | 835 s | 831 s | none |
+| Single trusted launch (deadline 900 s) | 834 s | 831 s | none |
 | Part 1 (deadline 900 s, bar 600 s) | none | none | 428 s |
 | Part 2 (deadline 900 s, bar 600 s) | none | none | 502.5 s |
 | `real-input` step | 404 s | 405 s | 462 s |
