@@ -207,7 +207,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
   - Re-run of the shard alone, same run: job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
   - Requirements bundle copied and checked in the new coverage mode at `5a8a593`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
 - [x] Review: approved at `5a8a593` (carried from `18c63e5`)
-- [ ] Verified at `5a8a593`: pending
+- [x] Verified at `5a8a593`: the delivered change and the claims of this description were checked against that commit
 - [x] CI green at `5a8a593`: the pull request checks passed (run 45773633868); the manually started heavy run 45774743144 is green after one re-run of its failed jobs (see Known gaps)
 
 ## Internal references
