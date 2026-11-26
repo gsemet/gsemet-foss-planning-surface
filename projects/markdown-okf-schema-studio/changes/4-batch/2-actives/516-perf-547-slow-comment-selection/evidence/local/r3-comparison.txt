@@ -1,353 +1,354 @@
-Comment button and hover actions, in Chromium on the real preview: HEAD 1fc9528 (old), round 2 (r2), round 3 (new).
-Button cases: after selecting | after the change, before a scroll | after the scroll. Place is left,top; '+box' = the comment box is open.
-Hover cases: first frame | settled. A dash for r2: that run's value was printed to the terminal only.
+Comment button and hover actions, in Chromium on the real preview. old: HEAD 1fc9528; r2: round 2; new: round 3.
+Button cases: after selecting | after the change, before a scroll | after the scroll (place is left,top; '+box' = the comment box is open).
+Hover cases: first frame | settled.
+70 cases; new differs from old in 0; r2 differs from old in 19.
 
-## text: selected block removed
+## text: selected block removed  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## text: selected text node removed
+## text: selected text node removed  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## text: selected characters replaced
+## text: selected characters replaced  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## text: selected characters made blank
+## text: selected characters made blank  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## text: first of three blocks removed
+## text: first of three blocks removed  [new: same; r2: differed]
   old  shown 691,298 | shown 691,298 | none
   r2   shown 691,298 | shown 691,298 | shown 691,222
   new  shown 691,298 | shown 691,298 | none
 
-## text: middle of three blocks removed
+## text: middle of three blocks removed  [new: same; r2: same]
   old  shown 691,298 | shown 691,298 | shown 285,222
   r2   shown 691,298 | shown 691,298 | shown 285,222
   new  shown 691,298 | shown 691,298 | shown 285,222
 
-## text: last of three blocks removed
+## text: last of three blocks removed  [new: same; r2: differed]
   old  shown 691,298 | shown 691,298 | none
   r2   shown 691,298 | shown 691,298 | shown 691,224
   new  shown 691,298 | shown 691,298 | none
 
-## text: content replaced whole
+## text: content replaced whole  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## text: block put above the selection
+## text: block put above the selection  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,221
   r2   shown 122,225 | shown 122,225 | shown 122,221
   new  shown 122,225 | shown 122,225 | shown 122,221
 
-## patch: selected paragraph deleted
+## patch: selected paragraph deleted  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## patch: selected paragraph reworded
+## patch: selected paragraph reworded  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## patch: earlier paragraph added
+## patch: earlier paragraph added  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## hide: block hidden attribute
+## hide: block hidden attribute  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## hide: block display none
+## hide: block display none  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## hide: block visibility hidden
+## hide: block visibility hidden  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 122,185
   new  shown 122,225 | shown 122,225 | none
 
-## hide: block hidden by a class
+## hide: block hidden by a class  [new: same; r2: differed]
   old  shown 122,225 | shown 122,225 | none
   r2   shown 122,225 | shown 122,225 | shown 8,8
   new  shown 122,225 | shown 122,225 | none
 
-## hide: first of three blocks hidden
+## hide: first of three blocks hidden  [new: same; r2: same]
   old  shown 691,298 | shown 691,298 | shown 691,222
   r2   shown 691,298 | shown 691,298 | shown 691,222
   new  shown 691,298 | shown 691,298 | shown 691,222
 
-## hide: all three blocks hidden
+## hide: all three blocks hidden  [new: same; r2: differed]
   old  shown 691,298 | shown 691,298 | none
   r2   shown 691,298 | shown 691,298 | shown 8,8
   new  shown 691,298 | shown 691,298 | none
 
-## hide: section folded
+## hide: section folded  [new: same; r2: same]
   old  shown 119,225 | none | none
   r2   shown 119,225 | none | none
   new  shown 119,225 | none | none
 
-## hide: section folded, end at next block
+## hide: section folded, end at next block  [new: same; r2: same]
   old  shown 285,287 | none | none
   r2   shown 285,287 | none | none
   new  shown 285,287 | none | none
 
-## hide: section folded, from its heading
+## hide: section folded, from its heading  [new: same; r2: same]
   old  shown 691,310 | shown 288,273 | shown 288,233
   r2   shown 691,310 | shown 288,273 | shown 288,233
   new  shown 691,310 | shown 288,273 | shown 288,233
 
-## hide: section folded, from above it
+## hide: section folded, from above it  [new: same; r2: same]
   old  shown 691,327 | shown 691,327 | shown 691,287
   r2   shown 691,327 | shown 691,327 | shown 691,287
   new  shown 691,327 | shown 691,327 | shown 691,287
 
-## hide: folded then unfolded, then scroll
+## hide: folded then unfolded, then scroll  [new: same; r2: same]
   old  shown 119,225 | shown 119,225 | shown 119,185
   r2   shown 119,225 | shown 119,225 | shown 119,185
   new  shown 119,225 | shown 119,225 | shown 119,185
 
-## hide: folded, scrolled, unfolded, scroll
+## hide: folded, scrolled, unfolded, scroll  [new: same; r2: same]
   old  shown 119,225 | shown 119,215 | shown 119,175
   r2   shown 119,225 | shown 119,215 | shown 119,175
   new  shown 119,225 | shown 119,215 | shown 119,175
 
-## hide: hidden, scrolled, shown, scroll
+## hide: hidden, scrolled, shown, scroll  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | shown 8,8 | shown 122,175
   new  shown 122,225 | none | none
 
-## hide: dropdown collapsed
+## hide: dropdown collapsed  [new: same; r2: same]
   old  shown 130,225 | none | none
   r2   shown 130,225 | none | none
   new  shown 130,225 | none | none
 
-## hide: properties table collapsed
+## hide: properties table collapsed  [new: same; r2: same]
   old  shown 122,225 | shown 122,181 | shown 122,141
   r2   shown 122,225 | shown 122,181 | shown 122,141
   new  shown 122,225 | shown 122,181 | shown 122,141
 
-## hide: descriptions collapsed
+## hide: descriptions collapsed  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,185
-  r2   -
+  r2   shown 122,225 | shown 122,225 | shown 122,185
   new  shown 122,225 | shown 122,225 | shown 122,185
 
-## hide: tab switched
+## hide: tab switched  [new: same; r2: same]
   old  shown 135,225 | none | none
   r2   shown 135,225 | none | none
   new  shown 135,225 | none | none
 
-## root: comments button off
+## root: comments button off  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,185
   r2   shown 122,225 | shown 122,225 | shown 122,185
   new  shown 122,225 | shown 122,225 | shown 122,185
 
-## root: edit mode on
+## root: edit mode on  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,185
   r2   shown 122,225 | shown 122,225 | shown 122,185
   new  shown 122,225 | shown 122,225 | shown 122,185
 
-## root: attribute hides content
+## root: attribute hides content  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,185
   r2   shown 122,225 | shown 122,225 | shown 122,185
   new  shown 122,225 | shown 122,225 | shown 122,185
 
-## frame: collapsed with the scroll
+## frame: collapsed with the scroll  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## frame: removed ranges with the scroll
+## frame: removed ranges with the scroll  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## frame: other text with the scroll
+## frame: other text with the scroll  [new: same; r2: same]
   old  shown 122,225 | shown 129,231 | shown 129,191
   r2   shown 122,225 | shown 129,231 | shown 129,191
   new  shown 122,225 | shown 129,231 | shown 129,191
 
-## frame: block removed with the scroll
+## frame: block removed with the scroll  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | shown 8,8 | shown 8,8
   new  shown 122,225 | none | none
 
-## frame: block hidden with the scroll
+## frame: block hidden with the scroll  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | shown 8,8 | shown 8,8
   new  shown 122,225 | none | none
 
-## frame: block removed in a frame callback, scroll next
+## frame: block removed in a frame callback, scroll next  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | shown 8,8 | shown 8,8
   new  shown 122,225 | none | none
 
-## box: open, block removed
+## box: open, block removed  [new: same; r2: same]
   old  shown 122,225 | none +box | none +box
   r2   shown 122,225 | none +box | none +box
   new  shown 122,225 | none +box | none +box
 
-## box: open, block removed, cancelled
+## box: open, block removed, cancelled  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## pointer: down at the scroll
+## pointer: down at the scroll  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## pointer: up again after it
+## pointer: up again after it  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## busy: blocks selected
+## busy: blocks selected  [new: same; r2: same]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none | none
   new  shown 122,225 | none | none
 
-## view: scrolled far out of the window
+## view: scrolled far out of the window  [new: same; r2: same]
   old  shown 122,225 | shown 122,225 | shown 122,8
   r2   shown 122,225 | shown 122,225 | shown 122,8
   new  shown 122,225 | shown 122,225 | shown 122,8
 
-## view: far out, then block removed
+## view: far out, then block removed  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | shown 8,8 | shown 8,8
   new  shown 122,225 | none | none
 
-## key: hidden then shortcut
+## key: hidden then shortcut  [new: same; r2: same]
   old  shown 122,225 | none +box | none +box
   r2   shown 122,225 | none +box | none +box
   new  shown 122,225 | none +box | none +box
 
-## key: hidden, scrolled, then shortcut
+## key: hidden, scrolled, then shortcut  [new: same; r2: differed]
   old  shown 122,225 | none | none
   r2   shown 122,225 | none +box | none +box
   new  shown 122,225 | none | none
 
-## read pre removed
+## read pre removed  [new: same; r2: same]
   old  outline none; copy none; figure none | outline none; copy none; figure none
-  r2   -
+  r2   outline none; copy none; figure none | outline none; copy none; figure none
   new  outline none; copy none; figure none | outline none; copy none; figure none
 
-## read pre hidden
+## read pre hidden  [new: same; r2: same]
   old  outline none; copy none; figure none | outline none; copy none; figure none
-  r2   -
+  r2   outline none; copy none; figure none | outline none; copy none; figure none
   new  outline none; copy none; figure none | outline none; copy none; figure none
 
-## read span in pre replaced
+## read span in pre replaced  [new: same; r2: same]
   old  outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
   r2   outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
   new  outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
 
-## read span in pre removed
+## read span in pre removed  [new: same; r2: same]
   old  outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
-  r2   -
+  r2   outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
   new  outline none; copy shown 704,284; figure none | outline none; copy shown 704,284; figure none
 
-## read pre replaced
+## read pre replaced  [new: same; r2: same]
   old  outline none; copy shown 704,275; figure none | outline none; copy shown 704,275; figure none
   r2   outline none; copy shown 704,275; figure none | outline none; copy shown 704,275; figure none
   new  outline none; copy shown 704,275; figure none | outline none; copy shown 704,275; figure none
 
-## read second pre removed, first shown
+## read second pre removed, first shown  [new: same; r2: same]
   old  outline none; copy none; figure none | outline none; copy none; figure none
-  r2   -
+  r2   outline none; copy none; figure none | outline none; copy none; figure none
   new  outline none; copy none; figure none | outline none; copy none; figure none
 
-## edit pre removed
+## edit pre removed  [new: same; r2: same]
   old  outline none; copy none; figure none | outline none; copy none; figure none
-  r2   -
+  r2   outline none; copy none; figure none | outline none; copy none; figure none
   new  outline none; copy none; figure none | outline none; copy none; figure none
 
-## edit pre hidden
+## edit pre hidden  [new: same; r2: same]
   old  outline none; copy none; figure none | outline none; copy none; figure none
-  r2   -
+  r2   outline none; copy none; figure none | outline none; copy none; figure none
   new  outline none; copy none; figure none | outline none; copy none; figure none
 
-## edit span in pre replaced
+## edit span in pre replaced  [new: same; r2: same]
   old  outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
   r2   outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
   new  outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
 
-## edit span in pre removed
+## edit span in pre removed  [new: same; r2: same]
   old  outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
-  r2   -
+  r2   outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
   new  outline pre[]; copy shown 704,284; figure none | outline pre[]; copy shown 704,284; figure none
 
-## edit pre replaced
+## edit pre replaced  [new: same; r2: same]
   old  outline pre[]; copy shown 704,275; figure none | outline pre[]; copy shown 704,275; figure none
   r2   outline pre[]; copy shown 704,275; figure none | outline pre[]; copy shown 704,275; figure none
   new  outline pre[]; copy shown 704,275; figure none | outline pre[]; copy shown 704,275; figure none
 
-## edit second pre removed, first shown
+## edit second pre removed, first shown  [new: same; r2: same]
   old  outline p[45]; copy none; figure none | outline p[45]; copy none; figure none
-  r2   -
+  r2   outline p[45]; copy none; figure none | outline p[45]; copy none; figure none
   new  outline p[45]; copy none; figure none | outline p[45]; copy none; figure none
 
-## edit paragraph removed
+## edit paragraph removed  [new: same; r2: same]
   old  outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
-  r2   -
+  r2   outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
   new  outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
 
-## edit paragraph hidden
+## edit paragraph hidden  [new: same; r2: same]
   old  outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
-  r2   -
+  r2   outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
   new  outline p[7]; copy none; figure none | outline p[7]; copy none; figure none
 
-## edit paragraph replaced
+## edit paragraph replaced  [new: same; r2: same]
   old  outline p[5]; copy none; figure none | outline p[5]; copy none; figure none
   r2   outline p[5]; copy none; figure none | outline p[5]; copy none; figure none
   new  outline p[5]; copy none; figure none | outline p[5]; copy none; figure none
 
-## edit strong replaced
+## edit strong replaced  [new: same; r2: same]
   old  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
   r2   outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
   new  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
 
-## edit strong removed
+## edit strong removed  [new: same; r2: same]
   old  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
-  r2   -
+  r2   outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
   new  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
 
-## edit strong hidden
+## edit strong hidden  [new: same; r2: same]
   old  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
-  r2   -
+  r2   outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
   new  outline p[3]; copy none; figure none | outline p[3]; copy none; figure none
 
-## edit cell removed
+## edit cell removed  [new: same; r2: same]
   old  outline p[53]; copy none; figure none | outline p[53]; copy none; figure none
-  r2   -
+  r2   outline p[53]; copy none; figure none | outline p[53]; copy none; figure none
   new  outline p[53]; copy none; figure none | outline p[53]; copy none; figure none
 
-## edit cell text replaced
+## edit cell text replaced  [new: same; r2: same]
   old  outline td[]; copy none; figure none | outline td[]; copy none; figure none
   r2   outline td[]; copy none; figure none | outline td[]; copy none; figure none
   new  outline td[]; copy none; figure none | outline td[]; copy none; figure none
 
-## edit image removed
+## edit image removed  [new: same; r2: same]
   old  outline td[]; copy none; figure none | outline td[]; copy none; figure none
-  r2   -
+  r2   outline td[]; copy none; figure none | outline td[]; copy none; figure none
   new  outline td[]; copy none; figure none | outline td[]; copy none; figure none
 
-## edit image hidden
+## edit image hidden  [new: same; r2: same]
   old  outline td[]; copy none; figure none | outline td[]; copy none; figure none
-  r2   -
+  r2   outline td[]; copy none; figure none | outline td[]; copy none; figure none
   new  outline td[]; copy none; figure none | outline td[]; copy none; figure none
 
-## edit image block removed
+## edit image block removed  [new: same; r2: same]
   old  outline td[]; copy none; figure none | outline td[]; copy none; figure none
-  r2   -
+  r2   outline td[]; copy none; figure none | outline td[]; copy none; figure none
   new  outline td[]; copy none; figure none | outline td[]; copy none; figure none

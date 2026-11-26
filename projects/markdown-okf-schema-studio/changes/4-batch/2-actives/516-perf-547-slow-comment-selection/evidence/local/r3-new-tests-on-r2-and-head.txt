@@ -1,0 +1,134 @@
+Round 3 tests of test/page/frameReadsInChromium.test.ts (Chromium, STUDIO_REQUIRE_CHROMIUM=1) with the page script built from older sources.
+On the round 3 sources all three pass. On HEAD 1fc9528 the third fails by design: HEAD reads the selection on every scroll, which this CR changes.
+
+=== round 2 sources
+page script built from <wt>/out/cr516-r2
+page script built from <wt>/out/cr516-r2
+✖ a scroll report carries the new text after the content under an unmoved selection changes (893.773ms)
+✖ a scroll after the page took away or hid the selected text removes the Comment button (3589.8056ms)
+✖ a change of the page has the selection read again, once, and a scroll never does (440.1504ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4926.9371
+
+✖ failing tests:
+
+test at out\test\page\frameReadsInChromium.test.js:128:22
+✖ a scroll report carries the new text after the content under an unmoved selection changes (893.773ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Bravo/u. Input:
+  
+  'Alpha paragraph.\n\nBravo paragraph. Delta.\n\nCharlie'
+  
+      at TestContext.<anonymous> (<wt>\out\test\page\frameReadsInChromium.test.js:168:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Alpha paragraph.\n\nBravo paragraph. Delta.\n\nCharlie',
+    expected: /Bravo/u,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at out\test\page\frameReadsInChromium.test.js:283:22
+✖ a scroll after the page took away or hid the selected text removes the Comment button (3589.8056ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'the selected block is removed: a button stays',
+  +   'the selected block is removed: the shortcut opens 1 box(es)',
+  +   'the selected text node is removed: a button stays',
+  +   'the selected text node is removed: the shortcut opens 1 box(es)',
+  +   'the content is replaced: a button stays',
+  +   'the content is replaced: the shortcut opens 1 box(es)',
+  +   'the block gets the hidden attribute: a button stays',
+  +   'the block gets the hidden attribute: the shortcut opens 1 box(es)',
+  +   'the block is not displayed: a button stays',
+  +   'the block is not displayed: the shortcut opens 1 box(es)',
+  +   'the block is invisible: a button stays',
+  +   'the block is invisible: the shortcut opens 1 box(es)',
+  +   'a class hides the block: a button stays',
+  +   'a class hides the block: the shortcut opens 1 box(es)',
+  +   'all three selected blocks are hidden: a button stays',
+  +   'all three selected blocks are hidden: the shortcut opens 1 box(es)',
+  +   'the first of three selected blocks is removed: a button stays',
+  +   'the first of three selected blocks is removed: the shortcut opens 1 box(es)',
+  +   'the block is hidden, the page scrolls, the block shows again: a button stays',
+  +   'the block is removed in the task that scrolls: a button stays',
+  +   'the block is removed in the task that scrolls: the shortcut opens 1 box(es)',
+  +   'the block is hidden in the task that scrolls: a button stays',
+  +   'the block is hidden in the task that scrolls: the shortcut opens 1 box(es)',
+  +   'the block is removed in a frame callback and the next frame scrolls: a button stays',
+  +   'the block is removed in a frame callback and the next frame scrolls: the shortcut opens 1 box(es)'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (<wt>\out\test\page\frameReadsInChromium.test.js:313:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out\test\page\frameReadsInChromium.test.js:321:22
+✖ a change of the page has the selection read again, once, and a scroll never does (440.1504ms)
+  AssertionError [ERR_ASSERTION]: five changes in one task are read once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (<wt>\out\test\page\frameReadsInChromium.test.js:347:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+
+=== HEAD 1fc9528 sources
+page script built from <wt>/out/cr516-old
+page script built from <wt>/out/cr516-old
+✔ a scroll report carries the new text after the content under an unmoved selection changes (1038.0793ms)
+✔ a scroll after the page took away or hid the selected text removes the Comment button (3238.8258ms)
+✖ a change of the page has the selection read again, once, and a scroll never does (408.6472ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4688.5949
+
+✖ failing tests:
+
+test at out\test\page\frameReadsInChromium.test.js:321:22
+✖ a change of the page has the selection read again, once, and a scroll never does (408.6472ms)
+  AssertionError [ERR_ASSERTION]: scrolls in read mode
+  
+  4 !== 0
+  
+      at TestContext.<anonymous> (<wt>\out\test\page\frameReadsInChromium.test.js:343:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
