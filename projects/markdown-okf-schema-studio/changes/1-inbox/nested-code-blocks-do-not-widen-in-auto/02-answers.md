@@ -10,3 +10,8 @@ Short name: `nested-wide`
 2. nested-wide-Q2 (2026-11-26): "Na" (not applicable).
 
 3. nested-wide-Q3 (2026-11-26): "B. Pas encore", given on a restatement that widened nested blocks, which answer 1 replaces; "grilled enough?" is asked again (Q4).
+
+4. nested-wide-Q4 (2026-11-26): **Grilled enough**, on the requirements-only restatement: "A. Spécifier pour batch-09 (recommandé)".
+
+Destination: running batch batch-09.
+Spec critic: no, requirements wording only, no behaviour change.

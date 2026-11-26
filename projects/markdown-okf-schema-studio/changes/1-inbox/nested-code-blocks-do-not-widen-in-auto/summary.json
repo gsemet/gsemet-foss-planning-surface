@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Requirements state that only top-level blocks widen in Auto",
+  "summary": "Grilled; being specified for batch-09. Requirements text only: nested blocks keep their scroll bar by design.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1ec6f6e5cd279f79633b705d53a059e3a344ea9e6612cbe3ef99b63e31138a93",
+    "02-answers.md": "8b553c4ffbb2203b29b544d286b08899224cde94d1aab5102a18a63b266b3617",
+    "intake/request.md": "e458118728aa3a88d9799409499397b8dc429ae7a3151a7167d8edea504c517c"
+  },
+  "summarized": "2026-11-26T07:57:39Z"
+}
