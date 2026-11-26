@@ -1,5 +1,3 @@
-# docs(cards): inventory the old cards' rules and restore the serious lost ones
-
 ## Summary
 
 The role cards (the instructions each agent reads) were rewritten to be much shorter. Nothing showed
@@ -174,3 +172,5 @@ Agents read slightly longer cards. No visual change.
 CR-511 sc25-cards-compare-review
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
