@@ -44,3 +44,12 @@ of the new CI job, what "faster" means on hosted runners), 3 asked below.
 5. perf547-Q5, "where is the wait for the Git author name measured?", choices "A. in CI
    (recommended): a test folder as a Git repository with a user name; the report says so", "B. local
    only", "C. drop the point". Answer, verbatim: "A. En CI (reco.)". It applies to the second CR.
+
+6. The owner's instruction for the night (2026-11-27, Chief of Staff session), verbatim: "ok je te
+   laisse finaliser la nuit. mode stack. plus de question, je suis off. tu peux faire jusqu a 6 retry
+   part tache. fini par une pipeline long uniquement sur le dernier commit."
+
+   Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
+   the last commit of the final stack, which covers this CR's "a heavy CI run of the head is green"
+   (no heavy run at this CR's own head). The targeted `perf_547` dispatches of the "after" runs stay:
+   they run the measure only, not the long pipeline (Chief of Staff's reading).

@@ -17,3 +17,11 @@ shows the latest run only, with no history.
 Destination: running batch batch-09.
 
 Spec critic: no (the page was in the specification the critic checked before the split).
+
+3. The owner's instruction for the night (2026-11-27, Chief of Staff session), verbatim: "ok je te
+   laisse finaliser la nuit. mode stack. plus de question, je suis off. tu peux faire jusqu a 6 retry
+   part tache. fini par une pipeline long uniquement sur le dernier commit."
+
+   Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
+   the last commit of the final stack. This CR is the top: that run is this specification's "heavy run
+   on the branch", and its run id goes in the PR's test plan.

@@ -31,3 +31,11 @@ Destination: running batch batch-09.
 
 Spec critic: no (the two points were in the specification the critic checked before the split; the
 split changes no behaviour of them).
+
+6. The owner's instruction for the night (2026-11-27, Chief of Staff session), verbatim: "ok je te
+   laisse finaliser la nuit. mode stack. plus de question, je suis off. tu peux faire jusqu a 6 retry
+   part tache. fini par une pipeline long uniquement sur le dernier commit."
+
+   Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
+   the last commit of the final stack, which covers this CR's "a heavy CI run of the head is green"
+   (no heavy run at this CR's own head). Targeted measure dispatches stay.

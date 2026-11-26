@@ -82,8 +82,8 @@ Grade: 2
       the unchanged-behaviour tests pass.
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just check` (5535 unit tests, 5528 pass, 7 skipped; 298 Python tests);
-      `just ci-visual` on Windows: 524 of 530 captures pass and 18 of 18 browser tests pass, the 6
+- [x] Local gates: `just check` (5537 unit tests, 5530 pass, 7 skipped; 298 Python tests);
+      `just ci-visual` on Windows: 524 of 530 captures pass and 20 of 20 browser tests pass, the 6
       failed captures fail the same way without this change
 - [ ] Review
 - [ ] CI green

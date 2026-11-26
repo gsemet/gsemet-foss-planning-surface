@@ -96,3 +96,17 @@ own).
     in batch-09?", choices "A. separate CR (recommended)", "B. one CR". Answer, verbatim: "B. Une
     seule CR" (as offered: one cycle less, but the KPI job and the page above it wait for the Windows
     try).
+
+12. The owner's instruction for the night (2026-11-27, Chief of Staff session), verbatim: "ok je te
+    laisse finaliser la nuit. mode stack. plus de question, je suis off. tu peux faire jusqu a 6 retry
+    part tache. fini par une pipeline long uniquement sur le dernier commit."
+
+    Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
+    the last commit of the final stack. So the specification's "first heavy CI run of this branch"
+    is replaced: `maximumMs` comes from the medians of three targeted `perf_547` dispatches on the CI
+    runner, on a head that holds CR-516 and CR-517, made before this CR removes that job (same
+    scenario, same samples), same rule (about twice the median, rounded up to the next 10 ms), run ids
+    written where the specification asks. The two job timeouts come from those runs' duration times
+    three launches, with room. The final heavy run is the "second run": `perf` green, both ratios at
+    most 1; if it is red or the job is near its timeout, fix at cause and run again at the new last
+    commit.
