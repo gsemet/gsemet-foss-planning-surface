@@ -131,11 +131,21 @@ Page side, `src/page/features/blockEditor.ts` and `src/page/features/blockMoves.
   indented in a list item: the alert bounds the move, the outer item and its list are not moved.
 - **The host message.** The same `previewBlockMove` as today (`postBlockMove`): `line` and
   `endLine` of the inner list, `neighbourLine` and `neighbourEndLine` of the inner neighbour, the
-  direction; the save first when the item has unsaved text
-  (`rememberPendingBlockNavigation(list, "end", ..., {direction, caretOffset})`, then
-  `postBlockEditSave(true)`), the direct `requestBlockMove(list, direction, "edit", offset)` when
-  there is nothing to save, as `moveBlockFromEditor` does today. No new message, no new field
-  (SwRS-MDOKFSTUDIO-BLOCK-259 unchanged).
+  direction. No new message, no new field (SwRS-MDOKFSTUDIO-BLOCK-259 unchanged). Both paths of
+  `moveBlockFromEditor` reach it through `requestBlockMove` in `blockMoves.ts`:
+  - nothing to save: `closeBlockEdit(true)`, then `requestBlockMove(list, direction, "edit", offset)`
+    at once;
+  - unsaved text: `rememberPendingBlockNavigation(list, "end", undefined, undefined, {direction,
+    caretOffset})`, then `postBlockEditSave(true)`; after the save renders,
+    `resumePendingBlockNavigation` (`src/page/features/editMode.ts`, the `thenMove` branch) finds the
+    list again (its breadth-first walk already reaches inner blocks) and calls
+    `rt.blockMoves.requestBlockMove(target, direction, "edit", caretOffset)`; when that returns
+    false it only reopens the list's editor (`openMappedEditor(target, target, {offset}, false)`).
+  - `requestBlockMove` takes its neighbour from `bodyBlockNeighbour`, which knows top-level blocks
+    only: for an inner list it finds none and returns false. So the inner neighbour (above) must be
+    used by `requestBlockMove` itself (or by a variant both paths call), not only by
+    `moveBlockFromEditor`; otherwise the save path saves the item, reopens the editor and moves
+    nothing.
 - **After the render.** `settleBlockMove`, `resumeBlockMove`, `runStaleRetry` and
   `finishMoveRefusal` find the moved block with `rt.blocks.bodyBlockAtLine`, which knows
   top-level blocks only. They must find an inner list too (for example the breadth-first walk
@@ -307,8 +317,12 @@ behaviour on 2026-11-26.
   admonition; with a nested sub-list item, the outermost body list; the first or last body block
   posts nothing and the editor stays open; a list in an inner admonition takes its neighbour in the
   inner admonition; after the rendered move, the list's editor opens at its new lines with the
-  caret offset (the settle finds an inner block); with unsaved text, the save is posted first. Each
-  fails on origin/main (today the whole admonition, or nothing, is sent).
+  caret offset (the settle finds an inner block). With unsaved text: the save is posted first and
+  no move yet; then, after the save renders (the pending navigation resumes through
+  `resumePendingBlockNavigation` and `requestBlockMove`), `previewBlockMove` is posted with the
+  lines of the inner list and of its inner neighbour, and after that move renders the list's editor
+  opens at its new lines with the caret offset. Each fails on origin/main (today the whole
+  admonition, or nothing, is sent; on the save path the editor reopens with no move).
 - The planner (section 2), `test/core/mapping/blockMove.test.ts`, marker
   `@tests_req SwRS-MDOKFSTUDIO-BLOCK-117#S7`: two blocks of an alert body swap with their `>`
   separator kept; the same in an alert indented in a list item (`   > `); a swap that needs an
@@ -331,6 +345,11 @@ behaviour on 2026-11-26.
   admonition with the editor texts the current scenarios assert. One keyboard scenario: Down to
   the admonition, Right, Down, Right, Enter opens the first list item only. The file's header
   comment is updated.
+- `test/visual/scenarioIds.ts` holds the description of each visual id: the entries
+  `gfm/v09-alert-body-opens-whole-alert-dark-900` (about line 705) and
+  `block-editing/v22-admonition-body-opens-whole-directive-dark-900` (about line 728) move to the
+  new ids with texts that say the new behaviour (a click on the second paragraph opens that
+  paragraph only), and the new title and keyboard scenarios get their entries.
 - Visual scenarios that open an admonition by a click on its body to reach its head line: in
   `test/visual/admonitionTypePickerScenarios.ts`, `palette-slash/v36` to `v39` (the
   `OPEN_ON_TYPE` helper, marker `SwRS-MDOKFSTUDIO-PALETTE-269#S1`, called on
@@ -343,6 +362,32 @@ behaviour on 2026-11-26.
   `OPEN_ON_TYPE` and in the showcase scenario ("The click lands mid-way along the ... body, so
   ArrowUp ...") rewritten to the new gesture. Their screenshots and assertions stay the same (the
   type list at the caret); the intent of no assertion changes.
+- `test/integration/realInput/qa210Replays.ts`, `scenarioAlertLazyContinuation` (about lines
+  132-158, markers GFM-009 `#S1` and `#S10`, runs on push to main or a heavy run): it clicks the
+  alert's body paragraph ("Line one") and asserts an editor holding `> [!NOTE]` and the lazy line,
+  so it fails after the change (the paragraph editor holds the lazy line but not the marker line).
+  Its intent, stated in its doc comment, is that the lazy line renders inside the alert and that
+  the editor opened from the alert holds it. Either it opens the alert from its title
+  (`.admonition-title` of the alert) and keeps its assertions, or it keeps the body click and
+  asserts the paragraph-only editor (the lazy line and the paragraph's own `> ` lines, no
+  `> [!NOTE]`); the Driver picks one and the commit says why the gesture or the assertion changed.
+- Checked on origin/main and still valid after the change, no edit needed beyond wording:
+  - `scenarioCrlfAlertEditKeepsLineEndings` in the same file (about line 448) clicks the body
+    paragraph of a one-paragraph alert, presses End, types, Enter, types; its assertions (CRLF in
+    the buffer, `(?:> ?)?` before the new line, the alert renders the new line, one editor open)
+    hold for the paragraph editor too; its message "the alert editor is still open" may be reworded.
+    The Driver confirms it on the heavy run.
+  - `test/visual/capture_edit_checks.py`, edit target `admonition`: it clicks "Calibration gate",
+    the title of the `{warning}` of fixture 08-okf-schema, so the whole directive still opens and
+    its "both fences" check holds.
+  - `test/page/runtimeBlankLinesContainers.test.ts` ("a click on a blank-line block in an
+    admonition, a panel and an alert opens its own editor"), `test/visual/capture_table_in_container.py`
+    and `test/integration/realInput/tableInContainer.ts` (a table in an alert or an admonition opens
+    the cell editor) already expect the inner element.
+  - No other test under `test/` or the clips clicks, or presses Enter on, the body of an
+    admonition or an alert to open it whole (searched for admonition and alert selectors followed by
+    a body element, `editingElementFor` and `sourceRangeForAlert`); the keyboard navigation clip is
+    section 6.
 - Real VS Code window (push to main only): `test/integration/listItemMoves.ts` holds "the
   whole-list chord of an item editor" (BLOCK-262 Verification notes); a step with the chord from an
   item of a list in an alert, checking the file, is the Driver's call. A step in
