@@ -32,7 +32,7 @@ flowchart LR
 - A real-window scenario, `perf-547`, that drags selections with the mouse and creates comments from
   the **Comment** button, then writes every sample and the medians. It sets no limit.
 - `just ci-perf-547`, and a CI job of the same name started only by a manual run with
-  `perf_547=true`. Pull requests and pushes do not run it.
+  `perf_547=true`. Pull requests and pushes do not run it. The **How we test** page names it.
 
 ## Impacts
 

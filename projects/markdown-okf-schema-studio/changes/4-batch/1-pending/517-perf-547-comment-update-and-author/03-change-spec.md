@@ -33,8 +33,24 @@ report `out/reports/probe/perf-547.json` and the first part of the fix. As soon 
      wins, and a write with no name read yet waits as today.
    - Median at 10 ms or under: change nothing for the author and say so with the figures.
 
+## Measure: what the thread index costs
+
+4. The owner suspects review comment threads cause needless load on large documents, because the
+   document is indexed to anchor them (`02-answers.md`, items 4 and 5). Measure that cost on its own,
+   in Node, on `src/core/comments/anchoring.ts`: indexing the document (`createDocumentIndex`) and
+   re-anchoring all its threads (`reanchorThreads`, which indexes it too).
+   - Two generated documents: the issue-size one of the lower CR's generator
+     (`test/probe/perf547Document.ts`, 9 threads) and one four times as large with 36 threads. The
+     generator's default output stays byte for byte what the lower CR's runs measured.
+   - The `perf-547` CI job runs the measure and adds it to its report as `threadIndex`: per document,
+     lines, bytes, thread count, and the samples and median of both times.
+   - Report only: no limit asserted, nothing changed in how threads are indexed, anchored or stored.
+
 ## Done when
 
+- The reports of the three CI runs hold `threadIndex` for both documents. The pull request's body and
+  the CR's evidence give the medians beside the `commentCreate` median of the same runs, and say, as
+  read in the code, on which user actions the extension host runs these two functions.
 - Tests show that adding one comment leaves the highlight elements of the other threads in place and
   reads the `[data-line]` blocks once.
 - A test compares, after create, reply, resolve and delete (orphaned and overlapping threads
@@ -59,4 +75,5 @@ report `out/reports/probe/perf-547.json` and the first part of the fix. As soon 
 
 The measure harness itself, the `:has()` rules, the comment button, hover and scroll listeners (the
 lower CR); inline thread comments written in the Markdown source; KPI scores and the Pages site; a
-reply to the reporter.
+reply to the reporter; making the thread index faster, disabling review comment threads or storing them
+elsewhere (the owner decides, on the figures).
