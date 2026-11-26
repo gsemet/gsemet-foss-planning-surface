@@ -97,7 +97,7 @@ Others:
 
 ## StRS marker classification
 
-Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, taken before the restack on `main`; `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions).
+Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` as the files stood before the sort, taken before the restack on `main`; `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions).
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
 | test/build/test_plugin_manifests.py | 93 | StRS-MDOKFSTUDIO-CORE-006 | partial path | marker removed | - |
@@ -389,7 +389,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser before the restack on the changes below (screenshots not posted)
 - [x] Review: approved at `2c0a01a`
 - [ ] Verified at the head
-- [ ] CI green: all checks that run on a pull request pass at the head
+- [x] CI green: all checks that run on a pull request pass at `2c0a01a`
 
 ## Internal references
 
