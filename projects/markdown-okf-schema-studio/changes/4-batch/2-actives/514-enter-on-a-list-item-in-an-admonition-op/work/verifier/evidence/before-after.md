@@ -26,17 +26,19 @@ present in `out/vbase` as well; no base code imports them (the compiled base ren
 
 No screenshot shows a user name or a home folder.
 
-## Failed claim: a block of a box that cuts a fence (text evidence)
+## Text evidence for the failed claims
 
-Reproduce, from the worktree, with `<build>` the worktree (after) or `out/vbase` (before) and the
-files of `../repro/`:
+Run from the worktree, with `<build>` the worktree (after) or `<worktree>/out/vbase` (before).
+`<repro>` stands for the full path of the `repro` folder beside this one.
+
+### A block of a box that cuts a fence
 
 ```
-fnm exec -- node --import ./scripts/register-myst-patches.mjs ../repro/gesture.js <build> ../repro/gap-note.md "Step one" enter erase
+fnm exec -- node --import ./scripts/register-myst-patches.mjs <repro>/gesture.js <build> <repro>/gap-note.md "Step one" enter erase
 ```
 
-(`gap-alert.md` with the same text; `gap-fig.md` with `"Caption text"`.) `../repro/` stands for
-the full path of that folder.
+(`gap-alert.md` with the same text; `gap-fig.md` with `"Caption text"`; leave `erase` out on the
+base.)
 
 Source `gap-note.md`:
 
@@ -57,11 +59,29 @@ After.
 | | Enter on "Step one" | Editor text | After erasing it and committing |
 | --- | --- | --- | --- |
 | Before | the whole box, lines 1-9 | the whole directive | not run (the whole box is open) |
-| After | the paragraph, lines 2-4 | `- Step one`, a blank line, the opening fence line of the `{table}` | the `{table}` directive and its caption are gone; its closing fence is left alone and opens an empty code block |
+| After | the paragraph, lines 2-4 | `- Step one`, a blank line, the opening fence line of the `{table}` | the `{table}` directive and its caption are gone; its rows stay as a plain table and its closing fence is left alone, opening an empty code block |
 
 `gap-fig.md` (a `{figure}` inside a list of a note): after, Enter on "Caption text" opens lines 5-7
-(the caption and the closing fence of the figure); erasing it leaves the figure's opening fence
-unclosed and the figure disappears. Before, the whole box opens (lines 1-9).
+(the caption and the closing fence of the figure); erasing it removes both, so the figure is left
+unclosed in the file (the image still renders, the caption is gone). Before, the whole box opens
+(lines 1-9). `figrender.js <build>` renders the documents left.
+
+### The move chord past a thematic break empties the box
+
+```
+fnm exec -- node --import ./scripts/register-myst-patches.mjs <repro>/firstplace.js <build-after>
+```
+
+Source: `":::{note}\nBefore.\n\n---\n\nAfter.\n:::\n"`.
+
+| | Chord down on "Before." | Document | Preview of the box |
+| --- | --- | --- | --- |
+| Before | no block of a box has an editor of its own: a gesture inside opens the whole box | unchanged by any inner move | title, "Before.", rule, "After." |
+| After | accepted | `":::{note}\n\n---\n\nBefore.\n\nAfter.\n:::\n"` | the title only |
+
+The same happens in a backtick `{note}` and in a GitHub alert. The renderer already shows a box
+written that way as empty on the base (`render2.js <build>` on both): what is new is that the chord
+writes it.
 
 ## Not captured
 
@@ -69,4 +89,4 @@ unclosed and the figure disappears. Before, the whole box opens (lines 1-9).
   from its committed files.
 - No screenshot of the move chord, of a refused move or of an erased alert block: their effect is a
   document change, shown by the tests and by session probes (text), see `verify.md`.
-- No screenshot of the fence cut above: the evidence is the document text.
+- No screenshot of the two failures above: the evidence is the document text and the rendered HTML.
