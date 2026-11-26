@@ -105,7 +105,10 @@ pair(row_line("| topics: cr-rounds 4,"),
      + " | pointer, scoping, links, a folded rule, the folder-change ban |")
 pair(row_line("| topics, rules put back:"),
      f"| topics, rules put back: {listing} | a lost or misstated rule or its wording, a date, CR id or trial story the "
-     "specification bans, or a split file's lines; line by line in the host and shared inventory |")
+     "specification bans, or a split file's lines; each rule's home and line are in the four inventories |")
+pair("an image note goes in the ask's added sentence; stop",
+     "an image note goes in the ask's added sentence, the one sentence it may add; other asks: `help ask-lines`; stop")
+pair("| foreman.md 38 | Rare cases: only", "| foreman.md 38 | Rare: only")
 pair(row_line("| topics.json |"),
      "| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the files "
      "of `direct-mode-switch`; `mode-switch`'s trigger names `order mode`; the split topics list their parts; "
