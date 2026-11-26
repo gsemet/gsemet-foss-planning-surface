@@ -52,3 +52,22 @@ change and this change's v32 to v35. The base changed none of this change's requ
 - just dev not run: uv.lock and package-lock.json unchanged between 89cae5ff and 9d7e788a
 
 Not run: any app-window test.
+
+# CR-513, third rebase, onto CR-511's branch (copied from the resolver's reply)
+
+- Old head 1fa9587eb1f6a5e53ef5bce5269d292bc2517859 (on 9d7e788a), new head
+  7e7022822b1a25ced9d2f7383652f4b1cff35456 (on 928ebd7e); commits 552cfac4, 7e702282, messages
+  unchanged, no merge commit, tree clean.
+
+## Conflicted hunks
+
+1. requirements/tiers/log.md, section 2026-11-26, first commit: all entries kept unchanged, order
+   CR-513, CR-511, CR-512. The second commit applied cleanly.
+
+## Gates at the new head
+
+- just preflight: pass (ci-static passed; static stage only on Windows)
+- just requirements-update: pass, no file changed
+- uv run --no-sync --group requirements okfreq validate --check-links --project-root .: pass
+  (1228 requirements, 0 errors, 26 warnings)
+- just dev not run: no lock file or package manifest changed
