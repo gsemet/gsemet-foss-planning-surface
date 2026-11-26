@@ -86,11 +86,11 @@ def main() -> None:
     union: dict[str, set[int]] = {}
     gone: dict[str, list[str]] = {}
     for row in rows:
-        cell = re.split(r"(?<!\)\|", row)[1].strip()
+        cell = re.split(r"(?<!\\)\|", row)[1].strip()
         listed = expand(cell)
-        if all(name not in have for name in listed):
+        if listed and all(name not in have for name in listed):
             for name in listed:
-                gone.setdefault(name, []).append(re.split(r"(?<!\)\|", row)[2].strip())
+                gone.setdefault(name, []).append(re.split(r"(?<!\\)\|", row)[2].strip())
             print("dropped row (file split):", cell)
             continue
         for name, numbers in listed.items():
@@ -108,7 +108,7 @@ def main() -> None:
         if old_name != name:
             former = gone.get(old_name)
             kept = "; ".join(former) + "; " if former and name.endswith("p1.md") else ""
-            extra = f"split from ; {kept}{extra}"
+            extra = f"split from `{old_name.removeprefix('topics/')}`; {kept}{extra}"
         new = f"| {name}:{ns['ranges'](fresh)} | {extra} | review |"
         new_rows.append(new)
         print(new)

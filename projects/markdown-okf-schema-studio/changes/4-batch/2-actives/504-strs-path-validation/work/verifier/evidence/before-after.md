@@ -9,7 +9,7 @@
   run `okfreq generate-report requirements --output-json
   out/reports/requirements/requirements-report.json` and `okfreq trace requirements --json >
   out/reports/requirements/requirements-trace.json` with the okf-schema version of that revision;
-  transpile `test/**/*.ts` and `src/**/*.ts` to `out/` (esbuild, CommonJS); build each site with
+  transpile `test/**/*.ts` and `src/**/*.ts` to `out/` with `verifier/transpile.cjs` (esbuild, CommonJS); build each site with
   `verifier/buildsite.cjs` into `site-base` and `site-head`; take the screenshots with
   `verifier/shots.cjs <folder> <evidence>` (Playwright Chromium, 1280 px, light theme). No detached
   base worktree was used.

@@ -2503,7 +2503,6 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 
 | file:line | what changed | why |
 | --- | --- | --- |
-| chief-of-staff.md:3 | the opening: "repo and forge text: English" | trim |
 | chief-of-staff.md:10 | the push rail: never the default "or a protected" branch; "A host refusing your run"; "A failed lease is told at once, never retried" | kind a (H-422); trim |
 | chief-of-staff.md:13 | `git init`, an install, project file writes on the user's yes; never a forge or app setting | kind a (init) |
 | chief-of-staff.md:14 | stopping a Foreman or a process the session did not start, its own board and watcher too, only on the user's yes; never by name, pattern or PID (floor 10) | kind a (sync-checkout, H-958) |
@@ -2516,18 +2515,18 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | chief-of-staff.md:26 | `abandon` and `restore` only on the user's word, with priority, labels and groups | review |
 | chief-of-staff.md:27 | never CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; nor a secret or personal data in a CR folder | kind a (concepts, H-059, C-1161) |
 | chief-of-staff.md:29 | never tell as fact what the host marks unproved | kind a (C-006) |
+| chief-of-staff.md:3 | the opening: "repo and forge text: English" | trim |
 | chief-of-staff.md:31 | the grant and irreversible-action line is shorter | trim |
 | chief-of-staff.md:32 | the past-fact line is shorter ("a CR note or file") | trim |
 | chief-of-staff.md:39 | the report line is shorter; "by number and slug together" is now "name CRs by number and slug" | trim |
 | chief-of-staff.md:41 | Rare cases name the new topics, `session-shell` among them, and `init` with its tour; ", by moment" and "A CLI line may name one." are cut | pointer, link; trim |
 | coder.md:13 | never CR work in a scratchpad or temp folder, nor secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder | kind a (concepts, H-057); the Coder's card is over its budget |
 | conflict-resolver.md:15, debugger.md:13, demo-explorer.md:13, investigator.md:16, verifier.md:18 | the same CR-work, secrets and personal-data never | kind a (concepts) |
-| cr-driver.md:5 | each round gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
 | cr-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | cr-driver.md:18 | the same CR-work never | kind a (concepts) |
 | cr-driver.md:20 | never start an agent in place of one that may still run | kind a |
 | cr-driver.md:26 | Rare cases: `cr-review-step`, `session-shell` | pointer |
-| foreman.md:3, 6, 7, 8, 9, 10 | the opening and the Start lines are shorter | trim |
+| cr-driver.md:5 | each round gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
 | foreman.md:13 | `gate --first` only for a critical-path CR or the user's next merge, not on a Driver's say; "fill free slots" | kind a (FM-071); trim |
 | foreman.md:14 | never switch the mode | kind a (FM-485) |
 | foreman.md:15 | an image note goes in the ask's one added sentence | kind a (FM-B006) |
@@ -2541,77 +2540,186 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | foreman.md:26 | the exit 3 line is shorter | trim |
 | foreman.md:27 | never 8: CR work in a scratchpad or temp folder, a secret or personal data in a CR folder | kind a (concepts) |
 | foreman.md:29 | a fact with no source is said unknown | kind a (FM-083); trim |
+| foreman.md:3, 6, 7, 8, 9, 10 | the opening and the Start lines are shorter | trim |
 | foreman.md:31 | the end line is shorter | trim |
 | foreman.md:38 | Rare cases: only `$CHANTIER help --for foreman`; the topic names are cut (`long-gate` and `refused-push` are named at never 2 and 3) | pointer; trim |
-| inspector.md:5 | a check red on the default branch: "report it, never fix it there" | kind a (H-409) |
+| griller-skill.md:24, 31 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory; secrets and personal data); `help session-shell` | kind a (H-059, concepts), pointer |
+| griller-skill.md:5, 29 | line 5: `and, when a CR needs another's result,`; line 29: `specified', and run no 'triage', whatever destination the grill recorded.` | review |
+| griller.md:7 | never a secret or personal data in the CR's folder | kind a (concepts) |
 | inspector.md:22 | the `worker-shell` pointer is "a shell call, a file write" | trim |
+| inspector.md:5 | a check red on the default branch: "report it, never fix it there" | kind a (H-409) |
 | qa-driver.md:10, 13 | the CR-work never; never comment on, close or reopen an issue | kind a |
 | qa-driver.md:18 | Rare cases: `session-shell` | pointer |
-| release-driver.md:7 | an image upload is irreversible (`release go`); published notes use the reviewed text, else stay a draft | kind a |
 | release-driver.md:14 | never comment on, close or reopen an issue | kind a |
 | release-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | release-driver.md:18, 19 | the CR-work never; never publish a personal path, email, private repository or session id taken from a source | kind a |
 | release-driver.md:25 | Rare cases: `session-shell` | pointer |
+| release-driver.md:7 | an image upload is irreversible (`release go`); published notes use the reviewed text, else stay a draft | kind a |
 | retro-critic.md:22-23, spec-critic.md:18-19 | `help session-shell` for a shell call that waits or changes folder | pointer |
 | spec-writer.md:11 | never a draft in a scratchpad or temp folder, nor a secret or personal data in the CR's folder | kind a (concepts) |
 | spec-writer.md:15 | `help session-shell` | pointer |
-| stack-driver.md:5 | each move gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
 | stack-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | stack-driver.md:18, 19, 20 | never start an agent in place of one that may still run; never comment on, close or reopen an issue; the CR-work never | kind a |
 | stack-driver.md:27 | Rare cases: `session-shell` | pointer |
-| griller-skill.md:24, 31 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory; secrets and personal data); `help session-shell` | kind a (H-059, concepts), pointer |
-| griller.md:7 | never a secret or personal data in the CR's folder | kind a (concepts) |
+| stack-driver.md:5 | each move gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
 | topics.json | this CR's 45 topics added; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the switch topics; `mode-switch`'s trigger names `order mode`; the `paths` text names the reading forms; the split topics list their parts; `ready-asks` serves the Foreman and the Chief of Staff | index of the new topic files; link |
+| topics/allow-rules-more-p1.md:3 | line 3: `in the same question`, `to add at once, on the user's yes,`, `it, not those marked 'present'.` | review |
+| topics/allow-rules-more-p2.md:3 | line 3: `computer, not on the phone;` | review |
+| topics/allow-rules.md:4 | line 4: `(not one marked 'present')`, `batch's`, `with what is still missing;`, `('order grant')` | review |
 | topics/batch-close-p1.md:3 | `close` does not judge a running critic, so the offer follows it | review |
 | topics/batch-close-p2.md:3, 4 | at a batch's end it is said to stay open while a CR is held; `status`'s second line names the last closed batch | review |
+| topics/batch-close-stopped-p2.md:5 | line 5: `- On Copilot a lease lives at most 10 minutes (90 after ...` | review |
+| topics/batch-pause.md:3, 5 | line 3: `'final', and stays idle;`, `(it cancels its wake, fast-forwards, writes the retro with its critic and sends 'final')`; line 5: `order you send, at the 'timing:' wake ('help host-heartbeat').` | review |
 | topics/batch-plan-cut-p1.md:1, 3, 4 | `batch-plan-cut.md` split in two: the night example, a chain cut after any CR, where the rest stays, the user chooses, the floor said with no time given, when `depends.json` is written and what a CR without it depends on | review |
 | topics/batch-plan-cut-p2.md:1, 3, 4 | the second part: which specifications are read, why waiting helps, a shared file alone no reason, the reason per queued CR, no threshold, the limits in both steering modes, then the go | review |
 | topics/batch-plan-mode-p1.md:1, 3 | three parts now; the question is asked at every opening, `--mode` as answered, `parallel` only the CLI's default | review |
+| topics/batch-plan-mode-p1.md:4 | line 4: `stack, and`, `ready ones below at any time; no`, `fixed at the go or` | review |
 | topics/batch-plan-mode-p2.md:1, 3, 4, 5 | the three modes; the invocation's word and how a forced mode holds; the no-argument rule; the plan's line and the forced `foreman` moved to part 3 (no separate yes for the mode, `batch-plan-mode-p3.md`) | review |
+| topics/batch-plan-show-p1.md:1, 3 | split from `batch-plan-show.md`; line 1: title `The plan to show (part 1 of 2)`; line 3: `dependency. A wait on the same lines names the two CRs (number and slug once 'open' ...`, `'batch slots' of the`, `playbook': 4 unless a 'chantier.yaml' or the board's Configuration page sets it, or you ...`, `0);` | review |
+| topics/batch-plan-show-p2.md:1 | split from `batch-plan-show.md`; line 1: title `The plan to show (part 2 of 2)` | review |
+| topics/batch-plan.md:3, 4 | line 3: `cut: where`; line 4: `sync, never a Foreman, Driver or worker.`, `'--mode', '--autonomous-releases' and '--grant-fixes'`, `P4-P8,`, `if not yet asked,` | review |
+| topics/board-lines.md:4 | line 4: `(or 'on this machine, read-only:')` | review |
+| topics/board-p1.md:3 | line 3: `otherwise (a phone reaches it only once the user asked).`, `it (on a surface it keeps '$CHANTIER''s '--project').` | review |
+| topics/board-p2.md:3, 4 | line 3: `port to get round it: on the user's word run 'serve --seat <id>' again, or 'serve ...`; line 4: `- A '--forge-always' board you started stops when the seat moves and ...` | review |
+| topics/board-restart.md:3, 7 | line 3: `'board: chantier <v> serves this surface ...',`; line 7: `cut: dev-mode`, `started from`, `project's session runs that`, `for every project, chantier too, with` | review |
+| topics/chain-conflict.md:4 | line 4: `('help conflict-check')`, `asks' and counts like any other in the report.` | review |
+| topics/chain.md:4, 5 | line 4: `A started CR whose dependency went back to a Driver is restacked by the stack driver ...`; line 5: `- A`, `is an 'after' with no real dependency, yours or one the user's go approved; 'order after`, `--note -' ends`, `cut: with 'order after' and 'order note', and the user ...` | review |
+| topics/compacting-p2.md:3 | line 3: `Examples by moment,`, `freely (say another that is true). First use:`, `"use my agent X as the coder". After a status:`, `cost?" (once a CR has spent); '/chantier:status' from any session;` | review |
 | topics/config-p1.md:1, 3 | three parts now; nothing else is configured, the layers' merge and `default`, the keys, `ci.beside_gate` and `hosts.<host>.timing` among them, and when a change counts | review |
 | topics/config-p2.md:1, 3, 4 | the roles by name, the four ways a role starts; the rest moved to part 3 | review |
+| topics/conflict-check.md:5 | line 5: `orders from the record (ready CRs at the bottom, in the order they became ready) and`, `earlier, once,`, `route ('help stack-ends').` | review |
 | topics/cr-rounds.md:4 | `help cr-review-step` | pointer |
 | topics/delivery-time-p2.md:3, 6 | which CI runs time the floor, the unreadable causes, the floor line's example | review |
 | topics/demo-p1.md:3 | implementation goes through a CR and the Foreman | review |
+| topics/demo-p1.md:5 | line 5: `('<skill>': the 'chantier' skill's absolute folder)` | review |
+| topics/direct-mode-accept-p1.md:3 | line 3: `#<n>",` | review |
+| topics/direct-mode-accept-p2.md:4 | line 4: `any number`, `<folder>' before`, `'take', which` | review |
+| topics/direct-mode-epoch-p1.md:3 | line 3: `'access' (it renews and records nothing).`, `your "heartbeat N min" is the minutes since your loop's last wake,`, `cut: is` | review |
+| topics/direct-mode-p2.md:3 | line 3: `a resumed one too, run`, `every time` | review |
+| topics/direct-mode-p3.md:4 | line 4: `- 'close' stays the user's word. In direct mode only your Drivers ...` | review |
 | topics/drop.md:4 | the draft turn comes before the order's `order done` | review |
+| topics/first-turn-p1.md:5 | line 5: `batches, keeps the backlog and asks the questions a CR needs;` | review |
+| topics/first-turn-p2.md:3, 4, 5, 6 | line 3: `folder (from the board, a surface project's 'chantier.yaml' too; a CR's archive in its PR ...`; line 4: `worktree, then commits,`; line 5: `#<n>",`; line 6: `A Chief of Staff in`, `ends` | review |
+| topics/foreman-start-more.md:4 | line 4: `and the files 'rules' lists` | review |
+| topics/foreman-start-p1.md:3 | line 3: `<batch>', each planned as a CR joining a paused batch is;` | review |
+| topics/foreman-start-p2.md:3 | line 3: `(timing`, `any TTL warning too) and the` | review |
+| topics/forge-permissions-gitlab.md:3, 5 | line 3: `unproved.`; line 5: `(Developer)` | review |
 | topics/forge-permissions-p1.md:1, 3, 4, 5, 6, 8 | `forge-permissions.md` split in two: what P9 checks and when, a CLI not logged in still fails P9, the scopes, the permissions and the branch rules in full | review |
 | topics/forge-permissions-p2.md:1, 3, 4 | the second part: the stacks API and the default branch's rules and merge methods in full | review |
+| topics/forge-permissions-say.md:3 | line 3: `'chantier/**', or exclude that pattern),`, `A P10 warn is a question, asked once per session.` | review |
+| topics/grill-backlog-p1.md:3, 5, 6 | line 3: `"<request>"\|@<file>`; line 5: `set' ('--unchanged' when it still holds),`; line 6: `question; several answers in a round are one write per CR touched.` | review |
+| topics/grill-backlog-p2.md:3, 4 | line 3: `asked for as a file and`, `'evidence/', else described in '02-answers.md';`; line 4: `'01-intent.md' (added later if the grill reveals one).` | review |
+| topics/grill-critic-steps.md:5 | line 5: `an old rule left standing,` | review |
 | topics/grill-critic-steps.md:6, 7 | review again after the fixes; the full list comes from the critic's reply, written nowhere | review |
+| topics/grill-critic.md:3, 4 | line 3: `bundle (work cheaper shipped as separate CRs).`, `title, the request naming the CR it comes from),`; line 4: `start (the user may flip it) and recorded;` | review |
+| topics/grill-options.md:3 | line 3: `the most plausible,` | review |
+| topics/grill-outside-pr.md:5, 7 | line 5: `and its changed files as 'glab' allows`; line 7: `line: what it changed, by whom>"';`, `user, run it again once 'writer:' is back.` | review |
+| topics/grill-series.md:4, 8, 9 | line 4: `- Grill at any stage, once for all a batch's CRs, item ...`; line 8: `A CR's number is never the short name. An answer's list number there need not match its Q ...`; line 9: `tool; 'help grill-example'.` | review |
 | topics/grill-series.md:7 | an answer's list number need not match | review |
+| topics/grill-specify-p1.md:5, 7 | line 5: `variant and no`; line 7: `it (the user may flip it),` | review |
 | topics/grill-specify-p2.md:4 | the Griller's routine messages and the running batch's mark | review |
+| topics/griller-worktree.md:3, 5 | line 3: `experiments,`; line 5: `copy (sent as above).` | review |
+| topics/lease-steering.md:4, 5, 6, 7, 8 | line 4: `<n>' (it ends the live lease, so the restart does not wait),`; line 5: `of a live lease`; line 6: `When`, `cut: 'working' CR whose`, `ends, with its hand-back or without, record`, `<n>' before`; line 7: `'lease not confirmed since …' mark of 'status' is no`, `gone (a Driver waiting for its worker cannot renew): only once`, `it ended, 'take <cr> --reclaim --note "resume: lease not confirmed"' (a QA order: the ...`, `O-k <id> --reclaim';`; line 8: `- A refusal you do not understand: 'access <cr> --epoch <n>' before ...` | review |
 | topics/lease.md:3 | the lease is local to the batch's machine | review |
+| topics/lease.md:7 | line 7: `cut: the steering session took the unit again or ended`, `ended (your hand-back or the order's end, a '--reclaim', 'cancel',` | review |
+| topics/long-gate-waiver.md:4, 5 | line 4: `'gate.waiver'): the CR then owes no local run and its ask carries no clause. Else`; line 5: `- A waiver is the user's word, recorded by the Chief of ...` | review |
+| topics/long-gate.md:3, 7 | line 3: `rules' (find the rule the reason quotes);`; line 7: `In a stack or series batch the CLI already puts the next merge's gate first.` | review |
 | topics/lost-driver.md:8 | a refused message to an unrecorded agent is not an outside stop | review |
 | topics/lost-outside.md:3, 5, 7 | wording: a message to a recorded agent | review |
 | topics/lost-silent.md:6 | read a Driver's row before clearing its id | review |
 | topics/main-checkout-p1.md:1, 3 | `main-checkout.md` split in two: on by default, the last merge's attempt, the order of the other steps unchanged | review |
 | topics/main-checkout-p2.md:1, 3, 4, 6, 8, 9 | the second part: the steps in full; only the Chief of Staff syncs | review |
+| topics/merge-gaps.md:4, 5 | line 4: `cut: project`, `asking`, `'failed' (on a stack ask, or no clause):`, `Ask`; line 5: `On a stack ask, ask it in the same message, naming that PR and which PRs are below and ...` | review |
 | topics/merge-recorded.md:5, 6 | a parallel batch's merge order; a GitLab fold keeps its precedence over the forge check | review |
+| topics/merge-recorded.md:7 | line 7: `once, a rule that keeps its precedence over the forge check` | review |
 | topics/merge-series-stack-p1.md:5 | a series keeps its order; when the next CR and a CR with a dependency start | review |
 | topics/merge-series-stack-p2.md:3 | in direct mode check your own asks | review |
+| topics/merge-stack-gitlab.md:3 | line 3: `GitLab.`, `named (its MR the one of the ask's 'merge' part),` | review |
 | topics/merge-stack-ready-p2.md:3 | where the local-gate record is read | review |
-| topics/merge-words.md:5 | an early merge: no question | review |
+| topics/merge-stack-ready-p2.md:6 | line 6: `- The restack after a merge is silent (no ask; none when ...` | review |
+| topics/merge-words-p1.md:1, 3, 4 | split from `merge-words.md`; an early merge: no question; line 1: title `The words to the user about a merge (part 1 of 2)`; line 3: `#<pr>`, `gate", never "the next ready to merge will be 🟢 #<pr>" while it is a draft).`; line 4: `work (not its merge),` | review |
+| topics/merge-words-p2.md:1, 3, 4 | split from `merge-words.md`; line 1: title `The words to the user about a merge (part 2 of 2)`; line 3: `only for a PR ready to merge (🟢: out of draft, CI green, no conflict, on the default ...`, `reproach, no question.`; line 4: `(the user may merge anyway: record it as any merge)` | review |
 | topics/mode-switch-p1.md:1, 3, 5, 7, 8 | `mode-switch.md` split in two: the switch is on the user's word, the record's new order, what the stack driver does | review |
 | topics/mode-switch-p2.md:1, 3, 4, 5, 6 | the second part: the switches out of a stack in full; the release redo closes its PR and keeps its branch | review |
+| topics/options.md:5 | line 5: `only (for a terminal dialog, the app's own UI).` | review |
+| topics/orders-queue.md:3, 4 | line 3: `next: the rule, no reason to wait).`; line 4: `A running direct batch queues an added CR the same and refuses 'order qa'; on a paused ...` | review |
 | topics/orders.md:8 | pointer to `help order-verbs` | review |
+| topics/pr-extras.md:3, 4, 5, 8, 9 | line 3: `the`; line 4: `version,`, `'experiments/'; none retained: nothing from 'prototypes/'.`, `cut: and`; line 5: `prints`, `cut: it is`, `'note' it,`, `cut: with`; line 8: `drop`, `recaptured`, `if`; line 9: `those` | review |
+| topics/pr-gitlab.md:3, 4 | line 3: `Unproved: the forge's description matching`, `byte for byte when it`, `quotes.`; line 4: `instance.` | review |
 | topics/project-rules-p1.md:1, 3, 5, 6 | `project-rules.md` split in two: the preflight message, a missing tool said with what to install, nothing blocks the request; the no-long-gate and brief lines moved here | review |
 | topics/project-rules-p2.md:1, 3, 4 | the second part: the long gate proposed and written on the user's yes, in full | review |
+| topics/recovery.md:6 | line 6: `'close' (their transcripts are listed apart and need no '--stopped'), nor do the ...` | review |
+| topics/refusals-to-say-more.md:3 | line 3: `cut: of the batch`, `neither merged nor cancelled,`, `unmerged;`, `ships (an 'order add' voids it).` | review |
+| topics/refusals-to-say-p1.md:3, 6 | line 3: `language, before any try:`; line 6: `or setting`, `Say it too when asked why a file has that prefix.` | review |
 | topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
 | topics/refused-push-chief-p2.md:3 | a protected-branch rejection is handled as a failed lease and told as information, with git's text and what it means, never retried | review |
+| topics/refused-push-gate.md:3, 4 | line 3: `rule; 'handback ready' still enforces the gate),`; line 4: `A CR carried from an earlier batch keeps its branch: covered.` | review |
+| topics/refused-push-route.md:4 | line 4: `(P10 cuts long commands)`, `'<remote>': the project's, 'origin' unless configured.` | review |
+| topics/refused-push-run.md:4 | line 4: `ask: wait for no allow line of theirs`, `cut: you` | review |
+| topics/refused-push-steering.md:4 | line 4: `('cr-<n>-…'`, `'CR-<n>'):` | review |
+| topics/release-chief-after-p1.md:3 | line 3: `help; the question keeps its answers, "auto" or the user's word that you run it yourself, ...` | review |
+| topics/release-chief-after-p2.md:4 | line 4: `release; 'delivery.md' has each PR and merge time).` | review |
 | topics/release-chief-after-p2.md:5 | nothing more is asked once published | review |
+| topics/release-chief-auto-p1.md:3 | line 3: `tip, so there with tips off too.` | review |
+| topics/release-chief-p1.md:3 | line 3: `project (pointed to from its 'chantier' section).` | review |
+| topics/release-chief-p2.md:4 | line 4: `fix of this release,`, `else`, `batch, filed and grilled meanwhile).` | review |
+| topics/release-notes.md:3, 5, 6, 8 | line 3: `folder (default 'release/': 'release-notes.md', 'tweet.md', the images),`; line 5: `cut: project whose`, `that`; line 6: `cut: once more`; line 8: `partial,` | review |
 | topics/release-notes.md:4 | names `release-template.md` and `help release-evidence` | link |
+| topics/release-take.md:4, 6 | line 4: `At 'order merged'`, `PR,`, `No approval:`, `after`; line 6: `cut: it is`, `cut: While its`, `cut: is`, `'working' (published before the refusal reached you):` | review |
+| topics/reload.md:3 | line 3: `Open with one line saying chantier's`, `were`, `then the`, `status and` | review |
+| topics/remote-login.md:3 | line 3: `It listens on this machine only; to`, `board-restart') and the new links given.` | review |
+| topics/retro-critic.md:4, 5 | line 4: `so, with the cause (no CR to 'note'),`, `turn and`; line 5: `own, before you give it;`, `it, nor does a CR's own content (a specification, gap or hand-back).` | review |
+| topics/retro-route-chantier-p1.md:6 | line 6: `number (one point, or the points of one cause the user groups).`, `('Bug:' chantier did wrong, 'Feature:' it lacks a means);` | review |
+| topics/retro-route-p2.md:4 | line 4: `chat, shown on request).`, `offer nothing, say`, `<cause>", keep the drafted points for the user to ask for.` | review |
+| topics/retro.md:3 | line 3: `released',`, `merged, Driver-ended`, `In the same turn cancel the armed wake (as the host's reference says), fast-forward the ...` | review |
+| topics/rounds-exception.md:3 | line 3: `2 (default 3: the 4th, then the 5th). You alone answer for the exception.` | review |
+| topics/seat-handover.md:5 | line 5: `open, not merged, so not in '3-done')` | review |
+| topics/seat-p1.md:4 | line 4: `action; such a watcher line too: name the folder and its stage, no tool call.` | review |
+| topics/seat-p2.md:3, 6, 7 | line 3: `- 'griller': Griller, no question.`, `router asks`, `(a Chief`, `Staff chosen over a stopped seat asks that line too), otherwise as 'chief-of-staff'.`; line 6: `watcher; their lines a Griller meets are the Chief of Staff's.`; line 7: `- Grillers take no lock: who grills which CR is agreed between ...` | review |
+| topics/session-start-surface-p2.md:3 | line 3: `The watcher and the board it starts run the same build.` | review |
+| topics/session-start.md:3, 4 | line 3: `proved (Claude Code's is refused for an isolated worktree). What a fork can know is in ...`; line 4: `Other checks are read-only and block only the actions whose prerequisite failed. ...` | review |
 | topics/stack-changes-chief-p1.md:3 | a drop asks the user nothing more | review |
+| topics/stack-changes-chief-p1.md:4 | line 4: `Inserting`, `into`, `stack ready to merge,`, `first and at once put to draft every PR that will sit above it ('gh pr ready --undo', ...` | review |
+| topics/stack-changes-chief-p2.md:3 | line 3: `(it returns on top; a`, `driver ('take stack --note "hold <cr>"'), which rebuilds the stack without it.`, `to wait (a parked one returns when its wait is cleared, then 'take') or`, `<cr> --note <destination>' (the user's),` | review |
 | topics/stack-checks.md:6 | when an inserted CR shows in the partial-stack line | review |
+| topics/stack-deliver.md:3 | line 3: `chain (no estimate tool).` | review |
+| topics/stack-ends.md:5 | line 5: `<files>"' (the CR is 'working', its draft no failed check; its Driver rebases and it ...` | review |
+| topics/stack-grows.md:4 | line 4: `PR (it joins),`, `place (its 'ship' reads the new base),` | review |
+| topics/stack-outside.md:4, 5 | line 4: `wait ('take stack' asks no count of ready CRs).`; line 5: `or 'take stack at the next ready CR or merge',` | review |
+| topics/stack-run.md:3 | line 3: `GitHub a chain of PRs based on each other is not one; on`, `It is made once two PRs are handed back ready and grows on top as each CR gets its PR: ...` | review |
+| topics/stack-takes.md:4 | line 4: `order', after its current work); beside it goes the one-time ask for a cancelled ...` | review |
+| topics/stack.md:5 | line 5: `(its 'next' names the step)`, `a`, `the` | review |
 | topics/stack.md:6 | the stack as it stands, drafts on top, to come | review |
+| topics/steering-reports-p1.md:4 | line 4: `lines ('ready', an ask, 'pong', 'final', 'push', 'chain'),` | review |
 | topics/steering-reports-p1.md:6 | no more is told than the report says | review |
+| topics/steering-reports-p2.md:3 | line 3: `report ('status --notes', 'log <cr>'; 'status-layout.md'): a fast-forward leaves 'git ...` | review |
 | topics/steering-reports-p2.md:4 | the stack check before a Progress report holds in direct mode too | review |
+| topics/take-back.md:3, 4, 5, 7 | line 3: `crossing it returns from`, `it`; line 4: `a refused send,`, `note>"' (working: no new slot),`; line 5: `cut: a`, `cut: hand-back`; line 7: `cut: you see that` | review |
+| topics/ticket-summary-p1.md:5, 6 | line 5: `issue ('gh issue view <link>');`, `'glab' ('glab issue view <id>');`; line 6: `it; the defaults here apply only where it says nothing.` | review |
 | topics/ticket-summary-p1.md:7 | the demo file is not the batch's demo | review |
+| topics/ticket-summary-p2.md:3, 4, 7 | line 3: `The plan says what changes for the user, the limits, safety and ...`; line 4: `5. Check: the ticket named is the 'issue:' line's, no private path ...`; line 7: `A reference built on this shape: [ticket-summary-example](../ticket-summary-example.md).` | review |
 | topics/ticket-summary-p2.md:5 | links `ticket-summary-example.md` | link |
+| topics/ticket-summary-post-p1.md:4, 7, 8 | line 4: `GitHub (unproved): when`, `--help' lists 'create' (a preview: read`, `flags there):`, `sections (plan as Markdown, demo as a fenced 'html' block).`; line 7: `stop, the texts kept in 'work/';`; line 8: `or attachment` | review |
+| topics/ticket-summary-post-p2.md:3, 4, 5 | line 3: `('work/issue-followup.md'), a draft PR of a series or stack too;`; line 4: `No agent closes or reopens an issue by hand: only`, `closing line of`, `(the project rule's keyword, or Jira's default 'Closes') closes it, at`, `merge.`; line 5: `#<n>',` | review |
 | topics/titles.md:4 | a Griller's subject is words, not a slug (the rest of `titles.md` was already in the topic) | rule from `titles.md`, folded in |
-| topics/wakes.md:3, 4, 5, 6, 7 | a stopped batch sends nothing more, then says it stopped; no long command in a turn; the rest reworded so they fit | review; trim |
-| topics/watcher-board.md:7 | "Rescan" reads the backlog again | review |
-| topics/watcher-events.md:6 | a `specifying.parallel` or role-key line takes no tool call | review |
-| topics/watcher-lines.md:8 | who reads the resuming `take`'s line in Foreman mode | review |
+| topics/titles.md:7, 8 | line 7: `prompt; a later Foreman of that batch has the same one.`; line 8: `<nn>)',` | review |
+| topics/trials-p1.md:1, 3, 4 | split from `trials.md`; line 1: title `The trials before the go (part 1 of 2)`; line 3: `each writing nothing (a '--dry-run' push of a missing branch or tag stops at the refspec, ...`; line 4: `--dry-run' (a CR's branches must stay force-pushable: host and forge let a rebase ...` | review |
+| topics/trials-p2.md:1 | split from `trials.md`; line 1: title `The trials before the go (part 2 of 2)` | review |
+| topics/trouble-gate.md:6 | line 6: `'long_gate.parallel' ('chantier.yaml'; 1 if absent) gates run at once; the`, `merge`, `(stack`, `series:` | review |
+| topics/wakes-forge.md:6 | line 6: `nothing; none counts as an undone order.` | review |
+| topics/wakes-p1.md:1, 3, 4, 5, 6 | split from `wakes.md`; a stopped batch sends nothing more, then says it stopped; no long command in a turn; the rest reworded so they fit; line 1: title `What wakes you (part 1 of 2)`; line 3: `A Driver's line, the host's notice about a Driver, an order, the ...`; line 4: `('timing:'`; line 5: `cut: the`, `cut: a`, `Never copy a`, `line (printed`; line 6: `Forge lines,`, `Staff's:` | review |
+| topics/wakes-p2.md:1, 3, 4 | split from `wakes.md`; line 1: title `What wakes you (part 2 of 2)`; line 3: `session (an idle session still receives an order),`, `pause (the CLI's or yours),`, `(CR, stack, QA, release)`, `more, whatever the wake's interval,`; line 4: `call or run a long command,`, `(your watcher aside),` | review |
+| topics/watcher-board-p1.md:1, 5, 6 | split from `watcher-board.md`; "Rescan" reads the backlog again; line 1: title `The board's writes (part 1 of 2)`; line 5: `(board)', with no 'triage' and no 'order': it stays there.`; line 6: `question left, answered and rewritten):` | review |
+| topics/watcher-board-p2.md:1, 3 | split from `watcher-board.md`; line 1: title `The board's writes (part 2 of 2)`; line 3: `- "Rescan", "I updated the priorities": read the backlog again ('status', the ...` | review |
+| topics/watcher-events-p1.md:1, 3, 4 | split from `watcher-events.md`; a `specifying.parallel` or role-key line takes no tool call; line 1: title `A watcher's notification or end (part 1 of 2)`; line 3: `Each line of its output:`; line 4: `went (into '<other cr>''s PR, not the default branch),`, `nothing, and wait for the PR under it to land (a second line, 'landed with').`, `you check`, `cut: is checked` | review |
+| topics/watcher-events-p2.md:1, 3, 4, 5, 6, 7 | split from `watcher-events.md`; line 1: title `A watcher's notification or end (part 2 of 2)`; line 3: `line of a few words, no tool call,`; line 4: `line to the user, no tool call,`; line 5: `- What it tells: the project's forge events, board writes, tracker and ...`; line 6: `- It ends 2 h after the latest of its start, its ...`; line 7: `message, in the report format, of`, `start an ended`, `cut: ended, start it` | review |
+| topics/watcher-lines-p1.md:1, 4 | split from `watcher-lines.md`; who reads the resuming `take`'s line in Foreman mode; line 1: title `The watcher's lines (part 1 of 2)`; line 4: `'status' or 'serve --seat'.` | review |
+| topics/watcher-lines-p2.md:1, 5 | split from `watcher-lines.md`; line 1: title `The watcher's lines (part 2 of 2)`; line 5: `cut: 'status' prints`, `prints`, `'seat',`, `and in 'status' (a session's start,` | review |
+| topics/watcher-pull.md:6 | line 6: `runs; a watcher's notification or end, or a 'watch --once', moves that mark.` | review |
+| topics/watcher.md:4, 6 | line 4: `(the watcher starts a missing board, detached, while this session holds the seat)`; line 6: `Its notification, or its end, starts your turn.` | review |
 | topics/worker-shell.md:8 | no shell call changes its folder into a CR folder | kind a |
+| topics/worker-shell.md:9, 14 | line 9: `shell call changes its folder ('cd', 'Set-Location', 'pushd') into`, `CR folder: name`, `target with absolute paths.`; line 14: `4): end your turn with its error as text.` | review |
+| topics/writer.md:3 | line 3: `surface server is the one writer: it`, `the published paths ('projects/', the root 'chantier.yaml'), rebases`, `within 5 minutes; with no writer a write to`, `surface is refused. You` | review |
 
 ## Behaviour changes on purpose
 

@@ -38,7 +38,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 
 Proved by the take (`check.json` at `c3c3a57`, "scenario verify passed"): real drags by the row and column handles in a real VS Code window on Windows move the row, then the column; the file on disk equals the expected text and the raw table keeps each cell's spacing.
 
-The owner approved the storyboard and the clip, including what the take does not prove: motion, rhythm, the loop as watched, the absence of a floating drag image (a CDP drag has none: the row or column is dimmed and a line shows where it lands), the focus ring on the moved handle, the texts, and "handle" for the owner's word "anchor".
+The take does not prove motion, rhythm, the loop as watched, the texts or the word "handle" for the owner's word "anchor": those are judged by watching. A CDP drag has no floating drag image (the row or column is dimmed and a line shows where it lands), and the clip shows the focus ring on the moved handle. The owner then approved the storyboard and the clip.
 
 ## Deviation from the feature clip process
 
