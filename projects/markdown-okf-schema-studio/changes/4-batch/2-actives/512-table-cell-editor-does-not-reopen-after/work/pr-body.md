@@ -23,6 +23,7 @@ five rows of three values are pasted into a table of two columns and one body ro
 | The committed test (after the existing body-cell paste test) | pass (2 runs) |
 | The committed test, repeated in one window | pass, 20 of 20, in each of 2 runs |
 | The clip itself, with both ways the clip tool can send the keys | yes (5 of 5 takes) |
+| The clip filmed again at `e76c084`, on VS Code 1.148.0 (the clip pins 1.147.0) | yes (1 take) |
 | The committed test in CI's real-window suite (Linux), at `e76c084` | pass (2 runs) |
 | The committed test repeated alone in CI (Linux), at `e76c084` | pass, 11 of 11 |
 
@@ -74,7 +75,7 @@ new real-window test that fails intermittently in the manually started or post-m
 - [x] Local gates at `e76c084`: `just check` and `just preflight` (on Windows, the static checks)
       pass
 - [x] Review: approved at `e76c084`
-- [ ] Verified
+- [x] Verified at `e76c084`
 - [x] CI green at `e76c084`: the pull request checks (the visual job passed on its second run; the
       first was cut at its 15-minute limit just after its checks had passed), and two manually
       started runs that include the real VS Code jobs
@@ -93,11 +94,10 @@ new real-window test that fails intermittently in the manually started or post-m
 - When the editor opens late, the clip's click on Done can come about 0.3 s after 4.4 s, and the
   zoom that follows can start after 4.8 s; this is to be looked at when the clip is filmed again.
   The clip's output files are not re-rendered.
-- The clip takes were made before the last edits of the test and of the clip's comments; no take
-  was repeated after them.
 - The committed test covers the header-cell paste with automatic save off only: no committed check
-  fails if the editor stops reopening with a 200 ms automatic save. That case was run once, with
-  temporary code, and the clip only records whether the editor was open.
+  fails if the editor stops reopening with a 200 ms automatic save. That setting was exercised by
+  temporary test code and by the clip takes, and the clip only records whether the editor was
+  open.
 - The clip's notes still say that the VS Code copy puts HTML on the clipboard; the page received no
   HTML after a copy of the `.tsv` file in these runs. Left unchanged, as it concerns the copy and
   not the reopening.
@@ -106,5 +106,7 @@ new real-window test that fails intermittently in the manually started or post-m
 
 - CR-512 cell-reopen.
 - The first clip takes: CR-489.
+- Frame of the take at `e76c084`, kept in the change's folder:
+  `work/verifier/evidence/after-autosave200-header-editor-open-4.26s.jpg`.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
