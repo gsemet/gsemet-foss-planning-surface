@@ -111,7 +111,7 @@ repository>` (log `work/verifier/w004.log`).
 
 - Before: the description posted on pull request 532 describes an earlier state (real VS Code tests
   "UNVERIFIED", gates and review at `0feab1d9`, evidence and CI pending, stacked on pull request 524).
-- After: `work/pr-body.md`, not yet posted; judged in `work/verify.md`.
+- After: the description posted on pull request 532 at `5a8a593` (updated `2026-11-26T08:54:30Z`, equal to `work/pr-body.md`); judged in `work/verify.md`.
 
 ## Cannot be shown (limits of the evidence plan)
 

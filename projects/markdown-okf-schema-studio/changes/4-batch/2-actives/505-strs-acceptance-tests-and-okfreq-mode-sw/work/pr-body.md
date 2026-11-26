@@ -171,6 +171,8 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - Pages now requires the stress job on a manually dispatched run too, as on a push to `main`, and refuses a run where a green acceptance shard has no live artifact.
 - Three trust and security paths carry no acceptance marker, because their test does not perform or observe every step a path names: reading a text of the preview, finding the Studio in the Extensions view, and installing and packaging from pinned dependencies.
 - The job limit of an acceptance shard is 5 minutes, 2.6 times the measured 115 s rather than about twice, so that after a test step cut at its 3 minutes the job still has time for set-up, diagnostics and upload.
+- The acceptance job runs one shard per requirement group and one shared window per test file, with no raised timeout, so that each launch keeps its own budget below the 15-minute launch deadline.
+- The dropped and wrong scenario markers of the earlier change are repaired here for the trust and security group only (see the tables), the group this change delivers.
 
 ## Known gaps
 
@@ -188,10 +190,8 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 ## Human decisions
 
 - A path is walked in one nominal acceptance test; a human step is a simulated input.
-- The acceptance job runs one shard per requirement group, one shared window per test file, with no raised timeout.
 - Coverage counts test markers; the proof that a test passes is its CI job.
 - The delivery may stop after any complete group; the coverage-mode switch lands last.
-- The dropped and wrong scenario markers of the earlier change are repaired with this work.
 - The three paths not accepted get another kind of test in a follow-up change before the switch; the strict marker rule stays.
 - The remaining groups, these three paths and the switch are delivered later, as follow-up changes, the switch last.
 

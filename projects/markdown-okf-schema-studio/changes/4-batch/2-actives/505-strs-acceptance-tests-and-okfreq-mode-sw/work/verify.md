@@ -2,136 +2,167 @@
 
 Head: 5a8a59398692a0d497ad88c18e5f142de1411638
 
-- Base: `3478f0992688c7a354d11106145793fc83590506` (`origin/main`). `git ls-remote` shows both as the
-  remote branch head and `main`; pull request 532 is OPEN, draft, base `main`, head `5a8a593`.
-- First verification of this change: nothing is carried from an earlier judgment of a Verifier.
-- Judged: the partial delivery (trust and security group; mode switch and gate left, per `02-answers.md`
-  items 5 to 7) and `work/pr-body.md` (216 lines, not yet posted), plus the posted description.
+- Base: `3478f0992688c7a354d11106145793fc83590506` (`origin/main`). Pull request 532 is OPEN, draft,
+  base `main`, head `5a8a593`; `git rev-parse HEAD` in the worktree prints the head and
+  `git status --porcelain --branch` only the branch line.
+- Second pass at the same head (no code change). It judges the description as posted:
+  `gh pr view 532 --repo <repo> --json state,isDraft,headRefOid,updatedAt,body` (`OPEN`, draft `true`,
+  `updatedAt 2026-11-26T08:54:30Z`; the body equals `work/pr-body.md` but for the last newline).
+  Sentences changed since the first pass are judged again; the others are carried (section
+  "Carried claims").
+- Judged: the partial delivery (trust and security group; mode switch and gate left, `02-answers.md`
+  items 5 to 7).
 
 ## Verdict: NOT VERIFIED
 
-The delivered code, tests, CI job and requirements are proved. Seven claims of the description fail
-(F1 to F7). All are fixed by editing and posting the description; none needs a code change.
+Code, tests, CI job, requirements and every other sentence of the description are proved. F1 to F7 of
+the first pass are resolved, except that the "Human decisions" section now credits two decisions of an
+agent to a human (G1, G2). Editing and posting the description fixes both; no code change.
 
 Placeholders: `<worktree>` the change's worktree at the head, `<base>` the detached worktree of the
 base, `<scripts>` `work/verifier/`, `<B>` the base SHA, `<H>` the head SHA, `<repo>` the GitHub
-repository of pull request 532.
-
-## Gate
-
-- No long gate is configured: `$CHANTIER handoff CR-505` prints `[ ] long gate passed (gate CR-505
-  <name> (none in chantier.yaml: ask the steering session); none in the project's rules: handback
-  CR-505 ready --no-gate "<rule>")` and `[ ] verdict VERIFIED`, at `<H>`. I ran no gate.
-- The project's local gate: first line of `work/gates/preflight-5a8a5939.log`:
-  `just preflight CR-505 chantier/batch-09/cr-505-strs-acceptance-tests-acceptance-job-and 5a8a59398692a0d497ad88c18e5f142de1411638`;
-  line 5879 `preflight: visual, viewer-graph, integration, acceptance, report and gallery stages
-  skipped on Windows; CI runs them`; line 5880 `exit=0`.
+repository of pull request 532, `<504>` the folder `4-batch/3-done/504-strs-path-validation`.
 
 ## Failed claims
 
-### F1. Summary: "until now no CI job walked a path in a real VS Code to accept it" - NOT VERIFIED
+The rule applied: the project's description template (`references/pr-template.md` lines 102 to 111)
+defines "Human decisions" as "the impactful decisions the user took during the grill, extracted from
+the CR's `02-answers.md`", and "Autonomous decisions" as "each decision an agent took without the
+user". A decision the Chief of Staff (an agent) took under the owner's "no question" is the second
+kind. (The earlier change's own "Human decisions" section lists owner answers only.)
 
-SHA `<B>`.
-`git grep -c "@accepts_req" <B> -- test` lists, under `test/integration/`: commentAnchors 1,
-findInPreview 1, mystBlocksWindow 1, radioChoice 1, realInput/blockKeys 2, editorWidgets 2,
-flushBeforeNavigate 3, frontmatterFields 1, renderPatching 1, tableInsertSlash 1, realWindowGaps 2,
-scroll-sync-suite 1, stockCoexistence 1, tableMoves 1.
-`git grep -n ... <B> -- test/integration/trusted-suite.ts untrusted-suite.ts run-tests.ts`:
-`trusted-suite.ts` imports radioChoice (line 12), findInPreview (17), commentAnchors (25),
-mystBlocksWindow (30), realInput/run (49), stockCoexistence (61); `untrusted-suite.ts:19` imports
-realWindowGaps; `run-tests.ts:255: await runScenario("scroll-sync-suite.js", false);`.
-`justfile:350: ci-integration`. Heavy run 45773405420 (push at `<B>`) is `success` with the
-`integration` job. `<scripts>/counts.log`: `== base ... accepted: 17`. The body itself says "17 were
-already accepted by tests under `test/integration/`".
-Proven wording: "until now no CI job was dedicated to walking use-case paths: 17 of 156 were
-accepted, by tests of the `integration` suites".
+### G1. Human decisions: "The acceptance job runs one shard per requirement group, one shared window per test file, with no raised timeout." - NOT VERIFIED
 
-### F2. Changes: "Built-VSIX window: the VSIX is packaged and unpacked by `scripts/unpack_vsix.py`." - NOT VERIFIED
+SHA `<H>`. The first pass did not judge this bullet. `grep -rn -i "shard\|runner per group\|one shard"
+<504> --include=02-answers.md --include=01-intent.md --include=request.md` prints one line:
+`02-answers.md:73: 39. strs-validation-Q37 (Chief of Staff): **Acceptance budget (CR-B).** Shared window
+per e2e group, ..., the job sharded by group in a matrix, ... Not a fresh window per test, no raised
+timeouts.` The same file marks the delegation on line 72: `decided by the Chief of Staff, owner's word
+"no question"`. `02-answers.md` of this change, item 1, only carries Q27 to Q42 over, itself decided by
+the Chief of Staff. No answer of the owner on this point is recorded.
 
-SHA `<H>`. `git show <H>:scripts/unpack_vsix.py` starts `Unpack the `extension/` folder of a built
-VSIX, for the acceptance window that runs it.` and only unpacks. `test/integration/acceptanceRunner.ts`
-lines 158-165: `packageOnce` runs `scripts/package-extension.mjs` (that script is not in the diff of
-`scripts/`); line 134 calls `unpack_vsix.py`.
-Proven wording: "Built-VSIX window: the runner packages the VSIX with `scripts/package-extension.mjs`,
-and the new `scripts/unpack_vsix.py` unpacks it."
+### G2. Human decisions: "The dropped and wrong scenario markers of the earlier change are repaired with this work." - NOT VERIFIED
 
-### F3. Impacts: "no file of the extension changes" - NOT VERIFIED
+SHA `<H>`. `02-answers.md` item 4: `acceptance-Q4 (2026-11-25, Chief of Staff, ask A-16 of CR-504):
+CR-505 also repairs what CR-504 leaves as Known gaps`, with no word of the owner. `events.jsonl` lines
+1913 to 1917: the Foreman's ask A-16 at `19:12:02Z`, the Chief of Staff's order `O-89` at `19:12:33Z`,
+`asks-read ["A-16"]` at `19:12:34Z`. `<504>/02-answers.md` does not record it. The sentence is also
+wider than the diff: this pull request repairs the trust and security group only, and its own first
+Known gaps bullet leaves "the repair of their dropped or wrong scenario markers" of the other groups to
+follow-up changes. The first pass suggested adding this bullet to the section: that suggestion was
+wrong.
 
-SHA `<H>`. `git diff <B> <H> -- package.json` adds one line:
-`+    "test:acceptance": "npm run compile && npm run bundle && node out/test/integration/run-tests.js --acceptance-only",`.
-The extension manifest changes. ("No visual change" and no change under `src/` are proved: V9.)
-Proven wording: "No visual change: no file under `src/` changes, and `package.json` gains only the
-`test:acceptance` script."
+Proven wording: remove both bullets from "Human decisions" and add under "Autonomous decisions":
+"The acceptance job runs one shard per requirement group and one shared window per test file, with no
+raised timeout, so that each launch keeps its own budget below the 15-minute launch deadline." and
+"The dropped and wrong scenario markers of the earlier change are repaired here for the trust and
+security group only (see the tables), the group this change delivers."
 
-### F4. Test plan: "Requirements: two SwRS updated and one verification note corrected" - NOT VERIFIED
+## First pass failures, judged again
 
-SHA `<H>`. `python -I <scripts>/reqdiff.py <worktree> <B> <H>` (`reqdiff.log`):
-`changed files under requirements: 20`; `1 frontmatter description,scenarios + requirement text ...
-SwRS-CORE-076` (normative text, scenarios S1 to S11 sections, notes, criteria); `11 verification
-notes` (TRUST 001, 005, 012, 022, 025, 036, 042, 052, 059, 074, 090); `3 verification notes +
-criteria` (TRUST 007, 065, 092); `2 generated file lists only` (TRUST 002, 011);
-`requirement files with changed verification notes or criteria: 15`.
-Proven wording: "Requirements: `SwRS-MDOKFSTUDIO-CORE-076` updated (normative text, scenarios S1 to S6
-edited, S7 to S11 new); verification notes of 14 trust and security SwRS rewritten, with their
-criteria in 007, 065 and 092; markers in tests; `just requirements-update` (generated file lists also
-change in 002 and 011)".
+| Id | Sentence as posted now | Judgment |
+| --- | --- | --- |
+| F1 | Summary: "no CI job was dedicated to walking use-case paths: 17 of 156 were accepted, by tests of the `integration` suites" | VERIFIED, S1 |
+| F2 | Changes: "the runner packages the VSIX with `scripts/package-extension.mjs`, and the new `scripts/unpack_vsix.py` unpacks it" | VERIFIED, S2 |
+| F3 | Impacts: "no file under `src/` changes, and `package.json` gains only the `test:acceptance` script" | VERIFIED, S3 |
+| F4 | Test plan, requirements line | VERIFIED, S6 |
+| F5 | Known gaps, TRUST-012 and TRUST-014 | VERIFIED, S5 |
+| F6 | Human decisions | the two missing decisions are there (S8); the section fails on G1, G2 |
+| F7 | posted description | posted and current; fails only on G1, G2 |
 
-### F5. Known gaps: "Each needs another kind of test, or a decision, before the coverage mode can be switched." - NOT VERIFIED (stale)
+## Changed sentences that hold
 
-`02-answers.md` item 6 (acceptance-Q6, 2026-11-26) records the decision: write the tests ("Écrire
-les tests"), in a follow-up, before the switch, the marker rule unchanged.
-Proven wording: "Each will get another kind of test in a follow-up change, before the coverage mode is
-switched; the marker rule stays unchanged."
-(The rest of the bullet is proved: `counts.log` lists TRUST-012 S1, S2 and TRUST-014 S1 as not
-accepted at `<H>`.)
+### S1. Summary - VERIFIED
 
-### F6. Human decisions: decisions shaping the change are missing - NOT VERIFIED
+SHA `<B>` and `<H>`. `git grep -c "@accepts_req" <B> -- test` and `<scripts>/suiteclosure.py`
+(`suiteclosure.log`, "@accepts_req at 3478f09"): each marker file under `test/integration/` is reached
+by `scroll-sync-suite`, `untrusted-suite` or `trusted-suite`; the other two hits are string fixtures
+and doc comments. `justfile:350-359` `ci-integration` runs `test:integration`, which runs those suites
+(`run-tests.ts` lines 219 to 223 and 255); `counts.log` base `accepted: 17`.
 
-`02-answers.md` items 6 (acceptance-Q6) and 7 (batch09-Q1, which changes item 5) decide how the three
-paths and the rest of the work are delivered; the section lists neither.
-Proven wording to add: "The three paths not accepted get another kind of test in a follow-up change
-before the switch; the strict marker rule stays." and "The remaining groups, these three paths and the
-switch are delivered later, as follow-up changes, the switch last." Item 4 (acceptance-Q4: the dropped
-and wrong scenario markers of the earlier change are repaired here) also shapes this change and may be
-added: "The dropped and wrong scenario markers of the earlier change are repaired here."
+### S2. Changes, built VSIX and CI limits - VERIFIED
 
-### F7. The description as posted on pull request 532 - NOT VERIFIED (stale)
+SHA `<H>`. `acceptanceRunner.ts` lines 159 to 167 `packageOnce` runs `scripts/package-extension.mjs`,
+line 134 calls `unpack_vsix.py`, whose first lines say it only unpacks. `ci.yml`, job `acceptance`:
+`timeout-minutes: 5`, test step `timeout-minutes: 3`. First measured run 45766254331, attempt 1: job
+`115s`, step `77s` (`gh api`, read in the first pass); the log note `06:12:11Z driver ... first try: job
+115 s, test step 77 s`.
 
-`gh pr view 532 --repo <repo> --json body -q .body`: line 176 `**UNVERIFIED:** the real VS Code
-acceptance tests have not run yet.`; lines 193-200 `[ ] New or changed tests`, `[x] Local gates ... at
-0feab1d9`, `[ ] Evidence: pending`, `[x] Review: approved at 0feab1d9`, `[ ] CI green: pending`; line 204
-`stacked on CR-504, pull request #524` (merged 2026-11-26T07:10:45Z). It also differs from
-`work/pr-body.md` (fifth autonomous decision absent).
-Fix: post the corrected `work/pr-body.md`; it needs a description pass.
+### S3. Impacts and the fifth autonomous decision - VERIFIED
 
-## The two pending items of the Test plan
+SHA `<H>`. `git diff <B> <H> -- package.json`: one added line, `"test:acceptance": ...`; `git diff
+--stat <B> <H> -- src` empty. 115 s x 2.6 = 299 s, the 5-minute job limit.
 
-### P1. "Requirements bundle copied and checked in the new coverage mode at `5a8a593`" - VERIFIED (proved by this pass; body still says "pending")
+### S4. Known gaps: partial delivery, integration, both timeout bullets, never ran - VERIFIED
 
-SHA `<H>`. Head exported with `git archive` outside the tracked tree, the mode switched in the export
-only, then `uv run --no-sync --group requirements okfreq validate "<export>/requirements"
---check-links --project-root "<export>"` (`new-mode.log`): `exit=0`,
-`1228 requirements, 0 errors, 100 warnings`; 74 `W004` (TRUST: only 012 and 014) and 26 broken
-cross-links. `python -I <scripts>/links.py requirements-lint-raw.log new-mode.log`: `same distinct
-links: True`, `each printed exactly twice in the current-mode log: True` (the current-mode run of
-`just requirements-lint` prints them in `validate` and in `lint`). The earlier
-`work/coder/gates/r5-new-mode-validation.log` lists the same. Same result from `w004.py`
-(`w004.log`): base `104 warnings`, 78 W004; head `100 warnings`, 74 W004. Tracked mode unchanged (V9).
-Proven wording: "[x] Requirements bundle copied and checked in the new coverage mode at `5a8a593`: 0
-errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the
-current mode); the tracked mode is unchanged".
+SHA `<H>`.
+- Partial delivery: three `trust-security.*.acceptance.ts` files only; `strs_test_coverage_mode`
+  unchanged; the correction tables cover this group.
+- Integration: attempt 1 of 45774743144: `LAUNCH TIMEOUT: trusted-suite.js exceeded its 900000 ms
+  deadline ... last heartbeat step: myst-diagnostics` (three short steps left); attempt 2 success.
+  Suite timestamps of the logs: 852 s on base run 45773405420, 854 s on attempt 2.
+  `python -I <scripts>/suiteclosure.py <worktree> <B> <H>`: `trusted-suite: 364 files reached, 9
+  touched`; the 8 files under `test/integration/` have `non-comment changed lines 0`, every changed
+  line a `// @tests_req` comment (`git diff -U0`).
+- Step limit: step 3 minutes (`ci.yml`) against `STEP_BUDGET_DEFAULT_MS = 3 * 60_000` and
+  `LAUNCH_DEADLINE_MS = 15 * 60_000` (`hangWatchdog.ts`); shorter checks 90 s, 60 s and 20 s;
+  `just ci-hang-dump` keeps processes and log tails only.
+- Timeouts from one shard: attempt 1 of 45766254331 115 s / 77 s, attempt 2 93 s / 59 s.
+- Never ran: `ci.yml` matrix `group: [trust-security]`; `gh run list --commit <H>`:
+  `45774743144 workflow_dispatch success attempt 3`, `45773633868 pull_request success attempt 1`,
+  no push to `main`; the job runs on `ubuntu-latest` only, and the Windows preflight skips it.
 
-### P2. "Verified at `5a8a593`" - NOT VERIFIED
+### S5. Known gaps, TRUST-012 and TRUST-014; fourth autonomous decision - VERIFIED
 
-This pass ends NOT VERIFIED (F1 to F7): the box stays unchecked.
+SHA `<H>`. `counts.log` not accepted: TRUST-012 S1, S2, TRUST-014 S1; the path titles read `Read a
+text of the preview`, `Find the Studio in the Extensions view`, `Install and package from pinned
+dependencies`; the vsix acceptance file holds no marker and `builtPackage.test.ts` installs nothing and
+writes no VSIX. Follow-up before the switch, marker rule unchanged: `02-answers.md` items 6 and 7 and
+`1-inbox/strs-acceptance-remaining-groups/02-answers.md` lines 3 and 4 (the owner's words).
 
-## Verified claims
+### S6. Test plan, items marked `5a8a593` - VERIFIED
+
+SHA `<H>`. New or changed tests: V6. Requirements: `python -I <scripts>/reqdiff.py <worktree> <B> <H>`
+(`reqdiff.log`): `changed files under requirements: 20`; CORE-076 normative text and scenarios (diff:
+edits in S1 to S6, new S7 to S11); `11 verification notes`; `3 verification notes + criteria` (TRUST
+007, 065, 092); `2 generated file lists only` (002, 011): 14 SwRS notes, as written. Changelog: V9.
+Local gates: first line of `work/gates/preflight-5a8a5939.log` names this change, branch and `<H>`,
+line 5879 stages skipped on Windows, line 5880 `exit=0`. Evidence heading and sub-bullets: S7 and V12.
+
+### S7. Evidence: new coverage mode - VERIFIED
+
+SHA `<H>`. `okfreq validate "<export>/requirements" --check-links --project-root "<export>"` on the
+exported head with the mode switched in the export only (`new-mode.log`): `exit=0`, `1228 requirements,
+0 errors, 100 warnings`; `links.py`: the 26 broken links are the current mode's set.
+`python -I <scripts>/w004scope.py <worktree> <scripts>/new-mode.log` (`w004scope.log`): `live StRS
+without any @accepts_req marker: 74`, `W004 StRS in the new-mode log: 74; same set as the previous line:
+True`. Tracked mode unchanged (V9).
+
+### S8. Human decisions, the five other bullets - VERIFIED
+
+- "One nominal acceptance test; a human step is a simulated input": `<504>/02-answers.md` Q3, Q6
+  (owner).
+- "Coverage counts test markers; the proof is its CI job": Q35 (owner).
+- "May stop after any complete group; the switch lands last": items 5 ("The owner chose it": one
+  follow-up per group, switch last) and 7; item 2, same wording, is the Chief of Staff's.
+- "The three paths not accepted get another kind of test ...": item 6, owner's words per the inbox item.
+- "The remaining groups, these three paths and the switch are delivered later": item 7, same source.
+
+## The pending item of the Test plan
+
+"[ ] Verified at `5a8a593`: pending": left unchecked on purpose (checked by the Driver after a VERIFIED
+verdict, then a description pass). Not a failure. This pass ends NOT VERIFIED, so it stays unchecked.
+
+## Carried claims
+
+Each is `carried from 5a8a593: same head, same sentence` (commands and output as run by the first pass;
+`gh run list` and `gh pr checks 532`, run again now, show no newer run and the same results).
 
 ### V1. Summary, other statements - VERIFIED
 
 SHA `<H>`. Acceptance tests, job, one shard per group, report, tagging and Pages steps: V2, V4, V6.
 First group trust and security, 5 of 8 paths accepted, 94 of 94 scenarios marked, mode not switched:
-V3, V5, V9.
+V3, V7, V9.
 
 ### V2. Deliverables: diagram, code sketch, one launch per file, `just ci-acceptance [GROUP]` - VERIFIED
 
@@ -142,7 +173,7 @@ exported `windowKind` differs from the window. `git grep` shows `export const wi
 with `await step(...)` calls in the acceptance files. `justfile:364: ci-acceptance GROUP="":
 (_require-unlocked-screen "ci-acceptance")` runs `npm run test:acceptance [-- --group]`; preflight
 skips it on Windows (line 490) and calls it at line 504. Linux execution: V12. macOS: from the recipe
-only, never executed (remark R3).
+only, never executed (a Known gaps bullet now says so).
 
 ### V3. Accepted paths table, 22 of 156, 17 before, groups with no file - VERIFIED
 
@@ -158,10 +189,9 @@ file (the body lists those 15).
 SHA `<H>`. `package.json` `test:acceptance` (`--acceptance-only`); `test/shared/runnerArgs.ts` and
 `test/integration/acceptance-suite.ts` new; `scripts/e2e-campaign.mjs` modified,
 `scripts/select-acceptance-attempts.mjs` added (`git diff --name-status <B> <H> -- scripts`).
-`ci.yml:314 acceptance:` with `timeout-minutes: 5`, test step `timeout-minutes: 3`, `matrix: group:
-[trust-security]`, `fail-fast: false`; `report` (line 489), `tag-release` (628) and `pages` (713) need
-`acceptance`; `select_e2e_run.py` `STAGE_ARTIFACTS` holds `e2e-acceptance`, refuses a missing or
-expired shard artifact (lines 134-152). Limits from the first measured run: V12.
+`ci.yml:314 acceptance:` with `matrix: group: [trust-security]`, `fail-fast: false`; `report` (line
+489), `tag-release` (628) and `pages` (713) need `acceptance`; `select_e2e_run.py` `STAGE_ARTIFACTS`
+holds `e2e-acceptance`, refuses a missing or expired shard artifact (lines 134-152). Limits: S2.
 
 ### V5. Changes: tests, requirements, markers, docs; no file under `src/` - VERIFIED
 
@@ -209,7 +239,7 @@ baseline`.
 SHA `<H>`. `git diff --stat <B> <H> -- src requirements/config.yml CHANGELOG.md docs/releases-notes
 skills sphinx esbuild.mjs .vscodeignore`: empty. `git grep strs_test_coverage_mode <B> <H> --
 requirements/config.yml`: both `linked-swrs-and-validation-test`. `justfile` has no new-mode gate
-(`requirements-lint` recipe unchanged). "Changelog: no user-facing change" holds.
+(`requirements-lint` recipe unchanged).
 
 ### V10. Impacts (second sentence) and Blast radius - VERIFIED
 
@@ -217,13 +247,12 @@ SHA `<H>`. Tagging and Pages need every `acceptance` shard green (V4); preflight
 Linux and macOS (V2). Grade 3: the diff changes CI, release tagging and the Pages reuse; the change is
 three commits on `<B>`, which a `git revert` undoes.
 
-### V11. Autonomous decisions (all five) - VERIFIED
+### V11. Autonomous decisions, first three - VERIFIED
 
 SHA `<H>`. 1: V3, V9. 2: `counts.log` `scenarios removed: 0`; `SwRS scenarios unmarked at head but
 marked at base: 0`; `tables.log` removals. 3: base `PUSH_REQUIRED_JOBS = (REQUIRED_JOB, "stress")`,
-head `REQUIRED_JOBS = ("integration", "stress")` for every event, expired shard artifact refused. 4:
-`counts.log` not accepted TRUST-012 S1, S2, 014 S1; no marker in the vsix file. 5: `ci.yml` 5 minutes;
-115 s measured (V12); 300/115 = 2.6.
+head `REQUIRED_JOBS = ("integration", "stress")` for every event, expired shard artifact refused.
+(Fourth: S5; fifth: S3. The decisions the section lacks: G1, G2.)
 
 ### V12. Evidence and CI items of the Test plan - VERIFIED
 
@@ -234,44 +263,30 @@ Read only (`gh run view`, `gh api`, saved logs).
 - Launches, attempt 1 log lines 447, 590, 675: `passed ... (trusted) in 26 s`, `(restricted) in 8 s`,
   `(vsix) in 16 s`; the downloaded attempt-1 artifact's manifest: `status passed`, `revision <H>`,
   `dirty False`, three launches passed.
-- `45766254331 0feab1d9 workflow_dispatch`, attempt 1: job `115s`, step `77s`.
 - Report log of attempt 3, line 418: `acceptance trust-security: kept attempt 3
   (e2e-acceptance-trust-security-attempt-3)`; the artifact is listed, not expired.
-- `45773633868 5a8a5939 pull_request success`; `gh pr checks 532`: checks, report, static,
-  static-windows, viewer-graph, visual `pass`, heavy jobs `skipping`.
-- Local gates: see "Gate".
+- `45773633868 5a8a5939 pull_request success`; `gh pr checks 532` (run again now): checks, report,
+  static, static-windows, viewer-graph, visual `pass`, heavy jobs `skipping`.
 
-### V13. Known gaps, other bullets (partial delivery, integration retry, timeouts twice, TRUST-065 S2) - VERIFIED
+### V13. Known gaps, TRUST-065 S2 - VERIFIED
 
-SHA `<H>`.
-- Partial delivery: V3, V9.
-- Integration: `ci-45774743144.log` line 2445 `LAUNCH TIMEOUT: trusted-suite.js exceeded its 900000 ms
-  deadline ... last heartbeat step: myst-diagnostics`; the passing trusted suite took 852 s on base run
-  45773405420 and 854 s on attempt 2 (suite timestamps of the saved logs). `git diff -U0` of
-  `trusted-suite.ts` and the changed integration tests, comment lines filtered out: empty. The launcher
-  `run-tests.ts` is refactored (argument parsing, Restricted Mode window moved to `spawnedWindow.ts`);
-  `runScenario`, which launches the trusted suite, is not touched.
-- 3-minute step: `hangWatchdog.ts` `STEP_BUDGET_DEFAULT_MS = 3 * 60_000`, `LAUNCH_DEADLINE_MS = 15 *
-  60_000`; `ci.yml` step limit 3.
-- One run: the 115 s / 77 s attempt of 45766254331; its attempt 2 took 93 s / 59 s.
-- TRUST-065 S2: a script reading `PAGE_MESSAGE_GATES` of `src/session/pageMessages.ts` and the S2 table:
-  `gated types: 50 listed in S2 table: 41`, `listed but not gated: []`; the nine missing are
-  previewExportHtml, previewSideBySideChanged, previewBaselineRequested, previewFindReplace,
-  previewBlocksDelete, previewBlankRunDelete, previewDropFiles, previewSaveRequest, previewEditReopen.
+SHA `<H>`. A script reading `PAGE_MESSAGE_GATES` of `src/session/pageMessages.ts` and the S2 table:
+`gated types: 50 listed in S2 table: 41`, `listed but not gated: []`; the nine missing are
+previewExportHtml, previewSideBySideChanged, previewBaselineRequested, previewFindReplace,
+previewBlocksDelete, previewBlankRunDelete, previewDropFiles, previewSaveRequest, previewEditReopen.
 
 ### V14. Review box "approved at `5a8a593` (carried from `18c63e5`)" - VERIFIED
 
-`$CHANTIER log CR-505`: `2026-11-26T06:52:19Z driver note r5 inspector approved at 0feab1d9...
-(four uncommitted files and pr-body.md; ...)`, `06:52:32Z r5 approved at 0feab1d, committed as
-18c63e5e85283af68e1e79dd78aad3f3d6782e13`. `git log --format="%h tree=%t"`: `18c63e5e`, `369ab794`,
-`5a8a5939` all `tree=cb4e616a`; `git range-diff`: `d19b69db = ef6307f7`, `0feab1d9 = 956cb503`,
-`18c63e5e = 5a8a5939`.
+`$CHANTIER log CR-505`: `2026-11-26T06:52:19Z driver note r5 inspector approved at 0feab1d9...`,
+`06:52:32Z r5 approved at 0feab1d, committed as 18c63e5e85283af68e1e79dd78aad3f3d6782e13`.
+`git log --format="%h tree=%t"`: `18c63e5e`, `369ab794`, `5a8a5939` all `tree=cb4e616a`;
+`git range-diff`: `d19b69db = ef6307f7`, `0feab1d9 = 956cb503`, `18c63e5e = 5a8a5939`.
 
 ### V15. Internal references and clean body - VERIFIED
 
-`work/pr-body.md`: change ids appear only under "Internal references" (line 212); "follows pull request
-#524, merged" matches `gh pr view 524`: `MERGED 2026-11-26T07:10:45Z`; no image; sections and fold in
-the project's order. Scenario and requirement ids in the body are product content.
+Posted body: the change id appears only under "Internal references"; "follows pull request #524,
+merged" matches `gh pr view 524`: `MERGED 2026-11-26T07:10:45Z`; no image; sections and fold in the
+project's order.
 
 ## Delivery against the specification (partial)
 
@@ -280,38 +295,31 @@ the project's order. Scenario and requirement ids in the body are product conten
 | Paths accepted | VERIFIED | V3 |
 | Checks 4, 5 (tooling tests, new cases) | VERIFIED | V6, gate log (`tests 5357, pass 5349, fail 0, skipped 8`; security `116/116`; `254 passed`) |
 | Check 6 (acceptance folder and markers) | VERIFIED | V5, V8 |
-| Check 8 (preflight on Windows) | VERIFIED | Gate |
+| Check 8 (preflight on Windows) | VERIFIED | S6 |
 | Check 9 (heavy job, shard, limits, manifest) | VERIFIED; `integration` only on a second attempt, stated in Known gaps | V12 |
 | Check 10 (newest attempt kept) | VERIFIED for one group, as attempt 3 | V12 |
 | Old mode kept, no gate | VERIFIED | V9 |
-| New mode, 0 errors | VERIFIED | P1 |
-| Body states what is left | VERIFIED in `work/pr-body.md` (Known gaps, first and fifth bullets); not in the posted body | F7 |
+| New mode, 0 errors | VERIFIED | S7 |
+| Body states what is left | VERIFIED in the posted body | S4, S5 |
 
-Before and after: `work/verifier/evidence/before-after.md` (every planned pair captured; the plan's
-"cannot be shown" items are listed there as limits).
+No long gate is configured (`$CHANTIER handoff CR-505`, first pass). Before and after:
+`work/verifier/evidence/before-after.md`; its "cannot be shown" items are limits, not missing pairs.
 
 ## Remarks (not failures)
 
-- R1. `ci.yml` comment of the acceptance job says "About twice" while 5 minutes is 2.6 times (the body
-  states 2.6).
-- R2. Known gaps, integration bullet: "removes only requirement markers from that suite" would read more
-  exactly "edits only requirement marker comments in that suite" (some markers are added). The
-  integration flake is a bug to fix at its cause (CI guidelines rules 9 and 12); the hand-off lists it as
-  "flake to file" and no inbox item naming the run or the deadline was found.
-- R3. Optional Known gaps bullet: merging several groups' attempts never ran on CI, tag-release and the
-  Pages reuse never ran on a real push to `main`, and nothing ran on macOS.
-- R4. Test plan line 203 names run 45766254331 "at an earlier commit" without its SHA (`0feab1d`);
-  several other Test plan items name no SHA of their own.
-- R5. Known gaps, timeout bullet: "leaves the processes and logs left behind" is garbled; suggested: "is
-  diagnosed only from the processes and logs left behind, without the window state and screenshots."
-- R6. TRUST-012 reason ("the public VS Code API cannot read the preview's texts") is narrow: the new
-  acceptance files read the preview over the browser debug protocol.
+- R1. `ci.yml` comment of the acceptance job says "About twice" while 5 minutes is 2.6 times.
+- R2. The integration flake is a bug to fix at its cause; the body says so, and no inbox item naming
+  the run or the deadline was found by the first pass.
+- R3. "this change edits only requirement marker comments in that suite": the suite's import closure also
+  holds `test/reportPaths.ts`, which gains one exported constant used by the acceptance runner only.
+- R4. "merging the attempts of several groups never ran in CI" is true of real shard reports; the unit
+  test `test/build/selectAcceptanceAttempts.test.ts` line 40 runs the script on two made-up groups.
+- R5. Run 45766254331 is named "at an earlier commit" without its SHA (`0feab1d`).
 
 ## Notes on this pass
 
-- No CI run started or re-run, no tracked file changed, no commit, push or pull request edit. One CI
-  artifact of the head was downloaded to the scratch folder, read and removed.
-- Deviations from the card, disclosed: some of my commands changed folder into the change's `work/`,
-  used leading variable assignments or chains, and some throwaway files (exports of the base and head,
-  test logs) were written to the session scratchpad, outside the `writes:` folders. All removed at the
-  end.
+- No CI run started or re-run, no tracked file changed, no commit, push or pull request edit.
+- Deviations from the card, disclosed: `suiteclosure.py` passed the 120 s command limit and the harness
+  moved it to the background (it ended with exit 0); a few commands were chained or changed folder into
+  the worktree (never into the change's folder). Scratch logs I made (`work/scratch/verify2/`) are
+  removed.
