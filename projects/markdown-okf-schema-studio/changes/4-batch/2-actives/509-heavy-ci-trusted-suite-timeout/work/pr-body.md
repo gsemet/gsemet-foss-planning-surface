@@ -22,9 +22,17 @@ Part 1 holds 53 steps and part 2 holds 4; `setup` and `preview-smoke` run in bot
 hard-codes the 55 step names of the former single launch and checks that the two parts hold each
 of them exactly once, in order, with those two exceptions.
 
-| | Part 1 | Part 2 | Whole integration step (limit 1200 s) |
+Durations read from the job logs of heavy runs, before (one trusted launch) and after (two parts).
+A launch or part lasts from its `setup` step to its last step.
+
+| Duration | Before: run 45476952370 at `63ef752` | Before: run 45713440510 at `17b779d` | After: run 45729384181 at `5e7b4a3` |
 | --- | --- | --- | --- |
-| Heavy run 45729384181 at `5e7b4a3` | 428 s | 502.5 s | 1128 s |
+| Single trusted launch (deadline 900 s) | 835 s | 831 s | none |
+| Part 1 (deadline 900 s, bar 600 s) | none | none | 428 s |
+| Part 2 (deadline 900 s, bar 600 s) | none | none | 502.5 s |
+| `real-input` step | 404 s | 405 s | 462 s |
+| `open-at-line-probe` step | 178 s | 178 s | 182 s |
+| Whole `just ci-integration` step (limit 1200 s) | 1011 s | 1002 s | 1128 s |
 
 The frame lookup now chooses its candidates from `frame.url()` alone, before any call that needs
 the frame's document:

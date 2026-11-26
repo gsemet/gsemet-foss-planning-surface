@@ -1,0 +1,4 @@
+[
+  ["concepts.md", "one folder per project (`projects/<name>/`: `project.md`, `checkout.yml`, `changes/`), always worked on its default branch, never in a worktree.", "one folder per project (`projects/<name>/`: `project.md`, with the project, its remote and `- Archive in the PR: yes|no`, `no` when absent; `checkout.yml`, with `repo:` and `worktrees:`, paths relative to that folder, `.repo/` and `.worktrees/` there by default; `changes/`), always worked on its default branch, never in a worktree; its `AGENTS.md` holds its own rules."],
+  ["concepts.md", "The **archive** is a CR's cleaned folder, in its PR when the project asks for it, else in `5-archives/`.", "The **archive** is the CR's folder in `5-archives/`, with a `delivery.md` (the PR, the merge time, whether the archive is also in the PR); when the project asks, a cleaned copy also goes in its PR."]
+]

@@ -1699,7 +1699,7 @@ Round 3, sentence level. Ids (`C-nnn`) are drafts that child 26 replaces. The ne
 | C-1616 | chief-of-staff, griller | Dark theme: the plan | Docs: the Settings page gains a "Theme" paragraph. | ticket-summary-example.md:26 | b | inferable | none (a capable model infers it; no protecting rule) |
 | C-1617 | chief-of-staff, griller | The demo (demo.html), its first lines | ```html <!-- Mock-up: imitates the planned result; not the product. --> <!doctype html> <html><head><meta charset="utf-8"><title>Dark theme, mock-up</title> <style>body{background:#1e1f22;color:#e6e6e6;font-family:system-ui}</style></head>… | ticket-summary-example.md:30-37 | b | inferable | none (a capable model infers it; no protecting rule) |
 | C-1618 | chief-of-staff, griller | The PR's section | ```markdown | ticket-summary-example.md:41 | e | card ticket-summary-example.md:40 | grep -c 'markdown' ticket-summary-example.md |
-| C-1619 | chief-of-staff, griller | Issues References | Closes #336 ``` | ticket-summary-example.md:44-45 | e | card ticket-summary-example.md:43 | grep -c 'Closes #336' ticket-summary-example.md |
+| C-1619 | chief-of-staff, griller | Issues References | Closes #336 ``` | ticket-summary-example.md:44-45 | e | card ticket-summary-example.md:43 | grep -c 'Closes #<n>' ticket-summary-example.md |
 
 ## Protecting rows and their homes
 
