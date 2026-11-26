@@ -6,15 +6,15 @@ Reworks the `export-html` feature clip into a stronger story: a long report page
 
 18 s, 1280x720 at 15 fps, three captions in turn, one zoom with three marks in turn, no card, logo top right, a loop.
 
-![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.gif)
+![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/clip.md).
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/clip.md).
 
 What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings (two Mermaid images and two inline charts), with no script and no chart hover box (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
 
 ## Deviation from the feature clip process
 
-The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
+The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
 
 ## Changes
 
@@ -34,12 +34,12 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 
 ## Test plan
 
-- [x] New or changed tests (the storyboard case and the new stage case fail on the previous clip)
-- [x] Requirements: No behaviour change (`just requirements-update` leaves the tree clean)
-- [x] Changelog: No user-facing change
-- [x] Local gates: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
-- [x] Review (Inspector approved at 8ce169f)
-- [ ] CI green (at 8ce169f the two static jobs fail, and so does `checks`: the merge-commit check reads the stacked pull request's test merge as merge commits of the branch, which has none; the visual, viewer-graph and report jobs pass)
+- [x] New or changed tests at `c7c6a56` (the storyboard case and the new stage case fail on the previous clip)
+- [x] Requirements at `c7c6a56`: No behaviour change (`just requirements-update` leaves the tree clean)
+- [x] Changelog at `c7c6a56`: No user-facing change
+- [x] Local gates at `c7c6a56`: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
+- [x] Review: approved at `c7c6a56` (carried from `8ce169f`: a clean rebase, the same four commits)
+- [x] CI green at `c7c6a56`: checks, static, static-windows, visual, viewer-graph and report pass; the heavy and release jobs are skipped, as on any pull request
 
 ## Known gaps
 
@@ -74,6 +74,6 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 
 ## Internal references
 
-CR-500, batch-09; stacked on CR-501, above CR-493 (the kit change to 30 s). The live chart views come from CR-503.
+CR-500 clip-export-long, batch-09; stacked on CR-510 (the merge-commit check on stacked pull requests), above CR-501 and CR-493 (the kit change to 30 s). The live chart views come from CR-503.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
