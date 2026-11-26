@@ -1,10 +1,10 @@
 fix(editor): keep formulas and HTML tags whole in the blocks of a box
 
-In an admonition or an alert, a click or Enter no longer opens only part of a
-formula, or lines that take the closing tag of an HTML element around them:
-where the lines of an element cannot be told, the block or box around it opens.
-The title of a callout written as a div opens the whole callout. The move chord
-also refuses to start a callout with a heading or a `---` line when its class is
-given by the options of a div.
+In an admonition or an alert, a click or Enter no longer opens only part
+of a formula, or lines that take the closing tag of an HTML element around
+them: where the lines of an element cannot be told, the block or box
+around it opens. The title of a callout written as a div opens the whole
+callout. The move chord also refuses to start a callout with a heading or
+a `---` line when its class is given by the options of a div.
 
 Assisted-by: Claude:Sonnet-5.5
