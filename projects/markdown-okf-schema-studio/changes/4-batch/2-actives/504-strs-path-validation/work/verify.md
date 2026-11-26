@@ -2,13 +2,33 @@
 
 Head: 2c0a01a3ec265c60514533044f2405e393c9283d
 
-Second, short pass at the same head, on the body text only. Judged: the local file `work/pr-body.md` (402 lines, 49506 bytes; `git diff --no-index work/scratch/pr-body-2c0a01a-2.md work/pr-body.md`: exit 0, no output). It is not posted yet: the description on the forge is the older one and is not judged here; the posted description needs its own pass. The first pass at this head (NOT VERIFIED on two body lines) is in `work/scratch/verify-2c0a01a-1.md`. `<W>` is the CR worktree, `<CR>` the CR folder, `V` is `<CR>/work/verifier`, `S` is `<CR>/work/scratch`.
+Third, closing pass at the same head, on the description as posted on PR 524. Earlier passes at this head: `work/scratch/verify-2c0a01a-1.md` (full, NOT VERIFIED on two body lines) and `work/scratch/verify-2c0a01a-2.md` (VERIFIED on the fixed local file, then not posted). `<W>` is the CR worktree, `<CR>` the CR folder, `V` is `<CR>/work/verifier`, `S` is `<CR>/work/scratch`.
 
 ## Verdict: VERIFIED
 
-Both failed lines of the first pass (F1, F2) are fixed and the other changed lines hold. No code or project file was judged defective in either pass.
-
 ## Judged in this pass, at 2c0a01a
+
+P1. Head, tree, PR. `git -C <W> rev-parse HEAD`: `2c0a01a3ec265c60514533044f2405e393c9283d`; `git -C <W> status --porcelain=v1 -b`: only the branch line, level with upstream. `gh pr view 524 --json ...`: `OPEN`, `isDraft true`, head `2c0a01a3...`, base the CR-500 branch at `c7c6a562...`, `mergeStateStatus CLEAN`, title `build: declare StRS paths and SwRS scenarios on okf-schema 0.18`. `git ls-remote`: CR branch `2c0a01a3`, base branch `c7c6a562`, main `17b779d5`. VERIFIED.
+
+P2. The posted description is the file. `gh api repos/gsemet/markdown-okf-schema-studio/pulls/524 > S/posted-2c0a01a-3.json`, then `python -I S/pass3_check.py`: `api head 2c0a01a3... draft True state open`; `posted chars 49504 bytes 49507 file bytes 49507`; `equal True`; `posted CR chars 0`. (`gh pr view 524 --json body -q .body > S/posted-2c0a01a-3.md` differs from `work/pr-body.md` by one empty last line only, the newline that `-q` appends.) VERIFIED.
+
+P3. Only line 391 changed since the second pass. `git -c core.autocrlf=false diff --no-index --word-diff=plain S/pr-body-2c0a01a-2.md pr-body.md` (in `<CR>/work`): one hunk, line 391, `[-[ ]-]{+[x]+} Verified at [-the head-]{+`2c0a01a`+}`; no other line. VERIFIED.
+
+P4. Line 391, "Verified at `2c0a01a`", ticked. `chantier log CR-504`: `2026-11-26T05:34:41Z driver verdict result=VERIFIED head=2c0a01a3ec265c60514533044f2405e393c9283d base=c7c6a562...`; the earlier verdict at this head (05:30:33Z, NOT VERIFIED) is superseded by it; no later verdict before this pass. The body was posted after it (`05:35:05Z note=closing: body posted at 2c0a01a`; PR `updatedAt 05:35:01Z`). Form as pr-template line 202, ``Verified at `<sha7>` ``. VERIFIED.
+
+P5. Test plan boxes of the posted text (`pass3_check.py`: lines 382, 383, 387 to 392, all `[x]`; forge-rendered HTML: `rendered checkboxes 8 checked 8`).
+- 382 (new or changed tests), 383 to 386 (requirements), 387 (changelog), 389 (evidence): text unchanged since the second pass; carried below (claims C, 10, 11 and the 2f3c629a list). VERIFIED.
+- 388, local gates at `2c0a01a`: `work/gates/preflight-2c0a01a.log` line 1 `CR-504 ... 2c0a01a3ec265c60514533044f2405e393c9283d just preflight`, line 5579 `pass 5318`, 5580 `fail 0`, 5836 `ci-static: passed`, 5838 `preflight exit=0 head=2c0a01a3...`. VERIFIED.
+- 390, review approved at `2c0a01a`: `chantier log CR-504`: `04:35:54Z driver note note=r10 approved at 94f070d798df8da00f08ceb097886631f28fa8e2, committed as 2c0a01a3ec265c60514533044f2405e393c9283d`. VERIFIED.
+- 392, CI green at `2c0a01a`: `gh pr checks 524` exit 0: `checks`, `report`, `static`, `static-windows`, `viewer-graph`, `visual` pass; `gallery`, `pages`, `release`, `tag-release`, `integration`, `release-check`, `stress`, `toc-loop` skipping. `gh run view 45757241066`: `headSha 2c0a01a3...`, `event pull_request`, `completed`, `success`. VERIFIED.
+
+P6. The posted text is clean and renders. `pass3_check.py` on the posted body: SHAs `17b779d`, `2c0a01a`, `7a80c64c`, `94f070d7`, `b93e855a`, `bd910ce3`, `d083eff4` are ancestors of the head, `2f3c629` is not and stands on line 389 only, after `carried from`; no hit for the user name, a home folder path, `STALE`, `UNVERIFIED` or an image; no CR, batch, work path or role name before "Internal references"; `<details>` one opened (line 95), one closed (line 399). Forge HTML (`Accept: application/vnd.github.html+json`, `.body_html`): 12 `h2`, 2 `h3`, 1 `details` with its `summary`, 3 tables, 113 list items, 0 images, no raw heading, table or fence left in the text; Changes, Human decisions, Impacts, Test plan and Internal references inside the fold. VERIFIED.
+
+## Carried from the second pass at this head (2c0a01a)
+
+Reason for all: same head, same base `c7c6a562`, and the only body line changed since is 391, judged above. The text below is the second pass's own note (also in `work/scratch/verify-2c0a01a-2.md`); in it, "this pass", "not posted yet" and "Line 391 is unchecked on purpose" speak of that pass.
+
+### Judged in the second pass
 
 A. Head, tree, PR. `git rev-parse HEAD`: `2c0a01a3ec265c60514533044f2405e393c9283d`; `git status --short --branch`: clean, level with upstream. `gh pr view 524`: `OPEN`, `isDraft true`, head `2c0a01a3`, base CR-500 branch at `c7c6a562`, `CLEAN`, title `build: declare StRS paths and SwRS scenarios on okf-schema 0.18`. VERIFIED.
 
@@ -33,7 +53,7 @@ G. Test plan boxes, lines 388, 390, 392. 388: gate log first line `CR-504 ... 2c
 
 H. SHAs and cleanliness of the whole file. `rg -o "\b[0-9a-f]{7,40}\b" work/pr-body.md`: `2c0a01a`, `94f070d7`, `bd910ce3`, `b93e855a`, `d083eff4`, `7a80c64c`, `17b779d` (all ancestors of the head) and `2f3c629` (after `carried from` only). Search for the user name, home folder paths, `STALE`, `UNVERIFIED`, images, `Measured before`, `1905009`: no hit; one `<details>` opened (line 95) and closed (line 399). `file`: UTF-8, first bytes `23 23 20` (no BOM), 0 CR characters. No failed claim was accepted rather than fixed, so Known gaps needs no bullet for F1 or F2. VERIFIED.
 
-## Carried from the first pass at this head (2c0a01a)
+### Carried by it from the first pass at this head (2c0a01a)
 
 Reason for all: same head, same base `c7c6a562`, and the body lines they judge are not among the four edited since (for claim 7, the figures are what lines 43 and 86 now state). Their commands and outputs, as judged then:
 
@@ -63,7 +83,7 @@ Reason for all: same head, same base `c7c6a562`, and the body lines they judge a
 
 (Claim 4 of the first pass, the Review and CI boxes, is judged again under G.)
 
-## Carried from 2f3c629a
+### Carried by it from 2f3c629a
 
 Reason for all: the own file list is identical, the range-diff shows no patch change but the context noted in claim 2, and `git diff --stat 2f3c629a 2c0a01a3` over the marker script and baseline, mutation report, viewer, `test/shared`, `justfile`, `pyproject.toml`, `uv.lock`, `config.yml`, schemas, `.agents/skills`, `requirements/guidelines`, CONTRIBUTING and the StRS and SwRS tiers shows only one glossary line brought by the base.
 
