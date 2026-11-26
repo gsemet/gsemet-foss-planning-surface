@@ -1,19 +1,18 @@
-<!-- title: feat(cards)!: swap in the new role cards and remove the old set -->
-
 ## Summary
 
-The plugin held two sets of role cards: the old one that every session loaded, and a new, smaller one staged beside it. This change makes the new set the only one: roles get their card, the shared floor rules and their facts from `chantier brief`, and the old cards, their startup core and their startup manifest are removed.
+The plugin held two sets of role cards: the old one that every session loaded, and a new, smaller one staged beside it. This change makes the new set the only one: roles get their card, the shared floor rules and their facts from `chantier brief`, and the old cards, their startup core and their startup manifest are removed. The CLI, the agent files, the skills, the hook, the tests, the eval kit, the scenario and the docs move to the new set.
 
 ## Deliverables
 
 One card set, and one way to start an agent.
 
-| | Before (`88d9ab4`) | After |
+| | Before | After |
 | --- | --- | --- |
 | Card sets | `references/` (loaded) and `cards-next/` (staged) | `references/` only |
 | A role's start | startup core, manifest, role card sections | `brief <role> <unit>`: card, floor, facts, host rows |
 | `take`, `take stack`, `order qa` | print a Driver prompt skeleton | print the lease and the `brief` command |
 | `round`, `handoff` | print each worker's opening lines | print one `workers:` line naming `brief` |
+| A Driver's `Team:` and review steps | filled by hand by the session that starts it | filled by `brief` from the configuration and the project's instructions |
 
 ```mermaid
 flowchart LR
@@ -24,15 +23,18 @@ flowchart LR
   D --> F
 ```
 
+Brief sizes in bytes (old start reading to new brief, test fixture): Foreman 91,612 to 22,125; Chief of Staff 202,936 to 24,351; CR Driver 27,834 to 9,773; Coder 14,226 to 3,939.
+
 ## Blast radius
 
-Grade: 3. Every role's contract and the way every agent is started change at once. A rollback is a revert of this change together with the changes stacked with it.
+Grade: 3. Every role's contract and the way every agent is started change at once. It merges in order with the changes stacked with it, in one sitting. A rollback is a revert of this change together with those.
 
 ## Autonomous decisions
 
 - The launcher is not switched in the cards: they keep today's `$CHANTIER` paragraph and sync commands, because the launcher leaves the CLI running after its stop on Windows.
 - `take` prints the `brief` command and only `brief` writes brief files (default taken without the owner, to be confirmed).
 - The board Griller's fixed brief does not name the floor (default taken without the owner, to be confirmed).
+- `brief` fills a Driver's `Team:` line from the configuration and the extra review steps from the `## chantier` section of the project's instructions, so that no placeholder is left for the starting session.
 - `brief` prints a `Note:` line, read from the `take` event or the QA order's note, so that a note given at `take` is not lost.
 - `take` prints two lines that start with `brief:`: the command, and the fact about `brief`.
 - `roles.yaml` `reply:` names a level-1 heading where a card holds its reply block under its title.
@@ -40,20 +42,29 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - The board Griller's brief ends its card line once the host clause is gone; the unused host file lookup is removed.
 - A configuration refusal names the host's row file; the access refusal cites the floor rule instead of a removed card.
 - The hook's reload message says "through your skill's `$CHANTIER` command".
+- The quiz builds a new-card boot with the batch variable removed and the host fixed to Claude Code, because an inherited batch variable made the boot fail.
+- The runbooks of the Copilot and direct-mode evaluations, which the specification did not list, had links to fix too.
+- `docs/incidents.md` holds the stories that only one of the card inventories marked for it.
 - The tests' file-and-heading pins are gathered in one test; the board read-key test now scans the topics too.
 
 ## Known gaps
 
-- Do not merge alone: merges with the changes stacked below and above it as one unit, after the real-run campaign.
-- Real run not done: it is the last change of the stack.
+- Quiz of the roles on the new cards, not run: skipped on the owner's word, 2026-11-26: `just quiz coder conflict-resolver cr-driver debugger demo-explorer release-driver stack-driver verifier --max-usd 40` and `just quiz chief-of-staff foreman griller --model claude-sonnet-5-5 --max-usd 45` (only the free `--plan` form was run).
+- Old-card quiz baseline to compare against, not run: skipped on the owner's word, 2026-11-26: the same two commands with `--cards 88d9ab40`, then each new run with `--against <that results file>`.
+- No transcript of a real Claude Code session showing the reload message after `/compact`: only the hook's own tests ran.
+- Real run not done: no real batch has run on these cards.
 - Launcher not switched: it leaves the CLI running after its stop on Windows.
 - The board Griller does not read the floor.
-- Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`. Card content was not rewritten here; these sentences must be fixed before a real batch runs on these cards.
+- Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`. Card content was not rewritten here; these sentences should be fixed before a real batch runs on these cards.
 - A worker's agent file refuses a prompt that names no path to its card (`coder.md`), while the short prompt of `brief` names `.../<unit>-coder.md`. Not tried with a real agent.
+- `AGENTS.md` says `brief` reads the record and the planning folder only; it now also reads the project's instructions for the review steps. `AGENTS.md` is unchanged here.
+- Review steps are read when `brief` runs, while two docs pages say a running batch keeps the team it started with.
 - The generic agent's contract heading still says "after the opening lines", though it is now in the worker's brief.
+- Cards over their size target, in bytes (target): `release-driver.md` 3,809 (3,072), `spec-writer.md` 1,667 (1,500), `coder.md` 1,603 (1,500), `verifier.md` 3,112 (3,000), `demo-explorer.md` 1,612 (1,500), `spec-critic.md` 1,572 (1,500), `retro-critic.md` 1,565 (1,500).
+- The Drivers' briefs are over their start targets: CR 9,773 (6 KB), stack 9,179 (6 KB), release 9,531 (5 KB), QA 6,032 (4 KB).
 - Two data files kept byte-identical still hold removed file names: `hosts/claude-code.json` (`driver.md`, `session-start.md`) and `hosts/copilot.json` (`session-start.md`, `foreman-lost-driver.md`).
 - Wording of the old set not found in the new one: some sentences of the sync offer, "A release with no PR yet is no anomaly", the Foreman's pointer to `help session-shell`; "say it once to the user as printed" became "offer the restart once".
-- The eval kit, the scenario and the docs are not yet moved to the new set.
+- Stale text left as found: some evaluation scorecard rows cite the host card for rules that now live in rows or topics, one sentence of the Claude Code tutorial, `AGENTS.md`'s mention of a removed card, the direct-mode runbook's "unproved" list; some evaluation links now go to topics that do not keep the old section titles.
 - The type checker's warnings on `hooks/register.tsx` were there before.
 
 <details>
@@ -67,7 +78,10 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - The CLI's own lines (`take`, `take stack`, `order qa`, `round`, `handoff`, `brief`, `open`, `foreman set`, `status`, `preflight`, the board Griller and refusal texts) name only files that exist; the host rows that `brief` and `host` print from the data files still hold some removed names (see Known gaps).
 - Comments that named a removed host-card section now name a row or topic: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`.
 - `hooks/register.tsx`: the reload message after a compaction names the floor.
-- New tests: `test_card_names.py` (names the CLI prints), `test_card_homes.py` (where each rule lives) and `test_brief_bytes.py` (each brief's size). Other tests that pinned removed files are converted.
+- Eval kit: the audit expects a brief for a role started that way; the dry run checks `brief`'s boot; the quiz boots from `brief`, and `--cards <ref>` of a head before the swap still walks that head's manifest.
+- Scenario: every Driver is started from the printed `brief` command; the new fact lines and the stack line are checked.
+- Docs: links and sentences that named removed files are fixed; `docs/incidents.md` is new.
+- New tests: `test_card_names.py` (names the CLI prints), `test_card_homes.py` (where each rule lives) and `test_brief_bytes.py` (each brief's size); a Driver brief's `Team:` line is checked. Other tests that pinned removed files are converted.
 - Deleted tests, each with what replaces its rules (`test_card_homes.py` holds one home per old phrase):
 
 | Deleted | Replaced by |
@@ -86,12 +100,17 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Card text edited beyond the move (link fixes, and sentences that named a removed file):
   - `references/topics.json` (the `paths` note), `references/topics/foreman-start-p2.md` (step 4 names `brief foreman`), `references/concepts.md` (host reference and Driver card names, the four Driver `Card` cells).
   - The four `SKILL.md`: the new texts, with today's `$CHANTIER` paragraph kept ("is a stop: report its exact error (floor 4)") and the reload sentences of the router, Chief of Staff and Griller adjusted to it.
-  - `references/sync-checkout.md`: today's title, intro and four steps kept, step 2 and step 4 and the closing sentence now name `help` and `host` lines and the floor.
+  - `references/sync-checkout.md`: today's title, intro and four steps kept; step 2, step 4 and the closing sentence now name `help` and `host` lines and the floor.
   - `references/topics/host-allow-rules.md` and `host-allow-rules-copilot.md`: the launcher sentences say unproved or no longer name it.
+
+## Human decisions
+
+- No evaluation run is made for this change (no quiz, no campaign); the owner runs them later, and they block nothing.
+- The merge waits for no evaluation: the stacked changes merge in order, in one sitting, by the owner (a reading of the owner's words, to be confirmed).
 
 ## Impacts
 
-Sessions load the new cards. No visual change.
+Sessions load the new cards, and a Driver is started from the output of the `brief` command that `take` prints. No visual change.
 
 ## Test plan
 
@@ -104,6 +123,35 @@ Sessions load the new cards. No visual change.
 
 ## Internal references
 
-- CR-510 sc24-cards-swap, batch-31; stacked on CR-507 (PR 487).
+- CR-510 sc24-cards-swap, batch-31; its branch started on CR-507's (PR 487, merged).
+- Hand-over checklist of the specification (rows 11 to 14: not done, the launcher is not switched, decision D9 under order O-159):
+
+| # | What | State |
+| --- | --- | --- |
+| 1 | The quiz boots from `brief`; the dry run checks that boot; `--cards` of a pre-swap head works | done |
+| 2 | Quiz on every role against the baseline | not done: skipped on the owner's word, 2026-11-26 |
+| 3 | `topics.json` swapped; every `help <name>` resolves; docs links fixed | done |
+| 4 | Host cards' history in `docs/proofs/` or `docs/incidents.md` | done |
+| 5 | `AGENTS.md`'s role sentences true; `CONTRIBUTING.md` aligned | done |
+| 6 | `take` prints the `brief` command; no worker opening lines; the Foreman runs `brief foreman` | done |
+| 7 | `test_brief_bytes.py` replaces `test_start_reading.py`; the manifest check goes | done |
+| 8 | One facts builder, no strip list | done |
+| 9 | `foreman-conflict.md` removed | done |
+| 10 | The hook's reload message | done |
+| 11 | Launcher allow sample | not done: D9 |
+| 12 | Launcher line in the allow table | not done: D9 |
+| 13 | Launcher form in `permissions.py` | not done: D9 |
+| 14 | Old forms' rules and the command form | not done: D9 |
+| 15 | `roles.yaml` and the wrappers together; `just roles` | done |
+| 16 | `griller.md` holds the board section; command-name test scans the folder | done |
+| 17 | Board Griller's brief bytes reported | done |
+| 18 | Each Driver role points at its own card | done |
+| 19 | The stack line | done |
+| 20 | Old phrase pins converted | done |
+| 21 | Griller and Chief of Staff cards in `roles.yaml` and the board brief; old files gone | done |
+| 22 | No CLI change | done |
+| 23 | The four `SKILL.md`, version lines | done (launcher form: D9) |
+| 24 | Incident stories in `docs/incidents.md` | done |
+| 25 | Driver table, "Change Request", host rows, topics and allow block read after the swap | done |
 
 </details>
