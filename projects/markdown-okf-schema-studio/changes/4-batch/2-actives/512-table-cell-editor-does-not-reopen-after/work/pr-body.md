@@ -20,8 +20,8 @@ five rows of three values are pasted into a table of two columns and one body ro
 | Automatic save after a 200 ms delay | yes (1 run) |
 | The clip's timing (a look 250 ms after the paste, then the table check) | yes (1 run) |
 | Copy, automatic save and timing together | yes (1 run) |
-| The committed test (after the existing body-cell paste test) | pass (1 run) |
-| The committed test, repeated in one window | pass, 20 of 20 |
+| The committed test (after the existing body-cell paste test) | pass (2 runs) |
+| The committed test, repeated in one window | pass, 20 of 20, in each of 2 runs |
 | The clip itself, with both ways the clip tool can send the keys | yes (5 of 5 takes) |
 
 ```mermaid
@@ -36,15 +36,15 @@ flowchart LR
 ## Changes
 
 - `test/integration/realInput/tableGridPaste.ts`: new scenario
-  `scenarioTableGridPasteFromHeader`. It first checks that its document and pasted text equal the
-  files of the clip, pastes into "Task" without Select all, then expects the clip's table in the
-  source and one open editor in the header cell, still open once the page has settled.
+  `scenarioTableGridPasteFromHeader`. It first checks that its document, pasted text and expected
+  table equal what the clip ships, pastes into "Task" without Select all, then expects that table
+  in the source and one open editor in the header cell, still open once the page has settled.
 - `test/integration/realInput/run.ts`: runs it with the existing paste scenario, alone and in the
   full real-window suite, and offers it as a repeatable stress step.
 - `test/shared/stressPlan.ts`: that stress step, run on demand only.
 - The paste clip (`docs/demo-video/clips/paste-spreadsheet-cells/`): the take waits for the editor
-  until the time of its click on Done, records whether it was open
-  (`cellEditorOpenAfterPaste`), and its notes no longer say the editor "may or may not" reopen.
+  until 4.4 s, records whether it was open (`cellEditorOpenAfterPaste`), and its notes no longer
+  say the editor "may or may not" reopen.
 - Feature clip guideline: a take waits for the state it films after a key press instead of reading
   the page once.
 - Requirement of the grid paste: its verification notes name the new scenario; its behaviour is
@@ -85,9 +85,11 @@ new real-window test that fails intermittently in the manually started or post-m
 
 - The cause of the three attempts that found the editor closed is not established: no page trace
   was recorded then. A rare, intermittent loss of the reopening is not excluded by these runs.
-- When the editor opens late, the clip's click on Done can now come after 4.4 s and its zoom
-  slightly later; this is to be looked at when the clip is filmed again. The clip's output files
-  are not re-rendered.
+- When the editor opens late, the clip's click on Done can come about 0.3 s after 4.4 s, and the
+  zoom that follows can start after 4.8 s; this is to be looked at when the clip is filmed again.
+  The clip's output files are not re-rendered.
+- The clip takes were made before the last edits of the test and of the clip's comments; no take
+  was repeated after them.
 - The clip's notes still say that the VS Code copy puts HTML on the clipboard; the page received no
   HTML after a copy of the `.tsv` file in these runs. Left unchanged, as it concerns the copy and
   not the reopening.
