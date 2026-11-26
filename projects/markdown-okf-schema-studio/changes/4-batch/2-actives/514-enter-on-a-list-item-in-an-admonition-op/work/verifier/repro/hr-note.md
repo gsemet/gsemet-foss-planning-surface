@@ -1,0 +1,7 @@
+:::{note}
+Before.
+
+---
+
+After.
+:::
