@@ -2,11 +2,10 @@
 
 Head: 89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4
 
-Verdict: **NOT VERIFIED**, on the posted PR description only. The change and its proofs hold at
-`89cae5f` (M0 to E6). The description is still the text written for `b24d3bf`: besides the table
-rows and the Test plan that name old commits (not counted here as failures on their own), four
-sentences of **Known gaps** and **Autonomous decisions** are false at `89cae5f` (D6, D8). The
-facts the new text must hold are in "Facts at 89cae5f for the new description".
+Verdict: **VERIFIED**. The change and its proofs hold at `89cae5f` (M0 to E6, judged in the
+previous pass at this head and kept as written). The rewritten description, posted
+2026-11-26T10:52:48Z, holds at the same head and base (N0 to N7); the former `NOT VERIFIED`
+was on the former description text only.
 
 Notation: `W` = the CR worktree (every command runs there unless said), `S` = `work/scratch`,
 `G` = `work/gates`, `R` = `--repo gsemet/markdown-okf-schema-studio`, `B` = new base
@@ -206,124 +205,107 @@ studio 16973 / 15907 ms, done. The statement on run 45706313890 attempt 2 (the f
 artifact content, `code: -3` in passing runs) is carried: past run at `1f209e1`, untouched by
 the move.
 
-## PR description
+## PR description (description-only pass, 89cae5f)
 
-Posted text: `gh pr view 529 R --json body` equals `work/pr-body.md` (only a trailing newline
-differs in `git diff --no-index --ignore-space-at-eol`); GraphQL `lastEditedAt`
-2026-11-26T02:19:12Z, before the move. Head `89cae5f`, base `B`, open, draft.
+Same head and base as the pass above. Only the text changed, so the sections above this one are
+that pass's judgments, kept as written (their `NOT VERIFIED` marks were on the former text: D4 to
+D10 and "Facts at 89cae5f for the new description", replaced by this section; they failed D6 and
+D8, and D4 and D9 were stale). `V` = `work/verifier`.
 
-### D1 renders cleanly (89cae5f) - VERIFIED
+### N0 nothing but the description changed (89cae5f) - VERIFIED
 
-`gh api .../pulls/529 -H "Accept: application/vnd.github.full+json" --jq ...`: `h2` 9, `h3` 1,
-tables 1, rows 6, `pre` 2, checkboxes 8, `details` 0, literal `**` 0. Mermaid parse carried from
-`b24d3bf`: the text did not change.
+`git rev-parse HEAD origin/main`: `89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`,
+`3478f0992688c7a354d11106145793fc83590506`; `git status --porcelain`: nothing; `git diff --stat
+3478f09 HEAD`: `12 files changed, 536 insertions(+), 158 deletions(-)`. `gh pr view 529`:
+`headRefOid 89cae5f`, `baseRefOid 3478f09`, base `main`, open, draft, `CLEAN`, title `ci: split
+the trusted VS Code launch and filter frame lookups`. `gh run list --branch <CR branch>`: at this
+head only 45781010549 (pull_request), 45794678556 and 45795351595 (workflow_dispatch), all
+attempt 1, success; no run dispatched or re-run since. `gh pr checks 529`: exit 0.
 
-### D2 no image shows a user name or home folder (89cae5f) - VERIFIED
+### N1 posted text, and what changed in it (89cae5f) - VERIFIED
 
-Same command: `img` 0, markdown images 0, user name or home paths 0.
+`python -I V/verify_body_diff.py S/verify-pr529-r4.json work/pr-body.md S/verify-pr529-desc89.json`:
+`posted == work/pr-body.md: True`; `updatedAt 2026-11-26T10:52:48Z`. GraphQL `lastEditedAt` is the
+same time. `git diff --no-index -U0` between the body GraphQL records for the edit of 02:19:12Z
+(`S/pr529-body-021912.md`) and `work/pr-body.md`: hunks only in three table rows, two Autonomous
+decisions bullets, the first two Known gaps bullets, and the Test plan boxes (tests, requirements,
+local gates, heavy CI, review, Verified now unchecked, CI green). Every other line is unchanged.
 
-### D3 role names and internal references (89cae5f) - VERIFIED
+### N2 renders cleanly, no image, no user name (89cae5f) - VERIFIED
 
-Same command: `STALE|UNVERIFIED` 0; lines naming a role or `CR-<n>`: only
-`CR-509 heavy-ci-trusted-suite-timeout.` (Internal references).
+`python -I V/verify_desc_render.py 3478f09...`: `h2 9`, `h3 1`, `table 1`, `tr 6`, `pre 2`,
+`details 0`, `img 0`, `checkboxes 8`, `literal ** in html 0`, markdown images 0; `user name hits
+0`, `home path hits 0`; `STALE|UNVERIFIED 0`; the one line matching a role name or `CR-<n>` is
+L178 under `## Internal references`. Commit ids in the body: `17b779d`, `3478f09`, `63ef752` are
+ancestors of the base ("before" rows), `89cae5f` is the head. Mermaid parse carried from b24d3bf:
+the diagram is outside the changed hunks (N1).
 
-### D4 Summary and Deliverables (89cae5f) - VERIFIED, except the proofs' SHAs
+### N3 durations table (89cae5f) - VERIFIED
 
-Mermaid, 53 and 4 steps, 55 names, code sketch and frame list: S1, S2, S8, S9, E4. The table's
-after rows name `5e7b4a3` and `b24d3bf`, which are not in the head's history, and no row gives the
-head's runs (E2): to rewrite (brief: not counted as a failure on its own).
+`python -I V/verify_desc_jobs.py <runs>` (`gh api .../runs/<run>` and `/jobs`), `just
+ci-integration` step: 45476952370 (`63ef752`, push main) 1011 s; 45713440510 (`17b779d`, push
+main) 1002 s; 45773405420 (`3478f09`, push main, success) 1023 s; 45794678556 (`89cae5f`) 1112 s;
+45795351595 (`89cae5f`) 969 s. Row 45773405420, Grep of
+`S/artifacts-45773405420/integration.log`: one `STEP start: setup` at 07:13:53.803 (L666),
+`open-at-line-probe (178214 ms)`, `real-input (415004 ms)`, `STEP done: workspace-disposal` at
+07:28:05.609 (L2703): 851.8 s, as 852, 415, 178. The two after rows equal E2 (423.8 / 493.5 /
+454306 / 180988 and 387.1 / 419.4 / 386851 / 177177). The two older before rows: E3.
 
-### D5 Changes match the diff (89cae5f) - VERIFIED
+### N4 Autonomous decisions (89cae5f) - VERIFIED
 
-`git diff --stat B HEAD`: the same 12 files (536+, 158-), each covered by Changes and the Test
-plan; checks S3 to S5. `git grep STUDIO_REAL_INPUT_SCENARIO HEAD`: `justfile` L404
-(`ci-stress`) and L422 (`ci-toc-loop`), `performanceProbe.ts` L3; `trustedParts.ts` L43 and L84
-keep such a run one launch with no part.
+Runs 45794678556 and 45795351595 created 09:43:53Z and 09:48:12Z (4 min 19 s), updated 10:12:12Z
+and 10:11:09Z: concurrent. Run 45734267839 (`b24d3bf`, earlier commit): attempt 1, `visual`
+cancelled, job 925 s, annotation `The job has exceeded the maximum execution time of 15m0s`;
+`integration` and `stress` success; no second attempt and no other dispatch at `b24d3bf` than
+45734265223. The concurrency statement and the other decisions are unchanged text, held above
+(former D6).
 
-### D6 Impacts, Blast radius, Autonomous decisions (89cae5f) - NOT VERIFIED
+### N5 Known gaps (89cae5f) - VERIFIED
 
-Hold: Impacts, Blast radius, and the other decisions (S5, S7, S8; `git grep "^\s*concurrency:"
-HEAD -- .github`: `release.yml` only). Contiguous split: `edit-keys` start to
-`workspace-disposal` done is 132.6 s and 111.6 s in the head's runs, so part 2 would be 626 s and
-531 s; with the earlier 637, 624, 579 s, "over 600 s on a slower runner" still holds.
-False at the head:
+- Integration step: five `workflow_dispatch` runs exist on the branch (`gh run list`), steps 1128 s
+  (45729384181, `5e7b4a3`), 1111 s and 1056 s (45734265223, 45734267839, `b24d3bf`), 1112 s and
+  969 s (head): 969 to 1128 s, two at the head and three earlier, 6.0 % to 19.25 % under 1200 s
+  (`ci.yml` L295 `timeout-minutes: 20`).
+- Visual job (`ci.yml` L131 `timeout-minutes: 15`): 820 s and 825 s (proof runs), 879 s
+  (45781010549, the pull request's run at the head), 885 s (45713440510, main), all success;
+  cancelled at the limit in 45734267839 (N4).
+- Completeness: `V/evidence/before-after.md` "Not captured" lists a local real-window run (fifth
+  bullet), proof that the frame failure is gone (third bullet) and the frame list in a real timeout
+  message (third bullet). No `UNVERIFIED` claim and no failed claim accepted unfixed. The CI
+  rules' repetition proof (log anomaly) is in the third bullet. The last three bullets are
+  unchanged text, held above (former D8).
 
-1. "The two proof runs were started at the same time on one commit rather than one after the
-   other": the head's runs were created 4 min 19 s apart (09:43:53Z, 09:48:12Z) and overlapped
-   (E1).
-2. "The visual job cancelled in one proof run was not run again: the proof of this change rests on
-   the integration and stress jobs, green in both runs": no job was cancelled in the head's proof
-   runs; visual is green in both (E1). It is true only of run 45734267839 at an old commit.
+### N6 Test plan (89cae5f) - VERIFIED
 
-### D7 "What the failed frame lookup showed" - VERIFIED, carried from b24d3bf
+- 9 new tests: L2. They are in the `test:unit` glob (`out/test/{build,...}`, `package.json` L465),
+  and `G/preflight-89cae5f.log` (first line names the CR and the full head) has `tests 5335, pass
+  5327, fail 0, skipped 8` (L5620-5625).
+- Requirements: same log, L5783 `okfreq validate` / L5784 `1228 requirements, 0 errors`, L5811
+  `okfreq lint ... --check` / L5838 `0 indexes would change`, L5840 `okfreq update-coverage ...
+  --check` / L5841 `0 files would change`. Changelog: S5.
+- Local gates: L5879 `ci-static: passed`, L5880 `preflight: visual, viewer-graph, integration,
+  report and gallery stages skipped on Windows; CI runs them`.
+- Heavy CI: both runs attempt 1, success; every job success except `release-check`, `toc-loop`,
+  `tag-release`, `release`, `pages` skipped (N3 command); parts under 600 s: E2.
+- Review: `$CHANTIER log CR-509`: `2026-11-26T09:45:37Z driver note note=move b24d3bf..89cae5f
+  (restack) inspector approved at 89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`.
+- CI green: 45781010549 (pull_request, `89cae5f`): static, static-windows, visual, viewer-graph,
+  report, checks success; integration and stress skipped.
+- `Verified` is unchecked, as intended until this verdict is recorded.
 
-Reason: it describes run 45706313890 and an earlier window run, which the move does not touch. As
-at `b24d3bf`, the target-list sentence rests on the `verify-cdp.py` output recorded in
-`S/verify-r3.md`; a later re-run of that script was refused then ("Reason: [Undermining
-Oversight]"). It was not run again in this pass, nor were those lists read by other means.
+### N7 the unchanged sections (carried from the pass above, same head)
 
-### D8 Known gaps (89cae5f) - NOT VERIFIED
+Summary, Deliverables (former D4, apart from the rows judged in N3), Changes (D5), Impacts and
+Blast radius (D6), "What the failed frame lookup showed" (D7, itself carried from b24d3bf with the
+limit it records on the refused re-run): N1 shows their text did not change.
 
-False at the head:
+## Notes for the Driver
 
-1. "it took 1056 to 1128 s on the three heavy runs of this change, 6 to 12 % under": there are
-   five heavy runs; they took 969 to 1128 s, 6 to 19 % under 1200 s (E1, E2).
-2. "was cancelled at that limit in one of the two proof runs": visual passed in both proof runs of
-   the head (820 s and 825 s); the cancel was in run 45734267839, at an old commit.
-
-Hold: the visual job is still near its limit (879 s of 900 s in PR run 45781010549,
-`gh api .../runs/45781010549/jobs`; 885 s on main run 45713440510, carried); frame lookup not
-proven fixed; longer timeout message not seen in a real run (E1: no match in the two new runs;
-older runs carried); unfiltered scans (`git grep -n "page.frames()" HEAD -- test`: the ten files
-the bullet lists; `openAtLine`, `harness` and `workbenchFocusDump` filter by URL); no local
-real-window run (L1, preflight L5880).
-
-### D9 Test plan (89cae5f) - stale, to rewrite
-
-Every proof names `b24d3bf`. Each claim has a proof at the head (see below); "run 45734267839 is
-not green as a whole" and "unit tests 5307 passed" do not describe the head. "Changelog: no
-user-facing change" holds (S5). Not counted as a failure on its own (brief).
-
-### D10 Review box (89cae5f)
-
-`$CHANTIER log CR-509`: `2026-11-26T09:45:37Z driver note note=move b24d3bf..89cae5f (restack)
-inspector approved at 89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`. So `Review: approved at
-89cae5f` is proven; the posted box still says `b24d3bf`.
-
-## Facts at 89cae5f for the new description
-
-Table rows (setup step to last step; whole `just ci-integration` step):
-
-| Heavy run | Commit | Single launch | Part 1 | Part 2 | `real-input` | probe | Step |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| After: 45794678556 | `89cae5f` | none | 424 s | 493.5 s | 454 s | 181 s | 1112 s |
-| After: 45795351595 | `89cae5f` | none | 387 s | 419 s | 387 s | 177 s | 969 s |
-
-The rows of `5e7b4a3` and `b24d3bf` can be removed (the specification asks the two proof runs); if
-kept, they are marked as earlier commits, not proofs of the head. Optional extra "before" at the
-new base: main push run 45773405420 (`3478f09`, success): one launch, 55 steps, 852 s (setup to
-`workspace-disposal`), `real-input` 415 s, probe 178 s, step 1023 s.
-
-- Margin (Known gaps): 969 and 1112 s at the head (19 % and 7 % under 1200 s); 969 to 1128 s over
-  all five heavy runs (6 to 19 % under).
-- Visual (Known gaps): 820 s (45794678556), 825 s (45795351595), 879 s (45781010549) of 900 s at
-  the head, all passed; the one cancel at the limit was heavy run 45734267839, on an earlier
-  commit; 885 s on main run 45713440510.
-- Autonomous decisions: the two proof runs were started about four minutes apart on one commit
-  and ran at the same time; the sentence on the cancelled visual job must name the earlier run
-  45734267839 as such, or go.
-- Test plan, new tests at `89cae5f`: 9 fail against the stand-ins, 9 pass.
-- Requirements at `89cae5f`: `okfreq validate` 1228 requirements, 0 errors (26 warnings), 0
-  indexes and 0 files would change.
-- Local gates at `89cae5f`: `just preflight` on Windows, static stage only, passed; unit tests
-  5335: 5327 passed, 8 skipped, none failed.
-- Heavy CI at `89cae5f`: 45794678556 and 45795351595, attempt 1 each, every job that ran green
-  (release-check, toc-loop, pages, tag-release and release skipped), `integration` and `stress`
-  green, each part under 600 s.
-- Review: approved at `89cae5f`. CI green at `89cae5f`: static, static on Windows, visual,
-  viewer-graph, report and checks of PR run 45781010549; integration and stress skipped there.
-- "Verified": tick only after a description pass records VERIFIED at this head.
-
-Carried from `b24d3bf`: S10, E3, D7, the attempt-2 part of E6, the Mermaid parse. Every other
-claim above was judged again, because the base changed what its proof runs or a new run at the
-head replaces the old one.
+- Ticking `Verified` is the only body change this verdict expects; name `89cae5f` in the box.
+- Not a failure: the Summary's "about 92 %" matches the runs of 834 and 831 s; the added base row
+  (852 s) is 95 %.
+- Not part of the description: the record's `gaps` note (`$CHANTIER handoff`) still gives the
+  former figures (1056 to 1128 s, three runs, cancel in a proof run); a new hand-back should use the
+  figures of the posted Known gaps.
+- Long gate: none configured; `handoff` shows it unchecked, with the project's `--no-gate` path.
+- No command was refused in this pass.

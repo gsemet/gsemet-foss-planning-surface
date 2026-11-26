@@ -169,7 +169,7 @@ frame lookup; it needs one heavy run to confirm.
       ran green on the first attempt (the release, publication and table-of-contents loop jobs are
       skipped), and each trusted part under 600 s
 - [x] Review: approved at `89cae5f`
-- [ ] Verified
+- [x] Verified at `89cae5f`
 - [x] CI green at `89cae5f`: static, static on Windows, visual, viewer-graph, report and checks of
       the pull request's own run; the real VS Code jobs do not run on a pull request
 

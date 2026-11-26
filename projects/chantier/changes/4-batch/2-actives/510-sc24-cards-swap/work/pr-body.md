@@ -64,7 +64,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `docs/incidents.md` holds the stories that only one of the card inventories marked for it.
 - The tests' file-and-heading pins are gathered in one test; the board read-key test now scans the topics too.
 - The generic-agent case of the host matrix is left as a known gap, with no further work: it expects contract lines that no Claude Code configuration produces, before or after this change, and the brief already holds the card and the floor.
-- The refusal paragraph of the worker agent files changed, though the specification said to keep it: as it was, a worker could refuse the short prompt of `brief`. It now accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (decided during the batch, to be confirmed by the owner).
+- The refusal paragraph of the worker agent files changed, though the specification said to keep it: as it was, a worker could refuse the short prompt of `brief`. It now accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (decided during implementation, to be confirmed by the owner).
 
 ## Known gaps
 
