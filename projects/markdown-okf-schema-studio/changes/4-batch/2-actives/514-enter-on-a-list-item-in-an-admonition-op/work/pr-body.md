@@ -39,16 +39,19 @@ flowchart LR
 - A new render pass, `mapBoxSourceLines`, runs inside admonitions, alerts, callouts and dropdowns:
   no block there maps part of a fence around it, and a diagram, formula, code, `{list-table}` or
   `{csv-table}` directive maps its whole directive. A block held directly by a list item maps its
-  own lines, up to the next block of the item and never across a fence. The body of a version
-  admonition maps the lines it is written on. In an admonition left open at the end of the file, a
-  block inside it keeps its own closing fence (one quoted case is listed under Known gaps). Blocks
-  outside a box are mapped as before.
+  own lines, up to the next block of the item and never across a fence. In a list, a quote or a
+  definition of a box, a formula or an HTML element whose own lines cannot be told is no block of
+  its own, so the block around it opens (the shapes left are under Known gaps). The body of a
+  version admonition maps the lines it is written on. In an admonition left open at the end of the
+  file, a block inside it keeps its own closing fence (one quoted case is listed under Known
+  gaps). Blocks outside a box are mapped as before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
   quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
   without a caption, and no neighbouring block moves past it. A move that would put an unindented
   `---` line first in the body, or a heading first in an untitled admonition or in a callout, is
-  refused: the content would not show, or the heading would become the title.
+  refused, however the box is written (a callout class given by `:class:` or by a `---` block of
+  options included): the content would not show, or the heading would become the title.
 - The move planner understands a GitHub alert's `>` prefix: a prefix-only line counts as blank and
   an added separator carries the prefix.
 - An erased block of an alert body is written as the alert's prefix alone.
@@ -110,18 +113,29 @@ behaviour, with no data or settings change.
   moves past them.
 - When a `:::` admonition is left open at the end of the file and ends on a quoted one
   (`> :::{tip}` up to `> :::`), that quoted tip does not open on its own.
-- Erasing the first block of a box body can leave a `---` line first, and the box then shows its
-  title only, or leave a heading first in an untitled admonition, which then becomes its title; the
-  text stays in the file. A card or a div inside a box whose body starts with dashes misrenders the
-  same way.
+- Erasing the first block of a box body can leave a `---` line first: a note or an alert then
+  shows its title only, and a dropdown disappears from the preview, title included. It can also
+  leave a heading first in an untitled admonition, which then becomes its title. The text stays in
+  the file.
+- A card inside a box whose body starts with dashes shows only part of its body, and a `{div}`
+  whose body starts with dashes stops the preview from rendering (both as before this change).
+  The move chord does not refuse to write that in a `{div}` that is not shown as a box (the
+  callout class written as its argument).
 - A paragraph that is only bold text, moved first in an untitled admonition or a callout, becomes
   its title; the move is not refused.
-- A directive name written with spaces (`:::{ note }`) is not recognised by the new move refusals,
-  so such a move there is done. Any `.callout-*` class counts as a callout for the heading refusal,
-  one that renders no callout included.
+- Any `.callout-*` class counts as a callout for the heading refusal, one that renders no callout
+  included.
 - In a box that starts with a `---` block of options and holds a `---` rule further down, the
   renderer maps blocks one line down (as before this change), so a block opened on its own there
-  shows the wrong line.
+  shows the wrong line. A `{div}` whose options block folds its class (`class: >`) with no blank
+  line after it maps its body one line off too.
+- In a list item of a box, text written right after a closing HTML tag, with no blank line, opens
+  from the tag's line, so its editor also holds that tag and erasing it removes the tag.
+- Directly in a box body, a formula written after `+++`, right under text with no blank line, or
+  on two lines under a field list opens only part of it or the line before it, and an unpaired
+  `<details>` opens its opening lines only.
+- A callout written as a `{div}` outside a list maps only its opening line: its title, and some
+  elements of its body, open that line alone.
 - A later paragraph of a list item in a box whose first source line is not known (text after a code
   block of a tight item) does not open on its own: its item opens.
 - Erasing the first line of a list item that holds a directive removes the item's marker with it,
@@ -154,13 +168,11 @@ behaviour, with no data or settings change.
   - "in an admonition or an alert, Enter on ... opens and erases no fence line";
   - "the chord is refused when it would start a box with a block that spoils it: ...".
 
-  `boxBlockSourceLines.test.ts` holds 41 tests. The fence cases (an item holding a table, a figure
-  caption, a card, text after a code block of a tight item) and the refused moves fail without
-  their fixes; the accepted moves, a wrapped tight item and the 3 tests about a `{table}` and a card
-  check behaviour that holds either way or is documented. Of the other renderer tests, 14 fail
-  without the renderer change and 5 about unclosed fences fail without their fix. The new visual
-  checks of a click in an alert body, a click in an admonition body and Enter on an element of an
-  admonition fail on the previous code.
+  `boxBlockSourceLines.test.ts` holds 67 tests. Most fail without the change they cover (the line
+  mapping inside boxes, the fence cases, the elements whose lines cannot be told, the refused
+  moves); the others, the accepted moves among them, guard behaviour that holds either way or is
+  documented. The new visual checks of a click in an alert body, a click in an admonition body and
+  Enter on an element of an admonition fail on the previous code.
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
