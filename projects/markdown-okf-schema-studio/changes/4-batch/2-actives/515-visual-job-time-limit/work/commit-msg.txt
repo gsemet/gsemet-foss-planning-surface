@@ -1,0 +1,11 @@
+ci: split the visual checks into two jobs that run in parallel
+
+The screenshot campaign no longer runs out of its 15-minute CI limit. It
+runs as two jobs side by side, visual and visual-2, and the report job
+merges their results. Every scenario and check still runs, the limit is
+unchanged and no retry is added.
+
+Locally, "just ci-visual" still runs the whole campaign, and
+"just ci-visual 1" or "just ci-visual 2" runs one part.
+
+Assisted-by: Claude:Sonnet-5.5

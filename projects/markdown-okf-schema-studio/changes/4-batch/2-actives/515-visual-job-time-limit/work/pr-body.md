@@ -34,7 +34,9 @@ flowchart LR
   as a full run. It fails, naming the cause, on a missing part, a scenario in no part, parts from
   another revision or run, a failed part, or identical screenshots across the parts.
 - `test/visual/capture_report.py` (new) is the one writer of those files.
-- `justfile`: `ci-visual` takes an optional part, and `ci-report` merges the parts first.
+- `justfile`: `ci-visual` takes an optional part, and `ci-report` merges the parts first. With no
+  part, `ci-visual` also removes the earlier first-gap and width-margins reports under
+  `out/reports/visual/`.
 - `.github/workflows/ci.yml`: new job `visual-2`, which restores the system package cache that
   `visual` saves; `report` and `checks` need both jobs.
 - `scripts/select_e2e_run.py`: the site deployment reuses a run's reports only when the run also
@@ -59,8 +61,10 @@ No visual change: only CI, its scripts, its tests and the contributor docs chang
 
 - **2**: several features or shared code; revert is possible but needs checks or follow-ups.
 
-Grade: 2. It changes the CI jobs that gate merges and which runs the site deployment reuses. A
-`git revert` restores the single job; the first runs after it show whether the time limit holds.
+Grade: 2. It changes the CI jobs that gate merges and which runs the site deployment reuses. It
+changes no data, file format or public API, and no publication step: a plain `git revert` restores
+the single job, with nothing to migrate. The first runs after the merge show whether the time limit
+holds.
 
 ## Autonomous decisions
 

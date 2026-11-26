@@ -44,7 +44,10 @@ The site header gains a sixth link:
 - The contributor guide, "How we ship" and the requirements guidelines link to the page.
 - A CI guideline rule and a requirements guideline bullet make the author of a change keep the page
   current; the glossary gains "Test level" and "Bench".
-- The site requirement `SwRS-MDOKFSTUDIO-CORE-086` names the six header links.
+- The site requirement `SwRS-MDOKFSTUDIO-CORE-086` names the six header links. Its source file is
+  `test/site/siteTheme.ts` (unchanged); its tests are `test/site/siteLinks.test.ts` (a marker added
+  on the header test), `test/site/siteTheme.test.ts` and
+  `test/site/requirementsViewer/write.test.ts`.
 
 ## Impacts
 
@@ -81,7 +84,12 @@ Documentation, the project site and one new unit test. A plain `git revert` remo
   - unit, contract and security commands need `just compile` first;
   - the published requirements viewer is deployed with each release, so its counts are those of that
     release;
-  - integration runs in real VS Code windows, not one window per suite.
+  - integration runs in real VS Code windows, not one window per suite;
+  - not every check of an acceptance file walks a path: the checks of the built-package file carry no
+    marker and accept no path;
+  - the lint commands are named with `--check`, as `just requirements-lint` runs them;
+  - "Keeping this page current" is longer than planned: it states what the drift test fails on and
+    what it does not see, and the new CI guideline rule says the same.
 - The page adds that a green job does not prove that every marked test ran (see Known gaps).
 - The statement that a human step of an acceptance test is a simulated input records a maintainer
   decision that no other file of the repository holds.
@@ -98,6 +106,11 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - Some unit tests that need Chromium run in no CI job, although their markers count toward coverage.
   The page says so; changing the CI jobs is outside this documentation change.
 - The site shows the diagram scaled from 1240 to 880 pixels wide, so its text is small there.
+- The diagram draws unit and contract tests marking software requirements, while no contract test
+  carries a marker today; the table says so.
+- The drift test does not see a removed or renamed item that the page still names (except in the
+  coverage mode and acceptance group lines), when a level runs, or the content of the diagram, and no
+  guideline rule covers a change of a test level's own `just` command.
 
 ## Test plan
 
@@ -108,6 +121,32 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - [ ] Review
 - [ ] Verified
 - [ ] CI green
+
+The new and changed tests against the previous code: 13 of 49 fail.
+
+- The nine checks of the drift test on the shipped files fail, with `ENOENT` on
+  `docs/how-we-test.md` (the diagram check: on `images/how-we-test/test-levels.svg`).
+- "the site header links How we ship then How we test from root and nested pages":
+  `index.html holds <a href="docs/how-we-ship.html">How we ship</a><a href="docs/how-we-test.html">How we test</a>`.
+- "a viewer page brands and links the site relative to its own folder": `the six links, in order`.
+- "a main page and a viewer page carry the same brand and the six links, only the viewer has a
+  breadcrumb": the header lists Home, Contributing, How we ship, Gallery, Requirements.
+- "SIMPLE_CARDS covers the home, Contributing, How we ship and How we test pages": the entry
+  `docs/how-we-test.md` is missing.
+
+Built site, a scan of the new page and the headers: 20 headings, 10 table rows, 11 relative links,
+the six header links in order on the home page, "How we ship", "How we test" and a requirements
+viewer page, the manifest's page and card entries and `og/how-we-test.png`: no problem found.
+
+Drift probes, each a temporary edit then `just unit`, each with one failing test:
+
+- every mention of the `stress` job removed from the page: "How we test names every CI job",
+  missing `stress`;
+- coverage mode set to `linked-swrs-and-acceptance-paths`: `the page names the coverage mode
+  linked-swrs-and-validation-test, requirements/config.yml has linked-swrs-and-acceptance-paths` and
+  `the page keeps "## What is not enforced yet" under the mode linked-swrs-and-acceptance-paths`;
+- a second group `gfm` in the `acceptance` job: `groups of the acceptance job missing from the page:
+  gfm`.
 
 ## Internal references
 
