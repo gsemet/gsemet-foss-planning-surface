@@ -66,9 +66,8 @@ Restored rules, one line per row id (files under `skills/chantier/references/`):
 | X-004 | stack-driver.md |
 | X-005 | stack-driver.md |
 
-Also restored without a row id: a release with no PR yet is no anomaly (stack driver card), the
-Foreman card's pointer to the session-shell topic, and "say it once to the user as printed" (board
-restart topic).
+Also back, outside the table: the Foreman card's pointer to the session-shell topic, and, in the
+board restart topic, saying the line to the user once, as printed (inventory row C-640).
 
 ## Blast radius
 
@@ -113,9 +112,10 @@ restart topic).
   of CONTRIBUTING.md is not aligned, and no new quiz case was written.
 - H-1360 (a rule dropped by default, pending the owner's confirmation) needs that confirmation.
 - Card size targets exceeded by this change, in LF bytes (before to now, target): cr-driver 3749 to
-  5066 (4000), stack-driver 3783 to 4821 (4000), release-driver 3809 to 4685 (3000, already over),
-  foreman 3997 to 4426 (4000), conflict-resolver 1494 to 1535 (1500). Already over and unchanged:
-  coder, demo-explorer, retro-critic, spec-critic, spec-writer, griller, verifier.
+  5066 (4096), stack-driver 3783 to 4821 (4096), release-driver 3809 to 4685 (3072, already over),
+  foreman 3997 to 4426 (4000), conflict-resolver 1494 to 1535 (1500). Already over and unchanged,
+  their sizes not listed here: coder, demo-explorer, retro-critic, spec-critic, spec-writer,
+  verifier.
 - Brief byte ceilings raised in `test_brief_bytes.py`: cr-driver 9900 to 11100, release-driver 9600
   to 10500, stack-driver 9200 to 10300, qa-driver 6100 to 6300, foreman 22200 to 22600.
 - Not run: skipped on the owner's word, 2026-11-26: `just quiz <role> --plan --max-usd 10`,
@@ -124,7 +124,6 @@ restart topic).
   `evals/quiz/` (the session roles add `--model`). So no result shows the new cards answer as well
   as the old ones.
 - Real run not done (a later, separate campaign).
-- No separate verification run has judged the claims yet.
 - The seconds the new test adds to `just test` were not measured as two runs before and after; the
   test file alone took 2.8 s of pytest wall time at an earlier state.
 
@@ -161,7 +160,7 @@ Agents read slightly longer cards. No visual change.
   passes (26 of 26 cases)
 - [x] Evidence: no visual change, so no before and after images
 - [x] Review: approved at `5d2626d` (carried from `7263861`)
-- [ ] Verified at the head: **UNVERIFIED:** until the verification run
+- [x] Verified at `5d2626d`
 - [x] CI green at `5d2626d`: `just check` (ubuntu, macos, windows), `just eval-dry-run` and
   `just scenario` (ubuntu) pass
 - [x] Long gate `scenario` on Windows passes at `5d2626d`

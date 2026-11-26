@@ -20,5 +20,12 @@ Short name: `visual-job`
    already verified, does not wait for this change. The CI files of that base are CR-505's. If
    CR-512's own CI cannot pass because of the `visual` limit, this change moves below CR-512.
 
+4. merge-Q1 (2026-11-26, Chief of Staff, for the whole batch, after the owner wrote "Je ne peux rien
+   faire sur github c'est à toi de le faire si besoin"): **Who merges the ready parts of the stack.**
+   The owner, verbatim: "Je peux juste approuver et merger sur github. Je peux pas faire autre chose sur
+   la préparation des PR. Fait ce qu’il faut". So: the owner approves and merges, no agent merges; every
+   other step on GitHub (preparing the pull requests: draft or ready, base, rebase, forge stack) is the
+   team's, and the owner is never asked to do one.
+
 Destination: running batch batch-09.
 Spec critic: no, a CI change with no product behaviour (Chief of Staff; the owner may ask for it).
