@@ -90,6 +90,9 @@ new real-window test that fails intermittently in the manually started or post-m
   The clip's output files are not re-rendered.
 - The clip takes were made before the last edits of the test and of the clip's comments; no take
   was repeated after them.
+- The committed test covers the header-cell paste with automatic save off only: no committed check
+  fails if the editor stops reopening with a 200 ms automatic save. That case was run once, with
+  temporary code, and the clip only records whether the editor was open.
 - The clip's notes still say that the VS Code copy puts HTML on the clipboard; the page received no
   HTML after a copy of the `.tsv` file in these runs. Left unchanged, as it concerns the copy and
   not the reopening.
