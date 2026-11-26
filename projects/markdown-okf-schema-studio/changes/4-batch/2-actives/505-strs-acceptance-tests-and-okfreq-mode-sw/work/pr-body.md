@@ -142,7 +142,7 @@ Wrong scenario fragments corrected, per test file. A marker stays only when the 
 | `session/previewRuntimeFile.test.ts` | 012 S1, S3; 022 S3 | none |
 | `session/readOnlyFirstLoad.test.ts` | 001 S1 | 001 S2 |
 | `session/readOnlyImages.test.ts` | 002 S1 x5, S2 x3, S5; 091 S1 x3, S2 | 002 S2 x2 |
-| `session/readOnlyImagesSession.test.ts` | 001 S1; 002 S2 | 001 S2; 007 S1; 042 S5 |
+| `session/readOnlyImagesSession.test.ts` | 001 S1; 002 S2 | 001 S2; 042 S5 |
 | `session/readOnlyLocalRoots.test.ts` | 002 S1, S2; 007 S2, S7 | none |
 | `session/renderReq.codeCopy.requirements.test.ts` | 005 S1; 065 S6 | 005 S2; 052 S1 |
 | `session/renderReq.labelRename.requirements.test.ts` | 005 S2, S5 | 001 S1; 005 S1 |
@@ -150,7 +150,7 @@ Wrong scenario fragments corrected, per test file. A marker stays only when the 
 | `session/reviewReqThreads.requirements.test.ts` | 005 S2 | 001 S1; 005 S1 |
 | `session/toolbarReq.requirements.test.ts` | 007 S1; 065 S5, S6 | 065 S3 |
 | `session/trustReq.requirements.test.ts` | none | 052 S2; 065 S2, S3 x2, S4 x3, S5; 090 S4, S10 |
-| `session/trustReq.roots.requirements.test.ts` | 007 S1, S5, S7 x3 | 007 S2, S3, S4 |
+| `session/trustReq.roots.requirements.test.ts` | 007 S1, S5, S7 x3 | 007 S1, S2, S3, S4 |
 | `session/webview.priming.test.ts` | 025 S6, S7 | none |
 | `visual/capture_layout_checks.py` | 001 S4 | none |
 | `visual/readOnlyImagesScenarios.ts` | 002 S5 | none |
