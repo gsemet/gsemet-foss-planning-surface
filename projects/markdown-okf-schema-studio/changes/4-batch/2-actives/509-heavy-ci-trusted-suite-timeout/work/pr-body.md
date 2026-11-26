@@ -65,6 +65,8 @@ the Studio frame times out, the message now lists every frame seen, with why eac
   part.
 - `test/shared/webviewFrames.ts` (new), `test/integration/realInput/harness.ts` and the marked-line
   count of `openAtLine.test.ts`: the URL filter and the frame list in the timeout message.
+- `test/shared/hangWatchdog.ts`: comments only; the note above the step budgets now records the
+  durations of the two launches measured on heavy run 45729384181.
 - `CONTRIBUTING.md` describes the two launches. No deadline, step budget or `timeout-minutes`
   value changes, and no test assertion changes.
 
@@ -80,10 +82,10 @@ neither shows which frame it was, why it had no URL, or the other frames of the 
 too. The empty-URL observation is consistent with a frame that never loaded a document.
 
 The Studio content frame has a `vscode-webview://.../fake.html` URL (seen in an earlier real
-window run on Windows). On the CI runner, the browser target lists saved with the two timed-out
-launches of the same run hold only webview service workers, so they confirm the
-`vscode-webview://` scheme and not the content frame's URL. The filter therefore keeps every
-`vscode-webview://` URL.
+window run on Windows). On the CI runner, in the browser target lists saved with the two timed-out
+launches of the same run, the only `vscode-webview://` targets are service workers (the other
+targets are the workbench page and two of its own workers), so they confirm the scheme and not the
+content frame's URL. The filter therefore keeps every `vscode-webview://` URL.
 
 ## Impacts
 
@@ -140,7 +142,8 @@ frame lookup; it needs one heavy run to confirm.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
   runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
   CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure
-  message are what make a next failure explain itself.
+  message are what make a next failure explain itself. No heavy run of this change timed out on
+  that wait, so the longer message has been exercised by a unit test only.
 - Other test steps still scan every frame without the URL filter (block actions, edit toolbar,
   find in preview, table empty column, tall block scroll, preview editing helpers, render patching,
   reload and scroll-sync suites, window focus), so a frame without a document could still stall one
