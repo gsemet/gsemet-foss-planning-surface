@@ -39,11 +39,12 @@ flowchart LR
 - A new render pass, `mapBoxSourceLines`, runs inside admonitions, alerts, callouts and dropdowns:
   no block there maps part of a fence around it, and a diagram, formula, code, `{list-table}` or
   `{csv-table}` directive maps its whole directive. The body of a version admonition maps the
-  lines it is written on. Blocks outside a box are mapped as before.
+  lines it is written on. In an admonition left open at the end of the file, a block inside it
+  keeps its own closing fence. Blocks outside a box are mapped as before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
   quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
-  without a caption.
+  without a caption, and no neighbouring block moves past it.
 - The move planner understands a GitHub alert's `>` prefix: a prefix-only line counts as blank and
   an added separator carries the prefix.
 - An erased block of an alert body is written as the alert's prefix alone.
@@ -93,15 +94,16 @@ behaviour, with no data or settings change.
 
 - Not yet approved: the maintainer's review of the clip's storyboard and of the clip itself.
 - In the clip, after the save the selection is on the whole admonition, not on the saved sub-item.
+- A `{table}` directive of a box does not move, and no neighbouring block moves past it.
 - Outside a box, a move past a diagram directive can still put the moved paragraph inside its
   fence, and a click on a top-level diagram, formula or code directive opens its opening line only
-  (both as before this change).
-- The move chord next to a `{table}` directive has no test.
+  (both as before this change). A top-level `{table}` directive is likely affected too (that move
+  was not tried).
 - The clip's contact sheet shows neither the selection of the list nor that of the sub-list; only
   its named frames do.
 - The real VS Code replay edited here runs only on the main branch or a heavy CI run.
-- An erased line of an alert block that holds a lazy continuation line (no `>`) keeps the previous
-  behaviour.
+- Erasing a block of an alert that holds a lazy continuation line (no `>`) still writes an empty
+  line, so the quoted lines after it leave the alert.
 
 ## Test plan
 
@@ -119,9 +121,11 @@ behaviour, with no data or settings change.
   - "two blocks of an alert body swap and keep the quote's empty line between them";
   - "an erased paragraph of an alert body leaves the alert's prefix, so the alert stays whole".
 
-  The 14 tests of `boxBlockSourceLines.test.ts` fail without the renderer change, and the new
-  visual checks of a click in an alert body, a click in an admonition body and Enter on an element
-  of an admonition fail on the previous code.
+  `boxBlockSourceLines.test.ts` holds 22 tests: 14 of them fail without the renderer change, 5
+  about unclosed fences fail without their fix, and the 3 about a `{table}` and a card check
+  documented behaviour (not run on the previous code). The new visual checks of a click in an
+  alert body, a click in an admonition body and Enter on an element of an admonition fail on the
+  previous code.
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:

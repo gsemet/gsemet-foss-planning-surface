@@ -95,7 +95,10 @@ holds.
 - [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-076` updated (new scenario S12), markers in code and
   tests, `just requirements-update` leaves no change
 - [x] Changelog: No user-facing change
-- [ ] Local gates:
+- [x] Local gates: `just preflight` at `2fb89df` on Windows (the static stage, which runs
+  `just check`) passed: 5358 unit and contract tests passed, 0 failed, 8 skipped, then 116 of 116;
+  56 of 56 clip kit tests; 296 Python tests passed; requirements validation 0 errors, 26 warnings.
+  The visual stages did not run locally; CI runs them
 - [x] Review: approved at `2fb89df` (carried from `0b310d4`)
 - [ ] CI green
 
