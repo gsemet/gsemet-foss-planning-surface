@@ -81,11 +81,14 @@ holds.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: No user-facing change
+- [x] New or changed tests (they fail on the previous code): new `test/build/test_visual_parts.py`
+  and changed workflow and run selection tests; against the code of the base branch the new file does
+  not import and the changed tests fail
+- [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-076` updated (new scenario S12), markers in code and
+  tests, `just requirements-update` leaves no change
+- [x] Changelog: No user-facing change
 - [ ] Local gates:
-- [ ] Review
+- [x] Review: approved at `0b310d4`
 - [ ] CI green
 
 ## Internal references
