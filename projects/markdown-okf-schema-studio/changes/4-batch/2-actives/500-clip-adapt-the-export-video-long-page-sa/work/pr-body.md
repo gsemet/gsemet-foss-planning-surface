@@ -50,6 +50,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - Motion, rhythm, the scroll speed and the loop as watched are not checked by the author.
 - The sequence diagram, the line chart and the small table appear in no key frame.
 - The render step can fail once with a transient Remotion "No frame found" error; running `render` again passes.
+- No take ran with the scenario's mark times as committed: marks 1 and 2 were set by a render, which draws them at the storyboard's times, and the scenario then took the same times.
 
 ## Autonomous decisions
 
