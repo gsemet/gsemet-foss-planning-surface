@@ -43,7 +43,7 @@ Groups with no acceptance file yet: rendering-core, code-blocks, gfm, myst, diag
 - Runner: `--acceptance-only` and `--group <id>`; argument parsing in `test/shared/runnerArgs.ts`; a suite entry `test/integration/acceptance-suite.ts`.
 - Report: `scripts/e2e-campaign.mjs` gains an `acceptance` stage, one manifest per group; `scripts/select-acceptance-attempts.mjs` keeps the newest attempt of each group.
 - Built-VSIX window: the VSIX is packaged and unpacked by `scripts/unpack_vsix.py`.
-- CI: the heavy `acceptance` job; `report`, `tag-release` and the Pages reuse (`scripts/select_e2e_run.py`) require it.
+- CI: the heavy `acceptance` job; `report`, `tag-release` and the Pages reuse (`scripts/select_e2e_run.py`) require it. Each shard has a 5-minute job limit and a 3-minute test step limit, set from the first measured run.
 - Tests: trust and security acceptance files (trusted, Restricted Mode, built VSIX). The built-VSIX window checks the installed texts and icon and accepts no path. A new check under `test/security/` builds the bundles and lists the package files.
 - Requirements and docs: the software requirement (SwRS) `SwRS-MDOKFSTUDIO-CORE-076` states the new heavy job; `SwRS-MDOKFSTUDIO-TRUST-092` names the new check; CI and release guidelines, `AGENTS.md` and `CONTRIBUTING.md`.
 - Tests and markers: new unit tests for trust and security scenarios that had none, and corrected scenario fragments on existing tests (tables below).
@@ -170,10 +170,12 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - A scenario marker was removed wherever the test does not set up the scenario and observe its result; no requirement scenario was removed.
 - Pages now requires the stress job on a manually dispatched run too, as on a push to `main`, and refuses a run where a green acceptance shard has no live artifact.
 - Three trust and security paths carry no acceptance marker, because their test does not perform or observe every step a path names: reading a text of the preview, finding the Studio in the Extensions view, and installing and packaging from pinned dependencies.
+- The job limit of an acceptance shard is 5 minutes, 2.6 times the measured 115 s rather than about twice, so that after a test step cut at its 3 minutes the job still has time for set-up, diagnostics and upload.
 
 ## Known gaps
 
-- **UNVERIFIED:** the real VS Code acceptance tests have not run yet.
+- The 3-minute test step of an acceptance shard ends before the default budget of a test step (3 minutes) and the 15-minute launch deadline can expire: a hang that no shorter check catches leaves the processes and logs left behind, without the window state and screenshots.
+- The two timeouts come from two attempts of one shard in one run; a slower group added later has to measure and set them again.
 - `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: the public VS Code API cannot read the preview's texts or the Extensions view, and a test performs no install. Each needs another kind of test, or a decision, before the coverage mode can be switched.
 - The table of `SwRS-MDOKFSTUDIO-TRUST-065` scenario S2 omits newer message types of the preview page; its test checks the listed types only. The requirement text needs an update.
 - The other requirement groups have no acceptance file; the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted.
@@ -194,7 +196,11 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just preflight` passed at `0feab1d9` on Windows, where it runs the static stage only
-- [ ] Evidence: pending
+- [ ] Evidence:
+  - [Heavy run 45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331) at `0feab1d9`: `integration`, `stress`, `report` and the `acceptance (trust-security)` shard passed, under the earlier limits of 30 and 20 minutes.
+  - Shard durations, first attempt: job 115 s, test step 77 s; launches 45.8 s (trusted), 7.8 s (Restricted Mode), 14.9 s (built VSIX). The limits set from them: 5 minutes for the job, 3 for the test step.
+  - Re-run of the shard alone, same run: job 93 s, test step 59 s; it uploaded `e2e-acceptance-trust-security-attempt-2`, and `report` ran again and logged `acceptance trust-security: kept attempt 2`.
+  - Requirements bundle copied and checked in the new coverage mode: 0 errors, 74 warnings for use cases with no acceptance test.
 - [x] Review: approved at `0feab1d9`
 - [ ] Verified: pending
 - [ ] CI green: pending

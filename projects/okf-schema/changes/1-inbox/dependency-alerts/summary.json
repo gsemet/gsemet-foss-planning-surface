@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Dependency vulnerability alerts on main",
+  "summary": "Not grilled: GitHub reports 9 alerts on the default branch (4 high, 5 moderate); the dependencies concerned have not been read.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "6da3d780f8c3b435c0c37a42b6e46aa4717d1718dedc2df680a70b8a3946f9c2"
+  },
+  "summarized": "2026-11-26T06:50:11Z"
+}
