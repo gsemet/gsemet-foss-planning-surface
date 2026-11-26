@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release 0.19.0",
+  "summary": "Publish okf-schema 0.19.0, the work merged since v0.18.1, by the project's own release procedure.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "274ca7ac70995deec3e65479dcdf6cf134f195426a734899dbeae8f9fcc58ed3",
+    "02-answers.md": "ff36b1350692ebf8396184355f5bd34e871a7e651754e8ad6cc911c140a71abd",
+    "03-change-spec.md": "e543cb101db14c60b61f6e8f93142c8ba6c3c9e6f4def25ce2f09bfc405dd15d",
+    "intake/request.md": "c3351e5d9b5f033c0588fe0272928f269f1c5dc96d674b965efe2b64713e1757"
+  },
+  "summarized": "2026-11-26T06:31:05Z"
+}
