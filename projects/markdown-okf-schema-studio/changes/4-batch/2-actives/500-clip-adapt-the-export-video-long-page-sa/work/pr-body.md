@@ -2,8 +2,6 @@
 
 Reworks the `export-html` feature clip into a stronger story: a long report page, in the default Cream theme and Auto width, with card grids, a very wide table that breaks out of the centred column, two Mermaid diagrams, a Vega-Lite chart and a full Vega chart. The clip scrolls the page in Studio, exports it with Export, opens the file in VS Code's Integrated Browser and shows the same page there: the wide table still breaking out, the diagrams and charts drawn. A reader with no editor gets the page as the writer sees it. No behaviour of the extension changes.
 
-The charts are drawn as live inline views since the base of this change moved, so the clip was filmed and rendered again.
-
 ## Deliverables
 
 18 s, 1280x720 at 15 fps, three captions in turn, one zoom with three marks in turn, no card, logo top right, a loop.
@@ -16,7 +14,7 @@ What the clip proves: a real export in a real VS Code window keeps Cream, Auto w
 
 ## Deviation from the feature clip process
 
-The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard. An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
+The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
 
 ## Changes
 
@@ -45,18 +43,20 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 
 ## Known gaps
 
-- The owner approved the earlier cut of this clip, not this one, which was filmed again.
-- In the browser, each of the two scrolls shows as one cut, not as motion. The filmed window sends no new frame while the exported page scrolls; filming the browser's page itself would be a change of the clip kit. The cut of the earlier clip had the same fault.
+- The owner has not approved this cut of the clip; the approval given so far was for an earlier cut.
+- In the browser, each of the two scrolls shows as one cut, not as motion. The filmed window sends no new frame while the exported page scrolls; filming the browser's page itself would be a change of the clip kit.
 - The browser shows a closed "Chart source" line under each chart, which Studio does not show. This is how the export works; under the bar chart the line sits partly behind the caption.
 - The key frame taken as the browser opens still shows the command palette.
 - Motion, rhythm, the scroll speed and the loop as watched are not checked by the author.
-- The second card grid, the sequence diagram, the line chart and the small table appear in no key frame.
+- The sequence diagram, the line chart and the small table appear in no key frame.
 - The render step can fail once with a transient Remotion "No frame found" error; running `render` again passes.
 
 ## Autonomous decisions
 
-- Length stays 18.0 s and the captions are unchanged. Marks 1 and 2 start 0.2 s later (12.0 to 13.2 and 14.2 to 15.2 s; mark 3 stays at 15.4 to 16.6 s), after the browser's picture changes, so no outline is drawn over the wrong block.
-- The take's checks read the charts as inline drawings, no longer as images, and fail on a chart hover box in Studio or in the exported file. The pointer rests right of every chart while Studio is filmed.
+- 18 s in three beats (the scroll in Studio, the export, the same page in the browser), built from the merged clip kit.
+- The bar chart is a `vega-lite` fence and the line chart a `vega` fence.
+- Marks run from 12.0 to 13.2, 14.2 to 15.2 and 15.4 to 16.6 s: the first two start after the browser's picture changes, so no outline is drawn over the wrong block.
+- The take's checks read the charts as inline drawings, as Studio draws them, and fail on a chart hover box in Studio or in the exported file. The pointer rests right of every chart while Studio is filmed.
 - Both scrolls used the mouse wheel; the `scrollTo` fallback was not needed.
 - The 16-column table kept all its columns: it fits without a sideways scroll (887 px in a 720 px column, view 1160 px).
 - GIF at ladder step 0 (12 fps, 960 px, 128 colours), 2.93 MB.
@@ -66,7 +66,9 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 
 ## Human decisions
 
-Questions 1 to 13 of the grill: Cream, a long page with tables, grids, Mermaid and Vega, one very wide table in Auto width; 18 s in three beats; built from the merged kit; the storyboard reviewed in this PR; the bar chart as a `vega-lite` fence and the line chart as a `vega` fence.
+- The Cream theme, on a long page with tables, card grids, Mermaid and Vega diagrams, with one table so wide that it breaks out of the centred column.
+- The clip scrolls through the page and exports it, then shows the exported file rendering the same, diagrams and charts drawn.
+- The storyboard and the clip are reviewed in this PR, after the take.
 
 ## Internal references
 
