@@ -198,3 +198,4 @@ The dropped points: `retro-dropped.md` beside this file.
 - 3 old draft pull requests: #386, #347, #346.
 - Untracked in the main checkout: `commands.py`, `concepts.md`, `state.py`, `test.md`, `.agents/`.
 - The evaluation campaign's folder and plugin entries set up on 2026-11-26.
+- Worktree `old-kit` (detached, 2026-11-12, in a temp folder that a cleanup may erase): uncommitted lines in `evals/kit/audit.py` and `sandbox.py` (finding a Windows `gh.cmd` through the PATH), not on main. A patch copy is in `chantier-batch-31-journal`, with CR-463's local scenario results.
