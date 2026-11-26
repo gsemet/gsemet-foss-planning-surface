@@ -197,7 +197,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just preflight` passed at `0feab1d9` on Windows, where it runs the static stage only
 - [ ] Evidence:
-  - [Heavy run 45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331) at `0feab1d9`: `integration`, `stress`, `report` and the `acceptance (trust-security)` shard passed, under the earlier limits of 30 and 20 minutes.
+  - [Heavy run 45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331) at `0feab1d9` (the same files as `7a671019`, its rebased form): `integration`, `stress`, `report` and the `acceptance (trust-security)` shard passed, under the earlier limits of 30 and 20 minutes.
   - Shard durations, first attempt: job 115 s, test step 77 s; launches 45.8 s (trusted), 7.8 s (Restricted Mode), 14.9 s (built VSIX). The limits set from them: 5 minutes for the job, 3 for the test step.
   - Re-run of the shard alone, same run: job 93 s, test step 59 s; it uploaded `e2e-acceptance-trust-security-attempt-2`, and `report` ran again and logged `acceptance trust-security: kept attempt 2`.
   - Requirements bundle copied and checked in the new coverage mode: 0 errors, 74 warnings for use cases with no acceptance test.
