@@ -58,6 +58,9 @@ Grade: 2. It changes the CI jobs that gate merges and which runs the site deploy
 
 ## Autonomous decisions
 
+- Two named jobs rather than a matrix: each part keeps one exact artifact name that `report`
+  downloads, the way it already does for the single-job stages, so no new artifact selector is
+  needed. The cost is some duplicated workflow lines, which the workflow tests keep consistent.
 - The merge step also sets the start time recorded for the visual campaign to the merged run's
   start. Each part records its own start, and the final review check requires it to match the
   merged manifest.
