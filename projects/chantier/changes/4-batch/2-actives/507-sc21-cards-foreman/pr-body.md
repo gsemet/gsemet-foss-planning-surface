@@ -101,6 +101,8 @@ Grade: 1
   other push is asked first and run once on the yes; direct mode runs the separate
   `brief foreman --epoch <n>`, with no CLI change; the later budget freeze takes the sizes this
   change reaches; the router skill runs no brief of its own and has no router card.
+- The inventory rows found to restate a tested rule without naming its case are left as they are, and
+  stated in Known gaps.
 - The startup report sentence, "read every manifest reading before an action" and the review step's
   "cd into the worktree" are dropped as given by the commands and the brief.
 - "Never tell unproved behaviour as fact" is filed as host-trial bookkeeping, with the proof files;
@@ -343,7 +345,7 @@ No visual change; no session loads the new files (`just quiz` and `just eval-dry
   - topic index: 240 topics load, 465 readings resolve, no base name missing;
   - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
 - [x] Review: approved at `88d9ab4`
-- [ ] Verified
+- [x] Verified at `88d9ab4`
 - [x] CI green at `88d9ab4`
 
 ## Internal references
