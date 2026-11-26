@@ -74,10 +74,10 @@ The re-filmed keyboard navigation clip walks with the arrows into an admonition,
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
 ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change
-([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
-[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
+([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
+[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
 
-![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
+![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
 ## Blast radius
 
