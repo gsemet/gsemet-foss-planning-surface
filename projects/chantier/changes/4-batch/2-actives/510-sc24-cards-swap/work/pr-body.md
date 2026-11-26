@@ -127,7 +127,7 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 - [ ] Evidence: before at `ea11a9e`, after at `b85be4c`
 - [x] Review: approved at `b85be4c` (carried from `7d2c4dc`)
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `b85be4c`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
 
 ## Internal references
 
