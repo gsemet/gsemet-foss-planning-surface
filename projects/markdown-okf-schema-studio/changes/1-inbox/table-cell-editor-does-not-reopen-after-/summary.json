@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Table cell editor reopens after a pasted table fill, or why not",
+  "summary": "Grilled; being specified for batch-09. Reproduce with real input, then fix or record as an artefact of the driving tool.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "8f60bc1d83e285c8510e03de4c565fdaddc3749648aa445ea65195a3ed3e0003",
+    "02-answers.md": "45cdeadeaff5a9d19c8c302505e23f4833654c945e507662794918b87069b84f",
+    "intake/request.md": "995a568693bff505b6c20ffff6efa05bb7592b5f08617967616a369fb9cfdf51"
+  },
+  "summarized": "2026-11-26T07:58:27Z"
+}
