@@ -142,8 +142,9 @@ frame lookup; it needs one heavy run to confirm.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
   runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
   CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure
-  message are what make a next failure explain itself. No heavy run of this change timed out on
-  that wait, so the longer message has been exercised by a unit test only.
+  message are what make a next failure explain itself. That longer timeout message has not been
+  seen in a real run: no heavy run of this change timed out while waiting for the Studio frame, and
+  only the frame list it appends has a unit test.
 - Other test steps still scan every frame without the URL filter (block actions, edit toolbar,
   find in preview, table empty column, tall block scroll, preview editing helpers, render patching,
   reload and scroll-sync suites, window focus), so a frame without a document could still stall one
@@ -164,8 +165,8 @@ frame lookup; it needs one heavy run to confirm.
       5307 passed, 8 skipped, none failed); the other stages are left to CI
 - [x] Heavy CI at `b24d3bf`: two runs on the same head, 45734265223 (every job green) and
       45734267839, `integration` and `stress` green in both and each trusted part under 600 s; run
-      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit
-      (see Known gaps)
+      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit,
+      so its report and checks jobs failed too (see Known gaps)
 - [x] Review: approved at `b24d3bf`
 - [ ] Verified
 - [x] CI green at `b24d3bf`: static, static on Windows, visual, viewer-graph, report and checks of
