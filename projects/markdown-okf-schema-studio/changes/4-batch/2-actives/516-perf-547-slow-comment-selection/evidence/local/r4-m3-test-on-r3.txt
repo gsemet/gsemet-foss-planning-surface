@@ -1,0 +1,38 @@
+CR-516 round 4, M3: the new test against the page module without the two new lines of open() (round 3 behaviour: the shortcut does not answer an unanswered selection change).
+Command: node --test out/test/page/modules/commentCompose.test.js
+
+ℹ tests 20
+ℹ pass 19
+ℹ fail 1
+✖ failing tests:
+
+test at out\test\page\modules\commentCompose.test.js:448:22
+✖ the shortcut pressed before the frame answers the selection as it is then, collapsed or changed (17.9829ms)
+  AssertionError [ERR_ASSERTION]: collapsed: no box on the earlier selection
+  + actual - expected
+  
+  + <ref *7> FakeElement {
+  +   attrs: Map(3) {
+  +     'aria-label' => 'New comment',
+  +     'data-okf-comment-compose' => 'true',
+  +     'role' => 'dialog'
+  +   },
+  +   childNodes: [
+  +     <ref *8> FakeElement {
+  +       attrs: Map(1) {
+  +         'data-okf-comment-quote' => 'true'
+  +       },
+  +       childNodes: [
+  +         FakeText {
+  +           nodeValue: 'some',
+  +           parentNode: [Circular *8]
+  +         }
+  +       ],
+  +       listeners: Map(0) {},
+  +       ownerDocument: <ref *2> FakeDocument {
+  +         attrs: Map(0) {},
+
+Same command after the fix (compiled from the worktree):
+ℹ tests 20
+ℹ pass 20
+ℹ fail 0
