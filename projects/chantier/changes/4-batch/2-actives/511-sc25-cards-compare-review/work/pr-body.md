@@ -126,8 +126,7 @@ restart topic).
   `evals/quiz/` (the session roles add `--model`). So no result shows the new cards answer as well
   as the old ones.
 - Real run not done (a later, separate campaign).
-- `just check` at the pushed head is not yet proven; it is run before the first push.
-- `just eval-dry-run` at the pushed head is not yet proven; it is run before the first push.
+- No separate verification run has judged the claims yet.
 - The pipeline's scenario job on ubuntu is not yet proven; it runs once the change is pushed.
 - The long gate `scenario` on Windows is not yet proven; it is run at the final head.
 - The seconds the new test adds to `just test` were not measured as two runs before and after; the
@@ -160,11 +159,15 @@ Agents read slightly longer cards. No visual change.
 
 ## Test plan
 
-- [ ] **UNVERIFIED:** `just check` at the pushed head
-- [ ] **UNVERIFIED:** `just eval-dry-run` at the pushed head
-- [ ] **UNVERIFIED:** the pipeline's scenario job on ubuntu
-- [ ] **UNVERIFIED:** the long gate `scenario` on Windows
-- [ ] Review
+- [x] New tests: `test_cards_inventory.py` and the dry-run case `quiz-row-id`, passing at `5d2626d`
+  (the file they read does not exist on the previous code)
+- [x] Local gates at `5d2626d`: `just check` passes (2789 passed, 19 skipped); `just eval-dry-run`
+  passes (26 of 26 cases)
+- [x] Evidence: no visual change, so no before and after images
+- [x] Review: approved at `5d2626d` (carried from `7263861`)
+- [ ] Verified at the head: **UNVERIFIED:** until the verification run
+- [ ] CI green: **UNVERIFIED:** until the pipeline runs, its scenario job on ubuntu included
+- [ ] Long gate `scenario` on Windows: **UNVERIFIED:** until it runs at the final head
 
 ## Internal references
 
