@@ -1,0 +1,6 @@
+[
+ ["topics/lease-steering.md", "record `agents set <cr> - --epoch <n>` before the CR's next `take`.", "record `agents set <cr>|O-k|stack - --epoch <n>` before the unit's next `take`."],
+ ["topics/refused-push-steering.md", "only if the host refuses the Chief of Staff too is the user asked, once, and it runs on the user's yes.", "only if it refuses the Chief of Staff too is the user asked, once, and it runs on their yes."],
+ ["topics/refused-push-steering.md", "No session reads the forge's branch protection.", "No session reads the forge's branch protection (no `gh api` or `glab api` rule)."],
+ ["topics/refused-push-steering.md", "Next: `help refused-push-judgement`, then `help refused-push-route`.", "Next: `help refused-push-judgement`, `help refused-push-route`."]
+]

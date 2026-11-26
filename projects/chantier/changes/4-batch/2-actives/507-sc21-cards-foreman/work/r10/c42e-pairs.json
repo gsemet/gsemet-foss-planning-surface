@@ -1,0 +1,4 @@
+[
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:139 | `grep -c -F 'Triggers, and who acts' concepts.md` |\n| H-375 |", "| card concepts.md:139 | `grep -c -F 'only four triggers, and who acts' concepts.md` |\n| H-375 |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:139 | `grep -c -F 'Triggers, and who acts' concepts.md` |\n| H-379 |", "| card concepts.md:139 | `grep -c -F 'only four triggers, and who acts' concepts.md` |\n| H-379 |"]
+]

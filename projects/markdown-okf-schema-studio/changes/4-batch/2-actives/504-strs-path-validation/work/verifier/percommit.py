@@ -31,7 +31,7 @@ for c in commits:
     remove(d)
     os.makedirs(d)
     subprocess.run(['git', 'init', '-q', d], check=True)
-    data = git('archive', c, 'requirements', 'src', 'sphinx', 'skills', 'scripts', 'test', binary=True)
+    data = git('archive', c, 'requirements', 'src', 'sphinx', 'skills', 'scripts', 'test', 'package.json', 'esbuild.mjs', binary=True)
     with tarfile.open(fileobj=io.BytesIO(data)) as t:
         t.extractall(d)
     shutil.copytree(W + '/node_modules/yaml', d + '/node_modules/yaml')
@@ -42,7 +42,8 @@ for c in commits:
     print('==', c, 'check exit', r.returncode, 'failing lines', len(fails), dict(rules))
     if not fails:
         print('   last output:', out.strip().splitlines()[-1][:200] if out.strip() else '(none)')
-    sets[c] = {(f[0], f[1], f[4]) for f in fails}
+    sets[c] = collections.Counter((f[0].replace(chr(92), '/').split('/vg/c/')[-1], f[4]) for f in fails)
+    print('   files', len({k[0] for k in sets[c]}), 'requirements', sorted({k[1][-10:] for k in sets[c]}))
     for path, line, rule, marker, req in fails:
         rel = path.replace('\\', '/')
         if rel.startswith(d + '/'):
