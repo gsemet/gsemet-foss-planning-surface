@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "title": "The site shows the performance KPI scores of the latest heavy run",
-  "summary": "Specified for batch-09 above perf-kpi-real-window-tests: a Performance page (median ms, maximum, ratio, met per KPI, latest heavy run only) built from kpi.json, a header link after Gallery, a new CORE SwRS and CORE-086 updated. 1 open question.",
+  "summary": "Specified for batch-09 above perf-kpi-real-window-tests: perf report into studio-reports (report, ci-report), Pages reuse needs perf (pages, select_e2e_run.py), a Performance page (median ms, maximum, ratio, met) with a header link, a new CORE SwRS, CORE-076 and CORE-086. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "92e9c40157440546d4242b04aed9d25448bb9c59cb5a005fa70ed78e70386729",
     "02-answers.md": "8cf367f589f5514f24be06924b795d7b428319e4e10e6fc7f346a988f9e4200a",
-    "03-change-spec.md": "cd57b27cdbd1209f06528a87331ee8361fa7629b91103b0a565e805bc5f44f56",
+    "03-change-spec.md": "3051a6515e04b4bb7b753aaecb50ba25a57acbb3d0e1af22ba467b1029cb9d04",
     "intake/from-split-spec.md": "200a1c09357193dd27cb335d5ece4969190304c9153837ef087f543e9d3ddcd9",
     "intake/request.md": "7b012f4b94e2e42b5da4971fc392ed036488dad33ea152ef7e28a1ab17a8d641"
   },
-  "summarized": "2026-11-26T19:45:25Z"
+  "summarized": "2026-11-26T19:50:00Z"
 }
