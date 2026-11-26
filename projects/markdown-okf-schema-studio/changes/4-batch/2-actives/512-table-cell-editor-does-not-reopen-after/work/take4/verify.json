@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "checks": {
+    "editMode": "on",
+    "paste": true
+  },
+  "outcome": {
+    "text": "# Release 2.4 checklist\n\n| Task | Owner | Due |\n| --- | --- | --- |\n| Freeze the branch | Ana | Mon |\n| Run the migrations | Ben | Tue |\n| Restart the workers | Chen | Wed |\n| Announce the release | Dev | Thu |\n"
+  },
+  "notes": {
+    "readingMode": "on",
+    "selectedRows": 5,
+    "pasteWidgets": 0,
+    "tableShape": {
+      "headers": [
+        "Task",
+        "Owner",
+        "Due"
+      ],
+      "rows": [
+        [
+          "Freeze the branch",
+          "Ana",
+          "Mon"
+        ],
+        [
+          "Run the migrations",
+          "Ben",
+          "Tue"
+        ],
+        [
+          "Restart the workers",
+          "Chen",
+          "Wed"
+        ],
+        [
+          "Announce the release",
+          "Dev",
+          "Thu"
+        ]
+      ]
+    },
+    "cellEditorOpenAfterPaste": true,
+    "cr512Trace": [
+      {
+        "at": 0,
+        "event": "page",
+        "detail": "request 1 version 1"
+      },
+      {
+        "at": 51,
+        "event": "page focus",
+        "detail": "active=body pageFocus=true"
+      },
+      {
+        "at": 4688,
+        "event": "page blur",
+        "detail": "active=body pageFocus=false"
+      },
+      {
+        "at": 4741,
+        "event": "page focus",
+        "detail": "active=body pageFocus=true"
+      },
+      {
+        "at": 6993,
+        "event": "page blur",
+        "detail": "active=body pageFocus=false"
+      },
+      {
+        "at": 11193,
+        "event": "mousedown",
+        "detail": "svg prevented=false active=body pageFocus=false"
+      },
+      {
+        "at": 11193,
+        "event": "page focus",
+        "detail": "active=body pageFocus=true"
+      },
+      {
+        "at": 13291,
+        "event": "page blur",
+        "detail": "active=body pageFocus=false"
+      },
+      {
+        "at": 17542,
+        "event": "mousedown",
+        "detail": "th prevented=false active=body pageFocus=false"
+      },
+      {
+        "at": 17542,
+        "event": "page focus",
+        "detail": "active=body pageFocus=true"
+      },
+      {
+        "at": 17612,
+        "event": "cell editor opened",
+        "detail": "line=3 row=0 column=0 active=table pageFocus=true"
+      },
+      {
+        "at": 17638,
+        "event": "cell editor focused",
+        "detail": "line=3 row=0 column=0 active=textarea pageFocus=true"
+      },
+      {
+        "at": 17876,
+        "event": "content patch",
+        "detail": "request 1 -> 2"
+      },
+      {
+        "at": 17877,
+        "event": "cell editor closed",
+        "detail": "line=3 active=textarea pageFocus=true"
+      },
+      {
+        "at": 17884,
+        "event": "cell editor opened",
+        "detail": "line=3 row=0 column=0 active=body pageFocus=true",
+        "stack": "m < dispatch"
+      },
+      {
+        "at": 17894,
+        "event": "cell editor focused",
+        "detail": "line=3 row=0 column=0 active=textarea pageFocus=true"
+      }
+    ],
+    "cellEditorOpen": false
+  }
+}
