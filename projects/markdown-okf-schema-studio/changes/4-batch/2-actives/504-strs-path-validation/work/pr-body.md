@@ -387,7 +387,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [x] Changelog: no user-facing change
 - [ ] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows) at the head
 - [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser before the restack on the changes below (screenshots not posted)
-- [ ] Review: approval of the head
+- [x] Review: approved at `2c0a01a`
 - [ ] Verified at the head
 - [ ] CI green: all checks that run on a pull request pass at the head
 
