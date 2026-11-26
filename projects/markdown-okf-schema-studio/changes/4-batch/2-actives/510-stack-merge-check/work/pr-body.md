@@ -32,7 +32,7 @@ flowchart TD
 
 ## Impacts
 
-No visual change: a CI build script, its tests and one guideline sentence. A contributor with a stacked pull request no longer gets a red `static` job from the forge's own test merges.
+No visual change: a CI build script, its tests and one guideline sentence. A contributor whose stacked pull request contains this fix no longer gets a red `static` job from the forge's own test merges.
 
 ## Blast radius
 
@@ -52,6 +52,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 - The subject is checked for its form only, not that its two identifiers equal the merge's parents.
 - A merge of three or more parents at the checked-out commit is no longer ignored (the forge's test merge has two). No test builds such a merge.
 - A stack whose lower branch moved without the branches above being rebased on it is not nested: the check still fails there, until the stack is rebased.
+- Pull requests below this one in the stack, above the bottom, do not contain the fixed script: a new CI run of theirs stays red until the fix reaches the default branch.
 - **UNVERIFIED:** the check passing on a real chain in CI, on this pull request above the bottom of its stack. The tests build the chain locally; the live run is still to come.
 
 ## Test plan
@@ -60,7 +61,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 - [x] Requirements: no behaviour change of the extension (build tooling, no requirement covers it)
 - [x] Changelog: no user-facing change (a `ci` change adds no line)
 - [ ] Local gates: `just ci-static`, `just preflight`
-- [ ] Review
+- [x] Review: approved at `7d35be3`
 - [ ] CI green
 
 ## Internal references
