@@ -101,9 +101,9 @@ description NOT VERIFIED.
 | The head verified is the pushed head, clean (b85be4c) | `git rev-parse HEAD` -> HEAD; `git status --porcelain` -> empty; `<v1>/pr_check.py` -> `head HEAD base BASE draft True OPEN` | VERIFIED |
 | One commit on BASE, which is origin/main (b85be4c) | `git log --oneline BASE..HEAD` -> one line; `git rev-parse origin/main` -> BASE; `git diff --shortstat BASE HEAD` -> `515 files changed, 4550 insertions(+), 16579 deletions(-)` | VERIFIED |
 | The move 7d2c4dc on 88d9ab40 -> b85be4c on ea11a9e is a clean rebase (b85be4c) | `git rev-parse 88d9ab40^{tree} BASE^{tree} 7d2c4dc^{tree} HEAD^{tree}` -> `b6c77cd5...` twice, `f48002c3...` twice; `git show <c> \| git patch-id --stable` -> `38539a12654f92c6b714fa9c37d9d066770101c8` for both; `git diff --stat 7d2c4dc HEAD` -> empty | VERIFIED |
-| `just check` passes (b85be4c) | the pre-push log `<CR>/work/scratch/pre-push-*.log`, copied reading `<v1>/just-check.log`: `All checks passed!`, `2748 passed, 19 skipped in 183.78s`; log note 08:10:26Z "just check: pass" | VERIFIED |
-| `just eval-dry-run` passes (b85be4c) | `<v1>/dry-run.log` line 28: `dry run: 25 of 25 cases as expected` | VERIFIED |
-| `just mod` passes (b85be4c) | `<v1>/mod.log`: `Validation passed with warnings`, `119 pass`, `0 fail`, `(pass) the reload message names the floor and no removed file`; base `<v1>/mod-base.log`: 118 pass, the same 14 TypeScript warnings | VERIFIED |
+| `just check` passes (b85be4c) | run in `<wt>`: `just check` -> exit 0; `<v1>/just-check.log`: `All checks passed!`, `Success: no issues found in 533 source files`, `2748 passed, 19 skipped in 183.78s`, release notes `ok` | VERIFIED |
+| `just eval-dry-run` passes (b85be4c) | run in `<wt>`: `just eval-dry-run` -> exit 0; `<v1>/dry-run.log` line 28: `dry run: 25 of 25 cases as expected` | VERIFIED |
+| `just mod` passes (b85be4c) | run in `<wt>`: `just mod` -> exit 0; `<v1>/mod.log`: `Validation passed with warnings`, `119 pass`, `0 fail`, `(pass) the reload message names the floor and no removed file`. At BASE, `uv run --no-project python scripts/mod.py` in a detached base worktree -> exit 0, `<v1>/mod-base.log`: 118 pass, the same 14 TypeScript warnings | VERIFIED |
 | Long gate: CI `just scenario (ubuntu-latest)` green at the head (b85be4c) | `gh pr view 488 --json statusCheckRollup` (`<v1>/pr-check.log`): `just check` ubuntu, macos, windows, `just scenario (ubuntu-latest)`, `just eval-dry-run (ubuntu-latest)`: all `SUCCESS` | VERIFIED |
 
 No local `gate` log exists and none is owed: this CR is not the top of its stack. `gate` was not run.
@@ -141,11 +141,11 @@ No quiz was run but the free `--plan` form.
 | `roles.yaml` cards and replies | `git diff -U0 BASE HEAD -- skills/chantier/roles.yaml`: 4 Driver cards, chief-of-staff and griller cards, 14 `reply:` lines; `git diff --stat BASE HEAD -- agents com.github.copilot/agents` -> 30 files, 44+, 58-; `Read the brief your prompt` once in 14 + 14 wrappers; `git grep -i 'startup core'` in them exit 1; board Griller wrappers keep `## Started from the board` | VERIFIED |
 | CLI lines of section 3 | `git grep` at HEAD: `commands/opening.py:269` "its first step is `brief foreman ...`"; `commands/seat.py:58` `next: $CHANTIER brief foreman`; `stack_shape.py:58` "shape: stack: read `$CHANTIER help stack`"; `commands/preflight.py:220` names `hosts/claude-code.md`; `status/ready_line.py:135` "run your brief again"; `topics.json:136` `refused-push`; `foreman-refused` exit 1; `startup-core\|startup-manifest\|cards-next/` in `SRC` and `hooks/register.tsx` exit 1 | VERIFIED |
 | `take`, `take stack`, `order qa`, `round`, `handoff` print `brief` | before and after captures, `<CR>/work/verifier/evidence/before-after.md` | VERIFIED |
-| SKILL.md texts | `git diff --numstat BASE:cards-next/skills/<s>-SKILL.md HEAD:skills/<s>/SKILL.md` -> 2/12 (three), 1/11 (status): today's `$CHANTIER` paragraph kept | VERIFIED |
+| SKILL.md texts | `git diff --numstat BASE:skills/chantier/cards-next/skills/<s>-SKILL.md HEAD:skills/<s>/SKILL.md` -> 2/12 (three), 1/11 (status): today's `$CHANTIER` paragraph kept | VERIFIED |
 | Hook reload message | `git diff -U0 BASE HEAD -- hooks/register.tsx`: only `reloadLine`; the new text names `brief`, `--epoch <n>` and "the floor, in that brief, holds" | VERIFIED |
 | Tests converted or deleted | `<v1>/removed_tests.py` (each removed test and its file); `<v1>/homes.py`: 271 pin lines, `comment homes missing from test_card_homes: 0`; `test_driver_prompt.py:24,36` checks the card cells; no test reads the planning folder: `git grep -n -E "planning-surface\|4-batch\|cards-inventory\|gsemet-foss" HEAD -- TESTS/test_card_homes.py TESTS/test_card_names.py TESTS/test_brief_bytes.py` -> exit 1 | VERIFIED |
 | Eval kit, dry run, scenario, CONTRIBUTING | `evals/kit/audit.py:570,573`; dry run 25 of 25; `scenario/README.md:158`; CI scenario green; `CONTRIBUTING.md:106` | VERIFIED |
-| Incident stories of home `incidents file` in `docs/incidents.md` | 11 dated entries cover the 19 rows of that home; the phrase `incidents file` is in only one card inventory (host and shared), no other | VERIFIED |
+| Incident stories of home `incidents file` in `docs/incidents.md` | the one card inventory holding that home (host and shared; `incidents file` occurs in no other) counts 19 rows; `docs/incidents.md` has 11 dated entries that tell them or link their story in `docs/proofs/claude-code.md` | VERIFIED |
 | D9: launcher not switched | O-159; Known gaps line "Launcher not switched" | VERIFIED |
 | No version bump | `git diff --stat BASE HEAD -- pyproject.toml plugin.json .claude-plugin .github/plugin` -> empty | VERIFIED |
 
@@ -162,10 +162,10 @@ No quiz was run but the free `--plan` form.
 
 | Claim | Command and output | Verdict |
 | --- | --- | --- |
-| The posted body is `<CR>/work/pr-body.md`; it renders | `<v1>/pr_check.py` -> `posted == pr-body.md: True`; rendered HTML: the ten `h2` in order, 3 tables, 1 `details` opened and closed, 1 mermaid fence, 0 images | VERIFIED |
+| The posted body is `<CR>/work/pr-body.md`; it renders | `<v1>/pr_check.py` -> `posted == pr-body.md: True`; rendered HTML: the ten `h2` in order, 3 tables, 1 `details` opened and closed, one mermaid block (2 fence lines), 0 images | VERIFIED |
 | No username or home folder published | same script: 13 files read (body, `evidence/`, `work/verifier/`) `with a hit: []`; body and the pin-list comment: no hit | VERIFIED |
 | No internal reference outside "Internal references" | search of `CR-n`, `O-n`, `Dn`, `batch-n`, `child n`, `scNN` in the body: only lines 134 to 161 | VERIFIED |
-| Summary, Deliverables, Changes match the diff | the rows of the sections above; card text beyond the move: `git diff --numstat BASE:cards-next/<f> HEAD:REFS/<f>` gives exactly the 6 files named, and `git diff -U0` of `sync-checkout.md`, `foreman-start-p2.md` and the two allow-rule topics says what the body says (the two sync steps that left are in `topics/sync-offer-p1.md`, `-p2.md`) | VERIFIED but F4 |
+| Summary, Deliverables, Changes match the diff | the rows of the sections above; card text beyond the move: `git diff --numstat BASE:skills/chantier/cards-next/<f> HEAD:REFS/<f>` gives exactly the 6 files named, and `git diff -U0` of `sync-checkout.md`, `foreman-start-p2.md` and the two allow-rule topics says what the body says (the two sync steps that left are in `topics/sync-offer-p1.md`, `-p2.md`) | VERIFIED but F4 |
 | Brief sizes in "Deliverables" | `<v1>/bytes.log` at HEAD for the new figures; old figures `evidence/e7-bytes.md` (base tree) | VERIFIED |
 | Autonomous decisions | `<v1>/claims-run.log`: `facts split`, `griller board`, `griller brief`, `refusals`, `roles reply`, `runbooks`, `read key test`, `generic *`; `02-answers.md` 2 and 3 for the two defaults; `before-after.md` for `take`'s lines and `Team:` / `Note:` | VERIFIED |
 | "The quiz builds a new-card boot with the batch variable removed ... because an inherited batch variable made the boot fail" | `git grep -n CHANTIER_BATCH HEAD -- evals/kit/quiz.py` -> line 394 drops it and sets the host to claude. `<v1>/brief_env.py` on a scratch project: `brief coder` without the variable exit 0; with `CHANTIER_BATCH=batch-99` exit 2, `error: unknown batch batch-99` (`<v1>/env-run.log`). Shows the cause for a batch the project does not hold | VERIFIED |
@@ -191,4 +191,6 @@ No quiz was run but the free `--plan` form.
 - `evidence/e3` to `e10` were made on the uncommitted tree (base 88d9ab40), the content later
   committed; the facts above were judged again at HEAD where a row says so.
 - The brief-sizes sentence of "Deliverables" names no SHA.
+- `docs/proofs/claude-code.md:885` holds a local home path; it is so at BASE too and this change
+  does not touch `docs/proofs/` (`git diff --stat BASE HEAD -- docs/proofs` -> empty): a follow-up.
 - The `just test` time is far above the `AGENTS.md` budget already at the base (157.8 s).
