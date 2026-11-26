@@ -1,400 +1,326 @@
 # CR-509 verification
 
-Head: b24d3bf08f01ae0e72fe7d251b25833df558608c
+Head: 89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4
 
-Verdict: **VERIFIED**. The code and the CI proof do what the specification says, and the posted
-PR description, as now posted, passes (D1 to D11; D11 is the last pass, on the edit that ticked
-the "Verified" box). D7 rests on the target list output recorded at this
-head by the earlier pass: running it again was refused (see D7).
+Verdict: **NOT VERIFIED**, on the posted PR description only. The change and its proofs hold at
+`89cae5f` (M0 to E6). The description is still the text written for `b24d3bf`: besides the table
+rows and the Test plan that name old commits (not counted here as failures on their own), four
+sentences of **Known gaps** and **Autonomous decisions** are false at `89cae5f` (D6, D8). The
+facts the new text must hold are in "Facts at 89cae5f for the new description".
 
 Notation: `W` = the CR worktree (every command runs there unless said), `S` = `work/scratch`,
-`R` = `--repo gsemet/markdown-okf-schema-studio`, `B` = base
-`5a73b6ebcf66ef80b412afcdbfd09c4defc028d8`. "SHA" is the commit a claim was judged at; `b24d3bf` is
-the head. `git status --short` printed nothing after the checks. Before and after:
-`work/verifier/evidence/before-after.md`.
+`G` = `work/gates`, `R` = `--repo gsemet/markdown-okf-schema-studio`, `B` = new base
+`3478f0992688c7a354d11106145793fc83590506` (origin/main and the merge base), `Bo` = old base
+`5a73b6ebcf66ef80b412afcdbfd09c4defc028d8`. "SHA" is the commit a claim was judged at. The
+previous judgment is the one at `b24d3bf` (this file's former text). `git status --porcelain`
+printed nothing after the checks.
 
-Long gate: none is configured (`ls W/chantier.yaml`: no such file, so no
-`long_gate.commands`). The `ship` events say `no long gate passed at b24d3bf`; there is no gate log
-to cite. `work/gates/r3-check.log` is not a chantier gate log. The local checks were run directly.
+Long gate: none is configured (no `chantier.yaml` in `W` or the planning project). The local gate
+is cited by `G/preflight-89cae5f.log` (copy of the `just preflight` log given in the brief; first
+line: `CR-509 chantier/batch-09/cr-509-reliable-heavy-ci-split-the-trusted-laun 89cae5f...`) and
+by my own run `G/verify-ci-static-89cae5f.log`.
+
+## The move
+
+### M0 b24d3bf (on Bo) to 89cae5f (on B) (89cae5f)
+
+`git range-diff Bo..b24d3bf B..89cae5f`: commit 2 `=`, commit 3 `=`, commit 1 `!`; its only
+difference is one context line in `test/integration/trusted-suite.ts`
+(`// @tests_req SwRS-MDOKFSTUDIO-TRUST-012` became `...TRUST-012#S1`). `git patch-id --stable` of
+the whole diff differs (`c6347e87` / `ccc6e005`), so nothing carries by patch identity.
+`git merge-base origin/main 89cae5f` and `git rev-parse origin/main` both print `B`.
+
+What the base brought that the proofs exercise: `git diff --name-only Bo B` lists 87 files under
+`test/integration`, `CONTRIBUTING.md`, `justfile`, requirements, marker scripts and `test/build`;
+nothing under `src`, `test/shared`, `.github`, `package.json` or the lock file.
+`git diff -U0 Bo B -- test/integration test/shared` without `previewEditing.test.ts` and
+`previewEditingSchemaSteps.ts`, comment lines removed, leaves no changed code line.
+`previewEditing.test.ts` moved its schema steps to `previewEditingSchemaSteps.ts` and joined its
+imports.
 
 ## Local checks
 
-### L1 `just preflight` static stage passes at the head (b24d3bf) - VERIFIED
+### L1 the local static stage passes (89cae5f) - VERIFIED
 
-Every part of `ci-static` (justfile) run directly, all exit 0:
-`just check-no-merge-commits`, `compile`, `check-min-vscode`, `check-boundaries`, `check-limits`,
-`check-exports`, `check-markers`, `check-settings`, `clip-kit-test`, `contracts`, `security`
-(107 pass), `release-notes-check`, `release-tests` (`205 passed`), `requirements-lint`, `audit`
-(`found 0 vulnerabilities`), `sphinx-check` (`4 passed`), `just --unstable --fmt --check`.
-`npm run test:unit`: `tests 5315, pass 5308, fail 0, skipped 7`.
-`just requirements-report` hit my own 120 s limit in its last line; that line alone,
-`okfreq status requirements`, then exit 0 with `"errors": 0` (the report had been generated).
-`contracts` runs 0 tests, here and in the preflight log (no `*.contract.ts` file is tracked).
+`just ci-static > G/verify-ci-static-89cae5f.log`: `check-no-merge-commits: passed (3 commits)`,
+boundaries, limits (`0 on the size baseline`), exports, markers (`459 in-force SwRS marked`),
+settings passed; clip kit `pass 56, fail 0`; unit `tests 5335, pass 5328, fail 0, skipped 7`;
+contracts `tests 0`; security `pass 107`; `213 passed`; `1228 requirements, 0 errors, 26
+warnings`; `0 indexes would change`; `0 files would change`; `found 0 vulnerabilities`; `4
+passed`; `ci-static: passed`.
+`G/preflight-89cae5f.log`: L5620-5625 unit `tests 5335, pass 5327, fail 0, skipped 8`; L5784
+`1228 requirements, 0 errors, 26 warnings`; L5838 `0 indexes would change`; L5841 `0 files would
+change`; L5879 `ci-static: passed`; L5880 `preflight: visual, viewer-graph, integration, report
+and gallery stages skipped on Windows; CI runs them`.
 
-### L2 the 9 new tests pass at the head and fail on the old behaviour (b24d3bf) - VERIFIED
+### L2 the 9 new tests pass at the head and fail on the old behaviour (89cae5f) - VERIFIED
 
 `node --test out/test/build/trustedParts.test.js out/test/build/webviewFrames.test.js`:
 `tests 9, pass 9, fail 0`. Same two files from a throwaway copy `out/verify-red-test` after
-`python -I S/verify-red-standins.py out/verify-red-test` (single launch, no URL filter, no frame
-list, no dump label): `tests 9, pass 0, fail 9`, each an `AssertionError`. Copy removed.
+`python -I S/verify-red-standins.py <that copy>` (single launch, no URL filter, no frame list, no
+dump label): `tests 9, pass 0, fail 9`, assertion errors. Copy removed.
 
-### L3 files stay under 1500 lines (b24d3bf) - VERIFIED
+### L3 files stay under 1500 lines (89cae5f) - VERIFIED
 
-`wc -l`: `trusted-suite.ts` 328, `run-tests.ts` 293, `harness.ts` 827.
+`wc -l`: `trusted-suite.ts` 328, `run-tests.ts` 293, `harness.ts` 827, `previewEditing.test.ts`
+1314; `check-limits` passed (L1).
 
 ## Specification, "What changes"
 
-### S1 two launches with the stated steps and order (b24d3bf) - VERIFIED
+### S1 two launches with the stated steps and order (89cae5f) - VERIFIED
 
-`test/shared/trustedParts.ts`: part 1 = `setup` ... `find-in-preview`, `edit-keys` ...
-`workspace-disposal` (53); part 2 = `setup`, `preview-smoke`, `real-input`, `preview-editing`.
-Test 1 compares them with the 55 names; `python -I` over `git show B:test/integration/trusted-suite.ts`
-gave the same 55 names in the base's full-run order. CI logs agree (E4).
+`git diff Bo B -- test/integration/trusted-suite.ts` changes marker comments only, so the base's
+step list is the one judged before. Unit test 1 (55 names, each part in order) passes (L2). Both
+heavy runs at the head run part 1 = the 55 reference names without `real-input` and
+`preview-editing`, in order, and part 2 = four (E4). The `@tests_req` lines of
+`trusted-suite.ts` are the same four at `B` and at the head (`git grep`).
 
-### S2 each part has its own window, port, heartbeat, launch name, suite label (b24d3bf) - VERIFIED
+### S2 each part has its own window, port, heartbeat, launch name, suite label (89cae5f) - VERIFIED
 
-`git grep` in `run-tests.ts`: L242 `for (const launch of trustedLaunches(process.env)) await
-runScenario(...)`; per call `mkdtempSync` (L100), `freePort()` (L121),
-`heartbeatFileFor(instanceId, trusted?.suite ?? suiteName)` (L119), `name: trusted?.name,
-dumpLabel` (L138), `STUDIO_TRUSTED_PART` (L150). `trusted-suite.ts` L73-74:
-``console.log(`TRUSTED LAUNCH: ${launch.name}`)``, `withSuiteWatchdog(launch.suite, ...)`.
+`git grep` at HEAD, `run-tests.ts`: L242 `for (const launch of trustedLaunches(process.env))
+await runScenario(...)`; L100 `mkdtempSync`, L121 `freePort()`, L119
+`heartbeatFileFor(instanceId, trusted?.suite ?? suiteName)`, L138 `name`, `dumpLabel`, L150
+`STUDIO_TRUSTED_PART`. `trusted-suite.ts` L73-74: `TRUSTED LAUNCH` log,
+`withSuiteWatchdog(launch.suite, ...)`.
 
-### S3 selection variable, scenario runs one launch, order and scope unchanged (b24d3bf) - VERIFIED
+### S3 selection variable, one launch for a scenario, scope kept (89cae5f) - VERIFIED
 
-Tests 2 to 4 (L2) pass: unknown or missing value throws; a scenario gives one launch with no part.
-`git diff B..HEAD -- test/integration/run-tests.ts`: order scroll-sync, untrusted, part 1, part 2,
-standalone, reverse-migration, reload; `--trusted-only` runs both; manifest `scope` code kept.
-Stress logs show one launch (E5).
+Unit tests 2 to 4 pass (L2); L281 of `run-tests.ts` still sets `scope`; the base did not change
+`run-tests.ts` or `test/shared` (M0). Stress logs show one launch (E5).
 
-### S4 frontmatter block after the part that runs preview-editing; text only (b24d3bf) - VERIFIED
+### S4 frontmatter block after the part that runs preview-editing; text only (89cae5f) - VERIFIED
 
-L159 `if (trusted?.runsPreviewEditing)`; the `previewEditing.test.ts` diff changes the two strings
-only. `git diff -U0 B..HEAD -- test/integration`, removed against added `assert` lines: one,
-`assert.equal(vscode.workspace.isTrusted, true);`, on both sides (L223 at B, L323 at head).
-Artifacts: E1b.
+`run-tests.ts` L159 `if (trusted?.runsPreviewEditing)`. `git diff -U0 B HEAD --
+test/integration/previewEditing.test.ts`: the two strings (L987, L1312) only.
+`git diff -U0 B HEAD -- test/integration | grep` of changed `assert` lines: one removed and one
+added, both `assert.equal(vscode.workspace.isTrusted, true);`. Artifacts: E1b.
 
-### S5 budget comment replaced; no deadline, budget or time limit changed (b24d3bf) - VERIFIED
+### S5 budget comment replaced; no deadline, budget or time limit changed (89cae5f) - VERIFIED
 
-`git diff B..HEAD -- test/shared/hangWatchdog.ts`: comment lines only, now "part 1 428 s ... part 2
-502.5 s ... `real-input` 462 s and `preview-editing` 39 s" of run 45729384181 (matches E2 output).
-`git diff -U0 B..HEAD` grep of added lines for
-`.skip(|DEADLINE|TIMEOUT_MS|timeout-minutes|_BUDGET|settle(|setTimeout|sleep`: no match;
+`git diff -U0 B HEAD -- test/shared/hangWatchdog.ts`: comment lines only, naming run
+45729384181. Added lines of `git diff -U0 B HEAD` grepped for
+`.skip(|DEADLINE|TIMEOUT_MS|timeout-minutes|_BUDGET|settle(|setTimeout|sleep`: no match (exit 1).
 `git diff --quiet B HEAD -- src requirements CHANGELOG.md .github justfile package.json`: exit 0.
 
-### S6 unit test of the split (b24d3bf) - VERIFIED
+### S6 unit test of the split (89cae5f) - VERIFIED
 
-The checks are in `test/build/trustedParts.test.ts`, not `hangWatchdog.test.ts` as the
-specification names; same content (55 names once, distinct heartbeat and launch names), run by
-`test:unit` (`out/test/build/**`).
+`test/build/trustedParts.test.ts` (not `hangWatchdog.test.ts` as the specification names; same
+content), run by `test:unit` (L1, L2).
 
-### S7 moved steps take no state from real-input or preview-editing (b24d3bf) - VERIFIED
+### S7 moved steps take no state from real-input or preview-editing (89cae5f) - VERIFIED
 
-`grep -ci theme` on `editKeys.test.ts`, `saveKey.test.ts`, `gridCardEditorBlur.test.ts`: 0, 0, 0.
-`previewEditing.test.ts` L1428-1431 ends its `["white","dark"]` loop on dark;
-`findInPreview.test.ts` L371 restores the stored workspace choices (theme `current`). Both proof
-runs pass these steps (E4).
+Search for `theme` in `editKeys.test.ts`, `saveKey.test.ts`, `gridCardEditorBlur.test.ts` and the
+new `previewEditingSchemaSteps.ts`: no match. `previewEditing.test.ts` L1242, its last theme loop
+(`["white", "dark"]`), still ends on dark; `findInPreview.test.ts` L373 calls
+`pinStoredWorkspaceChoices()` (`storedChoices.ts` unchanged by the base). Both heavy runs pass the
+moved steps (E4).
 
-### S8 frames filtered by URL before any other call; 10 s bound; no sleep or retry (b24d3bf) - VERIFIED
+### S8 frames filtered by URL before any other call; 10 s bound; no sleep or retry (89cae5f) - VERIFIED
 
-`harness.ts` diff: `findCurrentFrame` goes through `scanWebviewFrames` (only `url()` on a skipped
-frame, test 7); the failure dump and `openAtLine.test.ts` L119 filter too;
-`FRAME_CALL_TIMEOUT_MS = 10_000` (L166) unchanged; no new sleep or retry (grep of S5).
+`harness.ts` L137 `scanWebviewFrames(page.frames(), ...)`, L232-235 failure dump skips by
+`frameUrlSkipReason`; `openAtLine.test.ts` L119 `webviewFrames(page.frames())`; L166
+`FRAME_CALL_TIMEOUT_MS = 10_000`; no new sleep or retry (S5 grep). Unit tests 6 to 8 (L2).
 
-### S9 a timed-out wait lists the frames (b24d3bf) - VERIFIED (unit test and code, not a real window)
+### S9 a timed-out wait lists the frames (89cae5f, unit test and code, not a real window) - VERIFIED
 
-`waitFor` appends `frameLookups.describeSince(mark)`; `findCurrentFrame` records every scan; test 9
-passes. No run at the head produced such a timeout.
+`harness.ts` L61, L73, L139; unit test 9 passes (L2). No heavy run at the head produced such a
+timeout (E1).
 
-### S10 URL shape checked in a real window (b24d3bf) - VERIFIED
+### S10 URL shape seen in a real window - VERIFIED, carried from b24d3bf
 
-Archived CR-453 `forced-failure.md` L3 and L6 ("real VS Code 1.147.0 window, Windows") shows the
-content frame `vscode-webview://.../fake.html?id=...`. In both proof runs the filtered lookup found
-the Studio frame: no `STEP failed` (E1).
+Reason: the evidence is the archived real-window record of an earlier CR (content frame
+`vscode-webview://.../fake.html`); the move changes neither `harness.ts` nor `webviewFrames.ts`
+nor anything under `src`. At the head the filtered lookup again found the frame in both runs (E1).
 
-### S11 CONTRIBUTING and requirements (b24d3bf) - VERIFIED
+### S11 CONTRIBUTING and requirements (89cae5f) - VERIFIED
 
-`git diff B..HEAD -- CONTRIBUTING.md`: two launches, their steps, `TRUSTED LAUNCH`, dump folder
-`<time>-trusted-part-<n>-<step>/`. No file under `requirements/` changed (S5). `@tests_req`
-markers present in `trusted-suite.ts` at B and head. `just requirements-lint`: `1227 requirements,
-0 errors`, `0 indexes would change`, `0 files would change`.
+`git diff B HEAD -- CONTRIBUTING.md`: the two launches, their steps, `TRUSTED LAUNCH`, the dump
+folder name. No file under `requirements/` differs from `B` (S5); requirements checks pass (L1).
 
 ## CI evidence
 
-### E1 two heavy runs on the head, integration and stress green (b24d3bf) - VERIFIED
+### E1 two heavy runs on the head, every run job green (89cae5f) - VERIFIED
 
-`gh run view <run> R --json headSha,event,attempt,conclusion,jobs`:
+`gh run view <run> R --json headSha,event,attempt,conclusion,createdAt,jobs`:
 
-- 45734265223: `b24d3bf`, workflow_dispatch, attempt 1, success; integration, stress, visual,
-  static, static-windows, viewer-graph, report, checks, gallery success.
-- 45734267839: `b24d3bf`, attempt 1, **cancelled**; integration, stress, static, static-windows,
-  viewer-graph success; visual cancelled (01:13:31 to 01:28:56); report and checks failure.
+- 45794678556: `89cae5ff...`, workflow_dispatch, attempt 1, success, created 09:43:53Z;
+  static, static-windows, viewer-graph, visual, integration, stress, report, checks, gallery
+  success; release-check, toc-loop, tag-release, release, pages skipped.
+- 45795351595: same head, attempt 1, success, created 09:48:12Z (4 min 19 s later); same jobs.
+  Its integration job ran 09:51:18 to 10:07:55, the first run's 09:49:04 to 10:08:07.
 
-`gh api .../check-runs/139623587012/annotations`: `The job has exceeded the maximum execution time
-of 15m0s`. The report log says `FAILED visual: visual manifest is missing`, `ok integration`; so
-report and checks follow from the cancel. The specification asks integration and stress green, so
-the cancel does not break the proof. `gh run list --branch <CR branch>`: no other heavy run at this
-head, no re-run. The two were dispatched together (stated in the description). `just ci-visual` runs `test:visual` and
-`test:breakout`; `git grep` for the changed modules in `test/visual`, `test/site`, `scripts` and
-`package.json`: no match. Main's visual job took 885 s of 900 (run 45713440510, `17b779d`).
+`gh run list R --branch <CR branch>`: no other run at this head than these two and the PR run
+45781010549; five `workflow_dispatch` runs on the branch in all (45729384181, 45734265223,
+45734267839 and these two), all attempt 1.
+`python -I work/verifier/verify_runs_89cae5f.py S` (job logs under `S/artifacts-<run>/`): in the
+four integration and stress logs, 0 lines matching `STEP failed|LAUNCH TIMEOUT|LAUNCH
+HANG|Timed out waiting|Studio frame lookup`.
 
-`python -I S/verify-artifacts.py S`, both runs: integration log, 0 `STEP failed` / `LAUNCH
-TIMEOUT` / `LAUNCH HANG` lines.
+### E1b artifacts of both runs (89cae5f) - VERIFIED
 
-### E1b artifacts of both runs (b24d3bf) - VERIFIED
+`gh run download <run> R --name e2e-integration-attempt-1`, files read: both
+`integration-manifest.json` `status passed`, scope `all`, revision `89cae5ff...`, dirty false;
+both `FRONTMATTER-LATEST.md` `Suite: **passed**`; both frontmatter manifests `suiteResult:
+passed`, result naming `trusted-suite.js part 2/2`; `hang-dumps/` holds `post-step` only.
 
-Same script: `integration-manifest.json` `passed`, scope `all`, revision `b24d3bf...`, dirty false;
-`FRONTMATTER-LATEST.md` `Suite: **passed**`; frontmatter manifest `suiteResult: passed`, result
-naming `part 2/2`; only `hang-dumps/post-step`.
+### E2 each part at most 600 s, step under 1200 s, both runs (89cae5f) - VERIFIED
 
-### E2 each part at most 600 s, step under 1200 s, both runs (b24d3bf) - VERIFIED
+Parts: the script of E1 (`STEP start: setup` to the last `STEP done` of the part). Step:
+`gh api repos/gsemet/markdown-okf-schema-studio/actions/jobs/<job>`, the `just ci-integration`
+step.
 
-`python -I S/verify-parse.py` and `gh api .../actions/runs/<run>/jobs`:
+```text
+45794678556  part 1 09:52:10.143 -> 09:59:13.957 = 423.8 s (53 done)
+             part 2 09:59:18.308 -> 10:07:31.828 = 493.5 s (4 done)
+             real-input 454306 ms, open-at-line-probe 180988 ms, preview-editing 37450 ms
+             step 09:49:30Z -> 10:08:02Z = 1112 s
+45795351595  part 1 09:54:01.177 -> 10:00:28.300 = 387.1 s (53 done)
+             part 2 10:00:31.128 -> 10:07:30.489 = 419.4 s (4 done)
+             real-input 386851 ms, open-at-line-probe 177177 ms, preview-editing 31275 ms
+             step 09:51:40Z -> 10:07:49Z = 969 s
+```
 
-| Run | Commit | Part 1 | Part 2 | real-input | probe | Step |
-| --- | --- | --- | --- | --- | --- | --- |
-| 45734265223 | b24d3bf | 421.6 s | 492.7 s | 452.3 s | 180.9 s | 1111 s |
-| 45734267839 | b24d3bf | 408.9 s | 453.3 s | 418.3 s | 178.7 s | 1056 s |
-| 45729384181 | 5e7b4a3 | 428.0 s | 502.5 s | 462.0 s | 181.7 s | 1128 s |
-| 45476952370 | 63ef752 | one launch 834.4 s | - | 403.9 s | 178.1 s | 1011 s |
-| 45713440510 | 17b779d | one launch 830.5 s | - | 405.4 s | 177.8 s | 1002 s |
+### E3 rows of the older runs in the description's table - VERIFIED, carried from b24d3bf
 
-### E3 table of the description matches the logs (b24d3bf) - VERIFIED
+Reason: they are measurements of past runs (45476952370, 45713440510, 45729384181, 45734265223,
+45734267839), which the move does not change. They are not proofs of the head.
 
-Every cell equals the table above after rounding. The `5e7b4a3` row names its own commit;
-`git diff -U0 5e7b4a35 b24d3bf0` changes comment lines only (3 files).
+### E4 launch names and step list (89cae5f) - VERIFIED
 
-### E4 launch names and step list (b24d3bf) - VERIFIED
+Both runs print `TRUSTED LAUNCH: trusted-suite.js part 1/2` then `part 2/2`. Script output, both
+runs: `part1 53 == reference without real-input/preview-editing, in order: True` (reference: run
+45476952370, 55 names), `part2 ['setup', 'preview-smoke', 'real-input', 'preview-editing']`,
+`union == reference: True; in both: ['preview-smoke', 'setup']`.
 
-Both runs print `TRUSTED LAUNCH: trusted-suite.js part 1/2` and `part 2/2` (the launch name is in
-this line, not in each `STEP` line). Parse script: part 1 (53) equals run 45476952370 without
-`real-input` and `preview-editing`, in order: True; part 2 the four names; union equals the 55:
-True; in both: `preview-smoke`, `setup`.
+### E5 stress is one launch and green (89cae5f) - VERIFIED
 
-### E5 stress is one launch and green (b24d3bf) - VERIFIED
+Both stress logs: one line `TRUSTED LAUNCH: trusted-suite.js`, 3 trusted steps done,
+`real-input` 813652 ms and 794682 ms, 0 failure lines.
 
-`stress.log` of both runs: `['TRUSTED LAUNCH: trusted-suite.js']`, `setup`, `preview-smoke`,
-`real-input` (821984 ms, 884093 ms), `untrusted-suite` done; 0 failure lines.
+### E6 open-at-line passes (89cae5f); the attempt-2 statement (carried from b24d3bf) - VERIFIED
 
-### E6 open-at-line passes; the attempt-2 statement (b24d3bf; run 45706313890 at 1f209e1) - VERIFIED
-
-Proof runs: `open-at-line` done 22162 ms and 21912 ms, probe and studio done. Attempt-2 job log
-L685 `STEP failed: open-at-line (12624 ms): TIMEOUT: locator.count did not return within 10000 ms
-(frame )`; artifact (30 files): integration manifest, campaign file, `hang-dumps/post-step`,
-screenshot indexes and the screenshots of the scroll and untrusted launches; no in-window dump.
-`code: -3` lines in passing runs: 13, 16, 27, 22.
+Runs 45794678556 / 45795351595: `open-at-line` 22488 / 21060 ms, probe 180988 / 177177 ms,
+studio 16973 / 15907 ms, done. The statement on run 45706313890 attempt 2 (the failed line, the
+artifact content, `code: -3` in passing runs) is carried: past run at `1f209e1`, untouched by
+the move.
 
 ## PR description
 
-Judged by the description-only pass at `b24d3bf`, after the description was edited and reposted
-(`updatedAt` 2026-11-26T02:14:07Z). No code moved, so L1 to E6 above are kept as judged at
-`b24d3bf`. The earlier file, with the two failures (D5, D7), is `S/verify-r3.md`.
-`V` = `work/verifier`, `L` = the integration and stress job logs under `S`.
+Posted text: `gh pr view 529 R --json body` equals `work/pr-body.md` (only a trailing newline
+differs in `git diff --no-index --ignore-space-at-eol`); GraphQL `lastEditedAt`
+2026-11-26T02:19:12Z, before the move. Head `89cae5f`, base `B`, open, draft.
 
-### D0 what is judged, and what changed (b24d3bf)
+### D1 renders cleanly (89cae5f) - VERIFIED
 
-`python -I V/verify_body_diff.py S/verify-pr529.json work/pr-body.md S/verify-pr529-r4.json`:
+`gh api .../pulls/529 -H "Accept: application/vnd.github.full+json" --jq ...`: `h2` 9, `h3` 1,
+tables 1, rows 6, `pre` 2, checkboxes 8, `details` 0, literal `**` 0. Mermaid parse carried from
+`b24d3bf`: the text did not change.
 
-```text
-head b24d3bf08f01ae0e72fe7d251b25833df558608c OPEN draft True 2026-11-26T02:14:07Z
-posted == work/pr-body.md: True
-diff previously judged body -> posted body:
-@@ -67,0 +68,2 @@
-+- `test/shared/hangWatchdog.ts`: comments only; the note above the step budgets now records the
-+  durations of the two launches measured on heavy run 45729384181.
-@@ -83,4 +85,4 @@
--window run on Windows). On the CI runner, the browser target lists saved with the two timed-out
--launches of the same run hold only webview service workers, so they confirm the
--`vscode-webview://` scheme and not the content frame's URL. The filter therefore keeps every
--`vscode-webview://` URL.
-+window run on Windows). On the CI runner, in the browser target lists saved with the two timed-out
-+launches of the same run, the only `vscode-webview://` targets are service workers (the other
-+targets are the workbench page and two of its own workers), so they confirm the scheme and not the
-+content frame's URL. The filter therefore keeps every `vscode-webview://` URL.
-@@ -143 +145,3 @@
--  message are what make a next failure explain itself.
-+  message are what make a next failure explain itself. That longer timeout message has not been
-+  seen in a real run: no heavy run of this change timed out while waiting for the Studio frame, and
-+  only the frame list it appends has a unit test.
-@@ -164,2 +168,2 @@
--      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit
--      (see Known gaps)
-+      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit,
-+      so its report and checks jobs failed too (see Known gaps)
-```
+### D2 no image shows a user name or home folder (89cae5f) - VERIFIED
 
-`gh pr view 529 R --json headRefOid,updatedAt,state,isDraft` at the end of the pass: same head,
-same `updatedAt`, OPEN, draft.
+Same command: `img` 0, markdown images 0, user name or home paths 0.
 
-### D1 renders cleanly (b24d3bf) - VERIFIED
+### D3 role names and internal references (89cae5f) - VERIFIED
 
-`gh api repos/gsemet/markdown-okf-schema-studio/pulls/529 -H "Accept: application/vnd.github.full+json" --jq ...`
-(counts over `body_html`): head `b24d3bf...`, base `5a73b6e...`, `h2` 9, `h3` 1, tables 1, rows 6,
-`pre` 2, checkboxes 8, `details` 0, literal `**` 0. Headings: Summary, Deliverables, Changes, What
-the failed frame lookup showed, Impacts, Blast radius, Autonomous decisions, Known gaps, Test
-plan, Internal references. The rendered HTML was read: lists, the new bullet, the table, the
-Mermaid section and the code block are in place. The project template has no fold.
-Mermaid parse with the project's Mermaid (`flowchart-v2`): carried from the earlier pass at
-`b24d3bf`; the D0 diff does not touch the block.
+Same command: `STALE|UNVERIFIED` 0; lines naming a role or `CR-<n>`: only
+`CR-509 heavy-ci-trusted-suite-timeout.` (Internal references).
 
-### D2 no image shows a user name or home folder (b24d3bf) - VERIFIED
+### D4 Summary and Deliverables (89cae5f) - VERIFIED, except the proofs' SHAs
 
-Same command: `img` in `body_html` 0, `![` in the body 0; matches of the user name, `C:\Users`,
-`/home/` or `/Users/` in the body text 0.
+Mermaid, 53 and 4 steps, 55 names, code sketch and frame list: S1, S2, S8, S9, E4. The table's
+after rows name `5e7b4a3` and `b24d3bf`, which are not in the head's history, and no row gives the
+head's runs (E2): to rewrite (brief: not counted as a failure on its own).
 
-### D3 role names and internal references (b24d3bf) - VERIFIED
+### D5 Changes match the diff (89cae5f) - VERIFIED
 
-Same command, body lines matching `verifier|driver|coder|inspector|foreman|cr-<n>|STALE|UNVERIFIED`
-(any case): one, `CR-509 heavy-ci-trusted-suite-timeout.`, under Internal references. Title:
-`ci: split the trusted VS Code launch and filter frame lookups`.
+`git diff --stat B HEAD`: the same 12 files (536+, 158-), each covered by Changes and the Test
+plan; checks S3 to S5. `justfile` and probe users of the scenario variable: carried, the base's
+`justfile` change touches the requirements report targets only (`git diff Bo B -- justfile`).
 
-### D4 Summary and Deliverables (b24d3bf) - VERIFIED
+### D6 Impacts, Blast radius, Autonomous decisions (89cae5f) - NOT VERIFIED
 
-`test/shared/trustedParts.ts`: part 1 = `setup`, `preview-smoke`, 13 names from `project-features`
-to `find-in-preview`, then `edit-keys` to `workspace-disposal` (53); part 2 = 4. This matches the
-Mermaid labels. `test/build/trustedParts.test.ts` test 1 hard-codes 55 names, compares each part in
-order and counts each name once (`setup`, `preview-smoke` twice). The code sketch and "lists every
-frame seen" match `test/shared/webviewFrames.ts` (`scanWebviewFrames` records one line per frame,
-`FrameLookupLog.describeSince` lists the last lookup that found nothing) and the `harness.ts` diff.
-Window isolation: S2. Frame filter: S8, S9. Table: E2, E3. "about 92 %" = 830.5/900, 834.4/900.
-The `5e7b4a3` table row is a measurement labelled with its own commit, beside the two head rows;
-`git diff -U0 5e7b4a35 b24d3bf0` changes comment lines only (E3).
+Hold: Impacts, Blast radius, and the other decisions (S5, S7, S8; `git grep "^\s*concurrency:"
+HEAD -- .github`: `release.yml` only). Contiguous split: `edit-keys` start to
+`workspace-disposal` done is 132.6 s and 111.6 s in the head's runs, so part 2 would be 626 s and
+531 s; with the earlier 637, 624, 579 s, "over 600 s on a slower runner" still holds.
+False at the head:
 
-### D5 Changes match the diff, no delivered change unmentioned (b24d3bf) - VERIFIED
+1. "The two proof runs were started at the same time on one commit rather than one after the
+   other": the head's runs were created 4 min 19 s apart (09:43:53Z, 09:48:12Z) and overlapped
+   (E1).
+2. "The visual job cancelled in one proof run was not run again: the proof of this change rests on
+   the integration and stress jobs, green in both runs": no job was cancelled in the head's proof
+   runs; visual is green in both (E1). It is true only of run 45734267839 at an old commit.
 
-`git diff --stat 5a73b6e..HEAD`: 12 files (CONTRIBUTING.md, 2 new `test/build` tests,
-openAtLine.test.ts, previewEditing.test.ts, harness.ts, run-tests.ts, trusted-suite.ts,
-hangWatchdog.ts, launchWatchdog.ts, trustedParts.ts, webviewFrames.ts). All are covered by Changes
-and Test plan; `previewEditing.test.ts` (two evidence strings) by the "recorded suite result now
-covers part 2 only" sentence. The file the earlier pass found missing is now listed:
+### D7 "What the failed frame lookup showed" - VERIFIED, carried from b24d3bf
 
-- `git diff -U0 5a73b6e HEAD -- test/shared/hangWatchdog.ts | grep -E "^[+-]" | grep -vE "^[+-] \*"`
-  prints only the two file header lines, so every changed line is a comment line. The new note names
-  run 45729384181.
-- `grep "STEP done: (setup|real-input|preview-editing|workspace-disposal)" S/verify-45729384181/integration.log`:
-  part 1 `setup` done 00:38:26.043 (117 ms) to `workspace-disposal` done 00:45:33.957 = 428 s; part
-  2 `setup` done 00:45:38.713 (275 ms) to `preview-editing` done 00:54:00.960 = 502.5 s;
-  `real-input` 461982 ms, `preview-editing` 38638 ms.
-- "no deadline, step budget or `timeout-minutes` value changes": the added lines of the whole diff
-  grepped for `.skip(|DEADLINE|TIMEOUT_MS|timeout-minutes|_BUDGET|settle(|setTimeout|sleep`: no
-  match (exit 1); `git diff --quiet 5a73b6e HEAD -- src requirements CHANGELOG.md .github justfile package.json`: exit 0.
-- "no test assertion changes": `git diff -U0 5a73b6e HEAD -- test/integration | grep -E "^[+-][^+-].*assert"`:
-  one removed and one added line, both `assert.equal(vscode.workspace.isTrusted, true);`.
-- "used by `ci-stress`, `ci-toc-loop` and the probe": `justfile` L402 (`stress`) and L420
-  (`toc-loop`); `test/integration/performanceProbe.ts` L3 (`probe`).
+Reason: it describes run 45706313890 and an earlier window run, which the move does not touch. As
+at `b24d3bf`, the target-list sentence rests on the `verify-cdp.py` output recorded in
+`S/verify-r3.md`; a later re-run of that script was refused then ("Reason: [Undermining
+Oversight]"). It was not run again in this pass, nor were those lists read by other means.
 
-### D6 Impacts, Blast radius, Autonomous decisions (b24d3bf) - VERIFIED
+### D8 Known gaps (89cae5f) - NOT VERIFIED
 
-Carried from the earlier pass at `b24d3bf`; the D0 diff does not touch these sections. Backed by S2
-(one more window), S5 (no limit raised, no skip, no shipped file), S7 (theme), E1 (runs together,
-no re-run). Contiguous split from the E2 logs (tail 134.9, 131.5, 125.3 s added to part 2): 637,
-624, 579 s, over 600 on two of three runs. 300 s against the specification's 76 s spread.
-Concurrency checked again: a search for `concurrency:` finds it in `.github/workflows/release.yml`
-only, none in `ci.yml`.
+False at the head:
 
-### D7 "What the failed frame lookup showed" (b24d3bf) - VERIFIED
+1. "it took 1056 to 1128 s on the three heavy runs of this change, 6 to 12 % under": there are
+   five heavy runs; they took 969 to 1128 s, 6 to 19 % under 1200 s (E1, E2).
+2. "was cancelled at that limit in one of the two proof runs": visual passed in both proof runs of
+   the head (820 s and 825 s); the cancel was in run 45734267839, at an old commit.
 
-Target lists: judged against the command and output of the earlier pass at this same head
-(`S/verify-r3.md`, D7), on the same downloaded artifacts. `python -I S/verify-cdp.py
-S/verify-45706313890`: each of the two `cdp-targets.json` (`...-diff-preview-scroll`,
-`...-side-preview-jump`) holds
+Hold: the visual job is still near its limit (879 s of 900 s in PR run 45781010549,
+`gh api .../runs/45781010549/jobs`; 885 s on main run 45713440510, carried); frame lookup not
+proven fixed; longer timeout message not seen in a real run (E1: no match in the two new runs;
+older runs carried); unfiltered scans (`git grep -n "page.frames()" HEAD -- test`: the ten files
+the bullet lists; `openAtLine`, `harness` and `workbenchFocusDump` filter by URL); no local
+real-window run (L1, preflight L5880).
 
-- 1 `page` `vscode-file://vscode-app/...`
-- 2 `service_worker` `vscode-webview://...`
-- 2 `worker` `blob:vscode-file://...`
+### D9 Test plan (89cae5f) - stale, to rewrite
 
-The posted sentence says exactly this: the only `vscode-webview://` targets are service workers;
-the others are the VS Code app page (the workbench) and two workers of its origin.
+Every proof names `b24d3bf`. Each claim has a proof at the head (see below); "run 45734267839 is
+not green as a whole" and "unit tests 5307 passed" do not describe the head. "Changelog: no
+user-facing change" holds (S5). Not counted as a failure on its own (brief).
 
-This pass tried to run that command again and was refused; it was not retried, and the lists were
-not read by another means. Exact text: "Permission for this action was denied by the Claude Code
-auto mode classifier. Reason: [Undermining Oversight]."
+### D10 Review box (89cae5f)
 
-The rest of the section is unchanged (D0): E6, S10.
+`$CHANTIER log CR-509`: `2026-11-26T09:45:37Z driver note note=move b24d3bf..89cae5f (restack)
+inspector approved at 89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`. So `Review: approved at
+89cae5f` is proven; the posted box still says `b24d3bf`.
 
-### D8 Known gaps (b24d3bf) - VERIFIED
+## Facts at 89cae5f for the new description
 
-- New sentences: `gh run list --branch <CR branch>` shows three heavy (`workflow_dispatch`) runs,
-  45729384181, 45734265223, 45734267839, plus two `pull_request` runs. A search of the integration
-  and stress logs of all three for `TRUSTED LAUNCH|Timed out waiting|Studio frame lookup|STEP failed|LAUNCH TIMEOUT|LAUNCH HANG`
-  matches only the `TRUSTED LAUNCH` lines (two per integration log, one per stress log). The stress
-  log of 45729384181 was downloaded in this pass (`gh run view 45729384181 --job 139607303225 --log`,
-  to `S/verify-r4-45729384181-stress/`). `gh api .../actions/runs/<run>/jobs`: integration and
-  stress `success` in all three. The unit test of the appended list passes in the local gate log
-  (`CR-509: a wait that timed out lists the frames of its own last lookup that found nothing`).
-- The three "Not captured" items of `before-after.md` now each have their words: local real window,
-  frame lookup not proven fixed, longer timeout message not seen in a real run.
-- `git grep -n "page.frames()" HEAD -- test`: unfiltered scans in blockActionsFollowSelection,
-  editToolbarCover, findInPreview, previewEditingHelpers, renderPatching, reload-suite,
-  scroll-sync-suite, windowFocus, tableEmptyColumn, tallBlockScroll, all listed
-  (`openAtLine` and `harness` are filtered; `workbenchFocusDump.ts` L329 filters by URL already).
-- Margin 1056 to 1128 s, 6 to 12 % under 1200 (E2); visual job 885 s (E1). No claim of this file
-  that failed was accepted unfixed (D5, D7 are fixed). No `UNVERIFIED` or `STALE` mark (D3).
+Table rows (setup step to last step; whole `just ci-integration` step):
 
-### D9 Test plan (b24d3bf) - VERIFIED
+| Heavy run | Commit | Single launch | Part 1 | Part 2 | `real-input` | probe | Step |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| After: 45794678556 | `89cae5f` | none | 424 s | 493.5 s | 454 s | 181 s | 1112 s |
+| After: 45795351595 | `89cae5f` | none | 387 s | 419 s | 387 s | 177 s | 969 s |
 
-New tests: L2; the 9 `CR-509:` tests show a pass mark in `S/preflight-b24d3bf.log` (L232-257).
-Requirements: same log L5730-5788, `okfreq validate` `1227 requirements, 0 errors`, `lint --check`
-`0 indexes would change`, `update-coverage --check` `0 files would change`. Changelog:
-`CHANGELOG.md` unchanged (D5). Local gates: same log L5567-5572 `tests 5315, pass 5307, fail 0,
-skipped 8`, L5825 `ci-static: passed`. Heavy CI: E1, E2. "so its report and checks jobs failed
-too": `gh run view 45734267839 --job 139630458250 --log`: `FAILED visual: visual manifest is
-missing`, `ci-report: FAILED`; job 139630737913: `RESULTS: success success cancelled success
-failure`, exit 1. CI green: `gh pr checks 529 R` (run 45734227734): static, static-windows, visual,
-viewer-graph, report, checks `pass`; integration, stress `skipping`. "Verified" is unchecked.
+The rows of `5e7b4a3` and `b24d3bf` can be removed (the specification asks the two proof runs); if
+kept, they are marked as earlier commits, not proofs of the head. Optional extra "before" at the
+new base: main push run 45773405420 (`3478f09`, success): one launch, 55 steps, 852 s (setup to
+`workspace-disposal`), `real-input` 415 s, probe 178 s, step 1023 s.
 
-### D10 Review box (b24d3bf) - VERIFIED
+- Margin (Known gaps): 969 and 1112 s at the head (19 % and 7 % under 1200 s); 969 to 1128 s over
+  all five heavy runs (6 to 19 % under).
+- Visual (Known gaps): 820 s (45794678556), 825 s (45795351595), 879 s (45781010549) of 900 s at
+  the head, all passed; the one cancel at the limit was heavy run 45734267839, on an earlier
+  commit; 885 s on main run 45713440510.
+- Autonomous decisions: the two proof runs were started about four minutes apart on one commit
+  and ran at the same time; the sentence on the cancelled visual job must name the earlier run
+  45734267839 as such, or go.
+- Test plan, new tests at `89cae5f`: 9 fail against the stand-ins, 9 pass.
+- Requirements at `89cae5f`: `okfreq validate` 1228 requirements, 0 errors (26 warnings), 0
+  indexes and 0 files would change.
+- Local gates at `89cae5f`: `just preflight` on Windows, static stage only, passed; unit tests
+  5335: 5327 passed, 8 skipped, none failed.
+- Heavy CI at `89cae5f`: 45794678556 and 45795351595, attempt 1 each, every job that ran green
+  (release-check, toc-loop, pages, tag-release and release skipped), `integration` and `stress`
+  green, each part under 600 s.
+- Review: approved at `89cae5f`. CI green at `89cae5f`: static, static on Windows, visual,
+  viewer-graph, report and checks of PR run 45781010549; integration and stress skipped there.
+- "Verified": tick only after a description pass records VERIFIED at this head.
 
-`$CHANTIER log CR-509`: `2026-11-26T01:06:08Z driver note note=r3 approved at 5e7b4a3..., committed
-as b24d3bf08f01ae0e72fe7d251b25833df558608c`; also `2026-11-26T02:13:56Z driver note note=r4 body
-re-inspection approved at b24d3bf...`.
-
-### D11 the "Verified" box edit, judged on the posted text (b24d3bf) - VERIFIED
-
-Posted at `updatedAt` 2026-11-26T02:19:12Z. L1 to E6 are kept as judged at `b24d3bf` (no code
-moved); no CI run was dispatched and no script was run over downloaded files.
-
-Difference from the judged text. GitHub's edit history (`gh api graphql`,
-`pullRequest(number:529){userContentEdits{editedAt diff}}`) lists 5 edits, the last two at
-02:14:07Z (the text judged in D0 to D10) and 02:19:12Z (current). The `diff` of the 02:14:07Z edit
-was saved to `S/verify-r5-body-judged.md` and `gh pr view 529 R --json body --jq .body` to
-`S/verify-r5-body-posted.md` (both removed after the check);
-`git diff --no-index --ignore-space-at-eol -U0` on the two prints one hunk:
-
-```text
-@@ -171 +171 @@ frame lookup; it needs one heavy run to confirm.
--- [ ] Verified
-+- [x] Verified at `b24d3bf`
-```
-
-So D1, D3 to D9 and the rest of the text are carried from the earlier passes at `b24d3bf`: the
-only changed line is that box.
-
-The box. `$CHANTIER log CR-509`: `2026-11-26T02:18:36Z driver verdict result=VERIFIED
-head=b24d3bf08f01ae0e72fe7d251b25833df558608c base=5a73b6ebcf66ef80b412afcdbfd09c4defc028d8`,
-recorded before the edit, at the SHA the box cites. The Review box still matches D10 (the same
-log's two notes). This replaces D9's last sentence ("Verified" unchecked).
-
-Render and images, run again on the current text:
-`gh api repos/gsemet/markdown-okf-schema-studio/pulls/529 -H "Accept: application/vnd.github.full+json" --jq ...`
-(counts over `body_html` and `body`):
-
-```text
-head b24d3bf08f01ae0e72fe7d251b25833df558608c, base 5a73b6ebcf66ef80b412afcdbfd09c4defc028d8, open, draft true
-h2 9, h3 1, tables 1, rows 6, pre 2, checkboxes 8, checked 8, details 0, literal ** 0
-img 0, markdown images 0, user name or home paths 0, STALE or UNVERIFIED 0
-role names or cr-<n>: one line, "CR-509 heavy-ci-trusted-suite-timeout." (Internal references)
-headings: Summary, Deliverables, Changes, What the failed frame lookup showed, Impacts,
-Blast radius, Autonomous decisions, Known gaps, Test plan, Internal references
-```
-
-CI green box: `gh pr checks 529 R` (run 45734227734): static, static-windows, visual,
-viewer-graph, report, checks `pass`; integration, stress, release-check, toc-loop `skipping`.
-
-At the end of the pass `gh pr view 529 R --json headRefOid,updatedAt,state,isDraft` shows the same
-head and `updatedAt`, OPEN, draft; `git status --short` in `W` prints nothing.
-
-## Notes on this pass
-
-- Refused action: see D7 (the earlier pass; nothing was refused in the D11 pass).
-- One no-op shell call of this pass changed into the CR's `work/` folder (`cd ... ; true`), which the
-  startup core forbids; the shell was back in the worktree at the next call.
+Carried from `b24d3bf`: S10, E3, D7, the attempt-2 part of E6, the Mermaid parse. Every other
+claim above was judged again, because the base changed what its proof runs or a new run at the
+head replaces the old one.

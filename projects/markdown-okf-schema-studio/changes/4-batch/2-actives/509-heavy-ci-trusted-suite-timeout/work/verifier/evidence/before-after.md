@@ -1,11 +1,11 @@
 # CR-509 before and after
 
-- Before: base `5a73b6ebcf66ef80b412afcdbfd09c4defc028d8`. The measured "before" runs are heavy
-  runs 45476952370 (`63ef752`) and 45713440510 (`17b779d`);
-  `git diff --stat 17b779d5 5a73b6eb -- test/integration test/shared` prints nothing, so run
-  45713440510 ran the base's real-window tests.
-- After: pushed head `b24d3bf08f01ae0e72fe7d251b25833df558608c`, heavy runs 45734265223 and
-  45734267839.
+- Before: base `3478f0992688c7a354d11106145793fc83590506`, main push run 45773405420. Older
+  measured "before" runs: 45476952370 (`63ef752`) and 45713440510 (`17b779d`); between `17b779d5`
+  and the base, `test/integration` and `test/shared` differ only in comments and in the move of
+  the schema steps of `previewEditing.test.ts` to their own file.
+- After: pushed head `89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`, heavy runs 45794678556 and
+  45795351595.
 - No screenshot or video: test, CI and contributor documentation only. Evidence is text.
 - Run downloads stay in `work/scratch/` (never published). `<scratch>` below is that folder.
 
@@ -13,25 +13,28 @@
 
 | Run | Commit | Launches | Setup to last step | `just ci-integration` step |
 | --- | --- | --- | --- | --- |
+| 45773405420 (before, base) | `3478f09` | 1 | 851.8 s | 1023 s |
 | 45476952370 (before) | `63ef752` | 1 | 834.4 s | 1011 s |
 | 45713440510 (before) | `17b779d` | 1 | 830.5 s | 1002 s |
 | 45580228461 (before, failed) | `4a47151e` | 1 | LAUNCH TIMEOUT at 900 s | not read |
-| 45734265223 (after) | `b24d3bf` | 2 | 421.6 s and 492.7 s | 1111 s |
-| 45734267839 (after) | `b24d3bf` | 2 | 408.9 s and 453.3 s | 1056 s |
+| 45794678556 (after) | `89cae5f` | 2 | 423.8 s and 493.5 s | 1112 s |
+| 45795351595 (after) | `89cae5f` | 2 | 387.1 s and 419.4 s | 969 s |
 
-Reproduce: download each `integration` job log with `gh run view <run> --job <job> --log` into an
-empty folder `<scratch>/verify-<run>/integration.log`, then
-`python -I <scratch>/verify-parse.py`; step durations from
-`gh api repos/gsemet/markdown-okf-schema-studio/actions/runs/<run>/jobs`.
+Reproduce: download each `integration` job log with `gh run view <run> --job <job> --log` into
+`<scratch>/artifacts-<run>/integration.log` (and `stress.log` for the stress job), then
+`python -I <work>/verifier/verify_runs_89cae5f.py <scratch>` for the after runs (it reads the
+reference log of run 45476952370 in `<scratch>/verify-45476952370/`). For run 45773405420, time
+from `STEP start: setup` to `STEP done: workspace-disposal`. Step durations from
+`gh api repos/gsemet/markdown-okf-schema-studio/actions/jobs/<job>`.
 
 ## Pair 2: steps that run
 
-- Before: 55 distinct `STEP done` names in one launch (run 45476952370).
+- Before: 55 distinct `STEP done` names in one launch (run 45476952370; 55 in run 45773405420).
 - After, both runs: part 1 holds those names without `real-input` and `preview-editing`, in order
   (53); part 2 holds `setup`, `preview-smoke`, `real-input`, `preview-editing`; the union equals the
   55; only `setup` and `preview-smoke` run twice.
 
-Reproduce: `python -I <scratch>/verify-parse.py`.
+Reproduce: the script of pair 1.
 
 ## Pair 3: new unit tests
 
@@ -47,15 +50,15 @@ Reproduce, from the worktree at head: `npm run compile`;
 
 ## Pair 4: stress stays one launch
 
-After, both runs: one line `TRUSTED LAUNCH: trusted-suite.js`, steps `setup`, `preview-smoke`,
-`real-input`; no `STEP failed`, `LAUNCH TIMEOUT` or `LAUNCH HANG`.
+After, both runs: one line `TRUSTED LAUNCH: trusted-suite.js`, three trusted steps done, ending
+with `real-input`; no `STEP failed`, `LAUNCH TIMEOUT` or `LAUNCH HANG`.
 
-Reproduce: `python -I <scratch>/verify-artifacts.py <scratch>`.
+Reproduce: the script of pair 1.
 
 ## Pair 5: frame lookup
 
 - Before (base): `findCurrentFrame` calls `locator.count` on every frame of `page.frames()`
-  (`git grep -n "page.frames()" 5a73b6eb -- test/integration/realInput/harness.ts`); run
+  (`git grep -n "page.frames()" 3478f099 -- test/integration/realInput/harness.ts`); run
   45706313890 attempt 2: `STEP failed: open-at-line (12624 ms): TIMEOUT: locator.count did not
   return within 10000 ms (frame )`.
 - After (head): frames are picked by `url()` before any other call (code and unit tests of pair 3);
