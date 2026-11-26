@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Enter and click in an admonition open the selected element",
-  "summary": "Grilled; being specified for batch-09. Keyboard and mouse open the element selected or pointed at; the whole admonition only when selected as a whole.",
+  "summary": "Specified for batch-09: in an admonition or GitHub alert, Enter on an element reached with the arrows and a click in the body open that element only; a keyboard-selected admonition, its title or frame open it whole. BLOCK-014, BLOCK-254, BLOCK-017 change; one open question on alert quote markers.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b9b9e0ffe990d1565ec545e7f5d91e8f872f66f15e0e6a866fe7ca8b18b2d6f6",
     "02-answers.md": "18ad36ac44b61988e1469015a20c330e69c46024125bd73dc8afebab5941afbb",
+    "03-change-spec.md": "366f3055492538f75da9678f51654be6338192f2169b2d7b5ab80d1f1bb912b7",
     "intake/request.md": "5372a8a90d9227f1582fdcab329f1aaae5bd1c8eebcab560060762bc64f477cb"
   },
-  "summarized": "2026-11-26T07:47:02Z"
+  "summarized": "2026-11-26T07:51:15Z"
 }

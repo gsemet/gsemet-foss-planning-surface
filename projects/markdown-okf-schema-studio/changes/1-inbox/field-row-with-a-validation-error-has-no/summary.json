@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A frontmatter field with a validation issue is visibly marked",
+  "summary": "Grilled; being specified for batch-09. Error and warning field rows styled like information rows, with a wavy underline under the value.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "5ace4da236c2df7642fe5a052d339c375afd142c4bda3e32f9a98a6e7c57eabe",
+    "02-answers.md": "c9bb365cca394d643584c4c8c4641da3919a7fa8dd0cfa7093ed98d7be3dd6e1",
+    "intake/request.md": "67c9312805e72a7c3769ada40a77e9e20e91ab85a0a1fa02cdc8ca26ba034c0a"
+  },
+  "summarized": "2026-11-26T07:50:47Z"
+}
