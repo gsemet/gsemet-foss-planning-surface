@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "scenario": "perf-547",
+  "generatedAt": "2026-11-26T21:06:16.616Z",
+  "environment": {
+    "vscode": "1.148.0",
+    "platform": "linux",
+    "previewViewport": {
+      "width": 671,
+      "height": 799
+    }
+  },
+  "document": {
+    "lines": 464,
+    "tables": 22,
+    "rows": 197,
+    "images": 11,
+    "threads": 9,
+    "elements": 3114
+  },
+  "interactions": {
+    "selectionRelease": {
+      "unit": "ms",
+      "samples": [
+        17.1,
+        16.7,
+        18.9,
+        18.4,
+        16.9,
+        23.9,
+        17.9,
+        17.7,
+        19.4,
+        24.8,
+        18.5,
+        17.6,
+        18.7,
+        23.4
+      ],
+      "median": 18.45
+    },
+    "commentCreate": {
+      "unit": "ms",
+      "samples": [
+        57.8,
+        51.6,
+        48.5,
+        45.7,
+        53.9,
+        51,
+        51.3,
+        44.7,
+        44.9
+      ],
+      "median": 51
+    },
+    "dragTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.46,
+        2.4,
+        2.58,
+        2.43,
+        3.48,
+        2.19,
+        2.55
+      ],
+      "median": 2.46
+    },
+    "dragCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.42,
+        2.62,
+        2.91,
+        2.33,
+        12.26,
+        3.02,
+        2.46
+      ],
+      "median": 2.62
+    },
+    "releaseTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.61,
+        2.29,
+        2.41,
+        2.54,
+        2.5,
+        2.26,
+        2.13
+      ],
+      "median": 2.41
+    },
+    "releaseCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.93,
+        2.54,
+        2.8,
+        2.8,
+        2.79,
+        2.48,
+        2.52
+      ],
+      "median": 2.79
+    }
+  },
+  "commentCreateRestyledElements": {
+    "unit": "elements",
+    "samples": [
+      3109,
+      3109,
+      3111
+    ],
+    "median": 3109,
+    "largestRecalc": [
+      3107,
+      3108,
+      3109
+    ]
+  },
+  "threads": {
+    "before": 9,
+    "after": 21
+  }
+}
