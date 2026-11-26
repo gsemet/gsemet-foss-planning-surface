@@ -21,8 +21,8 @@ every row: 329 stay open in a committed list (see Known gaps).
 - The old base is `f08cf41`; `git diff --stat f08cf41 ea11a9e -- skills/chantier/references
   'skills/*/SKILL.md'` prints nothing. The Sources table copies `git ls-tree -r f08cf41 -- …` and
   `git show f08cf41:<path> | wc -l -c`.
-- Back in the Drivers' cards: the hand-back on context at 130,000 tokens, never ending a turn to wait
-  for a worker, never taking a large output whole.
+- Back in the Driver, Foreman and conflict resolver cards, among others: the hand-back on context at
+  130,000 tokens, never ending a turn to wait for a worker, never taking a large output whole.
 - Corrected: the cards and topics that described a prompt skeleton, a worker's opening lines and a
   `writes:` line the CLI no longer prints.
 
@@ -83,6 +83,8 @@ restart topic).
   planned pattern refused 1469 of them.
 - No row's kind was changed to make it pass; a protective rule goes to a card or a refusal.
 - The inventory test is two files, because of the project's 400-line limit on a code file.
+- The inventory has six sections, one more than the written plan lists, so that the hand-over
+  checklist has its own place.
 - Test ceilings raised to fit the restored lines (see Known gaps).
 
 ## Known gaps
@@ -127,6 +129,16 @@ restart topic).
 - `skills/chantier/references/`: Driver, Foreman and conflict resolver cards, `concepts.md` and
   eleven topics.
 - `evals/kit/quiz.py`, `evals/kit/dry_run.py`, `evals/README.md`: inventory row ids in `rules`.
+
+## Human decisions
+
+- No quiz run and no evaluation campaign in this change; the owner runs them later, and their absence
+  does not block it.
+- The priority is the simpler cards and the stronger command line; a quiz or evaluation finding is a
+  known gap, never blocking.
+- The card text about output the command line no longer prints is fixed here.
+- Cut further to finish quickly, even if things are fixed afterwards. How it was applied: only the
+  serious lost rules are restored, the other open rows stay listed for a follow-up change.
 
 ## Impacts
 
