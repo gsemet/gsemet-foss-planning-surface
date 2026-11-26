@@ -27,11 +27,6 @@ five rows of three values are pasted into a table of two columns and one body ro
 | The committed test in CI's real-window suite (Linux), at `e76c084` | pass (2 runs) |
 | The committed test repeated alone in CI (Linux), at `e76c084` | pass, 11 of 11 |
 
-The editor open again in the header cell "Task" after the paste, in the take filmed at `e76c084`
-(automatic save after 200 ms, VS Code 1.148.0):
-
-![The pasted table in a VS Code window, with the cell editor open in the header cell Task](https://github.com/user-attachments/assets/d260cc30-bb2e-4d43-9213-42ad867f918c)
-
 ```mermaid
 flowchart LR
   P[Paste into a header cell] --> F[Table filled, rows and column added]
