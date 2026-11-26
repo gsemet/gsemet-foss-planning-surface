@@ -1,0 +1,42 @@
+1,21c1,19
+< REFUSED 0133-note.md down 2-2 <> 7-7: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0133-note.md up 7-7 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0134-alert.md down 2-2 <> 7-7: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0134-alert.md up 7-7 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0135-dropdown.md down 2-2 <> 7-7: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0135-dropdown.md up 7-7 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0136-nested.md down 3-3 <> 8-8: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0136-nested.md up 8-8 <> 3-3: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0139-quote-note.md down 2-2 <> 7-7: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0139-quote-note.md up 7-7 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0143-note.md down 2-2 <> 6-6: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0143-note.md up 6-6 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0144-alert.md down 2-2 <> 6-6: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0144-alert.md up 6-6 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0145-dropdown.md down 2-2 <> 6-6: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0145-dropdown.md up 6-6 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0146-nested.md down 3-3 <> 7-7: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0146-nested.md up 7-7 <> 3-3: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0149-quote-note.md down 2-2 <> 6-6: Text between the two blocks (a comment or a link definition) prevents the move.
+< REFUSED 0149-quote-note.md up 6-6 <> 2-2: Text between the two blocks (a comment or a link definition) prevents the move.
+< {"docs":280,"opens":4315,"openCuts":0,"moves":876,"refused":20,"moveBreaks":0,"erases":0,"eraseBreaks":0}
+---
+> node:fs:1621
+>   path = getValidatedPath(path);
+>          ^
+> 
+> TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+>     at Object.readdirSync (node:fs:1621:10)
+>     at C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\markdown-okf-schema-studio\changes\4-batch\2-actives\514-enter-on-a-list-item-in-an-admonition-op\work\verifier\repro\property.js:63:25
+>     at Object.<anonymous> (C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\markdown-okf-schema-studio\changes\4-batch\2-actives\514-enter-on-a-list-item-in-an-admonition-op\work\verifier\repro\property.js:105:3)
+>     at Module._compile (node:internal/modules/cjs/loader:1929:14)
+>     at Object..js (node:internal/modules/cjs/loader:2060:10)
+>     at Module.load (node:internal/modules/cjs/loader:1651:32)
+>     at Module._load (node:internal/modules/cjs/loader:1443:12)
+>     at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+>     at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:372:15)
+>     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:244:9) {
+>   code: 'ERR_INVALID_ARG_TYPE'
+> }
+> 
+> Node.js v24.22.3
