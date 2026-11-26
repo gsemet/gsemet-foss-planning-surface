@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Widen a linked or multi-image paragraph in the Auto width mode",
+  "summary": "Filed, not grilled, outside batch-09: in Auto width, a linked image alone or a paragraph with several images is not widened (found by CR-511).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b7bdbf0e53f8932d3f10ce9d290bccb6b920cec7cca4d5eb5a3e1abe39781188"
+  },
+  "summarized": "2026-11-26T11:30:32Z"
+}

@@ -162,3 +162,50 @@ in Known gaps.
 - Carried from before: `AGENTS.md`'s two stale sentences (disclosed); `docs/proofs/claude-code.md`
   holds a local home path, as at BASE; the `just test` time is far above the `AGENTS.md` budget
   already at the base.
+
+## Description pass on the posted body (133640b)
+
+**NOT VERIFIED.** The posted description of PR 488 holds two sentences that are false against the
+PR's diff at this head. Everything else judged here holds. The sections above are unchanged and
+keep their `VERIFIED` on the code. All rows judged at 133640b. `BASE`, `HEAD`, `OLD`, `<wt>`,
+`<CR>` as above; `<v5>` = `<CR>/work/scratch/v5` (throwaway scripts, removed at the end of the
+pass). Nothing was edited in the PR or the code; no gate, test, quiz or eval was run.
+
+### Failed
+
+| # | Sentence (posted body) | Command and output | Verdict |
+| --- | --- | --- | --- |
+| P1 | Known gaps: "A worker started with a prompt that names its card and no brief is accepted, but two sentences of its agent file, about the brief that the prompt names, do not read true for it; **they are unchanged.**" | `git grep -c -e "Read the brief your prompt" -e "it opens that brief" BASE -- agents com.github.copilot/agents` -> exit 1, no hit; the same on HEAD -> 2 in each of the 14 worker agent files. `git diff BASE HEAD -- agents/coder.md com.github.copilot/agents/chantier-coder.agent.md`: both sentences are `+` lines (they replace "Read the startup core first..." and "read it first, before any other step, at the path your prompt's `Read` line gives"). This PR wrote them. Only the last commit left them as they were (`git diff OLD HEAD`). The rest of the sentence is true | FALSE |
+| P2 | Changes: "The other agent files check the first line only, and **the board Griller's is unchanged.**" | `git diff BASE HEAD -- agents/board-griller.md com.github.copilot/agents/chantier-board-griller.agent.md` -> one line changed on each host: "Read the startup core first, then your card's ..." becomes "Read your card's ...". The sentence's subject is agent files, so it says the file is unchanged. Only its refusal paragraph is (same diff: both paragraph lines are context). The first half is true (`<v5>/agents_check.py`) | FALSE as written |
+
+Wording that would be true: P1 drop "they are unchanged" (or say the refusal fix did not reword
+them); P2 "and the board Griller's refusal paragraph is unchanged".
+
+### Holds
+
+| # | Claim | Command and output | Verdict |
+| --- | --- | --- | --- |
+| D1 | Head, base, posted body | `gh pr view 488 --json headRefOid,baseRefOid,isDraft,state,body` -> HEAD, BASE, draft, `OPEN`; `<v5>/body_check.py`: posted == `work/pr-body.md`, 19226 characters; unchanged at the end of the pass | VERIFIED |
+| D2 | Changed places since the body judged at 4380df5 | `<v5>/body_check.py`, diff of surface commit `7fa81e5a` against posted: Deliverables caption and refusal excerpt, one Autonomous decision, one Known gap replaced by three, one Changes bullet added and one extended, six Test plan lines, the checklist lead. Nothing else | VERIFIED |
+| D3 | Refusal excerpt: prompt's last line, "Before, at `4380df5`", "After, at `133640b`" | `git diff OLD HEAD -- agents/coder.md`: both quoted pairs of lines match; `commands/brief.py` `_short_prompt` appends `Read <path> whole, first.` last; `<CR>/work/scratch/v4/probe.log` and pair 10: `.../CR-101-coder.md` | VERIFIED |
+| D4 | "After, at `133640b` (carried from `b85be4c`)" | `git diff --stat b85be4c HEAD -- <SRC> evals hooks types scenario` -> empty | VERIFIED |
+| D5 | Autonomous decision on the refusal paragraph | spec section 2 "Kept: ... the refusal paragraph"; log 10:44:22Z (O-175, to confirm by the owner); the old paragraph asks for `<role>.md`, the short prompt names `<unit>-<role>.md` (D3) | VERIFIED |
+| D6 | Changes: seven worker agent files on both hosts, identical bodies; the others check the first line only | `<v5>/agents_check.py`: 15 and 15 files, `identical=True` x 15; the 14 changed files are the seven named; the other eight conditions are the first line only | VERIFIED |
+| D7 | Changes: the `test_brief.py` case; old pins removed | `git diff OLD HEAD -- <TESTS>`: 14 roles, both hosts, board-griller excluded; `git grep -e "names no path to my card" -e "must name my card" HEAD -- skills/chantier/scripts scripts hooks evals scenario` -> exit 1 | VERIFIED |
+| D8 | Three new Known gaps otherwise: not tried with a real agent; two sentences do not read true for a card-only prompt; test only seen passing | `work/coder/r4.md` ("no real agent was started here", "seen passing only"); log 10:53:42Z; `agents/coder.md` lines 11 and 13 | VERIFIED but for P1 |
+| D9 | Each unrun, uncaptured or accepted item has its bullet | `before-after.md` "Not captured" and F5, acceptance 9 above against Known gaps: all present | VERIFIED |
+| D10 | Test plan: local gates | `work/gates/r4-just-check.log` (line 1 HEAD): `2762 passed, 19 skipped`; `just mod` `119 pass`, `0 fail` (`r4-just-mod.log`, and "Gates" above); `work/scratch/pre-push-eval-dry-run.log` and log 08:12:07Z: 25 of 25 at `b85be4c`, two commits back (`git log BASE..HEAD`); CI job 139862625478 on `Merge 133640b... into ea11a9e...`: `dry run: 25 of 25 cases as expected` | VERIFIED |
+| D11 | Test plan: new tests, evidence, Verified, CI | "Gates" and O6 above; `before-after.md` head (base BASE, pair 10 `4380df5` -> HEAD); log 11:22:35Z verdict at HEAD; `statusCheckRollup`: five checks `SUCCESS` | VERIFIED |
+| D12 | Review box `approved at 133640b` | log 10:56:00Z, 10:56:20Z "r4 approved at 4380df5..., committed as 133640bc..." | VERIFIED |
+| D13 | Checklist lead: paragraph in commit `133640b` | `git log BASE..HEAD`, `git diff --stat OLD HEAD` | VERIFIED |
+| D14 | Rendering, fold, marks, images, private paths, internal references | `gh api .../pulls/488` full media type: 10 `h2`, 3 tables, 5 `pre`, 1 `details`; `<v5>/body_check.py`: 0 images, 0 `STALE`, 1 `UNVERIFIED` (its bullet in Known gaps), no username or home folder, no internal reference outside Internal references | VERIFIED |
+| D15 | The rest of the body | unchanged text (D2); the last commit touches only 14 agent files and 2 test files; carried from 4380df5 and b85be4c, save P1 and P2 | VERIFIED |
+
+### Observations (no effect on the verdict)
+
+- The Test plan "Evidence" line does not say that pair 9 is carried from `4380df5`.
+- "runs of the new head span 139 to 265 seconds" leaves out two runs on uncommitted trees, 132.95 s
+  (`r2-check.log`) and 136.00 s (`r4-check.log`); the bullet is marked unverified.
+- The "Gates" section above says `r4-just-mod.log` starts with HEAD; its first line is the command.
+- One shell call of this pass changed directory into the CR folder and back, against the brief
+  (nothing was read or written by that change).

@@ -93,7 +93,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - The board Griller does not read the floor.
 - Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`, `topics/wakes-p1.md`. Card content was not rewritten here; these sentences should be fixed before a real batch runs on these cards.
 - The new refusal paragraph of the worker agent files was not tried with a real agent.
-- A worker started with a prompt that names its card and no brief is accepted, but two sentences of its agent file, about the brief that the prompt names, do not read true for it; they are unchanged.
+- A worker started with a prompt that names its card and no brief is accepted, but two sentences of its agent file, about the brief that the prompt names, do not read true for it.
 - The test that ties that paragraph to the short prompt of `brief` was only seen passing: it was not made to fail on a changed brief name.
 - `AGENTS.md` says `brief` reads the record and the planning folder only; it now also reads the project's instructions for the review steps. `AGENTS.md` is unchanged here.
 - Review steps are read when `brief` runs, while two docs pages say a running batch keeps the team it started with.
@@ -120,7 +120,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `skills/chantier/references/` now holds the new cards; the old files and the staging folder are removed. The floor, the two host row files and the review step's reply block are unchanged.
 - The four skills' `SKILL.md` carry the new texts.
 - `skills/chantier/roles.yaml` and the agent files of both hosts point at the new cards and replies.
-- The seven agent files of the workers that named their card in the refusal paragraph (coder, conflict resolver, debugger, demo explorer, inspector, investigator, verifier), on both hosts with identical bodies, accept the name of the brief file or of the card. The other agent files check the first line only, and the board Griller's is unchanged.
+- The seven agent files of the workers that named their card in the refusal paragraph (coder, conflict resolver, debugger, demo explorer, inspector, investigator, verifier), on both hosts with identical bodies, accept the name of the brief file or of the card. The other agent files check the first line only; the board Griller's refusal paragraph is unchanged.
 - The CLI's own lines (`take`, `take stack`, `order qa`, `round`, `handoff`, `brief`, `open`, `foreman set`, `status`, `preflight`, the board Griller and refusal texts) name only files that exist; the host rows that `brief` and `host` print from the data files still hold some removed names (see Known gaps).
 - Comments that named a removed host-card section now name a row or topic: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`.
 - `hooks/register.tsx`: the reload message after a compaction names the floor.

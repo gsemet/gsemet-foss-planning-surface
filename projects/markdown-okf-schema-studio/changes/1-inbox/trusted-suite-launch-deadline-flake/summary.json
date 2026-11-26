@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Check that the trusted-suite launch timeout is gone from heavy CI",
+  "summary": "Filed, not grilled, outside batch-09: after CR-509 is merged, repeat heavy runs to show the launch timeout of the integration job is gone, and fix what remains.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "d5fa6324a65d7b79b0d39976c5f067a50899380aea3ebcc92f735dbb330c4351"
+  },
+  "summarized": "2026-11-26T11:30:33Z"
+}
