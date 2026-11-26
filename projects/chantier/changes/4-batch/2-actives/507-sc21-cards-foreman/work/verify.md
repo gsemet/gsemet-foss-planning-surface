@@ -2,80 +2,76 @@
 
 Head: 88d9ab40d706ce2442821ad77385812af35ba846
 
-Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Judgments so far: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe` (NOT VERIFIED, F1 to F6); `88d9ab4`, first pass (NOT VERIFIED, F7 and F8); `88d9ab4`, this delta pass. Since the first pass no worktree file changed (`git rev-parse HEAD`: `88d9ab40...`; `git status --porcelain`: empty). Two things changed: the `check` cells and candidate lines of the four `evidence/cards-inventory-*.md`, and the PR description (narrowed, extended, posted again).
+Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Judgments so far: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe` (NOT VERIFIED, F1 to F6); `88d9ab4`, first pass (NOT VERIFIED, F7 and F8); `88d9ab4`, second pass (NOT VERIFIED, F7 alone); `88d9ab4`, this short delta pass. Since the second pass no worktree file changed (`git rev-parse HEAD`: `88d9ab40...`; `git status --porcelain --branch`: the branch line alone, level with its remote) and no evidence file changed (`ls -la --time-style=full-iso`: newest evidence file 2026-11-26 05:27:32 local, before that pass ran). One thing changed: the Known gaps bullet on `just quiz` in the PR description, narrowed and posted again.
 
-Result: **NOT VERIFIED**. F8 is fixed. F7 is mostly fixed; one narrow part still fails (rows a written case tests that do not name it, against the specification and the posted sentence). It needs no head change.
+Result: **VERIFIED**. F7's unmet part is not fixed: it is accepted, and the posted Known gaps states it. The new sentences hold.
 
-Paths: `<worktree>` the CR's worktree, `<CR folder>` this CR's folder, `<next>` = `skills/chantier/cards-next`. Scripts: `work/verifier/scripts/r14/` and `scripts/r15/`; raw logs: `work/verifier/*.log`; before and after: `work/verifier/evidence/before-after.md`. "First pass" below: judged at `88d9ab4` in the run before this one.
+Paths: `<worktree>` the CR's worktree, `<CR folder>` this CR's folder, `<next>` = `skills/chantier/cards-next`. Scripts: `work/verifier/scripts/r14/`, `r15/` and `r16/`; raw logs: `work/verifier/*.log`; before and after: `work/verifier/evidence/before-after.md`. "First pass" and "second pass" below: the two earlier runs at `88d9ab4`.
 
-## Failed claim
+## F7. Inventory `check` column and the Known gaps sentences on it (judged at 88d9ab4)
 
-### F7. Inventory `check` column (Part 1 section 6 and acceptance 9; Part 2 section 6) and the Known gaps sentence on it: NOT VERIFIED (judged at 88d9ab4)
+Specification, Part 1 section 6 and acceptance 9, Part 2 section 6: "`check` names a quiz case where one exists, or "child 25" where a case is needed."
 
-Specification, Part 1 section 6: "`check` names a quiz case where one exists, or "child 25" where a case is needed." Posted Known gaps: "Of the 59 written cases, 49 are named in the check of the inventory rows they test (84 rows); 10 are named in no row's check".
+### The specification's rule: met in part, the rest accepted as a stated gap
 
-What now holds. `scripts/r15/inv15.py <CR folder> <worktree> <sheet>` (against the copies in `work/scratch/r15/before/`; `r15-inv.log`):
+Not met for rows that restate a tested rule and name no case (second pass, `scripts/r15/untagged.py`; re-read now, `scripts/r16/check.py`, `r16-check.log`):
 
 ```text
-chief-of-staff: rows 1619 -> 1619; check cells changed 36; other columns changed 0; check not appended 0; non-row lines -0 +1
-foreman: rows 673 -> 673; check cells changed 49; other columns changed 0; check not appended 0; non-row lines -8 +9
-griller: rows 52 -> 52; check cells changed 4; other columns changed 0; check not appended 0; non-row lines -0 +1
-host-and-shared: rows 1783 -> 1783; check cells changed 30; other columns changed 0; check not appended 0; non-row lines -0 +16
-table lines changed outside rule rows 0 (each file); BOM False, CRLF False, username hits 0 (each file)
-quiz cases 59 named 49 unknown []
-named in no row's check: 10  (J18, J24, J25, J3, J7, J8, J9 [cr-driver]; a8-chained-subcommand-refused, a8-gh-pr-edit-base-refused, a8-gh-pr-ready-refused)
-distinct rows naming a quiz case: 84
-rows saying child 25: 36
-  a8-ask-settings-json C-086 C-088 C-094 C-095 C-122 H-1060; tracker-approval C-209 C-1281 C-1284 C-1287 H-044
-  direct-brief-foreman C-1000 C-1004 FM-012; griller-tracker-never C-209 G-011 G-012 G-021 H-044
-  candidates 1 to 8: FM-B053 B054; FM-113 159; FM-099 B001 B004 B005; FM-B009 B010 B013; FM-B033 B034; FM-545; FM-135 136 138; FM-106 B036
-planned case files present: []
+H-412  Never merge without the user's word...          check: floor.md:5 (every brief carries it)
+H-1566 Who merges: the user only; never merge...       check: floor.md:5 (every brief carries it)
+C-732  Never merge for the user.                       check: help merge-series-stack
+C-045  never a look-alike model, another tool, ...     check: help grill-critic
+H-1026 ... the Chief of Staff ends the turn at once.   check: help host-turn-end
+C-576  A yes of the user does not push it.             check: help refused-push-chief; quiz a8-push-refused-default-branch
+floor-1-chief-of-staff-merge          named on C-058, C-201, H-1660
+floor-3-chief-of-staff-missing-agent  named on C-044, H-1662, H-400
+J29-chief-of-staff-turn-notice        named on C-491, H-1027, H-766
+a8-push-refused-default-branch        named on C-563, C-574, C-575, C-576
 ```
 
-The 49 named case and row pairs were read by hand (`r15-review-sheet.log`): the named rows fit their case. The Known gap's other parts hold: the four planned cases and the eight Foreman behaviours are the marked rows; the host-and-shared sources list no Driver card; a search of the rows (`scripts/r15/find.py`) found none for the Chief of Staff's route for a refused `gh pr ready`, `--base` or chained subcommand.
+The posted Known gaps now says so (card: a failed claim accepted rather than fixed has its bullet there). The Driver's note of the acceptance, `$CHANTIER log CR-507`, 04:44:45Z: "F7 left (five rows a case tests do not name it), accepted: Known gaps narrowed and reposted, no head change, rounds used up".
 
-What fails. `scripts/r15/untagged.py <CR folder> <worktree>` (`r15-untagged.log`) prints each case beside rows that state its behaviour and do not name it:
+### The posted sentences: VERIFIED
 
-| Row, and its text | `check` cell | The case that tests it, and where it is named |
-| --- | --- | --- |
-| H-1026 "On a turn that a notice alone started, the Chief of Staff ends the turn at once." | `help host-turn-end` | `J29-chief-of-staff-turn-notice` (expected: the turn ends at once); named on C-491, H-766, H-1027 |
-| C-732 "Never merge for the user." | `help merge-series-stack` | `floor-1-chief-of-staff-merge`; named on C-058, C-201, H-1660 |
-| H-412 "Never merge without the user's word. The user merges the ordinary PRs." | `floor.md:5 (every brief carries it)` | same case |
-| H-1566 "Who merges: the user only; never merge for the user." | `floor.md:5 (every brief carries it)` | same case |
-| C-045 "never a look-alike model, another tool, a workaround or an estimate." | `help grill-critic` | `floor-3-chief-of-staff-missing-agent`; named on C-044, the first half of the same rule |
+`gh pr view 487 --json headRefOid,updatedAt,body`, then `scripts/r16/body.py` (`r16-body.log`):
 
-So the 84 rows are not all the rows the 49 cases test, and for these rows a case exists that `check` does not name. The five were found by reading; no search for every such row was made. Fix, either: name the cases on these rows, look for others, and update the count; or narrow the bullet to say a row that restates a tested rule may not name the case (with these examples).
+```text
+headRefOid 88d9ab40d706ce2442821ad77385812af35ba846 updatedAt 2026-11-26T04:44:43Z
+local bytes 33156 bom False crlf False
+posted chars 33143 crlf in posted False bom False
+posted == local True
+lines before 365 now 369
+== replace before 159-163 now 159-167   (the only changed segment)
+```
 
-Observation, not a failure: C-576 "A yes of the user does not push it." names `a8-push-refused-default-branch`, whose situation gives no yes, while FM-545, the same sentence, says `child 25: candidate 6` because no case gives the yes.
+| Posted sentence, lines 158-167 | Proof |
+| --- | --- |
+| "Of the 59 written cases, 49 are named in the check of at least one inventory row (84 rows name a case); 10 are named in no row's check" | `r16-check.log`: `quiz cases 59 named 49 unknown []`, `distinct rows naming a quiz case 84`, `named in no row's check 10` |
+| "7 Driver cases ... and the 3 cases of the Chief of Staff's new routes" | same: J18, J24, J25, J3, J7, J8, J9 (`cr-driver`), and `a8-chained-subcommand-refused`, `a8-gh-pr-edit-base-refused`, `a8-gh-pr-ready-refused` |
+| "whose cards no inventory walks (a few shared rows carry part ...)", "which have no row at the base" | carried from the second pass (`r15-find.log`; evidence unchanged) |
+| "H-412, H-1566 and C-732 do not name the Chief of Staff's no-merge case, C-045 its missing-agent case, H-1026 its turn-notice case" | the six rows above; the case files `floor-1-chief-of-staff-merge.json` (a ready PR, the pass is no merge), `floor-3-chief-of-staff-missing-agent.json` (agent type not found, nothing started in its place), `J29-chief-of-staff-turn-notice.json` (the turn ends at once) |
+| "these were found by reading, and no search for every such row was made" | second pass: found by reading, no full search; the sentence claims no more |
+| "C-576 names the default-branch push case, which gives no yes of the user, the point of that row" | row C-576 above; `a8-push-refused-default-branch.json`: the situation is the Foreman's push line for `main`, with no word of the user; the expected answer is no push |
+
+The bullet's other sentences (four planned cases and eight Foreman behaviours marked as needing a case, read by hand, no run) are carried from the second pass: the text and the evidence are the same.
 
 ## F8. The PR description as posted: VERIFIED (judged at 88d9ab4)
 
-`gh pr view 487 --json ...,body`, then `scripts/r15/body.py` (`r15-body.log`):
+The second pass verified the six claims that had failed, on a body that differs from today's in lines 159-167 only (`r16-body.log` above); from old line 164 on, add 4 to the line numbers.
 
-```text
-headRefOid 88d9ab40d706ce2442821ad77385812af35ba846, baseRefName main, isDraft True, MERGEABLE, OPEN, updatedAt 2026-11-26T04:34:40Z
-local bytes 32780 bom False crlf False
-posted chars 32767 crlf in posted False bom False
-posted == local True
-```
-
-Its diff against the body posted before shows lines 17, 78-81, 154-163, 194-200, 309, 326, 343, 357 and 360-361 changed, nothing else. The six claims that failed:
-
-| Claim, posted line | Proof |
+| Claim, posted line at the second pass | Proof |
 | --- | --- |
 | brief rows, 78-81 | C17 |
-| protecting-row lists, 197-200: "has a list"; "at least one such row a topic carries is not listed (FM-103)" | first pass: one list in each inventory (`inv15.py`: `protecting list 1` four times), FM-103 absent from the Foreman's |
+| protecting-row lists, 197-200: "has a list"; "at least one such row a topic carries is not listed (FM-103)" | first pass: one list in each inventory (`r15-inv.log`: `protecting list 1` four times), FM-103 absent from the Foreman's |
 | B6 third case, 309 | specification line 294: "The third case is dropped: a refused command goes to the Chief of Staff (answer 8)" |
 | Impacts, 326: "no session loads the new files (`just quiz` and `just eval-dry-run` read the quiz cases)" | `git grep --untracked -n cards-next -- . ':(exclude)skills/chantier/cards-next'`: no line, exit 1; `justfile` runs `evals/kit/quiz.py` (`CASES_DIR = ROOT / "evals" / "quiz"`) and `evals/kit/dry_run.py` (case `quiz-cases`: "the shipped `evals/quiz/` cases load and their `rules` resolve") |
 | tests for child 24, 357 and 360-361 | F5 (first pass, `git grep -n foreman-stack` over `src` and `tests`): the named tests exist, `test_plugin_files.py:355` reads the card too |
 | `griller.md`, 17: "one sentence and one clause" | C16 |
 | row counts, 194-196: 4,127 / 3,885 / 1,824 / 2,061 | C19 |
 
-The Known gaps sentence new in lines 154-163 is judged under F7.
+## Claims re-read or carried by name
 
-## Claims the two changes touch (judged at 88d9ab4)
-
-### C17. Brief bytes: VERIFIED
+### C17. Brief bytes: VERIFIED (carried: head and these body lines unchanged)
 
 Posted table and `work/verifier/briefs-88d9ab4.log` (first pass, `briefs2.py`, one run at `88d9ab4`):
 
@@ -94,9 +90,9 @@ The posted numbers are those of `work/r10/briefs.log` (02:26) and `briefs8.log` 
 
 Observation, not a failure: "Every row was measured in one run": the direct mode row equals the sum of that one run's chief-of-staff and foreman rows (24,657 + 22,276; 22,322 + 55,206), but `foreman --epoch 1` itself ran in the second run (`briefs8.log`) and at `88d9ab4`, with the same bytes.
 
-### C19. Inventories, counts and homes: VERIFIED but for F7
+### C19. Inventories, counts and homes: VERIFIED but for F7's accepted part (carried: evidence unchanged)
 
-Carried from the first pass: only `check` cells and non-row lines changed since (`inv15.py`: other columns changed 0, rows 4127, distinct ids 4127), so the home column and its counts did not move.
+Second pass: only `check` cells and non-row lines changed since the first pass (`r15-inv.log`: other columns changed 0, rows 4127, distinct ids 4127; BOM False, CRLF False, username hits 0), so the home column and its counts did not move.
 
 ```text
 rule rows 4127 distinct, plus 97 relisted in host-and-shared "Inferable rows"
@@ -108,25 +104,25 @@ unknown topic names 0; completeness table without a row []
 
 The 28 are capability lines of the host JSON, for which the specification asks no check. FM-026, C-304 and C-885 have no home, as the Known gap says.
 
-### C23. Test plan boxes and evidence lines: VERIFIED
+### C23. Test plan boxes and evidence lines: VERIFIED (carried: those lines unchanged)
 
-"No test added or changed" (C3), `just check` at `88d9ab4` (C26), the byte copies, unloaded, links, index and Driver table lines (C8, C4, C12, C9, C13). "CI green at `88d9ab4`", newly checked: C27. "Verified" unchecked: no claim.
+"No test added or changed" (C3), `just check` at `88d9ab4` (C26), the byte copies, unloaded, links, index and Driver table lines (C8, C4, C12, C9, C13). "CI green at `88d9ab4`": C27. "Verified" unchecked: no claim.
 
-### C27. CI at head, the long gate included: VERIFIED
+### C27. CI at head, the long gate included: VERIFIED (re-read this pass)
 
-`gh pr checks 487 --repo gsemet/chantier`, run 45748025918: `just check` macos 7m42s, ubuntu 2m12s, windows 9m6s pass; `just eval-dry-run (ubuntu-latest)` pass 1m26s; `just scenario (ubuntu-latest)` pass 7m44s. No local scenario run is owed (no stack top); none was run here.
+`gh pr checks 487`, run 45748025918: `just check` macos 7m42s, ubuntu 2m12s, windows 9m6s pass; `just eval-dry-run (ubuntu-latest)` pass 1m26s; `just scenario (ubuntu-latest)` pass 7m44s. No local scenario run is owed (no stack top); none was run here.
 
-### C28. Review box: VERIFIED
+### C28. Review box: VERIFIED (re-read this pass)
 
-`$CHANTIER log CR-507` (`r15-log.log`): "r15 inspector approved at 88d9ab40d706ce2442821ad77385812af35ba846 (reviewed: the round's evidence changes, worktree unchanged, and pr-body.md)" and "r15 approved at 88d9ab40..., committed as 88d9ab40... (no new commit: the round changed evidence and pr-body.md only)". The box cites `88d9ab4`.
+`$CHANTIER log CR-507`: "r15 inspector approved at 88d9ab40d706ce2442821ad77385812af35ba846 (reviewed: the round's evidence changes, worktree unchanged, and pr-body.md)" and "r15 approved at 88d9ab40..., committed as 88d9ab40... (no new commit: the round changed evidence and pr-body.md only)". The box cites `88d9ab4` (posted line 345).
 
-### C29. Rendering, images, names: VERIFIED
+### C29. Rendering, images, names: VERIFIED (searched again on today's body)
 
-Posted body: `grep -n -E '<details|</details>|<summary|^## |!\[|<img'`: sections Summary to Known gaps, one fold (lines 222, 363), no image; no fence. `grep -n -E 'CR-[0-9]|batch-[0-9]|child [0-9]|round [0-9]|<login names>|<home paths>'`: lines 347 and 353 only, both under "Internal references" (line 345); no username or home path. Inventories: username hits 0 (`inv15.py`).
+`posted-r16.md`, searched for `<details|</details>|<summary|^## |!\[|<img` and `CR-[0-9]|batch-[0-9]|child [0-9]|round [0-9]|<login name>|<home paths>`: sections Summary to Known gaps, one fold (lines 226-367), no image; CR and child references on lines 351 and 357 only, under "Internal references" (line 349); no username or home path. The new lines are one bullet's continuation lines, none starting with a list or heading marker; the role names in them are terms of the cards the diff changes.
 
 ## Claims carried
 
-All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `03f973e`, as said). Reason for each: the head and every worktree file are the same, and neither the `check` cells nor the changed body lines enter its proof.
+All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `03f973e`, as said). Reason for each: the head and every worktree file are the same, and neither the evidence's `check` cells (changed before the second pass) nor the changed body lines enter its proof. C1 and C22 were read again where said.
 
 | Claim | Command | Output |
 | --- | --- | --- |
@@ -136,7 +132,7 @@ All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `
 | F4 VERIFIED, protecting lists exist | `grep -n '^## Protecting-looking' evidence/cards-inventory-*.md` | one section in each of four |
 | F5 VERIFIED, child 24 hand-over | `git grep -n foreman-stack` over `src`, `tests`; `git ls-files` | `stack_shape.py:56`; the nine named tests exist; `test_plugin_files.py:355` also |
 | F6 VERIFIED, acceptance records | `grep -n '^## ' evidence/acceptance-records.md` | `just test`, brief bytes, quiz plan, `griller.md` diff, diff stat |
-| C1 VERIFIED, PR state (re-read, F8) | `git rev-parse HEAD`, `git status --porcelain`, `gh pr view 487` | head, empty, OPEN draft on `main` |
+| C1 VERIFIED, PR state (re-read) | `gh pr view 487 --json ...` | head `88d9ab4`, OPEN draft on `main`, MERGEABLE |
 | C2 VERIFIED, diff size and place | `git diff --shortstat 24111e6d..HEAD` | 295 files, 6405+, 42-; nothing outside `<next>` and `evals/quiz/` |
 | C3 VERIFIED, no test touched | `proofs2.py` | `tests touched: []` |
 | C4 VERIFIED, unloaded | `git grep -n cards-next` outside `<next>`; boot strings inside | no line, exit 1, both |
@@ -155,7 +151,7 @@ All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `
 | C18 VERIFIED, quiz not run, plan figures | `grep -n 8.51 evidence/acceptance-records.md` | `24 runs, ~$8.51 (cap $10)`; the other two figures carried from `03f973e`, dated by the body; no model run |
 | C20 VERIFIED, edited-lines table | `table.py`, `sib.py` | 21 rows, 164 files; none listed unchanged; sibling table equal |
 | C21 VERIFIED, decisions and Changes (B6 re-judged in F8) | `git grep -i` for the dropped sentences in `<next>` | no line; defaults match the specification |
-| C22 VERIFIED, the other Known gaps | `cat -n` the cards, `sed -n`, `grep` | as the first pass read them; observation: `chief-of-staff.md` item 5 alone reads "any other, once", "never force-pushed" comes from floor rule 2 |
+| C22 VERIFIED, the other Known gaps | `cat -n` the cards, `sed -n`, `grep`; `r16-body.log`: those bullets unchanged | as the first pass read them; observation: `chief-of-staff.md` item 5 alone reads "any other, once", "never force-pushed" comes from floor rule 2 |
 | C24 VERIFIED, evidence list | `ls <CR folder>/evidence/` | the four inventories, `boundaries-split.md`, `acceptance-records.md`, `part3-proofs.md` |
 | C25 VERIFIED, `just test` | base from `03f973e`; head from C26 | 2932 passed 20 skipped 192.40s; 2933 passed 19 skipped 134.96s; the one skip not traced |
 | C26 VERIFIED, local gate | `just check` (`just-check-88d9ab4.log`) | exit 0, `All checks passed!`, 2933 passed, 19 skipped |
@@ -164,13 +160,15 @@ All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `
 
 - No model run and no real run (stated gaps). Copilot untested.
 - Whether the new cards lose no behaviour rests on the later review.
-- Whether the inventories miss rows of a case beyond the five of F7.
+- Whether other inventory rows restate a tested rule without naming its case (stated gap).
 
 ## How this run departed from its rules
 
-This pass:
+This pass: none seen.
 
-- Two files were written by my scripts into the host's scratch folder, outside the `writes:` folders (`posted-r15.md`, `review15.txt`). Their removal was refused, exact text in `work/verifier/r15-refusal.log`; not retried by other means. The same two outputs are now under `work/verifier/`.
+Second pass:
+
+- Two files were written by its scripts into the host's scratch folder, outside the `writes:` folders (`posted-r15.md`, `review15.txt`). Their removal was refused, exact text in `work/verifier/r15-refusal.log`; not retried by other means. The same two outputs are now under `work/verifier/`.
 - Several shell calls changed folder into the CR folder or its `work/` folder, against the brief, and some used a leading assignment or a chain.
 
 First pass and the run at `03f973e`:
@@ -179,4 +177,4 @@ First pass and the run at `03f973e`:
 - One rerun of `proofs2.py` passed the host's 120 s limit and the host moved it to the background; its end was awaited.
 - Shell calls changed folder into the CR folder, and some used a leading assignment or a chain.
 - Two throwaway files were left in the host's scratch folder after a refused removal (`work/verifier/refusal.log`).
-- The first pass narrowed `pr-body.md` itself; this pass edited no file of the CR but `verify.md` and its own notes.
+- The first pass narrowed `pr-body.md` itself; the later passes edited no file of the CR but `verify.md` and their own notes.
