@@ -19,7 +19,8 @@ opens from its title or frame, or when it is itself selected.
 | Erase an alert paragraph or item, then commit | an empty line cuts the alert | a `>` line keeps the alert whole |
 
 Text written on a directive's opening line is not a block of its own: the one-line body of
-`:::{warning} Text` or a card title opens the whole directive.
+`:::{warning} Text` or a card title opens the whole directive. Where the lines of an element cannot
+be told, the block or box around it opens (see Known gaps).
 
 ```mermaid
 flowchart LR
@@ -37,14 +38,16 @@ flowchart LR
   target; a block of the body opens on its own lines, and a list around the box never takes it
   over. The nearest box decides when they are nested.
 - A new render pass, `mapBoxSourceLines`, runs inside admonitions, alerts, callouts and dropdowns:
-  no block there maps part of a fence around it, and a diagram, formula, code, `{list-table}` or
-  `{csv-table}` directive maps its whole directive. A block held directly by a list item maps its
-  own lines, up to the next block of the item and never across a fence. In a list, a quote or a
-  definition of a box, a formula or an HTML element whose own lines cannot be told is no block of
-  its own, so the block around it opens (the shapes left are under Known gaps). The body of a
-  version admonition maps the lines it is written on. In an admonition left open at the end of the
-  file, a block inside it keeps its own closing fence (one quoted case is listed under Known
-  gaps). Blocks outside a box are mapped as before.
+  no block there maps part of a fence around it, or one fence line or HTML tag line of a pair
+  without the other, and a diagram, formula, code, `{list-table}` or `{csv-table}` directive maps
+  its whole directive. A block held directly by a list item keeps its own lines and takes only the
+  empty lines under it; one the parser gives no position (the first paragraph of a tight item)
+  reaches the next block of the item or its end. A formula whose own lines cannot be told is no
+  block of its own, so the block or box around it opens. A `{div}` callout maps all of its lines,
+  so its title opens the whole callout. The body of a version admonition maps the lines it is
+  written on. In an admonition left open at the end of the file, a block inside it keeps its own
+  closing fence (one quoted case is listed under Known gaps). Blocks outside a box are mapped as
+  before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
   quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
@@ -62,7 +65,7 @@ flowchart LR
 
 ## Impacts
 
-Users reach any element of an admonition or alert directly, with the mouse or the keyboard. To
+Users reach the elements of an admonition or alert directly, with the mouse or the keyboard. To
 edit the whole box with the mouse, click its title or its frame. In the editor of a GitHub alert
 block, the `> ` markers are part of the text. While an editor is open inside an admonition, wide
 content of that admonition does not scroll.
@@ -91,9 +94,12 @@ behaviour, with no data or settings change.
 - Inside a box, a directive that shares no block of its own opens as a whole directive, and text on
   an opening line opens its directive, so that the lines a block of a box opens on hold no fence
   line of a directive around it.
+- Where an element's own lines cannot be told, the enclosing block or box opens, rather than a
+  narrower range that could be wrong.
 - The chord's heading refusal covers every untitled admonition fence (colon, backtick, tilde) and
   callouts, and its `---` refusal every kind of box, because they all misrender the same way. A
-  heading in a titled admonition, a dropdown or an alert, and a `***` line, still move.
+  heading in a titled admonition, a dropdown or an alert, and a `***` line, still move. For a
+  `{div}`, refusing too much was chosen over missing a way to write its callout class.
 - The palette overlap found by the new visual scenarios is fixed here, with a new requirement
   scenario.
 - The real VS Code replay of the alert lazy line opens the alert from its title, so its assertions
@@ -103,52 +109,79 @@ behaviour, with no data or settings change.
 
 ## Known gaps
 
+The clip and its checks:
+
 - Not yet approved: the maintainer's review of the clip's storyboard and of the clip itself.
 - In the clip, after the save the selection is on the whole admonition, not on the saved sub-item.
-- A `{table}` directive of a box does not move, and no neighbouring block moves past it.
-- A paragraph holding one plain image, or an `{image}` directive, in a box does not open on its own
-  with a click, and the move chord cannot cross it: such a move is refused, with the message about a
-  comment or a link definition between the two blocks.
-- The paragraphs of a `{topic}` body in a box edit one by one, but they do not move, and no block
-  moves past them.
-- When a `:::` admonition is left open at the end of the file and ends on a quoted one
-  (`> :::{tip}` up to `> :::`), that quoted tip does not open on its own.
-- Erasing the first block of a box body can leave a `---` line first: a note or an alert then
-  shows its title only, and a dropdown disappears from the preview, title included. It can also
-  leave a heading first in an untitled admonition, which then becomes its title. The text stays in
-  the file.
-- A card inside a box whose body starts with dashes shows only part of its body, and a `{div}`
-  whose body starts with dashes stops the preview from rendering (both as before this change).
-  The move chord does not refuse to write that in a `{div}` that is not shown as a box (the
-  callout class written as its argument).
-- A paragraph that is only bold text, moved first in an untitled admonition or a callout, becomes
-  its title; the move is not refused.
-- Any `.callout-*` class counts as a callout for the heading refusal, one that renders no callout
-  included.
-- In a box that starts with a `---` block of options and holds a `---` rule further down, the
-  renderer maps blocks one line down (as before this change), so a block opened on its own there
-  shows the wrong line. A `{div}` whose options block folds its class (`class: >`) with no blank
-  line after it maps its body one line off too.
-- In a list item of a box, text written right after a closing HTML tag, with no blank line, opens
-  from the tag's line, so its editor also holds that tag and erasing it removes the tag.
-- Directly in a box body, a formula written after `+++`, right under text with no blank line, or
-  on two lines under a field list opens only part of it or the line before it, and an unpaired
-  `<details>` opens its opening lines only.
-- A callout written as a `{div}` outside a list maps only its opening line: its title, and some
-  elements of its body, open that line alone.
-- A later paragraph of a list item in a box whose first source line is not known (text after a code
-  block of a tight item) does not open on its own: its item opens.
-- Erasing the first line of a list item that holds a directive removes the item's marker with it,
-  so the directive leaves the list item (no fence line is cut).
-- Outside a box, a move past a diagram, formula or code directive, or past a captioned `{table}`,
-  can still put the moved paragraph inside its fence, and a click on a top-level diagram, formula or
-  code directive opens its opening line only; likewise Enter on a `{figure}` caption in a top-level
-  list opens its closing fence too (all as before this change).
 - The clip's contact sheet shows neither the selection of the list nor that of the sub-list; only
   its named frames do.
 - The real VS Code replay edited here runs only on the main branch or a heavy CI run.
-- Erasing a block of an alert that holds a lazy continuation line (no `>`) still writes an empty
-  line, so the quoted lines after it leave the alert.
+
+Elements of a box that do not open on their own (emptying the editor that opens erases all it
+holds):
+
+- The block or the box around them opens for: a formula written right under text, a quote or a
+  `+++` line, under the text of a list item, in a table cell, after other text of its paragraph, or
+  followed by more text in a list item or a longer paragraph; inline HTML in a definition of
+  several lines; the summary or a table of an unpaired `<details>`, the summary of a `<details>`
+  nested in another, a table or text written right under a closing HTML tag, and a list item whose
+  HTML element closes outside its list.
+- A later paragraph of a list item whose first source line is not known (text after a code block or
+  a directive of a tight item) opens its item.
+- In a directive that starts with a `---` block of options and has a later `---` line, no block of
+  the body opens on its own: the box opens.
+- A paragraph holding one plain image, or an `{image}` directive, opens the box, and the move chord
+  cannot cross it: such a move is refused, with the message about a comment or a link definition
+  between the two blocks.
+- A `{table}` caption opens the admonition around it, and a tab panel its tab item (as before this
+  change).
+- When a `:::` admonition is left open at the end of the file and ends on a quoted one
+  (`> :::{tip}` up to `> :::`), the title and frame of that quoted tip open the whole outer
+  admonition, so emptying that editor removes all of it (before this change the tip's title opened
+  the tip alone).
+
+Opening or emptying a block that takes more than itself, or leaves the box worse:
+
+- Clicking the first paragraph of a tight list item followed by hidden content or content that is
+  no block of its own (an HTML comment, HTML, a footnote or link definition, a target, a `%`
+  comment) opens that content with it, so emptying the editor removes it too.
+- Enter on the first paragraph of a list item that holds more (code, another paragraph, a
+  directive) opens it with the item's marker; emptying it removes the marker, so the rest leaves
+  the list item, still indented (no fence line is cut).
+- A `$$` line written right under a table is read as one of its rows: it opens that line, and
+  emptying it removes the row.
+- A raw `<svg>` inside a directive nested in a list item breaks the preview (as before this
+  change), and emptying the item opened there can remove one fence line of that directive and
+  leave the other.
+- Emptying the first block of a box body can bring a heading first, which becomes the title of an
+  untitled admonition, or a `---` line first: a note, an alert or a callout then shows its title
+  only, a dropdown disappears from the preview, and a dropdown with the `:open:` option stops the
+  preview of the file. The text stays in the file.
+- Emptying a block of an alert that holds a lazy continuation line (no `>`) writes an empty line,
+  so the quoted lines after it leave the alert.
+
+The move chord, and drawing:
+
+- A `{table}` directive of a box does not move, and no neighbouring block moves past it.
+- The paragraphs of a `{topic}` body in a box edit one by one, but they do not move, and no block
+  moves past them.
+- A paragraph that is only bold text, moved first in an untitled admonition or a callout, becomes
+  its title; the move is not refused.
+- A `{div}` whose braces or options mention a `callout-` class or name counts as a callout for the
+  move refusals, even when it renders no callout.
+- A card of a box whose body starts with `---`, or holds it after its first block, shows only part
+  of its body, and a `{div}` that is not shown as a box (the callout class written as its
+  argument) and starts with `---` stops the preview (both as before this change); the move chord
+  does not refuse to write that in such a `{div}`.
+- A move inside a box adds an empty line after the opening fence and before the closing fence (in
+  an alert, a `>` line after its marker); the preview does not change because of it.
+
+Outside a box:
+
+- A move past a diagram, formula or code directive, or past a captioned `{table}`, can still put
+  the moved paragraph inside its fence, and a click on a top-level diagram, formula or code
+  directive opens its opening line only; likewise Enter on a `{figure}` caption in a top-level
+  list opens its closing fence too (all as before this change).
 
 ## Test plan
 
@@ -168,11 +201,11 @@ behaviour, with no data or settings change.
   - "in an admonition or an alert, Enter on ... opens and erases no fence line";
   - "the chord is refused when it would start a box with a block that spoils it: ...".
 
-  `boxBlockSourceLines.test.ts` holds 67 tests. Most fail without the change they cover (the line
-  mapping inside boxes, the fence cases, the elements whose lines cannot be told, the refused
-  moves); the others, the accepted moves among them, guard behaviour that holds either way or is
-  documented. The new visual checks of a click in an alert body, a click in an admonition body and
-  Enter on an element of an admonition fail on the previous code.
+  `boxBlockSourceLines.test.ts` holds 94 tests. Most fail without the change they cover (the line
+  mapping inside boxes, the fence and tag cases, the elements whose lines cannot be told, the
+  refused moves); the others, the accepted moves among them, guard behaviour that holds either way
+  or is documented. The new visual checks of a click in an alert body, a click in an admonition
+  body and Enter on an element of an admonition fail on the previous code.
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
