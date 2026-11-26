@@ -52,11 +52,11 @@ Grade: **1**. Style rules of the properties table only; a plain `git revert` res
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): provisional
-- [ ] Requirements: `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` updated, markers in code and tests, `just requirements-update`: provisional
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`: provisional
-- [ ] Local gates at `1a48862`: provisional
+- [x] Requirements at `1fa9587`: `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` updated, markers in code and tests, `just requirements-update` changes no file, requirement validation reports 0 errors
+- [x] Changelog at `1fa9587`: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates at `1fa9587`: `just preflight` passed on Windows, where it runs the static stage only (unit tests: 5363 pass, 0 fail, 8 skipped); visual group `frontmatter-schema`: 35 scenarios pass
 - [ ] Evidence: provisional
-- [ ] Review: provisional
+- [x] Review: approved at `1fa9587`
 - [ ] Verified: provisional
 - [ ] CI green: provisional
 
