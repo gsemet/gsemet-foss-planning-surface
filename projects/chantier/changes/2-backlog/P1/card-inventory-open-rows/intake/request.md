@@ -1,5 +1,26 @@
 # Follow-up of the card rework: open rows and open points
 
+## Resume here (written 2026-11-26, at batch-31's end)
+
+Asked by the owner, verbatim: « Met tout ce qu'il faut pour reprendre en P1 » (put everything needed to resume in P1).
+
+### Where batch-31 stands
+
+- 40 CRs merged; main at 4d12a5b, CI green. The batch is paused, cost $492 of $800.
+- It closes only on the owner's word: `close --batch batch-31`, then `--yes`, then the worktrees and branches that command lists. Archive the Foreman and Chief of Staff sessions after the close, not before (the close prices the Foreman's transcript).
+- A copy of the batch's journal, which the close deletes and git does not hold: folder `chantier-batch-31-journal`, beside the main checkout on the owner's machine.
+- Decisions taken for the owner while they asked to be asked nothing are marked "to confirm by the owner" in the CRs' `02-answers.md` (5-archives after the close).
+
+### What is in P1, in order (nothing starts without the owner's word)
+
+1. `card-inventory-open-rows` (this item): "Do this first" below, cards and CLI usable. It is the first work of the next batch.
+2. `simplify-cards-and-prompts`: the rework program and its answers.
+3. `512-sc26-card-gates-pytest`, `513-sc27-card-gates-process`, `514-sc28-cards-real-run`: the parts of the program not done.
+4. To specify again on the reworked base, their interview answers kept (all were in 3-ready): `415-eval-operator-from-phone`, `autonomy-command`, `batch-takeover`, `context-limits-of-the-drivers-configurab`, `docs-sphinx-rtd`, `docs-style-guide`, `evals-rework`, `shortcut-commands`, `surface-getting-started`, `test-ceiling-decision`. The owner, 2026-11-26, verbatim: « tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32. »
+5. `tui-live-batch-kanban`: a new request, its second bullet unanswered.
+
+Not moved: the other ideas of 1-inbox, among them `run-the-long-gate-on-main-after-v0-15-1`, the follow-up of CR-463's waived long gate.
+
 ## Do this first: make the cards and the CLI usable (added after batch-31's end, 2026-11-26)
 
 Asked by the owner, verbatim: « Je veux savoir si tu as fini le rework demandé. S'il reste du travail on peut le mettre dans ce batch ou attendre de le clore et réouvrir un nouveau mais un faut que les cartes et les CLI soient utilisables » (is the rework finished; what remains can go in this batch or a new one, but the cards and the CLI must be usable). Chief of Staff's reading, to confirm by the owner: usable cards and CLI is the first requirement of the next batch.
