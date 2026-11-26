@@ -1,63 +1,68 @@
 ## Summary
 
-The OKF documentation page explains that Studio turns frontmatter into a properties table, but it shows nothing of it. This adds a 12 second silent feature clip of a note in an OKF Schema bundle: a typed table with a Description column and type icons, an invalid `status` value flagged by the title badge, a pick from a select of the schema's values, a save, and the error gone. The clip plays on the OKF page of the docs site.
+The OKF documentation page explains that Studio turns frontmatter into a properties table, but it shows nothing of it. This adds a 12 second silent feature clip of a note in an OKF Schema bundle: a typed table with a Description column and type icons, an invalid `status` value flagged by the title badge, a pick from a select of the schema's values, a save, and the error gone. It is the sibling of the standard frontmatter clip (the same page, the same `status` field, the same click, save chord and marks); only `type: note` and a `_schema/` folder are added, so what differs on screen is what the schema brings. The extension does not change.
 
 ## Deliverables
 
-The clip, taken in a real VS Code window with the extension's packaged build:
+![A note in an OKF Schema bundle: its frontmatter table shows a Description column and type icons, the title badge counts one error for the value "publshed"; a click opens a select with the schema's values, published is picked and saved, and the error is gone](https://github.com/gsemet/markdown-okf-schema-studio/raw/b7518fb3c16b8ac5da27f87c1165837530e5127f/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.gif)
 
-![The OKF Schema bundle frontmatter clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.gif)
-
-- MP4: [okf-schema-bundle-frontmatter.mp4](https://github.com/gsemet/markdown-okf-schema-studio/blob/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.mp4)
-- WebM: [okf-schema-bundle-frontmatter.webm](https://github.com/gsemet/markdown-okf-schema-studio/blob/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.webm)
-- Storyboard: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/clip.md)
-
-Choices: it is the sibling of the standard frontmatter clip (same page, same `status` field, same click, save chord and marks); only `type: note` and a `_schema/` folder are added, so what differs on screen is what the schema brings. The control filmed is the enum select, picked with two ArrowDown keys and saved with Ctrl+Enter.
-
-Deviation from the feature clip process: the storyboard review is the owner's, on this pull request, so it stays a draft until approved. Also, the storyboard first said the `status` row is red at frame 0. The trial take showed Studio paints no colour on a field row in error (the `okf-error` style exists only on the info row), so the only error signal on screen is the title badge reading 1 error. The clip shows what exists: every "red row" wording was changed to the badge, in the storyboard, the scenario comments and the OKF page alt text. No `src/` change.
-
-## Blast radius
-
-Grade: **1**. Documentation, a clip folder and tests only; a plain `git revert` restores the previous page.
-
-## Autonomous decisions
-
-- The error signal is shown as the title badge only, because the field row has no error colour; the missing row style is a possible bug filed apart, not fixed here.
-- The select is changed with ArrowDown and saved with the save chord; the trial showed no native popup, so no Escape was needed.
-
-## Known gaps
-
-- Motion, rhythm and the loop as watched are not checked by the author; the owner reviews them on this pull request.
-- The storyboard's picture captions for the first three frames are loose, and the Mark rows write status without code quotes; both are cosmetic and left for the owner's storyboard review.
-- A field row in error has no colour of its own (existing behaviour, not changed here).
-
-<details>
-<summary>Details</summary>
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/b7518fb3c16b8ac5da27f87c1165837530e5127f/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/b7518fb3c16b8ac5da27f87c1165837530e5127f/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.webm
+- Storyboard: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b7518fb3c16b8ac5da27f87c1165837530e5127f/docs/demo-video/clips/okf-schema-bundle-frontmatter/clip.md)
 
 ## Changes
 
-- `docs/demo-video/clips/okf-schema-bundle-frontmatter/`: storyboard, scenario, stage (`_schema/note.schema.yaml` and `notes/release-note.md`), frames, MP4, WebM, GIF, poster and the check report.
-- `docs/user/okf.md`: the clip under the introduction.
-- `docs/demo-video/clip-kit/lib/*.test.mjs`: the clip's scenario checks and storyboard are covered.
-- `test/site/siteClips.test.ts`: the OKF page plays the clip as a video.
+- `docs/demo-video/clips/okf-schema-bundle-frontmatter/`: the stage (`_schema/note.schema.yaml` and `notes/release-note.md`), the live storyboard, the scenario, and the rendered MP4, WebM, GIF, poster, contact sheet, key frames and `check.json` (12.0 s, 1280x720, 15 fps, a loop).
+- `docs/user/okf.md`: the clip on the OKF user page.
+- Tests: the shipped storyboard and stage and the scenario checks in the clip kit, and a site test of the OKF page playing the clip.
 
 ## Impacts
 
-The OKF page of the docs site shows the clip; the frames above show frame 0 and the picked value. No product behaviour change.
+No visual change in the extension (no `src/` file changes). The OKF page of the user docs gains the clip shown in Deliverables.
+
+## Blast radius
+
+Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` restores the previous state.
 
 ## Test plan
 
-- [x] New or changed tests (`test/site/siteClips.test.ts`, the clip kit tests) <!-- they cover the new clip -->
-- [x] Local gates at `635f1ba`: `just check` pass, `just clip-kit-test` pass (37 tests), clip render and check pass
-- [x] Evidence: the clip and its frames, taken at `635f1ba`
-- [x] Review: approved at `635f1ba`
-- [x] Verified at `635f1ba`
-- [x] CI green at `635f1ba`
+- [x] New or changed tests at `b7518fb` (storyboard, check and site tests)
+- [x] Requirements at `b7518fb`: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
+- [x] Changelog at `b7518fb`: No user-facing change (no `feat` or `fix` commit)
+- [x] Local gates at `b7518fb`: `just clip-kit-test` (53 tests) and `just check` pass
+- [x] Evidence at `b7518fb` (carried from `635f1ba`: the rebase leaves the clip folder unchanged): the take passed on its third run, after two runs failed on bugs of the new scenario; `check.json` passed: true, "verify" passed, 12.0 s, loop seam SSIM 0.9960, playback rate 1.007
+- [ ] Review
+- [x] CI green at `b7518fb` (static, static-windows, visual, viewer-graph, report)
+
+## What the clip proves
+
+Proved by the take (`check.json`, "scenario verify passed"): in a real VS Code window on Windows, a click on the invalid `status` value opens a select with the schema's values; two ArrowDown keys reach `published`; the save writes it to the file, the schema file is unchanged, the title badge goes away and the body line reads "Status: published".
+
+The take does not prove motion, rhythm, the loop as watched or the texts: those are judged by watching. The owner then approved the storyboard and the clip.
+
+## Deviation from the feature clip process
+
+The recipe has the maintainer review the storyboard before the take. Under the owner's rule of the first clip stack that review moved after the take, into this pull request: the take was filmed from the drafted storyboard. A review change lands as follows: an *(on screen)* row changed is a render (`just clip okf-schema-bundle-frontmatter render`, then `check`); a *(filmed)* row is a retake, a follow-up.
+
+The storyboard first said the `status` row is red at frame 0. The trial take showed that Studio paints no colour on a field row in error (the `okf-error` style exists only on the info row), so the only error signal on screen is the title badge reading 1 error. The clip shows what exists: every "red row" wording was changed to the badge, in the storyboard, the scenario comments and the alt text of the OKF page. No `src/` change.
+
+## Autonomous decisions
+
+- The error signal is shown as the title badge only, because the field row has no error colour; the missing row style is filed apart as a possible bug, not fixed here.
+- The select is changed with ArrowDown and saved with the save chord; the trial showed no native popup, so no Escape was needed.
+- The trial take stopped at the missing row colour until that choice was made.
+- Two scenario fixes came out of the trial: the table header cells are read without their resize handle glyphs, and the cell's stored value is compared in its JSON form.
+- The clip was filmed on its own scratch folder (`CLIP_SCRATCH=C:/okfclip499`) and debugging port (`CLIP_PORT=9499`), with no kit change.
+
+## Known gaps
+
+- A field row in error has no colour of its own (existing behaviour, not changed here).
+- The captions of the first three pictures in `clip.md` are loose, and its Mark rows write `status` in code quotes unevenly; both are cosmetic.
+- The raw screencast ran at 2.1 fps (retimed to 15 fps), so page changes can look stepwise.
+- macOS and Linux are not proved: the clip was filmed and checked on Windows only.
 
 ## Internal references
 
-CR-499 okf-schema-bundle-frontmatter, batch-09, second clip stack.
-
-</details>
+Specification and round notes live in the planning surface (CR-499, batch-09).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
