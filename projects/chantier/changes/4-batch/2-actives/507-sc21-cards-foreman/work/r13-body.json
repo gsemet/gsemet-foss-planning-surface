@@ -1,0 +1,14 @@
+[
+ {
+  "old": "merge-series-stack-p1 5, ",
+  "new": "merge-series-stack-p1 3 and 5, "
+ },
+ {
+  "old": "merge-stack-gitlab 3, ",
+  "new": "merge-stack-gitlab 3 and 5, "
+ },
+ {
+  "old": "merge-stack-ready-p1 3, ",
+  "new": "merge-stack-ready-p1 3 and 4, "
+ }
+]
