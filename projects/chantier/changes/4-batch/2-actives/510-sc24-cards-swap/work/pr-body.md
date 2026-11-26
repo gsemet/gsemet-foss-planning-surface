@@ -147,17 +147,17 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py`, `test_brief_bytes.py` and the refusal paragraph case in `test_brief.py` pass in the working tree; they were not run against the previous code
-- [ ] Local gates: pending at the new head
+- [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py`, `test_brief_bytes.py` and the refusal paragraph case in `test_brief.py` pass at `133640b`; they were not run against the previous code
+- [x] Local gates: `just check` (2762 passed, 19 skipped) and `just mod` (119 pass) at `133640b`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the last two commits
 - [ ] Evidence: before at `ea11a9e`, after at `4380df5` (the command captures carried from `b85be4c`)
-- [ ] Review: pending at the new head
+- [x] Review: approved at `133640b`
 - [ ] Verified: pending at the new head
 - [ ] CI: pending at the new head
 
 ## Internal references
 
 - CR-510 sc24-cards-swap, batch-31; its branch started on CR-507's (PR 487, merged).
-- Hand-over checklist of the specification. Rows marked done are in commit `b85be4c`; the links of row 4 are in commit `4380df5` (rows 11 to 14: not done, the launcher is not switched, decision D9 under order O-159):
+- Hand-over checklist of the specification. Rows marked done are in commit `b85be4c`; the links of row 4 are in commit `4380df5`; the worker agent files' refusal paragraph is in commit `133640b` (rows 11 to 14: not done, the launcher is not switched, decision D9 under order O-159):
 
 | # | What | State |
 | --- | --- | --- |
