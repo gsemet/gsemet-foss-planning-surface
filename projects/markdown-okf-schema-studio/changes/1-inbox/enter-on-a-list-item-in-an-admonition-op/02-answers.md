@@ -25,3 +25,11 @@ Spec critic: yes, the most common editing gesture changes.
 8. enter-admonition-Q8 (2026-11-26): **A block of a GitHub alert body opens with its `> ` markers:** "A. Garder (recommandé)".
 
 9. enter-admonition-Q9 (2026-11-26), on the owner's request, verbatim: "Et rajoute aussi une vidéo clip si elle n'existe pas sur la navigation au clavier pour atteindre une liste nested dans un admonition par exemple." The `keyboard-navigation` clip exists and stops at the first item of the admonition's list. **Answer:** "A. Étendre (recommandé)": the clip this change re-films goes down, by keyboard only, to an item of the nested sub-list, opens that item alone, changes a word and saves. No second clip.
+
+10. enter-admonition-Q10 (2026-11-26, the critic's second pass and the specification's open questions 1 and 2): **Which editors the move chord moves from, inside an admonition or alert:** "A. Tous les blocs (reco.)": from the editor of a list item or of the list, the list moves; from the editor of a paragraph, a code block or another direct block of the admonition, that block moves among the admonition's blocks. A block inside a list item does not move, as outside an admonition.
+
+11. enter-admonition-Q11 (2026-11-26): **Where the reason of a refused move inside an admonition shows:** "A. Près du + (reco.)": next to the admonition's insert point.
+
+12. enter-admonition-Q12 (2026-11-26): **Erasing an item or a paragraph opened alone in an admonition or alert, then Done:** "C. Ligne « > » vide": only the container's prefix is written (`>` in an alert): the alert stays whole, with an empty quoted line.
+
+13. enter-admonition-Q13 (2026-11-26): **Move chord for a list inside a quote, card or grid inside an admonition:** "A. Rien (reco.)": the list is not a direct block of the admonition, nothing moves.
