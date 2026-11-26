@@ -26,7 +26,8 @@ A real click on a radio option in a real VS Code window selects it at once and m
 
 ## Autonomous decisions
 
-- Measured times, key frames (`pointed`, `chosen`, `03-zoomed`, `04-mark-1`, `05-mark-2`) and the focus ring as seen are in the Review notes of [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/1d55649b51bee924e24186700634cef03413272f/docs/demo-video/clips/radio-buttons/clip.md).
+- The Mark 1 and Mark 2 rows of the storyboard write `(x)` and `( )` without the backticks of the draft.
+- Measured times, key frames (`pointed`, `chosen`, `04-mark-1`, `05-mark-2`) and the focus ring as seen are in the Review notes of [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/1d55649b51bee924e24186700634cef03413272f/docs/demo-video/clips/radio-buttons/clip.md).
 - The first full run on the default scratch folder rendered another clip's pictures (clips filmed in parallel share it); the take was rerun with its own scratch folder (`CLIP_SCRATCH`), with no kit change.
 
 ## Impacts

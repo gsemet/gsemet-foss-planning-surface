@@ -4,7 +4,7 @@
 W="$1"; S="$2"; shift 2
 for c in "$@"; do
   D="$S/c"; rm -rf "$D"; mkdir -p "$D"; git init -q "$D"
-  git -C "$W" archive "$c" requirements src sphinx skills scripts test | tar -x -C "$D"
+  git -C "$W" archive "$c" requirements src sphinx skills scripts test package.json esbuild.mjs | tar -x -C "$D"
   echo "== $c $(grep '^strs_test_coverage_mode' "$D/requirements/config.yml")"
   uvx --python 3.12 --from okf-schema==0.18.1 okfreq validate "$D/requirements" --check-links --project-root "$D" --json > "$S/v-cur-$c.json"
   echo "validate exit $?"
