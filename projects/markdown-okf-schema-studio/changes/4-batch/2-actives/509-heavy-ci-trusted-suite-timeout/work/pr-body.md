@@ -65,9 +65,11 @@ neither shows which frame it was, why it had no URL, or the other frames of the 
 `CodeWindow: failed to load (code: -3)` line in the same run is not evidence: passing runs log it
 too. The empty-URL observation is consistent with a frame that never loaded a document.
 
-The Studio content frame has a `vscode-webview://.../fake.html` URL (seen in a real window on
-Windows); the CI runner's logs confirm the `vscode-webview://` scheme only. The filter therefore
-keeps every `vscode-webview://` URL.
+The Studio content frame has a `vscode-webview://.../fake.html` URL (seen in an earlier real
+window run on Windows). On the CI runner, the browser target lists saved with the two timed-out
+launches of the same run hold only webview service workers, so they confirm the
+`vscode-webview://` scheme and not the content frame's URL. The filter therefore keeps every
+`vscode-webview://` URL.
 
 ## Impacts
 
@@ -83,6 +85,14 @@ frame lookup; it needs one heavy run to confirm.
 
 ## Autonomous decisions
 
+- The cause is fixed rather than hidden: no deadline, budget or time limit is raised, no test is
+  skipped, and a re-run until green does not count.
+- The bar for each part is 600 s, two thirds of its 900 s launch deadline, in each of two heavy
+  runs on the same commit. The long `real-input` step is not split to reach it.
+- The whole integration step only has to stay under its 1200 s limit: no parallel CI jobs and no
+  change to the open-at-line probe's fixed pauses here (see Known gaps).
+- No new stress scenario for the frame lookup: the URL filter and the frame list in the failure
+  message are what this change adds.
 - The last group of steps (`edit-keys` to `workspace-disposal`) moved to part 1 rather than
   keeping a contiguous split: reading the code found no state it takes from the two steps it no
   longer follows, and the contiguous split would leave part 2 over 600 s on a slow runner. One
@@ -90,8 +100,9 @@ frame lookup; it needs one heavy run to confirm.
   and `grid-card-editor-blur` now run under the `current` theme instead (none of them asserts a
   theme).
 - Each launch logs its name in the extension host, so a passing log also says which part ran.
-- The URL filter also covers the second frame scan of the open-at-line step; the other frame scans
-  of the test suite are left as they were.
+- Beyond the shared Studio frame lookup, the URL filter also covers the second frame scan of the
+  open-at-line step and the frame dump written when the current preview frame is not found. The
+  other frame scans of the test suite are left as they were (see Known gaps).
 
 ## Known gaps
 
@@ -100,8 +111,9 @@ frame lookup; it needs one heavy run to confirm.
   replacing the fixed pauses of the open-at-line probe (about 180 s) with readiness signals, would
   widen it.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
-  runs, and the open-at-line steps are not stress scenarios. The URL filter and the frame list in
-  the failure message are what make a next failure explain itself.
+  runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
+  CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure
+  message are what make a next failure explain itself.
 - Other test steps still scan every frame without the URL filter (block actions, edit toolbar,
   find in preview, table empty column, tall block scroll, preview editing helpers, render patching,
   reload and scroll-sync suites, window focus), so a frame without a document could still stall one
