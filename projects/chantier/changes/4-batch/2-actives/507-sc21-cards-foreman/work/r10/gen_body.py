@@ -135,7 +135,6 @@ pair(body[start:end], """- Inventory homes: of the 4,224 rows of the four invent
   protecting-looking rows a topic carries, for the later review.
 """)
 
-pair("batch-close-stopped, batch-end,", "batch-close-stopped, batch-end,") if False else None
 pair("- All topic names: allow-rules, allow-rules-more, asks,",
      "- All topic names: allow-rules, allow-rules-more, ask-lines, asks,")
 pair("grill-critic-steps, grill-options,", "grill-critic-steps, grill-example, grill-options,")
@@ -162,7 +161,7 @@ for p in pairs:
     result = result.replace(p["old"], p["new"])
 (HERE.parent / "r10-body.json").write_bytes((json.dumps(pairs, ensure_ascii=False, indent=1) + "\n").encode("utf-8"))
 print(len(pairs), "pairs, each old once")
-for stale in (r"\b238\b", r"\b447\b", r"3,999", r"3,524", r"3,811", r"1,898", r"2,063", r"22,278", r"46,935", r"concepts\.md` \(line 121\)"):
+for stale in (r"(?<![\d,])238\b", r"(?<![\d,])447\b",r"3,999", r"3,524", r"3,811", r"1,898", r"2,063", r"22,278", r"46,935", r"concepts\.md` \(line 121\)"):
     assert not re.search(stale, result), stale
 names = result.split("- All topic names: ", 1)[1].split("\n\n", 1)[0]
 listed = {n.strip(" .") for n in re.split(r",\s+", names)}

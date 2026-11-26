@@ -1,0 +1,138 @@
+[
+ {
+  "old": "`topics.json`: 238 topics",
+  "new": "`topics.json`: 240 topics"
+ },
+ {
+  "old": "| concepts.md | 73,286 | 18,565 | none set |",
+  "new": "| concepts.md | 73,286 | 26,100 | none set |"
+ },
+ {
+  "old": "| pr-template.md | 16,801 | 11,849 | none set |",
+  "new": "| pr-template.md | 16,801 | 12,032 | none set |"
+ },
+ {
+  "old": "| release-template.md | 12,155 | 6,758 | none set |",
+  "new": "| release-template.md | 12,155 | 7,002 | none set |"
+ },
+ {
+  "old": "| status-layout.md | 17,475 | 10,992 | none set |",
+  "new": "| status-layout.md | 17,475 | 11,486 | none set |"
+ },
+ {
+  "old": "| titles.md (now `topics/titles.md`) | 2,684 | 1,428 | 1,500, within |",
+  "new": "| titles.md (now `topics/titles.md`) | 2,684 | 1,495 | 1,500, within |"
+ },
+ {
+  "old": "| review-step.md | 3,950 | 1,419 | 1,500, within |",
+  "new": "| review-step.md | 3,950 | 1,497 | 1,500, within |"
+ },
+ {
+  "old": "| forges/github.md, gitlab.md | 739, 744 | 587, 590 | not larger, within |",
+  "new": "| forges/github.md, gitlab.md | 739, 744 | 592, 595 | not larger, within |"
+ },
+ {
+  "old": "| topics/host-*.md (33 files) | part of the above | 36,066, largest 1,490 | 1,500 each, within |",
+  "new": "| topics/host-*.md (33 files) | part of the above | 37,088, largest 1,500 | 1,500 each, within |"
+ },
+ {
+  "old": "| skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,669, 2,749, 2,311, 2,748 | none set |",
+  "new": "| skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,705, 2,785, 2,347, 2,784 | none set |"
+ },
+ {
+  "old": "`foreman.md` 36,927 to 3,999 (4,000)",
+  "new": "`foreman.md` 36,927 to 3,997 (4,000)"
+ },
+ {
+  "old": "`griller-skill.md` 3,524 (4,000)",
+  "new": "`griller-skill.md` 3,621 (4,000)"
+ },
+ {
+  "old": "| coder | 9,116 | 6,110 |\n| conflict-resolver | 9,074 | 6,675 |\n| debugger | 8,863 | 6,462 |\n| inspector | 11,225 | 7,181 |\n| investigator | 8,735 | 6,667 |\n| verifier | 19,762 | 8,293 |\n| retro-critic | 4,225 | 2,889 |\n| demo-explorer | 4,746 | 2,936 |\n| chief-of-staff | 22,322 | 24,657 |\n| griller | 6,349 | 6,650 |\n| foreman | 55,206 | 22,278 |\n| cr-driver, staged card, role only | 59,216 | 8,010 |\n| release-driver, staged card, role only | 59,216 | 8,072 |\n| stack-driver, staged card, role only | 59,216 | 8,044 |\n| qa-driver, staged card, role only | 59,216 | 5,828 |\n| spec-writer, on an inbox item | 4,815 | 3,228 |\n| spec-critic, on an inbox item | 5,290 | 3,133 |\n| board-griller, on an inbox item | 11,964 | 3,132 |\n| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,935 |",
+  "new": "| coder | 9,575 | 6,569 |\n| conflict-resolver | 8,859 | 6,460 |\n| debugger | 8,648 | 6,247 |\n| inspector | 11,010 | 6,966 |\n| investigator | 8,520 | 6,452 |\n| verifier | 19,547 | 8,078 |\n| retro-critic | 4,225 | 2,889 |\n| demo-explorer | 4,746 | 2,936 |\n| chief-of-staff | 22,322 | 24,657 |\n| griller | 6,349 | 6,747 |\n| foreman | 55,206 | 22,276 |\n| cr-driver, staged card, role only | 59,216 | 8,010 |\n| release-driver, staged card, role only | 59,216 | 8,070 |\n| stack-driver, staged card, role only | 59,216 | 8,044 |\n| qa-driver, staged card, role only | 59,216 | 5,828 |\n| spec-writer, on an inbox item | 4,815 | 3,228 |\n| spec-critic, on an inbox item | 5,290 | 3,133 |\n| board-griller, on an inbox item | 11,964 | 3,132 |\n| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,933 |"
+ },
+ {
+  "old": "Host claude, no unit but where a row says otherwise. coder (both sides), chief-of-staff, griller,\nforeman and direct mode: measured on the cards of this PR's last commit. The other rows: an earlier round,\ntheir cards unchanged since (workers on this change's unit). Today's coder brief was 9,790 in that earlier\nround and is 9,116 now; a run at `03f973e` also gave the six workers lower values on both sides (742\nbytes, same differences). Cause not traced. Start readings before this change, as the\nspecification gives them (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB,\nGriller 145 / 36 KB.",
+  "new": "Host claude, no unit but where a row says otherwise. Every row was measured in one run on the cards of\nthis PR's last commit. A unit's brief also holds the unit's facts from the record, so the six workers'\nbytes, measured on this change's unit, move between rounds on both sides (today's coder brief: 9,575\nhere, 9,790 and 9,116 in earlier rounds). Start readings before this change, as the specification gives\nthem (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB, Griller 145 / 36 KB."
+ },
+ {
+  "old": "lines were also edited where the new set had lost or misstated a rule of today's cards (the topic",
+  "new": "lines were also edited where the new set had lost or misstated a rule of today's cards, or held a date,\n  CR id or trial story the specification bans (the topic"
+ },
+ {
+  "old": "| griller-skill.md 24, 31; griller.md 7 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory), a pointer, no secret in the CR folder |",
+  "new": "| griller-skill.md 5, 24, 29, 31; griller.md 7 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory), a pointer, no secret in the CR folder; `depends.json` only when a CR needs another's result; no `triage` for a CR marked for the running batch |"
+ },
+ {
+  "old": "| topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |",
+  "new": "| topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 7, titles 4, worker-shell 9 | pointer, scoping, links, a folded rule, the folder-change ban |"
+ },
+ {
+  "old": "| topics, rules put back: batch-close-p1 3, batch-close-p2 3 and 4, batch-plan-cut-p1 1, 3 and 4, batch-plan-cut-p2 1, 3 and 4, batch-plan-mode-p1 1 and 3, batch-plan-mode-p2 1, 3, 4 and 5, config-p1 1 and 3, config-p2 1, 3 and 4, delivery-time-p2 3 and 6, demo-p1 3, drop 4, forge-permissions-p1 1, 3, 4, 5, 6 and 8, forge-permissions-p2 1, 3 and 4, grill-critic-steps 6 and 7, grill-series 7, grill-specify-p2 4, lease 3, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout-p1 1 and 3, main-checkout-p2 1, 3, 4, 6, 8 and 9, merge-recorded 5 and 6, merge-series-stack-p1 5, merge-series-stack-p2 3, merge-stack-ready-p2 3, merge-words 5, mode-switch-p1 1, 3, 5, 7 and 8, mode-switch-p2 1, 3, 4, 5 and 6, orders 8, project-rules-p1 1, 3, 5 and 6, project-rules-p2 1, 3 and 4, refused-push-chief-p2 3, release-chief-after-p2 5, stack-changes-chief-p1 3, stack-checks 6, stack 6, steering-reports-p1 6, steering-reports-p2 4, status-notes-more 3 and 4, sync-offer 20, ticket-summary-p1 7, wakes 3, 4, 5, 6 and 7, watcher-board 7, watcher-events 6, watcher-lines 8 | a lost or misstated rule or its wording, line by line in the host and shared inventory |",
+  "new": "| topics, rules put back: allow-rules 4, allow-rules-more-p1 3, allow-rules-more-p2 3, batch-close-p1 3, batch-close-p2 3 and 4, batch-close-stopped-p2 5, batch-pause 3 and 5, batch-plan 3 and 4, batch-plan-cut-p1 1, 3 and 4, batch-plan-cut-p2 1, 3 and 4, batch-plan-mode-p1 1, 3 and 4, batch-plan-mode-p2 1, 3, 4 and 5, batch-plan-show-p1 1 and 3, batch-plan-show-p2 1, board-lines 4, board-p1 3, board-p2 3 and 4, board-restart 3 and 7, chain 4 and 5, chain-conflict 4, compacting-p2 3, config-p1 1 and 3, config-p2 1, 3 and 4, conflict-check 5, delivery-time-p2 3 and 6, demo-p1 3 and 5, direct-mode-accept-p1 3, direct-mode-accept-p2 4, direct-mode-epoch-p1 3, direct-mode-p2 3, direct-mode-p3 4, drop 4, first-turn-p1 5, first-turn-p2 3, 4, 5 and 6, foreman-start-more 4, foreman-start-p1 3, foreman-start-p2 3, forge-permissions-gitlab 3 and 5, forge-permissions-p1 1, 3, 4, 5, 6 and 8, forge-permissions-p2 1, 3 and 4, forge-permissions-say 3, grill-backlog-p1 3, 5 and 6, grill-backlog-p2 3 and 4, grill-critic 3 and 4, grill-critic-steps 5, 6 and 7, grill-options 3, grill-outside-pr 4, 5 and 7, grill-series 4, 7, 8 and 9, grill-specify-p1 5 and 7, grill-specify-p2 4, griller-worktree 3 and 5, lease 3 and 7, lease-steering 4, 5, 6, 7 and 8, long-gate 3 and 7, long-gate-waiver 4 and 5, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout-p1 1 and 3, main-checkout-p2 1, 3, 4, 6, 8 and 9, merge-gaps 4 and 5, merge-recorded 5, 6 and 7, merge-series-stack-p1 5, merge-series-stack-p2 3, merge-stack-gitlab 3, merge-stack-ready-p2 3 and 6, merge-under-grant 3 and 7, merge-words-p1 1, 3 and 4, merge-words-p2 1, 3 and 4, mode-switch-p1 1, 3, 5, 7 and 8, mode-switch-p2 1, 3, 4, 5 and 6, options 5, orders 8, orders-queue 3 and 4, pr-extras 3, 4, 5, 8 and 9, pr-gitlab 3 and 4, project-rules-p1 1, 3, 5 and 6, project-rules-p2 1, 3 and 4, recovery 6, refusals-to-say-more 3, refusals-to-say-p1 3 and 6, refused-push-chief-p2 3, refused-push-gate 3, 4, 5 and 6, refused-push-route 4, refused-push-run 4, refused-push-steering 3, 4, 6 and 7, refused-rebase 5, release-chief-after-p1 3, release-chief-after-p2 4 and 5, release-chief-auto-p1 3, release-chief-p1 3, release-chief-p2 4, release-notes 3, 5, 6 and 8, release-take 4 and 6, reload 3, remote-login 3, retro 3, retro-critic 4 and 5, retro-route-chantier-p1 6, retro-route-p2 4, rounds-exception 3, seat-handover 5, seat-p1 4, seat-p2 3, 6 and 7, session-start 3 and 4, session-start-surface-p2 3, stack 5 and 6, stack-changes-chief-p1 3 and 4, stack-changes-chief-p2 3, stack-checks 6, stack-deliver 3, stack-ends 5, stack-grows 4, stack-outside 4 and 5, stack-run 3, stack-takes 4, steering-reports-p1 4 and 6, steering-reports-p2 3 and 4, take-back 3, 4, 5 and 7, ticket-summary-p1 5, 6 and 7, ticket-summary-p2 3, 4 and 5, ticket-summary-post-p1 4, 7 and 8, ticket-summary-post-p2 3, 4 and 5, titles 7 and 8, trials-p1 1, 3 and 4, trials-p2 1, trouble-gate 6, wakes-forge 6, wakes-p1 1, 3, 4, 5 and 6, wakes-p2 1, 3 and 4, watcher 4 and 6, watcher-board-p1 1, 5 and 6, watcher-board-p2 1 and 3, watcher-events-p1 1, 3 and 4, watcher-events-p2 1, 3, 4, 5, 6 and 7, watcher-lines-p1 1 and 4, watcher-lines-p2 1 and 5, watcher-pull 6, worker-shell 8 and 14, writer 3 | a lost or misstated rule or its wording, a date, CR id or trial story the specification bans, or a split file's lines; line by line in the host and shared inventory |"
+ },
+ {
+  "old": "| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the mode-switch files; `mode-switch`'s trigger names `order mode`; the split topics list their parts; `ready-asks` serves the Foreman and the Chief of Staff |",
+  "new": "| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the files of `direct-mode-switch`; `mode-switch`'s trigger names `order mode`; the split topics list their parts; `ready-asks` and `ask-lines` serve the Foreman and the Chief of Staff |"
+ },
+ {
+  "old": "- `concepts.md` (line 121) says \"a cause the Foreman's card names\" for a restart; the new Foreman card names\n  none: the causes are in `help lost-restart`.\n",
+  "new": "- `foreman.md` has eight nevers where the specification sets seven: the eighth (CR work in a scratchpad or\n  temp folder; a secret or personal data in a CR folder) protects the user, and F5 puts such a rule on a\n  card, in the floor or in a refusal.\n"
+ },
+ {
+  "old": "  The latest changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards and\n  many topics: their score is owed at the final head. Plans only, no spend: chief-of-staff with griller 54 runs, about",
+  "new": "  The changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards, the shared files,\n  the skill texts and many topics: their score is owed at the final head. Plans only, no spend (costs of an\n  earlier round's cards): chief-of-staff with griller 54 runs, about"
+ },
+ {
+  "old": "release-driver 3,811 (+739)",
+  "new": "release-driver 3,809 (+737)"
+ },
+ {
+  "old": "pr-extras 1,898",
+  "new": "pr-extras 1,896"
+ },
+ {
+  "old": "release-notes\n  2,063,",
+  "new": "release-notes\n  2,055,"
+ },
+ {
+  "old": "- The home of each protecting row was read at its cited line. Of the other rows, at least a few of\n  each inventory section were read against their home and the wrong homes corrected; not every row was\n  read. Each of the four inventories lists the protecting-looking rows a topic carries, for the later\n  review.\n",
+  "new": "- Inventory homes: of the 4,224 rows of the four inventories, 3,916 name a text home under `cards-next/`.\n  A script compared each one's source sentences at the base with its home's words. At least 1,835 of\n  them, every row it still flags included, were read by hand against the home, and the losses found were\n  fixed. The other rows (at most 2,081) were not read by hand in that pass, and a lost condition worded\n  with the home's own words can escape the script. Each of the four inventories lists the\n  protecting-looking rows a topic carries, for the later review.\n"
+ },
+ {
+  "old": "- All topic names: allow-rules, allow-rules-more, asks,",
+  "new": "- All topic names: allow-rules, allow-rules-more, ask-lines, asks,"
+ },
+ {
+  "old": "grill-critic-steps, grill-options,",
+  "new": "grill-critic-steps, grill-example, grill-options,"
+ },
+ {
+  "old": "- [x] Local gates at the head: `just check` at `03f973e`: 2932 passed, 20 skipped",
+  "new": "- [x] Local gates: `just check` on the tree of the last commit, run before the commit: 2933 passed, 19 skipped"
+ },
+ {
+  "old": "- [x] Evidence at `03f973e`:",
+  "new": "- [x] Evidence on that tree:"
+ },
+ {
+  "old": "`git rev-parse HEAD:<path>` gives the same blob under",
+  "new": "`git hash-object <path>` gives the same blob under"
+ },
+ {
+  "old": "`git grep -n cards-next HEAD -- . ':(exclude)skills/chantier/cards-next'` prints no line,",
+  "new": "`git grep --untracked -n cards-next -- . ':(exclude)skills/chantier/cards-next'` prints no line,"
+ },
+ {
+  "old": "and `git grep -n \"Read this short role contract at boot\\|# chantier-agent:\\|chantier board\" HEAD --\n    skills/chantier/cards-next` prints no line;",
+  "new": "and `git grep --untracked -n \"Read this short role contract at boot\\|# chantier-agent:\\|chantier board\" --\n    skills/chantier/cards-next` prints no line;"
+ },
+ {
+  "old": "topic index: 238 topics load, 447 readings resolve",
+  "new": "topic index: 240 topics load, 463 readings resolve"
+ },
+ {
+  "old": "- [x] Review: approved at `03f973e` (carried from `bb6a563`)",
+  "new": "- [ ] Review: owed at the head (approved at `03f973e`, before the last changes)"
+ }
+]
