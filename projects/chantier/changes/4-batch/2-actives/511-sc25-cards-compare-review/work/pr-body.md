@@ -10,7 +10,7 @@ every row: 329 stay open in a committed list (see Known gaps).
 
 ## Deliverables
 
-- `docs/proofs/cards-inventory.md` (generated, 1,474,609 bytes): 4629 rows from 78 old source files
+- `docs/proofs/cards-inventory.md` (generated, 1,474,636 bytes): 4629 rows from 78 old source files
   (11,391 lines, 900,129 bytes); by kind a 601, b 169, c 139, d 165, e 3493, f 62. Ranges holding no
   rule, four lists for the project owner (601, 12, 2 and 601 rows) and a hand-over checklist.
 - `docs/proofs/cards-inventory-open.tsv`: the exact list of open rows, with a reason each.
@@ -21,8 +21,8 @@ every row: 329 stay open in a committed list (see Known gaps).
 - The old base is `f08cf41`; `git diff --stat f08cf41 ea11a9e -- skills/chantier/references
   'skills/*/SKILL.md'` prints nothing. The Sources table copies `git ls-tree -r f08cf41 -- …` and
   `git show f08cf41:<path> | wc -l -c`.
-- Back in the Driver, Foreman and conflict resolver cards, among others: the hand-back on context at
-  130,000 tokens, never ending a turn to wait for a worker, never taking a large output whole.
+- Back in the Driver cards, among others: the hand-back on context at 130,000 tokens, never ending a
+  turn to wait for a worker, never taking a large output whole.
 - Corrected: the cards and topics that described a prompt skeleton, a worker's opening lines and a
   `writes:` line the CLI no longer prints.
 
@@ -81,10 +81,11 @@ restart topic).
 
 - Row ids accept an optional `B` and four digits: the existing ids must stay unchanged, and the
   planned pattern refused 1469 of them.
-- No row's kind was changed to make it pass; a protective rule goes to a card or a refusal.
+- No row's kind was changed to make it pass; a protective rule goes to a card or a refusal, or stays
+  listed as open.
 - The inventory test is two files, because of the project's 400-line limit on a code file.
-- The inventory has six sections, one more than the written plan lists, so that the hand-over
-  checklist has its own place.
+- The written plan announces five sections for the inventory and lists six; it has the six, so that
+  the hand-over checklist has its own place.
 - Test ceilings raised to fit the restored lines (see Known gaps).
 
 ## Known gaps
@@ -96,26 +97,31 @@ restart topic).
   judged from their wording, not searched one by one.
 - A sample suggests up to about one in ten automatically mapped homes of non-protective rows may not
   hold its rule; no test can see this.
-- All 601 kind-a rows are checked by quote only (the text is still where the row says), with no
-  behaviour check yet. The owner lists (601 kind-a rows with their home) are in the inventory and are
-  not repeated here. Rows homed in the incidents file: H-439, H-989, H-1040, H-1041, H-1059, H-1069,
-  H-1191, H-1192, H-1203, H-1212, H-1306, H-1551; no row is homed as inferable.
+- The 539 kind-a rows that have a home are checked by quote only (the text is still where the row
+  says), with no behaviour check yet; the other 62 are open. The owner lists (601 kind-a rows) are in
+  the inventory and are not repeated here. Rows homed in the incidents file: H-439, H-989, H-1040,
+  H-1041, H-1059, H-1069, H-1191, H-1192, H-1203, H-1212, H-1306, H-1551; no row is homed as
+  inferable.
 - 20 of the 36 hand-over checklist items end as known gaps, each with its reason in the inventory,
   among them: the scorecard rails J11 and J22 are not reconciled with the new wording, one sentence
   of CONTRIBUTING.md is not aligned, and no new quiz case was written.
 - H-1360 (a rule dropped by default, pending the owner's confirmation) needs that confirmation.
 - Card size targets exceeded by this change, in LF bytes (before to now, target): cr-driver 3749 to
-  4834 (4000), stack-driver 3783 to 4633 (4000), release-driver 3809 to 4526 (3000, already over),
-  foreman 3997 to 4364 (4000), conflict-resolver 1494 to 1535 (1500). Already over and unchanged:
+  5066 (4000), stack-driver 3783 to 4821 (4000), release-driver 3809 to 4685 (3000, already over),
+  foreman 3997 to 4426 (4000), conflict-resolver 1494 to 1535 (1500). Already over and unchanged:
   coder, demo-explorer, retro-critic, spec-critic, spec-writer, griller, verifier.
-- Brief byte ceilings raised in `test_brief_bytes.py`: cr-driver 9900 to 10900, release-driver 9600
-  to 10300, stack-driver 9200 to 10100, qa-driver 6100 to 6300, foreman 22200 to 22500.
+- Brief byte ceilings raised in `test_brief_bytes.py`: cr-driver 9900 to 11100, release-driver 9600
+  to 10500, stack-driver 9200 to 10300, qa-driver 6100 to 6300, foreman 22200 to 22600.
 - Not run: skipped on the owner's word, 2026-11-26: `just quiz <role> --plan --max-usd 10`,
   `just quiz <role> --cards f08cf41f2c80e2e4f7ab834adc3dc06820ae7f93 --max-usd 10 --save old-<role>`
   and `just quiz <role> --max-usd 10 --against <the saved old results>`, for each role under
   `evals/quiz/` (the session roles add `--model`). So no result shows the new cards answer as well
   as the old ones.
 - Real run not done (a later, separate campaign).
+- `just check` at the pushed head is not yet proven; it is run before the first push.
+- `just eval-dry-run` at the pushed head is not yet proven; it is run before the first push.
+- The pipeline's scenario job on ubuntu is not yet proven; it runs once the change is pushed.
+- The long gate `scenario` on Windows is not yet proven; it is run at the final head.
 - The seconds the new test adds to `just test` were not measured as two runs before and after; the
   test file alone took 2.8 s of pytest wall time at an earlier state.
 

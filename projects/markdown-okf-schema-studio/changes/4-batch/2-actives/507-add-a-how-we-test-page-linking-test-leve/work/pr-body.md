@@ -52,8 +52,8 @@ The site header gains a sixth link:
 ## Impacts
 
 The site shows a "How we test" link in its header and a new page. The extension itself does not
-change. A change that adds or renames a CI job, a test folder or an end-to-end group, adds an
-acceptance group, or changes the coverage mode or the requirements lint commands now fails the unit
+change. A change that adds or renames a CI job, a test folder, an end-to-end group or a command of
+`just requirements-lint`, adds an acceptance group, or changes the coverage mode now fails the unit
 tests until the page says so.
 
 ## Blast radius
@@ -134,11 +134,13 @@ The new and changed tests against the previous code: 13 of 49 fail.
 - "SIMPLE_CARDS covers the home, Contributing, How we ship and How we test pages": the entry
   `docs/how-we-test.md` is missing.
 
-Built site, a scan of the new page and the headers: 20 headings, 10 table rows, 11 relative links,
-the six header links in order on the home page, "How we ship", "How we test" and a requirements
-viewer page, the manifest's page and card entries and `og/how-we-test.png`: no problem found.
+Built site, a scan of the new page and the headers (on an earlier wording of the page, edited
+since): 20 headings, 10 table rows, 11 relative links, the six header links in order on the home
+page, "How we ship", "How we test" and a requirements viewer page, the manifest's page and card
+entries and `og/how-we-test.png`: no problem found.
 
-Drift probes, each a temporary edit then `just unit`, each with one failing test:
+Drift probes (same earlier wording), each a temporary edit then `just unit`, each with one failing
+test:
 
 - every mention of the `stress` job removed from the page: "How we test names every CI job",
   missing `stress`;
