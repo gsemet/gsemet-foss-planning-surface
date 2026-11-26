@@ -12,7 +12,7 @@ One card set, and one way to start an agent.
 | A role's start | startup core, manifest, role card sections | `brief <role> <unit>`: card, floor, facts, host rows |
 | `take`, `take stack`, `order qa` | print a Driver prompt skeleton | print the lease and the `brief` command |
 | `round`, `handoff` | print each worker's opening lines | print one `workers:` line naming `brief` |
-| A Driver's `Team:` and review steps | filled by hand by the session that starts it | filled by `brief` from the configuration and the project's instructions |
+| A Driver's `Team:` and review steps | filled by hand by the session that starts it, but for the team part when the configuration set a team | filled by `brief` from the configuration and the project's instructions |
 
 ```mermaid
 flowchart LR
@@ -78,7 +78,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `docs/incidents.md` holds the stories that only one of the card inventories marked for it.
 - The tests' file-and-heading pins are gathered in one test; the board read-key test now scans the topics too.
 - The generic-agent case of the host matrix is left as a known gap, with no further work: it expects contract lines that no Claude Code configuration produces, before or after this change, and the brief already holds the card and the floor.
-- The refusal paragraph of the worker agent files changed, though the specification said to keep it: as it was, a worker could refuse the short prompt of `brief`. It now accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (decided during implementation, to be confirmed by the owner).
+- The new refusal paragraph of the worker agent files accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (decided during implementation).
 
 ## Known gaps
 
@@ -110,6 +110,8 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - The new hook test case reads only the test's own constants; the cases next to it tie them to what the hook sends.
 - The type checker's warnings on `hooks/register.tsx` were there before.
 - The new tests were not run against the previous code.
+- `docs/proofs/claude-code.md` still holds a local home path, as it did before this change.
+- `just test` was already far above the time budget of `AGENTS.md` before this change.
 - **UNVERIFIED:** the test suite's added time stays within the expected 3 seconds: one pair of runs on the same machine gives 165.0 to 167.2 seconds of wall time (157.8 to 162.5 as the test runner counts), while runs of the new head span 139 to 265 seconds.
 
 <details>
@@ -122,7 +124,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - `skills/chantier/roles.yaml` and the agent files of both hosts point at the new cards and replies.
 - The seven agent files of the workers that named their card in the refusal paragraph (coder, conflict resolver, debugger, demo explorer, inspector, investigator, verifier), on both hosts with identical bodies, accept the name of the brief file or of the card. The other agent files check the first line only; the board Griller's refusal paragraph is unchanged.
 - The CLI's own lines (`take`, `take stack`, `order qa`, `round`, `handoff`, `brief`, `open`, `foreman set`, `status`, `preflight`, the board Griller and refusal texts) name only files that exist; the host rows that `brief` and `host` print from the data files still hold some removed names (see Known gaps).
-- Comments that named a removed host-card section now name a row or topic: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`.
+- Comments that pointed at the old host cards now name a host row, a help topic or a section of the new host card, or no longer point anywhere: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`.
 - `hooks/register.tsx`: the reload message after a compaction names the floor.
 - Eval kit: the audit expects a brief for a role started that way; the dry run checks `brief`'s boot; the quiz boots from `brief`, and `--cards <ref>` of a head before the swap still walks that head's manifest.
 - Scenario: every Driver is started from the printed `brief` command; the new fact lines and the stack line are checked.
@@ -146,7 +148,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Card text edited beyond the move (link fixes, and sentences that named a removed file):
   - `references/topics.json` (the `paths` note), `references/topics/foreman-start-p2.md` (step 4 names `brief foreman`), `references/concepts.md` (host reference and Driver card names, the four Driver `Card` cells).
   - The four `SKILL.md`: the new texts, with today's `$CHANTIER` paragraph kept ("is a stop: report its exact error (floor 4)") and the reload sentences of the router, Chief of Staff and Griller adjusted to it.
-  - `references/sync-checkout.md`: today's title, intro and four steps kept; step 2, step 4 and the closing sentence now name `help` and `host` lines and the floor.
+  - `references/sync-checkout.md`: today's title and first four steps kept, and its intro, which now counts four; step 2, step 4 and the closing sentence now name `help` and `host` lines and the floor.
   - `references/topics/host-allow-rules.md` and `host-allow-rules-copilot.md`: the launcher sentences say unproved or no longer name it.
   - 32 of the 33 `references/topics/host-*.md` files: one added line each, `[Trials](...)`, linking the host's history in `docs/proofs/` (the one without it only says it is for one host).
 
@@ -154,6 +156,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 
 - No evaluation run is made for this change (no quiz, no campaign); the owner runs them later, and they block nothing.
 - The merge waits for no evaluation: the stacked changes merge in order, in one sitting, by the owner (a reading of the owner's words, to be confirmed).
+- The refusal paragraph of the worker agent files is changed in one more round, though the specification said to keep it, because a worker could refuse the short prompt of `brief`: confirmed by the owner on 2026-11-26.
 
 ## Impacts
 
@@ -163,7 +166,7 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 
 - [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py`, `test_brief_bytes.py` and the refusal paragraph case in `test_brief.py` pass at `133640b`; they were not run against the previous code
 - [x] Local gates: `just check` (2762 passed, 19 skipped) and `just mod` (119 pass) at `133640b`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the last two commits, and on CI at `133640b`
-- [x] Evidence: before at `ea11a9e`, after at `133640b` (the command captures carried from `b85be4c`); the refusal paragraph before at `4380df5`, after at `133640b`
+- [x] Evidence: before at `ea11a9e`, after at `133640b` (the command captures carried from `b85be4c`); the refusal paragraph before at `4380df5`, after at `133640b`; a host topic's trial link at `4380df5`
 - [x] Review: approved at `133640b`
 - [x] Verified at `133640b` (claims the last two commits cannot change carried from `b85be4c` and `4380df5`); the bound on the added test time is not proved, see Known gaps
 - [x] CI green at `133640b`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
