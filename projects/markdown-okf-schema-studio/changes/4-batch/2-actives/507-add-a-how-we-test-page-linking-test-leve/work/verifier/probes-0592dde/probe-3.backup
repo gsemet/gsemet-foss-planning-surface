@@ -1,0 +1,784 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      heavy:
+        description: Also run the real VS Code jobs (integration, acceptance in one shard per group, and stress, about 10, 2 and 16 minutes)
+        type: boolean
+        default: false
+      toc_loop:
+        description: Rounds of the toc edit-toggle repro loop (real window, 0 = off, at most 40; the launch deadline is computed from the rounds and the steps, at most 30 minutes)
+        type: string
+        default: "0"
+      toc_delay_ms:
+        description: Upper bound of the random delay injected around the edit toggle in the toc loop
+        type: string
+        default: "0"
+      toc_steps:
+        description: Steps of a toc loop round, comma-separated among readme-html, toc, myst-blocks (empty means all three, in that order)
+        type: string
+        default: ""
+      toc_control:
+        description: Toc loop control, 1 closes the side bar before each step (0 or empty = off)
+        type: string
+        default: "0"
+      gallery:
+        description: Build the gallery and the site from the end-to-end reports (heavy only; false skips it)
+        type: boolean
+        default: true
+      stress_repeat:
+        description: Stress rounds per window, 1 to 100 (heavy only; empty means 11). Above about 220 scenario runs per window (rounds times scenarios), narrow stress_scenarios or the run exceeds the time limits
+        type: string
+        default: ""
+      stress_scenarios:
+        description: Comma-separated stress scenario names to loop (heavy only; empty means all)
+        type: string
+        default: ""
+
+env:
+  STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+  # One end-to-end campaign id per workflow run, shared by the visual, integration and acceptance
+  # jobs (visual in two parts); each job records its own real start time. The attempt number is left out on purpose: re-running
+  # only the failed jobs must keep the same id, or the report job would see two campaigns.
+  # Artifact names are the opposite: each ends with the attempt that uploaded it, because after
+  # "Re-run failed jobs" a download by a fixed name returned the attempt-1 artifact. A job whose
+  # artifact is consumed later announces the name in its `artifact` output; a job that is not
+  # re-run keeps its outputs, so a consumer always gets the newest attempt of each producer.
+  STUDIO_E2E_RUN_ID: ${{ github.run_id }}
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+          fetch-depth: 0
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      - run: just ci-static
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: reports-static-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # The same static checks on Windows, so the build keeps working for Windows contributors. Its
+  # just recipes run with the Git for Windows shell of the runner (sh, bash and cygpath).
+  static-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+          fetch-depth: 0
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      - run: just ci-static
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: reports-static-windows-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  visual:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    outputs:
+      artifact: e2e-visual-attempt-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      # Only the jobs "visual", "visual-2", "viewer-graph" and "gallery" install Ubuntu packages (just dev-ci visual);
+      # "visual" keeps their archives in a cache (the others only restore it) so a slow mirror cannot
+      # stall them. The key changes only when the package set changes.
+      # The key names the runner image (ImageOS, for example ubuntu24), so a new image release
+      # starts its own archive set. ImageOS is a runner variable, which the env context does not
+      # see until it is written to GITHUB_ENV.
+      - name: Name the runner image for the package cache
+        run: echo "RUNNER_IMAGE_OS=${ImageOS:-unknown}" >> "$GITHUB_ENV"
+      - name: Restore Ubuntu package archives
+        id: apt-archives
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/apt-archives
+          key: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}
+          restore-keys: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}-
+      - run: just dev-ci visual
+      - name: Save Ubuntu package archives
+        # Skipped when no archive was kept, or when the restored archives are exactly the ones this
+        # run used.
+        if: >-
+          hashFiles('.cache/apt-archives/*.deb') != '' &&
+          steps.apt-archives.outputs.cache-matched-key != format('apt-archives-visual-{0}-{1}-{2}-{3}',
+          runner.os, env.RUNNER_IMAGE_OS, runner.arch, hashFiles('.cache/apt-archives/*.deb'))
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/apt-archives
+          key: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}-${{ hashFiles('.cache/apt-archives/*.deb') }}
+      - run: just ci-visual 1
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-visual-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # The second part of the visual stage, side by side with "visual", so that each stays inside its
+  # time budget. "report" merges the two parts.
+  visual-2:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    outputs:
+      artifact: e2e-visual-2-attempt-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      # Like "gallery", this job only restores the Ubuntu package archives that the visual job saves.
+      # The key names the runner image (ImageOS, for example ubuntu24), so a new image release
+      # starts its own archive set. ImageOS is a runner variable, which the env context does not
+      # see until it is written to GITHUB_ENV.
+      - name: Name the runner image for the package cache
+        run: echo "RUNNER_IMAGE_OS=${ImageOS:-unknown}" >> "$GITHUB_ENV"
+      - name: Restore Ubuntu package archives
+        id: apt-archives
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/apt-archives
+          key: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}
+          restore-keys: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}-
+      - run: just dev-ci visual
+      - run: just ci-visual 2
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-visual-2-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # The use case map overlap tests and the gallery link tests in Chromium: its own job, so that the
+  # visual jobs keep their time budget. Nothing consumes its reports, so it announces no artifact.
+  viewer-graph:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      # Like "gallery", this job only restores the Ubuntu package archives that the visual job saves.
+      # The key names the runner image (ImageOS, for example ubuntu24), so a new image release
+      # starts its own archive set. ImageOS is a runner variable, which the env context does not
+      # see until it is written to GITHUB_ENV.
+      - name: Name the runner image for the package cache
+        run: echo "RUNNER_IMAGE_OS=${ImageOS:-unknown}" >> "$GITHUB_ENV"
+      - name: Restore Ubuntu package archives
+        id: apt-archives
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/apt-archives
+          key: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}
+          restore-keys: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}-
+      - run: just dev-ci visual
+      - run: just ci-viewer-graph
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: reports-viewer-graph-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # Does this push to main change the package version? The same test as tag-release (scripts/
+  # version.py): stress then blocks, and tag-release requires the heavy jobs to be green before it
+  # tags.
+  release-check:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    outputs:
+      bump: ${{ steps.bump.outputs.bump }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+      - name: Detect a committed version change
+        id: bump
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: uv run --group release python scripts/version.py --bump-since "$BEFORE_SHA"
+
+  # Heavy: the real VS Code window tests. They run on every push to main and never on a pull
+  # request. Start them by hand on a branch with
+  # `gh workflow run ci.yml --ref <branch> -f heavy=true` (or "Run workflow" in Actions).
+  # Not part of `checks`. `!cancelled()`: release-check is skipped outside a push to main.
+  integration:
+    needs: release-check
+    if: ${{ !cancelled() && ((github.event_name == 'workflow_dispatch' && inputs.heavy) || needs.release-check.result == 'success') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 30
+    outputs:
+      artifact: e2e-integration-attempt-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      # Below the job's 30 minutes: a hang cancels this step and the dump and upload steps still run.
+      # The X screen is wider than every emulated viewport (2400 px at most): input outside the real
+      # screen never reaches the webview (CR 326).
+      - run: xvfb-run --auto-servernum -s "-screen 0 2600x1440x24" just ci-integration
+        timeout-minutes: 20
+        env:
+          STUDIO_VIEWPORT_GUARD: strict
+      - name: Collect hang diagnostics
+        if: always()
+        run: just ci-hang-dump
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-integration-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # Heavy, like integration: the StRS use case paths accepted in real VS Code windows
+  # (test/integration/acceptance/), one shard per e2e group that has an acceptance file. A red or
+  # missing shard fails `report`, then `checks`. One job has one output for all its shards, so
+  # `artifact` is a pattern; "Re-run failed jobs" re-runs the failed shards only, and `report`
+  # keeps the newest attempt of each group.
+  acceptance:
+    needs: release-check
+    if: ${{ !cancelled() && ((github.event_name == 'workflow_dispatch' && inputs.heavy) || needs.release-check.result == 'success') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    # About twice the slowest shard's measured healthy duration (run 45766254331, trust-security:
+    # job 115 s, test step 77 s); never above 30 for the job and 20 for the test step.
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        # Every group with an acceptance file, in the order of test/shared/e2eGroups.ts.
+        group: [trust-security]
+    outputs:
+      artifact: e2e-acceptance-*-attempt-*
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      # Below the job's 5 minutes, with the screen of the integration job (CR 326).
+      - run: xvfb-run --auto-servernum -s "-screen 0 2600x1440x24" just ci-acceptance "${{ matrix.group }}"
+        timeout-minutes: 3
+        env:
+          STUDIO_VIEWPORT_GUARD: strict
+      - name: Collect hang diagnostics
+        if: always()
+        run: just ci-hang-dump
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-acceptance-${{ matrix.group }}-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # Heavy (with integration and acceptance): repeats the flake-prone and the new real-window scenarios (11
+  # rounds, in the trusted window then in the Restricted Mode window); a race that a single run
+  # passes by luck fails here. Its reports are not part of the e2e campaign.
+  # Advisory: a red stress run flags a flake to fix (CI rule 12) but does not block merges. On a
+  # version change it blocks the release: continue-on-error is off, so the run turns red and
+  # needs.stress.result reports the failure to tag-release.
+  stress:
+    needs: release-check
+    if: ${{ !cancelled() && ((github.event_name == 'workflow_dispatch' && inputs.heavy) || needs.release-check.result == 'success') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 30
+    continue-on-error: ${{ needs.release-check.outputs.bump != 'true' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      - name: Run the stress rounds
+        env:
+          STUDIO_STRESS_REPEAT: ${{ inputs.stress_repeat || '11' }}
+          STUDIO_STRESS_SCENARIOS: ${{ inputs.stress_scenarios }}
+          STUDIO_VIEWPORT_GUARD: strict
+        run: xvfb-run --auto-servernum -s "-screen 0 2600x1440x24" just ci-stress
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: stress-integration-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  # Repro loop of the `toc` edit-toggle flake: `gh workflow run ci.yml --ref <branch> -f toc_loop=30
+  # [-f toc_delay_ms=300] [-f toc_steps=readme-html,toc,myst-blocks] [-f toc_control=1]`. Runs only
+  # when toc_loop > 0 (at most 40 rounds; the launch deadline is computed from the rounds and the
+  # steps, 26 minutes for 40 rounds of the three default steps, never above 30).
+  # A repro tool: it is not part of `checks` and does not gate merges. Failed rounds are counted
+  # and logged with the recorded toggle state; the job is red if any round failed.
+  toc-loop:
+    if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && inputs.toc_loop != '' && inputs.toc_loop != '0' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      - name: Check the toc loop inputs
+        env:
+          TOC_LOOP: ${{ inputs.toc_loop }}
+          TOC_DELAY_MS: ${{ inputs.toc_delay_ms }}
+          TOC_STEPS: ${{ inputs.toc_steps }}
+          TOC_CONTROL: ${{ inputs.toc_control }}
+        run: |
+          if ! [[ "$TOC_LOOP" =~ ^[1-9][0-9]*$ ]] || (( TOC_LOOP > 40 )); then
+            echo "toc_loop must be an integer from 1 to 40 (0 = off), got '$TOC_LOOP'" >&2
+            exit 1
+          fi
+          if ! [[ "$TOC_DELAY_MS" =~ ^[0-9]+$ ]] || (( 10#$TOC_DELAY_MS > 2000 )); then
+            echo "toc_delay_ms must be an integer from 0 to 2000, got '$TOC_DELAY_MS'" >&2
+            exit 1
+          fi
+          if [[ -n "$TOC_STEPS" ]] && ! [[ "$TOC_STEPS" =~ ^(readme-html|toc|myst-blocks)(,(readme-html|toc|myst-blocks)){0,5}$ ]]; then
+            echo "toc_steps must be 1 to 6 comma-separated names among readme-html, toc, myst-blocks, got '$TOC_STEPS'" >&2
+            exit 1
+          fi
+          if [[ -n "$TOC_CONTROL" ]] && ! [[ "$TOC_CONTROL" =~ ^[01]$ ]]; then
+            echo "toc_control must be 0 or 1, got '$TOC_CONTROL'" >&2
+            exit 1
+          fi
+      # Below the job's 45 minutes, above the launch deadline (computed from the rounds and the
+      # steps, at most 30 minutes: 26 for 40 rounds of three steps): the watchdog writes its dump
+      # first, and a hang cancels this step so the dump and upload steps still run.
+      - run: xvfb-run --auto-servernum -s "-screen 0 2600x1440x24" just ci-toc-loop "$TOC_LOOP" "$TOC_DELAY_MS" "$TOC_STEPS" "${TOC_CONTROL:-0}"
+        timeout-minutes: 35
+        env:
+          STUDIO_VIEWPORT_GUARD: strict
+          TOC_LOOP: ${{ inputs.toc_loop }}
+          TOC_DELAY_MS: ${{ inputs.toc_delay_ms }}
+          TOC_STEPS: ${{ inputs.toc_steps }}
+          TOC_CONTROL: ${{ inputs.toc_control }}
+      - name: Collect hang diagnostics
+        if: always()
+        run: just ci-hang-dump
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: toc-loop-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  report:
+    needs: [release-check, visual, visual-2, integration, acceptance]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    outputs:
+      artifact: studio-reports-attempt-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      - run: just dev-ci
+      # Each stage from the attempt that produced it: after "Re-run failed jobs" on integration,
+      # visual (not re-run) keeps its attempt-1 artifact and integration has a new one. `pattern`
+      # with an exact name, not `name`: a missing artifact (skipped or timed-out job) downloads
+      # nothing, and ci-report then says which stage is missing. The `if`: an empty pattern would
+      # download every artifact of the run (a job that never started has no outputs). The two visual
+      # parts merge into one tree, and ci-report merges their manifests.
+      - name: Download the visual stage reports
+        if: needs.visual.outputs.artifact != ''
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: ${{ needs.visual.outputs.artifact }}
+          path: out/reports/
+          merge-multiple: true
+      - name: Download the visual part 2 reports
+        if: needs.visual-2.outputs.artifact != ''
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: ${{ needs.visual-2.outputs.artifact }}
+          path: out/reports/
+          merge-multiple: true
+      - name: Download the integration stage reports
+        if: needs.integration.outputs.artifact != ''
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: ${{ needs.integration.outputs.artifact }}
+          path: out/reports/
+          merge-multiple: true
+      # One folder per shard artifact, never merged: ci-report keeps the newest attempt of each
+      # group (scripts/select-acceptance-attempts.mjs).
+      - name: Download the acceptance stage reports
+        if: needs.acceptance.outputs.artifact != ''
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: ${{ needs.acceptance.outputs.artifact }}
+          path: out/ci-artifacts/acceptance/
+      # Without the heavy jobs the real VS Code stages are reported as skipped (visual only).
+      - run: just ci-report ${{ ((github.event_name == 'workflow_dispatch' && inputs.heavy) || needs.release-check.result == 'success') && 'all' || 'visual' }}
+      - name: Publish merged reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: studio-reports-attempt-${{ github.run_attempt }}
+          path: out/reports/
+          if-no-files-found: warn
+
+  gallery:
+    needs: [integration, report]
+    # The gallery and its README images need the real-window captures of the heavy jobs. It runs
+    # on a heavy dispatch unless `gallery` is false, and only when integration and report
+    # succeeded. `!cancelled()`: release-check, an ancestor through report, is skipped outside a
+    # push to main, and a plain `if` would inherit the implicit success() that is then false.
+    if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && inputs.heavy && inputs.gallery && needs.integration.result == 'success' && needs.report.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          lfs: true
+      - name: Fetch Git LFS objects
+        run: git lfs pull
+      - name: Verify Git LFS objects
+        run: git lfs fsck
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2
+        with:
+          just-version: 1.58.0
+      # The site build draws the social cards with Chromium, so this job sets up the visual stage.
+      # It only restores the Ubuntu package archives that the visual job saves.
+      - name: Name the runner image for the package cache
+        run: echo "RUNNER_IMAGE_OS=${ImageOS:-unknown}" >> "$GITHUB_ENV"
+      - name: Restore Ubuntu package archives
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/apt-archives
+          key: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}
+          restore-keys: apt-archives-visual-${{ runner.os }}-${{ env.RUNNER_IMAGE_OS }}-${{ runner.arch }}-
+      - run: just dev-ci visual
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ needs.report.outputs.artifact }}
+          path: out/reports/
+      - run: just ci-gallery
+      - name: Publish gallery and site
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: studio-site-attempt-${{ github.run_attempt }}
+          path: out/site/
+          if-no-files-found: warn
+
+  # Stable aggregate name for branch protection: it depends on every required check job, the
+  # simulated ones. The real VS Code jobs are not among them, but on a push to main `report` merges
+  # the integration and acceptance stages, and on a version change tag-release requires every heavy
+  # job (CI rules 13 and 14).
+  checks:
+    needs: [static, static-windows, visual, visual-2, viewer-graph, report]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
+    steps:
+      - name: Require every check job to pass
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "job results: $RESULTS"
+          for result in $RESULTS; do
+            [ "$result" = "success" ] || exit 1
+          done
+
+  tag-release:
+    needs: [checks, release-check, integration, acceptance, stress]
+    # `checks` runs even though the heavy jobs above it are skipped; a plain `if` carries an
+    # implicit success() that is false when any ancestor was skipped, so ask for the result.
+    # Without a version change, red checks skip this job. On a version change the job also runs when checks failed (an integration
+    # or acceptance failure fails report, then checks), so that every untagged version change says
+    # why in its summary; the tag step requires checks and every heavy job to be green.
+    if: ${{ !cancelled() && needs.release-check.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' && (needs.checks.result == 'success' || needs.release-check.outputs.bump == 'true') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+      - name: Refuse to tag a version change without a green heavy run
+        if: needs.release-check.outputs.bump == 'true' && !(needs.checks.result == 'success' && needs.integration.result == 'success' && needs.acceptance.result == 'success' && needs.stress.result == 'success')
+        env:
+          CHECKS: ${{ needs.checks.result }}
+          INTEGRATION: ${{ needs.integration.result }}
+          ACCEPTANCE: ${{ needs.acceptance.result }}
+          STRESS: ${{ needs.stress.result }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          {
+            echo "## Release not tagged"
+            echo
+            echo "This push changes the version, but the checks or the heavy run of this commit"
+            echo "were not green, so tagging was skipped (no tag, no release, no Pages deploy)."
+            echo
+            echo "- checks: $CHECKS"
+            echo "- integration: $INTEGRATION"
+            echo "- acceptance: $ACCEPTANCE"
+            echo "- stress: $STRESS"
+            echo
+            echo "Only this push can tag this version (a later push without a version change does"
+            echo "not). For a flake, re-run the failed jobs of this run (Re-run jobs > Re-run failed"
+            echo "jobs, or \`gh run rerun $RUN_ID --failed\`): this job re-runs with them and tags"
+            echo "when they pass, and Pages uses the reports of the newest attempt. If the failure is"
+            echo "a real bug, fix it and release a new version."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error::Tagging skipped: checks or heavy run not green (checks: $CHECKS, integration: $INTEGRATION, acceptance: $ACCEPTANCE, stress: $STRESS)"
+          exit 1
+      - name: Tag a committed version bump
+        id: tag
+        if: needs.checks.result == 'success' && (needs.release-check.outputs.bump != 'true' || (needs.integration.result == 'success' && needs.acceptance.result == 'success' && needs.stress.result == 'success'))
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: uv run --group release python scripts/version.py --tag-before "$BEFORE_SHA"
+
+  # A dispatch, not a workflow_call: the Open VSX trusted publisher matches the token's workflow,
+  # which must be release.yml (a called workflow's token names ci.yml). A workflow_dispatch made
+  # with GITHUB_TOKEN starts a run, unlike a tag pushed with it. The same dispatch is the recovery.
+  release:
+    needs: tag-release
+    # Same reason as tag-release: do not inherit success() from the skipped heavy ancestors.
+    if: ${{ !cancelled() && needs.tag-release.result == 'success' && needs.tag-release.outputs.tag != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Dispatch Release VSIX with the tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.tag-release.outputs.tag }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          gh workflow run release.yml --ref "$DEFAULT_BRANCH" -f tag="$TAG"
+          {
+            echo "## Release dispatched"
+            echo
+            echo "Release VSIX runs for $TAG on $DEFAULT_BRANCH (event workflow_dispatch):"
+            echo "$GITHUB_SERVER_URL/$GH_REPO/actions/workflows/release.yml"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # Tags pushed with GITHUB_TOKEN do not trigger tag workflows, so deploy Pages from here.
+  pages:
+    # integration, acceptance and stress: to tell Pages that this run holds green heavy reports to
+    # reuse; report: the name of its merged reports artifact (newest attempt that ran report).
+    needs: [tag-release, integration, acceptance, stress, report]
+    # Same reason as tag-release: do not inherit success() from the skipped heavy ancestors.
+    if: ${{ !cancelled() && needs.tag-release.result == 'success' && needs.tag-release.outputs.tag != '' }}
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
+    with:
+      tag: ${{ needs.tag-release.outputs.tag }}
+      # A tag means a version change whose heavy jobs were green (tag-release); checked again here.
+      reports_from_caller: ${{ needs.integration.result == 'success' && needs.acceptance.result == 'success' && needs.stress.result == 'success' }}
+      reports_artifact: ${{ needs.report.outputs.artifact }}
