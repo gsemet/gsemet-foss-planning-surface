@@ -1,8 +1,8 @@
 ## Summary
 
-Reworks the `export-html` feature clip into a stronger story: a long report page, in the default Cream theme and Auto width, with card grids, a very wide table that breaks out of the centred column, two Mermaid diagrams, a Vega-Lite chart and a full Vega chart. The clip scrolls the page in Studio, exports it with Export, opens the file in VS Code's Integrated Browser and shows the same page there: the wide table still breaking out, the diagrams and charts drawn. A reader with no editor gets the page exactly as the writer sees it. No behaviour of the extension changes.
+Reworks the `export-html` feature clip into a stronger story: a long report page, in the default Cream theme and Auto width, with card grids, a very wide table that breaks out of the centred column, two Mermaid diagrams, a Vega-Lite chart and a full Vega chart. The clip scrolls the page in Studio, exports it with Export, opens the file in VS Code's Integrated Browser and shows the same page there: the wide table still breaking out, the diagrams and charts drawn. A reader with no editor gets the page as the writer sees it. No behaviour of the extension changes.
 
-This PR is a draft until the owner approves the storyboard and the clip.
+The charts are drawn as live inline views since the base of this change moved, so the clip was filmed and rendered again.
 
 ## Deliverables
 
@@ -12,7 +12,7 @@ This PR is a draft until the owner approves the storyboard and the clip.
 
 [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/clip.md).
 
-What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings, with no script (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
+What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings (two Mermaid images and two inline charts), with no script and no chart hover box (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
 
 ## Deviation from the feature clip process
 
@@ -39,22 +39,27 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - [x] New or changed tests (the storyboard case and the new stage case fail on the previous clip)
 - [x] Requirements: No behaviour change (`just requirements-update` leaves the tree clean)
 - [x] Changelog: No user-facing change
-- [x] Local gates: `just clip-kit-test` 39 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
-- [x] Review (Inspector approved at da86d6e)
-- [x] CI green (at b0e6c6d)
+- [x] Local gates: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
+- [ ] Review
+- [ ] CI green
 
 ## Known gaps
 
+- The owner approved the earlier cut of this clip, not this one, which was filmed again.
+- In the browser, each of the two scrolls shows as one cut, not as motion. The filmed window sends no new frame while the exported page scrolls; filming the browser's page itself would be a change of the clip kit. The cut of the earlier clip had the same fault.
+- The browser shows a closed "Chart source" line under each chart, which Studio does not show. This is how the export works; under the bar chart the line sits partly behind the caption.
+- The key frame taken as the browser opens still shows the command palette.
 - Motion, rhythm, the scroll speed and the loop as watched are not checked by the author.
 - The second card grid, the sequence diagram, the line chart and the small table appear in no key frame.
 - The render step can fail once with a transient Remotion "No frame found" error; running `render` again passes.
 
 ## Autonomous decisions
 
-- The take ran from the drafted storyboard with no change of times (Length 18.0 s; marks at 11.8 to 13.0, 14.0 to 15.2 and 15.4 to 16.6 s).
+- Length stays 18.0 s and the captions are unchanged. Marks 1 and 2 start 0.2 s later (12.0 to 13.2 and 14.2 to 15.2 s; mark 3 stays at 15.4 to 16.6 s), after the browser's picture changes, so no outline is drawn over the wrong block.
+- The take's checks read the charts as inline drawings, no longer as images, and fail on a chart hover box in Studio or in the exported file. The pointer rests right of every chart while Studio is filmed.
 - Both scrolls used the mouse wheel; the `scrollTo` fallback was not needed.
 - The 16-column table kept all its columns: it fits without a sideways scroll (887 px in a 720 px column, view 1160 px).
-- GIF at the first ladder step (10 fps, 960 px, 128 colours), 2.98 MB.
+- GIF at ladder step 0 (12 fps, 960 px, 128 colours), 2.93 MB.
 - The stage is committed with LF endings (the drafted file had CRLF).
 - Old frames removed: `frames/release.png`; the kit's `01-selected.png` and `02-pasted.png` stay.
 - The take used its own scratch folder outside the user profile and its own port.
@@ -65,4 +70,4 @@ Questions 1 to 13 of the grill: Cream, a long page with tables, grids, Mermaid a
 
 ## Internal references
 
-CR-500, batch-09; stacked on CR-493 (the kit change to 30 s).
+CR-500, batch-09; stacked on CR-501, above CR-493 (the kit change to 30 s). The live chart views come from CR-503.
