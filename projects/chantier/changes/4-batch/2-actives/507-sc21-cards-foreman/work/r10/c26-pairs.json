@@ -1,0 +1,8 @@
+[
+  ["topics/wakes-p1.md", "# What wakes you (part 1 of 2)\n\n- The heartbeat:", "# What wakes you (part 1 of 2)\n\nA Driver's line, the host's notice about a Driver, an order, the heartbeat and your watcher wake you.\n- The heartbeat:"],
+  ["topics/lease-steering.md", "- `take --reclaim` of a live lease only on the user's word, never on your own judgement.\n", "- `take --reclaim` of a live lease only on the user's word, never on your own judgement.\n- When a Driver ends, with its hand-back or without, record `agents set <cr> - --epoch <n>` before the CR's next `take`.\n"],
+  ["topics/session-shell-p2.md", "- One command per call when you can;", "- A steering session opened outside the repository sets `CHANTIER_ROOT` to it.\n- One command per call when you can;"],
+  ["topics/refused-push-gate.md", "Two refusals: a covered branch", "A CR carried from an earlier batch keeps its branch: covered.\nTwo refusals: a covered branch"],
+  ["topics/long-gate-waiver.md", "`gate.waiver`); else `help local-gate`.", "`gate.waiver`): the CR then owes no local run and its ask carries no clause. Else `help local-gate`."],
+  ["topics/ask-lines.md", "`question` and `blocked` asks are never superseded;", "A hand-back or note saying an image with the username or home folder was uploaded and replaced, or the user's screenshot was not uploaded, goes with that CR's ask.\n\n`question` and `blocked` asks are never superseded;"]
+]
