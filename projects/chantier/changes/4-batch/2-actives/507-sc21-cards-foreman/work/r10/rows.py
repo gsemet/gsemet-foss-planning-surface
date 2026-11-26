@@ -21,7 +21,7 @@ def main():
         for line in path.read_text(encoding="utf-8").splitlines():
             parts = split(line)
             if len(parts) >= 10 and parts[1] in wanted:
-                found[parts[1]] = (parts[7], parts[5], parts[4])
+                found[parts[1]] = (parts[7], parts[5] + "] [kind " + parts[6], parts[4])
     for row in wanted:
         if row not in found:
             print(row, "NOT FOUND")

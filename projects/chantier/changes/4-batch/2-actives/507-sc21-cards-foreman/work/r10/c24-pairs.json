@@ -1,0 +1,10 @@
+[
+  ["topics/watcher.md", "- A yes starts both and holds for the session: every later", "- A yes starts both (the watcher starts a missing board, detached, while this session holds the seat) and holds for the session: every later"],
+  ["topics/watcher.md", "the printed command as is, no flag added. A host", "the printed command as is, no flag added. Its notification, or its end, starts your turn. A host"],
+  ["topics/writer.md", "The writer commits and pushes the plan; you never commit it by hand, and the surface's other files stay yours.", "The surface server is the one writer: it commits the published paths (`projects/`, the root `chantier.yaml`), rebases and pushes within 5 minutes. You never commit the plan by hand; the surface's other files stay yours."],
+  ["topics/board-p2.md", "A newer build: `help board-restart`.", "A newer build: `help board-restart`.\n- A `--forge-always` board you started stops when the seat moves and reads the forge with or without a client, so the pull path still prints its `forge saw merged` lines."],
+  ["topics/session-start.md", "`help session-start-surface` for the surface.", "Other checks are read-only and block only the actions whose prerequisite failed. A host path not exercised is labelled untested: never invent capacity.\n`help session-start-surface` for the surface."],
+  ["topics/host-remote.md", "from there it starts a Foreman or, on the user's word, a Griller in its own folder.", "from there it starts a Foreman or, on the user's word, a Griller in its own folder. Chantier explains the user's steps and never does them."],
+  ["topics/ticket-summary-post-p2.md", "Shape: the comment,", "No agent closes or reopens an issue by hand: only the closing line of the PR's `## Issues References` (the project rule's keyword, or Jira's default `Closes`) closes it, at the merge.\nShape: the comment,"],
+  ["topics/direct-mode-p3.md", "with the result as its `take` note.", "with the result as its `take` note.\n- `close` stays the user's word. In direct mode only your Drivers count as something that runs (their transcripts on Claude Code, their live leases on Copilot), not your own session."]
+]
