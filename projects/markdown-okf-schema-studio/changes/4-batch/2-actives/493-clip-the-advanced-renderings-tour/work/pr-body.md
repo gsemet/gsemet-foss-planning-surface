@@ -70,6 +70,7 @@ No visual change in the extension. The editing page of the user docs gains the c
 - [x] Review: passed at 8c6845a
 - [x] CI green: `gh pr checks 512` at 8c6845a: static, static-windows, visual, viewer-graph, report pass
 - [x] Evidence: before at `17b779d`, after at `8c6845a`
+- [x] Verified at `8c6845a`
 
 ## Internal references
 

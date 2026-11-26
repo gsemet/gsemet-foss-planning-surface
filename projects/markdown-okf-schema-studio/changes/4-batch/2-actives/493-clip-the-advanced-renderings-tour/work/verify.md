@@ -3,63 +3,84 @@
 Head: 8c6845a50d411d894d83c7160e52e1306548330d
 Base: 17b779d502b9633fd42dd275986067397db5c4aa (origin/main, equal to the merge base)
 
-Verdict: NOT VERIFIED
+Verdict: VERIFIED
 
-The change itself holds (claims 1 to 9). Two statements of the posted PR description fail
-(F1, F2). Both are fixed by editing the body; no code or media change is needed.
+Second pass, on the posted description (edit of 2026-11-25T23:57:27Z), at the same head. The first
+pass failed two description claims (F1: Impacts had neither before/after nor "No visual change";
+F2: "which the other clips of the same round build on" did not hold). Both are fixed. Claims 1 to 9,
+"Rest of the PR description" and "Notes" below are carried from 8c6845a: the head did not move.
 
-Every claim below was judged at 8c6845a. `git rev-parse HEAD` and
-`git ls-remote origin <branch>` both give that SHA; `git status --porcelain` is empty after the
-checks.
+`git rev-parse HEAD`, `git ls-remote origin` (branch) and `gh pr view 512 --json headRefOid`:
+`8c6845a50d411d894d83c7160e52e1306548330d`; remote `main` still `17b779d5`;
+`git status --porcelain` empty before the verdict. Still a draft.
 
-## Failed
+## Second pass, judged at 8c6845a
 
-### F1. Impacts holds neither before/after screenshots nor a "No visual change" line
+### D1. The changed lines
 
-Rule, `.agents/guidelines/pull-request.guidelines.md`: "Impacts holds the evidence of the change:
-the before/after the Verifier produced (screenshots ...), or one line "No visual change" with the
-reason. [...] the Verifier fails a body whose Impacts has neither."
-
-`gh pr view 512 --json body` (and the rendered `body_html`), the whole section:
+Unified diff of the two latest `userContentEdits` of PR 512 (`gh api graphql`; 23:37:53Z, the
+body the first pass judged, against 23:57:27Z). Three hunks, nothing else:
 
 ```text
-## Impacts
-
-No behaviour change in the extension; the editing page gains a clip.
+@@ -3 +3 @@   "...which the other clips of the same round build on." -> "...which other longer clips can use."
+@@ -58 +58,5 @@  "No behaviour change in the extension; the editing page gains a clip." ->
+                 "No visual change in the extension. The editing page ... paused on the first mark)."
+                 plus the table "Before (17b779d) | After (8c6845a)" with two user-attachments images
+@@ -67,0 +72 @@  "- [x] Evidence: before at `17b779d`, after at `8c6845a`"
 ```
 
-It has no screenshot, and it speaks of behaviour, not of what is visible; the editing page does
-change visibly. Fix: attach `work/verifier/evidence/editing-page-before.png` and
-`editing-page-after.png` in Impacts (guideline "Screenshots in the PR"), captioned 17b779d and
-8c6845a, with a line saying the extension has no visual change.
+`diff` of `gh pr view 512 --json body` against `work/pr-body.md` (CR removed): one trailing blank
+line only.
 
-### F2. "which the other clips of the same round build on" does not hold at this head
+### D2. Summary (former F2): holds
 
-Summary says of the 30 s bound: "which this clip needs and which the other clips of the same round
-build on." For each other open clip PR (`gh pr view <n> --json headRefOid`, then
-`git show <head>:docs/demo-video/clip-kit/lib/storyboard.mjs` and
-`git merge-base --is-ancestor e0d723d5 <head>`, e0d723d5 being this PR's earlier kit commit):
+"which this clip needs and which other longer clips can use": the clip is 16 s, past 12, and the
+shared bound is 30 for any clip (claim 1: `MAX_LENGTH` 12 at 17b779d, 30 at 8c6845a). No claim
+about other pull requests and no backlog word is left.
 
-| PR | `MAX_LENGTH` | holds this PR's earlier commits | its clip's Length |
-| --- | --- | --- | --- |
-| #513 | 12 | no | 10.5 s |
-| #514 | 12 | no | 12.0 s |
-| #515 | 12 | no | 12.0 s |
-| #516 | 30 | yes | 18.0 s |
-| #517 | 30 | yes | 11.5 s |
-| #518 | 12 | no | 12.0 s |
-| #519 | 12 | no | 10.6 s |
-| #521 | 12 | no | 12 s |
-| #522 | 30 | yes | 20.0 s |
+### D3. Impacts (former F1): holds
 
-Six of the nine do not build on it. The answers and specifications of CR-495 to CR-499 say they
-stay within 12 s or take no `depends.json` (CR-492 and 494 take none either); this CR's
-specification ("Base and stack") says only a clip longer than 12 s lists it in its
-`depends.json`. "Round" is also a backlog word the outside reader
-does not know. Fix: narrow, for instance "which the longer clips (the export and the keyboard
-navigation clips) build on".
+- "No visual change in the extension":
+  `git diff --stat 17b779d5 8c6845a5 -- src package.json .vscodeignore CHANGELOG.md requirements`
+  prints nothing.
+- "The editing page of the user docs gains the clip": `git diff 17b779d5 8c6845a5 --
+  docs/user/editing.md` adds only the tour GIF image under the "MyST rendering" bullet.
+- "drawn from the page's Markdown with a plain stylesheet rather than the published theme":
+  `verifier/shot.cjs` renders each commit's `editing.md` with `renderMyst` and `clipVideos` and its
+  own inline style.
+- "paused on the first mark": the script seeks to 1.5 s; `clip.md` row "Mark 1" is 1.0 to 2.9 s,
+  and the picture shows it.
+- The project rule (before/after in Impacts, or "No visual change") is met.
 
-## Passed
+### D4. The images load and show their captions
+
+A throwaway script took the `<img>` sources from `body_html`
+(`gh api .../pulls/512 -H "Accept: application/vnd.github.full+json"`), downloaded each and hashed
+it and the evidence files:
+
+```text
+Renderings tour: HTTP 200 image/gif 2044158 bytes 960x540 sha256 4666703c...86ba (= LFS id of the committed GIF)
+Editing page before: HTTP 200 image/png 10698 bytes 820x72 sha256 7c8db8da...7212 (= evidence/editing-page-before.png)
+Editing page after: HTTP 200 image/png 118032 bytes 820x550 sha256 627ab9db...026e (= evidence/editing-page-after.png)
+```
+
+Both downloaded pictures opened. Before: the "MyST rendering" bullet, text only. After: the same
+text, then the zoomed clip in Cream, orange outline on the Mermaid flowchart, caption "Mermaid
+diagrams, drawn in the page", PlantUML sequence and line chart below, no "week" title and no "Chart
+source" line. No user name, home folder or local path in either. SHAs of the captions are those of
+`verifier/evidence/before-after.md` (before 17b779d, after 8c6845a), where the capture is recorded.
+
+### D5. Test plan, render and the rest
+
+- "Evidence: before at `17b779d`, after at `8c6845a`": `verifier/evidence/before-after.md` and D4.
+- `body_html`: the five visible headings, the `<details>` fold with its Markdown rendered, the
+  table with both images, and the seven checked boxes render.
+- The new lines hold no internal id and no agent role. No `UNVERIFIED` or `STALE` mark; Known gaps
+  needs no new bullet, since F1 and F2 were fixed, not accepted.
+- `gh pr checks 512`: checks, report, static, static-windows, visual, viewer-graph pass (run
+  45719751938); the others skipping.
+
+## Passed (first pass, carried from 8c6845a: head unchanged)
 
 ### 1. The kit accepts 5 to 30 s and refuses 4.9 and 30.1 s
 
@@ -161,10 +182,9 @@ Pictures: `verifier/evidence/before-after.md`.
 - `gh pr checks 512`: checks, report, static, static-windows, visual, viewer-graph pass (run
   45719751938); the others skipping. The CR log records one re-run after a Git LFS timeout.
 
-## Rest of the PR description
+## Rest of the PR description (first pass, unchanged lines, carried from 8c6845a)
 
-- Posted body equals `work/pr-body.md` (one trailing blank line apart). Draft, base `main`, head
-  8c6845a, `CLEAN`. The draft state was not judged.
+- Draft, base `main`, head 8c6845a, `CLEAN` at the first pass. The draft state was not judged.
 - `body_html`: headings, line breaks, fold and GIF image render. The GIF, MP4 and WebM links at
   8c6845a answer 200 and their SHA-256 equals the committed LFS ids.
 - Owner approval of the storyboard and the earlier cut: `02-answers.md`, "Owner approval
