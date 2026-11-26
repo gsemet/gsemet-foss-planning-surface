@@ -90,3 +90,9 @@ Critic, second pass, 2026-11-26: 3 findings; 2 applied as fixes (the perf launch
 integration stage's report: settled by keeping that report intact, no decision of the owner's at
 stake; the unproved Windows claims marked as unproved), 1 asked (the Windows support as a CR of its
 own).
+
+11. perf-kpi-Q10 (2026-11-26), "the Windows support of the comparison command has to be tried on your
+    own machine (a VS Code window, session unlocked); is it a CR of its own, above the KPI job, still
+    in batch-09?", choices "A. separate CR (recommended)", "B. one CR". Answer, verbatim: "B. Une
+    seule CR" (as offered: one cycle less, but the KPI job and the page above it wait for the Windows
+    try).
