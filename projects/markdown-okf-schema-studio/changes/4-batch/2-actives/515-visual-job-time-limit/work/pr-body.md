@@ -79,6 +79,14 @@ holds.
 - `test/visual` is added to the source folders of the requirements bundle
   (`requirements/config.yml`), so that the requirement can list the new files.
 
+## Known gaps
+
+- Locally, when the two parts were run one by one without a pinned run id, the merge step prints
+  `visual parts: merged` and the review step then fails with a message that names no remedy. The
+  `justfile` comment and the contributor guide give it: run `just ci-visual` with no part.
+- One sentence of the contributor guide, on the job that also runs the table breakout width tests,
+  reads awkwardly ("and in part 1 then ..."); its meaning is unchanged.
+
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): new `test/build/test_visual_parts.py`
@@ -88,7 +96,7 @@ holds.
   tests, `just requirements-update` leaves no change
 - [x] Changelog: No user-facing change
 - [ ] Local gates:
-- [x] Review: approved at `0b310d4`
+- [x] Review: approved at `2fb89df` (carried from `0b310d4`)
 - [ ] CI green
 
 ## Internal references
