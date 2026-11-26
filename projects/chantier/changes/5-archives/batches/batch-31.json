@@ -2,16 +2,1012 @@
   "schema": 1,
   "batch": "batch-31",
   "number": 31,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-22T23:23:18Z",
-  "closed": null,
-  "mode": "parallel",
+  "closed": "2026-11-26T16:48:23Z",
+  "mode": "stack",
   "steering": "foreman",
   "host": "claude",
-  "budget_usd": null,
-  "cost_usd": null,
+  "budget_usd": 800.0,
+  "cost_usd": 492.3746,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-463",
+      "title": "Accept the project's checkout as the session folder beside the surface",
+      "result": "merged",
+      "archive": "5-archives/261123-0043-463-accept-the-project-s-checkout-as-the-ses",
+      "pr": "https://github.com/gsemet/chantier/pull/440",
+      "rounds": 2,
+      "cost_usd": 4.0946,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T00:43:31Z",
+      "shipped": "2026-11-23T00:04:23Z",
+      "version": null
+    },
+    {
+      "cr": "CR-484",
+      "title": "One board per surface, and a watcher that reaches the forge hub",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-484-pr-conflict-rebase-order",
+      "pr": "https://github.com/gsemet/chantier/pull/462",
+      "rounds": 2,
+      "cost_usd": 6.9319,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:50Z",
+      "shipped": "2026-11-24T23:18:32Z",
+      "version": null
+    },
+    {
+      "cr": "CR-464",
+      "title": "Release v0.15.1",
+      "result": "merged",
+      "archive": "5-archives/261123-0058-464-release-v0-15-1",
+      "pr": "https://github.com/gsemet/chantier/pull/441",
+      "rounds": 0,
+      "cost_usd": 0.8569,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": [
+        "CR-463"
+      ],
+      "kind": "release",
+      "ended": "2026-11-23T00:58:00Z",
+      "shipped": "2026-11-23T00:48:07Z",
+      "version": "https://github.com/gsemet/chantier/releases/tag/v0.15.1"
+    },
+    {
+      "cr": "CR-485",
+      "title": "TUI: Tab zones, per-panel scroll, newest first, narrow Ago, maximize",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-485-tui-zones-navigation-maximize",
+      "pr": "https://github.com/gsemet/chantier/pull/461",
+      "rounds": 1,
+      "cost_usd": 2.9466,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:51Z",
+      "shipped": "2026-11-24T23:05:29Z",
+      "version": null
+    },
+    {
+      "cr": "CR-465",
+      "title": "Agents update a CR branch by rebase only",
+      "result": "merged",
+      "archive": "5-archives/261123-1634-465-agents-update-a-cr-branch-by-rebase-only",
+      "pr": "https://github.com/gsemet/chantier/pull/442",
+      "rounds": 1,
+      "cost_usd": 4.086,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T16:34:26Z",
+      "shipped": "2026-11-23T12:59:21Z",
+      "version": null
+    },
+    {
+      "cr": "CR-486",
+      "title": "Board mod: find the surface from the project's planning pointer",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-486-board-mod-find-the-surface-when-it-is-on",
+      "pr": "https://github.com/gsemet/chantier/pull/464",
+      "rounds": 1,
+      "cost_usd": 2.8254,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:53Z",
+      "shipped": "2026-11-25T00:27:17Z",
+      "version": null
+    },
+    {
+      "cr": "CR-466",
+      "title": "Own CR branches: rebase and force-with-lease pre-authorized",
+      "result": "merged",
+      "archive": "5-archives/261124-0603-466-own-cr-branch-rebase-and-force-push-pre-",
+      "pr": "https://github.com/gsemet/chantier/pull/443",
+      "rounds": 3,
+      "cost_usd": 5.1934,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T06:03:39Z",
+      "shipped": "2026-11-23T13:29:53Z",
+      "version": null
+    },
+    {
+      "cr": "CR-487",
+      "title": "Push a CR's own branch through the CLI: `chantier push`",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-487-sc01-push-own-cr-branch",
+      "pr": "https://github.com/gsemet/chantier/pull/465",
+      "rounds": 1,
+      "cost_usd": 5.1845,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:54Z",
+      "shipped": "2026-11-25T00:29:13Z",
+      "version": null
+    },
+    {
+      "cr": "CR-467",
+      "title": "A project's CoS or Griller does not grill another project's CR",
+      "result": "merged",
+      "archive": "5-archives/261123-1634-467-a-project-s-cos-or-griller-does-not-gril",
+      "pr": "https://github.com/gsemet/chantier/pull/444",
+      "rounds": 2,
+      "cost_usd": 2.469,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T16:34:27Z",
+      "shipped": "2026-11-23T14:24:38Z",
+      "version": null
+    },
+    {
+      "cr": "CR-488",
+      "title": "SC02: Accept the CLI's near-miss argument forms",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-488-sc02-cli-near-misses",
+      "pr": "https://github.com/gsemet/chantier/pull/468",
+      "rounds": 1,
+      "cost_usd": 5.644,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:56Z",
+      "shipped": "2026-11-25T01:39:15Z",
+      "version": null
+    },
+    {
+      "cr": "CR-468",
+      "title": "Board server notifies when a CR arrives by pull on the surface",
+      "result": "merged",
+      "archive": "5-archives/261123-1635-468-board-server-notifies-when-a-cr-arrives",
+      "pr": "https://github.com/gsemet/chantier/pull/446",
+      "rounds": 3,
+      "cost_usd": 7.587,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T16:35:01Z",
+      "shipped": "2026-11-23T15:22:12Z",
+      "version": null
+    },
+    {
+      "cr": "CR-489",
+      "title": "SC03: Every CLI refusal names the next command (M9)",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-489-sc03-refusals-name-next-step",
+      "pr": "https://github.com/gsemet/chantier/pull/470",
+      "rounds": 1,
+      "cost_usd": 2.4022,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [
+        "CR-488"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:57Z",
+      "shipped": "2026-11-25T02:39:17Z",
+      "version": null
+    },
+    {
+      "cr": "CR-469",
+      "title": "chantier live: Rich tables, local dates, Agents and Ready boxes",
+      "result": "merged",
+      "archive": "5-archives/261123-1634-469-chantier-live-in-rich-tables-dates-ready",
+      "pr": "https://github.com/gsemet/chantier/pull/445",
+      "rounds": 2,
+      "cost_usd": 5.1039,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T16:34:28Z",
+      "shipped": "2026-11-23T15:02:30Z",
+      "version": null
+    },
+    {
+      "cr": "CR-490",
+      "title": "SC04: Let the write guard pass scratch writes",
+      "result": "merged",
+      "archive": "5-archives/261125-0611-490-sc04-hook-scratch-writes",
+      "pr": "https://github.com/gsemet/chantier/pull/472",
+      "rounds": 1,
+      "cost_usd": 2.1322,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": [
+        "CR-489"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:11:59Z",
+      "shipped": "2026-11-25T02:59:41Z",
+      "version": null
+    },
+    {
+      "cr": "CR-470",
+      "title": "Slim session-start.md: split by role, forge-neutral, sync card",
+      "result": "merged",
+      "archive": "5-archives/261123-1621-470-slim-session-start-md-split-by-role-forg",
+      "pr": "https://github.com/gsemet/chantier/pull/447",
+      "rounds": 1,
+      "cost_usd": 2.2882,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-23T16:21:58Z",
+      "shipped": "2026-11-23T16:08:41Z",
+      "version": null
+    },
+    {
+      "cr": "CR-491",
+      "title": "SC05: Measure what roles read and do, from transcripts",
+      "result": "merged",
+      "archive": "5-archives/261125-0612-491-sc05-behaviour-measure",
+      "pr": "https://github.com/gsemet/chantier/pull/474",
+      "rounds": 2,
+      "cost_usd": 4.3759,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": [
+        "CR-490"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:12:00Z",
+      "shipped": "2026-11-25T03:56:05Z",
+      "version": null
+    },
+    {
+      "cr": "CR-471",
+      "title": "Slim the startup cards of the Chief of Staff, Foreman and Driver",
+      "result": "merged",
+      "archive": "5-archives/261124-1206-471-slim-the-startup-cards-of-the-three-role",
+      "pr": "https://github.com/gsemet/chantier/pull/450",
+      "rounds": 1,
+      "cost_usd": 20.414,
+      "cost_unpriced": {},
+      "order": 9,
+      "after": [
+        "CR-465",
+        "CR-466",
+        "CR-467",
+        "CR-468",
+        "CR-470"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T12:06:59Z",
+      "shipped": "2026-11-24T10:09:42Z",
+      "version": null
+    },
+    {
+      "cr": "CR-492",
+      "title": "SC06: A cheap quiz of a role's boot on one situation",
+      "result": "merged",
+      "archive": "5-archives/261125-0612-492-sc06-situation-quiz",
+      "pr": "https://github.com/gsemet/chantier/pull/476",
+      "rounds": 2,
+      "cost_usd": 6.1225,
+      "cost_unpriced": {},
+      "order": 9,
+      "after": [
+        "CR-491"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:12:01Z",
+      "shipped": "2026-11-25T04:53:05Z",
+      "version": null
+    },
+    {
+      "cr": "CR-472",
+      "title": "Board on the next free port from 8765; long gate beside the user's board",
+      "result": "merged",
+      "archive": "5-archives/261124-0820-472-long-gate-webui-check-starts-a-second-bo",
+      "pr": "https://github.com/gsemet/chantier/pull/448",
+      "rounds": 1,
+      "cost_usd": 2.8493,
+      "cost_unpriced": {},
+      "order": 10,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T08:20:29Z",
+      "shipped": "2026-11-24T07:08:25Z",
+      "version": null
+    },
+    {
+      "cr": "CR-493",
+      "title": "SC07: `chantier help <topic>` carries the rare cases",
+      "result": "merged",
+      "archive": "5-archives/261125-0612-493-sc07-help-topics",
+      "pr": "https://github.com/gsemet/chantier/pull/478",
+      "rounds": 2,
+      "cost_usd": 4.1698,
+      "cost_unpriced": {},
+      "order": 10,
+      "after": [
+        "CR-492"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:12:03Z",
+      "shipped": "2026-11-25T05:37:07Z",
+      "version": null
+    },
+    {
+      "cr": "CR-473",
+      "title": "Local long gate by batch shape; ask the shape when a batch opens",
+      "result": "merged",
+      "archive": "5-archives/261124-0904-473-local-long-gate-rule-outside-a-stack-and",
+      "pr": "https://github.com/gsemet/chantier/pull/449",
+      "rounds": 2,
+      "cost_usd": 2.2477,
+      "cost_unpriced": {},
+      "order": 11,
+      "after": [
+        "CR-472"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T09:04:12Z",
+      "shipped": "2026-11-24T08:35:04Z",
+      "version": null
+    },
+    {
+      "cr": "CR-494",
+      "title": "Host capabilities as data, `chantier host`, trial history to proofs",
+      "result": "merged",
+      "archive": "5-archives/261125-0717-494-sc08-host-rows-and-proofs",
+      "pr": "https://github.com/gsemet/chantier/pull/480",
+      "rounds": 1,
+      "cost_usd": 4.1576,
+      "cost_unpriced": {},
+      "order": 11,
+      "after": [
+        "CR-493"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T07:17:33Z",
+      "shipped": "2026-11-25T06:31:05Z",
+      "version": null
+    },
+    {
+      "cr": "CR-474",
+      "title": "`status` prints the ready line and the batch state; reload rules",
+      "result": "merged",
+      "archive": "5-archives/261124-1522-474-the-cli-prints-the-ready-to-merge-line-i",
+      "pr": "https://github.com/gsemet/chantier/pull/452",
+      "rounds": 1,
+      "cost_usd": 5.6187,
+      "cost_unpriced": {},
+      "order": 12,
+      "after": [
+        "CR-471",
+        "CR-472",
+        "CR-473"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T15:22:54Z",
+      "shipped": "2026-11-24T13:10:10Z",
+      "version": null
+    },
+    {
+      "cr": "CR-495",
+      "title": "SC09: AGENTS.md: roles are data, the CLI advises and refuses",
+      "result": "merged",
+      "archive": "5-archives/261125-0817-495-sc09-agents-md-role-rules",
+      "pr": "https://github.com/gsemet/chantier/pull/481",
+      "rounds": 1,
+      "cost_usd": 6.7814,
+      "cost_unpriced": {},
+      "order": 12,
+      "after": [
+        "CR-494"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T08:17:27Z",
+      "shipped": "2026-11-25T07:43:00Z",
+      "version": null
+    },
+    {
+      "cr": "CR-475",
+      "title": "Release notes: kind-first plain text and framed images",
+      "result": "merged",
+      "archive": "5-archives/261124-1522-475-release-notes-kind-first-plain-text-and",
+      "pr": "https://github.com/gsemet/chantier/pull/451",
+      "rounds": 3,
+      "cost_usd": 1.7513,
+      "cost_unpriced": {},
+      "order": 13,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T15:22:55Z",
+      "shipped": "2026-11-24T12:22:23Z",
+      "version": null
+    },
+    {
+      "cr": "CR-496",
+      "title": "SC10: `chantier brief` writes a role's whole start prompt",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-496-sc10-brief-prompts",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 13,
+      "after": [
+        "CR-495"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:31Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-476",
+      "title": "Watcher runs through several events instead of exiting on each",
+      "result": "merged",
+      "archive": "5-archives/261124-1522-476-watcher-runs-through-several-events-inst",
+      "pr": "https://github.com/gsemet/chantier/pull/453",
+      "rounds": 1,
+      "cost_usd": 11.1706,
+      "cost_unpriced": {},
+      "order": 14,
+      "after": [
+        "CR-471"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T15:22:57Z",
+      "shipped": "2026-11-24T13:22:20Z",
+      "version": null
+    },
+    {
+      "cr": "CR-497",
+      "title": "SC11: `status --since` and the watcher's `state:` line",
+      "result": "merged",
+      "archive": "5-archives/261125-1418-497-sc11-status-since-and-state-line",
+      "pr": "https://github.com/gsemet/chantier/pull/482",
+      "rounds": 4,
+      "cost_usd": 22.9514,
+      "cost_unpriced": {},
+      "order": 14,
+      "after": [
+        "CR-495"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T14:18:27Z",
+      "shipped": "2026-11-25T10:07:18Z",
+      "version": null
+    },
+    {
+      "cr": "CR-477",
+      "title": "Stack batch frictions: restack line, true bases, carry, lease commands",
+      "result": "merged",
+      "archive": "5-archives/261124-1552-477-stack-batch-frictions-duplicate-commits",
+      "pr": "https://github.com/gsemet/chantier/pull/455",
+      "rounds": 3,
+      "cost_usd": 5.7058,
+      "cost_unpriced": {},
+      "order": 15,
+      "after": [
+        "CR-471"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T15:52:09Z",
+      "shipped": "2026-11-24T14:11:53Z",
+      "version": null
+    },
+    {
+      "cr": "CR-498",
+      "title": "SC12: `chantier next` and `next:` lines",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-498-sc12-next-advice",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 15,
+      "after": [
+        "CR-497"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:33Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-478",
+      "title": "Restart the board on this checkout's build, and keep it there",
+      "result": "merged",
+      "archive": "5-archives/261124-1829-478-uv-sync-blocked-by-the-running-board-and",
+      "pr": "https://github.com/gsemet/chantier/pull/456",
+      "rounds": 2,
+      "cost_usd": 5.2167,
+      "cost_unpriced": {},
+      "order": 16,
+      "after": [
+        "CR-471",
+        "CR-476"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T18:29:36Z",
+      "shipped": "2026-11-24T16:19:41Z",
+      "version": null
+    },
+    {
+      "cr": "CR-499",
+      "title": "SC13: A Driver messages the steering session through the board",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-499-sc13-msg-steering",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 16,
+      "after": [
+        "CR-498"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:34Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-479",
+      "title": "The Foreman runs its own watcher and wakes at worst every 55 minutes",
+      "result": "merged",
+      "archive": "5-archives/261124-2007-479-foreman-wakes-on-events-at-worst-every-5",
+      "pr": "https://github.com/gsemet/chantier/pull/459",
+      "rounds": 3,
+      "cost_usd": 8.816,
+      "cost_unpriced": {},
+      "order": 17,
+      "after": [
+        "CR-471",
+        "CR-476"
+      ],
+      "kind": "change",
+      "ended": "2026-11-24T20:07:26Z",
+      "shipped": "2026-11-24T18:00:41Z",
+      "version": null
+    },
+    {
+      "cr": "CR-500",
+      "title": "SC14: `chantier judge` words the ask to the user",
+      "result": "merged",
+      "archive": "5-archives/261125-1418-500-sc14-judge-asks",
+      "pr": "https://github.com/gsemet/chantier/pull/483",
+      "rounds": 1,
+      "cost_usd": 5.851,
+      "cost_unpriced": {},
+      "order": 17,
+      "after": [
+        "CR-497"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T14:18:28Z",
+      "shipped": "2026-11-25T12:11:01Z",
+      "version": null
+    },
+    {
+      "cr": "CR-480",
+      "title": "order after: add or remove one predecessor, name CRs by slug or path",
+      "result": "merged",
+      "archive": "5-archives/261124-1522-480-order-after-add-one-predecessor-without",
+      "pr": "https://github.com/gsemet/chantier/pull/454",
+      "rounds": 1,
+      "cost_usd": 3.0105,
+      "cost_unpriced": {},
+      "order": 18,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T15:22:58Z",
+      "shipped": "2026-11-24T13:48:28Z",
+      "version": null
+    },
+    {
+      "cr": "CR-501",
+      "title": "SC15: The early conflict check as a command",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-501-sc15-conflicts-check",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 18,
+      "after": [
+        "CR-500"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:35Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-481",
+      "title": "CR board pane: the batch's CRs by state, board links, services, stats",
+      "result": "merged",
+      "archive": "5-archives/261124-2158-481-cr-board-pane-pending-ready-and-merged-c",
+      "pr": "https://github.com/gsemet/chantier/pull/457",
+      "rounds": 2,
+      "cost_usd": 7.3327,
+      "cost_unpriced": {},
+      "order": 19,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T21:58:53Z",
+      "shipped": "2026-11-24T16:52:48Z",
+      "version": null
+    },
+    {
+      "cr": "CR-502",
+      "title": "SC16: `chantier retro draft` drafts the retro from the batch's events",
+      "result": "merged",
+      "archive": "5-archives/261125-1418-502-sc16-retro-draft",
+      "pr": "https://github.com/gsemet/chantier/pull/484",
+      "rounds": 3,
+      "cost_usd": 15.6057,
+      "cost_unpriced": {},
+      "order": 19,
+      "after": [
+        "CR-500"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T14:18:30Z",
+      "shipped": "2026-11-25T13:45:47Z",
+      "version": null
+    },
+    {
+      "cr": "CR-482",
+      "title": "Web board: menu, detail overlay, multi-project home, History",
+      "result": "merged",
+      "archive": "5-archives/261124-2005-482-web-board-menu-home-history",
+      "pr": "https://github.com/gsemet/chantier/pull/458",
+      "rounds": 3,
+      "cost_usd": 6.2598,
+      "cost_unpriced": {},
+      "order": 20,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T20:05:55Z",
+      "shipped": "2026-11-24T17:19:01Z",
+      "version": null
+    },
+    {
+      "cr": "CR-503",
+      "title": "SC17: one launcher that picks the mode and runs the CLI",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-503-sc17-launcher",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 20,
+      "after": [
+        "CR-502"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:37Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-483",
+      "title": "Web board: Dashboard on All projects, chart hover band fixed",
+      "result": "merged",
+      "archive": "5-archives/261124-2007-483-web-board-root-dashboard",
+      "pr": "https://github.com/gsemet/chantier/pull/460",
+      "rounds": 1,
+      "cost_usd": 3.8031,
+      "cost_unpriced": {},
+      "order": 21,
+      "after": [],
+      "kind": "change",
+      "ended": "2026-11-24T20:07:27Z",
+      "shipped": "2026-11-24T19:31:55Z",
+      "version": null
+    },
+    {
+      "cr": "CR-504",
+      "title": "SC18: Role data in `roles.yaml` and a `just roles` check of the wrappers",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-504-sc18-roles-data-check",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 21,
+      "after": [
+        "CR-503"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:38Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-505",
+      "title": "SC19: New cards: the workers, critics and review steps",
+      "result": "merged",
+      "archive": "5-archives/261125-1658-505-sc19-cards-workers",
+      "pr": "https://github.com/gsemet/chantier/pull/486",
+      "rounds": 3,
+      "cost_usd": 11.3618,
+      "cost_unpriced": {},
+      "order": 22,
+      "after": [
+        "CR-502"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T16:58:58Z",
+      "shipped": "2026-11-25T15:37:09Z",
+      "version": null
+    },
+    {
+      "cr": "CR-506",
+      "title": "SC20: New cards: the CR, stack, QA and release Drivers",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-506-sc20-cards-drivers",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 23,
+      "after": [
+        "CR-505"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:39Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-507",
+      "title": "SC21: New card: the Foreman, with its topics",
+      "result": "merged",
+      "archive": "5-archives/261126-0626-507-sc21-cards-foreman",
+      "pr": "https://github.com/gsemet/chantier/pull/487",
+      "rounds": 15,
+      "cost_usd": 135.5437,
+      "cost_unpriced": {},
+      "order": 24,
+      "after": [
+        "CR-505"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T06:26:48Z",
+      "shipped": "2026-11-25T19:28:10Z",
+      "version": null
+    },
+    {
+      "cr": "CR-508",
+      "title": "SC22: New cards: the Chief of Staff and the Griller",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-508-sc22-cards-chief-and-griller",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 25,
+      "after": [
+        "CR-507"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:40Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-509",
+      "title": "SC23: New shared cards, host topics, topics.json and SKILL.md texts",
+      "result": "dropped",
+      "archive": "6-trash/261125-0613-509-sc23-cards-host-and-shared",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 26,
+      "after": [
+        "CR-508"
+      ],
+      "kind": "change",
+      "ended": "2026-11-25T06:13:42Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-510",
+      "title": "SC24: Swap in the new cards; remove the old set",
+      "result": "merged",
+      "archive": "5-archives/261126-1155-510-sc24-cards-swap",
+      "pr": "https://github.com/gsemet/chantier/pull/488",
+      "rounds": 4,
+      "cost_usd": 54.5662,
+      "cost_unpriced": {},
+      "order": 27,
+      "after": [
+        "CR-507"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T11:55:23Z",
+      "shipped": "2026-11-26T08:17:57Z",
+      "version": null
+    },
+    {
+      "cr": "CR-511",
+      "title": "SC25: Read the old cards against the new; nothing important lost",
+      "result": "merged",
+      "archive": "5-archives/261126-1426-511-sc25-cards-compare-review",
+      "pr": "https://github.com/gsemet/chantier/pull/489",
+      "rounds": 3,
+      "cost_usd": 28.983,
+      "cost_unpriced": {},
+      "order": 28,
+      "after": [
+        "CR-510"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T14:26:57Z",
+      "shipped": "2026-11-26T13:23:15Z",
+      "version": null
+    },
+    {
+      "cr": "CR-512",
+      "title": "SC26: Budgets, history lint and rule ids as pytest gates",
+      "result": "dropped",
+      "archive": null,
+      "to": "2-backlog/P1",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 29,
+      "after": [
+        "CR-511"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T11:37:35Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-513",
+      "title": "SC27: The retro ladder, the approval reminder, the measure's place",
+      "result": "dropped",
+      "archive": null,
+      "to": "2-backlog/P1",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 30,
+      "after": [
+        "CR-512"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T11:37:33Z",
+      "shipped": null,
+      "version": null
+    },
+    {
+      "cr": "CR-514",
+      "title": "SC28: The real run of the new cards, measured for the merge",
+      "result": "dropped",
+      "archive": null,
+      "to": "2-backlog/P1",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 31,
+      "after": [
+        "CR-513"
+      ],
+      "kind": "change",
+      "ended": "2026-11-26T07:21:17Z",
+      "shipped": null,
+      "version": null
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 44.94,
+      "calls": 1316,
+      "unpriced": {},
+      "wakes": 386,
+      "context_avg": 188154
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 443.5554,
+        "calls": 14310,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:stack-driver",
+        "usd": 3.0246,
+        "calls": 118,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:release-driver",
+        "usd": 0.8569,
+        "calls": 55,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 44.94,
+        "calls": 1316,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 107.9,
+        "calls": 3871,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 339.53,
+        "calls": 10612,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 14585,
+        "usd": 434.29,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-opus-5-5",
+        "calls": 1214,
+        "usd": 58.08,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 171.4933,
+        "calls": 3277,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 56.3132,
+        "calls": 1001,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-31.md"
 }
