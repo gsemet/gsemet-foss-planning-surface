@@ -1,0 +1,9 @@
+fix(render): keep a block of an unclosed admonition on its own lines
+
+A block of an admonition left open at the end of the file now opens and moves
+on its own lines, instead of opening the whole box. The user guide states
+which blocks of an admonition do not move, and what erasing a line of an alert
+that holds a lazy continuation line writes. The changelog line names its pull
+request.
+
+Assisted-by: Claude:Sonnet-5.5

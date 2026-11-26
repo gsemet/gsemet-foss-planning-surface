@@ -66,15 +66,15 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
       passes on the current code and fails (`AssertionError: TABLE`) when the widening rule is
       temporarily changed to accept any element, and (`AssertionError: P`) when only the check that
       an image's paragraph is at the top level is removed (both
-      STALE (judged at `5f7658a`, head now `6bb7007`)).
+      STALE (judged at `5f7658a`, head now `abfa71e`)).
 - [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
       `src/page/modules/widthMode.ts` (unchanged), tests `test/page/runtimePageControls.test.ts`
       and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` run
 - [x] Changelog: no user-facing change
-- [ ] Local gates STALE (judged at `5f7658a`, head now `6bb7007`): `just preflight` passed (static
+- [ ] Local gates STALE (judged at `5f7658a`, head now `abfa71e`): `just preflight` passed (static
       stage on Windows): 5336 unit tests, 5328 pass, 0 fail, 8 skipped
-- [ ] Review: STALE (judged at `5f7658a`, head now `6bb7007`)
-- [ ] CI green: STALE (judged at `5f7658a`, head now `6bb7007`): it was not green there. The `visual`
+- [ ] Review: STALE (judged at `5f7658a`, head now `abfa71e`)
+- [ ] CI green: STALE (judged at `5f7658a`, head now `abfa71e`): it was not green there. The `visual`
       job was cancelled at its 15 minute limit on the first run and on its re-run (on the re-run its
       checks had passed before the cancellation); `checks` failed as a consequence. `static`,
       `static-windows`, `viewer-graph` and `report` passed
