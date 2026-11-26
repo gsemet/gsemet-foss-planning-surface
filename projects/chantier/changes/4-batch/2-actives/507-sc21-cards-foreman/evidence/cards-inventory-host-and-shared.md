@@ -2636,10 +2636,10 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/merge-gaps-p2.md:1, 3, 4, 5, 6, 7 | split from `merge-gaps.md`; line 1: title `The gaps of a ready-to-merge ask (part 2 of 2)`; line 3: the screenshot gap under its condition (rules that ask one `for a change to` the pane, a gap naming it missing), `of the pane`; line 4: a Driver's `note` or hand-back report `(relayed with the ask)`; line 5: `order note <cr> --note "evidence: <path of the image>"`; line 6: a stack ask: the gap rule for each CR of the mergeable part, a missing screenshot asked in the same message; line 7: a partial ask's `local gate` clause where the rules ask the stack's top a run, no clause counts as `not run` | review |
 | topics/merge-recorded.md:5, 6 | a parallel batch's merge order; a GitLab fold keeps its precedence over the forge check | review |
 | topics/merge-recorded.md:7 | line 7: `once, a rule that keeps its precedence over the forge check` | review |
-| topics/merge-series-stack-p1.md:5 | a series keeps its order; when the next CR and a CR with a dependency start | review |
+| topics/merge-series-stack-p1.md:3, 5 | line 3: `The user may merge the bottom PR as soon as it is ready to merge: nothing waits for a "go" of the user to merge.`; line 5: a series keeps its order; when the next CR and a CR with a dependency start | review |
 | topics/merge-series-stack-p2.md:3 | in direct mode check your own asks | review |
-| topics/merge-stack-gitlab.md:3 | line 3: `GitLab.`, `named (its MR the one of the ask's 'merge' part),` | review |
-| topics/merge-stack-ready-p1.md:3 | line 3: the gaps `of each CR of the mergeable part` | review |
+| topics/merge-stack-gitlab.md:3 | line 3: `GitLab.`, `named (its MR the one of the ask's 'merge' part),`, `To bring the MRs up to MR k onto the default branch, merge them one at a time from the bottom up to k.` | review |
+| topics/merge-stack-ready-p1.md:3, 4 | line 3: the gaps `of each CR of the mergeable part`; line 4: `partial-stack line, never as an ask.` | review |
 | topics/merge-stack-ready-p2.md:3 | where the local-gate record is read; the heavy-CI clause `in their language`, a PR below `without heavy CI at its own head`, run `on that head if they ask (a report's partial-stack line does not repeat this)`, `A merge in the middle is recorded as any merge, never questioned or refused.`, the `heavy-ci` ask `told to the user`, `they decide` | review |
 | topics/merge-stack-ready-p2.md:6 | line 6: `- The restack after a merge is silent (no ask; none when ...` | review |
 | topics/merge-under-grant.md:3, 7 | line 3: `local-gate'); a fix with no grant is an ordinary CR handed back.`; line 7: `route, 'gh pr merge' included.` | review |
