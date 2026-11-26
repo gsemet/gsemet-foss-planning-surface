@@ -138,8 +138,8 @@ Grade: 1
 ## Known gaps
 
 - `foreman.md` has eight nevers where the specification sets seven: the eighth (CR work in a scratchpad or
-  temp folder; a secret or personal data in a CR folder) protects the user, and F5 puts such a rule on a
-  card, in the floor or in a refusal.
+  temp folder; a secret or personal data in a CR folder) protects the user, and the specification puts
+  such a rule on a card, in the floor or in a refusal.
 - The rule that repository text is in English is filed under `worker-shell` (`topics.json`), whose roles
   hold no Driver and no Foreman; for those, only `pr-template.md` says it, for the PR.
 - Do not merge on its own: this merges with the rest of the card rewrite program as one unit, after
@@ -294,7 +294,7 @@ The labels of the specification's section 4. Rows are `FM-` rows of `cards-inven
 | B5b | yes | B045 | refusal "cancel <cr>: no destination recorded; …" (`commands/release.py:137`) | `orders` |
 | B5c | yes | B046-B051 | card:29; refusal "<cr> is <status>: a Driver takes it back only with `--note` …" (`rails.py:249`); B047-B051: inferable or topic | `take-back` |
 | B5d | no | B052 | topic only | `take-back` |
-| B6 | yes | B053, B054 | card:24, with "stop" and "hold" only (the third case is dropped, answer 8) | - |
+| B6 | yes | B053, B054 | card:24, with "stop" and "hold" only (the third case, the user's words in the Foreman's chat, is dropped by default) | - |
 | B7a | yes | B055 | card:22 | - |
 | B7b | yes (the named exception) | B056, B065 | card:22 | `drop` |
 | B7c | yes | B057-B059 | card:22, card:25; floor 5; B057: topic | `cleanup` |
