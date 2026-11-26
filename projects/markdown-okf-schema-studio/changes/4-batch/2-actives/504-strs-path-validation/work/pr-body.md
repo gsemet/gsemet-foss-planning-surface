@@ -51,7 +51,7 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The project guidelines' limit of "one to three paths" per StRS is reworded, since every live StRS now declares a path and LIFE-023 declares four.
 - TRUST-014 has no second path for linting and drawing the use case diagrams (SwRS CORE-087 and CORE-090): they are build-time checks no path cites.
 - The StRS markers' sort was carried out by an agent by the agreed classes; the re-approval of the 15 approved StRS by the review of this PR follows the owner's agreement to the scripted rename.
-- A migration script, run group by group, declared `scenarios:` and renamed the headings; each migration commit carries its markers' fragments.
+- A migration script, run group by group, declared `scenarios:` and renamed the headings. The migration commits carry the fragments of the markers that existed before the restack on `main`; the fragments of the chart, gallery and Auto width tests of `main` arrive only in the last commit (see Known gaps).
 - The scenario fragment of each SwRS test marker was first chosen by a keyword match between the scenario titles and the test, with `S1` when nothing matched. The 486 weakest matches were then read one by one against the test (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). The other fragments the migration assigned, and 45 lines on 6 SwRS with generic scenarios, are as the match assigned them and were not read against their test.
 - StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path, a duplicate of a SwRS marker, or another reason named in the table); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
 - The exemption reason of a replaced SwRS names its successor with one shared text; LIFE-174 and LIFE-182 to 185, archived with no successor, each have their own reason.
@@ -82,6 +82,7 @@ Also left for the follow-up change, found in review:
 
 Others:
 
+- Only the head of this branch passes the marker check: the five commits from `0796f53c` to `8d72801e` fail it (`just check`, 54 `fragment-required`) and the validation in the new coverage mode (14 errors), because the fragments of the chart, gallery and Auto width tests of `main` arrive in the last commit. The first commit passes both. A merge by rebase puts these commits on `main`; a squash merge does not.
 - "StRS covered" reads 1 of 95 in the current coverage mode (see Impacts).
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
 - Of the 133 StRS paths without a marker, these 66 had a candidate marker at the last re-read, which the strict marker rule removed for a partial walk, a single-state snapshot or another case named in the table. BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 has a marker: their tests run outside a real VS Code and do not walk the path.
@@ -345,7 +346,7 @@ Every declared scenario or path with no marker, per area as `<requirement number
 - Test files split to stay under the file size limit, for example `previewStylesGutter.test.ts`, `editActionsColour.test.ts`, `runtimeTableCellEditorReveal.test.ts`, `previewEditingSchemaSteps.ts`, `capture_cell_editor_checks.py`, `capture_first_gap_checks.py` and `scenarioDefinitions3.ts`.
 - `test/build/checkMarkers.test.ts`: eight new tests; `test/build/test_check_main_paths.py`: a `Path S1:` case.
 - `requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-097.md` (new) and its regenerated StRS and index; `requirements/tiers/log.md`.
-- SwRS DIAG-009, DIAG-121, DIAG-123, LAYOUT-023, CORE-096 and the chart, gallery and Auto width tests of `main`: scenario ids, `tested_in_files` and marker fragments.
+- SwRS DIAG-009, DIAG-121, DIAG-123, LAYOUT-023, CORE-096 and the chart, gallery and Auto width tests of `main`: scenario ids and order, `tested_in_files` and marker fragments.
 - `test/site/requirementsViewer/` (`model.ts`, `home.ts`, `pages.ts`, `viewer.css`, their tests and fixture); SwRS CORE-069, CORE-080, CORE-082.
 - `justfile`: the trace JSON in the two report targets.
 - `.agents/skills/okfreq/`, `.agents/skills/okfreq-gardening/`, `requirements/guidelines/requirements.guidelines.md`, `requirements/guidelines/project.guidelines.md`, `.agents/glossary/common.md`, `CONTRIBUTING.md`.
@@ -381,17 +382,17 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
   - `SwRS-MDOKFSTUDIO-CORE-069`, `CORE-080`, `CORE-082` (viewer: `test/site/requirementsViewer/model.ts`, `home.ts`, `pages.ts`; tests `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts`)
   - `SwRS-MDOKFSTUDIO-CORE-097` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
-  - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids and test markers only)
+  - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
 - [ ] Changelog: no user-facing change
 - [x] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows) pass at `2f3c629`
-- [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `afbb55c`, before the restack on `main` (screenshots not posted)
+- [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `2f3c629` (screenshots not posted)
 - [x] Review: approved at `2f3c629`
 - [ ] Verified: pending at `2f3c629`
-- [ ] CI green: pending at `2f3c629`
+- [x] CI green: all checks that run on a pull request pass at `2f3c629`
 
 ## Internal references
 
-- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r8.md`, `evidence/`.
+- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r9.md`, `evidence/`.
 - The follow-up change is CR-505; it takes the Known gaps carried into the follow-up change, the list of scenarios and paths with no marker, and the coverage-mode switch.
 
 </details>
