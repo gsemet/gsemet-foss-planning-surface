@@ -1,6 +1,6 @@
 ## Summary
 
-A stakeholder requirement (StRS) declares its main paths, but until now no CI job walked a path in a real VS Code to accept it. This PR adds that bench: acceptance tests under `test/integration/acceptance/`, an `acceptance` CI job with one runner per requirement group, and the report, release tagging and Pages steps that take its results. It delivers the first group, trust and security: 5 of its 8 paths are accepted, and each of its software requirement scenarios has a test. The requirements coverage mode is not switched yet.
+A stakeholder requirement (StRS) declares its main paths, but until now no CI job was dedicated to walking use-case paths: 17 of 156 were accepted, by tests of the `integration` suites. This PR adds that bench: acceptance tests under `test/integration/acceptance/`, an `acceptance` CI job with one runner per requirement group, and the report, release tagging and Pages steps that take its results. It delivers the first group, trust and security: 5 of its 8 paths are accepted, and each of its software requirement scenarios has a test. The requirements coverage mode is not switched yet.
 
 ## Deliverables
 
@@ -42,7 +42,7 @@ Groups with no acceptance file yet: rendering-core, code-blocks, gfm, myst, diag
 
 - Runner: `--acceptance-only` and `--group <id>`; argument parsing in `test/shared/runnerArgs.ts`; a suite entry `test/integration/acceptance-suite.ts`.
 - Report: `scripts/e2e-campaign.mjs` gains an `acceptance` stage, one manifest per group; `scripts/select-acceptance-attempts.mjs` keeps the newest attempt of each group.
-- Built-VSIX window: the VSIX is packaged and unpacked by `scripts/unpack_vsix.py`.
+- Built-VSIX window: the runner packages the VSIX with `scripts/package-extension.mjs`, and the new `scripts/unpack_vsix.py` unpacks it.
 - CI: the heavy `acceptance` job; `report`, `tag-release` and the Pages reuse (`scripts/select_e2e_run.py`) require it. Each shard has a 5-minute job limit and a 3-minute test step limit, set from the first measured run.
 - Tests: trust and security acceptance files (trusted, Restricted Mode, built VSIX). The built-VSIX window checks the installed texts and icon and accepts no path. A new check under `test/security/` builds the bundles and lists the package files.
 - Requirements and docs: the software requirement (SwRS) `SwRS-MDOKFSTUDIO-CORE-076` states the new heavy job; `SwRS-MDOKFSTUDIO-TRUST-092` names the new check; CI and release guidelines, `AGENTS.md` and `CONTRIBUTING.md`.
@@ -158,7 +158,7 @@ Wrong scenario fragments corrected, per test file. A marker stays only when the 
 
 ## Impacts
 
-No visual change: no file of the extension changes. For maintainers: a release is tagged, and Pages reuses a run's reports, only when every `acceptance` shard is green; `just preflight` runs acceptance on Linux and macOS.
+No visual change: no file under `src/` changes, and `package.json` gains only the `test:acceptance` script. For maintainers: a release is tagged, and Pages reuses a run's reports, only when every `acceptance` shard is green; `just preflight` runs acceptance on Linux and macOS.
 
 ## Blast radius
 
@@ -174,11 +174,12 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 ## Known gaps
 
-- This is a partial delivery of the planned acceptance work: only the trust and security group has acceptance files, the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted. The other requirement groups, the mode switch and its gate are left for follow-up changes.
-- The real VS Code `integration` job passed at `5a8a593` only on a second attempt: the first was cut by its 15-minute launch deadline while one of its last steps was running. Passing runs of that suite already use about 14 of the 15 minutes (852 s in a run on the base branch, 854 s on the second attempt here), and this change removes only requirement markers from that suite. It is a bug still to be fixed at its cause.
-- The 3-minute test step of an acceptance shard ends before the default budget of a test step (3 minutes) and the 15-minute launch deadline can expire: a hang that no shorter check catches leaves the processes and logs left behind, without the window state and screenshots.
+- This is a partial delivery of the planned acceptance work: only the trust and security group has acceptance files, the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted. The other requirement groups (including the repair of their dropped or wrong scenario markers), the mode switch and its gate are left for follow-up changes.
+- The real VS Code `integration` job passed at `5a8a593` only on a second attempt: the first was cut by its 15-minute launch deadline while one of its last steps was running. Passing runs of that suite already use about 14 of the 15 minutes (852 s in a run on the base branch, 854 s on the second attempt here), and this change edits only requirement marker comments in that suite. It is a bug still to be fixed at its cause.
+- The 3-minute limit of the CI test step of an acceptance shard ends before the 3-minute budget of a single test step and the 15-minute launch deadline can expire: a hang that no shorter check catches is diagnosed only from the processes and logs left behind, without the window state and screenshots.
 - Both timeouts come from one shard's first attempt in one run (a second attempt was faster); a slower group added later has to measure and set them again.
-- `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: the public VS Code API cannot read the preview's texts or the Extensions view, and a test performs no install. Each needs another kind of test, or a decision, before the coverage mode can be switched.
+- With one group only, merging the attempts of several groups never ran in CI; release tagging and the Pages reuse never ran on a real push to the default branch; and acceptance never ran on macOS.
+- `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: their tests do not perform or observe every step the paths name (reading a text of the preview, finding the Studio in the Extensions view, and installing and packaging from pinned dependencies). Each will get another kind of test in a follow-up change, before the coverage mode is switched; the marker rule stays unchanged.
 - The table of `SwRS-MDOKFSTUDIO-TRUST-065` scenario S2 omits newer message types of the preview page; its test checks the listed types only. The requirement text needs an update.
 
 <details>
@@ -190,19 +191,22 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - The acceptance job runs one shard per requirement group, one shared window per test file, with no raised timeout.
 - Coverage counts test markers; the proof that a test passes is its CI job.
 - The delivery may stop after any complete group; the coverage-mode switch lands last.
+- The dropped and wrong scenario markers of the earlier change are repaired with this work.
+- The three paths not accepted get another kind of test in a follow-up change before the switch; the strict marker rule stays.
+- The remaining groups, these three paths and the switch are delivered later, as follow-up changes, the switch last.
 
 ## Test plan
 
-- [x] New or changed tests: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
-- [x] Requirements: two SwRS updated and one verification note corrected, markers in tests, `just requirements-update`
-- [x] Changelog: no user-facing change
+- [x] New or changed tests at `5a8a593`: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
+- [x] Requirements at `5a8a593`: `SwRS-MDOKFSTUDIO-CORE-076` updated (normative text, scenarios S1 to S6 edited, S7 to S11 new); verification notes of 14 trust and security SwRS rewritten, with their criteria in 007, 065 and 092; markers in tests; `just requirements-update` (generated file lists also change in 002 and 011)
+- [x] Changelog at `5a8a593`: no user-facing change
 - [x] Local gates at `5a8a593`: `just preflight` passed on Windows, where it runs the static stage only
-- [ ] Evidence:
+- [x] Evidence at `5a8a593`:
   - [Heavy run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144) at `5a8a593`: `stress` and the `acceptance (trust-security)` shard passed on the first attempt; `integration` passed on a re-run of the failed jobs (see Known gaps), after which `report` and `checks` passed.
   - The shard under its limits of 5 minutes (job) and 3 minutes (test step), first attempt: job 87 s, test step 59 s; launches 26 s (trusted), 8 s (Restricted Mode), 16 s (built VSIX).
   - The limits were set from the first measured run ([45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331), at an earlier commit): job 115 s, test step 77 s.
   - Re-run of the shard alone, same run: job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
-  - Requirements bundle copied and checked in the new coverage mode at `5a8a593`: pending.
+  - Requirements bundle copied and checked in the new coverage mode at `5a8a593`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
 - [x] Review: approved at `5a8a593` (carried from `18c63e5`)
 - [ ] Verified at `5a8a593`: pending
 - [x] CI green at `5a8a593`: the pull request checks passed (run 45773633868); the manually started heavy run 45774743144 is green after one re-run of its failed jobs (see Known gaps)
