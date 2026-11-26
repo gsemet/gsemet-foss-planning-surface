@@ -14,6 +14,27 @@ F2: "which the other clips of the same round build on" did not hold). Both are f
 `8c6845a50d411d894d83c7160e52e1306548330d`; remote `main` still `17b779d5`;
 `git status --porcelain` empty before the verdict. Still a draft.
 
+## Third pass, description only, judged at 8c6845a
+
+The posted description (edit of 2026-11-26T00:00:11Z). The head did not move, so every claim below
+is carried from 8c6845a, except what E1 to E3 judge again.
+
+- E1, the one change: unified diff of the `userContentEdits` of 23:57:27Z (judged by the second
+  pass) and 00:00:11Z (`gh api graphql`, saved in `verifier/edits.log`), one hunk:
+  `+- [x] Verified at `8c6845a``. `gh pr view 512 --json body` equals the latest edit, and equals
+  `work/pr-body.md` (CR removed, trailing blanks ignored).
+- E2, the new line holds: this note has `Head: 8c6845a5...` with VERIFIED, and `chantier log CR-493`
+  shows `2026-11-25T23:59:42Z driver verdict result=VERIFIED head=8c6845a50d41...`, before the edit.
+  `git rev-parse HEAD`, `gh api graphql` `headRefOid` and `git ls-remote origin` (branch): 8c6845a5;
+  remote `main` 17b779d5, the PR base; `git status --porcelain` empty; `CLEAN`, still a draft.
+- E3, the posted whole: `body_html` renders the headings, the fold, the table and 8 checked boxes of
+  8, the new one included. No `UNVERIFIED` or `STALE` mark; the only SHAs are 8c6845a and the base
+  17b779d. Images downloaded again: GIF 200, sha256 4666703c...86ba (= the committed file); before
+  200, 7c8db8da...7212 and after 200, 627ab9db...026e (= `verifier/evidence/`). Both PNGs opened
+  again: they show what Impacts says, with no user name, home folder or local path.
+  `gh pr checks 512`: checks, report, static, static-windows, visual, viewer-graph pass (run
+  45719751938); the others skipping.
+
 ## Second pass, judged at 8c6845a
 
 ### D1. The changed lines
