@@ -105,3 +105,7 @@ https://github.com/gsemet/okf-schema/issues/56#issuecomment-7175763450; plan "no
 
 Due: the release announcement, once the release holding
 https://github.com/gsemet/okf-schema/pull/68 is published.
+
+Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-26: comment
+https://github.com/gsemet/okf-schema/issues/56#issuecomment-7185040456 (`work/issue-release.md`,
+released in 0.19.0); plan "none"; demo "none".

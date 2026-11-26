@@ -124,3 +124,7 @@ Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
 https://github.com/gsemet/okf-schema/issues/57#issuecomment-7175983273 (`work/issue-followup.md`,
 the link to https://github.com/gsemet/okf-schema/pull/70); plan "none"; demo "none". Still due: the
 release announcement.
+
+Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-26: comment
+https://github.com/gsemet/okf-schema/issues/57#issuecomment-7185040878 (`work/issue-release.md`,
+released in 0.19.0); plan "none"; demo "none".
