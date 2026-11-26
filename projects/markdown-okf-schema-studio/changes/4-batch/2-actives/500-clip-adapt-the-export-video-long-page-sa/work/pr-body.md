@@ -44,7 +44,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 ## Known gaps
 
 - The owner has not approved this cut of the clip; the approval given so far was for an earlier cut.
-- In the browser, each of the two scrolls shows as one cut, not as motion. The filmed window sends no new frame while the exported page scrolls; filming the browser's page itself would be a change of the clip kit.
+- In the browser, the two scrolls show as jumps, not as motion: the first as a short step at about 11 s then a cut at about 12 s, the second as one cut at about 14.1 s. The take holds only three new frames for these scrolls (one partway through the first, then the wide table, then the diagrams); filming the browser's page itself would be a change of the clip kit.
 - The browser shows a closed "Chart source" line under each chart, which Studio does not show. This is how the export works; under the bar chart the line sits partly behind the caption.
 - The key frame taken as the browser opens still shows the command palette.
 - Motion, rhythm, the scroll speed and the loop as watched are not checked by the author.
