@@ -6,15 +6,15 @@ Reworks the `export-html` feature clip into a stronger story: a long report page
 
 18 s, 1280x720 at 15 fps, three captions in turn, one zoom with three marks in turn, no card, logo top right, a loop.
 
-![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.gif)
+![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac/docs/demo-video/clips/export-html/export-html.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/clip.md).
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac/docs/demo-video/clips/export-html/clip.md).
 
 What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings (two Mermaid images and two inline charts), with no script and no chart hover box (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
 
 ## Deviation from the feature clip process
 
-The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/c7c6a562420e55b83356a366806f57ff67a9c100/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
+The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
 
 ## Changes
 
@@ -34,12 +34,12 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 
 ## Test plan
 
-- [x] New or changed tests at `c7c6a56` (the storyboard case and the new stage case fail on the previous clip)
-- [x] Requirements at `c7c6a56`: No behaviour change (`just requirements-update` leaves the tree clean)
-- [x] Changelog at `c7c6a56`: No user-facing change
-- [x] Local gates at `c7c6a56`: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
-- [x] Review: approved at `c7c6a56` (carried from `8ce169f`: a clean rebase, the same four commits)
-- [x] CI green at `c7c6a56`: checks, static, static-windows, visual, viewer-graph and report pass; the heavy and release jobs are skipped, as on any pull request
+- [x] New or changed tests at `d6ae0d0` (carried from `c7c6a56`: the storyboard case and the new stage case fail on the previous clip; the one commit since changes wording in `clip.md` and a comment in `scenario.mjs`)
+- [x] Requirements at `d6ae0d0`: No behaviour change (`just requirements-update` leaves the tree clean)
+- [x] Changelog at `d6ae0d0`: No user-facing change
+- [x] Local gates at `d6ae0d0`: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
+- [x] Review: approved at `d6ae0d0`
+- [ ] CI green at `d6ae0d0`
 
 ## Known gaps
 
