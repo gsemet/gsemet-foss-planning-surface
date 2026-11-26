@@ -89,7 +89,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Scenario: every Driver is started from the printed `brief` command; the new fact lines and the stack line are checked.
 - Docs: links and sentences that named removed files are fixed; `docs/incidents.md` is new.
 - New tests: `test_card_names.py` (names the CLI prints), `test_card_homes.py` (where each rule lives) and `test_brief_bytes.py` (each brief's size); a Driver brief's `Team:` line is checked. Other tests that pinned removed files are converted.
-- Deleted tests, each with what replaces its rules (`test_card_homes.py` holds one home per old phrase):
+- Deleted tests, each with what replaces its rules (`test_card_homes.py` holds one home per old phrase; the phrase-by-phrase list is in a comment on this pull request):
 
 | Deleted | Replaced by |
 | --- | --- |
@@ -122,9 +122,9 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates
-- [ ] Evidence
-- [ ] Review: approved
+- [x] Local gates at `b85be4c`: `just check` (2748 passed, 19 skipped), `just eval-dry-run` (25 of 25 cases), `just mod` (119 pass)
+- [ ] Evidence: before at `ea11a9e`, after at `b85be4c`
+- [x] Review: approved at `b85be4c` (carried from `7d2c4dc`)
 - [ ] Verified
 - [ ] CI green
 
@@ -162,3 +162,5 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 | 25 | Driver table, "Change Request", host rows, topics and allow block read after the swap | done |
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
