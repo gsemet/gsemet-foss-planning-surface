@@ -316,8 +316,8 @@ No visual change; nothing loads the new files.
 ## Test plan
 
 - [x] No behaviour change: no test added or changed
-- [x] Local gates: `just check` on the tree of the last commit, run before the commit: 2933 passed, 19 skipped
-- [x] Evidence on that tree:
+- [x] Local gates: `just check` at `88d9ab4`: exit 0, 2933 passed, 19 skipped
+- [x] Evidence on the tree of `88d9ab4`:
   - byte copies: `git hash-object <path>` gives the same blob under `cards-next/` and `references/` for
     `floor.md` (`61da01e8`), `hosts/claude-code.json` (`3f2daf79`) and `hosts/copilot.json` (`b4dec473`);
   - unloaded: `git grep --untracked -n cards-next -- . ':(exclude)skills/chantier/cards-next'` prints no line,
@@ -326,7 +326,7 @@ No visual change; nothing loads the new files.
   - links under `cards-next/`: 22, broken 0, none into `references/`;
   - topic index: 240 topics load, 465 readings resolve, no base name missing;
   - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
-- [ ] Review: owed at the head (approved at `03f973e`, before the last changes)
+- [x] Review: approved at `88d9ab4`
 - [ ] Verified
 - [ ] CI green
 
