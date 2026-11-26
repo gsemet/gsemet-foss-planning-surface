@@ -2613,6 +2613,7 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/grill-critic-steps.md:6, 7 | review again after the fixes; the full list comes from the critic's reply, written nowhere | review |
 | topics/grill-critic.md:3, 4 | line 3: `bundle (work cheaper shipped as separate CRs).`, `title, the request naming the CR it comes from),`; line 4: `start (the user may flip it) and recorded;` | review |
 | topics/grill-options.md:3 | line 3: `the most plausible,` | review |
+| topics/grill-outside-pr.md:4 | line 4: `so in one line,`, `says, then archive.` | review |
 | topics/grill-outside-pr.md:5, 7 | line 5: `and its changed files as 'glab' allows`; line 7: `line: what it changed, by whom>"';`, `user, run it again once 'writer:' is back.` | review |
 | topics/grill-series.md:4, 8, 9 | line 4: `- Grill at any stage, once for all a batch's CRs, item ...`; line 8: `A CR's number is never the short name. An answer's list number there need not match its Q ...`; line 9: `tool; 'help grill-example'.` | review |
 | topics/grill-series.md:7 | an answer's list number need not match | review |
@@ -2637,6 +2638,7 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/merge-stack-gitlab.md:3 | line 3: `GitLab.`, `named (its MR the one of the ask's 'merge' part),` | review |
 | topics/merge-stack-ready-p2.md:3 | where the local-gate record is read | review |
 | topics/merge-stack-ready-p2.md:6 | line 6: `- The restack after a merge is silent (no ask; none when ...` | review |
+| topics/merge-under-grant.md:3, 7 | line 3: `local-gate'); a fix with no grant is an ordinary CR handed back.`; line 7: `route, 'gh pr merge' included.` | review |
 | topics/merge-words-p1.md:1, 3, 4 | split from `merge-words.md`; an early merge: no question; line 1: title `The words to the user about a merge (part 1 of 2)`; line 3: `#<pr>`, `gate", never "the next ready to merge will be 🟢 #<pr>" while it is a draft).`; line 4: `work (not its merge),` | review |
 | topics/merge-words-p2.md:1, 3, 4 | split from `merge-words.md`; line 1: title `The words to the user about a merge (part 2 of 2)`; line 3: `only for a PR ready to merge (🟢: out of draft, CI green, no conflict, on the default ...`, `reproach, no question.`; line 4: `(the user may merge anyway: record it as any merge)` | review |
 | topics/mode-switch-p1.md:1, 3, 5, 7, 8 | `mode-switch.md` split in two: the switch is on the user's word, the record's new order, what the stack driver does | review |
@@ -2654,9 +2656,12 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
 | topics/refused-push-chief-p2.md:3 | a protected-branch rejection is handled as a failed lease and told as information, with git's text and what it means, never retried | review |
 | topics/refused-push-gate.md:3, 4 | line 3: `rule; 'handback ready' still enforces the gate),`; line 4: `A CR carried from an earlier batch keeps its branch: covered.` | review |
+| topics/refused-push-gate.md:5, 6 | line 5: `by the restart path's steps ('help refused-answer'),`; line 6: `"<CR number and slug>:` | review |
 | topics/refused-push-route.md:4 | line 4: `(P10 cuts long commands)`, `'<remote>': the project's, 'origin' unless configured.` | review |
 | topics/refused-push-run.md:4 | line 4: `ask: wait for no allow line of theirs`, `cut: you` | review |
+| topics/refused-push-steering.md:3, 6, 7 | line 3: `it`, `their`; line 6: `protection (no 'gh api' or 'glab api' rule).`; line 7: `cut: then` | review |
 | topics/refused-push-steering.md:4 | line 4: `('cr-<n>-…'`, `'CR-<n>'):` | review |
+| topics/refused-rebase.md:5 | line 5: `…'; 'origin': the project's remote)` | review |
 | topics/release-chief-after-p1.md:3 | line 3: `help; the question keeps its answers, "auto" or the user's word that you run it yourself, ...` | review |
 | topics/release-chief-after-p2.md:4 | line 4: `release; 'delivery.md' has each PR and merge time).` | review |
 | topics/release-chief-after-p2.md:5 | nothing more is asked once published | review |
@@ -2707,10 +2712,10 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/trials-p2.md:1 | split from `trials.md`; line 1: title `The trials before the go (part 2 of 2)` | review |
 | topics/trouble-gate.md:6 | line 6: `'long_gate.parallel' ('chantier.yaml'; 1 if absent) gates run at once; the`, `merge`, `(stack`, `series:` | review |
 | topics/wakes-forge.md:6 | line 6: `nothing; none counts as an undone order.` | review |
-| topics/wakes-p1.md:1, 3, 4, 5, 6 | split from `wakes.md`; a stopped batch sends nothing more, then says it stopped; no long command in a turn; the rest reworded so they fit; line 1: title `What wakes you (part 1 of 2)`; line 3: `A Driver's line, the host's notice about a Driver, an order, the ...`; line 4: `('timing:'`; line 5: `cut: the`, `cut: a`, `Never copy a`, `line (printed`; line 6: `Forge lines,`, `Staff's:` | review |
+| topics/wakes-p1.md:1, 3, 4, 5, 6 | split from `wakes.md`; a stopped batch sends nothing more, then says it stopped; no long command in a turn; the rest reworded so they fit; line 1: title `What wakes you (part 1 of 2)`; line 3: `A Driver's line, the host's notice about a Driver, an order, the ...`; line 4: `('timing:'`, `A new batch arms its own.`; line 5: `cut: the`, `cut: a`, `Never copy a`, `line (printed`; line 6: `Forge lines,`, `Staff's:` | review |
 | topics/wakes-p2.md:1, 3, 4 | split from `wakes.md`; line 1: title `What wakes you (part 2 of 2)`; line 3: `session (an idle session still receives an order),`, `pause (the CLI's or yours),`, `(CR, stack, QA, release)`, `more, whatever the wake's interval,`; line 4: `call or run a long command,`, `(your watcher aside),` | review |
 | topics/watcher-board-p1.md:1, 5, 6 | split from `watcher-board.md`; "Rescan" reads the backlog again; line 1: title `The board's writes (part 1 of 2)`; line 5: `(board)', with no 'triage' and no 'order': it stays there.`; line 6: `question left, answered and rewritten):` | review |
-| topics/watcher-board-p2.md:1, 3 | split from `watcher-board.md`; line 1: title `The board's writes (part 2 of 2)`; line 3: `- "Rescan", "I updated the priorities": read the backlog again ('status', the ...` | review |
+| topics/watcher-board-p2.md:1, 3 | split from `watcher-board.md`; line 1: title `The board's writes (part 2 of 2)`; line 3: `- "Rescan", "I updated the priorities": read the backlog again ('status', the ...`, `That word decides nothing: still ask before opening a batch.` | review |
 | topics/watcher-events-p1.md:1, 3, 4 | split from `watcher-events.md`; a `specifying.parallel` or role-key line takes no tool call; line 1: title `A watcher's notification or end (part 1 of 2)`; line 3: `Each line of its output:`; line 4: `went (into '<other cr>''s PR, not the default branch),`, `nothing, and wait for the PR under it to land (a second line, 'landed with').`, `you check`, `cut: is checked` | review |
 | topics/watcher-events-p2.md:1, 3, 4, 5, 6, 7 | split from `watcher-events.md`; line 1: title `A watcher's notification or end (part 2 of 2)`; line 3: `line of a few words, no tool call,`; line 4: `line to the user, no tool call,`; line 5: `- What it tells: the project's forge events, board writes, tracker and ...`; line 6: `- It ends 2 h after the latest of its start, its ...`; line 7: `message, in the report format, of`, `start an ended`, `cut: ended, start it` | review |
 | topics/watcher-lines-p1.md:1, 4 | split from `watcher-lines.md`; who reads the resuming `take`'s line in Foreman mode; line 1: title `The watcher's lines (part 1 of 2)`; line 4: `'status' or 'serve --seat'.` | review |

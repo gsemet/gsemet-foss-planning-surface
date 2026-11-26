@@ -25,7 +25,7 @@ Choices made:
 - The coverage mode is not switched here; the old mode keeps working with the new schemas.
 - The 97 retired SwRS get an explicit exemption from markers (`annotation_exemption` with a reason), so okfreq expects no marker on them; in the current coverage mode their StRS still list them as missing (see Impacts).
 - A new SwRS (`SwRS-MDOKFSTUDIO-CORE-097`) states the behaviour of the marker check, each rule tested by its own test.
-- The requirements that `main` added or extended meanwhile (DIAG-121, DIAG-123, LAYOUT-023 and CORE-096) have numbered scenarios too, and the markers of their tests name a fragment or are gone (see Known gaps). Their scenario and normative text is unchanged.
+- The requirements that `main` added or extended meanwhile (DIAG-009, DIAG-121, DIAG-123, DIAG-128, LAYOUT-023 and CORE-096) have numbered scenarios too, and the markers of their tests name a fragment or are gone (see Known gaps). Their scenario and normative text is unchanged.
 - All 16 requirement groups declare `scenarios:` and carry `Scenario S<n>` / `Path S<n>` headings; each SwRS test marker is one line per scenario.
 - StRS markers in tests were sorted (table in Details, 187 rows for 185 markers): a marker stays only where the test walks the whole declared path. 19 rows are `@accepts_req` (walks in real VS Code), 7 are `@tests_req` (walks on the simulated bench), 161 are removed, each with its class (partial path 111, single-state snapshot 27, SwRS duplicate 12, other 11). The 26 kept markers cover 23 of 156 paths (17 accepted, 6 tested). The SwRS markers stay, except those the review of the fragments dropped because their test checks no declared scenario (see Known gaps).
 - The mutation report reads the `#S<n>` fragments.
@@ -346,7 +346,7 @@ Every declared scenario or path with no marker, per area as `<requirement number
 - Test files split to stay under the file size limit, for example `previewStylesGutter.test.ts`, `editActionsColour.test.ts`, `runtimeTableCellEditorReveal.test.ts`, `previewEditingSchemaSteps.ts`, `capture_cell_editor_checks.py`, `capture_first_gap_checks.py` and `scenarioDefinitions3.ts`.
 - `test/build/checkMarkers.test.ts`: eight new tests; `test/build/test_check_main_paths.py`: a `Path S1:` case.
 - `requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-097.md` (new) and its regenerated StRS and index; `requirements/tiers/log.md`.
-- SwRS DIAG-009, DIAG-121, DIAG-123, LAYOUT-023, CORE-096 and the chart, gallery and Auto width tests of `main`: scenario ids and order, `tested_in_files` and marker fragments.
+- SwRS DIAG-009, DIAG-121, DIAG-123, DIAG-128, LAYOUT-023, CORE-096 and the chart, gallery and Auto width tests of `main`: scenario ids and order, `tested_in_files` and marker fragments.
 - `test/site/requirementsViewer/` (`model.ts`, `home.ts`, `pages.ts`, `viewer.css`, their tests and fixture); SwRS CORE-069, CORE-080, CORE-082.
 - `justfile`: the trace JSON in the two report targets.
 - `.agents/skills/okfreq/`, `.agents/skills/okfreq-gardening/`, `requirements/guidelines/requirements.guidelines.md`, `requirements/guidelines/project.guidelines.md`, `.agents/glossary/common.md`, `CONTRIBUTING.md`.
@@ -382,7 +382,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
   - `SwRS-MDOKFSTUDIO-CORE-069`, `CORE-080`, `CORE-082` (viewer: `test/site/requirementsViewer/model.ts`, `home.ts`, `pages.ts`; tests `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts`)
   - `SwRS-MDOKFSTUDIO-CORE-097` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
-  - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
+  - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `DIAG-128`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
 - [ ] Changelog: no user-facing change
 - [x] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows) pass at `2f3c629`
 - [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `2f3c629` (screenshots not posted)
