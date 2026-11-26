@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "index: no broken links in subdirectory summaries, W2 in index.md",
-  "summary": "Specified, no open question: index takes the whole subdir intro (links rewritten, cut never splits a link) or generic text, repairs damaged/generic summaries, keeps [...] and tables/ spellings; W2 in index.md and log.md; W2 and stats ignore anchors, decode paths.",
+  "summary": "Merged 2026-11-26 (pull request 70): index takes the whole subdirectory intro or a generic sentence and repairs broken summaries; W2 covers index.md and log.md. 13 known gaps recorded. In release 0.19.0; availability comment on #57 due once published.",
   "origin": {
     "kind": "github",
     "ref": "#57",
@@ -11,7 +11,8 @@
     "01-intent.md": "6d0abcbfeaa64655692442d1bf732c1f355798893b4951b746280a4fcc4802d8",
     "02-answers.md": "e90a488bb0159a929589612a31c7020830922bc761d5d1131ae724a3c2787f64",
     "03-change-spec.md": "7bc175468e10466c38e5662efed42133af88918ef34b8a81bedb7e88a131f48c",
+    "delivery.md": "04e561138f3ee62464c8f8018442661ce2c1f6131e39fa9e16cec08f779a05e1",
     "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
   },
-  "summarized": "2026-11-25T22:08:25Z"
+  "summarized": "2026-11-26T06:33:59Z"
 }
