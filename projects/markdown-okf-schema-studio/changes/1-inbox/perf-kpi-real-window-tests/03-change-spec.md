@@ -1,28 +1,38 @@
-# Real-window performance KPI job with maximums, shown on the site
+# Real-window performance KPI job with maximums, also local on Windows
 
 ## Goal
 
 The owner wants performance measured in a real VS Code window on a complex rendering case, given as
-KPI scores, published on the project's GitHub Pages site, with requirements that set the maximum each
-score must meet (`intake/request.md`, `02-answers.md`).
+KPI scores, with requirements that set the maximum each score must meet (`intake/request.md`,
+`02-answers.md`).
 
 First scope: the document of issue 547 (https://github.com/gsemet/markdown-okf-schema-studio/issues/547),
 two paths: text selection and comment creation. Each score is a median time in milliseconds and its
 ratio to the maximum (1 or less means met). The campaign runs in GitHub CI, where an exceeded maximum
-turns the job red and so blocks a release, and by a local command, to compare. The site shows the
-latest run only.
+turns the job red and so blocks a release, and by a local command, to compare, on Linux, macOS and
+Windows.
 
-This CR is the upper of a stack of two in batch-09. The lower CR, CR-516
-`perf-547-slow-comment-selection` (its `03-change-spec.md`, Part 1), fixes the issue and adds the
-real-window measure of selection and comment creation on that document, with the document's
-deterministic generator in `test/probe/`: the scenario `perf-547`
-(`STUDIO_REAL_INPUT_SCENARIO=perf-547`, beside `test/integration/performanceProbe.ts`), one window
-launch per run, which writes `out/reports/probe/perf-547.json` with every sample and the median per
-interaction, among them `selectionRelease` (from the mouse release that ends a selection to the
-Comment button shown) and `commentCreate` (from the save of a new comment to its highlight drawn). It
-sets no limit and leaves the maximums to this CR. This CR builds on that measure, at the head where
-it is merged, and never repeats it: it runs the scenario three times, turns its samples into scores,
-checks them against the maximums, runs it in CI and shows it on the site.
+This CR ends at the report files (`out/reports/perf/kpi.json`, `kpi.md`), the CI job, the maximums and
+their requirement (answer 9). The page of the scores on the GitHub Pages site is the CR
+`perf-kpi-pages`, stacked above this one.
+
+## Base and place in batch-09
+
+Directly above CR-517 `perf-547-comment-update-and-author` (`changes/4-batch/1-pending/517-*`), itself
+directly above CR-516 `perf-547-slow-comment-selection`; `perf-kpi-pages` sits above this CR. The
+maximums are measured after the whole fix of issue 547, as answer 4's "after the fix" says: on a head
+that holds both CR-516 and CR-517.
+
+What this CR builds on, from CR-516's `03-change-spec.md`, Part 1, at the head where it is merged:
+the deterministic generator of the issue's document in `test/probe/`; the real-window scenario
+`perf-547` (`STUDIO_REAL_INPUT_SCENARIO=perf-547`, beside `test/integration/performanceProbe.ts`), one
+window launch per run, which writes `out/reports/probe/perf-547.json` with every sample and the median
+per interaction, among them `selectionRelease` (from the mouse release that ends a selection to the
+Comment button shown) and `commentCreate` (from the save of a new comment to its highlight drawn).
+CR-517 adds the `authorWait` samples to that report; they are not a KPI here. Neither CR sets a limit.
+This CR never repeats the measure: it runs the scenario three times, turns its samples into scores,
+checks them against the maximums and runs it in CI. It replaces CR-516's manual CI job and local
+command (answer 7).
 
 ## Decisions (from `02-answers.md`)
 
@@ -38,8 +48,15 @@ checks them against the maximums, runs it in CI and shows it on the site.
    document only; other cases later.
 5. Score form (answer 6, "A. ms et ratio"): the median time and the ratio measured / maximum; 1 or
    less means met.
-6. History (text before the questions, no objection): the Pages site shows the latest run only, no
-   history.
+6. CR-516's manual job and local command (answer 7, "A. Les remplacer"): this CR removes them; the
+   `perf` job and `just perf-kpi` are the only entries. A one-off measure is then a full heavy run.
+7. `just preflight` on Linux and macOS (answer 8, "A. Comparer"): it runs the campaign and shows the
+   differences without failing on a maximum; only CI enforces the maximums.
+8. The site page (answer 9, "A. Deux CR"): `perf-kpi-pages`, above this CR; this CR is mergeable
+   without waiting for it.
+9. Windows (answer 10, "B. Windows dès batch-09", as the Chief of Staff reads it): the local comparison
+   command `just perf-kpi` also runs on Windows, in this CR. The other real-window stages stay on
+   Linux and macOS, and `just preflight` on Windows keeps running the static stage only.
 
 Repetition: the owner asked for the real-window analysis to be run "2 ou 3 fois pour avoir un peu de
 stabilité" (perf547-Q1). The campaign follows it: three window launches per run.
@@ -58,9 +75,9 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
   "Requirements") and `maximumMs`.
 - The KPI reads the samples of the report as CR-516 writes them; it never reads the report's own
   medians, since it pools the samples of three launches.
-- `maximumMs` is about twice the median of the first heavy CI run of this branch made after the fix
-  (the CI runner, not a local machine), rounded up to the next 10 ms. The run id that gave each
-  value is written in a comment next to it, and in the SwRS's rationale.
+- `maximumMs` is about twice the median of the first heavy CI run of this branch (the CI runner, not
+  a local machine), whose base holds CR-516 and CR-517, rounded up to the next 10 ms. The run id that
+  gave each value is written in a comment next to it, and in the SwRS's rationale.
 - Pure functions, no I/O: `median(samples)` (odd count: the middle; even: the mean of the two
   middle values), `scoreKpi(kpi, samples)` giving `{ id, title, requirement, samples, medianMs,
   maximumMs, ratio, met }` with `ratio = medianMs / maximumMs` rounded to two decimals and `met`
@@ -74,13 +91,14 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
   samples `selectionRelease` and `commentCreate` over the three launches, scores them with `scoreKpi`.
 - Writes `out/reports/perf/kpi.json`:
   `{ "schema": 1, "commit": <full sha>, "runId": <STUDIO_E2E_RUN_ID, or "local">, "startedAt",
-  "machine": { "os", "cpuModel", "cpus" }, "launches": 3, "kpis": [ <one score per KPI> ] }`,
-  and `out/reports/perf/kpi.md`, the same table in Markdown.
+  "machine": { "os", "cpuModel", "cpus" }, "launches": 3, "kpis": [ <one score per KPI> ] }`
+  (`os` is `process.platform`: `linux`, `darwin` or `win32`), and `out/reports/perf/kpi.md`, the same
+  table in Markdown. These two files are the contract `perf-kpi-pages` reads.
 - Prints one line per KPI: `<id>: median <m> ms, maximum <M> ms, ratio <r> (<met|OVER>)
   [<n> samples]`.
 - `--enforce` (CI): exit 1 when a KPI is over its maximum, last line
   `perf KPI: FAILED, <id> <m> ms > <M> ms` (every KPI over, comma-separated); else last line
-  `perf KPI: all <n> KPIs within their maximums`. Without `--enforce` (local comparison): exit 0
+  `perf KPI: all <n> KPIs within their maximums`. Without `--enforce` (comparison): exit 0
   whatever the ratios, an over KPI marked `OVER (CI maximum)`, last line
   `perf KPI: compared on this machine, the maximums hold for the CI runner`.
 - Either mode: a missing run report or a KPI without samples exits 1 and names the launch or KPI.
@@ -89,28 +107,71 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
 
 ### Justfile
 
-- `ci-perf: (_require-unlocked-screen "ci-perf")` (new), the CI job's target: removes
-  `out/reports/perf/`, runs CR-516's real-window scenario `perf-547` three times, one window launch
-  each (`STUDIO_REAL_INPUT_SCENARIO=perf-547 npm run test:integration -- --trusted-only`, the form
+- `ci-perf MODE="enforce": (_require-unlocked-screen "ci-perf")` (new), the CI job's target. `MODE`
+  is `enforce` (the default, what CI runs) or `compare`; any other value stops at once with
+  `ci-perf: MODE must be enforce or compare, got "<value>"`, exit 2. It removes `out/reports/perf/`,
+  runs the scenario `perf-547` three times, one window launch each
+  (`STUDIO_REAL_INPUT_SCENARIO=perf-547 {{ npm }} run test:integration -- --trusted-only`, the form
   `performanceProbe.ts` documents), copies each launch's `out/reports/probe/perf-547.json` to
-  `out/reports/perf/runs/run-<k>.json`, then runs
-  `node out/test/integration/perfKpiCampaign.js --enforce`. Last line `ci-perf: passed` or
-  `ci-perf: FAILED` (CI guideline rule 8). A launch that fails stops the target red; there is no
-  retry (rule 9).
-- `perf-kpi` (new), the local comparison command: the same three launches of `perf-547` and the
-  same copies of `perf-547.json` to `out/reports/perf/runs/run-<k>.json`, then the script without `--enforce`; last line `perf-kpi: done`. It fails only when a
-  launch or the measure fails.
-- Both stop with exit code 3 on a locked screen, like `ci-integration`. On Windows both stop before
-  any launch with `ci-perf: the real VS Code stages run on Linux and macOS only` (and `perf-kpi: ...`),
-  exit 2: the real-window stages do not run on Windows today (CONTRIBUTING.md, "Windows"; see the
-  open questions).
-- `preflight`: runs `just ci-perf` after `just ci-acceptance`, counted in the failures, with the
-  locked-screen handling of the two stages before it (CI rule 7: preflight runs every `ci-*`
-  target CI runs). The Windows skip line becomes `preflight: visual, viewer-graph, integration,
-  acceptance, perf, report and gallery stages skipped on Windows; CI runs them`.
-- `ci-report`: after `select-acceptance-attempts.mjs`, when `out/ci-artifacts/perf/perf/` exists,
-  copies it to `out/reports/perf/` (only that folder). The perf stage never fails `ci-report`: a
-  missing perf report is printed as `perf stage: no report (skipped or failed)`.
+  `out/reports/perf/runs/run-<k>.json`, then runs `node out/test/integration/perfKpiCampaign.js`,
+  with `--enforce` in `enforce` mode only. Last line `ci-perf: passed` or `ci-perf: FAILED` (CI
+  guideline rule 8); in `compare` mode a pass reads `ci-perf: passed (compared, maximums not
+  enforced)`. A launch that fails stops the target red; there is no retry (rule 9). It runs on
+  Linux, macOS and Windows; it has no Windows stop line.
+- `perf-kpi` (new), the local comparison command: `just ci-perf compare`, then last line
+  `perf-kpi: done`. It fails only when a launch or the measure fails.
+- Both stop with exit code 3 on a locked screen, like `ci-integration` (`_require-unlocked-screen`;
+  `STUDIO_SCREEN_LOCKED=1` forces it on every OS; there is no lock probe on Windows, as on Linux).
+- `preflight`, on Linux and macOS: runs `just ci-perf compare` after `just ci-acceptance`, counted
+  in the failures (a failed launch or measure, never a maximum), with the locked-screen handling of
+  the two stages before it (exit 3 names `perf` among the stages that did not run). On Windows it
+  still runs the static stage only; the skip line becomes `preflight: visual, viewer-graph,
+  integration, acceptance, perf, report and gallery stages skipped on Windows; CI runs them (just
+  perf-kpi compares the performance KPIs on this machine)`.
+- CR-516's local command for its measure is removed (answer 7), under the name CR-516 gives it at
+  the head this CR is based on; the scenario itself stays, and still runs by hand with
+  `STUDIO_REAL_INPUT_SCENARIO=perf-547 npm run test:integration -- --trusted-only`.
+
+### Windows: what stops the local command today, and what changes
+
+Found on main 5f0746d, by reading the code the command runs, on the owner's Windows machine with
+Git for Windows:
+
+- The justfile: `preflight` stops after the static stage on Windows, and CONTRIBUTING.md, "Windows",
+  says the real VS Code stages run on Linux and macOS only. No `ci-*` real-window target refuses
+  Windows by itself: the recipes run in Git for Windows' bash, and `{{ npm }}` already calls
+  `npm.cmd` through `fnm`. `ci-perf` and `perf-kpi` therefore need no Windows branch.
+- The input does not go through the system's pointer: the real-window suites connect Playwright to
+  the window over its loopback debugging port (`--remote-debugging-port`, `test/integration/run-tests.ts`;
+  `chromium.connectOverCDP`, `test/integration/realInput/harness.ts`), which works the same on Windows.
+  Shortcuts already use `Control` off macOS (`MOD` in `harness.ts`).
+- VS Code: `run-tests.ts` uses `/Applications/Visual Studio Code.app/...` when it exists, else
+  `downloadAndUnzipVSCode`, which downloads the Windows build; `STUDIO_VSCODE_EXECUTABLE` picks
+  another build. Unchanged; only its comment and CONTRIBUTING.md name `Code.exe` on Windows.
+- Blocker 1, `/tmp`: `runScenario` in `run-tests.ts` creates the launch's workspace directory with
+  `fs.mkdtempSync(path.join("/tmp", ...))` and puts `{ "path": "/tmp" }` as the second workspace
+  folder. On Windows `/tmp` is `\tmp` on the current drive, which does not exist on a normal machine:
+  the `mkdtempSync` fails before VS Code starts. Change: both use `shortTemporaryRoot()` of
+  `test/shared/runIsolation.ts` (`os.tmpdir()` on Windows, still `/tmp` on Linux and macOS, so those
+  are unchanged). The workspace definition is built by a pure helper
+  (`trustedWorkspaceDefinition(workspaceRoot, temporaryRoot)`) so that a unit test checks it.
+  `reload-suite.ts` and `scroll-sync-suite.ts` keep their own `/tmp` (the scenario does not run them;
+  out of scope).
+- Blocker 2, the hang watchdog's process list: `listProcesses` in `test/shared/hangDump.ts` runs
+  `ps -A -o pid=,ppid=,args=`; Git for Windows' `ps` refuses it (`ps: unknown option -- A`). The
+  watchdog catches the error and kills only its root pids, and a `runTests` launch has none: a launch
+  that passes its deadline on Windows is reported but its VS Code stays open. Change: on `win32`,
+  `listProcesses` reads `powershell.exe -NoProfile -NonInteractive -Command "Get-CimInstance
+  Win32_Process | Select-Object ProcessId,ParentProcessId,CommandLine | ConvertTo-Json -Compress"`,
+  turned into the same `ProcessEntry` list by a pure `parseWindowsProcessList(json)` (an array or a
+  single object; a null `CommandLine` becomes `""`). The process list of a hang dump (the
+  `ps -eo ...` call) uses the same list on Windows. `process.kill(pid, "SIGKILL")` already ends a
+  process on Windows. Linux and macOS keep `ps`.
+- Window focus: `ensureTestWindowFocused` (`test/integration/windowFocus.ts`) returns at once off
+  macOS, and Windows then takes the path Linux takes (the workbench focus settled over CDP where the
+  suites need it). Unchanged. Whether Windows' foreground rules keep a newly launched window from
+  getting the input the scenario sends is not known before a Windows run (see "Evidence").
+- No lock probe on Windows (as on Linux): a locked session is not detected before the launches.
 
 ### CI workflow: `.github/workflows/ci.yml`
 
@@ -123,49 +184,17 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
   upload of `out/reports/` as `e2e-perf-attempt-<n>`, both `if: always()`. Both timeouts are set
   again to about twice the healthy duration of the first CI run (rule 11), the step's below the
   job's.
-- `report`: `needs` gains `perf`; a step "Download the perf stage reports", `if:
-  needs.perf.outputs.artifact != ''`, downloads that pattern into `out/ci-artifacts/perf/` (not
-  merged into `out/reports/`, so the perf job's `e2e/hang-dumps/post-step/` does not overwrite the
-  integration job's).
 - `tag-release`: `needs` gains `perf`. The refusal step and the tag step require
   `needs.perf.result == 'success'` on a version change, like `stress`; the "Release not tagged"
   summary and the `::error::` line list `perf: $PERF`.
-- `pages`: `needs` gains `perf`; `reports_from_caller` also requires `needs.perf.result ==
-  'success'`.
 - The `heavy` input's description names the perf job.
 - `checks` is unchanged: `perf` is not one of its needs (the real VS Code jobs are not, CI rule 13),
   so a red `perf` on a push without a version change shows as a red job and does not fail `checks`.
   Its red blocks a version change at `tag-release` (decision 3).
-
-### Pages report selection: `scripts/select_e2e_run.py`
-
-- `REQUIRED_JOBS` becomes `("integration", "stress", "perf")` and `STAGE_ARTIFACTS` gains
-  `"e2e-perf"`, so a later Pages deploy reuses only a heavy run whose perf job succeeded and whose
-  `studio-reports` is not older than its newest `e2e-perf` attempt. The module docstring says so. A
-  run made before the job has no `perf` job: it is not selected and the suite runs, as for a run
-  before the second visual part.
-
-### The site page: `test/site/perfPage.ts` (new), `test/site/buildSite.ts`, `test/site/siteHeader.ts`
-
-- `perfPage.ts` builds the body of `performance.html` from `out/reports/perf/kpi.json`:
-  heading "Performance"; one line "Latest heavy run: commit `<short sha>`, run `<id>` (a link to the
-  Actions run when the id is not `local`), `<date>`, `<os>, <cpus> CPUs`"; one sentence "Median time
-  of three window launches on the CI runner; a ratio of 1 or less meets the maximum."; a table KPI |
-  Median (ms) | Maximum (ms) | Ratio | Met, one row per KPI in `PERF_KPIS` order, the KPI title
-  linked to its requirement's page in the requirements viewer (the URL form of
-  `test/site/requirementsViewer/urls.ts`), a row over its maximum marked "over its maximum". Without
-  `kpi.json`: "No performance run in these reports." A `kpi.json` with another `schema` or a KPI
-  unknown to `PERF_KPIS` fails the site build with the file and the reason.
-- `buildSite.ts` writes `performance.html` with `pageDocument`, and `site-manifest.json` gains
-  `"performance": <true when kpi.json was read>`.
-- `siteHeader.ts`: a "Performance" link after "Gallery", before "Requirements". With CR-507's "How
-  we test" link (its H2, between "How we ship" and "Gallery"), the header reads, in either merge
-  order: Home, Contributing, How we ship, How we test, Gallery, Performance, Requirements. When
-  CR-507 is below this CR, this CR inserts "Performance" after "Gallery" in that header. When this
-  CR merges first, its header reads Home, Contributing, How we ship, Gallery, Performance,
-  Requirements, and CR-507 inserts "How we test" between "How we ship" and "Gallery".
-- The page carries `@implements_req <the new CORE SwRS>`; `test/site/perfPage.test.ts` carries its
-  `@tests_req` markers.
+- CR-516's manual job is removed (answer 7): its `workflow_dispatch` input, its job and its
+  `just ci-<name>` target, under the names CR-516 gives them.
+- `report`, `pages`, `reports_from_caller` and `scripts/select_e2e_run.py` are not touched here:
+  bringing the perf report into `studio-reports` and the site belongs to `perf-kpi-pages`.
 
 ### Requirements (okfreq)
 
@@ -183,66 +212,70 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
     window launches - THEN the median time to its highlight drawn is at most `<maximumMs of
     comment-create>` ms.
   `verification_method: test`; criteria: `just ci-perf` on the CI runner. Rationale: the maximums
-  are about twice the post-fix medians of the named CI run; a machine other than the CI runner
-  compares, it does not judge. `@implements_req` sits at the code that produces the two paths at
-  the head under test: the selection handling of `src/page/modules/commentCompose.ts` and
-  `handleCreate` of `src/session/features/comments.ts` (where `perf-547-slow-comment-selection`
-  leaves them).
-- New SwRS in scope `rendering-core`, derives from `StRS-MDOKFSTUDIO-CORE-008` (proposed). Title:
-  "The published site shows the performance KPI scores of its heavy run". Scenarios: S1 (nominal)
-  the table from `kpi.json`; S2 (boundary) no `kpi.json`; S3 (boundary) a KPI over its maximum is
-  marked; S4 (refusal) another schema or an unknown KPI fails the build.
+  are about twice the medians of the named CI run, after the whole fix of issue 547; a machine other
+  than the CI runner compares, it does not judge. `@implements_req` sits at the code that produces
+  the two paths at the head under test: the selection handling of `src/page/modules/commentCompose.ts`
+  and `handleCreate` of `src/session/features/comments.ts` (where CR-516 and CR-517 leave them).
 - `SwRS-MDOKFSTUDIO-CORE-076` (proposed): the normative text names `perf` among the heavy jobs a
   version change needs; new scenario `S13 (boundary): The performance KPI job` (the job runs where
   `integration` runs; a red `perf` on a version change makes `tag-release` refuse and list it; it
-  does not fail `checks`; `report` takes its stage from `out/ci-artifacts/perf/`; Pages needs it
-  green; `select_e2e_run.py` requires it). S5's table and S6's table gain `perf` where they list the
-  heavy jobs.
+  does not fail `checks`). S5's table and S6's table gain `perf` where they list the heavy jobs. Any
+  scenario or line CR-516 added for its manual job is removed with the job.
+- The Windows changes of the test harness are test tooling: no SwRS (no product behaviour changes).
 - No approved requirement's authored text changes, so no owner agreement is needed (project
   guidelines, "Approved requirements").
 
 ### Guidelines and docs
 
-- `.agents/guidelines/ci.guidelines.md`: rule 11 (the `perf` job, 15 minutes, its test step 10,
-  set to twice its healthy duration once measured); rule 13 (`perf` is a real VS Code job run on
-  every push to `main` and on a heavy dispatch; it is not part of `checks`); rule 14 (`tag-release`
+- `.agents/guidelines/ci.guidelines.md`: rule 7 (preflight runs `ci-perf` in `compare` mode, the one
+  `ci-*` target it runs with another argument than CI: the maximums hold for the CI runner only); rule
+  11 (the `perf` job, 15 minutes, its test step 10, set to twice its healthy duration once
+  measured); rule 13 (`perf` is a real VS Code job run on every push to `main` and on a heavy
+  dispatch; it is not part of `checks`; CR-516's on-demand job line removed); rule 14 (`tag-release`
   needs `checks` and the four heavy jobs; "Release not tagged" lists `perf`); the recovery section
   (`perf` among the jobs re-run by "Re-run failed jobs"; its artifact output).
 - `CONTRIBUTING.md`: a short "Performance KPIs" section: what is measured, the score (median, ratio
-  to the maximum), `just ci-perf` (CI, enforces) and `just perf-kpi` (local, compares), the report
-  folder `out/reports/perf/`, and that a maximum changes in `test/shared/perfKpi.ts` and its SwRS in
-  the same PR.
-- `AGENTS.md`, "Main targets": `just perf-kpi` and `just ci-perf` added to the CI job list.
+  to the maximum), `just ci-perf` (CI, enforces) and `just perf-kpi` (local, compares; Linux, macOS
+  and Windows; preflight compares on Linux and macOS), the report folder `out/reports/perf/`, that a
+  one-off measure on a branch is a heavy dispatch, and that a maximum changes in
+  `test/shared/perfKpi.ts` and its SwRS in the same PR. "Windows": the real VS Code stages run on
+  Linux and macOS only, except `just perf-kpi`, which needs an unlocked desktop session and
+  downloads VS Code once (or uses `STUDIO_VSCODE_EXECUTABLE` set to a `Code.exe`). Any mention of
+  CR-516's removed command or job goes.
+- `AGENTS.md`, "Main targets": `just perf-kpi` and `just ci-perf` added to the CI job list; CR-516's
+  removed command or job, if it was listed, goes.
 - `docs/how-we-test.md`, when CR-507 is below this CR in the stack (CR-507 adds the page and a
   drift test that fails while a job of `ci.yml` is not named on it): in "The test levels", the
   `perf` job, in the form of the page's other levels: what it runs (the `perf-547` scenario three
   times, one window launch each, its medians scored against the maximums of
   `test/shared/perfKpi.ts`), its folders (`test/shared/perfKpi.ts`,
   `test/integration/perfKpiCampaign.ts`), its commands (`just ci-perf` in CI, which enforces the
-  maximums; `just perf-kpi` locally, which compares), its CI job (`perf`), when it runs (every push
-  to `main` and a dispatch with `heavy`, never a pull request; a red `perf` blocks a version change
-  at `tag-release`), and its marker (`@tests_req <the new REVIEW SwRS>#S1` and `#S2`). When CR-507
-  is above this CR, CR-507 names the job itself (its H15) and this CR does not touch the page.
+  maximums; `just perf-kpi` locally, which compares, also on Windows), its CI job (`perf`), when it
+  runs (every push to `main` and a dispatch with `heavy`, never a pull request; a red `perf` blocks
+  a version change at `tag-release`), and its marker (`@tests_req <the new REVIEW SwRS>#S1` and
+  `#S2`). CR-516's manual job, if the page names it, goes with the job. When CR-507 is above this CR,
+  CR-507 names the job itself (its H15) and this CR does not touch the page.
 - `.agents/glossary/common.md`: **KPI score** (a median time in ms of one measured path and its
   ratio to its maximum, `scoreKpi` in `test/shared/perfKpi.ts`) and **Performance maximum** (the
   time a KPI's median must not pass on the CI runner, set by a SwRS and `PERF_KPIS`).
 
 ## Out of scope
 
-- The fix of issue 547 and its measure and generator (`perf-547-slow-comment-selection`).
+- The fix of issue 547, its measure and generator (CR-516, CR-517).
+- The Pages site page, its header link, and bringing the perf report into `studio-reports`
+  (`report`, `pages`, `scripts/select_e2e_run.py`): `perf-kpi-pages`.
 - Other complex rendering cases, documents or paths (decision 4).
-- A history of scores across runs or releases (decision 6); a mark out of 100 (decision 5); counts in
-  place of times, a CPU calibration or a dedicated machine.
-- When the Pages site deploys: it stays on a release tag, from that tag's heavy run, so "the latest
-  run" shown is the heavy run of the latest release.
-- `npm run probe`, `test/probe/` and `test/integration/performanceProbe.ts`: unchanged, no limit
-  added.
+- A history of scores across runs or releases; a mark out of 100 (decision 5); counts in place of
+  times, a CPU calibration or a dedicated machine.
+- The other real-window stages on Windows (`ci-integration`, `ci-acceptance`, `ci-stress`, the
+  reload and scroll-sync suites' `/tmp`), and a `perf` job on a Windows CI runner.
+- `npm run probe`, `test/probe/previewProbe.ts` and `test/integration/performanceProbe.ts`: unchanged,
+  no limit added.
 - A claim of conformance to a standard (the request asked about "ISO 28149").
-- Real-window launches on Windows.
 
 ## Evidence
 
-- Unit (`just check`):
+- Unit (`just check`, so also on Windows in the `static-windows` job):
   - `test/build/perfKpi.test.ts`: `median` with odd and even counts; `scoreKpi` at the maximum (met,
     ratio 1.00), 1 ms over (not met), no sample (error naming the KPI); the shipped `PERF_KPIS` has
     the two ids in order; the maximums of the shipped `test/shared/perfKpi.ts` equal the numbers in
@@ -251,47 +284,59 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
     refusal cases the shipped files cannot hold: a KPI over its maximum, a missing run, a run without
     samples): `--enforce` exits 1 with the FAILED line naming the KPI, without `--enforce` exits 0
     with `OVER (CI maximum)`, a missing run exits 1 in both. Paired with the shipped-file check
-    above.
-  - `test/site/perfPage.test.ts`: S1 to S4 of the new CORE SwRS, on a `kpi.json` written by the
-    campaign script's own writer.
-  - `test/site` header test: the "Performance" link in place on every page, after "Gallery" and
-    before "Requirements" (with CR-507 below: the full order Home, Contributing, How we ship, How we
-    test, Gallery, Performance, Requirements).
-  - With CR-507 below: CR-507's drift test of `docs/how-we-test.md` passes with the `perf` job in
-    `ci.yml`.
+    above. `kpi.json` carries `machine.os`.
+  - `parseWindowsProcessList`: an array, a single object, a null `CommandLine`, an empty list; and
+    `processTree` finding a launch by a Windows user-data path (backslashes, a drive letter) in the
+    command line. On `win32` only (skipped elsewhere, so proved by `static-windows`): `listProcesses()`
+    returns an entry for `process.pid` whose parent is `process.ppid`.
+  - `trustedWorkspaceDefinition`: its workspace folders are the workspace root and the given
+    temporary root, with `"/tmp"` on Linux and macOS (unchanged) and `os.tmpdir()` on Windows (a
+    prepared root on the other systems).
   - `test/build/test_workflows.py`: the `perf` job's `if` for each event (push to `main`, heavy and
-    plain dispatch, pull request); its artifact name carries the attempt and `report` downloads its
-    `artifact` output; the `tag-release` truth table with `perf` (a version change tags only with
-    `checks` and the four heavy jobs `success`; every other `perf` result runs the refusal step,
-    whose summary lists `perf`); `pages` and `reports_from_caller` need `perf`; `checks` does not;
-    every `needs.<job>` reference is a need; `preflight` runs `ci-perf` after `ci-acceptance` and
-    prints the new Windows skip line; `ci-perf` and `perf-kpi` stop with exit 3 on a locked screen
+    plain dispatch, pull request); its artifact name carries the attempt; the `tag-release` truth
+    table with `perf` (a version change tags only with `checks` and the four heavy jobs `success`;
+    every other `perf` result runs the refusal step, whose summary lists `perf`); `checks` does not
+    need `perf`; every `needs.<job>` reference is a need; CR-516's input and job are gone; `ci-perf`
+    with an unknown `MODE` exits 2; `perf-kpi` runs `ci-perf compare`; `preflight` runs `ci-perf
+    compare` after `ci-acceptance` off Windows and prints the new skip line on Windows; `ci-perf` has
+    no Windows stop; `ci-perf` and `perf-kpi` stop with exit 3 on a locked screen
     (`STUDIO_SCREEN_LOCKED=1`) and `ci-perf` ends with its passed or FAILED line.
-  - `test/build/test_select_e2e_run.py`: a run whose `perf` is skipped, failed or absent is not
-    selected; one with a green `perf` and its live `e2e-perf` artifact is; `studio-reports` older
-    than the newest `e2e-perf` attempt is not.
+  - With CR-507 below: CR-507's drift test of `docs/how-we-test.md` passes with the `perf` job in
+    `ci.yml` and without CR-516's removed job.
 - Requirements: `just requirements-update`, `just requirements-lint`, `just check-markers`, and
   `okfreq validate --check-links --project-root .` with CI's okfreq version.
-- Real window, on the branch (CI guideline rule 13): `gh workflow run ci.yml --ref <branch> -f
-  heavy=true`. First run: the `perf` job measures; its medians set `maximumMs` and the SwRS numbers
-  (decision 3), and its duration sets the two timeouts (rule 11). Second run, at the head with the
-  maximums: `perf` green with both ratios at most 1; the `e2e-perf-attempt-<n>` artifact holds
-  `perf/kpi.json` and the three run reports; `studio-reports-attempt-<n>` holds `perf/kpi.json`; the
-  `studio-site-attempt-<n>` artifact of the `gallery` job holds `performance.html` with the two rows
-  and the run's commit and id. The two run ids go in the PR's test plan.
+- Real window in CI, on the branch (CI guideline rule 13): `gh workflow run ci.yml --ref <branch> -f
+  heavy=true`. First run, on a base that holds CR-516 and CR-517: the `perf` job measures; its
+  medians set `maximumMs` and the SwRS numbers (decision 3), and its duration sets the two timeouts
+  (rule 11). Second run, at the head with the maximums: `perf` green with both ratios at most 1; the
+  `e2e-perf-attempt-<n>` artifact holds `perf/kpi.json`, `perf/kpi.md` and the three run reports.
+  The two run ids go in the PR's test plan.
+- Real window on Windows, on the implementer's Windows machine when the conditions of
+  `.agents/guidelines/local-worktree.guidelines.md` for window tests are met (an unlocked desktop
+  session, no other VS Code test window): `just perf-kpi` makes three launches, writes
+  `out/reports/perf/kpi.json` with `machine.os` `win32` and two scored KPIs, and ends with
+  `perf-kpi: done`; then one launch with `STUDIO_LAUNCH_TIMEOUT_MS` set below a launch's length stops
+  with `LAUNCH TIMEOUT`, a hang dump whose process list is not empty, and no VS Code process of that
+  user-data directory left (checked with the same CIM query). The PR's test plan gives the output's
+  last lines and the two KPI lines. When the conditions are not met, the PR says so, and the Windows
+  launches stay unproved.
+- Real window on Linux or macOS, when a machine is at hand: `just preflight` runs `ci-perf compare`
+  and does not fail on an over KPI; otherwise the `test_workflows.py` check of the recipe stands
+  alone, said as such.
 - `just preflight` (on Windows the static stage only; CI runs the others).
-- What only CI proves, and when: the timings under the virtual screen and their spread between
-  runner instances (first heavy runs of the branch); the job's healthy duration (same); the red of an
-  exceeded maximum in a real run is not forced (no knob is added to lower a maximum), it is proved by
-  the unit tests of the exit code and the `ci-perf` FAILED line; the Pages page itself appears only at
-  the next release tag's deploy.
+- What only CI proves: the timings under the virtual screen and their spread between runner
+  instances; the job's healthy duration; the red of an exceeded maximum in a real run is not forced
+  (no knob is added to lower a maximum), it is proved by the unit tests of the exit code and the
+  `ci-perf` FAILED line.
+- What stays unproved until a run on a Windows machine: that the input sent over CDP reaches a
+  newly launched window under Windows' foreground rules (no focus wait is added off macOS); that the
+  scenario's drags fit the desktop's screen size and scaling; the launch time with the Windows build
+  of VS Code and the antivirus; the behaviour on a locked Windows session, which is not detected
+  beforehand. A failure found there is fixed in this CR before it is mergeable.
 
 No host or default matrix: nothing in this CR depends on the agent host or on a shipped default
 versus a configured setting.
 
 ## Open questions for the Chief of Staff
 
-1. The local command runs where the real-window stages run, Linux and macOS; the owner's machine is
-   Windows, where they do not run today. Is a Linux or macOS machine the local comparison the owner
-   meant, or does "your machine" call for Windows real-window launches (a larger change, not in this
-   spec)?
+None.

@@ -20,7 +20,8 @@ opens from its title or frame, or when it is itself selected.
 
 Text written on a directive's opening line is not a block of its own: the one-line body of
 `:::{warning} Text` or a card title opens the whole directive. Where the lines of an element cannot
-be told, the block or box around it opens (see Known gaps).
+be told, the block or box around it opens (see Known gaps). Screenshots before and after the
+change, and the re-filmed clip, are under Impacts.
 
 ```mermaid
 flowchart LR
@@ -70,6 +71,15 @@ edit the whole box with the mouse, click its title or its frame. In the editor o
 block, the `> ` markers are part of the text. While an editor is open inside an admonition, wide
 content of that admonition does not scroll.
 
+Screenshots from the visual test harness, before and after the change. A click on the title of an
+admonition or alert opens all of it, before and after.
+
+| Gesture | Before | After |
+| --- | --- | --- |
+| Click in the second paragraph of a note alert | ![Before, a click in a note alert's second paragraph opens the whole alert (lines 5-8).](https://github.com/user-attachments/assets/4889cc05-a136-4c6d-8a5d-be825096231b) | ![After, the same click opens only `> The second paragraph of the note.` inside the rendered alert.](https://github.com/user-attachments/assets/abfb9fad-c552-4483-931b-8bfeed3ca0a1) |
+| Click in the second paragraph of a `{note}` | ![Before, a click in a `{note}`'s second paragraph opens the whole directive (lines 5-9).](https://github.com/user-attachments/assets/7aea8a13-df30-46c2-8581-1e4c5a810810) | ![After, the same click opens only the second paragraph (line 8) inside the rendered note.](https://github.com/user-attachments/assets/036b69d5-da42-41b3-b6a8-5eb00bec2f6b) |
+| Enter on the first list item of a note, reached with the arrows | ![Before, Enter on the first list item reached with the arrows opens the whole directive (lines 3-8).](https://github.com/user-attachments/assets/c1775c57-3690-4827-a6a4-d9aa3a21308d) | ![After, the same Enter opens only `- The first item of the note.` (line 6).](https://github.com/user-attachments/assets/2af8cfae-83a7-43b7-9550-2f6dbdd9f6af) |
+
 The re-filmed keyboard navigation clip walks with the arrows into an admonition, down to an item of
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
@@ -77,7 +87,7 @@ ladder), filmed on Windows with VS Code 1.147.0 and the extension built from thi
 ([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
 [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
 
-![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
+![Arrow keys walk into a note down to a nested list item, and Enter opens that line alone.](https://github.com/user-attachments/assets/eb774f44-e8d4-4507-a7f5-66117717246f)
 
 ## Blast radius
 
@@ -191,8 +201,9 @@ Outside a box:
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code). Among the unit and page tests that
-  fail on the previous code:
+- [x] New or changed tests (they fail on the previous code), at `f9dc2c6`: the 284 tests of the
+  changed unit and page test files pass; with the previous source, 107 of them fail. Among the
+  unit and page tests that fail on the previous code:
   - "Enter on an element of a MyST admonition reached with the arrows opens that element only"
     (and the same for a GitHub alert);
   - "a click on a paragraph of a MyST admonition opens that paragraph, its title the whole
@@ -212,14 +223,20 @@ Outside a box:
   refused moves); the others, the accepted moves among them, guard behaviour that holds either way
   or is documented. The new visual checks of a click in an alert body, a click in an admonition
   body and Enter on an element of an admonition fail on the previous code.
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
-- [ ] CI green
+- [x] Requirements, at `f9dc2c6`: 13 SwRS updated (block editing, MyST and slash palette),
+  markers in code and tests; the checks of `just requirements-update` report nothing to change
+- [x] Changelog, at `f9dc2c6`: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates: `just preflight` at `f9dc2c6` on Windows (the static stage) passed: 5503 unit
+  and contract tests (5495 pass, 0 fail, 8 skipped), then 116 of 116 security tests; 56 of 56 clip
+  kit tests; requirements validation 0 errors, 26 warnings. The visual stages did not run locally;
+  CI runs them
+- [x] Review: approved at `f9dc2c6` (reviewed on `8539f1c` before the commit, committed unchanged)
+- [x] CI green at `f9dc2c6`: `checks`, `report`, `static`, `static-windows`, `viewer-graph`,
+  `visual` and `visual-2` pass; the jobs that do not run for this pull request are skipped
 
 ## Internal references
 
 CR-514 enter-admonition.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
