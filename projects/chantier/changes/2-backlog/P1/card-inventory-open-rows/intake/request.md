@@ -9,6 +9,7 @@ Asked by the owner, verbatim: « Met tout ce qu'il faut pour reprendre en P1 » 
 - 40 CRs merged; main at 4d12a5b, CI green. The batch is paused, cost $492 of $800.
 - It closes only on the owner's word: `close --batch batch-31`, then `--yes`, then the worktrees and branches that command lists. Archive the Foreman and Chief of Staff sessions after the close, not before (the close prices the Foreman's transcript).
 - A copy of the batch's journal, which the close deletes and git does not hold: folder `chantier-batch-31-journal`, beside the main checkout on the owner's machine.
+- Copied into this item: CR-510's and CR-511's known gaps, the retro points kept, the owed items and the leftovers. The other merged CRs' known gaps were not copied: 35 of the 40 CR folders hold them in `work/pr-body.md` (`4-batch/3-done` now, `5-archives` after the close); for CR-469, 475, 476, 502 and 507, which have no such file, read the PRs (#445, #451, #453, #484, #487 of gsemet/chantier).
 - Decisions taken for the owner while they asked to be asked nothing are marked "to confirm by the owner" in the CRs' `02-answers.md` (5-archives after the close).
 
 ### What is in P1, in order (nothing starts without the owner's word)
