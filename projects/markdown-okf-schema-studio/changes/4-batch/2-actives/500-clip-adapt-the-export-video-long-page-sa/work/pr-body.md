@@ -6,15 +6,15 @@ Reworks the `export-html` feature clip into a stronger story: a long report page
 
 18 s, 1280x720 at 15 fps, three captions in turn, one zoom with three marks in turn, no card, logo top right, a loop.
 
-![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.gif)
+![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/clip.md).
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/clip.md).
 
 What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings (two Mermaid images and two inline charts), with no script and no chart hover box (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
 
 ## Deviation from the feature clip process
 
-The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
+The storyboard review moved from before the take into this PR: the take was filmed from the drafted storyboard, kept in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/8ce169f0fad80bbb6da8bcdf73969d1705d8dc49/docs/demo-video/clips/export-html/clip.md). An *(on screen)* row the owner changes is a render (`just clip export-html render`, then `check`); a *(filmed)* row is a retake, a follow-up of this change.
 
 ## Changes
 
@@ -38,7 +38,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - [x] Requirements: No behaviour change (`just requirements-update` leaves the tree clean)
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
-- [ ] Review
+- [x] Review (Inspector approved at 8ce169f)
 - [ ] CI green
 
 ## Known gaps
@@ -49,6 +49,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - The key frame taken as the browser opens still shows the command palette.
 - Motion, rhythm, the scroll speed and the loop as watched are not checked by the author.
 - The sequence diagram, the line chart and the small table appear in no key frame.
+- The clip was filmed on Windows only; no take proves it on macOS or Linux.
 - The render step can fail once with a transient Remotion "No frame found" error; running `render` again passes.
 - No take ran with the scenario's mark times as committed: marks 1 and 2 were set by a render, which draws them at the storyboard's times, and the scenario then took the same times.
 
@@ -74,3 +75,5 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 ## Internal references
 
 CR-500, batch-09; stacked on CR-501, above CR-493 (the kit change to 30 s). The live chart views come from CR-503.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

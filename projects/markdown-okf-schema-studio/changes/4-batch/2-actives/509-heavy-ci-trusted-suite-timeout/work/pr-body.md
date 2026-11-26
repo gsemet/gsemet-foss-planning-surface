@@ -168,7 +168,7 @@ frame lookup; it needs one heavy run to confirm.
       45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit,
       so its report and checks jobs failed too (see Known gaps)
 - [x] Review: approved at `b24d3bf`
-- [ ] Verified
+- [x] Verified at `b24d3bf`
 - [x] CI green at `b24d3bf`: static, static on Windows, visual, viewer-graph, report and checks of
       the pull request's own run; the real VS Code jobs do not run on a pull request
 
