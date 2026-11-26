@@ -146,7 +146,8 @@ Opening or emptying a block that takes more than itself, or leaves the box worse
 
 - Clicking the first paragraph of a tight list item followed by hidden content or content that is
   no block of its own (an HTML comment, HTML, a footnote or link definition, a target, a `%`
-  comment) opens that content with it, so emptying the editor removes it too.
+  comment) opens that content with it, as does Enter on the item when an HTML comment or HTML
+  follows, so emptying the editor removes it too.
 - Enter on the first paragraph of a list item that holds more (code, another paragraph, a
   directive) opens it with the item's marker; emptying it removes the marker, so the rest leaves
   the list item, still indented (no fence line is cut).
@@ -157,8 +158,10 @@ Opening or emptying a block that takes more than itself, or leaves the box worse
   leave the other.
 - Emptying the first block of a box body can bring a heading first, which becomes the title of an
   untitled admonition, or a `---` line first: a note, an alert or a callout then shows its title
-  only, a dropdown disappears from the preview, and a dropdown with the `:open:` option stops the
-  preview of the file. The text stays in the file.
+  only, a dropdown disappears from the preview, a dropdown with the `:open:` option stops the
+  preview of the file, and an `{admonition}` with a title, also one with `:class: dropdown`, shows
+  the title "Admonition" with its own title as a body paragraph and drops the rest. The text stays
+  in the file.
 - Emptying a block of an alert that holds a lazy continuation line (no `>`) writes an empty line,
   so the quoted lines after it leave the alert.
 
@@ -171,10 +174,11 @@ The move chord, and drawing:
   its title; the move is not refused.
 - A `{div}` whose braces or options mention a `callout-` class or name counts as a callout for the
   move refusals, even when it renders no callout.
-- A card of a box whose body starts with `---`, or holds it after its first block, shows only part
-  of its body, and a `{div}` that is not shown as a box (the callout class written as its
-  argument) and starts with `---` stops the preview (both as before this change); the move chord
-  does not refuse to write that in such a `{div}`.
+- A card of a box loses words of its body when a `---` line that no second `---` line closes
+  stands right under the card's opening line (it is read as the start of a block of options), and a
+  `{div}` that is not shown as a box (the callout class written as its argument) and starts with
+  `---` stops the preview (both as before this change); the move chord does not refuse to write
+  that in such a `{div}`.
 - A move inside a box adds an empty line after the opening fence and before the closing fence (in
   an alert, a `>` line after its marker); the preview does not change because of it.
 
