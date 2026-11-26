@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Real-window performance KPI job with maximums, shown on the site",
-  "summary": "Specified for batch-09 above CR-516: a heavy CI job runs the perf-547 scenario 3 times and scores selection and comment creation (median ms, ratio to a SwRS maximum), red over a maximum so it blocks a release; local compare command; site page; how-we-test entry. 1 open question.",
+  "title": "Real-window performance KPI job with maximums, also local on Windows",
+  "summary": "Specified for batch-09 directly above CR-517: heavy CI perf job scores selection and comment creation on issue 547 (median ms, ratio to a SwRS max), red over a max; replaces CR-516's job; preflight compares; perf-kpi also on Windows; page in perf-kpi-pages. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "1cc4dcf830647db465bbddc59a0c2d96b7fe77fe6f33ffd3c92a06b7c34a7a2a",
-    "02-answers.md": "50244cce3dcac921e6daeca26b92b677f3fec18c801b79299712568f2e48491a",
-    "03-change-spec.md": "200a1c09357193dd27cb335d5ece4969190304c9153837ef087f543e9d3ddcd9",
+    "02-answers.md": "c2a3dfc262921144ea08900c947b3d7b8afe1033a9721cb63cace685221dce4d",
+    "03-change-spec.md": "b08219b7860ad985a767dec4fc3d135ddeeaf4655b68727c89788109c869f7d6",
     "intake/request.md": "9a78084d1555e9ed88b322a0fc8d810d19371800101c1f723621758e4e9a4db4"
   },
-  "summarized": "2026-11-26T19:36:53Z"
+  "summarized": "2026-11-26T19:47:22Z"
 }

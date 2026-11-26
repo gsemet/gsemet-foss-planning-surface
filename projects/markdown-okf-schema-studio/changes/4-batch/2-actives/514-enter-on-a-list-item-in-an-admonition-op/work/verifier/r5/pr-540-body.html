@@ -1,0 +1,320 @@
+<h2 dir="auto">Summary</h2>
+<p dir="auto">In edit mode, an admonition (a MyST <code class="notranslate">{note}</code>-style box) or a GitHub alert (<code class="notranslate">&gt; [!NOTE]</code>) opened as<br>
+one block: pressing Enter on a paragraph or list item reached with the arrows, or clicking one,<br>
+opened the whole box. Now the element you select or point at is the one that opens; the whole box<br>
+opens from its title or frame, or when it is itself selected.</p>
+<h2 dir="auto">Deliverables</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>In edit mode, inside an admonition or alert</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Click a body paragraph or list item</td>
+<td>the whole box opens</td>
+<td>that paragraph or item opens</td>
+</tr>
+<tr>
+<td>Click the title or the frame</td>
+<td>the whole box opens</td>
+<td>the whole box opens</td>
+</tr>
+<tr>
+<td>Enter on an element reached with the arrows</td>
+<td>the whole box opens</td>
+<td>that element opens</td>
+</tr>
+<tr>
+<td>Enter on the box selected as a whole</td>
+<td>the whole box opens</td>
+<td>the whole box opens</td>
+</tr>
+<tr>
+<td>A diagram, formula or code directive of the body</td>
+<td>the whole box opens</td>
+<td>that directive opens as a whole, fences included</td>
+</tr>
+<tr>
+<td>Ctrl/Cmd+Alt+Up/Down in the editor of a direct block of the body</td>
+<td>no inner move</td>
+<td>the block (for an item: its list) moves among the body's blocks, or the move is refused with a reason</td>
+</tr>
+<tr>
+<td>Down at the end of a list, Up at its start</td>
+<td>the next block outside would open</td>
+<td>the caret stays in the editor</td>
+</tr>
+<tr>
+<td>Erase an alert paragraph or item, then commit</td>
+<td>an empty line cuts the alert</td>
+<td>a <code class="notranslate">&gt;</code> line keeps the alert whole</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Text written on a directive's opening line is not a block of its own: the one-line body of<br>
+<code class="notranslate">:::{warning} Text</code> or a card title opens the whole directive. Where the lines of an element cannot<br>
+be told, the block or box around it opens (see Known gaps). Screenshots before and after the<br>
+change, and the re-filmed clip, are under Impacts.</p>
+<section class="js-render-needs-enrichment render-needs-enrichment position-relative" data-identity="38599e79-463b-4626-b945-bb86e7e31bf9" data-host="https://viewscreen.githubusercontent.com" data-src="https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com" data-type="mermaid" aria-label="mermaid rendered output container">
+  <div class="js-render-enrichment-target" data-json="{&quot;data&quot;:&quot;flowchart LR\n  render[\&quot;render: mapBoxSourceLines&lt;br/&gt;(mystBoxLines.ts)\&quot;] --&gt; pick\n  click[click or Enter] --&gt; pick[\&quot;editingElementFor&lt;br/&gt;(mappedBlocks.ts)\&quot;]\n  chord[move chord] --&gt; moves[\&quot;blockEditor.ts&lt;br/&gt;blockMoves.ts\&quot;]\n  moves --&gt;|previewBlockMove| plan[\&quot;planBlockMove&lt;br/&gt;(quote prefix aware)\&quot;]\n  commit[empty commit] --&gt; drain[\&quot;blockEdits.ts\&quot;]\n  drain --&gt; keep[\&quot;planAlertPlaceholder&lt;br/&gt;(sourceEdits.ts)\&quot;]\n&quot;}" data-plain="flowchart LR
+  render[&quot;render: mapBoxSourceLines&lt;br/&gt;(mystBoxLines.ts)&quot;] --&gt; pick
+  click[click or Enter] --&gt; pick[&quot;editingElementFor&lt;br/&gt;(mappedBlocks.ts)&quot;]
+  chord[move chord] --&gt; moves[&quot;blockEditor.ts&lt;br/&gt;blockMoves.ts&quot;]
+  moves --&gt;|previewBlockMove| plan[&quot;planBlockMove&lt;br/&gt;(quote prefix aware)&quot;]
+  commit[empty commit] --&gt; drain[&quot;blockEdits.ts&quot;]
+  drain --&gt; keep[&quot;planAlertPlaceholder&lt;br/&gt;(sourceEdits.ts)&quot;]
+" dir="auto">
+    <div class="render-plaintext-hidden" dir="auto">
+      <pre lang="mermaid" aria-label="Raw mermaid code" class="notranslate">flowchart LR
+  render["render: mapBoxSourceLines&lt;br/&gt;(mystBoxLines.ts)"] --&gt; pick
+  click[click or Enter] --&gt; pick["editingElementFor&lt;br/&gt;(mappedBlocks.ts)"]
+  chord[move chord] --&gt; moves["blockEditor.ts&lt;br/&gt;blockMoves.ts"]
+  moves --&gt;|previewBlockMove| plan["planBlockMove&lt;br/&gt;(quote prefix aware)"]
+  commit[empty commit] --&gt; drain["blockEdits.ts"]
+  drain --&gt; keep["planAlertPlaceholder&lt;br/&gt;(sourceEdits.ts)"]
+</pre>
+    </div>
+  </div>
+  <span class="js-render-enrichment-loader d-flex flex-justify-center flex-items-center width-full" style="min-height:100px" role="presentation">
+    <span data-view-component="true">
+  <svg style="box-sizing: content-box; color: var(--color-icon-primary);" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" data-view-component="true" class="octospinner mx-auto tmp-mx-auto anim-rotate">
+    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25" stroke-width="2" vector-effect="non-scaling-stroke" fill="none"></circle>
+    <path d="M15 8a7.002 7.002 0 00-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+</svg>    <span class="sr-only">Loading</span>
+</span>
+  </span>
+</section>
+
+<h2 dir="auto">Changes</h2>
+<ul dir="auto">
+<li><code class="notranslate">editingElementFor</code> opens the whole admonition only when the box itself or its title is the<br>
+target; a block of the body opens on its own lines, and a list around the box never takes it<br>
+over. The nearest box decides when they are nested.</li>
+<li>A new render pass, <code class="notranslate">mapBoxSourceLines</code>, runs inside admonitions, alerts, callouts and dropdowns:<br>
+no block there maps part of a fence around it, or one fence line or HTML tag line of a pair<br>
+without the other, and a diagram, formula, code, <code class="notranslate">{list-table}</code> or <code class="notranslate">{csv-table}</code> directive maps<br>
+its whole directive. A block held directly by a list item keeps its own lines and takes only the<br>
+empty lines under it; one the parser gives no position (the first paragraph of a tight item)<br>
+reaches the next block of the item or its end. A formula whose own lines cannot be told is no<br>
+block of its own, so the block or box around it opens. A <code class="notranslate">{div}</code> callout maps all of its lines,<br>
+so its title opens the whole callout. The body of a version admonition maps the lines it is<br>
+written on. In an admonition left open at the end of the file, a block inside it keeps its own<br>
+closing fence (one quoted case is listed under Known gaps). Blocks outside a box are mapped as<br>
+before.</li>
+<li>The move chord works from the editor of a direct block of the body, never leaving the box; a<br>
+refused move shows its reason next to the box's insert point. A block inside a list item, or in a<br>
+quote, card or grid inside the box, does not move; nor does a <code class="notranslate">{table}</code> directive, with or<br>
+without a caption, and no neighbouring block moves past it. A move that would put an unindented<br>
+<code class="notranslate">---</code> line first in the body, or a heading first in an untitled admonition or in a callout, is<br>
+refused, however the box is written (a callout class given by <code class="notranslate">:class:</code> or by a <code class="notranslate">---</code> block of<br>
+options included): the content would not show, or the heading would become the title.</li>
+<li>The move planner understands a GitHub alert's <code class="notranslate">&gt;</code> prefix: a prefix-only line counts as blank and<br>
+an added separator carries the prefix.</li>
+<li>An erased block of an alert body is written as the alert's prefix alone.</li>
+<li>A directive admonition holding an open editor no longer scrolls its own overflow, so the block<br>
+palette does not cover the text box.</li>
+<li>The keyboard navigation clip is re-filmed, down to an item of a nested sub-list; requirements,<br>
+user guide and CHANGELOG follow.</li>
+</ul>
+<h2 dir="auto">Impacts</h2>
+<p dir="auto">Users reach the elements of an admonition or alert directly, with the mouse or the keyboard. To<br>
+edit the whole box with the mouse, click its title or its frame. In the editor of a GitHub alert<br>
+block, the <code class="notranslate">&gt; </code> markers are part of the text. While an editor is open inside an admonition, wide<br>
+content of that admonition does not scroll.</p>
+<p dir="auto">Screenshots from the visual test harness, before and after the change. A click on the title of an<br>
+admonition or alert opens all of it, before and after.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Gesture</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Click in the second paragraph of a note alert</td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589045-4889cc05-a136-4c6d-8a5d-be825096231b.png"><img src="https://private-user-images.githubusercontent.com/133498/720589045-4889cc05-a136-4c6d-8a5d-be825096231b.png" alt="Before, a click in a note alert's second paragraph opens the whole alert (lines 5-8)." style="max-width: 100%;"></a></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589052-abfb9fad-c552-4483-931b-8bfeed3ca0a1.png"><img src="https://private-user-images.githubusercontent.com/133498/720589052-abfb9fad-c552-4483-931b-8bfeed3ca0a1.png" alt="After, the same click opens only &gt; The second paragraph of the note. inside the rendered alert." style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td>Click in the second paragraph of a <code class="notranslate">{note}</code></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589059-7aea8a13-df30-46c2-8581-1e4c5a810810.png"><img src="https://private-user-images.githubusercontent.com/133498/720589059-7aea8a13-df30-46c2-8581-1e4c5a810810.png" alt="Before, a click in a {note}'s second paragraph opens the whole directive (lines 5-9)." style="max-width: 100%;"></a></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589070-036b69d5-da42-41b3-b6a8-5eb00bec2f6b.png"><img src="https://private-user-images.githubusercontent.com/133498/720589070-036b69d5-da42-41b3-b6a8-5eb00bec2f6b.png" alt="After, the same click opens only the second paragraph (line 8) inside the rendered note." style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td>Enter on the first list item of a note, reached with the arrows</td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589076-c1775c57-3690-4827-a6a4-d9aa3a21308d.png"><img src="https://private-user-images.githubusercontent.com/133498/720589076-c1775c57-3690-4827-a6a4-d9aa3a21308d.png" alt="Before, Enter on the first list item reached with the arrows opens the whole directive (lines 3-8)." style="max-width: 100%;"></a></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589081-2af8cfae-83a7-43b7-9550-2f6dbdd9f6af.png"><img src="https://private-user-images.githubusercontent.com/133498/720589081-2af8cfae-83a7-43b7-9550-2f6dbdd9f6af.png" alt="After, the same Enter opens only - The first item of the note. (line 6)." style="max-width: 100%;"></a></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The re-filmed keyboard navigation clip walks with the arrows into an admonition, down to an item of<br>
+a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4<br>
+0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size<br>
+ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change<br>
+(<a href="https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4">MP4</a>,<br>
+<a href="https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm">WebM</a>).</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/133498/720589093-eb774f44-e8d4-4507-a7f5-66117717246f.gif"><img src="https://private-user-images.githubusercontent.com/133498/720589093-eb774f44-e8d4-4507-a7f5-66117717246f.gif" alt="Arrow keys walk into a note down to a nested list item, and Enter opens that line alone." data-animated-image="" style="max-width: 100%;"></a></p>
+<h2 dir="auto">Blast radius</h2>
+<p dir="auto">Grade: 2. It changes which block the most common editing gesture opens, the renderer's line mapping<br>
+inside boxes and the shared block move planner; a plain <code class="notranslate">git revert</code> restores the previous<br>
+behaviour, with no data or settings change.</p>
+<h2 dir="auto">Autonomous decisions</h2>
+<ul dir="auto">
+<li>A neighbour that is not a direct block of the body (a <code class="notranslate">{table}</code> directive) also stops the move<br>
+chord: moving past it would not keep its wrapper whole.</li>
+<li>A move between blocks under different quote prefixes is refused with the existing "out of date"<br>
+refusal; no new message.</li>
+<li>Inside a box, a directive that shares no block of its own opens as a whole directive, and text on<br>
+an opening line opens its directive, so that the lines a block of a box opens on hold no fence<br>
+line of a directive around it.</li>
+<li>Where an element's own lines cannot be told, the enclosing block or box opens, rather than a<br>
+narrower range that could be wrong.</li>
+<li>The chord's heading refusal covers every untitled admonition fence (colon, backtick, tilde) and<br>
+callouts, and its <code class="notranslate">---</code> refusal every kind of box, because they all misrender the same way. A<br>
+heading in a titled admonition, a dropdown or an alert, and a <code class="notranslate">***</code> line, still move. For a<br>
+<code class="notranslate">{div}</code>, refusing too much was chosen over missing a way to write its callout class.</li>
+<li>The palette overlap found by the new visual scenarios is fixed here, with a new requirement<br>
+scenario.</li>
+<li>The real VS Code replay of the alert lazy line opens the alert from its title, so its assertions<br>
+stay.</li>
+<li>The clip was filmed and rendered before the maintainer reviewed its storyboard: the review of<br>
+<code class="notranslate">clip.md</code> and of the cut is pending, on this pull request.</li>
+</ul>
+<h2 dir="auto">Known gaps</h2>
+<p dir="auto">The clip and its checks:</p>
+<ul dir="auto">
+<li>Not yet approved: the maintainer's review of the clip's storyboard and of the clip itself.</li>
+<li>In the clip, after the save the selection is on the whole admonition, not on the saved sub-item.</li>
+<li>The clip's contact sheet shows neither the selection of the list nor that of the sub-list; only<br>
+its named frames do.</li>
+<li>The real VS Code replay edited here runs only on the main branch or a heavy CI run.</li>
+</ul>
+<p dir="auto">Elements of a box that do not open on their own (emptying the editor that opens erases all it<br>
+holds):</p>
+<ul dir="auto">
+<li>The block or the box around them opens for: a formula written right under text, a quote or a<br>
+<code class="notranslate">+++</code> line, under the text of a list item, in a table cell, after other text of its paragraph, or<br>
+followed by more text in a list item or a longer paragraph; inline HTML in a definition of<br>
+several lines; the summary or a table of an unpaired <code class="notranslate">&lt;details&gt;</code>, the summary of a <code class="notranslate">&lt;details&gt;</code><br>
+nested in another, a table or text written right under a closing HTML tag, and a list item whose<br>
+HTML element closes outside its list.</li>
+<li>A later paragraph of a list item whose first source line is not known (text after a code block or<br>
+a directive of a tight item) opens its item.</li>
+<li>In a directive that starts with a <code class="notranslate">---</code> block of options and has a later <code class="notranslate">---</code> line, no block of<br>
+the body opens on its own: the box opens.</li>
+<li>A paragraph holding one plain image, or an <code class="notranslate">{image}</code> directive, opens the box, and the move chord<br>
+cannot cross it: such a move is refused, with the message about a comment or a link definition<br>
+between the two blocks.</li>
+<li>A <code class="notranslate">{table}</code> caption opens the admonition around it (as before this change), and a tab panel its<br>
+tab item.</li>
+<li>A paragraph holding only one tag of an HTML element (<code class="notranslate">&lt;b&gt;One</code> then <code class="notranslate">Two&lt;/b&gt;</code>, or<br>
+<code class="notranslate">Para&lt;/details&gt;</code>) opens the whole box (as before this change).</li>
+<li>When a <code class="notranslate">:::</code> admonition is left open at the end of the file and ends on a quoted one<br>
+(<code class="notranslate">&gt; :::{tip}</code> up to <code class="notranslate">&gt; :::</code>), the title and frame of that quoted tip open the whole outer<br>
+admonition, so emptying that editor removes all of it (before this change the tip's title opened<br>
+the tip alone).</li>
+</ul>
+<p dir="auto">Opening or emptying a block that takes more than itself, or leaves the box worse:</p>
+<ul dir="auto">
+<li>Clicking the first paragraph of a tight list item followed by hidden content or content that is<br>
+no block of its own (an HTML comment, HTML, a footnote or link definition, a target, a <code class="notranslate">%</code><br>
+comment) opens that content with it, as does Enter on the item when an HTML comment or HTML<br>
+follows, so emptying the editor removes it too.</li>
+<li>Enter on the first paragraph of a list item that holds more (code, another paragraph, a<br>
+directive) opens it with the item's marker; emptying it removes the marker, so the rest leaves<br>
+the list item, still indented (no fence line is cut).</li>
+<li>A <code class="notranslate">$$</code> line written right under a table is read as one of its rows: it opens that line, and<br>
+emptying it removes the row.</li>
+<li>A raw <code class="notranslate">&lt;svg&gt;</code> inside a directive nested in a list item breaks the preview (as before this<br>
+change), and emptying the item opened there can remove one fence line of that directive and<br>
+leave the other.</li>
+<li>Emptying the first block of a box body can bring a heading first, which becomes the title of an<br>
+untitled admonition, or a <code class="notranslate">---</code> line first: a note, an alert or a callout then shows its title<br>
+only, a dropdown disappears from the preview, a dropdown with the <code class="notranslate">:open:</code> option stops the<br>
+preview of the file, and an <code class="notranslate">{admonition}</code> with a title, also one with <code class="notranslate">:class: dropdown</code>, shows<br>
+the title "Admonition" with its own title as a body paragraph and drops the rest. The text stays<br>
+in the file.</li>
+<li>Emptying a block of an alert that holds a lazy continuation line (no <code class="notranslate">&gt;</code>) writes an empty line,<br>
+so the quoted lines after it leave the alert.</li>
+</ul>
+<p dir="auto">The move chord, and drawing:</p>
+<ul dir="auto">
+<li>A <code class="notranslate">{table}</code> directive of a box does not move, and no neighbouring block moves past it.</li>
+<li>The paragraphs of a <code class="notranslate">{topic}</code> body in a box edit one by one, but they do not move, and no block<br>
+moves past them.</li>
+<li>A paragraph that is only bold text, moved first in an untitled admonition or a callout, becomes<br>
+its title; the move is not refused.</li>
+<li>A <code class="notranslate">{div}</code> whose braces or options mention a <code class="notranslate">callout-</code> class or name counts as a callout for the<br>
+move refusals, even when it renders no callout.</li>
+<li>A card of a box loses words of its body when a <code class="notranslate">---</code> line that no second <code class="notranslate">---</code> line closes<br>
+stands right under the card's opening line (it is read as the start of a block of options), and a<br>
+<code class="notranslate">{div}</code> that is not shown as a box (the callout class written as its argument) and starts with<br>
+<code class="notranslate">---</code> stops the preview (both as before this change); the move chord does not refuse to write<br>
+that in such a <code class="notranslate">{div}</code>.</li>
+<li>A move inside a box adds an empty line after the opening fence and before the closing fence (in<br>
+an alert, a <code class="notranslate">&gt;</code> line after its marker); the preview does not change because of it.</li>
+</ul>
+<p dir="auto">Outside a box:</p>
+<ul dir="auto">
+<li>A move past a diagram, formula or code directive, or past a captioned <code class="notranslate">{table}</code>, can still put<br>
+the moved paragraph inside its fence, and a click on a top-level diagram, formula or code<br>
+directive opens its opening line only; likewise Enter on a <code class="notranslate">{figure}</code> caption in a top-level<br>
+list opens its closing fence too (all as before this change).</li>
+</ul>
+<h2 dir="auto">Test plan</h2>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> New or changed tests (they fail on the previous code), at <code class="notranslate">f9dc2c6</code>: the 284 tests of the<br>
+changed unit and page test files pass; with the previous source, 107 of them fail. Among the<br>
+unit and page tests that fail on the previous code:</p>
+<ul dir="auto">
+<li>"Enter on an element of a MyST admonition reached with the arrows opens that element only"<br>
+(and the same for a GitHub alert);</li>
+<li>"a click on a paragraph of a MyST admonition opens that paragraph, its title the whole<br>
+directive";</li>
+<li>"Right, Down, Right walk into a list item of an admonition and Enter opens that item only";</li>
+<li>"Down at the end of the last item and Up at the start of the first, of a list in an admonition,<br>
+keep the editor";</li>
+<li>"the chord in the editor of a block of an admonition moves it among the blocks of that<br>
+admonition";</li>
+<li>"two blocks of an alert body swap and keep the quote's empty line between them";</li>
+<li>"an erased paragraph of an alert body leaves the alert's prefix, so the alert stays whole";</li>
+<li>"in an admonition or an alert, Enter on ... opens and erases no fence line";</li>
+<li>"the chord is refused when it would start a box with a block that spoils it: ...".</li>
+</ul>
+<p dir="auto"><code class="notranslate">boxBlockSourceLines.test.ts</code> holds 94 tests. Most fail without the change they cover (the line<br>
+mapping inside boxes, the fence and tag cases, the elements whose lines cannot be told, the<br>
+refused moves); the others, the accepted moves among them, guard behaviour that holds either way<br>
+or is documented. The new visual checks of a click in an alert body, a click in an admonition<br>
+body and Enter on an element of an admonition fail on the previous code.</p>
+</li>
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Requirements, at <code class="notranslate">f9dc2c6</code>: 13 SwRS updated (block editing, MyST and slash palette),<br>
+markers in code and tests; the checks of <code class="notranslate">just requirements-update</code> report nothing to change</p>
+</li>
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Changelog, at <code class="notranslate">f9dc2c6</code>: one user-facing line under <code class="notranslate">## Unreleased</code> in <code class="notranslate">CHANGELOG.md</code></p>
+</li>
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Local gates: <code class="notranslate">just preflight</code> at <code class="notranslate">f9dc2c6</code> on Windows (the static stage) passed: 5503 unit<br>
+and contract tests (5495 pass, 0 fail, 8 skipped), then 116 of 116 security tests; 56 of 56 clip<br>
+kit tests; requirements validation 0 errors, 26 warnings. The visual stages did not run locally;<br>
+CI runs them</p>
+</li>
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Review: approved at <code class="notranslate">f9dc2c6</code> (reviewed on <code class="notranslate">8539f1c</code> before the commit, committed unchanged)</p>
+</li>
+<li class="task-list-item">
+<p dir="auto"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> CI green at <code class="notranslate">f9dc2c6</code>: <code class="notranslate">checks</code>, <code class="notranslate">report</code>, <code class="notranslate">static</code>, <code class="notranslate">static-windows</code>, <code class="notranslate">viewer-graph</code>,<br>
+<code class="notranslate">visual</code> and <code class="notranslate">visual-2</code> pass; the jobs that do not run for this pull request are skipped</p>
+</li>
+</ul>
+<h2 dir="auto">Internal references</h2>
+<p dir="auto">CR-514 enter-admonition.</p>
+<p dir="auto">🤖 Generated with <a href="https://claude.com/claude-code" rel="nofollow">Claude Code</a></p>
