@@ -22,9 +22,9 @@ Part 1 holds 53 steps and part 2 holds 4; `setup` and `preview-smoke` run in bot
 hard-codes the 55 step names of the former single launch and checks that the two parts hold each
 of them exactly once, in order, with those two exceptions.
 
-| | Part 1 | Part 2 |
-| --- | --- | --- |
-| Estimated on CI, from the durations of an earlier single-launch run | about 393 s | about 439 s |
+| | Part 1 | Part 2 | Whole integration step (limit 1200 s) |
+| --- | --- | --- | --- |
+| Heavy run 45729384181 at `5e7b4a3` | 428 s | 502.5 s | 1128 s |
 
 The frame lookup now chooses its candidates from `frame.url()` alone, before any call that needs
 the frame's document:
@@ -117,10 +117,10 @@ frame lookup; it needs one heavy run to confirm.
 
 ## Known gaps
 
-- The whole integration step stays near 1000 to 1030 s against its 1200 s limit, a margin of about
-  15 %, because each extra window adds startup time. Running integration as parallel CI jobs, or
-  replacing the fixed pauses of the open-at-line probe (about 180 s) with readiness signals, would
-  widen it.
+- The whole integration step has a thin margin under its 1200 s limit: it took 1128 s on the heavy
+  run measured above, about 6 % under, so a slower runner could still stop the step. Running
+  integration as parallel CI jobs, or replacing the fixed pauses of the open-at-line probe (about
+  180 s) with readiness signals, would widen it.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
   runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
   CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure
