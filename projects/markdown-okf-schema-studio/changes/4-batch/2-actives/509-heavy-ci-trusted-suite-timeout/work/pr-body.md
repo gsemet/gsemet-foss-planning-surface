@@ -151,15 +151,22 @@ frame lookup; it needs one heavy run to confirm.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test/build/trustedParts.test.ts`,
-      `test/build/webviewFrames.test.ts`
-- [ ] Requirements: no behaviour change; `just requirements-lint` and `just requirements-update`
-- [ ] Changelog: no user-facing change
-- [ ] Local gates
-- [ ] Heavy CI: two runs in a row on the same head
-- [ ] Review
+- [x] New or changed tests (they fail on the previous code), at `b24d3bf`: the 9 tests of
+      `test/build/trustedParts.test.ts` and `test/build/webviewFrames.test.ts` all failed against
+      stand-ins of the new modules that mimicked the previous behaviour, and pass in the local gate
+- [x] Requirements: no behaviour change; the requirements checks of the local gate pass at
+      `b24d3bf` (`okfreq validate`, `lint --check`, `update-coverage --check`)
+- [x] Changelog: no user-facing change
+- [x] Local gates at `b24d3bf`: `just preflight` on Windows, static stage only, passed (unit tests
+      5307 passed, 8 skipped, none failed); the other stages are left to CI
+- [x] Heavy CI at `b24d3bf`: two runs on the same head, 45734265223 (every job green) and
+      45734267839, `integration` and `stress` green in both and each trusted part under 600 s; run
+      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit
+      (see Known gaps)
+- [x] Review: approved at `b24d3bf`
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `b24d3bf`: static, static on Windows, visual, viewer-graph, report and checks of
+      the pull request's own run; the real VS Code jobs do not run on a pull request
 
 ## Internal references
 
