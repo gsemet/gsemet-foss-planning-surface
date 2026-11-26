@@ -35,7 +35,7 @@ Before is the script at `5a73b6e`, after the one at `7d35be3`:
 
 ## Impacts
 
-No visual change: a CI build script, its tests and one guideline sentence. A contributor whose stacked pull request contains this fix no longer gets a red `static` job from the forge's own test merges.
+No visual change: a CI build script, its tests and one guideline sentence. For a stacked pull request that contains this fix, in a stack whose branches are rebased on one another, the check no longer fails on the forge's own test merges (shown on the tests' chains and on the replayed real chain; a live chain in CI is listed under Known gaps).
 
 ## Blast radius
 
@@ -47,7 +47,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 
 - The check stays as strict: no skipped job, no `continue-on-error` and no exemption for stacks. A merge commit carried by any branch of a stack still fails it, as far as git alone can tell.
 - A chain of two or more merges is ignored only when each of them also has the forge's subject, to narrow what git's shape alone cannot tell. A single test merge keeps its previous behaviour (GitLab merged results included). The subjects of the failing run were read first: they are `Merge <40-character sha> into <40-character sha>`.
-- The fix ships as a pull request low in the current stack, not as a separate one on the default branch: no pull request below it moves, and every pull request above it checks out the fixed script.
+- The fix ships as a pull request in the current stack, based on the branch of #522, not as a separate one on the default branch: no pull request below it moves, and every pull request stacked on it checks out the fixed script.
 
 ## Known gaps
 

@@ -2,12 +2,14 @@
 
 Head: 7d35be3430689c4979a58f471d4cd588ecb93fac
 
-Verdict: **NOT VERIFIED**. One failure, in the posted description (claim 11, second description
-pass). Every claim about the code, tests, gates and CI is VERIFIED. All claims were judged at
-`7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first pass at this same head and base
-(no move): they were not re-run in the second pass, except where claim 11 says so.
-`<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. My throwaway files and my
-detached worktree are removed. Evidence: `verifier/evidence/before-after.md`.
+Verdict: **NOT VERIFIED**. One failure, in the posted description (claim 11, third description
+pass): one Autonomous decisions sentence places the pull request "low in the current stack",
+which the stack's own data contradicts. Every claim about the code, tests, gates and CI is
+VERIFIED. All claims were judged at `7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first
+pass at this same head and base (no move): they were not re-run since, except where claim 11 says
+so. `<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. The earlier passes'
+throwaway files and detached worktree are removed; the third pass made none. Evidence:
+`verifier/evidence/before-after.md`.
 
 ## 1. Head, diff and scope: VERIFIED (7d35be3)
 
@@ -137,47 +139,62 @@ lower branch moved, upper not rebased:             previous exit 1 / head exit 1
 - Changelog and requirements boxes: `ci` change, no `src/` change (claim 1).
 - The wording of the UNVERIFIED bullet changed since this claim was judged: see claim 11.
 
-## 11. Posted description, second pass: NOT VERIFIED (7d35be3)
+## 11. Posted description, third pass, whole body: NOT VERIFIED (7d35be3)
 
-State: `git rev-parse HEAD` `7d35be34...`, `git status --porcelain` empty, `git ls-remote` head and
-base unchanged. `diff --strip-trailing-cr <(gh pr view 530 --json body --jq .body) work/pr-body.md`:
-only one trailing empty line differs. `gh api .../pulls/530 --jq .body_html`: sections, table,
-task list and Mermaid block render. `grep -inE "gaeta|C:.Users|/home/|/Users/|!\[|<img"` on the
-posted body: exit 1 (no image, no username or home path). `gh pr checks 530`: same results as
-claim 9; `gh run list --commit 7d35be3...`: the one run 45748406898, success. `gh api .../stacks`:
-stack 528 still without 530.
+State: `git rev-parse HEAD` `7d35be34...`, `git status --porcelain` empty, `git ls-remote` head
+and base unchanged. `diff --strip-trailing-cr <(gh pr view 530 --json body --jq .body)
+work/pr-body.md`: only one trailing empty line differs. `gh api .../pulls/530 --jq .body_html`:
+sections, table, task list and Mermaid block render. `grep -inE
+"gaeta|semet|C:.Users|/home/|/Users/|!\[|<img|STALE|UNVERIFIED"` on the posted body: the one
+match is the Known gaps UNVERIFIED bullet (no image, no username or home path, no STALE mark).
+`gh pr checks 530`: same results as claim 9; `gh run list --commit 7d35be3...`: the one run
+45748406898, success.
 
 Passed:
 
-- The failure of the first pass is fixed: the first Test plan proof reads `19 passed at 7d35be3`
-  and `on the previous script (5a73b6e)` (`tests-after.txt`, `tests-before.txt`).
-- Real-chain row and caption: SHAs named; ten merges listed and exit 1 before, `passed (24
-  commits since origin/main, no merge commit)` after (`real-chain.txt`).
-- New Evidence item: SHAs named; first sentence matches `real-chain.txt` and `before-after.md`,
-  second matches claim 7 (`1f63061c` is the chain's merge of `5a73b6e`; both bases pass; a merge
-  carried by a branch above is still listed).
-- "Verified at" unchecked, as intended before the verdict. Review and CI boxes: claim 10, claim 9.
+- The second pass's failure is fixed: the UNVERIFIED bullet now says the tests run the check on
+  their chains "locally and in the CI run at `7d35be3`" (`ci-45748406898.log` lines 6079 and
+  13392, `212 passed` in both static jobs), the real chain "replayed locally only", a single test
+  merge in CI (`Merge 7d35be34... into 5a73b6eb...`, lines 292 and 7608), and the pull request not
+  linked into the stack (stack 528 below). Its one `UNVERIFIED` mark has its bullet.
+- Title, project template sections in order, Autonomous decisions, Internal references last; no
+  internal reference outside it. Summary, diagram and Changes match `git diff 5a73b6e HEAD`.
+- Table, five rows: `verifier/evidence/real-chain.txt`, `tests-before.txt`, `tests-after.txt`;
+  the single-merge tests use the subject `test merge`, so "no subject required" holds.
+- Autonomous decisions: they are `02-answers.md` decisions taken without the user (Q1, Q2, Q5).
+- Known gaps, other bullets: claim 10 probes. Test plan: claims 3 to 9; Review box matches the
+  `chantier log` note `r1 approved at 5a73b6e..., committed as 7d35be34...`; "Verified at"
+  unchecked as intended.
 
-Failure: one sentence added to the Known gaps UNVERIFIED bullet is contradicted by the CI log.
-
-```text
-- **UNVERIFIED:** the check passing on a real chain in CI, [...] It was run locally only, on the
-  tests' chains and on the failing run's real chain. [...]
-```
-
-`grep -nE "test_no_merge_commits|passed in" work/ci-45748406898.log` (run at `7d35be3`):
+Failure: Autonomous decisions, third bullet.
 
 ```text
-6064: static-windows  uv run ... pytest ... test/build/test_no_merge_commits.py ...
-6079: static-windows  test\build\test_no_merge_commits.py ...................   [ 94%]
-6082: static-windows  212 passed in 55.15s
-13377: static         uv run ... pytest ... test/build/test_no_merge_commits.py ...
-13392: static         test/build/test_no_merge_commits.py ...................   [ 94%]
-13395: static         212 passed in 12.49s
+- The fix ships as a pull request low in the current stack, not as a separate one on the default
+  branch: no pull request below it moves, and every pull request above it checks out the fixed
+  script.
 ```
 
-The check ran on the tests' chains in CI too, on Linux and Windows; only the real-chain replays
-were local only. The gap itself (no real forge chain in CI) is correct and stays.
-Fix, in `pr-body.md` and on the pull request, for that sentence: "Its tests run it on the chains
-they build, locally and in the CI run at `7d35be3`; the failing run's real chain was replayed
-locally only." Then a description-only pass. No code change needed.
+`gh api repos/gsemet/markdown-okf-schema-studio/stacks`, stack 528 (open, base `main`), listed
+bottom to top:
+
+```text
+512 8c6845a, 513 1d55649, 514 c3c3a57, 515 cae819b, 517 d386ff6, 518 af4a4aa, 519 37ef61b,
+521 b7518fb, 522 5a73b6e, 516 8ce169f
+```
+
+`gh pr list --state open --json number,baseRefName,headRefName,isDraft`: 530's base is 522's
+branch, and the bases run down 522, 521, 519, 518, 517, 515, 514, 513, 512, `main`; 512 to 522
+are ready, 516, 524, 529 and 530 are drafts. So nine of the stack's pull requests are below this
+one and, in stack 528, only 516 sits at that level or higher: it is near the top, not low. The
+position is "directly above the highest ready pull request" (`02-answers.md` Q1, Q4).
+
+Fix, in `pr-body.md` and on the pull request, for that bullet: "The fix ships as a pull request in
+the current stack, directly above its highest pull request ready for review, not as a separate one
+on the default branch: no pull request below it moves, and every pull request stacked on it checks
+out the fixed script." Then a description-only pass. No code change needed.
+
+Observation, judged not a failure (optional in the same edit): Impacts, "A contributor whose
+stacked pull request contains this fix no longer gets a red `static` job from the forge's own test
+merges", is proved for a nested stack (claims 6, 7; live CI marked unverified in Known gaps) and
+its exception, a lower branch moved without a rebase, is stated in Known gaps. "whose rebased
+stacked pull request" would say it in place.
