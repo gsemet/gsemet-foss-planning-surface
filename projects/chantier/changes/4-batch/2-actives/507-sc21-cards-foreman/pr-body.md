@@ -77,8 +77,8 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,997 (4,000
 
 Host claude, no unit but where a row says otherwise. Every row was measured in one run on the cards of
 this PR's last commit. A unit's brief also holds the unit's facts from the record, so the six workers'
-bytes, measured on this change's unit, move between rounds on both sides (today's coder brief: 9,575
-here, 9,790 and 9,116 in earlier rounds). Start readings before this change, as the specification gives
+bytes, measured on this change's unit, move between measurements on both sides (today's coder brief:
+9,575 here, 9,790 and 9,116 in earlier measurements). Start readings before this change, as the specification gives
 them (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB, Griller 145 / 36 KB.
 
 The two new briefs that grow hold the whole new card, where today's holds a short `SKILL.md` that
@@ -93,6 +93,12 @@ Grade: 1
 ## Autonomous decisions
 
 - "Retry once only on a transient network error" is dropped: a launcher failure is a stop.
+- Five questions took a default without the owner, each to confirm by the owner: the override of a
+  Foreman's worktree stop by the user's words in its chat is dropped (only stop and hold remain); a
+  branch that is not the CR's own is never force-pushed, the default branch is never pushed, and any
+  other push is asked first and run once on the yes; direct mode runs the separate
+  `brief foreman --epoch <n>`, with no CLI change; the later budget freeze takes the sizes this
+  change reaches; the router skill runs no brief of its own and has no router card.
 - The startup report sentence, "read every manifest reading before an action" and the review step's
   "cd into the worktree" are dropped as given by the commands and the brief.
 - "Never tell unproved behaviour as fact" is filed as host-trial bookkeeping, with the proof files;
@@ -136,9 +142,9 @@ Grade: 1
   card, in the floor or in a refusal.
 - The rule that repository text is in English is filed under `worker-shell` (`topics.json`), whose roles
   hold no Driver and no Foreman; for those, only `pr-template.md` says it, for the PR.
-- Do not merge: this merges with children 19 to 28 of the program as one unit, after child 28's
-  campaign.
-- No real run (child 28). Every Copilot claim is untested.
+- Do not merge on its own: this merges with the rest of the card rewrite program as one unit, after
+  the program's evaluation campaign.
+- No real run: it belongs to that campaign. Every Copilot claim is untested.
 - `just quiz` was not run: no score exists for the new cards. It is owed for chief-of-staff, coder,
   conflict-resolver, cr-driver, debugger, demo-explorer, foreman, griller, release-driver,
   stack-driver and verifier; the new push and ask-first cases need at least 1 of 3. Four planned cases
@@ -146,7 +152,7 @@ Grade: 1
   `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`).
   The changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards, the shared files,
   the skill texts and many topics: their score is owed at the final head. Plans only, no spend (costs of an
-  earlier round's cards): chief-of-staff with griller 54 runs, about
+  earlier version of the cards): chief-of-staff with griller 54 runs, about
   $25.34; foreman 33 runs, about $15.40; coder, conflict-resolver, debugger, demo-explorer and
   verifier 24 runs, about $8.51; the three Driver roles cannot be planned (`roles.yaml` names
   `driver.md`). The first two are above the default `--max-usd 10`.
@@ -195,7 +201,7 @@ Grade: 1
 - The override of a Foreman's worktree stop by the user's words in its chat is dropped (a default answer, to confirm by the owner), for the later review.
 - `judge` does not carry the image note of a hand-back; the Foreman's card (line 15) puts it in the
   ask's added sentence.
-- For the swap (child 24): set `roles.yaml`'s card for chief-of-staff (`chief-of-staff.md`), griller
+- For the swap (a later change): set `roles.yaml`'s card for chief-of-staff (`chief-of-staff.md`), griller
   (`griller-skill.md`) and the four Drivers, and the Driver table's card cell; copy
   `cards-next/skills/<skill>-SKILL.md` to `skills/<skill>/SKILL.md` and check its
   `chantier-version:` line; add the launcher's allow row with its preflight sample and drop
