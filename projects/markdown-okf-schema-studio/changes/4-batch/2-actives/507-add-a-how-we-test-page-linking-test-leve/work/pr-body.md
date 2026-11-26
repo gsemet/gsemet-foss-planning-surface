@@ -97,6 +97,8 @@ Documentation, the project site and one new unit test. A plain `git revert` remo
   page.
 - The built site was checked with `just site-from-run` (the reports of a green full CI run, then
   `just site-assemble` on this branch), because `just site-assemble` alone needs end-to-end reports.
+- The rebase onto the default branch had one conflict, in the requirements log: both new entries are
+  kept whole.
 
 Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx fixtures are in
 `sphinx/tests/fixtures/`; no target calls `test/release/audit-lockfile.mjs`.
@@ -118,8 +120,10 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: no user-facing change
-- [ ] Local gates
-- [ ] Review
+- [x] Local gates at `fb5fb2f`: `just preflight` (static stage on Windows) passed: unit 5378 tests,
+  5370 pass, 0 fail, 8 skipped; security 116 of 116; release tests 254 passed; requirements 0 errors;
+  Sphinx 4 passed; audit 0 vulnerabilities
+- [x] Review: approved at `fb5fb2f`
 - [ ] Verified
 - [ ] CI green
 
