@@ -49,7 +49,6 @@ const show = async (name, source) => {
   }
   for (const [name, source] of [
     ["card in a note, body starting with dashes", "::::{note}\n:::{card}\n---\nCard text.\n\nMore.\n:::\n::::\n"],
-    ["div in a note, body starting with dashes", "::::{note}\n:::{div}\n---\nDiv text.\n\nMore.\n:::\n::::\n"],
     ["bold paragraph first", ":::{note}\n**Bold**\n\nAfter.\n:::\n"],
   ]) await show(name, source);
   for (const [name, source] of [
