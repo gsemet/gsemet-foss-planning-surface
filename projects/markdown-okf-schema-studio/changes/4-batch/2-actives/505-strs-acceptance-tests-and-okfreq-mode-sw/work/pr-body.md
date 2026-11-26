@@ -177,7 +177,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 ## Known gaps
 
 - This is a partial delivery of the planned acceptance work: only the trust and security group has acceptance files, the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted. The other requirement groups (including the repair of their dropped or wrong scenario markers), the mode switch and its gate are left for follow-up changes.
-- The real VS Code `integration` job passed at `5a8a593` only on a second attempt: the first was cut by its 15-minute launch deadline while one of its last steps was running. Passing runs of that suite already use about 14 of the 15 minutes (852 s in a run on the base branch, 854 s on the second attempt here), and this change edits only requirement marker comments in that suite. It is a bug still to be fixed at its cause.
+- On an earlier head of this change, one attempt of the real VS Code `integration` job was cut by the 15-minute deadline of its single trusted launch (it passed on a second attempt). The pull request below this one (#529) runs that suite as two launches, each with its own deadline: at `9d7e788a` the two parts took 420 s and 485 s and the job passed on its first attempt. The whole integration step took 1097 s of its 1200 s limit, a thin margin, and one run does not show that the timeout cannot come back.
 - The 3-minute limit of the CI test step of an acceptance shard ends before the 3-minute budget of a single test step and the 15-minute launch deadline can expire: a hang that no shorter check catches is diagnosed only from the processes and logs left behind, without the window state and screenshots.
 - Both timeouts come from one shard's first attempt in one run (a second attempt was faster); a slower group added later has to measure and set them again.
 - With one group only, merging the attempts of several groups never ran in CI; release tagging and the Pages reuse never ran on a real push to the default branch; and acceptance never ran on macOS.
@@ -196,19 +196,19 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 ## Test plan
 
-- [x] New or changed tests at `5a8a593`: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
-- [x] Requirements at `5a8a593`: `SwRS-MDOKFSTUDIO-CORE-076` updated (normative text, scenarios S1 to S6 edited, S7 to S11 new); verification notes of 14 trust and security SwRS rewritten, with their criteria in 007, 065 and 092; markers in tests; `just requirements-update` (generated file lists also change in 002 and 011)
-- [x] Changelog at `5a8a593`: no user-facing change
-- [x] Local gates at `5a8a593`: `just preflight` passed on Windows, where it runs the static stage only
-- [x] Evidence at `5a8a593`:
-  - [Heavy run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144) at `5a8a593`: `stress` and the `acceptance (trust-security)` shard passed on the first attempt; `integration` passed on a re-run of the failed jobs (see Known gaps), after which `report` and `checks` passed.
-  - The shard under its limits of 5 minutes (job) and 3 minutes (test step), first attempt: job 87 s, test step 59 s; launches 26 s (trusted), 8 s (Restricted Mode), 16 s (built VSIX).
+- [x] New or changed tests at `9d7e788a`: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
+- [x] Requirements at `9d7e788a`: `SwRS-MDOKFSTUDIO-CORE-076` updated (normative text, scenarios S1 to S6 edited, S7 to S11 new); verification notes of 14 trust and security SwRS rewritten, with their criteria in 007, 065 and 092; markers in tests; `just requirements-update` (generated file lists also change in 002 and 011)
+- [x] Changelog at `9d7e788a`: no user-facing change
+- [x] Local gates at `9d7e788a`: `just preflight` passed on Windows, where it runs the static stage only
+- [x] Evidence at `9d7e788a`:
+  - [Heavy run 45794286167](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45794286167) at `9d7e788a`: `integration`, `stress` and the `acceptance (trust-security)` shard passed on the first attempt, and `report` and `checks` passed.
+  - The shard under its limits of 5 minutes (job) and 3 minutes (test step): job 82 s, test step 52 s; launches 30 s (trusted), 6 s (Restricted Mode), 10 s (built VSIX).
   - The limits were set from the first measured run ([45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331), at an earlier commit): job 115 s, test step 77 s.
-  - Re-run of the shard alone, same run: job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
-  - Requirements bundle copied and checked in the new coverage mode at `5a8a593`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
-- [x] Review: approved at `5a8a593` (carried from `18c63e5`)
-- [x] Verified at `5a8a593`: the delivered change and the claims of this description were checked against that commit
-- [x] CI green at `5a8a593`: the pull request checks passed (run 45773633868); the manually started heavy run 45774743144 is green after one re-run of its failed jobs (see Known gaps)
+  - Re-run of the shard alone, on an earlier head of this change ([run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144)): job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
+  - Requirements bundle copied and checked in the new coverage mode at `9d7e788a`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
+- [ ] Review
+- [ ] Verified
+- [x] CI green at `9d7e788a`: the pull request checks passed (run 45794229373); the manually started heavy run 45794286167 passed on its first attempt
 
 ## Internal references
 
