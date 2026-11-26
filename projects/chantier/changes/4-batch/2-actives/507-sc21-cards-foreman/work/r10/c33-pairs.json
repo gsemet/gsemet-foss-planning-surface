@@ -1,0 +1,8 @@
+[
+  ["topics/batch-plan-mode-p1.md", "Name the shared files behind the recommendation, as the plan names a same-lines wait.", "Name the shared files behind it, as the plan names a same-lines wait."],
+  ["topics/batch-plan-mode-p1.md", "the merge path is not recorded in `brief.md`", "no merge path is fixed at the go or recorded in `brief.md`"],
+  ["topics/batch-close-p2.md", "also when nothing can be priced.", "also when nothing can be priced (no priced call, or no Foreman transcript recorded: no way through `close`)."],
+  ["topics/release-take.md", "On the merge of the release PR (`order merged`), start the Release driver again at once.", "At `order merged` of the release PR, start the Release driver again at once."],
+  ["topics/release-take.md", "With no approval, the note says the steps wait for the user's word.", "No approval: the note says the steps wait for the user's word."],
+  ["topics/release-take.md", "While its Driver is still `working`: ", "Driver still `working` (published before the refusal reached you): "]
+]
