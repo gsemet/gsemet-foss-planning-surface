@@ -1,0 +1,166 @@
+version: 1
+tiers:
+  StRS: {folder: strs, prefix: StRS-MDOKFSTUDIO, derives_from: [], approval_lock: true,
+    owner_email: gaetan@xeberon.net}
+  SwRS: {folder: swrs, prefix: SwRS-MDOKFSTUDIO, derives_from: [StRS], approval_lock: false,
+    owner_email: gaetan@xeberon.net}
+id_policy: scope-prefix-sequence
+strs_test_coverage_mode: linked-swrs-and-validation-test
+lifecycle:
+  field: req_lifecycle
+markers:
+  implements: '@implements_req'
+  tests: '@tests_req'
+  accepts: '@accepts_req'
+  id_pattern: '[A-Za-z][A-Za-z0-9_-]*'
+generated_fields: [derived_by, supersedes, implemented_in_files, tested_in_files,
+  accepted_in_files, default_owner_email, status, verified]
+scopes:
+  rendering-core:
+    id_token: CORE
+    folder: rendering-core
+    source_dirs:
+      - src
+      - sphinx
+      - skills
+      - scripts
+      - test/site
+      - test/visual
+    test_dirs:
+      - test
+      - sphinx/tests
+  code-blocks:
+    id_token: CODE
+    folder: code-blocks
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  gfm:
+    id_token: GFM
+    folder: gfm
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  myst:
+    id_token: MYST
+    folder: myst
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  diagrams:
+    id_token: DIAG
+    folder: diagrams
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  frontmatter-schema:
+    id_token: FMSCHEMA
+    folder: frontmatter-schema
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  frontmatter-editing:
+    id_token: FMEDIT
+    folder: frontmatter-editing
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  layout-width:
+    id_token: LAYOUT
+    folder: layout-width
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  theme-zoom:
+    id_token: THEME
+    folder: theme-zoom
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  toolbar-navigation:
+    id_token: TOOLBAR
+    folder: toolbar-navigation
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  block-editing:
+    id_token: BLOCK
+    folder: block-editing
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  palette-slash:
+    id_token: PALETTE
+    folder: palette-slash
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  table-editing:
+    id_token: TABLE
+    folder: table-editing
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  review-annotations:
+    id_token: REVIEW
+    folder: review-annotations
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  lifecycle-sync:
+    id_token: LIFE
+    folder: lifecycle-sync
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
+  trust-security:
+    id_token: TRUST
+    folder: trust-security
+    source_dirs:
+      - src
+      - sphinx
+    test_dirs:
+      - test
+      - sphinx/tests
