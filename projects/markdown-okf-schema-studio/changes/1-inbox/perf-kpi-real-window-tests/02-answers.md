@@ -85,3 +85,8 @@ Answer 9 splits this CR: the site page is `perf-kpi-pages`, stacked above this o
 report files (`kpi.json`, `kpi.md`), the job, the maximums and their requirement.
 
 Spec critic: second pass after the next specification (answer 10 changes behaviour).
+
+Critic, second pass, 2026-11-26: 3 findings; 2 applied as fixes (the perf launches overwrite the
+integration stage's report: settled by keeping that report intact, no decision of the owner's at
+stake; the unproved Windows claims marked as unproved), 1 asked (the Windows support as a CR of its
+own).
