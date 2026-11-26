@@ -110,10 +110,10 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
 - `ci-perf MODE="enforce": (_require-unlocked-screen "ci-perf")` (new), the CI job's target. `MODE`
   is `enforce` (the default, what CI runs) or `compare`; any other value stops at once with
   `ci-perf: MODE must be enforce or compare, got "<value>"`, exit 2. It removes `out/reports/perf/`,
-  runs the scenario `perf-547` three times, one window launch each
-  (`STUDIO_REAL_INPUT_SCENARIO=perf-547 {{ npm }} run test:integration -- --trusted-only`, the form
-  `performanceProbe.ts` documents), copies each launch's `out/reports/probe/perf-547.json` to
-  `out/reports/perf/runs/run-<k>.json`, then runs `node out/test/integration/perfKpiCampaign.js`,
+  runs the scenario `perf-547` three times, one window launch each, in the launcher's perf mode
+  (`{{ npm }} run test:integration -- --perf-only --launch <k>`, k = 1, 2, 3; see "The perf launches
+  leave the integration stage's report alone"), copies each launch's `out/reports/probe/perf-547.json`
+  to `out/reports/perf/runs/run-<k>.json`, then runs `node out/test/integration/perfKpiCampaign.js`,
   with `--enforce` in `enforce` mode only. Last line `ci-perf: passed` or `ci-perf: FAILED` (CI
   guideline rule 8); in `compare` mode a pass reads `ci-perf: passed (compared, maximums not
   enforced)`. A launch that fails stops the target red; there is no retry (rule 9). It runs on
@@ -122,15 +122,61 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
   `perf-kpi: done`. It fails only when a launch or the measure fails.
 - Both stop with exit code 3 on a locked screen, like `ci-integration` (`_require-unlocked-screen`;
   `STUDIO_SCREEN_LOCKED=1` forces it on every OS; there is no lock probe on Windows, as on Linux).
-- `preflight`, on Linux and macOS: runs `just ci-perf compare` after `just ci-acceptance`, counted
-  in the failures (a failed launch or measure, never a maximum), with the locked-screen handling of
-  the two stages before it (exit 3 names `perf` among the stages that did not run). On Windows it
+- `preflight`, on Linux and macOS: runs `just ci-perf compare` after `just ci-acceptance` and before
+  `ci-report`, counted in the failures (a failed launch or measure, never a maximum; exit 3, a locked
+  screen, counts as a failure as it does for `ci-integration`). Its exit 3 does not join the
+  `locked` list that skips `ci-report` and `ci-gallery`: those two stages do not read the perf run,
+  so they run and judge the same stages as without it, and preflight prints `ci-perf: skipped, the
+  screen is locked` for it. On Windows it
   still runs the static stage only; the skip line becomes `preflight: visual, viewer-graph,
   integration, acceptance, perf, report and gallery stages skipped on Windows; CI runs them (just
   perf-kpi compares the performance KPIs on this machine)`.
 - CR-516's local command for its measure is removed (answer 7), under the name CR-516 gives it at
   the head this CR is based on; the scenario itself stays, and still runs by hand with
   `STUDIO_REAL_INPUT_SCENARIO=perf-547 npm run test:integration -- --trusted-only`.
+
+### The perf launches leave the integration stage's report alone
+
+Today a `STUDIO_REAL_INPUT_SCENARIO=... npm run test:integration -- --trusted-only` run goes through
+`runIntegration` (`test/integration/run-tests.ts`), which rewrites
+`out/reports/e2e/integration-manifest.json` with that run's own fields; `scripts/e2e-campaign.mjs
+report`, called by `ci-report`, reads that file as the integration stage. The trusted launch also
+writes its heartbeat file, any hang dump (`HANG_DUMP_ROOT`) and any capture or evidence of the
+harness (`E2E_SCREENSHOT_ROOT`) under `out/reports/e2e/`. Run three times by `ci-perf`, the launches
+would replace the integration stage's report that preflight's `ci-report` then judges, and the perf
+artifact would carry a perf-run `integration-manifest.json`. The change:
+
+- A launcher mode `--perf-only --launch <k>` in `test/shared/runnerArgs.ts`: `{ mode: "perf",
+  launch: k }`, `k` an integer from 1 to 3. Refused, before any manifest is written and any VS Code
+  starts, with a line naming the reason: a missing or other `--launch`, `--perf-only` with a scope
+  flag or with `--acceptance-only` or `--group`, and a `STUDIO_REAL_INPUT_SCENARIO` set to anything
+  but `perf-547`.
+- In that mode `run-tests.ts` makes the one trusted launch of the scenario `perf-547` (it sets
+  `STUDIO_REAL_INPUT_SCENARIO=perf-547` for the launch itself) and never calls `runIntegration`: it
+  writes no `integration-manifest.json`. Its own record is
+  `out/reports/perf/runs/launch-<k>/launch-manifest.json` (`status` running, then passed or failed,
+  `launch`, `command`, `instanceId`, `revision`, `dirty`, `startedAt`, `completedAt`), and a failed
+  launch exits 1 as today.
+- `test/reportPaths.ts`: when `STUDIO_PERF_LAUNCH=<k>` is set, `E2E_REPORT_ROOT` is
+  `out/reports/perf/runs/launch-<k>/` instead of `out/reports/e2e/`, so `E2E_SCREENSHOT_ROOT`,
+  `HANG_DUMP_ROOT` and the default root of `heartbeatFileFor` follow it, in the launcher and in the
+  extension host. The perf mode has `STUDIO_PERF_LAUNCH` set in its own process before these
+  modules load (a re-exec or a dynamic import, the implementer's choice, proved by the test below)
+  and passes it in `extensionTestsEnv`. Unset, every path is as today.
+- `ci-perf` does not call `node scripts/e2e-campaign.mjs begin`: it writes no `campaign-*.json` and
+  invalidates no stage manifest. `out/reports/probe/perf-547.json` is CR-516's file; `ci-report` and
+  `ci-gallery` read nothing under `out/reports/probe/` or `out/reports/perf/` in this CR.
+- A locked screen stops `ci-perf` in `_require-unlocked-screen`, before any launch: it writes nothing
+  and does not remove `out/reports/perf/` either.
+- Result: after `ci-perf` (either mode, a locked screen included), `out/reports/e2e/`,
+  `out/reports/acceptance/` and `out/reports/visual/` are what they were before, file for file, so
+  what `ci-report` and `ci-gallery` judge does not change. In CI the perf job's upload of the whole
+  `out/reports/` keeps its layout (`perf/kpi.json`, `perf/kpi.md`, `perf/runs/run-<k>.json`), with
+  `perf/runs/` now also holding the `launch-<k>/` folders; its only `e2e/` content is the
+  `e2e/hang-dumps/post-step/` that `just ci-hang-dump` writes after the step.
+- A hand run of the scenario with `--trusted-only` still writes the integration manifest, as every
+  hand scenario run does today; CONTRIBUTING.md, "Performance KPIs", points to `just perf-kpi`
+  instead.
 
 ### Windows: what stops the local command today, and what changes
 
@@ -143,11 +189,17 @@ Git for Windows:
   `npm.cmd` through `fnm`. `ci-perf` and `perf-kpi` therefore need no Windows branch.
 - The input does not go through the system's pointer: the real-window suites connect Playwright to
   the window over its loopback debugging port (`--remote-debugging-port`, `test/integration/run-tests.ts`;
-  `chromium.connectOverCDP`, `test/integration/realInput/harness.ts`), which works the same on Windows.
+  `chromium.connectOverCDP`, `test/integration/realInput/harness.ts`). Nothing in that path is
+  specific to Linux or macOS, but it has never run on Windows in this repository (see "Evidence").
   Shortcuts already use `Control` off macOS (`MOD` in `harness.ts`).
 - VS Code: `run-tests.ts` uses `/Applications/Visual Studio Code.app/...` when it exists, else
-  `downloadAndUnzipVSCode`, which downloads the Windows build; `STUDIO_VSCODE_EXECUTABLE` picks
-  another build. Unchanged; only its comment and CONTRIBUTING.md name `Code.exe` on Windows.
+  `downloadAndUnzipVSCode`, which asks for the build of the running system; `STUDIO_VSCODE_EXECUTABLE`
+  picks another build. Unchanged; only its comment and CONTRIBUTING.md name `Code.exe` on Windows.
+  That download has never been used on Windows in this repository (see "Evidence").
+- A `perf-547` launch runs the steps `setup` and `preview-smoke` before its scenario
+  (`scenarioSteps` in `test/integration/trusted-suite.ts` gives `setup`, `preview-smoke`,
+  `real-input` to every scenario it does not list; CR-516's specification does not make `perf-547`
+  skip them). Neither has run on Windows either.
 - Blocker 1, `/tmp`: `runScenario` in `run-tests.ts` creates the launch's workspace directory with
   `fs.mkdtempSync(path.join("/tmp", ...))` and puts `{ "path": "/tmp" }` as the second workspace
   folder. On Windows `/tmp` is `\tmp` on the current drive, which does not exist on a normal machine:
@@ -292,14 +344,27 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
   - `trustedWorkspaceDefinition`: its workspace folders are the workspace root and the given
     temporary root, with `"/tmp"` on Linux and macOS (unchanged) and `os.tmpdir()` on Windows (a
     prepared root on the other systems).
+  - `test/build/runnerArgs.test.ts`: `--perf-only --launch 2` gives `{ mode: "perf", launch: 2 }`;
+    `--launch 0`, `4`, `x` or missing, `--perf-only` with `--trusted-only`, `--acceptance-only` or
+    `--group`, and `STUDIO_REAL_INPUT_SCENARIO=probe` are refused with their line.
+  - `test/build/reportPaths.test.ts` (new): in a child Node process with `STUDIO_PERF_LAUNCH=2`, `E2E_REPORT_ROOT`,
+    `E2E_SCREENSHOT_ROOT`, `HANG_DUMP_ROOT` and `heartbeatFileFor(...)` are under
+    `out/reports/perf/runs/launch-2/`; without it, under `out/reports/e2e/` as today.
+  - The perf mode of `run-tests.ts`, with the VS Code launch replaced by a stub (a seam added for
+    it): in a temporary `out/reports/` holding an `e2e/integration-manifest.json` and an
+    `e2e/campaign-integration.json`, a passed and a failed perf launch leave both files byte for
+    byte, write `perf/runs/launch-<k>/launch-manifest.json` with the status, and the failed one
+    exits 1.
   - `test/build/test_workflows.py`: the `perf` job's `if` for each event (push to `main`, heavy and
     plain dispatch, pull request); its artifact name carries the attempt; the `tag-release` truth
     table with `perf` (a version change tags only with `checks` and the four heavy jobs `success`;
     every other `perf` result runs the refusal step, whose summary lists `perf`); `checks` does not
     need `perf`; every `needs.<job>` reference is a need; CR-516's input and job are gone; `ci-perf`
     with an unknown `MODE` exits 2; `perf-kpi` runs `ci-perf compare`; `preflight` runs `ci-perf
-    compare` after `ci-acceptance` off Windows and prints the new skip line on Windows; `ci-perf` has
-    no Windows stop; `ci-perf` and `perf-kpi` stop with exit 3 on a locked screen
+    compare` after `ci-acceptance` and before `ci-report` off Windows and prints the new skip line on
+    Windows; with `ci-perf` stubbed to exit 3, preflight still runs `ci-report` and `ci-gallery` and
+    counts one failure; `ci-perf` passes `--perf-only --launch <k>` and never calls
+    `e2e-campaign.mjs begin`; `ci-perf` has no Windows stop; `ci-perf` and `perf-kpi` stop with exit 3 on a locked screen
     (`STUDIO_SCREEN_LOCKED=1`) and `ci-perf` ends with its passed or FAILED line.
   - With CR-507 below: CR-507's drift test of `docs/how-we-test.md` passes with the `perf` job in
     `ci.yml` and without CR-516's removed job.
@@ -310,26 +375,36 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
   medians set `maximumMs` and the SwRS numbers (decision 3), and its duration sets the two timeouts
   (rule 11). Second run, at the head with the maximums: `perf` green with both ratios at most 1; the
   `e2e-perf-attempt-<n>` artifact holds `perf/kpi.json`, `perf/kpi.md` and the three run reports.
-  The two run ids go in the PR's test plan.
+  That artifact holds no `e2e/integration-manifest.json` and no `e2e/campaign-*.json`. The two run
+  ids go in the PR's test plan.
 - Real window on Windows, on the implementer's Windows machine when the conditions of
   `.agents/guidelines/local-worktree.guidelines.md` for window tests are met (an unlocked desktop
   session, no other VS Code test window): `just perf-kpi` makes three launches, writes
   `out/reports/perf/kpi.json` with `machine.os` `win32` and two scored KPIs, and ends with
-  `perf-kpi: done`; then one launch with `STUDIO_LAUNCH_TIMEOUT_MS` set below a launch's length stops
-  with `LAUNCH TIMEOUT`, a hang dump whose process list is not empty, and no VS Code process of that
+  `perf-kpi: done`, and `out/reports/e2e/` is the same before and after (absent stays absent); then
+  one launch with `STUDIO_LAUNCH_TIMEOUT_MS` set below a launch's length stops
+  with `LAUNCH TIMEOUT`, a hang dump under `out/reports/perf/runs/launch-<k>/hang-dumps/` whose process list is not empty, and no VS Code process of that
   user-data directory left (checked with the same CIM query). The PR's test plan gives the output's
   last lines and the two KPI lines. When the conditions are not met, the PR says so, and the Windows
   launches stay unproved.
 - Real window on Linux or macOS, when a machine is at hand: `just preflight` runs `ci-perf compare`
-  and does not fail on an over KPI; otherwise the `test_workflows.py` check of the recipe stands
-  alone, said as such.
+  and does not fail on an over KPI, and a listing with checksums of `out/reports/e2e/`,
+  `out/reports/acceptance/` and `out/reports/visual/` taken after `ci-acceptance` and again after
+  `ci-perf` is the same; `ci-report` then reports the integration stage of `ci-integration`.
+  Otherwise the unit and `test_workflows.py` checks above stand alone, said as such.
 - `just preflight` (on Windows the static stage only; CI runs the others).
 - What only CI proves: the timings under the virtual screen and their spread between runner
   instances; the job's healthy duration; the red of an exceeded maximum in a real run is not forced
   (no knob is added to lower a maximum), it is proved by the unit tests of the exit code and the
   `ci-perf` FAILED line.
-- What stays unproved until a run on a Windows machine: that the input sent over CDP reaches a
-  newly launched window under Windows' foreground rules (no focus wait is added off macOS); that the
+- What stays unproved until a run on a Windows machine, none of it ever run on Windows in this
+  repository: that `downloadAndUnzipVSCode` gives a Windows build that starts and loads the
+  extension under development; that a launch with `--remote-debugging-port` accepts Playwright's
+  `connectOverCDP` and that mouse and keyboard input over that port works as on Linux and macOS;
+  that the `setup` step (`pinStoredWorkspaceChoices`, `ensureTestWindowFocused`) and the
+  `preview-smoke` step (`test/integration/fixtures/preview.md` opened, the preview command, its
+  checks) pass before the scenario; that the input sent over CDP reaches a newly launched window
+  under Windows' foreground rules (no focus wait is added off macOS); that the
   scenario's drags fit the desktop's screen size and scaling; the launch time with the Windows build
   of VS Code and the antivirus; the behaviour on a locked Windows session, which is not detected
   beforehand. A failure found there is fixed in this CR before it is mergeable.
