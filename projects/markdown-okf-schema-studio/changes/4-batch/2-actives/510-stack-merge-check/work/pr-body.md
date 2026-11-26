@@ -17,8 +17,11 @@ flowchart TD
     D -- no --> F
 ```
 
+Before is the script at `5a73b6e`, after the one at `7d35be3`:
+
 | Checked-out commit | Before | After |
 | --- | --- | --- |
+| The real chain of the failing run (`refs/pull/516/merge`, ten test merges, base `main`) | fails, lists the ten merges | passes (24 commits, no merge commit) |
 | Single forge test merge (GitHub, GitLab merged results) | passes | passes (no subject required) |
 | Chain of test merges over nested branches | fails, lists the chain | passes |
 | Same chain, one branch of the stack carries a merge | fails, lists the chain and that merge | fails, lists that merge only |
@@ -53,15 +56,17 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 - A merge of three or more parents at the checked-out commit is no longer ignored (the forge's test merge has two). No test builds such a merge.
 - A stack whose lower branch moved without the branches above being rebased on it is not nested: the check still fails there, until the stack is rebased.
 - Pull requests below this one in the stack, above the bottom, do not contain the fixed script: a new CI run of theirs stays red until the fix reaches the default branch.
-- **UNVERIFIED:** the check passing on a real chain in CI, on this pull request above the bottom of its stack. The tests build the chain locally. The CI run at `7d35be3` checked out a single test merge, because this pull request was not linked into the stack yet; the first run after it is linked is the live proof.
+- **UNVERIFIED:** the check passing on a real chain in CI, on this pull request above the bottom of its stack. It was run locally only, on the tests' chains and on the failing run's real chain. The CI run at `7d35be3` checked out a single test merge, because this pull request was not linked into the stack yet; the first run after it is linked is the live proof.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`, 19 passed; on the previous script 4 of the new cases fail, and the 3 others guard against a looser check, so they pass on both by design
+- [x] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`, 19 passed at `7d35be3`; on the previous script (`5a73b6e`) 4 of the new cases fail, and the 3 others guard against a looser check, so they pass on both by design
+- [x] Evidence: before at `5a73b6e`, after at `7d35be3`, both scripts run on the real chain of the failing run in a throwaway clone; with this head merged on top of that chain the new script passes, and still fails on a merge carried by a branch above
 - [x] Requirements: no behaviour change of the extension (build tooling, no requirement covers it)
 - [x] Changelog: no user-facing change (a `ci` change adds no line)
 - [x] Local gates: `just preflight` at `7d35be3` passed (on Windows it runs the static stage, `just ci-static`; 212 build tests passed, the merge-check ones included, and 4 Sphinx contract tests)
 - [x] Review: approved at `7d35be3`
+- [ ] Verified at `7d35be3`
 - [x] CI green at `7d35be3` (`static`, `static-windows`, `visual`, `viewer-graph`, `report` and `checks` pass; the jobs a pull request does not run are skipped)
 
 ## Internal references
