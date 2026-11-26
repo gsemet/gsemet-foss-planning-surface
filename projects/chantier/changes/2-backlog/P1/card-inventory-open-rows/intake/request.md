@@ -1,34 +1,79 @@
-# Follow-up of the card rework: open rows and open points
+# Finish the card rework: simple cards, a more powerful CLI, usable everywhere
 
-## Resume here (written 2026-11-26, at batch-31's end)
+## Read this first (handover, written 2026-11-26 at batch-31's end)
 
-Asked by the owner, verbatim: « Met tout ce qu'il faut pour reprendre en P1 » (put everything needed to resume in P1).
+The owner, verbatim, 2026-11-26: « Écrit ce que le suivant devra savoir. Je préfère qu'on se concentre sur le but a atteindre que sur les Micro step que l'on avait prévue » (write what the next one will need to know; focus on the goal to reach rather than on the small steps that were planned).
 
-### Where batch-31 stands
+So: aim at the goal below. Everything under "Reference material, not a plan" (the program's remaining children, the specs to redo, the open rows and gap lists) is material to draw from, not a sequence to replay: cut the work again from the goal. Nothing there is dropped or deleted without the owner's word.
 
-- 40 CRs merged; main at 4d12a5b, CI green. The batch is paused, cost $492 of $800.
-- It closes only on the owner's word: `close --batch batch-31`, then `--yes`, then the worktrees and branches that command lists. Archive the Foreman and Chief of Staff sessions after the close, not before (the close prices the Foreman's transcript).
+### The goal
+
+The owner's words, 2026-11-26: « La priorité était des cartes plus simple et des CLI plus puissants. Il faut finir ça » (the priority was simpler cards and a more powerful CLI; finish that). « mais un faut que les cartes et les CLI soient utilisables » (the cards and the CLI must be usable). « finaliser le rework comme il faut pour reprendre sur des bases saines apres » (finish the rework properly, to start again on a sound base).
+
+What "simpler cards, more powerful CLI" was settled to mean (`simplify-cards-and-prompts`, `03-change-spec.md`, "Goal", from the owner's answers):
+
+- every role boots on one short card, the shared floor and its facts, printed whole by the CLI;
+- what a rare moment needs comes from `help <topic>`, named by a refusal, a `next:` line or a state line;
+- a rule that protects the user or the repository lives only in the floor, the role's card or a CLI or hook refusal; one rule in one place, no history in the text a role reads;
+- no behaviour that matters is lost;
+- gates keep it that way;
+- fixed: the roles themselves, the work with the surface server, the Foreman orchestrating with the tools it is given.
+
+### Reached when (the Chief of Staff's proposal, to confirm by the owner)
+
+1. Any project runs the new cards and CLI. This comes first: it is the owner's "usable".
+2. No card line leads an agent into a refusal, or against what the CLI prints.
+3. A batch started from scratch on the new cards runs to its end, and no rule that mattered turns out lost.
+4. Something automatic keeps the cards short and true.
+
+### Where we stand
+
+Much lighter at boot, measured on main at 4d12a5b with `brief <role>` (brief size only; a role reads help topics later):
+
+| Role | Old cards: declared / really read | Brief now |
+| --- | --- | --- |
+| Chief of Staff | 202 KB / 218 KB | 24.6 KB |
+| Foreman | 91 KB / 144 KB | 22.9 KB |
+| Griller | 145 KB / - | 6.7 KB |
+| CR driver | 24 to 34 KB / 44 KB | 9.3 KB |
+| Verifier | - / 17.5 KB | 4.4 KB |
+| Coder | - | 2.9 KB |
+
+The whole `references` folder is 620 KB in 330 files (the program's study counted the old cards at 829 KB in 70 files). Most of the Chief of Staff's brief is host rows (lines 69 to 326 of 328), many marked untested.
+
+Not true yet, as known today:
+
+- **Other projects cannot be counted on (goal 1).** The version is still 0.15.1. uv's cached build of the main checkout (built 2026-11-25 22:38) lacks the card swap's source changes (commit 7714288e, 19 files) and still names removed card files: `driver.md` (commands/access.py, commands/facts.py), `foreman-stack.md` (stack_shape.py), `reload-rules.md` (status/ready_line.py), `startup-core.md` and `startup-manifest.json` (driver_prompt.py). Found by reading the cached files, not by running them; that uv reuses this build while `pyproject.toml` is unchanged is expected, not tested. A version bump is the expected cure; the proof is a project in plugin mode seen running the new cards. `status` also says the running board is another build of 0.15.1 (a cached one) than the checkout's.
+- **Cards and CLI disagree in places (goal 2).** Retro point 6 below lists the cases. Seen on 2026-11-26: `help <topic> --batch <batch>` is refused (the other cases were not re-checked). New the same day: the Claude host row `run-watcher` starts the watcher with `Monitor` "with no timeout", but the tool now ends a monitor after 30 minutes at most, so a watcher kept armed wakes the session every 30 minutes; the Chief of Staff left it unarmed after batch-31 to save usage.
+- **Nothing proves that behaviour was kept (goal 3).** The serious lost rules were restored (CR-511); many inventory rows stay open (332 without a compliant home at its round 1). No quiz or eval campaign, no batch started from scratch. One real use seen: the Chief of Staff's reload after a compaction worked on the new cards, in chantier's own checkout.
+- **No gate keeps it so (goal 4).** The card gates were not written (CR-512, CR-513).
+
+What cost most in batch-31: card rewrite CRs too large for their round limit (CR-507: 15 rounds, $135.54; CR-510: $54.57), and PR descriptions sent back NOT VERIFIED. Cut each piece to fit.
+
+### Know this before acting
+
+- Nothing starts without the owner's word. The owner announced the specs to be redone "in a batch 32".
+- batch-31: 40 CRs merged, main at 4d12a5b, CI green, paused, $492 of $800. It closes only on the owner's word: `close --batch batch-31`, then `--yes`, then the worktrees and branches that command lists. Archive the Foreman and Chief of Staff sessions after the close, not before (the close prices the Foreman's transcript).
 - A copy of the batch's journal, which the close deletes and git does not hold: folder `chantier-batch-31-journal`, beside the main checkout on the owner's machine.
-- Copied into this item: CR-510's and CR-511's known gaps, the retro points kept, the owed items and the leftovers. The other merged CRs' known gaps were not copied: 35 of the 40 CR folders hold them in `work/pr-body.md` (`4-batch/3-done` now, `5-archives` after the close); for CR-469, 475, 476, 502 and 507, which have no such file, read the PRs (#445, #451, #453, #484, #487 of gsemet/chantier).
-- Decisions taken for the owner while they asked to be asked nothing are marked "to confirm by the owner" in the CRs' `02-answers.md` (5-archives after the close).
+- Decisions taken for the owner while they asked to be asked nothing (that order was about finishing batch-31) are marked "to confirm by the owner" in the CRs' `02-answers.md`.
+- Copied here: CR-510's and CR-511's known gaps, the retro points kept, the owed items and the leftovers. The other merged CRs' known gaps were not copied: 35 of the 40 CR folders hold them in `work/pr-body.md` (`4-batch/3-done` now, `5-archives` after the close); for CR-469, 475, 476, 502 and 507, which have no such file, read the PRs (#445, #451, #453, #484, #487 of gsemet/chantier).
 
-### What is in P1, in order (nothing starts without the owner's word)
+## Reference material, not a plan
 
-1. `card-inventory-open-rows` (this item): "Do this first" below, cards and CLI usable. It is the first work of the next batch.
-2. `simplify-cards-and-prompts`: the rework program and its answers.
-3. `512-sc26-card-gates-pytest`, `513-sc27-card-gates-process`, `514-sc28-cards-real-run`: the parts of the program not done.
-4. To specify again on the reworked base, their interview answers kept (all were in 3-ready): `415-eval-operator-from-phone`, `autonomy-command`, `batch-takeover`, `context-limits-of-the-drivers-configurab`, `docs-sphinx-rtd`, `docs-style-guide`, `evals-rework`, `shortcut-commands`, `surface-getting-started`, `test-ceiling-decision`. The owner, 2026-11-26, verbatim: « tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32. »
-5. `tui-live-batch-kanban`: a new request, its second bullet unanswered.
+### What else was moved to P1
+
+On the owner's word, 2026-11-26: « Met tout ce qu'il faut pour reprendre en P1 » (put everything needed to resume in P1).
+
+- `simplify-cards-and-prompts`: the rework program, its answers and its studies.
+- `512-sc26-card-gates-pytest`, `513-sc27-card-gates-process`, `514-sc28-cards-real-run`: the parts of the program not done.
+- To specify again on the reworked base, their interview answers kept (all were in 3-ready): `415-eval-operator-from-phone`, `autonomy-command`, `batch-takeover`, `context-limits-of-the-drivers-configurab`, `docs-sphinx-rtd`, `docs-style-guide`, `evals-rework`, `shortcut-commands`, `surface-getting-started`, `test-ceiling-decision`. The owner, 2026-11-26, verbatim: « tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32. »
+- `tui-live-batch-kanban`: a new request, its second bullet unanswered.
 
 Not moved: the other ideas of 1-inbox, among them `run-the-long-gate-on-main-after-v0-15-1`, the follow-up of CR-463's waived long gate.
 
-## Do this first: make the cards and the CLI usable (added after batch-31's end, 2026-11-26)
+The owner's request for usable cards and CLI, whole: « Je veux savoir si tu as fini le rework demandé. S'il reste du travail on peut le mettre dans ce batch ou attendre de le clore et réouvrir un nouveau mais un faut que les cartes et les CLI soient utilisables ».
 
-Asked by the owner, verbatim: « Je veux savoir si tu as fini le rework demandé. S'il reste du travail on peut le mettre dans ce batch ou attendre de le clore et réouvrir un nouveau mais un faut que les cartes et les CLI soient utilisables » (is the rework finished; what remains can go in this batch or a new one, but the cards and the CLI must be usable). Chief of Staff's reading, to confirm by the owner: usable cards and CLI is the first requirement of the next batch.
-
-1. **Blocker, other projects.** The version is still 0.15.1. uv's cached build of the main checkout (built 2026-11-25 22:38) lacks the card swap's source changes (commit 7714288e, 19 files) and still names removed card files: `driver.md` (commands/access.py, commands/facts.py), `foreman-stack.md` (stack_shape.py), `reload-rules.md` (status/ready_line.py), `startup-core.md` and `startup-manifest.json` (driver_prompt.py). Found by reading the cached files, not by running them; that uv reuses this build while `pyproject.toml` is unchanged is expected, not tested. Done when: the version is bumped and a project in plugin mode is shown to run on the new cards.
-2. **Cards against CLI** (retro point 6 below). Seen again on 2026-11-26: `help <topic> --batch <batch>` is refused. The other cases were not re-checked.
-3. **Real trial.** No batch has started from scratch on the new cards (CR-514, backlog P1).
+### CR-511's follow-up (this item's first text)
 
 Follow-up of CR-511 (batch-31): close the card inventory rows it leaves open.
 
@@ -43,18 +88,18 @@ CR-511 restores only the serious lost rules. To do afterwards:
 
 CR-512, CR-513 and CR-514 are separate items, already in the backlog (P1). Not grilled.
 
-## Added on 2026-11-26: every open point, in one CR treated at the end
+### Added on 2026-11-26: every open point, in one CR treated at the end
 
 Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prête à merger. Fini rapidement le reste du batch / Tes points met les dans une CR que l'on traite à la fin » (I merged because you told me it was ready to merge; finish the rest of the batch quickly; put your points in one CR that we treat at the end). Chief of Staff's reading, to confirm by the owner: one follow-up CR, after batch-31, not added to the running batch.
 
-### Points the Chief of Staff raised
+#### Points the Chief of Staff raised
 
 - A CR that must not merge alone was announced with "ready to merge" next to "do not merge", and the owner merged it (CR-510). Wanted: while a CR of a stack waits for the others, neither the CLI's line nor the steering session's message reads "ready to merge"; the user gets one instruction.
 - The board runs a cached build of the CLI that has no `brief` command, while the new cards call it (newer cached builds have it). Check that another project's sessions, in plugin mode, always get a CLI that matches the cards they read from chantier's checkout. Not verified.
 - A running Driver blocks the main checkout's fast-forward when a lower CR of the stack is merged early (its cards and CLI are read live from that checkout).
 - CR-511's own Known gaps: below, added at its hand-back.
 
-### CR-510's Known gaps (https://github.com/gsemet/chantier/pull/488), as posted
+#### CR-510's Known gaps (https://github.com/gsemet/chantier/pull/488), as posted
 
 - Quiz of the roles on the new cards, not run: skipped on the owner's word, 2026-11-26: `just quiz coder conflict-resolver cr-driver debugger demo-explorer release-driver stack-driver verifier --max-usd 40` and `just quiz chief-of-staff foreman griller --model claude-sonnet-5-5 --max-usd 45` (only the free `--plan` form was run).
 - Old-card quiz baseline to compare against, not run: skipped on the owner's word, 2026-11-26: the same two commands with `--cards ea11a9e0` (the last head with the old set), then each new run with `--against <that results file>`.
@@ -87,7 +132,7 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 - `just test` was already far above the time budget of `AGENTS.md` before this change.
 - **UNVERIFIED:** the test suite's added time stays within the expected 3 seconds: one pair of runs on the same machine gives 165.0 to 167.2 seconds of wall time (157.8 to 162.5 as the test runner counts), while runs of the new head span 139 to 265 seconds.
 
-### CR-511's Known gaps (https://github.com/gsemet/chantier/pull/489), as posted at its hand-back
+#### CR-511's Known gaps (https://github.com/gsemet/chantier/pull/489), as posted at its hand-back
 
 - 329 rows stay open (62 of kind a, 139 inferable with no quiz case, 128 others), listed in
   `docs/proofs/cards-inventory-open.tsv`. The goal that every row has a resolving home is not met.
@@ -129,7 +174,7 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 - The seconds the new test adds to `just test` were not measured as two runs before and after; the
   test file alone took 2.8 s of pytest wall time at an earlier state.
 
-## Batch-31's retro, the points its critic kept (not filed one by one)
+### Batch-31's retro, the points its critic kept (not filed one by one)
 
 - [project] Flaky tests: `test_serve_webui` failed its port walk in macOS CI on CR-491, CR-492 and CR-493, and the board-griller moved-folder test failed once on CR-481: fix or isolate them.
 - [chantier] Card rewrite CRs far past their budget (CR-507 15 rounds and $135.54, CR-510 $54.57, CR-511 $28.98; CR-505 and CR-507 spent their 3 rounds before the last part; batch budget raised 400, 600, 800; CR-512..514 dropped to the backlog): the specification splits such a CR into parts that each fit the round limit.
@@ -140,13 +185,13 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 
 The dropped points: `retro-dropped.md` beside this file.
 
-## Still owed from batch-31
+### Still owed from batch-31
 
 - H-1360: a rule dropped by default, waiting for the owner's confirmation.
 - Screenshots of the board pane from a real session for CR-481, CR-482, CR-483 and CR-486 (the Foreman's final report).
 - Quizzes and evaluation campaign: the owner runs them later.
 
-## Housekeeping (counted on 2026-11-26; delete nothing without the owner's word, and check first for unsaved work)
+### Housekeeping (counted on 2026-11-26; delete nothing without the owner's word, and check first for unsaved work)
 
 - 48 git worktrees besides the main checkout (24 of batch-29), 2 of them removed by batch-31's close.
 - 50 local branches whose remote branch is gone; 3 stashes.
