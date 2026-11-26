@@ -13,14 +13,14 @@ What each kind of row of the properties table shows:
 | Warning about the whole table (for example "Schema could not be parsed: ...") | plain | warning colour on a light background of that colour, spanning the table, text wrapping |
 | Error about the whole table | red on light red | unchanged |
 | Information rows | plain | unchanged |
-| Field whose value is being edited | plain | name marked as above, no underline under the open editor |
+| Field with an error or a warning whose value is being edited | plain | name marked as above, no underline under the open editor |
 
 The value text keeps its own colour. The colours come from the editor theme, with a fallback where the theme sets none. In edit mode, a marked name cell still highlights under the pointer like the other editable cells, and its text keeps the colour of its severity.
 
 ## Changes
 
 - `src/core/preview/styles/propertiesStyles.ts`: new style rules for error and warning field rows and for whole-table warning rows; the edit-mode hover of a marked name cell; no underline on a cell being edited. The markup, the validation, the messages and the badge are unchanged.
-- Requirements: in the software requirement (SwRS) `SwRS-MDOKFSTUDIO-FMSCHEMA-084`, scenarios S1 and S6 and the criteria now state how a marked field row looks, and new scenarios S8 (no underline during an edit) and S9 (marked name cell in edit mode) are added; scenario S5 of `SwRS-MDOKFSTUDIO-FMSCHEMA-023` states the look of the whole-table warning row. Markers are in the companion marker file.
+- Requirements: the software requirement (SwRS) `SwRS-MDOKFSTUDIO-FMSCHEMA-084` now states how a field row with an error or a warning looks, with two new scenarios (no underline during an edit, and the hover of a marked name cell in edit mode); the software requirement `SwRS-MDOKFSTUDIO-FMSCHEMA-023` states the look of the whole-table warning row. Markers are in the companion marker file.
 - Tests: `test/core/preview/fieldIssueStyles.test.ts` checks the shipped stylesheet; four visual scenarios (field rows and whole-table warning, light and dark) check the computed styles of the rendered page, with two fixtures and one schema file that cannot be parsed; the test that counts the visual scenarios now expects four more.
 - `CHANGELOG.md`: one line under `## Unreleased`.
 
