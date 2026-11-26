@@ -162,7 +162,7 @@ Rows: 438. By verdict and serious: held/no 48, held/yes 24, open/no 329, restore
 | D-078 | no | open | restack reading order, topic stack-restack; `ship` refuses a break |
 | D-080 | no | open | restack reading order, topic stack-restack; `ship` refuses a break |
 | D-082 | yes | restored at skills/chantier/references/qa-driver.md:15 | unwanted act, refusal passed over, lost work or stuck batch |
-| D-084 | yes | restored at skills/chantier/references/release-driver.md:17 | unwanted act, refusal passed over, lost work or stuck batch |
+| D-084 | yes | restored at skills/chantier/references/release-driver.md:11 | unwanted act, refusal passed over, lost work or stuck batch |
 | D-090 | no | open | release notes choice, topic release-notes only |
 | FM-004 | no | held at skills/chantier/references/foreman.md:10 | format, pointer, output size or procedure, held or re-homed |
 | FM-005 | no | open | no home found at the head; seed: card foreman.md:6 |
@@ -431,7 +431,7 @@ Rows: 438. By verdict and serious: held/no 48, held/yes 24, open/no 329, restore
 | P-017 | yes | restored at skills/chantier/references/stack-driver.md:10 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
 | P-018 | yes | restored at skills/chantier/references/stack-driver.md:21 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
 | P-019 | yes | held at skills/chantier/references/stack-driver.md:5 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
-| P-020 | yes | held at skills/chantier/references/release-driver.md:26 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
+| P-020 | yes | held at skills/chantier/references/release-driver.md:27 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
 | P-022 | yes | held at skills/chantier/references/release-driver.md:7 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
 | P-023 | yes | held at skills/chantier/references/release-driver.md:7 | named by the Inspector; unwanted act, refusal passed over, lost work or stuck batch |
 | W-010 | no | open | inferable: no quiz case names it |

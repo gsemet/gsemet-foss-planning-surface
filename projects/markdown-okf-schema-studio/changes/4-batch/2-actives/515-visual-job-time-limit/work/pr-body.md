@@ -23,7 +23,7 @@ flowchart LR
 | Jobs | `visual` | `visual` and `visual-2`, in parallel |
 | Scenarios per job (this branch) | 523 | 269 (`rendering-core` to `layout-width`) and 254 (`theme-zoom` to `trust-security`) |
 | Job limit | 15 minutes | 15 minutes each |
-| Local run | `just ci-visual` | `just ci-visual` (both parts, then the merge), or `just ci-visual 1` / `2` |
+| Local run | `just ci-visual` | `just ci-visual` (both parts, then the merge); `just ci-visual 1` or `2` runs one part |
 
 ## Changes
 
@@ -46,6 +46,12 @@ flowchart LR
 No visual change: only CI, its scripts, its tests and the contributor docs change.
 
 - CI shows one more job, `visual-2`.
+- Locally, `just ci-visual` empties `out/reports/e2e/screenshots/` before it runs both parts, so
+  real-window captures of an earlier `just ci-integration` in that folder have to be made again
+  before `just ci-gallery`.
+- Locally, `just ci-report` refuses parts that were run one by one without a pinned run id (its
+  review step reports that the visual campaign start time does not match). Run `just ci-visual`
+  with no part before it.
 - A run made before this change has no second artifact, so the site deployment runs the end-to-end
   suite itself for such a run instead of reusing its reports.
 
@@ -61,9 +67,11 @@ Grade: 2. It changes the CI jobs that gate merges and which runs the site deploy
 - Two named jobs rather than a matrix: each part keeps one exact artifact name that `report`
   downloads, the way it already does for the single-job stages, so no new artifact selector is
   needed. The cost is some duplicated workflow lines, which the workflow tests keep consistent.
-- The merge step also sets the start time recorded for the visual campaign to the merged run's
-  start. Each part records its own start, and the final review check requires it to match the
-  merged manifest.
+- In CI, where the run id is pinned (`STUDIO_E2E_RUN_ID`), the merge step also sets the start time
+  recorded for the visual campaign to the merged run's start: each part job records its own start,
+  and the final review check requires it to match the merged manifest. Without a pinned id the
+  merge leaves that time alone, so that an older part left on a developer machine cannot pass beside
+  a newer one.
 - `test/visual` is added to the source folders of the requirements bundle
   (`requirements/config.yml`), so that the requirement can list the new files.
 
