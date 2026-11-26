@@ -1,0 +1,202 @@
+<h2 dir="auto">Summary</h2>
+<p dir="auto">The project writes every behaviour as a requirement and proves it with tests that name it, but no<br>
+single page said which kind of test proves which requirement, or where that proof runs. This pull<br>
+request adds a "How we test" page to the repository and the site, with a diagram, a table, and a<br>
+plain list of what is not enforced yet.</p>
+<h2 dir="auto">Deliverables</h2>
+<p dir="auto">The page <code class="notranslate">docs/how-we-test.md</code>, published as <code class="notranslate">docs/how-we-test.html</code>, goes from the two levels of<br>
+requirements (use cases, or StRS, and software behaviours, or SwRS) to every test level, the marker<br>
+comment each level carries, and the coverage that the requirements tool counts. A hand-drawn SVG<br>
+diagram shows the test levels by when they run.</p>
+<p dir="auto">A drift test reads the shipped page and the repository, and fails when the two part:</p>
+<section class="js-render-needs-enrichment render-needs-enrichment position-relative" data-identity="676980b1-44b0-4e3a-b476-ceca83eb4242" data-host="https://viewscreen.githubusercontent.com" data-src="https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com" data-type="mermaid" aria-label="mermaid rendered output container">
+  <div class="js-render-enrichment-target" data-json="{&quot;data&quot;:&quot;flowchart LR\n  T[\&quot;test/site/howWeTest.test.ts\&quot;] --&gt; P[\&quot;docs/how-we-test.md\&quot;]\n  T --&gt; D[\&quot;images/how-we-test/test-levels.svg\&quot;]\n  T --&gt; F[\&quot;folders under test/, sphinx/tests\&quot;]\n  T --&gt; C[\&quot;.github/workflows/ci.yml&lt;br/&gt;jobs, acceptance groups\&quot;]\n  T --&gt; G[\&quot;test/shared/e2eGroups.ts\&quot;]\n  T --&gt; R[\&quot;requirements/config.yml&lt;br/&gt;marker verbs, coverage mode\&quot;]\n  T --&gt; J[\&quot;justfile&lt;br/&gt;requirements-lint commands\&quot;]\n&quot;}" data-plain="flowchart LR
+  T[&quot;test/site/howWeTest.test.ts&quot;] --&gt; P[&quot;docs/how-we-test.md&quot;]
+  T --&gt; D[&quot;images/how-we-test/test-levels.svg&quot;]
+  T --&gt; F[&quot;folders under test/, sphinx/tests&quot;]
+  T --&gt; C[&quot;.github/workflows/ci.yml&lt;br/&gt;jobs, acceptance groups&quot;]
+  T --&gt; G[&quot;test/shared/e2eGroups.ts&quot;]
+  T --&gt; R[&quot;requirements/config.yml&lt;br/&gt;marker verbs, coverage mode&quot;]
+  T --&gt; J[&quot;justfile&lt;br/&gt;requirements-lint commands&quot;]
+" dir="auto">
+    <div class="render-plaintext-hidden" dir="auto">
+      <pre lang="mermaid" aria-label="Raw mermaid code" class="notranslate">flowchart LR
+  T["test/site/howWeTest.test.ts"] --&gt; P["docs/how-we-test.md"]
+  T --&gt; D["images/how-we-test/test-levels.svg"]
+  T --&gt; F["folders under test/, sphinx/tests"]
+  T --&gt; C[".github/workflows/ci.yml&lt;br/&gt;jobs, acceptance groups"]
+  T --&gt; G["test/shared/e2eGroups.ts"]
+  T --&gt; R["requirements/config.yml&lt;br/&gt;marker verbs, coverage mode"]
+  T --&gt; J["justfile&lt;br/&gt;requirements-lint commands"]
+</pre>
+    </div>
+  </div>
+  <span class="js-render-enrichment-loader d-flex flex-justify-center flex-items-center width-full" style="min-height:100px" role="presentation">
+    <span data-view-component="true">
+  <svg style="box-sizing: content-box; color: var(--color-icon-primary);" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" data-view-component="true" class="octospinner mx-auto tmp-mx-auto anim-rotate">
+    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25" stroke-width="2" vector-effect="non-scaling-stroke" fill="none"></circle>
+    <path d="M15 8a7.002 7.002 0 00-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+</svg>    <span class="sr-only">Loading</span>
+</span>
+  </span>
+</section>
+
+<p dir="auto">The site header gains a sixth link:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home, Contributing, How we ship, Gallery, Requirements</td>
+<td>Home, Contributing, How we ship, <strong>How we test</strong>, Gallery, Requirements</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto">Changes</h2>
+<ul dir="auto">
+<li>New page <code class="notranslate">docs/how-we-test.md</code> and its diagram <code class="notranslate">images/how-we-test/test-levels.svg</code>.</li>
+<li>Site: the header link (<code class="notranslate">test/site/siteHeader.ts</code>) and a social card for the new page<br>
+(<code class="notranslate">SIMPLE_CARDS</code> in <code class="notranslate">test/site/buildSite.ts</code>).</li>
+<li>New <code class="notranslate">test/site/howWeTest.test.ts</code>: relative links resolve; every test folder, CI job, end-to-end<br>
+group, marker verb and <code class="notranslate">just requirements-lint</code> command is named; the coverage mode and the groups<br>
+with acceptance files match the repository; the diagram has a title, a description and an<br>
+alternative text.</li>
+<li>Header, theme, social card and viewer page tests updated for the sixth link.</li>
+<li>The contributor guide, "How we ship" and the requirements guidelines link to the page.</li>
+<li>A CI guideline rule and a requirements guideline bullet make the author of a change keep the page<br>
+current; the glossary gains "Test level" and "Bench".</li>
+<li>The site requirement <code class="notranslate">SwRS-MDOKFSTUDIO-CORE-086</code> names the six header links. Its source file is<br>
+<code class="notranslate">test/site/siteTheme.ts</code> (unchanged); its tests are <code class="notranslate">test/site/siteLinks.test.ts</code> (a marker added<br>
+on the header test), <code class="notranslate">test/site/siteTheme.test.ts</code> and<br>
+<code class="notranslate">test/site/requirementsViewer/write.test.ts</code>.</li>
+</ul>
+<h2 dir="auto">Impacts</h2>
+<p dir="auto">The site shows a "How we test" link in its header and a new page. The extension itself does not<br>
+change. A change that adds or renames a CI job, a test folder, an end-to-end group or a command of<br>
+<code class="notranslate">just requirements-lint</code>, adds an acceptance group, or changes the coverage mode now fails the unit<br>
+tests until the page says so.</p>
+<p dir="auto">The screenshots show the built site, which has a light theme only: the header before and after, then<br>
+the top of the new page with its diagram, its table, and its section "What is not enforced yet".</p>
+<p dir="auto">Header before, at <code class="notranslate">4e4eeb4</code>:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/before-header.png"><img src="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/before-header.png" alt="Site header with five links" style="max-width: 100%;"></a></p>
+<p dir="auto">Header after, at <code class="notranslate">6c5106e</code>:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-header.png"><img src="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-header.png" alt="Site header with six links, How we test between How we ship and Gallery" style="max-width: 100%;"></a></p>
+<p dir="auto">Top of the new page with its diagram, at <code class="notranslate">6c5106e</code>:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-page-top.png"><img src="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-page-top.png" alt="The How we test page: introduction, the two levels of requirements and the diagram of the test levels" style="max-width: 100%;"></a></p>
+<p dir="auto">The table, at <code class="notranslate">6c5106e</code>:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-table.png"><img src="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-table.png" alt="Table of the test levels: where, command, CI job, what each proves and its marker" style="max-width: 100%;"></a></p>
+<p dir="auto">"What is not enforced yet", at <code class="notranslate">6c5106e</code>:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-not-enforced.png"><img src="https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-not-enforced.png" alt="The section What is not enforced yet, with four points" style="max-width: 100%;"></a></p>
+<h2 dir="auto">Blast radius</h2>
+<p dir="auto">Grade: 1</p>
+<p dir="auto">Documentation, the project site and one new unit test. A plain <code class="notranslate">git revert</code> removes them.</p>
+<h2 dir="auto">Autonomous decisions</h2>
+<ul dir="auto">
+<li>The page describes the repository as it is. Where a planned description did not match it, the page<br>
+says what the repository does:
+<ul dir="auto">
+<li>no <code class="notranslate">test/core/render/*.contract.ts</code> file exists, and no contract test carries a marker;</li>
+<li><code class="notranslate">just sphinx-check</code> and <code class="notranslate">just audit</code> run in <code class="notranslate">just ci-static</code>, not in <code class="notranslate">just check</code>;</li>
+<li><code class="notranslate">test/shared/e2eGroups.ts</code> is linked by its GitHub URL, because the site rewrites only Markdown<br>
+links; example test files are named, not linked;</li>
+<li>the end-to-end groups are listed without a count, and described as the first part of the visual<br>
+scenario ids, which are the folders of their captures;</li>
+<li>the simulated bench also holds the table and code block breakout tests of <code class="notranslate">test/page</code>;</li>
+<li>mutation testing has a second phase against the tests of the other layers, and a full run takes<br>
+hours;</li>
+<li><code class="notranslate">check:diagrams</code> fails on a diagram that Mermaid cannot parse; <code class="notranslate">scripts/check_main_paths.py</code> also<br>
+fails on a cited behaviour that is not active and accepts a <code class="notranslate">depends_on</code> citation;</li>
+<li>stress runs in a trusted window, then in a Restricted Mode window;</li>
+<li><code class="notranslate">just check-markers</code> also requires a source marker on every in-force software requirement that is<br>
+not exempt;</li>
+<li>no test accepts a path of the release, site or built-package use cases yet, so the page says<br>
+they "may be accepted" on the test closest to their product;</li>
+<li>unit, contract and security commands need <code class="notranslate">just compile</code> first;</li>
+<li>the published requirements viewer is deployed with each release, so its counts are those of that<br>
+release;</li>
+<li>integration runs in real VS Code windows, not one window per suite;</li>
+<li>not every check of an acceptance file walks a path: the checks of the built-package file carry no<br>
+marker and accept no path;</li>
+<li>the lint commands are named with <code class="notranslate">--check</code>, as <code class="notranslate">just requirements-lint</code> runs them;</li>
+<li>"Keeping this page current" is longer than planned: it states what the drift test fails on and<br>
+what it does not see, and the new CI guideline rule says the same.</li>
+</ul>
+</li>
+<li>The page adds that a green job does not prove that every marked test ran (see Known gaps).</li>
+<li>The statement that a human step of an acceptance test is a simulated input records a maintainer<br>
+decision that no other file of the repository holds.</li>
+<li>The glossary entry "Site header" and one scenario of <code class="notranslate">SwRS-MDOKFSTUDIO-CORE-086</code> also name the new<br>
+page.</li>
+<li>The built site was checked with <code class="notranslate">just site-from-run</code> (the reports of a green full CI run, then<br>
+<code class="notranslate">just site-assemble</code> on this branch), because <code class="notranslate">just site-assemble</code> alone needs end-to-end reports.</li>
+<li>The change is two commits where one was planned: the second names the second visual job,<br>
+<code class="notranslate">visual-2</code>, which a change merged underneath added, and states which stress scenarios run only<br>
+when named. Commits already pushed are not folded together.</li>
+<li>The rebases of this branch conflicted only in the requirements log: all entries are kept whole.</li>
+</ul>
+<p dir="auto">Seen and left as they are: <code class="notranslate">AGENTS.md</code> names <code class="notranslate">tests/fixtures/</code> while the Sphinx fixtures are in<br>
+<code class="notranslate">sphinx/tests/fixtures/</code>; no target calls <code class="notranslate">test/release/audit-lockfile.mjs</code>.</p>
+<h2 dir="auto">Known gaps</h2>
+<ul dir="auto">
+<li>Some unit tests that need Chromium run in no CI job, although their markers count toward coverage.<br>
+The page says so; changing the CI jobs is outside this documentation change.</li>
+<li>The site shows the diagram scaled from 1240 to 880 pixels wide, so its text is small there.</li>
+<li>The diagram draws unit and contract tests marking software requirements, while no contract test<br>
+carries a marker today; the table says so.</li>
+<li>The drift test does not see a removed or renamed item that the page still names (except in the<br>
+coverage mode and acceptance group lines), when a level runs, or the content of the diagram, and no<br>
+guideline rule covers a change of a test level's own <code class="notranslate">just</code> command.</li>
+<li>The first of the two commits fails the page's drift test on its own. It does not name the<br>
+<code class="notranslate">visual-2</code> job of the current CI workflow; the second commit does.</li>
+</ul>
+<h2 dir="auto">Test plan</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> New or changed tests (they fail on the previous code): 13 of the 49 tests of the five new or<br>
+changed test files fail on the base <code class="notranslate">4e4eeb4</code>; all 49 pass at <code class="notranslate">6c5106e</code></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Requirements: SwRS updated, markers in code and tests, <code class="notranslate">just requirements-update</code>; at<br>
+<code class="notranslate">6c5106e</code>, <code class="notranslate">just requirements-lint</code> passes with nothing left to update</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Changelog: no user-facing change</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Local gates at <code class="notranslate">6c5106e</code>: <code class="notranslate">just preflight</code> (static stage on Windows) passed: unit 5443 tests,<br>
+5435 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;<br>
+Sphinx 4 passed; audit 0 vulnerabilities</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Review: approved at <code class="notranslate">6c5106e</code> (carried from <code class="notranslate">166532f</code>: a clean rebase after the last review<br>
+left the files unchanged)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Verified at <code class="notranslate">6c5106e</code>: the tests against the base, <code class="notranslate">just requirements-lint</code>, the site build and<br>
+the drift probes</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> CI green at <code class="notranslate">6c5106e</code>: <code class="notranslate">static</code>, <code class="notranslate">static-windows</code>, <code class="notranslate">visual</code>, <code class="notranslate">visual-2</code>, <code class="notranslate">viewer-graph</code>,<br>
+<code class="notranslate">report</code> and <code class="notranslate">checks</code>; the real VS Code jobs do not run on a pull request</li>
+</ul>
+<p dir="auto">The tests that fail on the base <code class="notranslate">4e4eeb4</code>:</p>
+<ul dir="auto">
+<li>The nine checks of the drift test on the shipped files fail, with <code class="notranslate">ENOENT</code> on<br>
+<code class="notranslate">docs/how-we-test.md</code> (the diagram check: on <code class="notranslate">images/how-we-test/test-levels.svg</code>).</li>
+<li>"the site header links How we ship then How we test from root and nested pages":<br>
+<code class="notranslate">index.html holds &lt;a href="docs/how-we-ship.html"&gt;How we ship&lt;/a&gt;&lt;a href="docs/how-we-test.html"&gt;How we test&lt;/a&gt;</code>.</li>
+<li>"a viewer page brands and links the site relative to its own folder": <code class="notranslate">the six links, in order</code>.</li>
+<li>"a main page and a viewer page carry the same brand and the six links, only the viewer has a<br>
+breadcrumb": the header lists Home, Contributing, How we ship, Gallery, Requirements.</li>
+<li>"SIMPLE_CARDS covers the home, Contributing, How we ship and How we test pages": the entry<br>
+<code class="notranslate">docs/how-we-test.md</code> is missing.</li>
+</ul>
+<p dir="auto">Built site at <code class="notranslate">6c5106e</code>, made with the reports of a green full CI run on a commit with the same<br>
+files as one below this branch, then a scan: the new page has 20 headings and one table of 10 rows,<br>
+header row included; its 11 relative links and image addresses all resolve; all 643 pages with a site<br>
+header, requirements viewer pages included, list the six header links in order; and the site manifest<br>
+lists the page and <code class="notranslate">og/how-we-test.png</code>.</p>
+<p dir="auto">Drift probes at <code class="notranslate">6c5106e</code>, each a temporary edit then <code class="notranslate">just unit</code>, each with one failing test (5443<br>
+tests, 5435 pass, 1 fail, 7 skipped):</p>
+<ul dir="auto">
+<li>every <code class="notranslate">stress</code> code span removed from the page: "How we test names every CI job", missing <code class="notranslate">stress</code>;</li>
+<li>coverage mode set to <code class="notranslate">linked-swrs-and-acceptance-paths</code>: <code class="notranslate">the page names the coverage mode linked-swrs-and-validation-test, requirements/config.yml has linked-swrs-and-acceptance-paths</code> and<br>
+<code class="notranslate">the page keeps "## What is not enforced yet" under the mode linked-swrs-and-acceptance-paths</code>;</li>
+<li>a second group <code class="notranslate">gfm</code> in the <code class="notranslate">acceptance</code> job: <code class="notranslate">groups of the acceptance job missing from the page: gfm</code>.</li>
+</ul>
+<h2 dir="auto">Internal references</h2>
+<ul dir="auto">
+<li>CR-507 how-we-test.</li>
+</ul>
+<p dir="auto">🤖 Generated with <a href="https://claude.com/claude-code" rel="nofollow">Claude Code</a></p>

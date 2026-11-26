@@ -1,0 +1,54 @@
+46a47,53
+> The screenshots show the built site, which has a light theme only: the header before and after, then
+> the top of the new page with its diagram, its table, and its section "What is not enforced yet".
+> Header before, at 4e4eeb4:
+> Header after, at 6c5106e:
+> Top of the new page with its diagram, at 6c5106e:
+> The table, at 6c5106e:
+> "What is not enforced yet", at 6c5106e:
+57c64,65
+< the end-to-end groups are listed without a count;
+---
+> the end-to-end groups are listed without a count, and described as the first part of the visual
+> scenario ids, which are the folders of their captures;
+102,103c110,113
+< New or changed tests (they fail on the previous code)
+< Requirements: SwRS updated or added, markers in code and tests, just requirements-update
+---
+> New or changed tests (they fail on the previous code): 13 of the 49 tests of the five new or
+> changed test files fail on the base 4e4eeb4; all 49 pass at 6c5106e
+> Requirements: SwRS updated, markers in code and tests, just requirements-update; at
+> 6c5106e, just requirements-lint passes with nothing left to update
+108,110c118,121
+< Review: approved at 6c5106e (the last round was reviewed before a clean rebase that left the
+< files unchanged)
+< Verified
+---
+> Review: approved at 6c5106e (carried from 166532f: a clean rebase after the last review
+> left the files unchanged)
+> Verified at 6c5106e: the tests against the base, just requirements-lint, the site build and
+> the drift probes
+113,114c124
+< The new and changed tests against the code without this change, measured at 9d7e788, an earlier
+< commit below this branch: 13 of 49 fail.
+---
+> The tests that fail on the base 4e4eeb4:
+124,132c134,141
+< Built site, made with the reports of a green full CI run on an earlier commit below this branch, then
+< a scan of the new page and the headers: 20 headings, 10 table rows, the diagram resolves, 11 relative
+< links all resolve, the six header links in order on the home page, "How we ship", "How we test" and a
+< requirements viewer page, the manifest's page and card entries and og/how-we-test.png: no problem
+< found.
+< Drift probes, each a temporary edit then just unit, each with one failing test (5443 tests, 5435
+< pass, 1 fail, 7 skipped):
+< every stress of the page replaced by stress-probe: "How we test names every CI job", missing
+< stress;
+---
+> Built site at 6c5106e, made with the reports of a green full CI run on a commit with the same
+> files as one below this branch, then a scan: the new page has 20 headings and one table of 10 rows,
+> header row included; its 11 relative links and image addresses all resolve; all 643 pages with a site
+> header, requirements viewer pages included, list the six header links in order; and the site manifest
+> lists the page and og/how-we-test.png.
+> Drift probes at 6c5106e, each a temporary edit then just unit, each with one failing test (5443
+> tests, 5435 pass, 1 fail, 7 skipped):
+> every stress code span removed from the page: "How we test names every CI job", missing stress;

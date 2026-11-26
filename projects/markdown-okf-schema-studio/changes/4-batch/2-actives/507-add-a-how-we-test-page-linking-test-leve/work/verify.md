@@ -4,10 +4,13 @@ Head: 6c5106e4589592002f828b6feb3d545a442591aa
 
 Base: 4e4eeb4eb548fc4a8f05838f6d0257b76d6b9f0e. PR: https://github.com/gsemet/markdown-okf-schema-studio/pull/543 (open, draft).
 `<W>` is the CR worktree, `<F>` the CR folder, `<V>` is `<F>/work/verifier` (logs named below are there).
-Every claim is judged at `6c5106e` unless it says otherwise. Nothing is carried from an earlier judgment.
+Two passes at this one head. The first (verdict 2026-11-26T15:15:02Z, NOT VERIFIED on the description
+only; copy in `<V>/verify-first-pass-6c5106e.md`) judged C0 to C4 and E1a to E6. Those claims keep the SHA
+`6c5106e`: carried from 6c5106e: same head and same base, not run again (what the second pass read again is
+named in D1 to D7). The second pass judged the description posted since (claims D1 to D7).
 
-Result: the change does what the specification says (evidence items 1 to 5, and item 6's list of
-differences). The posted PR description fails on three points (claims P1 to P3).
+Result: the change does what the specification says (evidence items 1 to 6), and the posted PR
+description holds.
 
 ## Head and scope
 
@@ -30,7 +33,7 @@ differences). The posted PR description fails on three points (claims P1 to P3).
 - Long gate cited: `<F>/work/gates/preflight-6c5106e.log`, first line `CR-507
   chantier/batch-09/cr-507-how-we-test-a-docs-page-linking-test-lev 6c5106e4589592002f828b6feb3d545a442591aa just preflight`.
   `$CHANTIER handoff CR-507`: long gate "none in chantier.yaml"; its "PR head" still reads `fb5fb2f` (no
-  ship recorded at this head, see the `ship` refusal in P3).
+  ship recorded at this head: `$CHANTIER log CR-507`, 14:32:14Z, `ship` waits for the CR below).
 - In that log: `check-no-merge-commits: passed`; `check-boundaries: passed (408 modules)`; `check-limits:
   passed (1383 files...)`; `check-markers: ... 459 in-force SwRS marked`; clip kit 56/56; unit `tests 5443,
   pass 5435, fail 0, skipped 8`; security 116/116; `296 passed`; `ci-static: passed`; last line `preflight
@@ -108,7 +111,7 @@ Each: file backed up, edited, `just unit`, restored by copy (`<V>/probe.sh`), sh
 - Captures taken: `<V>/evidence/` (`before-after.md`): header before and after, page top with the diagram,
   table, "What is not enforced yet", diagram at its own size. `head-capture.log`: clicking "How we test" opens
   h1 "How we test"; diagram 1240x640 shown 880x454; table not clipped (880 of 880); no failed request.
-  The posted PR body does not hold them yet: see P1.
+  The body posted since holds them: see D2.
 - Differences from the specification are listed in the body's "Autonomous decisions" (two commits instead of
   one included). One small refinement is not listed (the page calls the e2e groups "the first part of the
   visual scenario ids, the folders of their captures", the spec "the folders of the visual scenarios"): not
@@ -156,65 +159,96 @@ Read against the files at the head (`head-facts.log`, plus reads of the named fi
 - At `35cd6384`, drift test alone (`first-commit-drift.log`): `tests 12, pass 11, fail 1`, "How we test names
   every CI job", `actual: [ 'visual-2' ]`.
 
-## The PR description
+## The PR description (second pass, at `6c5106e`)
 
-`gh pr view 543 --json body`, and GitHub's rendering of it (`gh api repos/.../pulls/543` with the HTML media
-type, `pr-body-html.log`).
+The body judged: `gh pr view 543 --json body -q .body`, sha256 `4e803065ca96c95d...d57fee664e`, saved as
+`<V>/desc2-posted-body.md`; PR updated 2026-11-26T15:18:28Z, head `6c5106e4589592002f828b6feb3d545a442591aa`,
+draft, OPEN, MERGEABLE (read again at 15:21Z, same hash). It equals `<F>/work/pr-body.md` but for one final
+empty line. Its changes from the first body: `<V>/desc2-diff-from-first-body.txt`.
 
-Holds:
+### D1. It renders
 
-- Renders: the nine `##` sections as headings, one table, the Mermaid block, seven task boxes (read from the
-  rendered HTML; the diagram was not looked at in a browser). `img` tags: 0, so no image can show a user name.
-- Consistent with the diff: Summary, Deliverables, Changes (compared with `git diff 4e4eeb4..HEAD`: header
-  link, card entry, test updates, the CORE-086 source and tests, the marker, guideline and glossary lines),
-  Blast radius, Autonomous decisions (checked one by one, C2 and C0), Known gaps (five bullets, each true: C2,
-  E6, C4).
-- Impacts' text claim (such changes fail the unit tests): E4 and its extra probes.
-- "Changelog: no user-facing change" (C0: no `src/`, no `CHANGELOG.md`); "Local gates at `6c5106e`" and its
-  counts (E1a, E5); "CI green at `6c5106e`" (E5).
-- Unchecked "New or changed tests", "Requirements", "Verified": claim nothing.
-- No `STALE` mark, no `UNVERIFIED` mark; no role name outside Internal references.
+- `gh api repos/gsemet/markdown-okf-schema-studio/pulls/543` (HTML media type, `<V>/desc2-posted-body.html`):
+  headings Summary, Deliverables, Changes, Impacts, Blast radius, Autonomous decisions, Known gaps, Test
+  plan, Internal references; 1 table; 7 task boxes, all checked; 5 `img` tags, each with its alt text; one
+  Mermaid block.
+- The Mermaid block, put in a one-file bundle in the scratchpad, `node scripts/check-use-case-diagrams.mjs
+  <bundle>`: `use case diagrams: 1 StRS checked, all parse (Mermaid 12.2.0)`, exit 0.
 
-Fails:
+### D2. Impacts holds the before and after (former P1: fixed)
 
-### P1. Impacts holds neither the before/after nor "No visual change"
+- `curl` of the five raw URLs at assets commit `398427751f944842a06fede7b6d18dc51560fc67`
+  (`<V>/desc2-images.log`): each `200 image/png`, byte identical (`cmp`) to the file of the same name in
+  `<V>/evidence/`. `git ls-remote`: that commit is the head of the CR branch's `-assets` side branch.
+- The five downloaded images opened: header with five links (before), six with "How we test" between "How
+  we ship" and "Gallery" (after), page top with introduction, two levels and diagram, the table, the
+  section with four points. Captions and alt texts say that. No user name and no home folder in any.
+- Captions: before at `4e4eeb4` (the base), after at `6c5106e`, as `<V>/evidence/before-after.md` says.
+- "light theme only": `git grep` at the head: `test/site/siteTheme.ts:54` `color-scheme:light`, and
+  `siteTheme.test.ts:45` forbids `prefers-color-scheme: dark`.
 
-- `gh pr view 543 --json body`, section `## Impacts`: three sentences of text; no image link, no "No visual
-  change" line (rendered HTML: `img` 0).
-- Project rule (`.agents/guidelines/pull-request.guidelines.md`, lines 37-39): "Impacts holds the evidence of
-  the change: the before/after the Verifier produced ..., or one line "No visual change" with the reason ...
-  the Verifier fails a body whose Impacts has neither." The change is visible (site header, new page), and
-  evidence item 6 asks for captures of the page in the body.
-- By the same guideline ("Screenshots in the PR"), the PR opener pushes the captures of `<V>/evidence/` to the
-  assets side branch, links them in Impacts, and a verification pass on the posted body follows. Until then
-  the posted body fails.
+### D3. Each proof names its SHA and is proven (former P2: fixed)
 
-### P2. Proofs without the head's SHA or a `carried from`
+`grep` of the body: each Test plan result, screenshot caption, "Built site" and "Drift probes" names
+`6c5106e` or the base `4e4eeb4`, except the Changelog line (a statement about the diff, C0). No `STALE`, no
+`UNVERIFIED`; `9d7e788` is gone.
 
-- "The new and changed tests against the code without this change, measured at `9d7e788`, an earlier commit
-  below this branch: 13 of 49 fail.": neither the base or head of this PR nor a carry. `git merge-base
-  --is-ancestor 9d7e788 HEAD`: no (its tree equals that of `5672ca63`, which is below). The branch was rebased
-  with conflicts since, and `6c5106e4` changed `siteLinks.test.ts`. The figure is true at `4e4eeb4` (E1b).
-- The "Built site ..." paragraph and the "Drift probes ..." paragraph name no SHA (`grep -nE '[0-9a-f]{7,40}'`
-  on the body: only the four Test plan lines with `6c5106e` or `9d7e788`). Both results are true at
-  `6c5106e` (E3, E4).
-- Rule (`pr-template.md`, and the description check): each proof names the head, or `carried from <sha7>`.
+- "13 of the 49 tests ... fail on the base `4e4eeb4`; all 49 pass": E1b and E1a. The list under it matches
+  `<V>/base-five-files.log`: 9 failing drift checks (`ENOENT` on `docs/how-we-test.md`, the diagram one on
+  `test-levels.svg`), then the four named tests with the messages quoted (`index.html holds <a ...>`, `the
+  six links, in order`, actual `Home, Contributing, How we ship, Gallery, Requirements`, missing
+  `docs/how-we-test.md`).
+- Requirements line: E2 (`just requirements-lint`, 0 errors, `0 files would change`); `git diff
+  4e4eeb4..HEAD -- test/site/siteLinks.test.ts`: the added `#S1` marker on the header test.
+- Local gates line: `<F>/work/gates/preflight-6c5106e.log` read again: unit 5443/5435/0/8, security 116/116,
+  `296 passed`, `1228 requirements, 0 errors`, Sphinx `4 passed`, `found 0 vulnerabilities`, `preflight exit
+  0 at 6c5106e...`.
+- "Verified at `6c5106e`: the tests against the base, requirements-lint, the site build and the drift
+  probes": E1b, E2, E3, E4.
+- CI line: `gh pr checks 543` run again: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
+  `report`, `checks` pass; the others `skipping`.
+- "Built site" paragraph: `<V>/head-site-scan.log` and `<V>/site-scan.mjs`: 20 headings, one table of 10
+  rows, 11 relative `href` and `src` of the page all resolved (`problems: 0`), 643 pages with a header and 0
+  without the six links, manifest page and card. `gh run view 45830014522`: `success`, static, visual,
+  integration, acceptance and stress jobs included; `git rev-parse cd3b8e6a^{tree} 223a8c49^{tree}`: both
+  `e6f6894d...`; `223a8c49` is an ancestor of the head.
+- "Drift probes" paragraph: `<V>/probe.sh` (probe 1 removes every `stress` code span) and
+  `probe-{1,2,3}-unit.log`: each `tests 5443, pass 5435, fail 1, skipped 7`, with the messages quoted.
 
-### P3. The Review box cites a SHA no recorded pass approved
+### D4. The Review box (former P3: fixed)
 
-- Body: "[x] Review: approved at `6c5106e` (the last round was reviewed before a clean rebase that left the
-  files unchanged)".
-- `$CHANTIER log CR-507`: approved passes name `9d7e788` (r2), `fb5fb2f` (move), `bde4bd5` (move
-  `fb5fb2f..bde4bd5`, and r3 `approved at bde4bd5..., committed as 166532f46b824ebad9659f696835f9254f1f961d`).
-  No approved-pass note names `6c5106e`; the 14:32:14Z note records the push, and that `ship` answered
-  `error: CR-507: CR-514's branch moved since its last ship (a5550c3 -> 4e4eeb4): it ships first, then ship
-  again; nothing recorded`.
-- The files are the approved ones (C0: same tree as `166532f4`), but the box's SHA is not proven by a note.
-  Remedy: record the clean move once `ship` takes it, or write the box in the carried form `at 6c5106e
-  (carried from 166532f)`, the SHA the r3 note names.
+- Body: "Review: approved at `6c5106e` (carried from `166532f`: a clean rebase after the last review left
+  the files unchanged)".
+- `$CHANTIER log CR-507`, 14:30:52Z: `r3 approved at bde4bd58..., committed as
+  166532f46b824ebad9659f696835f9254f1f961d`.
+- `git rev-parse HEAD^{tree} 166532f4^{tree}`: both `e9e12e6af08cd9ca108c9cbb7f369b67e2220d27`.
+
+### D5. It is consistent with the diff
+
+- Outside Impacts and Test plan the text changed in one place (`desc2-diff-from-first-body.txt`): the e2e
+  groups are "described as the first part of the visual scenario ids, which are the folders of their
+  captures": `docs/how-we-test.md` lines 202-205; `test/shared/e2eGroups.ts` (ids "used in scenario ids
+  (`<group>/vNN-...`) and folder names"), `test/visual/scenarios.ts:329`. This also lists the refinement E6
+  noted as unlisted.
+- The rest is the text the first pass compared with `git diff 4e4eeb4..HEAD` (same head; `git ls-remote`: the
+  base branch is still `4e4eeb4`). Also read now: CORE-086 `implemented_in_files` is
+  `test/site/siteTheme.ts` (not in the diff), `tested_in_files` the three test files Changes names.
+
+### D6. Known gaps
+
+- Visible, five bullets, unchanged text, each true (C2, E6 with `<V>/head-capture.log`: 1240 shown 880, C4).
+  No `UNVERIFIED` claim. `before-after.md` names no capture that failed: its "none" entries are views of a
+  page the base does not have (`base-capture.log`: `not in this site`).
+
+### D7. No internal reference or role outside the last section
+
+- `grep -nE 'STALE|UNVERIFIED|CR-?[0-9]|[Bb]atch|[Rr]ound|Driver|Coder|Inspector|Verifier|Foreman|\.agents/changes|O-[0-9]'`
+  on the body: one line, `- CR-507 how-we-test.`, under "Internal references". "the last review" and "a
+  maintainer decision" name no agent role.
 
 ## Verdict
 
-Code, page, tests, requirements, site and probes: verified at `6c5106e`. PR description: P1, P2 and P3 fail.
+Code, page, tests, requirements, site and probes: verified at `6c5106e` (first pass). PR description:
+verified at `6c5106e` (D1 to D7; P1 to P3 of the first pass are fixed).
 
-NOT VERIFIED
+VERIFIED
