@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Enter and click in an admonition open the selected element",
+  "summary": "Grilled; being specified for batch-09. Keyboard and mouse open the element selected or pointed at; the whole admonition only when selected as a whole.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b9b9e0ffe990d1565ec545e7f5d91e8f872f66f15e0e6a866fe7ca8b18b2d6f6",
+    "02-answers.md": "18ad36ac44b61988e1469015a20c330e69c46024125bd73dc8afebab5941afbb",
+    "intake/request.md": "5372a8a90d9227f1582fdcab329f1aaae5bd1c8eebcab560060762bc64f477cb"
+  },
+  "summarized": "2026-11-26T07:47:02Z"
+}

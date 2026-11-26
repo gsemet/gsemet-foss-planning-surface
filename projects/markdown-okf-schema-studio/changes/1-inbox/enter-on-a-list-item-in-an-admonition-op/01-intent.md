@@ -1,0 +1,3 @@
+# Enter and click in an admonition open the selected element
+
+In the Studio preview, an admonition or GitHub alert body opens as one block: Enter on a list item selected with the arrows opens the whole admonition, and so does a click. The owner wants the whole admonition only when it is selected as a whole (title or frame with the mouse), and otherwise exactly the element reached with the arrows or pointed at with the mouse (answers 1 and 3). The block editing requirements change with it (SwRS-MDOKFSTUDIO-BLOCK-014 and BLOCK-254 disagree today). Found while filming the keyboard navigation clip (CR-501).
