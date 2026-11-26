@@ -29,9 +29,9 @@ A launch or part lasts from its `setup` step to its last step.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Before: 45476952370 | `63ef752` | 834 s | none | none | 404 s | 178 s | 1011 s |
 | Before: 45713440510 | `17b779d` | 831 s | none | none | 405 s | 178 s | 1002 s |
-| After: 45729384181 | `5e7b4a3` | none | 428 s | 502.5 s | 462 s | 182 s | 1128 s |
-| After: 45734265223 | `b24d3bf` | none | 422 s | 493 s | 452 s | 181 s | 1111 s |
-| After: 45734267839 | `b24d3bf` | none | 409 s | 453 s | 418 s | 179 s | 1056 s |
+| Before: 45773405420 | `3478f09` | 852 s | none | none | 415 s | 178 s | 1023 s |
+| After: 45794678556 | `89cae5f` | none | 424 s | 493.5 s | 454 s | 181 s | 1112 s |
+| After: 45795351595 | `89cae5f` | none | 387 s | 419 s | 387 s | 177 s | 969 s |
 
 The frame lookup now chooses its candidates from `frame.url()` alone, before any call that needs
 the frame's document:
@@ -120,25 +120,27 @@ frame lookup; it needs one heavy run to confirm.
   and `grid-card-editor-blur` now run under the `current` theme instead (none of them asserts a
   theme).
 - Each launch logs its name in the extension host, so a passing log also says which part ran.
-- The two proof runs were started at the same time on one commit rather than one after the other:
-  the CI workflow sets no concurrency limit, so each runs on its own machines and neither cancels
-  the other.
-- The visual job cancelled in one proof run was not run again: the proof of this change rests on the
-  integration and stress jobs, green in both runs, and a second try would hide a limit that needs
-  its own fix.
+- The two proof runs were started about four minutes apart on one commit and ran concurrently,
+  rather than one after the other: the CI workflow sets no concurrency limit, so each runs on its
+  own machines and neither cancels the other.
+- A visual job cancelled at its time limit in a heavy run of an earlier commit of this change (run
+  45734267839) was not run again: the proof of this change rests on the integration and stress jobs,
+  and a second try would hide a limit that needs its own fix.
 - Beyond the shared Studio frame lookup, the URL filter also covers the second frame scan of the
   open-at-line step and the frame dump written when the current preview frame is not found. The
   other frame scans of the test suite are left as they were (see Known gaps).
 
 ## Known gaps
 
-- The whole integration step has a thin margin under its 1200 s limit: it took 1056 to 1128 s on the
-  three heavy runs of this change, 6 to 12 % under, so a slower runner could still stop the step.
-  Running integration as parallel CI jobs, or replacing the fixed pauses of the open-at-line probe
-  (about 180 s) with readiness signals, would widen it.
-- The simulated visual job runs close to its 15-minute limit, also on the default branch (885 s of
-  900 s in run 45713440510), and was cancelled at that limit in one of the two proof runs. This
-  change does not touch that job or what it runs, so it is left for a change of its own.
+- The whole integration step has a thin margin under its 1200 s limit: it took 969 to 1128 s on the
+  five heavy runs of this change (two at this head, three on earlier commits), 6 to 19 % under, so a
+  slower runner could still stop the step. Running integration as parallel CI jobs, or replacing the
+  fixed pauses of the open-at-line probe (about 180 s) with readiness signals, would widen it.
+- The simulated visual job runs close to its 15-minute limit: of 900 s, it took 820 and 825 s in the
+  two proof runs, 879 s in the pull request's own run and 885 s on the default branch (run
+  45713440510), and it was cancelled at that limit in a heavy run of an earlier commit (run
+  45734267839). This change does not touch that job or what it runs, so it is left for a change of
+  its own.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
   runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
   CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure
@@ -155,21 +157,20 @@ frame lookup; it needs one heavy run to confirm.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code), at `b24d3bf`: the 9 tests of
+- [x] New or changed tests (they fail on the previous code), at `89cae5f`: the 9 tests of
       `test/build/trustedParts.test.ts` and `test/build/webviewFrames.test.ts` all failed against
       stand-ins of the new modules that mimicked the previous behaviour, and pass in the local gate
 - [x] Requirements: no behaviour change; the requirements checks of the local gate pass at
-      `b24d3bf` (`okfreq validate`, `lint --check`, `update-coverage --check`)
+      `89cae5f` (`okfreq validate`, `lint --check`, `update-coverage --check`)
 - [x] Changelog: no user-facing change
-- [x] Local gates at `b24d3bf`: `just preflight` on Windows, static stage only, passed (unit tests
-      5307 passed, 8 skipped, none failed); the other stages are left to CI
-- [x] Heavy CI at `b24d3bf`: two runs on the same head, 45734265223 (every job green) and
-      45734267839, `integration` and `stress` green in both and each trusted part under 600 s; run
-      45734267839 is not green as a whole, its simulated visual job was cancelled at its time limit,
-      so its report and checks jobs failed too (see Known gaps)
-- [x] Review: approved at `b24d3bf`
-- [x] Verified at `b24d3bf`
-- [x] CI green at `b24d3bf`: static, static on Windows, visual, viewer-graph, report and checks of
+- [x] Local gates at `89cae5f`: `just preflight` on Windows, static stage only, passed (unit tests
+      5327 passed, 8 skipped, none failed); the other stages are left to CI
+- [x] Heavy CI at `89cae5f`: two runs on the same head, 45794678556 and 45795351595, every job that
+      ran green on the first attempt (the release, publication and table-of-contents loop jobs are
+      skipped), and each trusted part under 600 s
+- [x] Review: approved at `89cae5f`
+- [ ] Verified
+- [x] CI green at `89cae5f`: static, static on Windows, visual, viewer-graph, report and checks of
       the pull request's own run; the real VS Code jobs do not run on a pull request
 
 ## Internal references
