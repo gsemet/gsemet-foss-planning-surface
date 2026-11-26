@@ -46,12 +46,15 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - The runbooks of the Copilot and direct-mode evaluations, which the specification did not list, had links to fix too.
 - `docs/incidents.md` holds the stories that only one of the card inventories marked for it.
 - The tests' file-and-heading pins are gathered in one test; the board read-key test now scans the topics too.
+- The generic-agent case of the host matrix is left as a known gap, with no further work: it expects contract lines that no Claude Code configuration produces, before or after this change, and the brief already holds the card and the floor.
 
 ## Known gaps
 
 - Quiz of the roles on the new cards, not run: skipped on the owner's word, 2026-11-26: `just quiz coder conflict-resolver cr-driver debugger demo-explorer release-driver stack-driver verifier --max-usd 40` and `just quiz chief-of-staff foreman griller --model claude-sonnet-5-5 --max-usd 45` (only the free `--plan` form was run).
-- Old-card quiz baseline to compare against, not run: skipped on the owner's word, 2026-11-26: the same two commands with `--cards 88d9ab40`, then each new run with `--against <that results file>`.
+- Old-card quiz baseline to compare against, not run: skipped on the owner's word, 2026-11-26: the same two commands with `--cards ea11a9e0` (the last head with the old set), then each new run with `--against <that results file>`.
 - No transcript of a real Claude Code session showing the reload message after `/compact`: only the hook's own tests ran.
+- Unproved in a real Copilot session: briefs build for every role on that host, its host rows stay untested, and it has no hook, so the reload message and the write guard are inert there.
+- On Claude Code, a worker configured with a generic agent gets a brief with its card and the floor but without the extra generic-agent contract lines, which are printed only where chantier itself starts a role generic; this change does not alter that, and no test covers that Claude Code case.
 - Real run not done: no real batch has run on these cards.
 - Launcher not switched: it leaves the CLI running after its stop on Windows.
 - The board Griller does not read the floor.
@@ -65,6 +68,10 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Two data files kept byte-identical still hold removed file names: `hosts/claude-code.json` (`driver.md`, `session-start.md`) and `hosts/copilot.json` (`session-start.md`, `foreman-lost-driver.md`).
 - Wording of the old set not found in the new one: some sentences of the sync offer, "A release with no PR yet is no anomaly", the Foreman's pointer to `help session-shell`; "say it once to the user as printed" became "offer the restart once".
 - Stale text left as found: some evaluation scorecard rows cite the host card for rules that now live in rows or topics, one sentence of the Claude Code tutorial, `AGENTS.md`'s mention of a removed card, the direct-mode runbook's "unproved" list; some evaluation links now go to topics that do not keep the old section titles.
+- A `foreman:`, `chief-of-staff:` or `griller:` entry in the project's `## chantier` section would print as a review step, though only a name that is no built-in role should.
+- The CR Driver's brief size budget in its test is 9,900 bytes, where rounding the measured 9,773 up gives 9,800.
+- One sentence of `evals/README.md` still names a removed test.
+- The new hook test case reads only the test's own constants; the cases next to it tie them to what the hook sends.
 - The type checker's warnings on `hooks/register.tsx` were there before.
 
 <details>

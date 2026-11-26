@@ -175,6 +175,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 ## Known gaps
 
 - This is a partial delivery of the planned acceptance work: only the trust and security group has acceptance files, the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted. The other requirement groups, the mode switch and its gate are left for follow-up changes.
+- The real VS Code `integration` job passed at `5a8a593` only on a second attempt: the first was cut by its 15-minute launch deadline while one of its last steps was running. Passing runs of that suite already use about 14 of the 15 minutes (852 s in a run on the base branch, 854 s on the second attempt here), and this change removes only requirement markers from that suite. It is a bug still to be fixed at its cause.
 - The 3-minute test step of an acceptance shard ends before the default budget of a test step (3 minutes) and the 15-minute launch deadline can expire: a hang that no shorter check catches leaves the processes and logs left behind, without the window state and screenshots.
 - Both timeouts come from one shard's first attempt in one run (a second attempt was faster); a slower group added later has to measure and set them again.
 - `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: the public VS Code API cannot read the preview's texts or the Extensions view, and a test performs no install. Each needs another kind of test, or a decision, before the coverage mode can be switched.
@@ -195,15 +196,16 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - [x] New or changed tests: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
 - [x] Requirements: two SwRS updated and one verification note corrected, markers in tests, `just requirements-update`
 - [x] Changelog: no user-facing change
-- [x] Local gates: `just preflight` passed at `0feab1d9` on Windows, where it runs the static stage only
+- [x] Local gates at `5a8a593`: `just preflight` passed on Windows, where it runs the static stage only
 - [ ] Evidence:
-  - [Heavy run 45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331) at `0feab1d9` (the same files as `7a671019`, its rebased form): `integration`, `stress`, `report` and the `acceptance (trust-security)` shard passed, under the earlier limits of 30 and 20 minutes.
-  - Shard durations, first attempt: job 115 s, test step 77 s; launches 45.8 s (trusted), 7.8 s (Restricted Mode), 14.9 s (built VSIX). The limits set from them: 5 minutes for the job, 3 for the test step.
-  - Re-run of the shard alone, same run: job 93 s, test step 59 s; it uploaded `e2e-acceptance-trust-security-attempt-2`, and `report` ran again and logged `acceptance trust-security: kept attempt 2`.
-  - Requirements bundle copied and checked in the new coverage mode: 0 errors, 74 warnings for use cases with no acceptance test.
-- [x] Review: approved at `0feab1d9`
-- [ ] Verified: pending
-- [ ] CI green: pending
+  - [Heavy run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144) at `5a8a593`: `stress` and the `acceptance (trust-security)` shard passed on the first attempt; `integration` passed on a re-run of the failed jobs (see Known gaps), after which `report` and `checks` passed.
+  - The shard under its limits of 5 minutes (job) and 3 minutes (test step), first attempt: job 87 s, test step 59 s; launches 26 s (trusted), 8 s (Restricted Mode), 16 s (built VSIX).
+  - The limits were set from the first measured run ([45766254331](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45766254331), at an earlier commit): job 115 s, test step 77 s.
+  - Re-run of the shard alone, same run: job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
+  - Requirements bundle copied and checked in the new coverage mode at `5a8a593`: pending.
+- [x] Review: approved at `5a8a593` (carried from `18c63e5`)
+- [ ] Verified at `5a8a593`: pending
+- [x] CI green at `5a8a593`: the pull request checks passed (run 45773633868); the manually started heavy run 45774743144 is green after one re-run of its failed jobs (see Known gaps)
 
 ## Internal references
 

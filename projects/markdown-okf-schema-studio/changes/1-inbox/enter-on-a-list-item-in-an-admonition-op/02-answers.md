@@ -23,3 +23,5 @@ Spec critic: yes, the most common editing gesture changes.
 7. enter-admonition-Q7 (2026-11-26): **The keyboard navigation clip and the user guide:** "B. Refilmer ici": this change also re-films the clip (and keeps the guide in step).
 
 8. enter-admonition-Q8 (2026-11-26): **A block of a GitHub alert body opens with its `> ` markers:** "A. Garder (recommandé)".
+
+9. enter-admonition-Q9 (2026-11-26), on the owner's request, verbatim: "Et rajoute aussi une vidéo clip si elle n'existe pas sur la navigation au clavier pour atteindre une liste nested dans un admonition par exemple." The `keyboard-navigation` clip exists and stops at the first item of the admonition's list. **Answer:** "A. Étendre (recommandé)": the clip this change re-films goes down, by keyboard only, to an item of the nested sub-list, opens that item alone, changes a word and saves. No second clip.
