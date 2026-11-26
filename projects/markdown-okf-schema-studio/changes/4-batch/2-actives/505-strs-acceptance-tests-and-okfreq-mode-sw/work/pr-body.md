@@ -193,9 +193,9 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: no user-facing change
-- [ ] Local gates: pending
+- [x] Local gates: `just preflight` passed at `0feab1d9` on Windows, where it runs the static stage only
 - [ ] Evidence: pending
-- [ ] Review: pending
+- [x] Review: approved at `0feab1d9`
 - [ ] Verified: pending
 - [ ] CI green: pending
 
