@@ -50,7 +50,7 @@ The recipe has the maintainer review the storyboard before the take. Under the o
 
 ## Autonomous decisions
 
-- The scenario records `readingMode` (not `editMode`) in its setup, because the kit's check reads that note; the first take failed only on that and was filmed again.
+- The scenario records `readingMode` (not `editMode`) in its setup, because the kit's check reads that note.
 - Mark 1 keeps the backticks around `status`: the storyboard parser reads them.
 - The text is selected with Ctrl+A; the `select()` fallback was not needed.
 - Measured times: click 1.01 s, save 4.61 s, zoom 6.22 s, mark 1 7.01 to 8.71 s, mark 2 8.71 to 10.41 s, unzoom 10.51 s, end 11.51 s.

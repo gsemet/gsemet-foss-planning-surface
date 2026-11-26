@@ -30,7 +30,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 - [x] Requirements at `cae819b`: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog at `cae819b`: No user-facing change (no `feat` or `fix` commit)
 - [x] Local gates at `cae819b`: `just clip-kit-test` (44 tests) and `just check` pass
-- [x] Evidence at `cae819b` (carried from `d930238`: the rebase leaves the clip folder unchanged): the take passed after one first render that failed with a Remotion "No frame found" error and was run again; `check.json` passed: true, "verify" passed, 12.0 s, loop seam SSIM 0.9907, playback rate 0.995
+- [x] Evidence at `cae819b` (carried from `d930238`: the rebase leaves the clip folder unchanged): `check.json` passed: true, "verify" passed, 12.0 s, loop seam SSIM 0.9907, playback rate 0.995
 - [x] Review: an independent review approved the rebased change at `cae819b`
 - [x] CI green at `cae819b` (static, static-windows, visual, viewer-graph, report; the visual job passed on a second run after the first one hit its 15 minute timeout)
 
@@ -48,7 +48,8 @@ The recipe has the maintainer review the storyboard before the take. Under the o
 
 - The scenario clicks in Caption, then selects its text with Ctrl/Cmd+A (no badge) before typing; Align is set with the `r` key, and the fallback was not needed; the Name step is kept.
 - After the save the focus returns to the figure and its Edit figure button shows; the take moves the pointer out over the scroll bar and back to hide it (a pointer move only, hidden by the zoom).
-- A 300 ms hold comes before the `filled` frame, and a wheel move scrolls the page there so that the four new values show; this wheel move is not in the specification. The clip was filmed two more times for the scroll fix.
+- A 300 ms hold comes before the `filled` frame, and a wheel move scrolls the page there so that the four new values show; this wheel move is not in the specification.
+- The GIF sits after the figure form sentence of `docs/user/editing.md`.
 - The page numbers captions, so the scenario reads the caption without its number.
 - Zoom rectangle: the text box and the paragraph under it, padded 24 px.
 - Key frames `button`, `form`, `filled`, `03-zoomed`, `04-mark-1`, `05-mark-2` and `rendered`; `01-selected` and `02-pasted` are the kit's fixed names and are not linked.
@@ -57,6 +58,7 @@ The recipe has the maintainer review the storyboard before the take. Under the o
 ## Known gaps
 
 - The 1169x660 window cuts the form: the `form` frame still cuts the empty Width, Align and Name fields, and the page stays scrolled until the save, so the loop fade is worth a look.
+- `frames/03-zoomed.png`, which `clip.md` describes as the zoom on the text box and the paragraph after Apply, shows the saved figure instead (it is the same picture as `frames/rendered.png`: the kit takes it at the middle of the zoom, after the save). The rewritten directive shows in `frames/04-mark-1.png`.
 - macOS and Linux are not proved: the clip was filmed and checked on Windows only.
 
 ## Internal references

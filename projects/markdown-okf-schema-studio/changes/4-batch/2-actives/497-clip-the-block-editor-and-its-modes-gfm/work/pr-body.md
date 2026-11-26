@@ -30,7 +30,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 - [x] Requirements at `af4a4aa`: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog at `af4a4aa`: No user-facing change (no `feat` or `fix` commit)
 - [x] Local gates at `af4a4aa`: `just clip-kit-test` (49 tests) and `just check` pass
-- [x] Evidence at `af4a4aa` (carried from `1858396`: the rebase leaves the clip folder unchanged): the first run failed at mark 1 (two MyST buttons have no box on screen), the scenario was fixed and the take passed; `render` and `check` were run again after the last `clip.md` edit; `check.json` passed: true, "verify" passed, 12.0 s, loop seam SSIM 0.9957, playback rate 1.004
+- [x] Evidence at `af4a4aa` (carried from `1858396`: the rebase leaves the clip folder unchanged): `render` and `check` were run again after the last `clip.md` edit; `check.json` passed: true, "verify" passed, 12.0 s, loop seam SSIM 0.9957, playback rate 1.004
 - [x] Review: an independent review approved the rebased change at `af4a4aa`
 - [x] CI green at `af4a4aa` (static, static-windows, visual, viewer-graph, report)
 

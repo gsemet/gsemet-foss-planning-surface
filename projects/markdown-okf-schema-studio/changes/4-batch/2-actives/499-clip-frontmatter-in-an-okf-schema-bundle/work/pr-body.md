@@ -50,14 +50,13 @@ The storyboard first said the `status` row is red at frame 0. The trial take sho
 
 - The error signal is shown as the title badge only, because the field row has no error colour; the missing row style is filed apart as a possible bug, not fixed here.
 - The select is changed with ArrowDown and saved with the save chord; the trial showed no native popup, so no Escape was needed.
-- The trial take stopped at the missing row colour until that choice was made.
 - Two scenario fixes came out of the trial: the table header cells are read without their resize handle glyphs, and the cell's stored value is compared in its JSON form.
 - The clip was filmed on its own scratch folder (`CLIP_SCRATCH=C:/okfclip499`) and debugging port (`CLIP_PORT=9499`), with no kit change.
 
 ## Known gaps
 
 - A field row in error has no colour of its own (existing behaviour, not changed here).
-- The captions of the first three pictures in `clip.md` are loose; this is cosmetic.
+- The captions of the first three pictures in `clip.md` are loose: `frames/01-selected.png` is captioned as frame 0 but shows `published` picked in the status cell, before the save.
 - The opening paragraph of `clip.md` says that only `type: note` and the `_schema/` folder are added, and leaves out the typo that its Stage row names.
 - The raw screencast ran at 2.1 fps (retimed to 15 fps), so page changes can look stepwise.
 - macOS and Linux are not proved: the clip was filmed and checked on Windows only.

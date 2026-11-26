@@ -30,7 +30,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 - [x] Requirements at `37ef61b`: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog at `37ef61b`: No user-facing change (no `feat` or `fix` commit)
 - [x] Local gates at `37ef61b`: `just clip-kit-test` (51 tests) and `just check` pass
-- [x] Evidence at `37ef61b` (carried from `cb1ccf6`: the rebase leaves the clip folder unchanged): one take, no retake; `check.json` passed: true, "verify" passed, 10.6 s, loop seam SSIM 0.9914, playback rate 1.011
+- [x] Evidence at `37ef61b` (carried from `cb1ccf6`: the rebase leaves the clip folder unchanged): `check.json` passed: true, "verify" passed, 10.6 s, loop seam SSIM 0.9914, playback rate 1.011
 - [x] Review: an independent review approved the rebased change at `37ef61b`
 - [x] CI green at `37ef61b` (static, static-windows, visual, viewer-graph, report)
 
