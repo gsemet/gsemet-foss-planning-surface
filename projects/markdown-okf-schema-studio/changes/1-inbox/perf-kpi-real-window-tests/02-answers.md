@@ -39,9 +39,11 @@ the latest run only, with no history.
 
 Spec critic: yes (a maximum of the CI job can block a release; the change spans the tests, CI, requirements and the site).
 
-Critic, 2026-11-26: 6 findings; 2 applied as fixes (the lower CR's scenario, report and sample names;
-the "how we test" page and header order with CR-507), 4 asked (the lower CR's manual job, the place
-above CR-517, what `just preflight` runs, the site page as its own CR).
+Critic, 2026-11-26: 6 findings; 3 applied as fixes (the lower CR's scenario, report and sample names;
+the "how we test" page and header order with CR-507; the place directly above CR-517
+`perf-547-comment-update-and-author`, so that the maximums are measured after the whole fix, as
+answer 4's "after the fix" says: still to be written in the specification), 3 asked (the lower CR's
+manual job, what `just preflight` runs, the site page as its own CR).
 
 Notes on the specification's open questions (Chief of Staff):
 - Open question 1: settled by the lower CR's final specification, CR-516

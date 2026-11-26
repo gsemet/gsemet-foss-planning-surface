@@ -90,15 +90,15 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
 ### Justfile
 
 - `ci-perf: (_require-unlocked-screen "ci-perf")` (new), the CI job's target: removes
-  `out/reports/perf/`, runs the measure's real-window scenario of `perf-547-slow-comment-selection`
-  three times, one window launch each (`STUDIO_REAL_INPUT_SCENARIO=<that scenario> npm run
-  test:integration -- --trusted-only`, the form `performanceProbe.ts` documents), copies each
-  launch's report to `out/reports/perf/runs/run-<k>.json`, then runs
+  `out/reports/perf/`, runs CR-516's real-window scenario `perf-547` three times, one window launch
+  each (`STUDIO_REAL_INPUT_SCENARIO=perf-547 npm run test:integration -- --trusted-only`, the form
+  `performanceProbe.ts` documents), copies each launch's `out/reports/probe/perf-547.json` to
+  `out/reports/perf/runs/run-<k>.json`, then runs
   `node out/test/integration/perfKpiCampaign.js --enforce`. Last line `ci-perf: passed` or
   `ci-perf: FAILED` (CI guideline rule 8). A launch that fails stops the target red; there is no
   retry (rule 9).
-- `perf-kpi` (new), the local comparison command: the same three launches and the same report
-  files, then the script without `--enforce`; last line `perf-kpi: done`. It fails only when a
+- `perf-kpi` (new), the local comparison command: the same three launches of `perf-547` and the
+  same copies of `perf-547.json` to `out/reports/perf/runs/run-<k>.json`, then the script without `--enforce`; last line `perf-kpi: done`. It fails only when a
   launch or the measure fails.
 - Both stop with exit code 3 on a locked screen, like `ci-integration`. On Windows both stop before
   any launch with `ci-perf: the real VS Code stages run on Linux and macOS only` (and `perf-kpi: ...`),
@@ -158,7 +158,12 @@ stabilité" (perf547-Q1). The campaign follows it: three window launches per run
   unknown to `PERF_KPIS` fails the site build with the file and the reason.
 - `buildSite.ts` writes `performance.html` with `pageDocument`, and `site-manifest.json` gains
   `"performance": <true when kpi.json was read>`.
-- `siteHeader.ts`: a "Performance" link after "Gallery", before "Requirements".
+- `siteHeader.ts`: a "Performance" link after "Gallery", before "Requirements". With CR-507's "How
+  we test" link (its H2, between "How we ship" and "Gallery"), the header reads, in either merge
+  order: Home, Contributing, How we ship, How we test, Gallery, Performance, Requirements. When
+  CR-507 is below this CR, this CR inserts "Performance" after "Gallery" in that header. When this
+  CR merges first, its header reads Home, Contributing, How we ship, Gallery, Performance,
+  Requirements, and CR-507 inserts "How we test" between "How we ship" and "Gallery".
 - The page carries `@implements_req <the new CORE SwRS>`; `test/site/perfPage.test.ts` carries its
   `@tests_req` markers.
 
@@ -208,6 +213,16 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
   folder `out/reports/perf/`, and that a maximum changes in `test/shared/perfKpi.ts` and its SwRS in
   the same PR.
 - `AGENTS.md`, "Main targets": `just perf-kpi` and `just ci-perf` added to the CI job list.
+- `docs/how-we-test.md`, when CR-507 is below this CR in the stack (CR-507 adds the page and a
+  drift test that fails while a job of `ci.yml` is not named on it): in "The test levels", the
+  `perf` job, in the form of the page's other levels: what it runs (the `perf-547` scenario three
+  times, one window launch each, its medians scored against the maximums of
+  `test/shared/perfKpi.ts`), its folders (`test/shared/perfKpi.ts`,
+  `test/integration/perfKpiCampaign.ts`), its commands (`just ci-perf` in CI, which enforces the
+  maximums; `just perf-kpi` locally, which compares), its CI job (`perf`), when it runs (every push
+  to `main` and a dispatch with `heavy`, never a pull request; a red `perf` blocks a version change
+  at `tag-release`), and its marker (`@tests_req <the new REVIEW SwRS>#S1` and `#S2`). When CR-507
+  is above this CR, CR-507 names the job itself (its H15) and this CR does not touch the page.
 - `.agents/glossary/common.md`: **KPI score** (a median time in ms of one measured path and its
   ratio to its maximum, `scoreKpi` in `test/shared/perfKpi.ts`) and **Performance maximum** (the
   time a KPI's median must not pass on the CI runner, set by a SwRS and `PERF_KPIS`).
@@ -222,7 +237,7 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
   run" shown is the heavy run of the latest release.
 - `npm run probe`, `test/probe/` and `test/integration/performanceProbe.ts`: unchanged, no limit
   added.
-- A claim of conformance to a standard (the request asked about "ISO 28149"; see the open questions).
+- A claim of conformance to a standard (the request asked about "ISO 28149").
 - Real-window launches on Windows.
 
 ## Evidence
@@ -239,7 +254,11 @@ Created with `okfreq new ... --lifecycle proposed` (IDs from okfreq, never by ha
     above.
   - `test/site/perfPage.test.ts`: S1 to S4 of the new CORE SwRS, on a `kpi.json` written by the
     campaign script's own writer.
-  - `test/site` header test: the "Performance" link in place on every page.
+  - `test/site` header test: the "Performance" link in place on every page, after "Gallery" and
+    before "Requirements" (with CR-507 below: the full order Home, Contributing, How we ship, How we
+    test, Gallery, Performance, Requirements).
+  - With CR-507 below: CR-507's drift test of `docs/how-we-test.md` passes with the `perf` job in
+    `ci.yml`.
   - `test/build/test_workflows.py`: the `perf` job's `if` for each event (push to `main`, heavy and
     plain dispatch, pull request); its artifact name carries the attempt and `report` downloads its
     `artifact` output; the `tag-release` truth table with `perf` (a version change tags only with
@@ -272,19 +291,7 @@ versus a configured setting.
 
 ## Open questions for the Chief of Staff
 
-1. The measure of `perf-547-slow-comment-selection` is not specified yet: will its report give the
-   per-sample times of the two spans used here (mouse release to the Comment button shown; Save to
-   the highlight drawn), in one window launch per run, and under which scenario name and report
-   path? This spec adds only a missing span; if the lower CR measures other spans, which ones are the
-   KPIs?
-2. The local command runs where the real-window stages run, Linux and macOS; the owner's machine is
+1. The local command runs where the real-window stages run, Linux and macOS; the owner's machine is
    Windows, where they do not run today. Is a Linux or macOS machine the local comparison the owner
    meant, or does "your machine" call for Windows real-window launches (a larger change, not in this
    spec)?
-3. A red `perf` blocks a version change at `tag-release` but, on a push without a version change,
-   does not fail `report` or `checks` (it is not a test of behaviour that `report` gathers). Should
-   it also fail `report` and `checks`, as a red `integration` does?
-4. The request asked "Ça se fait en iso 28149?". The intake found no such standard and points to
-   ISO/IEC/IEEE 29148 (requirements), ISO/IEC 25010 (time behaviour) and ISO/IEC 25023 (response
-   time adequacy, measured against a target, the ratio chosen here). The grill left it unanswered:
-   does the owner want that answer, or a mention in the SwRS rationale?
