@@ -1,5 +1,13 @@
 # Follow-up of the card rework: open rows and open points
 
+## Do this first: make the cards and the CLI usable (added after batch-31's end, 2026-11-26)
+
+Asked by the owner, verbatim: « Je veux savoir si tu as fini le rework demandé. S'il reste du travail on peut le mettre dans ce batch ou attendre de le clore et réouvrir un nouveau mais un faut que les cartes et les CLI soient utilisables » (is the rework finished; what remains can go in this batch or a new one, but the cards and the CLI must be usable). Chief of Staff's reading, to confirm by the owner: usable cards and CLI is the first requirement of the next batch.
+
+1. **Blocker, other projects.** The version is still 0.15.1. uv's cached build of the main checkout (built 2026-11-25 22:38) lacks the card swap's source changes (commit 7714288e, 19 files) and still names removed card files: `driver.md` (commands/access.py, commands/facts.py), `foreman-stack.md` (stack_shape.py), `reload-rules.md` (status/ready_line.py), `startup-core.md` and `startup-manifest.json` (driver_prompt.py). Found by reading the cached files, not by running them; that uv reuses this build while `pyproject.toml` is unchanged is expected, not tested. Done when: the version is bumped and a project in plugin mode is shown to run on the new cards.
+2. **Cards against CLI** (retro point 6 below). Seen again on 2026-11-26: `help <topic> --batch <batch>` is refused. The other cases were not re-checked.
+3. **Real trial.** No batch has started from scratch on the new cards (CR-514, backlog P1).
+
 Follow-up of CR-511 (batch-31): close the card inventory rows it leaves open.
 
 Asked by the owner, 2026-11-26, verbatim: « Merci. Applique en coupant pour finaliser le batch rapidement quitte à corriger après » (apply it, cutting so the batch is finished quickly, even if things are fixed afterwards). Chief of Staff's reading, to confirm by the owner (CR-511, 02-answers.md 9; orders O-180 and O-181).
@@ -60,15 +68,66 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 ### CR-511's Known gaps (https://github.com/gsemet/chantier/pull/489), as posted at its hand-back
 
 - 329 rows stay open (62 of kind a, 139 inferable with no quiz case, 128 others), listed in
+  `docs/proofs/cards-inventory-open.tsv`. The goal that every row has a resolving home is not met.
+  Only serious lost rules were restored, on the owner's choice to finish quickly.
 - The 62 open kind-a rows were read one by one against the new cards; the other 267 open rows were
+  judged from their wording, not searched one by one.
 - A sample suggests up to about one in ten automatically mapped homes of non-protective rows may not
+  hold its rule; no test can see this.
 - Reported by review on an earlier state and not changed since: some homes point at text that does
+  not state the rule (W-001, W-038, W-076, W-108, W-156, W-238, W-283, H-119, H-120, C-1220, C-1223,
+  C-1535, C-1536, FM-474, FM-475); H-173 and H-217 resolve only in code docstrings; the trigger
+  `none (rare)` was set from the home, so the rare-rule test cannot fail on those 129 rows; the role
+  column mixes spellings.
 - The stack driver card's context hand-back points to a host means that names direct mode only (it
+  already did for another line), and its answer-every-message line names only one of the two message
+  tags the topics use.
 - The 539 kind-a rows that have a home are checked by quote only (the text is still where the row
+  says), with no behaviour check yet; the other 62 are open. The owner lists (601 kind-a rows) are in
+  the inventory and are not repeated here. Rows homed in the incidents file: H-439, H-989, H-1040,
+  H-1041, H-1059, H-1069, H-1191, H-1192, H-1203, H-1212, H-1306, H-1551; no row is homed as
+  inferable.
 - 20 of the 36 hand-over checklist items end as known gaps, each with its reason in the inventory,
+  among them: the scorecard rails J11 and J22 are not reconciled with the new wording, one sentence
+  of CONTRIBUTING.md is not aligned, and no new quiz case was written.
 - H-1360 (a rule dropped by default, pending the owner's confirmation) needs that confirmation.
 - Card size targets exceeded by this change, in LF bytes (before to now, target): cr-driver 3749 to
+  5066 (4096), stack-driver 3783 to 4821 (4096), release-driver 3809 to 4685 (3072, already over),
+  foreman 3997 to 4426 (4000), conflict-resolver 1494 to 1535 (1500). Already over and unchanged,
+  their sizes not listed here: coder, demo-explorer, retro-critic, spec-critic, spec-writer,
+  verifier.
 - Brief byte ceilings raised in `test_brief_bytes.py`: cr-driver 9900 to 11100, release-driver 9600
+  to 10500, stack-driver 9200 to 10300, qa-driver 6100 to 6300, foreman 22200 to 22600.
 - Not run: skipped on the owner's word, 2026-11-26: `just quiz <role> --plan --max-usd 10`,
+  `just quiz <role> --cards f08cf41f2c80e2e4f7ab834adc3dc06820ae7f93 --max-usd 10 --save old-<role>`
+  and `just quiz <role> --max-usd 10 --against <the saved old results>`, for each role under
+  `evals/quiz/` (the session roles add `--model`). So no result shows the new cards answer as well
+  as the old ones.
 - Real run not done (a later, separate campaign).
 - The seconds the new test adds to `just test` were not measured as two runs before and after; the
+  test file alone took 2.8 s of pytest wall time at an earlier state.
+
+## Batch-31's retro, the points its critic kept (not filed one by one)
+
+- [project] Flaky tests: `test_serve_webui` failed its port walk in macOS CI on CR-491, CR-492 and CR-493, and the board-griller moved-folder test failed once on CR-481: fix or isolate them.
+- [chantier] Card rewrite CRs far past their budget (CR-507 15 rounds and $135.54, CR-510 $54.57, CR-511 $28.98; CR-505 and CR-507 spent their 3 rounds before the last part; batch budget raised 400, 600, 800; CR-512..514 dropped to the backlog): the specification splits such a CR into parts that each fit the round limit.
+- [chantier] PR descriptions repeatedly came back NOT VERIFIED, many on the description alone (CR-467, 473, 480, 490, 507, 510, 511), each costing another Verifier run: the CLI writes the body's factual parts (gates, heads, gaps) from the record.
+- [chantier] Workers or Drivers acted outside their role or folder (stray files outside `writes:` on CR-474, Verifiers changing into the CR folder on CR-507 and CR-510, a Driver editing code with no Coder on CR-477 and CR-497): enforce it by the write guard and a CLI rail, not card lines.
+- [chantier] CRs labelled ready to merge while their own gaps said not to merge them alone (CR-505, 507, 510), and the owner merged CR-510 while CR-511 still worked, against the order that every Driver finish first: the CLI words a held state instead of ready to merge.
+- [chantier] Cards and CLI disagree after the swap (`help <topic>` refuses the `--batch` of the brief's CLI line; `next` asks for a stack ask while `judge` words an alone ask; `push`'s `next:` line and the card order differ on the gate; the watcher outlives the heartbeat in `wakes-p1` and is stopped by `wakes-p2` and the Foreman card; the PR template's "nothing follows </details>" clashes with the host's attribution line; `ship` and closing disagree on a description-only NOT VERIFIED; stale sentences quoting removed CLI output, O-175 and O-176): tests that tie card sentences to the CLI's output.
+
+The dropped points: `retro-dropped.md` beside this file.
+
+## Still owed from batch-31
+
+- H-1360: a rule dropped by default, waiting for the owner's confirmation.
+- Screenshots of the board pane from a real session for CR-481, CR-482, CR-483 and CR-486 (the Foreman's final report).
+- Quizzes and evaluation campaign: the owner runs them later.
+
+## Housekeeping (counted on 2026-11-26; delete nothing without the owner's word, and check first for unsaved work)
+
+- 48 git worktrees besides the main checkout (24 of batch-29), 2 of them removed by batch-31's close.
+- 50 local branches whose remote branch is gone; 3 stashes.
+- 3 old draft pull requests: #386, #347, #346.
+- Untracked in the main checkout: `commands.py`, `concepts.md`, `state.py`, `test.md`, `.agents/`.
+- The evaluation campaign's folder and plugin entries set up on 2026-11-26.
