@@ -1,0 +1,14 @@
+[
+  ["topics/trials-p1.md", "At step 1 of a batch, after the preflight with the batch's options: one harmless trial per used capability,", "At step 1 of a batch, after the preflight with the batch's options: one harmless trial per used capability, each writing nothing (a `--dry-run` push of a missing branch or tag stops at the refspec, before the remote; keep `--dry-run` last, under the rule's `*`),"],
+  ["topics/titles.md", "given in the Foreman's prompt.", "given in the Foreman's prompt; a later Foreman of that batch has the same one."],
+  ["topics/titles.md", "`Remote` in a cloud session.", "`Remote` in a cloud session (host reference)."],
+  ["topics/trouble-gate.md", "- The queue: the next merge's first (in a stack or series batch, the first CR of the order not merged or cancelled, a fix CR and the release CR excepted), then those the Foreman moved first, then arrival order.", "- `long_gate.parallel` (`chantier.yaml`; 1 if absent) gates run at once; the queue: the next merge first (stack or series: the order's first CR not merged or cancelled, fix and release CRs excepted; parallel: none), then those the Foreman moved first (`gate --first`), then arrival order."],
+  ["topics/wakes.md", "start no background task to wait for anything,", "start no background task to wait (your watcher aside),"],
+  ["topics/watcher-events.md", "- `tracker saw ...`: one line, record nothing.", "- `tracker saw ...`: one line to the user, no tool call, record nothing."],
+  ["topics/ticket-summary-p1.md", "one line linking a plan and demo posted apart;", "one line linking a plan and demo posted apart, filled once posted;"],
+  ["topics/ticket-summary-p2.md", "no private path, no internal link, no other person's data.", "no private path (home folder, drive letter, `.agents/changes/`), no internal link (planning surface, CR, batch), no other person's data."],
+  ["topics/ticket-summary-post-p1.md", "- GitHub: with `gh issue artifact create` in the help:", "- GitHub (unproved): when `gh issue artifact --help` lists `create` (a preview: read the flags there):"],
+  ["topics/ticket-summary-post-p1.md", "Else collapsed sections.\n", "Else collapsed sections (plan as Markdown, demo as a fenced `html` block).\n"],
+  ["topics/ticket-summary-post-p1.md", "tell the user the exact text and stop; nothing retried another way;", "tell the user the exact text and stop, the texts kept in `work/`; nothing retried another way;"],
+  ["topics/ticket-summary-post-p1.md", "read back the comment's URL and the artifact list;", "read back the comment's URL and the artifact or attachment list;"]
+]
