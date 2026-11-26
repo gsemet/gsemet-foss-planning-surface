@@ -123,12 +123,17 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: no user-facing change
-- [ ] Local gates
-- [ ] Review
+- [x] Local gates at `6c5106e`: `just preflight` (static stage on Windows) passed: unit 5443 tests,
+  5435 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;
+  Sphinx 4 passed; audit 0 vulnerabilities
+- [x] Review: approved at `6c5106e` (the last round was reviewed before a clean rebase that left the
+  files unchanged)
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `6c5106e`: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
+  `report` and `checks`; the real VS Code jobs do not run on a pull request
 
-The new and changed tests against the previous code: 13 of 49 fail.
+The new and changed tests against the code without this change, measured at `9d7e788`, an earlier
+commit below this branch: 13 of 49 fail.
 
 - The nine checks of the drift test on the shipped files fail, with `ENOENT` on
   `docs/how-we-test.md` (the diagram check: on `images/how-we-test/test-levels.svg`).
