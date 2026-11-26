@@ -3,7 +3,7 @@
 - Before: base `24111e6d9920a7ff3e8f210613186dd65d802ec8`.
 - After: head `88d9ab40d706ce2442821ad77385812af35ba846`.
 - No screenshot or video: the CR has no visual change and no UI.
-- Raw logs stay in `work/verifier/*.log`; the scripts, with local paths replaced by placeholders, in `work/verifier/scripts/`.
+- Raw logs stay in `work/verifier/*.log`; the scripts, with local paths replaced by placeholders, in `work/verifier/scripts/` (this round's under `r14/`).
 - The move since the previous verification (`03f973e..88d9ab4`) changes `cards-next/` only, so pairs 1 and 2 were read again; pairs 3 and 4 are carried or cited, as each says.
 
 ## Pair 1: files and card bytes
@@ -33,7 +33,7 @@ Reproduce in `<worktree>`: `git ls-tree -r -l <rev> skills/chantier/cards-next` 
 
 ## Pair 2: brief bytes, today's cards against `--cards skills/chantier/cards-next`
 
-Both readings run at `88d9ab4` (the CR changes no file today's cards are read from). Reproduce: `chantier brief <role> [unit] --batch batch-31`, then the same with `--cards <worktree>/skills/chantier/cards-next`; the bytes are those of the text the run writes, line ends LF (`scripts/briefs2.py` runs the command in process and captures the write, so no brief file is written).
+Both readings run at `88d9ab4` (the CR changes no file today's cards are read from). Reproduce: `chantier brief <role> [unit] --batch batch-31`, then the same with `--cards <worktree>/skills/chantier/cards-next`; the bytes are those of the text the run writes, line ends LF (`scripts/r14/briefs2.py` runs the command in process and captures the write, so no brief file is written).
 
 | Role (unit) | Today | New |
 | --- | ---: | ---: |

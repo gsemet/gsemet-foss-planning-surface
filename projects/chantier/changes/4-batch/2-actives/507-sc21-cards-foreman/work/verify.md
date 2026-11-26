@@ -65,7 +65,7 @@ labels only in inventory []
 ids in body table 65 dup [] missing [] unknown []
 ```
 
-The 31 labels are the specification's; the cited card, floor and source lines were opened and say what the table says. `boundaries-split.md` is under `evidence/`.
+The 31 labels are the specification's. The cited card and floor lines (`cat -n <next>/foreman.md <next>/floor.md`) and source lines (`sed -n` at `rails_release.py` 108, 178, 192, `commands/judge.py` 58, `status/judge_words.py` 33, 99, `commands/release.py` 81, 84, 137, `rails.py` 57, 222, 249, 305, `commands/closing.py` 95) say what the table says. `boundaries-split.md` is under `evidence/`.
 
 ### F3. Protecting rows' homes: VERIFIED for the five failed rows
 
@@ -87,7 +87,7 @@ FM-B008  home: topic orders, kind e (no longer kind a, no card claimed)
 
 ### F5. Hand-over items for child 24 in Internal references: VERIFIED
 
-PR lines 343-351. `git grep -n foreman-stack.md HEAD -- skills/chantier/scripts/cli/src tests`: `stack_shape.py:56: rules = f"{skill_dir().as_posix()}/references/foreman-stack.md (reread after a compaction)"`; `def shape_line` at `stack_shape.py:41`. The nine named files exist; `test_plugin_files.py` reads the file too (added to the body).
+PR lines 343-351. `git grep -n foreman-stack HEAD -- skills/chantier/scripts/cli/src skills/chantier/scripts/cli/tests`: `src/chantier/stack_shape.py:56: rules = f"{skill_dir().as_posix()}/references/foreman-stack.md (reread after a compaction)"` (`def shape_line` at line 41); in the tests, `test_came_back.py:24`, `test_stack_chain_cards.py:38`, `test_stack_shape.py:22,231-245` and `test_plugin_files.py:355` (its loop reads the card at line 363). `git ls-files`: the nine named files exist. `test_plugin_files.py` is added to the body.
 
 ### F6. Acceptance records: VERIFIED
 
@@ -193,7 +193,7 @@ Roles dropped against `references/topics.json` (qa-driver on eight topics, stack
 
 ### C18. Quiz not run, as a gap: VERIFIED
 
-No model run. The plan figures (54 runs about $25.34; 33 runs about $15.40) are carried from 03f973e and the body says they are "of an earlier version of the cards"; the third plan (24 runs, about $8.51) is in `acceptance-records.md`. `--max-usd` defaults to 10 (`evals/kit/quiz.py`). Nine written plus four unwritten make the specification's thirteen cases; `a8-ask-foreign-branch` is written as `a8-push-refused-default-branch` (same situation, `floor-2`; `part3-proofs.md` line 201).
+No model run. The first two plan figures (54 runs about $25.34; 33 runs about $15.40) carried from 03f973e: a plan spends nothing and proves no card, and the body dates them "of an earlier version of the cards". The third (`grep -n 8.51 evidence/acceptance-records.md`): `73:plan total: 24 runs, ~$8.51 (cap $10)`. `--max-usd` defaults to 10 (`evals/kit/quiz.py`). Nine written plus four unwritten make the specification's thirteen cases; `a8-ask-foreign-branch` is written as `a8-push-refused-default-branch` (same situation, `floor-2`; `part3-proofs.md` line 201).
 
 ### C19. Inventories: VERIFIED but for F7
 
@@ -215,11 +215,11 @@ The 28 source-range "failures" are capability lines of the host JSON, for which 
 
 ### C21. Autonomous decisions, Human decisions, Changes: VERIFIED
 
-The dropped sentences are absent from `<next>` (`git grep`, no line); the five defaults match the specification's open questions and cards; "B012, B017 dropped" matches `brows.py`; the three Human decisions are the program's answers; Changes: files under `<next>` and `evals/quiz/chief-of-staff/` only (C2).
+`git grep -n -i -e "transient network" -e "every manifest reading" -e "cd into the worktree" -e "startup report" HEAD -- .` in `<next>`: no line, exit 1 (the dropped sentences); the five defaults match the specification's open questions and cards; "B012, B017 dropped" matches `brows.py`; the three Human decisions are the program's answers; Changes: files under `<next>` and `evals/quiz/chief-of-staff/` only (C2).
 
 ### C22. The other Known gaps and statements: VERIFIED
 
-Eight Foreman nevers; English rule under `worker-shell`; no merge on its own and no real run (specification); `judge` code has no image-note handling and the card (line 15) puts it in the ask's sentence; Chief of Staff Never list of 14; no byte target for six files; the router runs no brief; the push default (card item 5 with floor 2: a CR's own branch only for a force push); the red-check line in `inspector.md:5` only; the allow table keeps `uvx` and `uv run`, the launcher marked unproved; the host JSON names; `topics/reload.md:3`; "Stop no sync holder"; the swap list; Blast radius (C4).
+`cat -n <next>/foreman.md`, `cat -n <next>/chief-of-staff.md`, `sed -n 3p <next>/topics/reload.md`, `grep -o` on the two host JSON files, `grep -n -i "red on the default branch"` on `inspector.md`, `verifier.md` and `topics/ci.md`: eight Foreman nevers (lines 20-27); the Chief of Staff's list is lines 20-33; `topics/reload.md:3` ends "After a compaction read your card again"; the JSON files name `session-start.md`, `driver.md` (claude-code) and `session-start.md`, `foreman-lost-driver.md` (copilot); `inspector.md:5` holds "never fix it there", `verifier.md:7` and `ci.md:6` do not. Also: English rule under `worker-shell`; no merge on its own and no real run (specification); `judge` code has no image-note handling and the card (line 15) puts it in the ask's sentence; Chief of Staff Never list of 14; no byte target for six files; the router runs no brief; the push default (card item 5 with floor 2: a CR's own branch only for a force push); the allow table keeps `uvx` and `uv run`, the launcher marked unproved; "Stop no sync holder" (`foreman.md:22`); the swap list; Blast radius (C4).
 
 Observation, not a claim: `chief-of-staff.md` item 5 alone reads "any other, once"; "never force-pushed" for another branch comes from floor rule 2.
 
