@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Enter and click in an admonition open the selected element",
-  "summary": "Specified for batch-09: in an admonition or GitHub alert, Enter on an arrow-reached element and a body click open that element only; the admonition selected, its title or frame open it whole. BLOCK-014, 254, 017, 262 change. Open: alert quote markers, item editor keys, clip and guide.",
+  "summary": "Specified for batch-09: in an admonition or alert, Enter on an arrow-reached element and a body click open it alone; title or frame open it whole. Item editor: chord moves the list inside, edges keep the caret. Clip re-filmed down to a sub-item, guide updated. Open: other editors' chord, refusal.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b9b9e0ffe990d1565ec545e7f5d91e8f872f66f15e0e6a866fe7ca8b18b2d6f6",
-    "02-answers.md": "18ad36ac44b61988e1469015a20c330e69c46024125bd73dc8afebab5941afbb",
-    "03-change-spec.md": "011ba00cc9cd66319f85d76f9a56e1d9f184cf8e1bfad2bd4c82327dc3d93767",
+    "02-answers.md": "857eaef0145f94721d33ebde8bf7603f212b3ff1c6e123536d916660601cca1a",
+    "03-change-spec.md": "1a836dc29602700558a6f541c112966268596d85ef949c5776884df0368b9264",
     "intake/request.md": "5372a8a90d9227f1582fdcab329f1aaae5bd1c8eebcab560060762bc64f477cb"
   },
-  "summarized": "2026-11-26T08:00:40Z"
+  "summarized": "2026-11-26T08:13:26Z"
 }
