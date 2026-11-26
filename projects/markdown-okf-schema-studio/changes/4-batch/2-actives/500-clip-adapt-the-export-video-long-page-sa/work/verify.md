@@ -110,3 +110,48 @@ empty; base unchanged; body unchanged outside lines 37 to 42 and 47).
 Not checked, and not claimed: motion, rhythm, scroll speed and the loop as watched; macOS and Linux.
 
 VERIFIED
+
+---
+
+## Description pass at d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac (posted body only)
+
+The code claims above stand at the same head and were not redone. Verdict of this pass: VERIFIED.
+
+D1. Head and state, at d6ae0d0. `git rev-parse HEAD`: d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac; `git status
+    --porcelain`: empty. `gh pr view 516 --json title,body,isDraft,headRefOid,baseRefName,state`:
+    head d6ae0d04..., base chantier/batch-09/cr-510-stack-ci-the-merge-commit-check-accepts-, isDraft
+    true, OPEN, title "docs: rework the export clip on a long report page".
+D2. Posted body equals work/pr-body.md, at d6ae0d0. `gh api .../pulls/516 --jq .body` saved to scratch,
+    compared by `python -I`: 7073 and 7072 bytes, equal after trimming the trailing newlines and
+    CRLF: True (7068 characters each); pr-body.md has no byte-order mark.
+D3. Renders, at d6ae0d0. `gh api ... -H "Accept: application/vnd.github.full+json" --jq .body_html`: 11
+    h2 sections (Summary, Deliverables, Deviation from the feature clip process, Changes, Impacts, Blast
+    radius, Test plan, Known gaps, Autonomous decisions, Human decisions, Internal references, then the
+    Claude Code line), one image, six task items all checked, lists and code spans rendered.
+D4. Project PR rules (.github/PULL_REQUEST_TEMPLATE.md, pull-request.guidelines.md,
+    feature-clip-process.guidelines.md section 6), judged at d6ae0d0. Template sections all present and
+    filled; Deliverables right after Summary with the GIF; Impacts has "No visual change to the
+    extension" with what changes instead (the documentation page's clip); one blast radius grade with
+    its explanation; Autonomous decisions and Known gaps filled; Internal references last, before the
+    Claude Code line; GIF inline and MP4, WebM, clip.md linked at d6ae0d0; the unchecked parts (motion,
+    rhythm, loop) said. No `issue:` line in the CR's .md files (Grep: no match), no Fixes line.
+D5. Internal references and marks, at d6ae0d0. `grep -n -i -E "gaeta|Users[\/]|CR-?[0-9]|batch|round|
+    driver|inspector|verifier|coder|foreman|chief of staff|griller|STALE|UNVERIFIED|\.agents"` over the
+    posted body: one match, line 77, the Internal references line.
+D6. Changes against the diff, at d6ae0d0. `git diff --name-status 7d35be3 d6ae0d04`: storyboard.test.mjs
+    M; export-html: check.json, clip.md, scenario.mjs, outputs and frames M or A, frames/release.png D,
+    stage/platform-report.md A, stage/team-handbook.md D; docs/user/toolbar.md M. Nothing else.
+D7. Review box. `$CHANTIER log 500`, 2026-11-26T04:55:09Z: "r5 approved at c7c6a562... (uncommitted
+    wording diff over that head), committed as d6ae0d0458ecbadf97c9b17d05b8f6ae2182ddac".
+D8. CI box. `gh pr checks 516`: checks, report, static, static-windows, viewer-graph, visual pass;
+    gallery, integration, pages, release, release-check, stress, tag-release, toc-loop skipping.
+D9. Proof SHAs: d6ae0d0 (the head), and c7c6a56 only as "carried from" with its reason. Claims of
+    Summary, Deliverables, Changes and Impacts are proved by claims 6, 11, 13, 14 and F above. Known gaps
+    holds the gaps of claims F and 16; no before-after.md (no extension UI change), no UNVERIFIED mark.
+D10. Image, at d6ae0d0. The posted GIF link downloaded: HTTP 200, 3071217 B, sha256 58827e02a17d...,
+    equal to the worktree file and to the committed LFS pointer's oid. Looked at every 6th frame (ffmpeg
+    tiles, 36 frames): no username or home folder (the save box shows C:\okfclip-500\..., the browser
+    localhost:5170, the window title "workspace"); three captions, three marks in turn on the wide
+    table, the flowchart and the bar chart, as the body says.
+
+VERIFIED
