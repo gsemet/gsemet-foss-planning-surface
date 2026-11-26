@@ -174,11 +174,11 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 ## Known gaps
 
+- This is a partial delivery of the planned acceptance work: only the trust and security group has acceptance files, the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted. The other requirement groups, the mode switch and its gate are left for follow-up changes.
 - The 3-minute test step of an acceptance shard ends before the default budget of a test step (3 minutes) and the 15-minute launch deadline can expire: a hang that no shorter check catches leaves the processes and logs left behind, without the window state and screenshots.
 - Both timeouts come from one shard's first attempt in one run (a second attempt was faster); a slower group added later has to measure and set them again.
 - `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: the public VS Code API cannot read the preview's texts or the Extensions view, and a test performs no install. Each needs another kind of test, or a decision, before the coverage mode can be switched.
 - The table of `SwRS-MDOKFSTUDIO-TRUST-065` scenario S2 omits newer message types of the preview page; its test checks the listed types only. The requirement text needs an update.
-- The other requirement groups have no acceptance file; the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted.
 
 <details>
 <summary>Details</summary>
@@ -207,7 +207,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 ## Internal references
 
-- CR-505 strs-acceptance (stacked on CR-504, pull request #524).
+- CR-505 strs-acceptance (follows pull request #524, merged).
 
 </details>
 
