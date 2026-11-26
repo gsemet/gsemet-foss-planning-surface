@@ -40,7 +40,7 @@ The 15 approved StRS only get `approved_at` and `verified.at` set to the time of
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-Measured at `2c0a01a`: a scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validated with 0 errors and 104 warnings: W004 x78 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change.
+Measured at `4ffd7cd` (carried from `2c0a01a`): a scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validated with 0 errors and 104 warnings: W004 x78 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change.
 
 ## Blast radius
 
@@ -52,7 +52,7 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - TRUST-014 has no second path for linting and drawing the use case diagrams (SwRS CORE-087 and CORE-090): they are build-time checks no path cites.
 - The StRS markers' sort was carried out by an agent by the agreed classes; the re-approval of the 15 approved StRS by the review of this PR follows the owner's agreement to the scripted rename.
 - The changes below this one in the stack added nine tests of documentation pages that play a feature clip, marked `CORE-095` with no fragment. They name S1, as the sibling page tests do: each asserts the page's video source and that the clip files exist in the repository, not every video attribute nor the copy into the site (other tests of the file assert those).
-- A migration script, run group by group, declared `scenarios:` and renamed the headings. The migration commits carry the fragments of the markers that existed before the restack on `main`; the fragments of the chart, gallery and Auto width tests of `main` arrive only in `94f070d7` (see Known gaps).
+- A migration script, run group by group, declared `scenarios:` and renamed the headings. The migration commits carry the fragments of the markers that existed before the restack on `main`; the fragments of the chart, gallery and Auto width tests of `main` arrive only in `1f68b609` (see Known gaps).
 - The scenario fragment of each migrated SwRS test marker was first chosen by a keyword match between the scenario titles and the test, with `S1` when nothing matched. The 486 weakest matches were then read one by one against the test (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). The other fragments the migration assigned, and 45 lines on 6 SwRS with generic scenarios, are as the match assigned them and were not read against their test.
 - StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path, a duplicate of a SwRS marker, or another reason named in the table); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
 - The exemption reason of a replaced SwRS names its successor with one shared text; LIFE-174 and LIFE-182 to 185, archived with no successor, each have their own reason.
@@ -83,7 +83,7 @@ Also left for the follow-up change, found in review:
 
 Others:
 
-- The six commits from `bd910ce3` to `94f070d7` fail the marker check (`just check`, `fragment-required`) and the validation in the new coverage mode. Measured commit by commit: `bd910ce3` has 54 findings (the fragments of the chart, gallery and Auto width tests of `main` are still missing) and 14 errors in that validation; the four from `b93e855a` to `d083eff4` have 63 findings (those 54 and the nine clip page markers brought by the changes below) and 15 errors; `94f070d7` has the nine clip page findings and 1 error. The first commit, `7a80c64c`, and the head pass both. A merge by rebase puts these commits on `main`; a squash merge does not.
+- The six commits from `d7c37a60` to `1f68b609` fail the marker check (`just check`, `fragment-required`) and the validation in the new coverage mode. Measured commit by commit (figures carried over a clean rebase that left the patch of each commit unchanged): `d7c37a60` has 54 findings (the fragments of the chart, gallery and Auto width tests of `main` are still missing) and 14 errors in that validation; the four from `861c9420` to `2a848bf0` have 63 findings (those 54 and the nine clip page markers brought by the changes below) and 15 errors; `1f68b609` has the nine clip page findings and 1 error. The first commit, `841cd943`, and the head pass both. A merge by rebase puts these commits on `main`; a squash merge does not.
 - "StRS covered" reads 1 of 95 in the current coverage mode (see Impacts).
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
 - Of the 133 StRS paths without a marker, these 66 had a candidate marker at the last re-read, which the strict marker rule removed for a partial walk, a single-state snapshot or another case named in the table. BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 has a marker: their tests run outside a real VS Code and do not walk the path.
@@ -385,11 +385,11 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
   - `SwRS-MDOKFSTUDIO-CORE-097` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
   - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `DIAG-128`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
 - [x] Changelog: no user-facing change
-- [x] Local gates: `just preflight` (static stage on Windows, which runs `just check` and `just requirements-lint`) passes at `2c0a01a`
-- [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests and was compared in a browser, before at `17b779d`, after at `2c0a01a` (carried from `2f3c629`); screenshots not posted
-- [x] Review: approved at `2c0a01a`
-- [x] Verified at `2c0a01a`
-- [x] CI green: all checks that run on a pull request pass at `2c0a01a`
+- [x] Local gates: `just preflight` (static stage on Windows, which runs `just check` and `just requirements-lint`) passes at `4ffd7cd`
+- [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests and was compared in a browser, before at `17b779d`, after at `4ffd7cd` (carried from `2f3c629`); screenshots not posted
+- [x] Review: approved at `4ffd7cd` (carried from `2c0a01a`)
+- [x] Verified at `4ffd7cd` (carried from `2c0a01a`)
+- [x] CI green: all checks that run on a pull request pass at `4ffd7cd`
 
 ## Internal references
 
