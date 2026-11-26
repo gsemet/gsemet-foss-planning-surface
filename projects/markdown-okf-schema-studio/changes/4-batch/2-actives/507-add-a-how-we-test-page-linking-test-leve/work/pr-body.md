@@ -64,20 +64,23 @@ between them):
 
 ![Site header with five links](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/before-header.png)
 
-Header after, at `0592dde` (carried from `6c5106e`: a clean rebase that left the files behind
-these pictures unchanged):
+The four pictures that follow were captured again at `0592dde`, after a clean rebase that left the
+page, the diagram and the site files unchanged and changed the Markdown renderer: each is the same,
+byte for byte, as its picture taken at `6c5106e`.
+
+Header after, at `0592dde`:
 
 ![Site header with six links, How we test between How we ship and Gallery](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-header.png)
 
-Top of the new page with its diagram, at `0592dde` (carried from `6c5106e`):
+Top of the new page with its diagram, at `0592dde`:
 
 ![The How we test page: introduction, the two levels of requirements and the diagram of the test levels](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-page-top.png)
 
-The table, at `0592dde` (carried from `6c5106e`):
+The table, at `0592dde`:
 
 ![Table of the test levels: where, command, CI job, what each proves and its marker](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-table.png)
 
-"What is not enforced yet", at `0592dde` (carried from `6c5106e`):
+"What is not enforced yet", at `0592dde`:
 
 ![The section What is not enforced yet, with four points](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-not-enforced.png)
 

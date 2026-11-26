@@ -1,0 +1,23 @@
+67,68c67,71
+< Header after, at `0592dde` (carried from `6c5106e`: a clean rebase that left the files behind
+< these pictures unchanged):
+---
+> The four pictures that follow were captured again at `0592dde`, after a clean rebase that left the
+> page, the diagram and the site files unchanged and changed the Markdown renderer: each is the same,
+> byte for byte, as its picture taken at `6c5106e`.
+> 
+> Header after, at `0592dde`:
+72c75
+< Top of the new page with its diagram, at `0592dde` (carried from `6c5106e`):
+---
+> Top of the new page with its diagram, at `0592dde`:
+76c79
+< The table, at `0592dde` (carried from `6c5106e`):
+---
+> The table, at `0592dde`:
+80c83
+< "What is not enforced yet", at `0592dde` (carried from `6c5106e`):
+---
+> "What is not enforced yet", at `0592dde`:
+195a199
+> 
