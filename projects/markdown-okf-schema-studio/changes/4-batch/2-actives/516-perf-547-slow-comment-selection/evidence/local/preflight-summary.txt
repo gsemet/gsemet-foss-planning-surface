@@ -1,0 +1,26 @@
+$ fnm exec -- just preflight   (Windows host: static stage only) - summary lines of the output; exit 0
+check-no-merge-commits: passed (0 commits since origin/main, no merge commit)
+check-exports: no unused export in 406 module(s) of src/
+check-markers: 11 companion file(s), 459 in-force SwRS marked, 12 files on the marker baseline
+ℹ tests 56
+ℹ pass 56
+ℹ fail 0
+ℹ skipped 0
+✔ accepts passed integration and visual artifacts from the current campaign (1.3153ms)
+ℹ tests 5375
+ℹ pass 5367
+ℹ fail 0
+ℹ skipped 8
+ℹ tests 0
+ℹ pass 0
+ℹ fail 0
+ℹ skipped 0
+ℹ tests 116
+ℹ pass 116
+ℹ fail 0
+ℹ skipped 0
+======================= 298 passed in 99.84s (0:01:39) ========================
+found 0 vulnerabilities
+============================= 4 passed in 12.55s ==============================
+ci-static: passed
+preflight: visual, viewer-graph, integration, acceptance, report and gallery stages skipped on Windows; CI runs them

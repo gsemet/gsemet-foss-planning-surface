@@ -9,5 +9,5 @@ exit 0
 $ uv run --group docs --group release --group requirements pytest test/build/test_workflows.py -q
 ........................................................................ [ 64%]
 .......................................                                  [100%]
-111 passed in 8.39s
+111 passed in 8.13s
 exit 0
