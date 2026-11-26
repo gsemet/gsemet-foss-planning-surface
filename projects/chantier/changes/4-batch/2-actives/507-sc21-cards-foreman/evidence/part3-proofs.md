@@ -35,7 +35,7 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 | hosts/copilot.md | 18,947 | none | not carried: its text is in `topics/host-*.md` | no target (file not carried) |
 | floor.md | 554 | 554 | 1,200, byte-identical | within |
 | topics/host-*.md: 33 files | part of the above | 37,088 in all, largest 1,500 | 1,500 each | within |
-| topics/<name>.md (others): 262 files | part of the above | 311,936 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
+| topics/<name>.md (others): 262 files | part of the above | 311,940 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
 | topics.json | 8,866 | 64,280 | none set | no target |
 | skills/chantier-SKILL.md | 3,537 | 2,705 | section 6 (no byte target) | no target |
 | skills/chief-of-staff-SKILL.md | 3,664 | 2,785 | section 6 (no byte target) | no target |
