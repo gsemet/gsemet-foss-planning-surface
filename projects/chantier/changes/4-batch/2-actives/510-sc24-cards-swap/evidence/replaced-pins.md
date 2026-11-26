@@ -144,11 +144,11 @@ Each phrase an old test pinned in a removed card, with the old file and line at 
 ## test_stack_chain_cards.py
 
 - `merge-base --is-ancestor` (driver.md:508) -> card stack-driver.md; topic stack-restack
-- `branch not based on` (driver.md:209, driver.md:504, driver-retake.md:53, driver-retake.md:62) -> card cr-driver.md#Never; card stack-driver.md; topic refused-push; topic retake; topic stack-restack
+- `branch not based on` (driver.md:209, driver.md:504, driver-retake.md:53, driver-retake.md:62) -> card cr-driver.md; card stack-driver.md; topic refused-push; topic retake; topic stack-restack
 - `branch moved since its last ship` (driver.md:517, driver.md:609, driver-retake.md:68) -> topic release-ship; topic retake; topic stack-record
 - `not shipped at` (driver.md:517, driver.md:521, foreman-stack.md:65) -> topic stack-grows; topic stack-record
 - `PRs the refusal names` (driver.md:524) -> topic stack-record
-- `gh pr ready --undo` (driver.md:270, driver.md:524, driver-retake.md:89) -> card cr-driver.md#Never; topic cr-handback; topic retake-notes; topic stack-record
+- `gh pr ready --undo` (driver.md:270, driver.md:524, driver-retake.md:89) -> card cr-driver.md; topic cr-handback; topic retake-notes; topic stack-record
 - `stack --out-of-draft' again` (driver.md:526) -> topic stack-record
 - `holds the merge ('status' shows it merged)` (driver.md:528, driver.md:610, driver-retake.md:72) -> topic release-ship; topic retake; topic stack-record
 - `**Check the chain.**` (driver.md:508) -> card stack-driver.md; topic stack-restack
