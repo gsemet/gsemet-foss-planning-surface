@@ -30,7 +30,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 - [x] Requirements at `c3c3a57`: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog at `c3c3a57`: No user-facing change (no `feat` or `fix` commit)
 - [x] Local gates at `c3c3a57`: `just clip-kit-test` (42 tests), `just check` and `just preflight` (static stage on Windows) pass
-- [x] Evidence at `c3c3a57`, carried from before the rebase, which leaves the clip folder unchanged: the take passed, the render step failed once with a Remotion compositor error, `render` rerun alone and then `check` passed (`check.json` passed: true, loop seam SSIM 0.9926, playback rate 1.004)
+- [x] Evidence at `c3c3a57` (carried from `6b54c6e`: the rebase leaves the clip folder unchanged): the take passed, the render step failed once with a Remotion compositor error, `render` rerun alone and then `check` passed (`check.json` passed: true, loop seam SSIM 0.9926, playback rate 1.004)
 - [x] Review: an independent review approved the rebased change at `c3c3a57`
 - [x] CI green at `c3c3a57` (static, static-windows, visual, viewer-graph, report)
 
@@ -38,7 +38,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 
 Proved by the take (`check.json` at `c3c3a57`, "scenario verify passed"): real drags by the row and column handles in a real VS Code window on Windows move the row, then the column; the file on disk equals the expected text and the raw table keeps each cell's spacing.
 
-The take does not prove motion, rhythm, the loop as watched, the texts or the word "handle" for the owner's word "anchor": those are judged by watching. A CDP drag has no floating drag image (the row or column is dimmed and a line shows where it lands), and the clip shows the focus ring on the moved handle. The owner then approved the storyboard and the clip.
+The take does not prove motion, rhythm, the loop as watched, the texts or the word "handle" for the owner's word "anchor": those are judged by watching. A CDP drag has no floating drag image (the row or column is dimmed and a line shows where it lands). The owner then approved the storyboard and the clip.
 
 ## Deviation from the feature clip process
 

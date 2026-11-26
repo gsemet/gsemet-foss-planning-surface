@@ -119,6 +119,9 @@ frame lookup; it needs one heavy run to confirm.
   and `grid-card-editor-blur` now run under the `current` theme instead (none of them asserts a
   theme).
 - Each launch logs its name in the extension host, so a passing log also says which part ran.
+- The two proof runs were started at the same time on one commit rather than one after the other:
+  the CI workflow sets no concurrency limit, so each runs on its own machines and neither cancels
+  the other.
 - Beyond the shared Studio frame lookup, the URL filter also covers the second frame scan of the
   open-at-line step and the frame dump written when the current preview frame is not found. The
   other frame scans of the test suite are left as they were (see Known gaps).

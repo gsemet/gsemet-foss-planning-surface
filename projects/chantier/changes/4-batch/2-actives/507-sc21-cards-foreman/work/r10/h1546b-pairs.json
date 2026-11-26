@@ -1,0 +1,3 @@
+[
+ ["cards-inventory-host-and-shared.md", "printed as `ci:` and `timing:` lines). Permissions are scoped to session, project and effect; a started agent inherits only its role's, never merge or publication permission. |", "printed as `ci:` and `timing:` lines). Permissions are scoped to session, project and effect: a started agent inherits only its role's, never merge or publication permission. |"]
+]

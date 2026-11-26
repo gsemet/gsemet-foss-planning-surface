@@ -1,0 +1,8 @@
+[
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:139 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |\n| H-375 |", "| card concepts.md:139 | `grep -c -F 'Triggers, and who acts' concepts.md` |\n| H-375 |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:139 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |\n| H-379 |", "| card concepts.md:139 | `grep -c -F 'Triggers, and who acts' concepts.md` |\n| H-379 |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:140 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |", "| card concepts.md:140 | `grep -c -F 'once the user grants rounds' concepts.md` |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:142 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |", "| card concepts.md:142 | `grep -c -F 'a red check the Debugger could not explain' concepts.md` |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:143 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |", "| card concepts.md:143 | `grep -c -F 'a conflict the resolver could not settle' concepts.md` |"],
+ ["cards-inventory-host-and-shared.md", "| card concepts.md:144 | `grep -c -F 'hand-backs of one CR that show trouble in' concepts.md` |", "| card concepts.md:144 | `grep -c -F 'end in CR hand-backs' concepts.md` |"]
+]
