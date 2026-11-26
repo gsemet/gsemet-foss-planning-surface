@@ -18,3 +18,9 @@ Spec critic: no, style only.
    the Driver's `gh pr edit 535 --base` and #535 cannot join the forge stack): **How to set the base of
    #535:** the owner: "C. On attend". Nothing changes for now: no agent retargets the pull request,
    and CR-513 stays off the forge stack.
+
+5. field-error-Q4, follow-up (2026-11-26, the owner to the Chief of Staff, after "Juste guide moi pour
+   merger dès que possible tout ça"), verbatim: "Pour moi tu aurais du pousser à la place du driver
+   mais du moment que tu trouves une autre solution pour finir les merged des autres c'est le plus
+   important. Juste ne soit pas bloqué". The wait of item 4 ends: the Chief of Staff ran
+   `gh pr edit --base` for #535, #540 and #543, each onto the branch of the CR below it in the stack.
