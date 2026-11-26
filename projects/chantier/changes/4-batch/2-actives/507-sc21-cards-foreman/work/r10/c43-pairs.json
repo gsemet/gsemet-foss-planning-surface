@@ -1,0 +1,11 @@
+[
+ ["topics/grill-outside-pr.md", "`not running`: write nothing, say so, act as the line says.", "`not running`: write nothing, say so in one line, act as the line says, then archive."],
+ ["topics/refused-push-gate.md", "(`not a branch of this batch`, or `no long gate passed at <local sha>`), with no hop", "(`not a branch of this batch`, or `no long gate passed at <local sha>`), by the restart path's steps (`help refused-answer`), with no hop"],
+ ["topics/refused-push-gate.md", "`$CHANTIER asks \"<the CR>: push <branch>", "`$CHANTIER asks \"<CR number and slug>: push <branch>"],
+ ["topics/merge-under-grant.md", "and the local run passed when owed (`help local-gate`).", "and the local run passed when owed (`help local-gate`); a fix with no grant is an ordinary CR handed back."],
+ ["topics/merge-under-grant.md", "a stop with the exact text; no other route.", "a stop with the exact text; no other route, `gh pr merge` included."],
+ ["topics/refused-rebase.md", "`git -C * rebase --onto …`) in an `(add …)` part", "`git -C * rebase --onto …`; `origin`: the project's remote) in an `(add …)` part"],
+ ["topics/wakes-p1.md", "the turn that takes the first CR arms it.", "the turn that takes the first CR arms it. A new batch arms its own."],
+ ["topics/watcher-board-p2.md", "with a watcher or the pull path running, only when the user asks.", "with a watcher or the pull path running, only when the user asks. That word decides nothing: still ask before opening a batch."],
+ ["topics/sync-offer-p1.md", "The offer, once per pending sync, when every listed holder is this session's own board or watcher:", "The offer, once per pending sync, at the first try at or after those 3 minutes with every listed holder this session's own board or watcher:"]
+]
