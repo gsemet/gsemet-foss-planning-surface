@@ -25,14 +25,13 @@ of them exactly once, in order, with those two exceptions.
 Durations read from the job logs of heavy runs, before (one trusted launch) and after (two parts).
 A launch or part lasts from its `setup` step to its last step.
 
-| Duration | Before: run 45476952370 at `63ef752` | Before: run 45713440510 at `17b779d` | After: run 45729384181 at `5e7b4a3` |
-| --- | --- | --- | --- |
-| Single trusted launch (deadline 900 s) | 834 s | 831 s | none |
-| Part 1 (deadline 900 s, bar 600 s) | none | none | 428 s |
-| Part 2 (deadline 900 s, bar 600 s) | none | none | 502.5 s |
-| `real-input` step | 404 s | 405 s | 462 s |
-| `open-at-line-probe` step | 178 s | 178 s | 182 s |
-| Whole `just ci-integration` step (limit 1200 s) | 1011 s | 1002 s | 1128 s |
+| Heavy run | Commit | Single trusted launch (deadline 900 s) | Part 1 (bar 600 s) | Part 2 (bar 600 s) | `real-input` step | `open-at-line-probe` step | Whole `just ci-integration` step (limit 1200 s) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Before: 45476952370 | `63ef752` | 834 s | none | none | 404 s | 178 s | 1011 s |
+| Before: 45713440510 | `17b779d` | 831 s | none | none | 405 s | 178 s | 1002 s |
+| After: 45729384181 | `5e7b4a3` | none | 428 s | 502.5 s | 462 s | 182 s | 1128 s |
+| After: 45734265223 | `b24d3bf` | none | 422 s | 493 s | 452 s | 181 s | 1111 s |
+| After: 45734267839 | `b24d3bf` | none | 409 s | 453 s | 418 s | 179 s | 1056 s |
 
 The frame lookup now chooses its candidates from `frame.url()` alone, before any call that needs
 the frame's document:
@@ -122,16 +121,22 @@ frame lookup; it needs one heavy run to confirm.
 - The two proof runs were started at the same time on one commit rather than one after the other:
   the CI workflow sets no concurrency limit, so each runs on its own machines and neither cancels
   the other.
+- The visual job cancelled in one proof run was not run again: the proof of this change rests on the
+  integration and stress jobs, green in both runs, and a second try would hide a limit that needs
+  its own fix.
 - Beyond the shared Studio frame lookup, the URL filter also covers the second frame scan of the
   open-at-line step and the frame dump written when the current preview frame is not found. The
   other frame scans of the test suite are left as they were (see Known gaps).
 
 ## Known gaps
 
-- The whole integration step has a thin margin under its 1200 s limit: it took 1128 s on the heavy
-  run measured above, about 6 % under, so a slower runner could still stop the step. Running
-  integration as parallel CI jobs, or replacing the fixed pauses of the open-at-line probe (about
-  180 s) with readiness signals, would widen it.
+- The whole integration step has a thin margin under its 1200 s limit: it took 1056 to 1128 s on the
+  three heavy runs of this change, 6 to 12 % under, so a slower runner could still stop the step.
+  Running integration as parallel CI jobs, or replacing the fixed pauses of the open-at-line probe
+  (about 180 s) with readiness signals, would widen it.
+- The simulated visual job runs close to its 15-minute limit, also on the default branch (885 s of
+  900 s in run 45713440510), and was cancelled at that limit in one of the two proof runs. This
+  change does not touch that job or what it runs, so it is left for a change of its own.
 - The frame lookup is not proven fixed: one failure in many runs cannot be shown gone by two green
   runs, and the open-at-line steps are not stress scenarios, so the repetition proof the project's
   CI rules ask for a flaky test is not provided. The URL filter and the frame list in the failure

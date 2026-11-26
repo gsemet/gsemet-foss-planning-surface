@@ -31,7 +31,7 @@ Grade: 1. Docs, clip kit tests and one site test only; a plain `git revert` rest
 - [x] Changelog at `5a73b6e`: No user-facing change (no `feat` or `fix` commit)
 - [x] Local gates at `5a73b6e`: `just clip-kit-test` (55 tests), `just check` and `just preflight` (static stage on Windows) pass
 - [x] Evidence at `5a73b6e` (carried from `3ea161c`: the rebase leaves the clip folder unchanged; after the media were rendered only a review note of `clip.md` changed): the eighth run of the take passed, after runs that failed on bugs of the new scenario and on the Enter behaviour described below; `check.json` passed: true, "verify" passed, 20.0 s, loop seam SSIM 0.98998, playback rate 1.003
-- [ ] Review
+- [x] Review: an independent review approved the rebased change at `5a73b6e`
 - [x] CI green at `5a73b6e` (static, static-windows, visual, viewer-graph, report)
 
 ## What the clip proves

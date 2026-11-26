@@ -378,16 +378,16 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test/build/checkMarkers.test.ts` (the new marker rules), `test/build/mutationReport.test.ts`, and in `test/site/requirementsViewer/` `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts` and `mainPaths.test.ts`
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] New or changed tests (they fail on the previous code): `test/build/checkMarkers.test.ts` (the new marker rules), `test/build/mutationReport.test.ts`, and in `test/site/requirementsViewer/` `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts` and `mainPaths.test.ts`
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
   - `SwRS-MDOKFSTUDIO-CORE-069`, `CORE-080`, `CORE-082` (viewer: `test/site/requirementsViewer/model.ts`, `home.ts`, `pages.ts`; tests `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts`)
   - `SwRS-MDOKFSTUDIO-CORE-097` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
   - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `DIAG-128`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
-- [ ] Changelog: no user-facing change
+- [x] Changelog: no user-facing change
 - [x] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows) pass at `2f3c629`
-- [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `2f3c629` (screenshots not posted)
+- [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `2f3c629` (screenshots not posted)
 - [x] Review: approved at `2f3c629`
-- [ ] Verified: pending at `2f3c629`
+- [x] Verified at `2f3c629`
 - [x] CI green: all checks that run on a pull request pass at `2f3c629`
 
 ## Internal references
