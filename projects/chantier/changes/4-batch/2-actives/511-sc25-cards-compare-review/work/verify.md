@@ -6,8 +6,10 @@ Base: `266b784f008d6d9c6a5e7e1f9eabacefb0552dee` (origin/main). PR
 https://github.com/gsemet/chantier/pull/489 (draft). Scope: orders O-179 and O-180
 (`02-answers.md` 8 and 9). No quiz or eval run (owner's word).
 
-Verdict: **NOT VERIFIED**. Claims 1 to 4 hold. Claim 5, the PR description, has two false
-statements (5A, 5B). Both are fixed in the description alone; no code change is needed for them.
+Verdict: **VERIFIED**. Claims 1 to 4 are carried from the first pass at this same head (no move,
+so nothing they exercise changed). Claim 5, the PR description, was judged again on the body as
+edited and posted again: the two statements that failed (5A, card size targets; 5B, "restored
+without a row id") are fixed.
 
 Short names, all at the full head above:
 
@@ -16,15 +18,18 @@ Short names, all at the full head above:
 - `PY` = `uv run --no-sync --project C:/Users/gaeta/Projets/chantier python -I -B -X utf8`
 - scripts in `CRF/work/verifier/`; before and after in `CRF/work/verifier/evidence/before-after.md`
 
-Head and tree:
+Head and tree (run again in the description pass):
 
     git -C WT status --porcelain            -> (empty)
-    gh pr view 489 --repo gsemet/chantier --json headRefOid --jq .headRefOid
-    5d2626debacb20ffa6a5599ff21ba3397d781ff0
-    git -C WT diff --shortstat 266b784 5d2626d
+    git -C WT rev-parse HEAD                -> 5d2626debacb20ffa6a5599ff21ba3397d781ff0
+    gh pr view 489 --repo gsemet/chantier --json headRefOid,isDraft,body
+    "headRefOid":"5d2626debacb20ffa6a5599ff21ba3397d781ff0","isDraft":true
+    git -C WT diff --stat 266b784 5d2626d
     26 files changed, 8059 insertions(+), 48 deletions(-)
 
 ## Claim 1. The serious lost rules are restored, with O-158 and O-176 (SHA 5d2626d): VERIFIED
+
+Carried: judged at this head in the first pass.
 
 Open rows (judgment by reading):
 
@@ -76,6 +81,8 @@ matches are unrelated or still true: `status-layout.md:14,21,64`, `hosts/claude-
 
 ## Claim 2. The inventory test and the switched-lines test pass; a new unlisted open row fails (SHA 5d2626d): VERIFIED
 
+Carried: judged at this head in the first pass.
+
     uv run --no-sync --project WT pytest WT/skills/chantier/scripts/cli/tests/test_cards_inventory.py WT/skills/chantier/scripts/cli/tests/test_card_names.py -q -p no:cacheprovider --rootdir WT -c WT/pyproject.toml --basetemp CRF/work/scratch/vf/pt
     .............................                                            [100%]
     29 passed in 1.21s
@@ -87,12 +94,16 @@ absent (`cat-file -e`, exit 128).
 
 ## Claim 3. CI is green at the head, scenario included (SHA 5d2626d): VERIFIED
 
+Run again in the description pass:
+
     gh pr checks 489 --repo gsemet/chantier
     just check (macos-latest)          pass 6m13s  .../runs/45828591210/job/139939091007
     just check (ubuntu-latest)         pass 1m48s  .../job/139939091051
     just check (windows-latest)        pass 10m4s  .../job/139939091235
     just eval-dry-run (ubuntu-latest)  pass 1m12s  .../job/139939090612
     just scenario (ubuntu-latest)      pass 7m6s   .../job/139939090925
+
+From the first pass:
 
     gh run view --repo gsemet/chantier --job 139939090612 --log
     ... HEAD is now at 45257c2 Merge 5d2626debacb20ffa6a5599ff21ba3397d781ff0 into 266b784f008d6d9c6a5e7e1f9eabacefb0552dee
@@ -107,99 +118,110 @@ absent (`cat-file -e`, exit 128).
     line 2:  $ just scenario  [scenario]
     line 35: result: pass at 5d2626debacb20ffa6a5599ff21ba3397d781ff0
 
-    $CHANTIER handoff CR-511
+    $CHANTIER handoff CR-511      (first pass)
     gates before handback ready, at the PR's head 5d2626debacb20ffa6a5599ff21ba3397d781ff0 (the full SHA; the gate log's first line names it):
       [x] long gate passed (gate CR-511 scenario; ...)
-      [ ] verdict VERIFIED (the Verifier: ...)
 
-The log's tail also warns of units over their time budget (`series-deps` 387.0 s > 380 s,
-`surface-board` 822.4 s > 780 s); the result is a pass.
+The log's tail also warns of units over their time budget (`parallel` 407.5 s > 380 s, `stack`
+898.1 s > 750 s, `series-deps` 387.0 s > 380 s, `surface-board` 822.4 s > 780 s); the result is a
+pass.
 
-## Claim 5. The PR description as posted (SHA 5d2626d): NOT VERIFIED
+## Claim 5. The PR description as posted (SHA 5d2626d): VERIFIED
 
     gh pr view 489 --repo gsemet/chantier --json headRefOid,isDraft,body
+    PY vf_desc.py WT body CRF/work/pr-body.md
+    posted == pr-body.md: True 8753 8753
+    gh api repos/gsemet/chantier/pulls/489 -H "Accept: application/vnd.github.html+json" --jq .body_html
+    h2 Summary, h2 Deliverables (one table, 37 rows), h2 Blast radius, h2 Autonomous decisions,
+    h2 Known gaps, <details><summary>Details</summary> holding h2 Changes, h2 Human decisions,
+    h2 Impacts, h2 Test plan (7 ticked task items), h2 Internal references, </details>, then the
+    attribution line. No <img>.
 
-### 5A. "Card size targets exceeded by this change ... Already over and unchanged: ... griller ...": NOT VERIFIED
+### 5A (failed before, judged again): card size targets: VERIFIED
 
-Posted (Known gaps): "cr-driver 3749 to 5066 (4000), stack-driver 3783 to 4821 (4000),
-release-driver 3809 to 4685 (3000, already over), foreman 3997 to 4426 (4000), conflict-resolver
-1494 to 1535 (1500). Already over and unchanged: coder, demo-explorer, retro-critic, spec-critic,
-spec-writer, griller, verifier."
+    PY vf_desc.py WT cards
+    chief-of-staff.md base 5999 head 5999 target 6000 within unchanged
+    griller-skill.md base 3621 head 3621 target 4000 within unchanged
+    foreman.md base 3997 head 4426 target 4000 over changed
+    cr-driver.md base 3749 head 5066 target 4096 over changed
+    stack-driver.md base 3783 head 4821 target 4096 over changed
+    release-driver.md base 3809 head 4685 target 3072 over changed
+    qa-driver.md base 1567 head 1755 target 2048 within changed
+    coder.md base 1603 head 1603 target 1500 over unchanged
+    conflict-resolver.md base 1494 head 1535 target 1500 over changed
+    debugger.md base 1281 head 1281 target 1500 within unchanged
+    investigator.md base 1486 head 1486 target 1500 within unchanged
+    demo-explorer.md base 1612 head 1612 target 1500 over unchanged
+    spec-writer.md base 1667 head 1667 target 1500 over unchanged
+    spec-critic.md base 1572 head 1572 target 1500 over unchanged
+    retro-critic.md base 1565 head 1565 target 1500 over unchanged
+    inspector.md base 2000 head 2000 target 2000 within unchanged
+    verifier.md base 3112 head 3112 target 3000 over unchanged
+    griller.md base 1925 head 1925 target 2000 within unchanged
+    floor.md base 554 head 554 target 1200 within unchanged
 
-    git -C WT ls-tree -r -l 266b784 -- skills/chantier/references/cr-driver.md skills/chantier/references/stack-driver.md skills/chantier/references/release-driver.md skills/chantier/references/foreman.md skills/chantier/references/conflict-resolver.md skills/chantier/references/qa-driver.md skills/chantier/references/griller.md skills/chantier/references/griller-skill.md
-    (and the same command at 5d2626d)
-    griller.md 1925 / 1925; griller-skill.md 3621 / 3621
+The changed cards over target are exactly the five listed, with the right sizes; the unchanged
+ones over target are exactly the six listed; griller is gone from the list. The targets are those
+each card's own child set, as recorded in `3-done/510-sc24-cards-swap/evidence/e7-bytes.md:20-21`
+("child 19: 1 KB = 1,000 bytes; child 20: 1 KB = 1,024"). This CR's specification restates the
+program budgets with 1 KB = 1,000 bytes; read that way the three Driver targets would be 4,000,
+4,000 and 3,000, and every over or within state above stays the same.
 
-    CR-505 spec, 3-done/505-sc19-cards-workers/03-change-spec.md
-    line 112: | `skills/chantier/cards-next/griller.md` | board-griller: only its `## Started from the board` section (section 2.3) | 2,000 for that section |
-    lines 584-587: cr-driver 4 KB (4,096); stack-driver 4 KB (4,096); release-driver 3 KB (3,072); qa-driver 2 KB (2,048)
-    3-done/507-sc21-cards-foreman/evidence/part3-proofs.md
-    line 82: | griller-skill.md | none | 3,290 | 3,621 | 4,000 | within |
-    line 83: | griller.md | 10,757 | 1,892 | 1,925 | 2,000 | within |
-    3-done/510-sc24-cards-swap/work/pr-body.md line 101: the cards over target name no griller card
+### 5B (failed before, judged again): what is back outside the table: VERIFIED
 
-- No griller card is over its target: **griller is wrongly listed**. (The source is
-  `work/coder/r2.md:101`, "griller.md 1925 (1500)".)
-- The targets of cr-driver and stack-driver are 4,096, not 4000, and release-driver's is 3,072,
-  not 3000. Those three are still over, so only the figures are wrong.
-- The five before and after sizes are right. `foreman` (4,000) and `conflict-resolver` (1,500)
-  targets are right.
-- Also (not counted as its own failure): the specification's evidence 5 asks each card's size; the
-  description gives no size for the unchanged ones.
+Posted: "Also back, outside the table: the Foreman card's pointer to the session-shell topic, and,
+in the board restart topic, saying the line to the user once, as printed (inventory row C-640)."
 
-### 5B. "Also restored without a row id: ...": NOT VERIFIED
+    git -C WT diff --word-diff=plain 266b784 5d2626d -- skills/chantier/references
+    foreman.md: + `foreman`; a shell call that waits or changes folder: `help session-shell`.
+    topics/board-restart.md: + "say that line to the user once, as printed, and"
+    PY vf_desc.py WT body CRF/work/pr-body.md
+    table rows 37; each: home-names-card True, open False, span head True, base False
+    (X-004 is one of them, and is no longer named as lacking a row id)
 
-Posted (Deliverables): "Also restored without a row id: a release with no PR yet is no anomaly
-(stack driver card), the Foreman card's pointer to the session-shell topic, and "say it once to the
-user as printed" (board restart topic)."
+### The other statements
 
-    git -C WT grep -n -E "^\| (X-004|C-640) \|" 5d2626d -- docs/proofs/cards-inventory.md
-    :4723: | X-004 | stack driver | take stack | ... a release with no PR yet is no anomaly: ... | card stack-driver.md: "nor a release CR with no PR yet" | quote |
-    :1905: | C-640 | chief-of-staff | ... say it once to the user as printed, with the offer of the restart. | ... | topic board-restart | quote |
-    CRF/work/r2-triage.md:460: | X-004 | yes | restored at skills/chantier/references/stack-driver.md:10 | ...
-    inventory line 7141 (sc24-3): "the release with no PR yet (X-004, stack-driver.md), ..."
-
-The first item **has** a row id: X-004, listed in the restored table directly above the sentence.
-The third is the rule of inventory row C-640 (home: the same topic). "Without a row id" is false.
-The restorations themselves are present (`stack-driver.md:10`, `foreman.md:39`,
-`topics/board-restart.md:3`).
-
-### Checked and holding
+Judged in the first pass at this head unless marked "again".
 
 | statement | proof at 5d2626d | judgment |
 |---|---|---|
-| renders: sections in the template's order, one fold with blank lines, no image | posted body read | VERIFIED |
-| no internal reference or chantier role as doer outside Internal references (role names are product terms of the changed cards) | posted body read, pr-template "The rules" | VERIFIED |
+| renders: sections in the template's order, one fold, table, no image | body_html above (again) | VERIFIED |
+| no internal reference or chantier role as doer outside Internal references (role names are product terms of the changed cards); no UNVERIFIED or STALE mark | grep of the identical `pr-body.md` for `UNVERIFIED\|STALE\|CR-\d\|batch-\d\|.agents/changes\|O-\d{3}`: one hit, the Internal references line (again) | VERIFIED |
 | 1,474,636 bytes; 4629 rows; 78 sources, 11,391 lines, 900,129 bytes | `vf_claims.py WT sources`: "source files matched 78 lines 11391 bytes 900129 mismatches 0"; blob 1474636 | VERIFIED |
 | kinds a601 b169 c139 d165 e3493 f62; owner lists 601, 12, 2, 601 | `vf_dump.py WT counts`; `vf_claims.py WT sections`; `test_owner_lists` | VERIFIED |
 | the test: homes and checks resolve, every old line covered, kind a only floor, role card, refusal, or open | claim 2; `test_coverage`, `kind_a_homed` read | VERIFIED |
 | quiz cases may cite a row id | `evals/kit/quiz.py` diff; CI case `quiz-row-id` | VERIFIED |
 | `git diff --stat f08cf41 ea11a9e` prints nothing; old base f08cf41 | `git -C WT diff --stat f08cf41f ea11a9e0 -- skills/chantier/references "skills/*/SKILL.md"` -> empty | VERIFIED |
-| context hand-back, no end of turn to wait, no large output whole; stale prompt text corrected | claim 1; `cr-driver.md:15-16`, `stack-driver.md:13-14`, `release-driver.md:13` | VERIFIED |
-| the table of 37 restored rows | claim 1, `restored` run | VERIFIED |
-| Changes list matches the 26 files (7 cards or concepts, 11 topics, 2 proof files, 3 tests, 3 eval files) | `git -C WT diff --stat 266b784 5d2626d` | VERIFIED |
+| context hand-back, no end of turn to wait, no large output whole; stale prompt text corrected | claim 1; word diff (again) | VERIFIED |
+| the table of 37 restored rows | claim 1; `vf_desc.py WT body` (again) | VERIFIED |
+| Changes list matches the 26 files (6 cards, `concepts.md`, 11 topics, 2 proof files, 3 tests, 3 eval files) | `diff --stat` above; `vf_desc.py WT topics`: "changed topics 11" (again) | VERIFIED |
 | Blast radius one grade; Impacts "No visual change" (no UI file in the diff) | same diff | VERIFIED |
 | ids with B or four digits, 1469 refused by the planned pattern | `vf_claims.py WT kinds` | VERIFIED |
 | no row's kind changed | `vf_seed.py WT 3-done`: "common 4616 kind differs 0", 13 X rows new, none lost | VERIFIED |
 | two test files for the 400-line limit | 255 + 238 lines; `CONTRIBUTING.md:368` | VERIFIED |
 | plan announces five sections, lists six | spec lines 70-134; six `## ` headings | VERIFIED |
-| ceilings raised | `test_brief_bytes.py` diff | VERIFIED |
+| ceilings raised: 9900 to 11100, 9600 to 10500, 9200 to 10300, 6100 to 6300, 22200 to 22600 | `git -C WT diff 266b784 5d2626d -- .../test_brief_bytes.py`, the five pairs as posted (again) | VERIFIED |
 | 329 open = 62 a, 139 inferable, 128 others; 539 kind a homed by quote only; 12 incidents ids; none homed inferable; 129 rare | `vf_claims.py WT kinds` | VERIFIED |
 | 62 read one by one, 267 judged from wording; about one in ten; 2.8 s | the authors' records `work/coder/r2.md:24-25`, `work/r1.md:65-66`, `work/r1.md:36` | disclosure, matches the record |
 | H-173 and H-217 resolve only in docstrings | grep of both spans: `commands/joining.py:130`, `commands/orders_after.py:70`, docstrings | VERIFIED |
 | stack card names the direct-mode host means (also before), answers one of two tags | `stack-driver.md:11,13`; base `:23`; `topics/stack-run.md:3` | VERIFIED |
 | 20 of 36 checklist items are known gaps, J11/J22, CONTRIBUTING, no new quiz case | `vf_claims.py WT checklist` (16 done, 20 known gap) | VERIFIED |
 | H-1360 needs the owner | inventory line 4296 | VERIFIED |
-| skipped quiz commands as written; no real run | spec lines 211-219; `02-answers.md` 5 | VERIFIED |
+| skipped quiz commands as written (full base SHA resolves); no real run | spec lines 211-219; `02-answers.md` 5; `rev-parse f08cf41` -> `f08cf41f2c80e2e4f7ab834adc3dc06820ae7f93` | VERIFIED |
 | the weak homes listed as reported by review, rare trigger set from the home, mixed role spellings | not judged row by row (disclosed gaps) | not checked |
-| Human decisions | `02-answers.md` 5-9 | VERIFIED; note: "does not block" and "never blocking" are recorded there as the Chief of Staff's reading, to confirm |
+| Human decisions | `02-answers.md` 5-10, read again | VERIFIED; note: "does not block" and "never blocking" are recorded there as the Chief of Staff's reading, to confirm |
 | new tests pass; absent before | claim 2 | VERIFIED |
-| `just check` and `just eval-dry-run` pass at 5d2626d | CI jobs at the head (claim 3). The local counts (2789 passed, 19 skipped) come from the Driver's note, not rerun, on my brief's order | VERIFIED |
+| `just check` (2789 passed, 19 skipped) and `just eval-dry-run` (26 of 26) pass at 5d2626d | `log CR-511`, notes 13:14:06Z and 13:21:50Z; CI jobs at the head (claim 3); local counts not rerun (the first pass's brief ordered so) | VERIFIED |
 | Evidence: no visual change | diff holds no UI file | VERIFIED |
-| Review approved at 5d2626d, carried from 7263861 | `$CHANTIER log CR-511`: "r3 approved at 4380df52..., committed as 7263861..."; "move 7263861..5d2626d ... pass carried"; `range-diff` -> "1: 7263861f = 1: 5d2626de" | VERIFIED |
-| "Verified at the head: UNVERIFIED" and its Known gaps bullet | true when judged; to update after the next pass | VERIFIED |
+| Review approved at 5d2626d, carried from 7263861 | `log CR-511` (again): "r3 approved at 4380df52..., committed as 7263861..."; "move 7263861..5d2626d ... pass carried"; first pass `range-diff` "1: 7263861f = 1: 5d2626de" | VERIFIED |
+| "Verified at `5d2626d`" (ticked) | this note: claims 1 to 5 hold at the head. The box was posted while the last recorded verdict at the head was NOT VERIFIED (13:57:23Z); it holds from the verdict recorded with this pass | VERIFIED |
 | CI green; long gate on Windows passes | claims 3 and 4 | VERIFIED |
 
-The line after `</details>` ("Generated with Claude Code") is the attribution line the host
-requires. `pr-template.md` says nothing follows `</details>`; it renders, it claims no change, and
-it is not counted as a failure.
+Observed, not counted as failures:
+
+- Topic sizes are not named in Known gaps (its bullet is about cards).
+  `PY vf_desc.py WT topics`: `trouble-worker.md` 2173 to 2181 (over 1,500 and 1,536 before this
+  change, 8 bytes longer after); `cr-workers.md` 1624 to 1521 (shorter, still over 1,500, within
+  1,536). Neither overrun is new, and no statement of the body is made false by it.
+- The line after `</details>` ("Generated with Claude Code") is the attribution line the host
+  requires. `pr-template.md` says nothing follows `</details>`; it renders and claims no change.
