@@ -13,3 +13,8 @@ Destination: running batch batch-09.
 Spec critic: no, style only.
 
 3. field-error-Q3 (2026-11-26, the specification's open question): **Whole-document warning rows (`.okf-info-row.okf-warning`):** "A. Les colorer aussi (recommandé)": they take the warning colour on a light background, as the whole-document error row does in red.
+
+4. field-error-Q4 (2026-11-26, Chief of Staff, on the Foreman's ask A-44: the host's auto mode refused
+   the Driver's `gh pr edit 535 --base` and #535 cannot join the forge stack): **How to set the base of
+   #535:** the owner: "C. On attend". Nothing changes for now: no agent retargets the pull request,
+   and CR-513 stays off the forge stack.
