@@ -59,23 +59,25 @@ tests until the page says so.
 The screenshots show the built site, which has a light theme only: the header before and after, then
 the top of the new page with its diagram, its table, and its section "What is not enforced yet".
 
-Header before, at `4e4eeb4`:
+Header before, at `f9dc2c6` (carried from `4e4eeb4`: the files of the site header did not change
+between them):
 
 ![Site header with five links](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/before-header.png)
 
-Header after, at `6c5106e`:
+Header after, at `0592dde` (carried from `6c5106e`: a clean rebase that left the files behind
+these pictures unchanged):
 
 ![Site header with six links, How we test between How we ship and Gallery](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-header.png)
 
-Top of the new page with its diagram, at `6c5106e`:
+Top of the new page with its diagram, at `0592dde` (carried from `6c5106e`):
 
 ![The How we test page: introduction, the two levels of requirements and the diagram of the test levels](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-page-top.png)
 
-The table, at `6c5106e`:
+The table, at `0592dde` (carried from `6c5106e`):
 
 ![Table of the test levels: where, command, CI job, what each proves and its marker](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-table.png)
 
-"What is not enforced yet", at `6c5106e`:
+"What is not enforced yet", at `0592dde` (carried from `6c5106e`):
 
 ![The section What is not enforced yet, with four points](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/398427751f944842a06fede7b6d18dc51560fc67/after-not-enforced.png)
 
@@ -145,21 +147,21 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): 13 of the 49 tests of the five new or
-  changed test files fail on the base `4e4eeb4`; all 49 pass at `6c5106e`
+  changed test files fail on the base `f9dc2c6`; all 49 pass at `0592dde`
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`; at
-  `6c5106e`, `just requirements-lint` passes with nothing left to update
+  `0592dde`, `just requirements-lint` passes with nothing left to update
 - [x] Changelog: no user-facing change
-- [x] Local gates at `6c5106e`: `just preflight` (static stage on Windows) passed: unit 5443 tests,
-  5435 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;
+- [x] Local gates at `0592dde`: `just preflight` (static stage on Windows) passed: unit 5515 tests,
+  5507 pass, 0 fail, 8 skipped; security 116 of 116; release tests 296 passed; requirements 0 errors;
   Sphinx 4 passed; audit 0 vulnerabilities
-- [x] Review: approved at `6c5106e` (carried from `166532f`: a clean rebase after the last review
-  left the files unchanged)
-- [x] Verified at `6c5106e`: the tests against the base, `just requirements-lint`, the site build and
+- [x] Review: approved at `0592dde` (carried from `166532f`: the clean rebases after the last review
+  left the patch of both commits unchanged)
+- [x] Verified at `0592dde`: the tests against the base, `just requirements-lint`, the site build and
   the drift probes
-- [x] CI green at `6c5106e`: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
+- [x] CI green at `0592dde`: `static`, `static-windows`, `visual`, `visual-2`, `viewer-graph`,
   `report` and `checks`; the real VS Code jobs do not run on a pull request
 
-The tests that fail on the base `4e4eeb4`:
+The tests that fail on the base `f9dc2c6`:
 
 - The nine checks of the drift test on the shipped files fail, with `ENOENT` on
   `docs/how-we-test.md` (the diagram check: on `images/how-we-test/test-levels.svg`).
@@ -171,14 +173,13 @@ The tests that fail on the base `4e4eeb4`:
 - "SIMPLE_CARDS covers the home, Contributing, How we ship and How we test pages": the entry
   `docs/how-we-test.md` is missing.
 
-Built site at `6c5106e`, made with the reports of a green full CI run on a commit with the same
+Built site at `0592dde`, made with the reports of a green full CI run on a commit with the same
 files as one below this branch, then a scan: the new page has 20 headings and one table of 10 rows,
 header row included; its 11 relative links and image addresses all resolve; all 643 pages with a site
 header, requirements viewer pages included, list the six header links in order; and the site manifest
 lists the page and `og/how-we-test.png`.
 
-Drift probes at `6c5106e`, each a temporary edit then `just unit`, each with one failing test (5443
-tests, 5435 pass, 1 fail, 7 skipped):
+Drift probes at `0592dde`, each a temporary edit then `just unit`, each with one failing test:
 
 - every `stress` code span removed from the page: "How we test names every CI job", missing `stress`;
 - coverage mode set to `linked-swrs-and-acceptance-paths`: `the page names the coverage mode
