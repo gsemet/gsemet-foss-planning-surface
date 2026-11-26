@@ -1,0 +1,15 @@
+feat(editor): edit the pointed block inside admonitions and alerts
+
+In edit mode, a click or Enter on a paragraph, list item, diagram, formula or
+code block of an admonition or GitHub alert now opens that element alone. The
+whole box opens from its title or frame, or when it is selected as a whole.
+Move chords reorder the blocks of the box without leaving it, the caret stays
+in the editor at a list edge, and an erased line of an alert keeps the alert
+whole.
+
+Checks that expected the whole box to open from a click or Enter on its body
+now expect the pointed element, or open the box from its title: the owner
+reversed that behaviour on 2026-11-26. The lazy alert line replay opens the
+alert from its title, so what it checks stays the same.
+
+Assisted-by: Claude:Sonnet-5.5
