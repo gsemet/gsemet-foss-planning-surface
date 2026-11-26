@@ -1,40 +1,121 @@
 # Verify CR-499 (clip okf-schema-bundle-frontmatter)
 
-Head: 635f1ba09e6511333ac80ebe30e97678ec1fce24
+Head: b7518fb3c16b8ac5da27f87c1165837530e5127f
 
-All claims judged at 635f1ba09e6511333ac80ebe30e97678ec1fce24 (origin/main 4a47151e is the merge base; clean tree).
+Move judged: 635f1ba09e6511333ac80ebe30e97678ec1fce24 -> b7518fb3c16b8ac5da27f87c1165837530e5127f
+(restack onto CR-498 head 37ef61b338b3ca56d1cb428983c78ebdb54684f0). Claims are judged at b7518fb
+unless marked "carried from 635f1ba". Commands run in the CR's worktree; tree clean before and after.
 
-1. Scope: `git diff --stat origin/main...HEAD` lists 23 files: clip folder, `docs/user/okf.md`, two kit test files, `test/site/siteClips.test.ts`; no `src/` change. PASS.
-2. Kit tests: `just clip-kit-test` -> `tests 37 pass 37 fail 0`, including the two new bundle-frontmatter cases and the extended checks test. PASS.
-3. Site test: `node scripts/node-test.mjs unit "out/test/site/siteClips.test.js"` (after `tsc -p .`) -> `pass 15 fail 0`, incl. "the shipped OKF page plays the schema bundle frontmatter clip as video". PASS.
-4. check.json: `passed: true`, 1280x720, 15 fps, 12 s, seam SSIM 0.995998, verifyPassed true, playbackRate 1.007, win32, extensionSource vsix, editMode on, paste false. PASS.
-5. Stage: `stage/_schema/note.schema.yaml` and `stage/notes/release-note.md` match the spec (type: note, status: publshed, enum draft/published/retired), LF only (`grep -c $'\r'` -> 0 both). PASS.
-6. Frames (opened as images): invalid.png shows the schema table with Description column, type icons, `publshed` and the small badge "x 1"; select-open.png shows the select on "Choose a value..."; picked.png `published`; contact sheet shows Text 1 then Text 2, the save badge, mark 1 on the status row, mark 2 on the Status line; MP4 frames 0/4/10/16 (ffmpeg) show `publshed` and badge at the start. No username or home path visible (window title "workspace"). "Red row" wording gone from clip.md and okf.md (Q11 ruling honoured). PASS.
-7. LFS: `git lfs ls-files` lists all 14 clip media files. PASS.
-8. PR description vs diff: Summary, Deliverables and Changes match the diff; Known gaps covers the unchecked motion/loop and the uncoloured row; posted body equals work/pr-body.md except one blank line. PASS.
-9. PR description, inline GIF resolves: FAIL.
-   Command: `curl -sIL "https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/635f1ba0.../okf-schema-bundle-frontmatter.gif"`
-   Output: `HTTP/1.1 200 OK`, `Content-Length: 132`, `Content-Type: text/plain`; `curl -s` of it prints `version https://git-lfs.github.com/spec/v1 / oid sha256:31b386fe... / size 1415941`: an LFS pointer, not an image, so the GIF does not render inline.
-   The form the spec asks for (`https://github.com/gsemet/markdown-okf-schema-studio/raw/<sha>/...gif`) answers `302` to `media.githubusercontent.com/media/...` and then serves `image/gif`, 1415941 bytes. The body must use that form.
-10. Minor, not blocking: clip.md section 1 shows the kit images 01-selected/02-pasted/03-zoomed first with alt texts that do not say what they show ("Frame 0 of the take in the sibling's frames"; 01-selected.png is the frame just before the save, not frame 0); section 2 mark rows dropped the backticks around `status` without a note in Autonomous decisions.
+## The move and the scope (b7518fb)
 
-Review box / CI: PR checks at the head are SUCCESS (static, static-windows, visual, viewer-graph, report, checks); review box is unchecked and not claimed.
+1. Head, base and push. `git ls-remote origin refs/heads/chantier/batch-09/cr-499-...` ->
+   `b7518fb3c16b8ac5da27f87c1165837530e5127f`; `git merge-base --is-ancestor 37ef61b3 HEAD` ->
+   `base is ancestor`; `gh pr view 521` -> head b7518fb, base `chantier/batch-09/cr-498-...`,
+   `isDraft: true`. PASS.
+2. Clip folder unchanged. `git diff --stat 635f1ba HEAD -- docs/demo-video/clips/okf-schema-bundle-frontmatter`
+   -> empty. PASS (no new take).
+3. Patch of the move. `git range-diff 4a47151e..635f1ba0 37ef61b3..b7518fb3`: differences are in the
+   context and merge of `check.test.mjs` (title lists the stack's siblings plus "bundle frontmatter"),
+   `storyboard.test.mjs`, `docs/user/okf.md` (standard GIF first, then the bundle GIF) and
+   `siteClips.test.ts`. PASS.
+4. Scope. `git diff --stat 37ef61b3..HEAD` -> 23 files, 745 insertions, 1 deletion: the clip folder
+   (19), `docs/user/okf.md`, two clip kit test files, `test/site/siteClips.test.ts`.
+   `git diff --stat 37ef61b3..HEAD -- src` -> empty. PASS.
 
+## Gates (b7518fb)
 
-## Description re-pass (head unchanged, 635f1ba09e6511333ac80ebe30e97678ec1fce24)
+5. `just check` -> `exit=0`. Log `work/verifier/just-check-b7518fb.log`: clip kit `tests 53 pass 53
+   fail 0`; unit `tests 5305 pass 5297 fail 0 skipped 8`; security `tests 107 pass 107`; `205 passed`;
+   `1227 requirements, 0 errors, 26 warnings`; `0 files would change`. PASS.
+6. `just clip-kit-test` -> `tests 53 pass 53 fail 0`, with "the shipped okf-schema-bundle-frontmatter
+   clip.md reads as the clip the owner reviews", "the stage of the ... clip differs from the expected
+   page by the status line only" and the checks test naming "bundle frontmatter". PASS.
+7. `node scripts/node-test.mjs unit "out/test/site/siteClips.test.js"` -> `tests 22 pass 22 fail 0`,
+   with "the shipped OKF page plays the schema bundle frontmatter clip as video". PASS.
+8. Rest of the Windows static stage: `just check-no-merge-commits` -> `passed (17 commits since
+   origin/main, no merge commit)`; `just audit` -> `found 0 vulnerabilities`; `just sphinx-check` ->
+   `4 passed`; `just requirements-report` -> `"errors": 0`; each exit 0 (logs
+   `work/verifier/just-*-b7518fb.log`). PASS. No long gate is configured.
 
-- Claim 9 re-judged: the posted body now uses `https://github.com/gsemet/markdown-okf-schema-studio/raw/635f1ba0.../okf-schema-bundle-frontmatter.gif`; `curl -sIL` -> `302`, then `HTTP/1.1 200 OK`, `Content-Type: image/gif`, `Content-Length: 1415941`. PASS.
-- Claim 10 re-judged: the two cosmetic points are now bullets in Known gaps (line 32 of the posted body). PASS.
-- Rest of the body unchanged in substance; Summary, Deliverables and Changes still match the diff (carried from the first pass, same head).
+## The take and the clip
 
-VERIFIED
+9. `check.json` (carried from 635f1ba: file unchanged, read again): `passed: true`, length 12,
+   MP4/WebM 1280x720 15 fps, GIF 960 px 12 fps, `loopSeamSsim 0.995998`, `rawFps 2.1`,
+   `playbackRate 1.007`, `verifyPassed true`, `platform win32`, `extensionSource vsix`, check line
+   "scenario verify passed" ok. PASS.
+10. `ffprobe` at b7518fb: MP4 h264 1280x720 15/1 12.000 s; WebM vp9 1280x720 15/1 12.000 s; GIF
+    960x540 12/1 12.000 s; one video stream each, no audio. `git lfs ls-files` lists 14 files of the
+    clip. PASS.
+11. Take history. `work/gates/clip-all-1.log`: `FAILED: the table headers are ["Name","Value◀▶",...]`;
+    `clip-all-2.log`: `FAILED: the save did not clear the error: {... "statusValue":"\"published\""
+    ... "errorRows":[] ...}`; `clip-all-3.log`: all checks ok. The two scenario fixes are at
+    `scenario.mjs` lines 98 (header text stripped) and 227 (`JSON.stringify("published")`). PASS.
+12. What the scenario proves (`scenario.mjs`): select options after the click (lines 187-196), two
+    ArrowDown `draft` then `published` (203-211), save clears rows, badge, body `published`
+    (220-229), file equals EXPECTED and schema unchanged (258-268). No Escape press in the file.
+    PASS.
+13. Own scratch and port: `grep clip-all-3.log` -> `Using value 'C:\okfclip499\...'`;
+    `C:/okfclip499/okf-schema-bundle-frontmatter/user/DevToolsActivePort` holds `9499`;
+    `git diff --name-only 37ef61b3..HEAD -- docs/demo-video/clip-kit` -> the two test files only. PASS.
+14. Pictures (media unchanged since 635f1ba; opened again): contact sheet, `invalid.png`,
+    `select-open.png`, `picked.png`, `01-selected.png`, `02-pasted.png`, `03-zoomed.png`,
+    `04-mark-1.png`, `05-mark-2.png`, and 8 frames of the GIF. Frame 0: schema table with Name,
+    Value, Description and type icons, `publshed`, badge "x 1", status row not coloured; select on
+    "Choose a value..." then `draft`, `published`; save badge; badge gone and body "Status:
+    published"; Text 1 then Text 2; mark 1 on the status row, mark 2 on the Status line; no native
+    popup; window title "release-note.md - workspace"; no username or home path. PASS.
+15. Stage (carried from 635f1ba, files unchanged): schema enum draft/published/retired; `grep -c $'\r'`
+    -> 0 on both files; `diff okf-frontmatter/stage/release-note.md .../notes/release-note.md` ->
+    only `type: note` added and `status: draft` -> `publshed`. PASS.
 
+## PR description (judged again, body at b7518fb, last edit 2026-11-26T01:55:08Z)
 
-## Description pass 3 (head unchanged, 635f1ba09e6511333ac80ebe30e97678ec1fce24)
+16. Renders: `gh api graphql ... bodyHTML` -> headings, lists, task boxes and the GIF `<img>` render.
+    The project template's sections are in its order, then the extra sections; Internal references
+    last; no internal id or agent role outside it. PASS.
+17. Links: `curl -sIL` GIF, MP4, WebM raw URLs at b7518fb -> 302 then 200 (`image/gif` 1415941;
+    393654; 256798 bytes); `clip.md` blob -> 200. sha256 of each download equals the LFS oid at
+    HEAD. PASS.
+18. Summary: 12 s silent (claim 10); the typed table, badge, select, save (14); sibling "same page,
+    status field, click, save chord and marks" (`okf-frontmatter/clip.md` badge and mark rows, claim
+    15); stage differences (15, and the sibling's stage sits at `stage/release-note.md`, no
+    `notes/`). On the base `docs/user/okf.md` holds one image, the standard frontmatter GIF
+    (`git show 37ef61b3:docs/user/okf.md`). PASS.
+19. Deliverables, Changes, Impacts, Blast radius match claims 4 and 10. PASS.
+20. Test plan: tests (6, 7); requirements: `0 files would change` (5) and the added
+    `@tests_req SwRS-MDOKFSTUDIO-CORE-095` marker in the siteClips diff; changelog:
+    `git log 37ef61b3..HEAD` -> one commit, `docs:`; local gates 53 tests and `just check` (5, 6);
+    evidence (9, 11), carried from 635f1ba as the body says. PASS.
+21. Review box: `chantier log CR-499` -> `2026-11-26T01:34:04Z driver note ... move 635f1ba..b7518fb
+    (restack) inspector approved at b7518fb3c16b...`. PASS.
+22. CI: `gh run view 45728474453` -> headSha b7518fb, `success`; `gh pr checks 521` -> static,
+    static-windows, visual, viewer-graph, report, checks pass. The known stack failure of
+    check-no-merge-commits on a new run is not this change's; nothing re-run or pushed. PASS.
+23. "What the clip proves" (9, 12). Owner approval of storyboard and clip: `02-answers.md`, "Owner
+    approval (2026-11-25, evening ...)", given after the take of 11:35Z; media unchanged since (2).
+    The body claims no motion or rhythm proof. PASS.
+24. Deviation and Autonomous decisions: review moved after the take (bundle-fm-Q3); `okf-error` is
+    styled only at `propertiesStyles.ts:183` `.okf-info-row.okf-error th` (`grep -rn okf-error src`);
+    `grep -niw red scenario.mjs docs/user/okf.md` -> empty, `clip.md` keeps "red" only in the note
+    that records the change; the missing style is filed
+    (`changes/1-inbox/field-row-with-a-validation-error-has-no/intake/request.md`). PASS.
+25. Known gaps: row colour (24); `01-selected.png` captioned frame 0 shows `published` picked before
+    the save (14; `03-zoomed.png` in section 1 shows mark 2); opening paragraph of `clip.md` omits
+    the typo its Stage row names; raw 2.1 fps (9); Windows only (9). The earlier gap "Mark rows write
+    status without code quotes" is rightly gone: both Mark rows of the unchanged `clip.md` have the
+    backticks (the second half of the 635f1ba claim 10 was wrong). Motion/rhythm is closed by the
+    owner's approval (23). PASS.
 
-- Links: GIF raw URL -> 302 then 200 image/gif 1415941; MP4, WebM, clip.md blob URLs -> 200 (curl -sIL). PASS.
-- Claims vs diff: 23 files match Changes (clip folder, docs/user/okf.md gif line, 2 kit tests, siteClips test); no src/ change. PASS.
-- Test plan: `gh pr checks 521` -> checks, report, static, static-windows, viewer-graph, visual pass at the head; `chantier log`: "r1 approved ... committed as 635f1ba0" covers Review box. Local gate counts carried from the passes above (same head). PASS.
-- Known gaps cover the unchecked motion/loop, cosmetic storyboard points, uncoloured row. PASS. PR is draft (owner's rule).
+## Observations (do not decide the verdict)
+
+- Not in the spec's evidence list and no statement of the body is false: spec section 7 also asked
+  the body to name the twin clip's PR (open: #517, below in this stack) and to list under Autonomous
+  decisions the parked pointer, key frame names, measured times and editor association pattern. The
+  body names the twin by what it is, not by number, and omits those four; the pointer and times are
+  in `clip.md`'s review notes.
+- The spec asked for two commits (`docs:`, `test:`); the branch has one `docs:` commit (as at
+  635f1ba).
+- `just preflight` itself was not run (it cleans `out/`); its Windows stage's recipes are claims 5
+  and 8.
 
 VERIFIED
