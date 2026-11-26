@@ -97,6 +97,14 @@ restart topic).
   judged from their wording, not searched one by one.
 - A sample suggests up to about one in ten automatically mapped homes of non-protective rows may not
   hold its rule; no test can see this.
+- Reported by review on an earlier state and not changed since: some homes point at text that does
+  not state the rule (W-001, W-038, W-076, W-108, W-156, W-238, W-283, H-119, H-120, C-1220, C-1223,
+  C-1535, C-1536, FM-474, FM-475); H-173 and H-217 resolve only in code docstrings; the trigger
+  `none (rare)` was set from the home, so the rare-rule test cannot fail on those 129 rows; the role
+  column mixes spellings.
+- The stack driver card's context hand-back points to a host means that names direct mode only (it
+  already did for another line), and its answer-every-message line names only one of the two message
+  tags the topics use.
 - The 539 kind-a rows that have a home are checked by quote only (the text is still where the row
   says), with no behaviour check yet; the other 62 are open. The owner lists (601 kind-a rows) are in
   the inventory and are not repeated here. Rows homed in the incidents file: H-439, H-989, H-1040,
