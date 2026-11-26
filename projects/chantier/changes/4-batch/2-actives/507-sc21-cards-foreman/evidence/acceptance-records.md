@@ -1,6 +1,6 @@
 # Acceptance records
 
-Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus the uncommitted changes of rounds 7 to 11 unless a line says otherwise.
+Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus the uncommitted changes of rounds 7 to 12 unless a line says otherwise.
 
 ## `just test`, base and head (Part 1.7, Part 2.8, Part 3.9)
 
@@ -13,7 +13,7 @@ head 03f973e4:  2932 passed, 20 skipped in 171.16s (wall 172.6 s)
 
 0 seconds added; the difference between the two is run-to-run variation, not a speed-up.
 
-`just check` on round 11's working tree (tests beside the other checks, so not a timing comparison): `2933 passed, 19 skipped in 153.84s`.
+`just check` on round 12's working tree (tests beside the other checks, so not a timing comparison): `2933 passed, 19 skipped in 142.02s`.
 
 ## Brief bytes beside the old start readings (Part 1.3, Part 2.3)
 
@@ -164,7 +164,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/status-layout.md                     |   90 ++++++
  skills/chantier/cards-next/sync-checkout.md                     |   21 ++
  skills/chantier/cards-next/ticket-summary-example.md            |   44 +++
- skills/chantier/cards-next/topics.json                          | 2077 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ skills/chantier/cards-next/topics.json                          | 2079 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
  skills/chantier/cards-next/topics/allow-rules-more-p1.md        |    7 +
  skills/chantier/cards-next/topics/allow-rules-more-p2.md        |    3 +
  skills/chantier/cards-next/topics/allow-rules.md                |    7 +
@@ -290,7 +290,8 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/lost-silent.md                |    6 +
  skills/chantier/cards-next/topics/main-checkout-p1.md           |    3 +
  skills/chantier/cards-next/topics/main-checkout-p2.md           |    9 +
- skills/chantier/cards-next/topics/merge-gaps.md                 |    6 +
+ skills/chantier/cards-next/topics/merge-gaps-p1.md              |    6 +
+ skills/chantier/cards-next/topics/merge-gaps-p2.md              |    7 +
  skills/chantier/cards-next/topics/merge-github.md               |    3 +
  skills/chantier/cards-next/topics/merge-recorded.md             |    7 +
  skills/chantier/cards-next/topics/merge-series-stack-p1.md      |    5 +
@@ -414,5 +415,5 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/writer-off.md                 |    5 +
  skills/chantier/cards-next/topics/writer.md                     |    9 +
  skills/chantier/cards-next/verifier.md                          |    1 +
- 294 files changed, 6396 insertions(+), 42 deletions(-)
+ 295 files changed, 6405 insertions(+), 42 deletions(-)
 ```

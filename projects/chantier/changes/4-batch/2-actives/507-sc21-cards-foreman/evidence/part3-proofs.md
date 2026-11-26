@@ -332,7 +332,7 @@ $ git grep --untracked -n "Read this short role contract at boot\|# chantier-age
 (no line; exit 1)
 ```
 
-## 12. Gates (round 11, on the working tree)
+## 12. Gates (round 12, on the working tree)
 
 - `just check` from the Bash tool, `NO_COLOR` not set: exit 0, `2933 passed, 19 skipped`.
 - In round 5 the same command from the PowerShell tool, whose environment sets `NO_COLOR=1`, exited 1 on two cases of `test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, which rich drops under `NO_COLOR`); not rerun since. No file of `src/` or `tests/` is changed since the base.
