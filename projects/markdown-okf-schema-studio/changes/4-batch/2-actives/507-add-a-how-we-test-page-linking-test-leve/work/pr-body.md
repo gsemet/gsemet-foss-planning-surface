@@ -111,6 +111,7 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - The drift test does not see a removed or renamed item that the page still names (except in the
   coverage mode and acceptance group lines), when a level runs, or the content of the diagram, and no
   guideline rule covers a change of a test level's own `just` command.
+- The page does not say that some stress scenarios run only when named.
 
 ## Test plan
 
