@@ -3,7 +3,9 @@
 Head: e76c084313d826eeab7148418658c4394c5a33f2
 
 Verdict: **VERIFIED**. Pass 1: the pushed head. Pass 2: the description alone, on the body as posted
-after pass 1 (head unchanged). Draft pull request
+after pass 1. Pass 3: the description alone, on the body posted again at 10:44:47Z with one caption
+and its image removed (head unchanged in all passes; pass 3 is the judgment of the posted body now).
+Draft pull request
 https://github.com/gsemet/markdown-okf-schema-studio/pull/536, base
 `chantier/batch-09/cr-509-reliable-heavy-ci-split-the-trusted-laun`
 (`89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`). Outcome reached: 2c, "cannot reproduce" (treated as 2b).
@@ -53,7 +55,37 @@ line says `carried from <sha7>`. Commands ran from `WT` (Git Bash).
 | (b) auto-save `afterDelay` 200 ms, header-row start: same | proven | Verifier clip take at head (VSIX from `just package` at head; `just clip paste-spreadsheet-cells setup`, `take`, both exit 0; VS Code 1.148.0, not the pinned 1.147.0): profile `files.autoSave: afterDelay`, delay 200; `verify.json` passed, file on disk equals the expected table, `cellEditorOpenAfterPaste: true`; frame at 4.26 s shows the editor in header cell "Task" (`W/verifier/evidence/after-autosave200-header-editor-open-4.26s.jpg`, `W/verifier/head-clip-take-verify.json`). Plus runs 4 and 6 and takes 1-5, carried from 8df99ce (P1). No committed test guards this cell; the body says so in "Known gaps" |
 | (c) auto-save off, body-cell start: `scenarioTableGridPaste` stays green | proven | Body unchanged in the diff. The single run at head runs it first (`run.ts` 242-245), exit 0; CI integration jobs (S6) |
 
-## Description pass (pass 2): the body as posted
+## Description pass 3: the body posted at 10:44:47Z
+
+All rows judged at `e76c084`. Script: `W/verifier/pr536-pass3-check.py` (GraphQL
+`pullRequest(number:536){body userContentEdits}` and `gh api .../pulls/536` with the
+`application/vnd.github.full+json` accept header), run as `python -I <script>`; output in
+`W/verifier/pr536-pass3.log`.
+
+| Claim | Result | Proof at `e76c084` |
+| --- | --- | --- |
+| Head and base unmoved, still a draft | proven | `git ls-remote origin`: cr-512 `e76c084313d826eeab7148418658c4394c5a33f2`, cr-509 `89cae5ff42f6dfc34590b06c3f979f5a3cbce6d4`; `gh pr view 536`: same head, base the cr-509 branch, `isDraft: true`, OPEN, updated 10:44:47Z |
+| Posted body is the source file | proven | log: `posted == work/pr-body.md: True`, `posted == newest edit (10:44:47Z): True`, no BOM |
+| The edit removes the caption and its image, nothing else | proven | log: unified diff of the 10:40:22Z body (pass 2) against the posted one: one hunk, `-26,11 +26,6`, five lines removed (blank, the two caption lines, blank, the `![...](.../d260cc30-...)` line), none added |
+| Renders: sections, table, diagram, task list, no break left by the removal | proven | log, `body_html`: nine `<h2>` Summary to Internal references, 1 table of 12 rows (header and 11), `</table>` followed by the mermaid section holding the flowchart source (client-side drawing not observed), 7 of 7 task boxes checked |
+| No image attached, so none can show the username or home folder | proven | log: 0 matches for `![`, `<img`, `user-attachments`, `raw.githubusercontent`, image or video file names; `body_html` `img: 0` |
+| No text left pointing at the removed image | proven | log: no line matches image, screenshot, picture, capture, photo, frame, shown, below, above, following |
+| Internal references only in their last section; no mark | proven | log: the only lines matching the username, home paths, planning words, role names, `UNVERIFIED`, `STALE`, `CR-<n>` are 107-108, under "Internal references" |
+| Deliverables still shows the delivery; Impacts still holds its evidence | consistent | the table and the flowchart stay; Impacts reads "No visual change: no product code changes", the form `pull-request.guidelines.md` ("PR body for an external reader") asks for when nothing visible changes; the specification's "Evidence" section asks for no screenshot |
+| No new Known gaps bullet owed | proven | `W/verifier/evidence/before-after.md`: "No visible change, so no before/after pair"; its image is proof of matrix cell (b), still cited here, and the body's table row "filmed again at `e76c084`" keeps its proof (`W/verifier/head-clip-take-verify.json`) |
+| Review: approved at `e76c084` | proven | `$CHANTIER log CR-512`, 09:34:25Z: "r2 approved at b5aaf684..., committed as e76c084313d8..." |
+| Verified at `e76c084` | proven | same log: `verdict result=VERIFIED head=e76c084...` at 10:37:39Z and 10:44:09Z |
+| CI green at `e76c084` | proven | `gh pr checks 536`, run again: checks, report, static, static-windows, viewer-graph, visual pass; the others skipping |
+| Every other claim | carried from e76c084 | pass 1 and pass 2 below: same head and base, and the diff above leaves their text unchanged |
+
+The removed image stays in the body's edit history on the forge and its upload may stay reachable
+(the Driver's note, 10:44:43Z); it is no longer attached to the description, and pass 2 had found no
+username or home folder in it.
+
+## Description pass (pass 2): the body posted at 10:40:22Z
+
+The rows on the image (its resolving, its hash, the two looks) and "Edited: image caption" cover
+content that pass 3 found removed; they no longer describe the posted body.
 
 Read with `gh pr view 536 --json title,body,isDraft,headRefOid,baseRefName,files,commits` and
 `gh api repos/gsemet/markdown-okf-schema-studio/pulls/536 -H "Accept:
@@ -139,5 +171,6 @@ Logs of pass 1 in `W/verifier/`: `run-head-single.log`, `run-head-stress20.log`,
 `run-head-package.log`, `run-head-clip-setup.log`, `run-head-clip-take.log`,
 `run-head-requirements-lint.log`, `run-head-clip-kit-test.log` (`just clip-kit-test`: 56 pass,
 0 fail). The pass 1 clip profile (`WT/out/verify-clip`) was removed. Pass 2 ran no product test;
-its downloaded copy of the image and body (`W/scratch/pr536-asset`) is removed. `git status
+its downloaded copy of the image and body (`W/scratch/pr536-asset`) is removed. Pass 3 ran no
+product test; its empty scratch folder (`W/scratch/pr536-pass3`) is removed. `git status
 --porcelain --untracked-files=all`: empty. No code, commit or push.
