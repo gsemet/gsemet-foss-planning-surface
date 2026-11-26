@@ -5,72 +5,92 @@ Head: 5a8a59398692a0d497ad88c18e5f142de1411638
 - Base: `3478f0992688c7a354d11106145793fc83590506` (`origin/main`). Pull request 532 is OPEN, draft,
   base `main`, head `5a8a593`; `git rev-parse HEAD` in the worktree prints the head and
   `git status --porcelain --branch` only the branch line.
-- Second pass at the same head (no code change). It judges the description as posted:
-  `gh pr view 532 --repo <repo> --json state,isDraft,headRefOid,updatedAt,body` (`OPEN`, draft `true`,
-  `updatedAt 2026-11-26T08:54:30Z`; the body equals `work/pr-body.md` but for the last newline).
-  Sentences changed since the first pass are judged again; the others are carried (section
-  "Carried claims").
+- Third pass at the same head (no code change). It judges only what changed in the posted description
+  since the second pass, and the sections "Human decisions" and "Autonomous decisions" as wholes. Every
+  other claim is carried from `5a8a593`: same head, same sentence.
+- `git rev-parse HEAD`: `5a8a59398692a0d497ad88c18e5f142de1411638`; `git status --porcelain --branch`:
+  the branch line only. `gh pr view 532 --repo <repo> --json state,isDraft,headRefOid,baseRefName,updatedAt,body`:
+  `OPEN`, draft `true`, base `main`, head `5a8a593`, `updatedAt 2026-11-26T09:12:36Z`. `gh pr checks 532`
+  and `gh run list --commit <H>`: unchanged (`45773633868 pull_request success`, `45774743144
+  workflow_dispatch success attempt 3`, no newer run).
+- Changes since the second pass: `gh pr view 532 --json body --jq .body > verifier/posted-body-3.md`, then
+  `git diff --no-index -U0 verifier/posted-body.md verifier/posted-body-3.md`: two bullets added under
+  "Autonomous decisions", the two G1 and G2 bullets removed from "Human decisions", nothing else
+  (`2 insertions(+), 2 deletions(-)`). `work/pr-body.md` equals the posted body but for the last newline.
 - Judged: the partial delivery (trust and security group; mode switch and gate left, `02-answers.md`
   items 5 to 7).
 
 ## Verdict: NOT VERIFIED
 
-Code, tests, CI job, requirements and every other sentence of the description are proved. F1 to F7 of
-the first pass are resolved, except that the "Human decisions" section now credits two decisions of an
-agent to a human (G1, G2). Editing and posting the description fixes both; no code change.
+The two moved bullets hold and G1 and G2 are resolved. One bullet of "Human decisions" still credits an
+agent's rule to the user (H3). It overturns one line of the second pass (S8) on the same evidence rule
+as G1 and G2. Editing and posting the description fixes it; no code change.
 
 Placeholders: `<worktree>` the change's worktree at the head, `<base>` the detached worktree of the
 base, `<scripts>` `work/verifier/`, `<B>` the base SHA, `<H>` the head SHA, `<repo>` the GitHub
 repository of pull request 532, `<504>` the folder `4-batch/3-done/504-strs-path-validation`.
 
-## Failed claims
+## Failed claim
 
-The rule applied: the project's description template (`references/pr-template.md` lines 102 to 111)
-defines "Human decisions" as "the impactful decisions the user took during the grill, extracted from
-the CR's `02-answers.md`", and "Autonomous decisions" as "each decision an agent took without the
-user". A decision the Chief of Staff (an agent) took under the owner's "no question" is the second
-kind. (The earlier change's own "Human decisions" section lists owner answers only.)
+The rule applied: `references/pr-template.md` lines 102 to 111: "Human decisions" holds "the impactful
+decisions the user took during the grill"; "Autonomous decisions" holds "each decision an agent took
+without the user".
 
-### G1. Human decisions: "The acceptance job runs one shard per requirement group, one shared window per test file, with no raised timeout." - NOT VERIFIED
+### H3. Human decisions: "The delivery may stop after any complete group; the coverage-mode switch lands last." - NOT VERIFIED (first half)
 
-SHA `<H>`. The first pass did not judge this bullet. `grep -rn -i "shard\|runner per group\|one shard"
-<504> --include=02-answers.md --include=01-intent.md --include=request.md` prints one line:
-`02-answers.md:73: 39. strs-validation-Q37 (Chief of Staff): **Acceptance budget (CR-B).** Shared window
-per e2e group, ..., the job sharded by group in a matrix, ... Not a fresh window per test, no raised
-timeouts.` The same file marks the delegation on line 72: `decided by the Chief of Staff, owner's word
-"no question"`. `02-answers.md` of this change, item 1, only carries Q27 to Q42 over, itself decided by
-the Chief of Staff. No answer of the owner on this point is recorded.
+SHA `<H>`.
+- The permission to stop is the Chief of Staff's: `02-answers.md` line 4, `acceptance-Q2 (Chief of
+  Staff): Delivery in this CR is as large as the Driver can make it in 3 rounds; if the Driver reports
+  that it cannot finish, the Chief of Staff splits it per e2e group ... The mode switch and the D11 gate
+  land last.` `03-change-spec.md` lines 212 to 215 list the same under `acceptance-Q2`.
+- No record gives it to the owner: a search of the surface's `changes/` for `complete (e2e )?group|after
+  any group|stop after (a|any|each)` finds it only in copies of this description and in the earlier
+  `verify.md` (one other hit is an unrelated archived task note).
+- The owner's recorded words on delivery: `<504>/02-answers.md` Q10 and Q34, "one CR for everything";
+  Q36, the split in two, is the Chief of Staff's. On 2026-11-26 (`02-answers.md` item 5, ask A-28,
+  `events.jsonl` line 2953, which gives the split per group as what the spec says) the owner chose where
+  the rest goes; item 7 and the inbox item's `02-answers.md` line 4 move it to a later batch. These
+  support the follow-up changes and "the switch last", not a permission to stop.
+- The second pass (S8) accepted the bullet on items 5 and 7 while noting that item 2, "same wording", is
+  the Chief of Staff's: those items do not carry its first half.
 
-### G2. Human decisions: "The dropped and wrong scenario markers of the earlier change are repaired with this work." - NOT VERIFIED
+Fix: remove that bullet from "Human decisions". Nothing has to be added: "the switch last" is in the
+section's last bullet (the owner's), and stopping at one group is the first "Autonomous decisions"
+bullet.
 
-SHA `<H>`. `02-answers.md` item 4: `acceptance-Q4 (2026-11-25, Chief of Staff, ask A-16 of CR-504):
-CR-505 also repairs what CR-504 leaves as Known gaps`, with no word of the owner. `events.jsonl` lines
-1913 to 1917: the Foreman's ask A-16 at `19:12:02Z`, the Chief of Staff's order `O-89` at `19:12:33Z`,
-`asks-read ["A-16"]` at `19:12:34Z`. `<504>/02-answers.md` does not record it. The sentence is also
-wider than the diff: this pull request repairs the trust and security group only, and its own first
-Known gaps bullet leaves "the repair of their dropped or wrong scenario markers" of the other groups to
-follow-up changes. The first pass suggested adding this bullet to the section: that suggestion was
-wrong.
+## Third pass: what holds
 
-Proven wording: remove both bullets from "Human decisions" and add under "Autonomous decisions":
-"The acceptance job runs one shard per requirement group and one shared window per test file, with no
-raised timeout, so that each launch keeps its own budget below the 15-minute launch deadline." and
-"The dropped and wrong scenario markers of the earlier change are repaired here for the trust and
-security group only (see the tables), the group this change delivers."
+### T1. Autonomous decisions, "one shard per requirement group and one shared window per test file, with no raised timeout ..." - VERIFIED
 
-## First pass failures, judged again
+SHA `<H>`. Agent's decision: `<504>/02-answers.md` line 73, Q37 (Chief of Staff), "several launches each
+with its own budget below the 15 min launch deadline, the job sharded by group ... no raised timeouts".
+In the code: `ci.yml` line 327 `group: [trust-security]` (the one group with files, `git ls-tree`);
+`acceptanceRunner.ts` lines 219 to 225 launch each file once, each launcher under its own `watchLaunch`
+(`acceptanceRunner.ts` line 87, `spawnedWindow.ts` line 61); `launchWatchdog.ts` line 78 defaults to
+`launchDeadlineMs()`, and `hangWatchdog.ts` line 29 `LAUNCH_DEADLINE_MS = 15 * 60_000`, a file the diff
+does not touch. `git diff -U0 -G"[Tt]imeout|...|BUDGET" <B> <H> -- test/shared test/integration .github
+scripts`: the added limits belong to the new job and the new files (`timeout-minutes: 5` and `3`, polls
+of 20 s and 60 s); no existing limit is changed.
 
-| Id | Sentence as posted now | Judgment |
-| --- | --- | --- |
-| F1 | Summary: "no CI job was dedicated to walking use-case paths: 17 of 156 were accepted, by tests of the `integration` suites" | VERIFIED, S1 |
-| F2 | Changes: "the runner packages the VSIX with `scripts/package-extension.mjs`, and the new `scripts/unpack_vsix.py` unpacks it" | VERIFIED, S2 |
-| F3 | Impacts: "no file under `src/` changes, and `package.json` gains only the `test:acceptance` script" | VERIFIED, S3 |
-| F4 | Test plan, requirements line | VERIFIED, S6 |
-| F5 | Known gaps, TRUST-012 and TRUST-014 | VERIFIED, S5 |
-| F6 | Human decisions | the two missing decisions are there (S8); the section fails on G1, G2 |
-| F7 | posted description | posted and current; fails only on G1, G2 |
+### T2. Autonomous decisions, "The dropped and wrong scenario markers of the earlier change are repaired here for the trust and security group only ..." - VERIFIED
 
-## Changed sentences that hold
+SHA `<H>`. `git diff -U0 -G"@(tests|accepts)_req" --output=<scripts>/markers-diff.log <B> <H> -- test src
+scripts sphinx requirements/guidelines`, searched for changed marker lines outside `TRUST`: only
+`SwRS-MDOKFSTUDIO-CORE-076` lines, which follow that requirement's edit for the new job (V5, S6). The
+repairs themselves are the trust tables (V7). "Only" agrees with the first Known gaps bullet.
+
+### T3. Autonomous decisions as a whole - VERIFIED
+
+Seven bullets: the first five carried (V11, S5, S3), the last two T1 and T2; the two decisions the second
+pass found missing there are now listed.
+
+### T4. Human decisions, the four other bullets - VERIFIED
+
+Carried from `5a8a593` (S8): "one nominal acceptance test" (Q3, Q6), "coverage counts test markers"
+(Q35), the three paths (item 6 and the inbox item), delivered later with the switch last (item 7 and the
+inbox item). With H3 removed, the section holds only decisions recorded as the owner's.
+
+## Sentences judged by the second pass (carried)
 
 ### S1. Summary - VERIFIED
 
@@ -138,13 +158,12 @@ exported head with the mode switched in the export only (`new-mode.log`): `exit=
 without any @accepts_req marker: 74`, `W004 StRS in the new-mode log: 74; same set as the previous line:
 True`. Tracked mode unchanged (V9).
 
-### S8. Human decisions, the five other bullets - VERIFIED
+### S8. Human decisions, the five other bullets - VERIFIED but one line (H3)
 
 - "One nominal acceptance test; a human step is a simulated input": `<504>/02-answers.md` Q3, Q6
   (owner).
 - "Coverage counts test markers; the proof is its CI job": Q35 (owner).
-- "May stop after any complete group; the switch lands last": items 5 ("The owner chose it": one
-  follow-up per group, switch last) and 7; item 2, same wording, is the Chief of Staff's.
+- "May stop after any complete group; the switch lands last": overturned by the third pass, see H3.
 - "The three paths not accepted get another kind of test ...": item 6, owner's words per the inbox item.
 - "The remaining groups, these three paths and the switch are delivered later": item 7, same source.
 
@@ -152,6 +171,9 @@ True`. Tracked mode unchanged (V9).
 
 "[ ] Verified at `5a8a593`: pending": left unchecked on purpose (checked by the Driver after a VERIFIED
 verdict, then a description pass). Not a failure. This pass ends NOT VERIFIED, so it stays unchecked.
+
+The table F1 to F7 of the second pass is folded into this note: F1 to F5 hold (S1 to S6), F6 and F7
+(Human decisions, posted body) fail now only on H3.
 
 ## Carried claims
 
@@ -252,7 +274,7 @@ three commits on `<B>`, which a `git revert` undoes.
 SHA `<H>`. 1: V3, V9. 2: `counts.log` `scenarios removed: 0`; `SwRS scenarios unmarked at head but
 marked at base: 0`; `tables.log` removals. 3: base `PUSH_REQUIRED_JOBS = (REQUIRED_JOB, "stress")`,
 head `REQUIRED_JOBS = ("integration", "stress")` for every event, expired shard artifact refused.
-(Fourth: S5; fifth: S3. The decisions the section lacks: G1, G2.)
+(Fourth: S5; fifth: S3; sixth and seventh: T1, T2.)
 
 ### V12. Evidence and CI items of the Test plan - VERIFIED
 
@@ -316,7 +338,20 @@ No long gate is configured (`$CHANTIER handoff CR-505`, first pass). Before and 
   test `test/build/selectAcceptanceAttempts.test.ts` line 40 runs the script on two made-up groups.
 - R5. Run 45766254331 is named "at an earlier commit" without its SHA (`0feab1d`).
 
-## Notes on this pass
+- R6. Owner answers Q28 (real VS Code is the acceptance bench) and Q30/Q30b (each scenario tested or
+  removed) are not bullets of "Human decisions"; Summary and Changes state both outcomes, and the
+  template leaves the choice of the shaping decisions to the writer: not a failure.
+- R7. The one re-run of the failed CI jobs, taken without the user, is stated in Known gaps and the
+  Test plan, not under "Autonomous decisions" (it is no investigation, round or conflict decision).
+
+## Notes on the third pass
+
+- No CI run started or re-run, no tracked file changed, no commit, push or pull request edit.
+- Files written, all under `work/`: `verify.md`, `verifier/posted-body-3.md`,
+  `verifier/markers-diff.log`, `verifier/update_verify3.py`. One `git diff` call had its `--output`
+  after `--` and printed to the console instead; one had an invalid pattern; both were run again.
+
+## Notes on the second pass
 
 - No CI run started or re-run, no tracked file changed, no commit, push or pull request edit.
 - Deviations from the card, disclosed: `suiteclosure.py` passed the 120 s command limit and the harness

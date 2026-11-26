@@ -54,6 +54,28 @@ Event times from the start of the take (`scratch/take-times.cjs`): the Done clic
 4.42, 4.47, 6.64 (take 4: a slow take, the copy already late at 4.12) and 4.61 s (take 5; zoom at
 5.14 s against 4.82 s in takes 1 to 3, mark 1 on time at 5.42 s).
 
+## Round 2, on the new base (2026-11-26, VS Code 1.148.0)
+
+Head: `b5aaf6846c406575a5de039729db116e5e8fb112` plus the uncommitted round 2 changes (test and
+docs). `8df99ce1`, the head of the runs above, was rewritten by a restack. `git diff` over `src/`
+and `sphinx/` is empty from `8df99ce1` to `3478f099` (on `origin/main`) and from `3478f099` to
+`b5aaf684`: all runs here, round 1 included, are on the product code of `3478f099`.
+Before each run, a process listing showed no other test or clip VS Code instance; no lock screen
+process in this session (the one `LogonUI.exe` is in session 1, the runs are in session 2).
+
+| Run (log) | Command (from the worktree, Git Bash) | Condition | Result |
+| --- | --- | --- | --- |
+| 9 (`run9-r2-mismatch.log`) | single entry (A) | temporary edit of the shipped `scenario.mjs`: `EXPECTED` last row "Thu" changed to "Fri" | fail as intended (exit 1): `AssertionError` in `scenarioTableGridPasteFromHeader`, actual "Dev, Fri" against the copy's "Dev, Thu". Edit removed afterwards |
+| 10 (`run10-r2-single.log`) | single entry (A) | final code: `scenarioTableGridPaste` then `scenarioTableGridPasteFromHeader` | pass (exit 0, `real-input` 6351 ms) |
+| 11 (`run11-r2-stress20-header.log`) | stress (B) | final code, 20 rounds in one window | 20/20 pass (exit 0) |
+
+A: `env STUDIO_REAL_INPUT_SCENARIO=table-grid-paste fnm exec -- npm run test:integration -- --trusted-only`
+B: `env STUDIO_REAL_INPUT_SCENARIO=stress STUDIO_STRESS_SCENARIOS=table-grid-paste-header STUDIO_STRESS_REPEAT=20 fnm exec -- npm run test:integration -- --trusted-only`
+
+Run 11's log holds three "CodeWindow: failed to load (reason: <unknown>, code: -3)" lines from the
+VS Code main process, between rounds that passed; green CI logs of other changes hold the same line.
+No clip take was made in round 2.
+
 ## The earlier miss (CR-489, read only)
 
 - CR-489 round 1 (2026-11-25, about 02:13 to 02:19): the editor was not reopened in 3 of 3 runs

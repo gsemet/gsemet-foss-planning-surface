@@ -191,7 +191,6 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 - A path is walked in one nominal acceptance test; a human step is a simulated input.
 - Coverage counts test markers; the proof that a test passes is its CI job.
-- The delivery may stop after any complete group; the coverage-mode switch lands last.
 - The three paths not accepted get another kind of test in a follow-up change before the switch; the strict marker rule stays.
 - The remaining groups, these three paths and the switch are delivered later, as follow-up changes, the switch last.
 
