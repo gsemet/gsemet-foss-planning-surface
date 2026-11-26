@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Add a \"How we test\" page linking test levels to requirement levels",
-  "summary": "Parked. The user chose to write the page in batch-09 for the state CR-505 delivers, without waiting for the coverage-mode switch; the specification is being amended before a Driver takes it.",
+  "title": "How we test: a docs page linking test levels to requirements",
+  "summary": "Specified for batch-09: a How we test page for the state CR-505 delivers (mode linked-swrs-and-validation-test, acceptance for trust-security only), saying what is not enforced yet; a drift test fails when the later mode switch changes it.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "32b09c649d92018062a9cf2f782c51b9ec3c3db7edd0317133de1a19cfd8bb7d",
     "02-answers.md": "03f87c2d67f6b6c6a95e7117eded6093b8c9bd262fb2810cb88cf1cdede2e186",
-    "03-change-spec.md": "8993a6d1bdd032fba4d9ba3058c2d36f9978c7e40ed782c733138025766ad0ed",
+    "03-change-spec.md": "d5465b0f87690175712312017a353c7504d8607c7a60993d23b15ad7ff26f20e",
     "intake/request.md": "e36b184ba8c1a25df818700621bbd40e810d18646e5985272d4ca165e6dc054e"
   },
-  "summarized": "2026-11-26T11:23:46Z"
+  "summarized": "2026-11-26T11:28:55Z"
 }
