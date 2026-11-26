@@ -1,0 +1,13 @@
+Restyle test on the fixed source: head 1fc952897df11915ce2b4f060414fde732567d17 plus the uncommitted changes of round 2.
+Command: fnm exec -- npm run compile, then STUDIO_REQUIRE_CHROMIUM=1 fnm exec -- node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec out/test/page/commentRestyle.test.js
+
+✔ saving one comment on a large document restyles at most 100 elements (2551.5238ms)
+ℹ restyled 26 elements in 7 style passes (largest 20); the page has 3072 elements
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3112.8223
