@@ -101,3 +101,5 @@ new real-window test that fails intermittently in the manually started or post-m
 
 - CR-512 cell-reopen.
 - The first clip takes: CR-489.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
