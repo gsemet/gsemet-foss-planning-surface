@@ -40,7 +40,8 @@ flowchart LR
   no block there maps part of a fence around it, and a diagram, formula, code, `{list-table}` or
   `{csv-table}` directive maps its whole directive. The body of a version admonition maps the
   lines it is written on. In an admonition left open at the end of the file, a block inside it
-  keeps its own closing fence. Blocks outside a box are mapped as before.
+  keeps its own closing fence (one quoted case is listed under Known gaps). Blocks outside a box
+  are mapped as before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
   quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
@@ -64,10 +65,10 @@ The re-filmed keyboard navigation clip walks with the arrows into an admonition,
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
 ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change
-([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
-[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
+([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
+[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
 
-![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
+![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
 ## Blast radius
 
@@ -95,6 +96,12 @@ behaviour, with no data or settings change.
 - Not yet approved: the maintainer's review of the clip's storyboard and of the clip itself.
 - In the clip, after the save the selection is on the whole admonition, not on the saved sub-item.
 - A `{table}` directive of a box does not move, and no neighbouring block moves past it.
+- An image-only paragraph or an `{image}` directive in a box does not open on its own with a click,
+  and the move chord of a neighbouring block swaps that block across it.
+- The paragraphs of a `{topic}` body in a box edit one by one, but they do not move, and no block
+  moves past them.
+- When a colon-fenced admonition inside a quote is left open, a final quoted `> :::` line still
+  counts as its closing fence, so a quoted `:::{tip}` ending there does not open on its own.
 - Outside a box, a move past a diagram directive can still put the moved paragraph inside its
   fence, and a click on a top-level diagram, formula or code directive opens its opening line only
   (both as before this change). A top-level `{table}` directive is likely affected too (that move
@@ -107,8 +114,8 @@ behaviour, with no data or settings change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code). On the previous code, 36 tests of the
-  changed unit and page files fail, among them:
+- [ ] New or changed tests (they fail on the previous code). Among the unit and page tests that
+  fail on the previous code:
   - "Enter on an element of a MyST admonition reached with the arrows opens that element only"
     (and the same for a GitHub alert);
   - "a click on a paragraph of a MyST admonition opens that paragraph, its title the whole
