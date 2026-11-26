@@ -56,19 +56,23 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
   and several images, at least one of them not wrapped in another element, is measured as a whole
   from its first image. The requirement records both as a known issue; no test checks them, and
   changing the page is left to a later change.
+- An image wrapped in any other element inside its paragraph (emphasis, for example) is not widened
+  either. The known issue names only the link case; the requirement's verification criteria cover
+  the others, by saying that the image must be a direct child of the paragraph.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
+- [x] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
       passes on the current code and fails (`AssertionError: TABLE`) when the widening rule is
       temporarily changed to accept any element, and (`AssertionError: P`) when only the check that
-      an image's paragraph is at the top level is removed.
-- [ ] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
+      an image's paragraph is at the top level is removed (both at `5f7658a`).
+- [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
       `src/page/modules/widthMode.ts` (unchanged), tests `test/page/runtimePageControls.test.ts`
       and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` run
-- [ ] Changelog: no user-facing change
-- [ ] Local gates:
-- [ ] Review
+- [x] Changelog: no user-facing change
+- [x] Local gates at `5f7658a`: `just preflight` passes (static stage on Windows): 5336 unit tests,
+      5328 pass, 0 fail, 8 skipped
+- [x] Review: approved at `5f7658a`
 - [ ] CI green
 
 ## Internal references
