@@ -15,13 +15,13 @@ What each kind of row of the properties table shows:
 | Information rows | plain | unchanged |
 | Field whose value is being edited | plain | name marked as above, no underline under the open editor |
 
-The value text keeps its own colour. The colours come from the editor theme, with a fallback where the theme sets none.
+The value text keeps its own colour. The colours come from the editor theme, with a fallback where the theme sets none. In edit mode, a marked name cell still highlights under the pointer like the other editable cells, and its text keeps the colour of its severity.
 
 ## Changes
 
-- `src/core/preview/styles/propertiesStyles.ts`: new style rules for error and warning field rows and for whole-table warning rows; no underline on a cell being edited. The markup, the validation, the messages and the badge are unchanged.
-- Requirements: the two software requirements (SwRS) `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` now state how these rows look; markers in the companion marker file.
-- Tests: `test/core/preview/fieldIssueStyles.test.ts` checks the shipped stylesheet; four visual scenarios (field rows and whole-table warning, light and dark) check the computed styles of the rendered page, with two fixtures and one schema file that cannot be parsed.
+- `src/core/preview/styles/propertiesStyles.ts`: new style rules for error and warning field rows and for whole-table warning rows; the edit-mode hover of a marked name cell; no underline on a cell being edited. The markup, the validation, the messages and the badge are unchanged.
+- Requirements: in the software requirement (SwRS) `SwRS-MDOKFSTUDIO-FMSCHEMA-084`, scenarios S1 and S6 and the criteria now state how a marked field row looks, and new scenarios S8 (no underline during an edit) and S9 (marked name cell in edit mode) are added; scenario S5 of `SwRS-MDOKFSTUDIO-FMSCHEMA-023` states the look of the whole-table warning row. Markers are in the companion marker file.
+- Tests: `test/core/preview/fieldIssueStyles.test.ts` checks the shipped stylesheet; four visual scenarios (field rows and whole-table warning, light and dark) check the computed styles of the rendered page, with two fixtures and one schema file that cannot be parsed; the test that counts the visual scenarios now expects four more.
 - `CHANGELOG.md`: one line under `## Unreleased`.
 
 ## Impacts
@@ -35,13 +35,14 @@ Grade: **1**. Style rules of the properties table only; a plain `git revert` res
 ## Autonomous decisions
 
 - A value cell being edited has no wavy underline, because the underline was also drawn on the open editor and its field menu. The requirement states it and a test checks it.
-- The four visual scenarios are in a new file, because the existing scenario file is at the repository's file size limit; the test that counts the scenarios was updated by four.
+- In edit mode, a marked name cell takes the same hover background as the other editable cells in place of its severity background, so the pointer feedback stays the same on every row. The requirement states it and a test checks it.
 - While the branch was moved onto a newer base, conflicts in requirement files were resolved by keeping the entries of both changes and generating the file lists again.
 
 ## Known gaps
 
 - **UNVERIFIED:** no test in a real VS Code window checks the new look; it is checked on the rendered preview page of the visual test harness.
 - In the visual scenarios the whole-table warning message fits on one line at 900 px, so its wrapping is checked on the stylesheet only.
+- The hover highlight of a marked name cell and the missing underline during an edit are checked on the stylesheet; no visual scenario covers them.
 
 ## Human decisions
 
