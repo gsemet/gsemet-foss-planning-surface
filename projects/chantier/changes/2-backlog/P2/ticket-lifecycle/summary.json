@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "What chantier does with a ticket, from first reading to release",
+  "summary": "Ticket duties, from first analysis to release, done by the Chief of Staff on a verbatim yes. Much is already in the cards; gaps: an earlier first message, a note after implementation, the version in 'Released in', who finds the tickets. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "55113d70a09f7d244463a2d2fc5842fc695dfc556edceefb1b016aac19c9b158",
+    "intake/request.md": "11600e47d63a93969098604f4579415e522651bdc0f11bfcc104831a1265eb91"
+  },
+  "summarized": "2026-11-26T23:01:35Z"
+}
