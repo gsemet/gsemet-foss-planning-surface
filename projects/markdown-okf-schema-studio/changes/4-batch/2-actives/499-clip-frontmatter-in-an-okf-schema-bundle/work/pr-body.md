@@ -1,6 +1,6 @@
 ## Summary
 
-The OKF documentation page explains that Studio turns frontmatter into a properties table, but it shows nothing of it. This adds a 12 second silent feature clip of a note in an OKF Schema bundle: a typed table with a Description column and type icons, an invalid `status` value flagged by the title badge, a pick from a select of the schema's values, a save, and the error gone. It is the sibling of the standard frontmatter clip (the same page, the same `status` field, the same click, save chord and marks); only `type: note` and a `_schema/` folder are added, so what differs on screen is what the schema brings. The extension does not change.
+The OKF documentation page shows the properties table Studio makes from standard frontmatter, but not what an OKF Schema bundle adds to it: the schema's table, the validation and the select. This adds a 12 second silent feature clip of a note in such a bundle: a typed table with a Description column and type icons, an invalid `status` value flagged by the title badge, a pick from a select of the schema's values, a save, and the error gone. It is the sibling of the standard frontmatter clip (the same page, the same `status` field, the same click, save chord and marks). The stage differs by three things: `type: note`, a `_schema/` folder, and a starting `status` value with a typo (`publshed` where the sibling starts at `draft`). The extension does not change.
 
 ## Deliverables
 
@@ -57,7 +57,8 @@ The storyboard first said the `status` row is red at frame 0. The trial take sho
 ## Known gaps
 
 - A field row in error has no colour of its own (existing behaviour, not changed here).
-- The captions of the first three pictures in `clip.md` are loose, and its Mark rows write `status` in code quotes unevenly; both are cosmetic.
+- The captions of the first three pictures in `clip.md` are loose; this is cosmetic.
+- The opening paragraph of `clip.md` says that only `type: note` and the `_schema/` folder are added, and leaves out the typo that its Stage row names.
 - The raw screencast ran at 2.1 fps (retimed to 15 fps), so page changes can look stepwise.
 - macOS and Linux are not proved: the clip was filmed and checked on Windows only.
 
