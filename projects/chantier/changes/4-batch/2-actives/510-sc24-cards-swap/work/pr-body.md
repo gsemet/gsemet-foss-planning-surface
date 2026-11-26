@@ -126,16 +126,16 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [x] Local gates at `b85be4c`: `just check` (2748 passed, 19 skipped), `just eval-dry-run` (25 of 25 cases), `just mod` (119 pass)
-- [ ] Evidence: before at `ea11a9e`, after at `b85be4c`
-- [x] Review: approved at `b85be4c` (carried from `7d2c4dc`)
+- [x] Local gates: `just check` (2748 passed, 19 skipped) and `just mod` (119 pass) at `4380df5`; `just eval-dry-run` (25 of 25 cases) at `b85be4c`, the head before the topic links
+- [ ] Evidence: before at `ea11a9e`, after at `4380df5`
+- [x] Review: approved at `4380df5`
 - [ ] Verified
-- [x] CI green at `b85be4c`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
+- [ ] CI green at `4380df5`
 
 ## Internal references
 
 - CR-510 sc24-cards-swap, batch-31; its branch started on CR-507's (PR 487, merged).
-- Hand-over checklist of the specification (rows 11 to 14: not done, the launcher is not switched, decision D9 under order O-159):
+- Hand-over checklist of the specification. Rows marked done are in commit `b85be4c`; the links of row 4 are in commit `4380df5` (rows 11 to 14: not done, the launcher is not switched, decision D9 under order O-159):
 
 | # | What | State |
 | --- | --- | --- |
