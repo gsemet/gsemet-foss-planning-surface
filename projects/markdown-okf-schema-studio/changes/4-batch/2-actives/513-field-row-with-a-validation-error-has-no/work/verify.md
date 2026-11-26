@@ -1,23 +1,25 @@
 # CR-513 verification
 
-Head: cd3b8e6a8f02c18e3bca13aa5a32259ef01f720f
+Head: 223a8c49a47f8af786412e7cff748860b18d3782
 
-Base: `abfa71e58f2f150d028781beaeecc2bede4c8182`. Verdict: **VERIFIED**. This note replaces the
-NOT VERIFIED note of `1fa9587`; every claim below was judged again at `cd3b8e6`.
+Base: `e2b2235d8b031d1542761d2b9d5070af2e975d9d` (`main`). Verdict: **VERIFIED**.
 
-**The PR head moved during this pass.** At 14:19:25Z `gh pr view 535` gave head `cd3b8e6`. At 14:28Z
-and 14:31:55Z it gives `223a8c49a47f8af786412e7cff748860b18d3782`, base `main` at `e2b2235`. This
-verdict is for `cd3b8e6` only (see "The moved head").
+Claims 1 to 12 were judged at `cd3b8e6a8f02c18e3bca13aa5a32259ef01f720f` on base
+`abfa71e58f2f150d028781beaeecc2bede4c8182`. Each is **carried from cd3b8e6**: the forge rewrote the
+branch when the PRs below it merged, the three commits are identical and both the head tree and the
+base tree are unchanged (claim 0b). Claim 13 (the posted description) was judged at `223a8c4`; it
+replaces claim 11 for the current head. No build, test or capture ran at `223a8c4` in this pass.
 
 `<W>` = CR worktree (HEAD `cd3b8e6`, `git status --porcelain` empty at the end), `<B>` = my detached
 worktree of the base with the head's `test/` folder checked out over it (removed), `<S>` =
-`work/scratch`, `<E>` = `work/verifier/evidence`. All claims at `cd3b8e6` unless said otherwise.
+`work/scratch`, `<E>` = `work/verifier/evidence`. Claims 0 to 12 are at `cd3b8e6` unless said otherwise.
 `chantier.yaml` has no long gate, so there is no gate pass to cite.
 
 ## Summary
 
 | # | Claim | Verdict |
 | --- | --- | --- |
+| 0b | Head `223a8c4` and its base have the trees judged at `cd3b8e6` | VERIFIED |
 | 1 | Unit test red on the base, green at the head | VERIFIED |
 | 2 | Visual scenarios v32 to v35 fail on the base, pass at the head | VERIFIED |
 | 3 | The look in the four preview modes on a dark and a light host | VERIFIED |
@@ -30,6 +32,7 @@ worktree of the base with the head's `test/` folder checked out over it (removed
 | 10 | CHANGELOG line | VERIFIED |
 | 11 | PR description | VERIFIED |
 | 12 | CI at the head (read, not run) | VERIFIED |
+| 13 | PR description as posted, at `223a8c4` | VERIFIED |
 
 ## 0. Head and history
 
@@ -44,6 +47,8 @@ worktree of the base with the head's `test/` folder checked out over it (removed
 
 ## 1. Unit test - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 - `<B>`: compile, `node --test out/test/core/preview/fieldIssueStyles.test.js`
   (`<S>/ver2-before-unit.log`): `tests 8, pass 0, fail 8`.
 - `<W>`: `just preflight` (`<S>/ver2-preflight.log` lines 1345-1352): the 8 tests pass.
@@ -53,6 +58,8 @@ worktree of the base with the head's `test/` folder checked out over it (removed
   084#S1, 084#S6, 023#S5. It also covers 084#S8, #S9, #S10 and 023#S10.
 
 ## 2. Visual scenarios v32 to v35 - VERIFIED
+
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
 
 - `fnm exec -- npm.cmd run visual:render`, then
   `uv run --no-sync --group docs python test/visual/capture.py --group frontmatter-schema`.
@@ -64,6 +71,8 @@ worktree of the base with the head's `test/` folder checked out over it (removed
   wavy underlines and coloured whole-table warning row after. No username, no path.
 
 ## 3. Preview modes and hosts - VERIFIED
+
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
 
 `uv run --no-sync --group docs python <S>/r4_modes_probe.py <W> <S>/ver2-modes-shots`
 (`<S>/ver2-modes-probe.log`): exit 0, `RESULT: 0 failed check(s)`. Contrast of the marked text
@@ -86,6 +95,8 @@ against what is painted behind it:
 
 ## 4. The walk, in a real VS Code window - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 VS Code 1.148.0 on Windows, Extension Development Host with its own user-data and extensions folders,
 bundle built at the head (`fnm exec -- npm.cmd run bundle`, `<S>/ver2-bundle.log`); no other test
 window was running. `fnm exec -- node <S>/ver2_walk_run.js <W> <S>/walk2 <E>/window-cd3b8e6`
@@ -105,6 +116,8 @@ Modern; their variables are printed in the log. The preview opens in Cream.
 
 ## 5. Edit mode - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 - Real window (same log): hovered error and warning names take the theme's edit hover background and
   keep their severity colour; the open editor of the error value (select and field menu) and of the
   warning value (textarea and menu) draws no underline; the underline is back after Escape.
@@ -118,6 +131,8 @@ Modern; their variables are printed in the log. The preview opens in Cream.
 
 ## 6. Nothing else changes - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 `uv run --no-sync --group docs python <S>/ver2_unchanged_probe.py <W> <B>`
 (`<S>/ver2-unchanged-probe.log`): exit 0; 35 scenarios (34 with a properties block), 4 modes on 2
 hosts: `markup differences: 0` (badge included), cell count differences 0. Computed style differences
@@ -128,6 +143,8 @@ folder paths in the markup (its first run reported those paths as differences). 
 and badge code: not in the diff (claim 0).
 
 ## 7. Wrapping and fallbacks - VERIFIED
+
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
 
 - `uv run --no-sync --group docs python <S>/ver_wrap_probe.py <W> <B> <S>/ver2-wrap-shots`
   (`<S>/ver2-wrap-probe.log`): at 360 px the head's warning row wraps to 3 lines in a cell of 301 px
@@ -140,6 +157,8 @@ and badge code: not in the diff (claim 0).
 
 ## 8. Requirements - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 - `just requirements-update` (`<S>/ver2-requirements-update.log`): exit 0, `0 indexes updated, 0
   requirement OKF projections updated`; `git status --porcelain` empty.
 - `uv run --no-sync --group requirements okfreq validate --check-links --project-root .`
@@ -151,6 +170,8 @@ and badge code: not in the diff (claim 0).
 
 ## 9. `just preflight` - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 At `cd3b8e6`, 13:54:50Z to 14:02:17Z, exit 0, tree clean after (`<S>/ver2-preflight.log`):
 `check-no-merge-commits: passed`; Node 56/56; unit tests 5375, 5367 pass, 0 fail, 8 skipped; Node
 116/116; Python `296 passed` and `4 passed`; `1228 requirements, 0 errors, 26 warnings`;
@@ -158,12 +179,16 @@ At `cd3b8e6`, 13:54:50Z to 14:02:17Z, exit 0, tree clean after (`<S>/ver2-prefli
 
 ## 10. CHANGELOG line - VERIFIED
 
+*Judged at `cd3b8e6`; carried from cd3b8e6: identical head and base trees at `223a8c4` (claim 0b).*
+
 `git diff abfa71e cd3b8e6 -- CHANGELOG.md`: one entry under `## Unreleased` (wrapped like its
 neighbours), ending `(CR-513 field-error, PR #535)` as the guideline orders. "Name in red on a
 red-tinted background and a wavy red underline", the warning sentence and the whole-table row hold
 (claims 3, 4).
 
 ## 11. PR description - VERIFIED
+
+*Judged at `cd3b8e6`; carried from cd3b8e6 for the unchanged parts of the body only: claim 13 judges the body posted now.*
 
 Read at head `cd3b8e6` at 14:19:25Z: title `fix(frontmatter): mark the rows that carry a schema error
 or warning`, draft, base CR-511's branch, posted body equal to `work/pr-body.md` (0 differences).
@@ -209,22 +234,77 @@ line in the intent, so no `Fixes`.
 
 ## 12. CI at the head (read, not run) - VERIFIED
 
+*Judged at `cd3b8e6`; kept as the record of that head. CI at `223a8c4` is read in claim 13.*
+
 `gh pr checks 535` while the head was `cd3b8e6`: checks, report, static, static-windows,
 viewer-graph, visual, visual-2 pass. `gh run view <id> --json headSha,conclusion,status` for
 45829907654 and heavy run 45830014522 (again at 14:31:55Z): `cd3b8e6a`, completed, success; the
 heavy run's jobs include acceptance (trust-security), integration and stress, all passed.
 
-## The moved head (not part of the verdict)
+## 0b. The moved head - VERIFIED
 
-- `gh pr view 535 --json commits`: `e34029be`, `e6c77338`, `223a8c49`, same three subjects,
-  committed 14:20:35Z, on `main` `e2b2235` (committed 14:20:30Z).
-- `git patch-id --stable` of `git diff abfa71e cd3b8e6` and of
-  `gh api ... compare/e2b2235...223a8c49` as a diff: both `62505566d1aa238de228ae4f9e743cb572afa21b`.
-  The new base content was not checked: no test or capture of this note ran at `223a8c49`.
-- `gh pr checks 535` at 14:31:55Z, head `223a8c49`: checks, report, static, static-windows,
-  viewer-graph, visual, visual-2 pass.
-- The posted body still names `cd3b8e6` and `abfa71e`. It needs its SHAs moved (with `carried
-  from`) before "Verified" and "CI green" are ticked for the new head.
+At `223a8c4`, in `<W>` (`git rev-parse HEAD` = `223a8c49a47f8af786412e7cff748860b18d3782`,
+`git status --porcelain` empty before and after this pass).
+
+- `git range-diff abfa71e..cd3b8e6 e2b2235..223a8c4`: `49022ec6 = e34029be`, `e9c82c57 = e6c77338`,
+  `cd3b8e6a = 223a8c49` (3 of 3 identical).
+- `git rev-parse "cd3b8e6^{tree}" "223a8c4^{tree}"`: `e6f6894de333c24969709306715c4f3c06d06418` twice.
+- `git rev-parse "abfa71e^{tree}" "e2b2235^{tree}"`: `ff7c89e5d9d346ee99a349f658deb1b4ea2cb684` twice.
+- `git range-diff 928ebd7..7f7cc06 e2b2235..223a8c4`: `552cfac4 = e34029be`, `7e702282 = e6c77338`,
+  `7f7cc06f = 223a8c49`; `git diff --stat 7f7cc06 223a8c4 -- src`: empty.
+- `git ls-remote origin refs/heads/main refs/pull/535/head`: `e2b2235...`, `223a8c4...`.
+
+## 13. PR description at `223a8c4` - VERIFIED
+
+`gh pr view 535 --repo gsemet/markdown-okf-schema-studio --json
+body,headRefOid,baseRefName,baseRefOid,isDraft,title,state` (`<S>/ver3/pr.json`, read again at
+14:37Z, `<S>/ver3/pr-end.json`, body unchanged): head `223a8c4`, base `main` at `e2b2235`, draft,
+open, title `fix(frontmatter): mark the rows that carry a schema error or warning`.
+
+- Posted body against `work/pr-body.md`: `diff --strip-trailing-cr`, no difference.
+- Against the body of claim 11 (`<S>/ver2-posted-body-final.md`): `diff` shows only the before and
+  after captions, the Cream caption, the eight Test plan lines (SHAs, `carried from`, Python `296`,
+  three boxes ticked) and a trailing blank line. Every other sentence is the one claim 11 judged,
+  against a diff whose trees are unchanged (claim 0b). `git diff --stat e2b2235 223a8c4`: 19 files,
+  +570/-11, as at `cd3b8e6`.
+- Rendering: `gh api .../pulls/535 -H "Accept: application/vnd.github.html+json"`, then
+  `python -I <S>/ver3_render_check.py body.html posted-body.md`: 10 headings in order, those of the
+  project template and Internal references, plus Autonomous decisions, Known gaps and Human decisions;
+  2 tables, 10 images, 8 task boxes all checked; no raw Markdown, no comment, no `STALE` or
+  `UNVERIFIED` mark; no change request number, batch, round, order or role name before "Internal
+  references"; no user name or home path. No details fold: the project template has none.
+- Images: the 10 URLs of the body, fetched with `curl -sSL`: each HTTP 200, `image/png`; each
+  `sha256sum` equals its file in `<F>/evidence/` in the slot its caption names (before/after, light/
+  dark, Cream). All ten files opened: they show what their captions say; no user name, no path.
+- Captions "before at `e2b2235`, carried from `9d7e788`" and "after at `223a8c4`, carried from
+  `7f7cc06`": base tree and head tree equal those of claim 11's pixel comparison (claim 0b);
+  `git diff --stat 9d7e788 e2b2235 -- src test/visual/themes.ts` shows nothing.
+- New or changed tests "at `223a8c4`, carried from `cd3b8e6`, fail on the previous code": claims 1
+  and 2.
+- Requirements, Changelog: claims 8 and 10; `git diff e2b2235 223a8c4 -- CHANGELOG.md` shows the one
+  entry under `## Unreleased` ending `PR #535)`.
+- Local gates: `<S>/ver2-preflight.log` (my run at `cd3b8e6`): Node `tests 56`, `pass 56`; unit
+  `tests 5375`, `pass 5367`, `fail 0`, `skipped 8`; Node `116`, `116`; `296 passed`; `4 passed`;
+  `ci-static: passed`. `<S>/ver2-head-capture.log`: `"status": "passed", "scenario_count": 35`. The
+  Python count `296` now matches this run.
+- Evidence: the captions above.
+- Review "approved at `223a8c4`, carried from `7f7cc06`": `$CHANTIER log CR-513` 12:49:20Z and
+  12:49:36Z (round 5 approved, committed as `7f7cc06`); the three commits of `223a8c4` are identical
+  to those of `7f7cc06` (claim 0b).
+- "Verified at `223a8c4`, carried from `cd3b8e6`": the log's verdict of 14:33:24Z, `VERIFIED` at
+  `cd3b8e6`; trees identical (claim 0b).
+- "CI green at `223a8c4`": `gh pr checks 535` (14:36Z and 14:37Z): checks, report, static,
+  static-windows, viewer-graph, visual, visual-2 pass, the rest skipped; `gh run view 45838047081`:
+  head `223a8c4`, completed, success. `statusCheckRollup` holds no entry other than success or
+  skipped.
+- Blast radius: the head's diff against its base has the two trees above, so reverting it gives the
+  base tree again (claim 11's revert check, same trees).
+- Autonomous decisions, Known gaps, Human decisions: unchanged text (claim 11). Decision 4 matches
+  `work/conflicts.md`; `02-answers.md` Q4 and its follow-up concern the PR's base, not the change.
+
+Not judged, cited by no claim of the body: heavy run 45840378393 at `223a8c4`. At 14:37:26Z it was
+`in_progress` (viewer-graph and acceptance (trust-security) success; static, static-windows, visual,
+visual-2, stress, integration running).
 
 ## Observations
 
@@ -235,6 +315,9 @@ heavy run's jobs include acceptance (trust-security), integration and stress, al
   this follows section 1 of the specification and the body says the theme's colours apply there.
 
 ## Run notes
+
+- Description pass at `223a8c4`: no command refused; nothing pushed, no PR edit. Downloads and
+  the render check are in `<S>/ver3/`, its script `<S>/ver3_render_check.py`.
 
 - No command was refused. Some shell calls used `cd` to `<W>`, a leading assignment, a chain or a
   redirect into `work/scratch`; no redirect wrote to a worktree file.
