@@ -209,3 +209,53 @@ them); P2 "and the board Griller's refusal paragraph is unchanged".
 - The "Gates" section above says `r4-just-mod.log` starts with HEAD; its first line is the command.
 - One shell call of this pass changed directory into the CR folder and back, against the brief
   (nothing was read or written by that change).
+
+## Second description pass on the posted body (133640b)
+
+**NOT VERIFIED.** The body posted again at 11:31:12Z (log) still holds two sentences that are false
+at this head. P1 and P2 of the pass above are fixed. The whole body was read; the code verdict above
+is unchanged. All rows judged at 133640b. `BASE`, `HEAD`, `OLD`, `<wt>`, `<CR>` as above; `<v6>` =
+this pass's throwaway files in `<CR>/work/scratch/` (`pr488-desc.json`, `pr488-body.md`,
+`v6_scan.py`, `v6_para.py`, `v6-base-*.txt`, removed at the end of the pass). Nothing was edited in
+the PR or the code; no gate, test, quiz or eval was run.
+
+### Failed
+
+| # | Sentence (posted body) | Command and output | Verdict |
+| --- | --- | --- | --- |
+| F1 | Autonomous decisions: "The refusal paragraph of the worker agent files changed, ... It now accepts a path to the brief file (`<unit>-<role>.md`) or to the card (`<role>.md`) (**decided during implementation, to be confirmed by the owner**)." | `<CR>/02-answers.md` item 6: "2026-11-26, the owner confirms O-175 (CR-510 taken back for one round: the worker wrappers' refusal paragraph), decided by the Chief of Staff under O-173 with a Fable advisor: « Ok pour ce deux décision. J'attend ta stack »". `git -C <surface> log -S'owner confirms O-175' -- .../02-answers.md` -> `5ccffd08 2026-11-26T12:21:25+01:00` (11:21:25Z), before both postings (11:23:54Z, 11:31:12Z). Same cause: "Human decisions" omits this decision, though it shaped the change (pr-template audit item 8) | FALSE |
+| F2 | Changes: "**Comments that named a removed host-card section now name a row or topic**: `board/griller_host.py`, `playbook/models.py`, `playbook/timing_check.py`, `commands/allow_samples.py`, `commands/permissions.py`." | `git diff BASE HEAD -- <SRC>/commands/allow_samples.py <SRC>/board/griller_host.py`: the three comments of `allow_samples.py` now name the file `references/hosts/claude-code.md`, its section "Allow rules" and its table, neither a row nor a topic; `git grep -n -E "^### (Allow rules\|Capabilities and their commands)" HEAD -- skills/chantier/references/hosts/claude-code.md` -> lines 6 and 140, so those sections were not removed either. In `griller_host.py` one comment now names the host rows `board-griller`; the other, "(hosts/claude-code.md: unproved until the trial)", became "(unproved until the trial)" and names nothing. `models.py`, `timing_check.py` (rows) and `permissions.py` (`help host-allow-not-add`) hold | FALSE for `allow_samples.py` and one comment of `griller_host.py` |
+
+Wording that would be true: F1 drop "to be confirmed by the owner" and add the confirmed decision to
+"Human decisions", with no internal reference or role name (should only the card path be unconfirmed,
+the sentence has to say so; no record read here says that). F2 "Comments that pointed at the old host
+cards now name a host row, a help topic or a section of the new host card, or no longer point
+anywhere."
+
+### Holds
+
+| # | Claim | Command and output | Verdict |
+| --- | --- | --- | --- |
+| E1 | Head, base, draft, posted body | `gh pr view 488 --json body,headRefOid,baseRefName,baseRefOid,isDraft,state` -> HEAD, `main`, BASE, draft, `OPEN`; posted == `work/pr-body.md`, 19219 characters, read again at the end of the pass | VERIFIED |
+| E2 | Change since the body of the pass above | `git -C <surface> diff 49ea0f10 571467fe -- .../work/pr-body.md`: two lines, the P1 and P2 sentences; "they are unchanged" dropped, "the board Griller's refusal paragraph is unchanged" | VERIFIED |
+| E3 | CI | `statusCheckRollup`: `just check` ubuntu, macos, windows, `just scenario`, `just eval-dry-run`: `SUCCESS` | VERIFIED |
+| E4 | Structure, marks, private paths, internal references | `<v6>/v6_scan.py`: ten `h2` in the template's order, 10 fence lines, 1 `details` opened and closed, `STALE` 0, `UNVERIFIED` 1, 0 images, no user name or home folder, no internal reference of its patterns before `<details>` | VERIFIED |
+| E5 | The other Autonomous decisions, Known gaps, Changes, Deliverables, Test plan, Human decisions' two items, checklist | read against `git diff BASE HEAD` and the source (`commands/brief.py`, `driver_prompt.py`, `facts.py`, `driver.py`, `orders.py`, `plugin_files.py`, `roles.yaml`, `board/griller.py`, `access.py`, `config.py`, `evals/kit/audit.py`, `docs/incidents.md`), `<CR>/evidence/e6-quiz-plan.md`, `e7-bytes.md`, `02-answers.md` items 2 to 5; card and host-topic sizes computed again; the rest carried from `verifier/verify-b85be4c.md` and the passes above | VERIFIED but for F1 and F2 |
+
+### Observations (no effect on the verdict)
+
+- The pass above judged the Autonomous decision of F1 (its D5) from the log's "to confirm by the
+  owner" without citing `02-answers.md` item 6; that row is superseded by F1.
+- Deliverables, "A Driver's `Team:` and review steps | filled by hand by the session that starts it":
+  at BASE the CLI already filled the team part when a configuration set a team
+  (`block.team = team_lines(d.playbook)`); the review steps, and the whole line with no
+  configuration, were by hand.
+- `sync-checkout`: the skill text keeps four of the base's six steps, so its intro changed from
+  "Six steps" to "Four steps"; the other two are in `help sync-offer`.
+- Checklist row 22 "No CLI change | done" is the specification's default for sc22-Q2 and reads oddly
+  alone.
+- Test plan "Evidence": pair 9 is carried from `4380df5`, which the line does not say.
+- The log's order O-181 (11:41:15Z, after the posting) was not part of this pass's brief.
+- **Slip of this pass:** about nine of my shell calls changed directory into the CR folder or a
+  subfolder of it (`work`, `work/coder`, `evidence`, its root), against the brief. All were reads
+  (`grep`, `sed`, `cat`); nothing was written by them.
