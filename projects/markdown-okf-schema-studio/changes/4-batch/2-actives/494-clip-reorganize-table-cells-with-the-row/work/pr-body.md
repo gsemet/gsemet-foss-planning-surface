@@ -29,9 +29,10 @@ Grade: 1. Docs and kit tests only; a plain `git revert` restores the previous st
 - [x] New or changed tests (storyboard, check and site tests)
 - [x] Requirements: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog: No user-facing change (no `feat` or `fix` commit)
-- [x] Local gates: `just clip-kit-test` 37 tests, `just check` pass, `just clip table-anchors all` pass (`check.json` passed: true, loop seam SSIM 0.9925, playback rate 1.004); preflight (static stage) pass
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at `c3c3a57`: `just clip-kit-test` (42 tests), `just check` and `just preflight` (static stage on Windows) pass
+- [x] Evidence: `just clip table-anchors all` passed before the rebase (`check.json` passed: true, loop seam SSIM 0.9925, playback rate 1.004); the rebase leaves the clip folder unchanged
+- [x] Review: an independent review approved the rebased change at `c3c3a57`
+- [x] CI green at `c3c3a57` (static, static-windows, visual, viewer-graph, report)
 
 ## What the clip proves, and what the owner judges
 
