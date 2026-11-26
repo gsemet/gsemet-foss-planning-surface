@@ -39,7 +39,7 @@ scroll-sync-suite 1, stockCoexistence 1, tableMoves 1.
 `git grep -n ... <B> -- test/integration/trusted-suite.ts untrusted-suite.ts run-tests.ts`:
 `trusted-suite.ts` imports radioChoice (line 12), findInPreview (17), commentAnchors (25),
 mystBlocksWindow (30), realInput/run (49), stockCoexistence (61); `untrusted-suite.ts:19` imports
-realWindowGaps; `run-tests.ts:255` runs a scenario suite and line 114 names `scroll-sync-suite.js`.
+realWindowGaps; `run-tests.ts:255: await runScenario("scroll-sync-suite.js", false);`.
 `justfile:350: ci-integration`. Heavy run 45773405420 (push at `<B>`) is `success` with the
 `integration` job. `<scripts>/counts.log`: `== base ... accepted: 17`. The body itself says "17 were
 already accepted by tests under `test/integration/`".
@@ -247,8 +247,10 @@ SHA `<H>`.
 - Partial delivery: V3, V9.
 - Integration: `ci-45774743144.log` line 2445 `LAUNCH TIMEOUT: trusted-suite.js exceeded its 900000 ms
   deadline ... last heartbeat step: myst-diagnostics`; the passing trusted suite took 852 s on base run
-  45773405420 and 854 s on attempt 2 (suite timestamps of the saved logs); the diff of
-  `trusted-suite.ts` and the integration tests it imports edits marker comments only.
+  45773405420 and 854 s on attempt 2 (suite timestamps of the saved logs). `git diff -U0` of
+  `trusted-suite.ts` and the changed integration tests, comment lines filtered out: empty. The launcher
+  `run-tests.ts` is refactored (argument parsing, Restricted Mode window moved to `spawnedWindow.ts`);
+  `runScenario`, which launches the trusted suite, is not touched.
 - 3-minute step: `hangWatchdog.ts` `STEP_BUDGET_DEFAULT_MS = 3 * 60_000`, `LAUNCH_DEADLINE_MS = 15 *
   60_000`; `ci.yml` step limit 3.
 - One run: the 115 s / 77 s attempt of 45766254331; its attempt 2 took 93 s / 59 s.
