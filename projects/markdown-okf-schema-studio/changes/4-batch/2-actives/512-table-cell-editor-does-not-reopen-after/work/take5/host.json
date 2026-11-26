@@ -1,0 +1,12 @@
+{
+  "vscodeVersion": "local install",
+  "vscodePinned": false,
+  "extensionVersion": "1.12.1",
+  "extensionSource": "vsix",
+  "deviceScale": 1.75,
+  "workArea": {
+    "width": 3440,
+    "height": 1392
+  },
+  "platform": "win32"
+}
