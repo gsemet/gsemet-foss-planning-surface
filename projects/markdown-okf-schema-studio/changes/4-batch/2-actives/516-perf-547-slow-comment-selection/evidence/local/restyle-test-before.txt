@@ -1,0 +1,29 @@
+Restyle test on the unfixed source: head 1fc952897df11915ce2b4f060414fde732567d17, src/ unchanged (git diff --stat src: 0 lines).
+Command: STUDIO_REQUIRE_CHROMIUM=1 fnm exec -- node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec out/test/page/commentRestyle.test.js
+
+✖ saving one comment on a large document restyles at most 100 elements (6103.6077ms)
+ℹ restyled 3125 elements in 7 style passes (largest 3119); the page has 3072 elements
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6661.8595
+
+✖ failing tests:
+
+test at out\test\page\commentRestyle.test.js:152:22
+✖ saving one comment on a large document restyles at most 100 elements (6103.6077ms)
+  AssertionError [ERR_ASSERTION]: one comment creation restyled 3125 elements, more than 100 (passes: 1, 2, 1, 1, 1, 0, 3119)
+      at TestContext.<anonymous> (out\test\page\commentRestyle.test.js:219:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
