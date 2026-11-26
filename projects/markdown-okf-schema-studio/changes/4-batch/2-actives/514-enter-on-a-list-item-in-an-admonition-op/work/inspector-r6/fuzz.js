@@ -16,7 +16,7 @@ const K = {
   comment: () => ["<!--", w(), "-->"], pre: () => ["<pre>", w(), "", w(), "</pre>"], script: () => ["<textarea>", "", w(), "</textarea>"],
   divblk: () => ["<div>", w(), "</div>"], divsplit: () => ["<div>", "", w(), "", "</div>"], spanml: () => [`<span>${w()}`, `${w()}</span>`],
   emml: () => [`a <em>${w()}`, "", `${w()}</em> b`], open: () => ["<div>", "", w()], close: () => [w(), "", "</div>"],
-  deflist: () => [w(), `: ${w()}`], defdl: () => [w(), `: ${w()}`, "", `  ${w()}`], hard: () => [`${w()}\`, w()],
+  deflist: () => [w(), `: ${w()}`], defdl: () => [w(), `: ${w()}`, "", `  ${w()}`], hard: () => [w() + String.fromCharCode(92), w()],
   task: () => [`- [ ] ${w()}`, `- [x] ${w()}`], sub: () => [`- ${w()}`, `  ${w()}`, "", `  ${w()}`], table: () => [`| ${w()} |`, "| - |", `| ${w()} |`],
   pct: () => [`% ${w()}`], target: () => ["(lab)="], brk: () => ["+++"], role: () => [`{sub}\`${w()}\` ${w()}`],
   direct: () => [":::{tip}", w(), ":::"], code: () => ["```{code-block} py", w(), "```"], eval: () => ["```{eval-rst}", w(), "```"],
