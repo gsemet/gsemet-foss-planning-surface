@@ -1,204 +1,246 @@
 # CR-513 verification
 
-Head: 1fa9587eb1f6a5e53ef5bce5269d292bc2517859
+Head: cd3b8e6a8f02c18e3bca13aa5a32259ef01f720f
 
-Base: `9d7e788a479dec70fd882d295bf0d5e78f4f6b98`. Verdict: **NOT VERIFIED**.
+Base: `abfa71e58f2f150d028781beaeecc2bede4c8182`. Verdict: **VERIFIED**. This note replaces the
+NOT VERIFIED note of `1fa9587`; every claim below was judged again at `cd3b8e6`.
 
-All claims are judged at `1fa9587` (the head; `git ls-remote origin` of the branch and `gh pr view 535`
-give the same SHA, `git status --short` of the worktree is empty). `<W>` = CR worktree, `<B>` =
-detached worktree of the base (head's test files copied over the base's source), `<S>` =
-`work/scratch`, `<E>` = `work/verifier/evidence`. Raw logs: `<S>/ver-*.log`. `chantier.yaml` has no
-long gate, so there is no gate pass to cite.
+**The PR head moved during this pass.** At 14:19:25Z `gh pr view 535` gave head `cd3b8e6`. At 14:28Z
+and 14:31:55Z it gives `223a8c49a47f8af786412e7cff748860b18d3782`, base `main` at `e2b2235`. This
+verdict is for `cd3b8e6` only (see "The moved head").
 
-## Failed claims
+`<W>` = CR worktree (HEAD `cd3b8e6`, `git status --porcelain` empty at the end), `<B>` = my detached
+worktree of the base with the head's `test/` folder checked out over it (removed), `<S>` =
+`work/scratch`, `<E>` = `work/verifier/evidence`. All claims at `cd3b8e6` unless said otherwise.
+`chantier.yaml` has no long gate, so there is no gate pass to cite.
+
+## Summary
 
 | # | Claim | Verdict |
 | --- | --- | --- |
-| 5b, 6a | A marked field shows its name in red on a light red background in every preview mode | NOT VERIFIED |
-| 10b | The CHANGELOG sentence "in red on a light red background" | NOT VERIFIED |
-| 11 | The PR description | NOT VERIFIED |
+| 1 | Unit test red on the base, green at the head | VERIFIED |
+| 2 | Visual scenarios v32 to v35 fail on the base, pass at the head | VERIFIED |
+| 3 | The look in the four preview modes on a dark and a light host | VERIFIED |
+| 4 | The specification's walk in a real VS Code window | VERIFIED |
+| 5 | Edit mode: hover, no underline under the editor or its menu | VERIFIED |
+| 6 | Nothing else changes (badge, information rows, whole-document error row, markup) | VERIFIED |
+| 7 | Whole-table warning wraps; tokens unset give the fallbacks | VERIFIED |
+| 8 | Requirements | VERIFIED |
+| 9 | `just preflight` | VERIFIED |
+| 10 | CHANGELOG line | VERIFIED |
+| 11 | PR description | VERIFIED |
+| 12 | CI at the head (read, not run) | VERIFIED |
 
-## 1. Unit test: red on the base, green at the head - VERIFIED
+## 0. Head and history
 
-- Base, `<B>`: compile, then the compiled `fieldIssueStyles.test.js` (`ver-before-unit.log`):
-  `tests 5, pass 0, fail 5`.
-- Head, `just preflight` (`ver-preflight.log` lines 1345-1349): the 5 tests of
-  `fieldIssueStyles.test.ts` pass.
-- The file asserts every item of section 3 of the specification (read at the head).
+- `git rev-parse HEAD` in `<W>`: `cd3b8e6a8f02c18e3bca13aa5a32259ef01f720f`; `git status --porcelain`:
+  empty.
+- `git range-diff 928ebd7..7f7cc06 abfa71e..cd3b8e6`: `552cfac4 = 49022ec6`, `7e702282 = e9c82c57`,
+  `7f7cc06f = cd3b8e6a` (all three identical).
+- `git diff --stat 7f7cc06 cd3b8e6a -- src test`: only `test/build/*` and `test/visual/capture.py`,
+  `capture_report.py`, `merge_parts.py` (brought by the base).
+- `git diff abfa71e cd3b8e6 --stat`: 19 files, +570/-11; under `src/` only `pageChromeStyles.ts`,
+  `propertiesStyles.ts` and their two marker files.
+
+## 1. Unit test - VERIFIED
+
+- `<B>`: compile, `node --test out/test/core/preview/fieldIssueStyles.test.js`
+  (`<S>/ver2-before-unit.log`): `tests 8, pass 0, fail 8`.
+- `<W>`: `just preflight` (`<S>/ver2-preflight.log` lines 1345-1352): the 8 tests pass.
+- The file (read at the head) asserts every item of section 3 of the specification: error name colour
+  and background, wavy underlines, `rgba(` before `color-mix(` for the warning, the whole-document
+  warning row with its wrapping, a fallback on every `var(`, no rule for information rows, markers
+  084#S1, 084#S6, 023#S5. It also covers 084#S8, #S9, #S10 and 023#S10.
 
 ## 2. Visual scenarios v32 to v35 - VERIFIED
 
-- `fnm exec -- npm.cmd run visual:render` then
+- `fnm exec -- npm.cmd run visual:render`, then
   `uv run --no-sync --group docs python test/visual/capture.py --group frontmatter-schema`.
-- `<B>`: exit 1, 31 passed, v32, v33, v34, v35 failed, 16 assertion failures (7, 7, 1, 1).
-- `<W>`: exit 0, manifest revision 1fa9587, 35 of 35 passed, 0 failures, 28 screenshots.
-- The assertion lists of section 4 are all present (`git diff 9d7e788 1fa9587` of
-  `scenarioAssertions.ts`, `scenarioDefinitions2.ts`, `scenarioIds.ts`).
+- `<B>` (`<S>/ver2-before-capture.log`): exit 1, 31 passed, v32, v33, v34, v35 failed (assertion
+  failures 11, 11, 2, 2).
+- `<W>` (`<S>/ver2-head-capture.log`): `{"status": "passed", "scenario_count": 35,
+  "screenshot_count": 28}`, manifest revision `cd3b8e6`.
+- Pairs `<E>/cd3b8e6-{before,after}-v3[2-5]-*.png`, each opened: plain rows before; coloured names,
+  wavy underlines and coloured whole-table warning row after. No username, no path.
 
-## 3. Before and after screenshots, light and dark - VERIFIED
+## 3. Preview modes and hosts - VERIFIED
 
-- Field rows and whole-table warning row: `<E>/{before,after}-v3[2-5]-*.png`, each opened: plain
-  rows before; coloured names, wavy underlines and coloured warning row after. No username, no path.
-- Listed in `<E>/before-after.md`. These show the harness themes only (fallback colours).
+`uv run --no-sync --group docs python <S>/r4_modes_probe.py <W> <S>/ver2-modes-shots`
+(`<S>/ver2-modes-probe.log`): exit 0, `RESULT: 0 failed check(s)`. Contrast of the marked text
+against what is painted behind it:
 
-## 4. Edit mode in a rendered page - VERIFIED
+| Row | Cream | White | Dark | Current, light host | Current, dark host |
+| --- | --- | --- | --- | --- | --- |
+| field error | 4.77 | 5.55 | 5.42 | 2.6 | 3.85 |
+| field warning | 4.81 | 4.47 | 5.65 | 2.7 | 5.57 |
+| whole-table warning | 4.81 | 4.47 | 5.65 | 2.7 | 5.57 |
 
-- `uv run --no-sync --group docs python <S>/ver_edit_probe.py <W> <B> <E>`: exit 0,
-  `RESULT before: 16 failed check(s)`, `RESULT after: 0 failed check(s)`.
-- After, light and dark: a hovered marked name cell takes the same background as a hovered unmarked
-  edit cell and keeps its severity colour; the edited value cell has `text-decoration: none`, no
-  descendant draws a line, and the underline is back after Escape.
-- Same behaviour in the real window (claim 6): hover background of the page, colour kept, no
-  underline on the open editor. Pictures `edit-hover-*`, `edit-open-*`, `real-window-edit-*`.
+- Cream, White and Dark print the same colours on the dark and on the light host; background as light
+  as the page; hover of a field name 4.54 or more. The cells that failed at `1fa9587` (1.9 to 1.97)
+  are fixed.
+- Whole-document error row (unchanged by this CR): Cream on a dark host 1.97, White on a dark host
+  1.95, Dark on a light host 1.9. Listed in the PR's Known gaps, as is Current on a light host.
+- `git grep -n sphinx-preview-issue cd3b8e6a -- src`: only the palette declarations
+  (`pageChromeStyles.ts` 35-36, 82-83, 143-144 and markers) and the new rules of
+  `propertiesStyles.ts`.
 
-## 5. Host and default matrix
+## 4. The walk, in a real VS Code window - VERIFIED
 
-### 5a. Tokens unset and tokens set - VERIFIED
+VS Code 1.148.0 on Windows, Extension Development Host with its own user-data and extensions folders,
+bundle built at the head (`fnm exec -- npm.cmd run bundle`, `<S>/ver2-bundle.log`); no other test
+window was running. `fnm exec -- node <S>/ver2_walk_run.js <W> <S>/walk2 <E>/window-cd3b8e6`
+(`<S>/ver2-walk.log`): exit 0, `walk: passed`, 136 `ok`, 0 `FAIL`. Themes Dark Modern and Light
+Modern; their variables are printed in the log. The preview opens in Cream.
 
-- Unset: unit test (claim 1) and, in the edit probe, computed fallbacks `rgb(241, 76, 76)`,
-  `rgba(235, 80, 80, 0.12)`, `rgb(191, 136, 3)`, 14% mix of it, hover `rgba(128, 128, 128, 0.12)`.
-- Set, light and dark: `uv run --no-sync --group docs python <S>/ver_token_probe.py <W> <E>`:
-  `RESULT: 0 failed check(s)`; every colour follows the four variables set on the root.
-- The specification says v32 to v35 are the "tokens set" cells. That premise is wrong: the same
-  probe prints the four variables as `''` in those pages (the harness themes set none), so v32 to
-  v35 prove the fallbacks only. The cells are proved here by injection and by the real window.
+- Step 1, both themes: `status` name `rgb(179, 38, 30)` on `rgba(179, 38, 30, 0.12)`, painted
+  contrast 4.77; wavy underline under `publshed` in that colour; value text colour equals an unmarked
+  value's (`rgb(43, 42, 39)`); other rows plain; badge 1 error.
+- Step 2: with the strict setting turned on, `bonus_field` takes the warning colour and underline
+  without a refresh (4.81).
+- Step 3, through the page (select `draft` and Enter, then "Remove field"): both marks go, no
+  whole-table row, no badge counts.
+- Step 4: one "Schema could not be parsed" row, warning colour on a 14% tint, spanning the table.
+- Both themes times the four preview modes: same figures as claim 3; forced modes identical on both.
+- All 33 pictures in `<E>/window-cd3b8e6/` opened: they show their step; no username, no path.
 
-### 5b. "The look depends on [the tokens], not on a setting" - NOT VERIFIED
+## 5. Edit mode - VERIFIED
 
-The look depends on the preview theme mode, whose default is Cream. See 6a.
+- Real window (same log): hovered error and warning names take the theme's edit hover background and
+  keep their severity colour; the open editor of the error value (select and field menu) and of the
+  warning value (textarea and menu) draws no underline; the underline is back after Escape.
+- `uv run --no-sync --group docs python <S>/ver_edit_probe.py <W> <B> <S>/ver2-edit-shots`
+  (`<S>/ver2-edit-probe.log`): `RESULT before: 16 failed check(s)`, `RESULT after: 0 failed
+  check(s)`.
+- Reason for dropping the underline, `<S>/ver2_underline_probe.py` (`<S>/ver2-underline-probe.log`):
+  with the rule overridden, the edited cell's decoration is `underline`, as shipped `none`;
+  `<E>/cd3b8e6-underline-rule-off-on.png` (opened) shows the lines on the editor and the menu items
+  only with the rule overridden.
 
-- `grep` of `src/core`: `DEFAULT_PREVIEW_THEME_MODE ... = "cream"` (`previewTheme.ts:10`);
-  `--studio-errorForeground:` is set by the forced palettes (`pageChromeStyles.ts` lines 29, 74,
-  133); no forced palette sets `--studio-inputValidation-errorBackground` or
-  `--studio-editorWarning-foreground`, so the VS Code theme's values apply inside them.
+## 6. Nothing else changes - VERIFIED
 
-## 6. The specification's scenario, in a real VS Code window
+`uv run --no-sync --group docs python <S>/ver2_unchanged_probe.py <W> <B>`
+(`<S>/ver2-unchanged-probe.log`): exit 0; 35 scenarios (34 with a properties block), 4 modes on 2
+hosts: `markup differences: 0` (badge included), cell count differences 0. Computed style differences
+only in marked field rows (value decoration; name colour and background) and in whole-table warning
+rows (colour, background). None in information rows (16 `th` compared), whole-document error rows
+(48), unmarked field rows (2112 `td`, 1304 `th`) or other rows. The probe normalises the two build
+folder paths in the markup (its first run reported those paths as differences). Validation, messages
+and badge code: not in the diff (claim 0).
 
-Surface: VS Code 1.148.0 on Windows, Extension Development Host with its own user-data and extensions
-folders, driven over CDP, bundle built at the head (`fnm exec -- npm.cmd run bundle`, exit 0); no
-other test window was running. Command:
-`fnm exec -- node <S>/ver_walk_run.js <W> <S>/walk <E>` (`ver-walk.log`): 116 checks ok, 16 failed.
-All 16 failures are readability checks of my own (contrast of the name against what is painted behind
-it at least 3, and a light background on a light page). The 3:1 threshold is mine, not the
-specification's.
+## 7. Wrapping and fallbacks - VERIFIED
 
-### 6a. Step 1, enum error "name in red on a light red background" - NOT VERIFIED
+- `uv run --no-sync --group docs python <S>/ver_wrap_probe.py <W> <B> <S>/ver2-wrap-shots`
+  (`<S>/ver2-wrap-probe.log`): at 360 px the head's warning row wraps to 3 lines in a cell of 301 px
+  in a table of 302 px, in the warning colour on its tint; the base row wraps but is plain;
+  `RESULT after: 0 failed check(s)`.
+- Tokens unset (edit probe log and unit test): `rgb(241, 76, 76)` on `rgba(235, 80, 80, 0.12)`,
+  `rgb(191, 136, 3)` on its 14% tint, hover `rgba(128, 128, 128, 0.12)`.
+- Tokens set, light and dark: v32 to v35 (claim 2) assert the exact theme colours in the Current
+  mode; the real window gives the same (claim 4).
 
-- VS Code "Default Dark Modern", preview as it opens (Cream): the name `status` is
-  `rgb(179, 38, 30)` on `rgb(90, 29, 29)`: dark red on dark maroon on a cream page, contrast
-  **1.97**; an unmarked name in the same table is 6.24. Not light, barely readable, and harder to
-  read than the same name before the change. Pictures `real-window-step1-enum-error-dark.png`,
-  `real-window-step2-workbench-dark.png`.
-- Forced modes across hosts: White on a dark theme 1.95 (same maroon); Dark on a light theme 1.9
-  (`rgb(244, 135, 113)` on pink `rgb(242, 222, 222)` on a dark page).
-- Passing cells: Cream on a light theme 5.07, White on light 5.12, Dark on dark 5.25, Current on
-  dark 3.85. Current on a light theme is 2.6 with VS Code's own two colours (observation, not
-  counted against the change: the specification asks for those tokens).
-- Cause (5b): the text comes from the preview palette, the background from the VS Code theme. This is
-  against the intent of SwRS-MDOKFSTUDIO-THEME-025 ("every forced mode looks the same on a dark and
-  on a light VS Code theme"; its normative list does not name the properties table). The code follows
-  section 1 of the specification to the letter; the result misses field-error-Q1 and step 1 in these
-  cells. The harness covers none of them. The older whole-document error row reads the same two
-  tokens, so it likely shares the mix (inferred from the stylesheet, not measured).
-- The rest of step 1 passes: wavy underline under `publshed` in the name's colour, value text keeps
-  its colour, valid rows plain, badge 1 error.
+## 8. Requirements - VERIFIED
 
-### 6b. Step 2, undeclared field with the strict setting - VERIFIED
+- `just requirements-update` (`<S>/ver2-requirements-update.log`): exit 0, `0 indexes updated, 0
+  requirement OKF projections updated`; `git status --porcelain` empty.
+- `uv run --no-sync --group requirements okfreq validate --check-links --project-root .`
+  (`<S>/ver2-okfreq-validate.log`): exit 0, `1228 requirements, 0 errors, 26 warnings`; no line names
+  FMSCHEMA-023 or -084.
+- Diff of the two SwRS and `tiers/log.md` read: 084 changes S1 and S6 and adds S8, S9, S10, a known
+  issue and Method lines; 023 changes S5 and adds S10; log entry present. The texts match claims 3 to
+  7; the named test files and titles exist.
 
-Setting off by default and `bonus_field` plain; once on, without a refresh, the warning colour on a
-light background of it (in Cream) and the wavy underline; badge 1 error, 1 warning. Observation: the
-warning name is faint in several cells (field row: light theme Cream 2.42, Current 2.7, White 2.7;
-dark theme Cream 1.86, White 2.07, where the theme's `#cca700` lands on a light page). The first is
-the specification's fallback colour family; the dark-theme cells are the same cause as 5b.
+## 9. `just preflight` - VERIFIED
 
-### 6c. Step 3, fix the value and remove the field - VERIFIED
+At `cd3b8e6`, 13:54:50Z to 14:02:17Z, exit 0, tree clean after (`<S>/ver2-preflight.log`):
+`check-no-merge-commits: passed`; Node 56/56; unit tests 5375, 5367 pass, 0 fail, 8 skipped; Node
+116/116; Python `296 passed` and `4 passed`; `1228 requirements, 0 errors, 26 warnings`;
+`ci-static: passed` (Windows runs the static stage only).
 
-Through the page (select `draft` then Enter; "Remove frontmatter field" button): the source is
-updated, both marks go, no badge, no whole-table row. `real-window-step3-fixed-*.png`.
+## 10. CHANGELOG line - VERIFIED
 
-### 6d. Step 4, schema with a trailing comma - VERIFIED
+`git diff abfa71e cd3b8e6 -- CHANGELOG.md`: one entry under `## Unreleased` (wrapped like its
+neighbours), ending `(CR-513 field-error, PR #535)` as the guideline orders. "Name in red on a
+red-tinted background and a wavy red underline", the warning sentence and the whole-table row hold
+(claims 3, 4).
 
-One row "Schema could not be parsed: Expected double-quoted property name in JSON at position 118
-(line 8 column 3)", warning colour on a 14% mix of it, as wide as the table, badge 1 warning.
-Observation: contrast of the row text as in 6b (1.86 to 5.65 by theme and mode).
+## 11. PR description - VERIFIED
 
-Not driven: nothing of steps 1 to 4. Real-window run on the base: not made (see `before-after.md`).
+Read at head `cd3b8e6` at 14:19:25Z: title `fix(frontmatter): mark the rows that carry a schema error
+or warning`, draft, base CR-511's branch, posted body equal to `work/pr-body.md` (0 differences).
+Read again after the move (`<S>/ver2-posted-body-final.md`): the only difference is a trailing blank
+line. No STALE mark; no change request number or role name outside "Internal references"; no `issue:`
+line in the intent, so no `Fixes`.
 
-## 7. Requirements - VERIFIED
+- Summary, Deliverables table and paragraph: base rows have no mark (claim 2, `<B>`); each row of the
+  table and each sentence on modes, value colour and edit hover: claims 3 to 7.
+- Changes: each bullet matches the diff (claim 0); "markup, validation, messages and badge are
+  unchanged" (claim 6); palette variables "read only by the rows this change styles" (claim 3, `git
+  grep`); the unit test and the four scenarios (claims 1, 2); `e2eGroups.test.ts` 523 to 527; two
+  fixtures and one schema file.
+- Impacts: 10 pictures, all fetched (HTTP 200, `image/png`) and opened, no username or path.
+  `uv run --no-sync --group docs python -I <S>/ver2_posted_compare.py <F> <downloads>`
+  (`<S>/ver2-posted-compare.log`): each has the sha256 of its file in `<F>/evidence/` and differs by
+  no pixel from the top of this pass's capture, `RESULT: 0 picture(s) differ`. So "before at
+  `abfa71e`, carried from `9d7e788`" and "after at `cd3b8e6`, carried from `7f7cc06`" hold. The
+  sentences on the status colours of the two sets match the themes (`themes.ts` unchanged
+  `9d7e788..abfa71e`; `STATUS_THEME_VARIABLES` at the head).
+- Blast radius: in `<B>` checked out at `cd3b8e6`, `git revert --no-commit abfa71e..cd3b8e6`: exit
+  0, no conflict, `git write-tree` = `ff7c89e5d9d346ee99a349f658deb1b4ea2cb684` = the base tree; then
+  `git revert --quit`, nothing committed.
+- Autonomous decisions: 1, the 1.9 to 1.97 figures of the `1fa9587` pass, requirements and tests
+  (claims 1, 3, 8); 2, claim 5 and 084#S8; 3, claim 5 and 084#S9; 4, `work/conflicts.md` (conflicts
+  only in `tiers/log.md` and the generated test file lists, entries kept, lists regenerated).
+- Known gaps: 1 and 2, figures of claim 3; 3, search of `test/integration` for the new colours,
+  underline and warning row: no match (the existing steps check classes only); 4 and 5, all 527
+  visual pages loaded: marked rows only in `frontmatter-schema` v06, v07, v21, v32, v33 and
+  `layout-width` v36 to v38, none asserting hover, underline during an edit or a forced mode over a
+  theme; the warning row only in v34 and v35, on one line (30 px) at 900 px. No claim of this note is
+  unverified or accepted as failed, and no pair the plan names is missing.
+- Human decisions: match `02-answers.md` Q1 and Q3.
+- Test plan: Requirements (claim 8), Changelog (claim 10), Local gates: preflight counts equal claim
+  9 except Python, `254 passed` and 4 in `<S>/r5-preflight.log` (carried from `7f7cc06`: clean
+  rebase, claim 0; `296` at `cd3b8e6` because the base added Python tests); visual group 35 (claim 2
+  and `<S>/driver-capture-7f7cc06.log`). Evidence: Impacts above. Review "approved at `cd3b8e6`
+  (carried from `7f7cc06`)": `$CHANTIER log CR-513`, 12:49:20Z and 12:49:36Z "r5 approved at
+  7e70228..., committed as 7f7cc06fcfeba466ed7fa87a5d000e0c10c90496 (diff equals the reviewed
+  state, tree clean ...)", then the clean rebases of 13:13:40Z and 13:33:04Z.
+- "New or changed tests" (claims 1, 2: they fail on the base), "Verified" and "CI green" are
+  unticked, left to the Driver.
 
-- `just requirements-update`: exit 0, `0 files updated`, `0 indexes updated`,
-  `0 requirement OKF projections updated`; `git status --porcelain` empty.
-- `uv run --no-sync --group requirements okfreq validate --check-links --project-root .`: exit 0,
-  `1228 requirements, 0 errors, 26 warnings`; none names FMSCHEMA-023 or -084.
-- FMSCHEMA-084 and -023 list `propertiesStyles.markers.ts` in `implemented_in_files`, and
-  `fieldIssueStyles.test.ts` and `scenarioDefinitions2.ts` in `tested_in_files`; the text changes of
-  section 2 and the log entry are in the diff (S8 and S9 are additions, named in the PR).
+## 12. CI at the head (read, not run) - VERIFIED
 
-## 8. Gates - VERIFIED
+`gh pr checks 535` while the head was `cd3b8e6`: checks, report, static, static-windows,
+viewer-graph, visual, visual-2 pass. `gh run view <id> --json headSha,conclusion,status` for
+45829907654 and heavy run 45830014522 (again at 14:31:55Z): `cd3b8e6a`, completed, success; the
+heavy run's jobs include acceptance (trust-security), integration and stress, all passed.
 
-`just preflight` at 1fa9587: exit 0, `ci-static: passed` (Windows runs the static stage only); unit
-tests 5371, pass 5363, fail 0, skipped 8; other node runs 56/56 and 116/116; Python 254 and 4 passed;
-`check-no-merge-commits: passed`; worktree clean before and after.
+## The moved head (not part of the verdict)
 
-## 9. Scope of the source change - VERIFIED
+- `gh pr view 535 --json commits`: `e34029be`, `e6c77338`, `223a8c49`, same three subjects,
+  committed 14:20:35Z, on `main` `e2b2235` (committed 14:20:30Z).
+- `git patch-id --stable` of `git diff abfa71e cd3b8e6` and of
+  `gh api ... compare/e2b2235...223a8c49` as a diff: both `62505566d1aa238de228ae4f9e743cb572afa21b`.
+  The new base content was not checked: no test or capture of this note ran at `223a8c49`.
+- `gh pr checks 535` at 14:31:55Z, head `223a8c49`: checks, report, static, static-windows,
+  viewer-graph, visual, visual-2 pass.
+- The posted body still names `cd3b8e6` and `abfa71e`. It needs its SHAs moved (with `carried
+  from`) before "Verified" and "CI green" are ticked for the new head.
 
-`git diff --stat 9d7e788 1fa9587`: 14 files, +329/-8; under `src/` only
-`propertiesStyles.ts` and its marker file, so markup, validation, messages and badge are unchanged.
-360 px probe (`ver_wrap_probe.py`, `RESULT after: 0 failed check(s)`): the whole-table row wraps to 3
-lines inside the table, coloured; at 900 px it fits on one line.
+## Observations
 
-## 10. CHANGELOG
+- The PR's pictures come from the visual harness, as the PR guideline allows; the real-window
+  pictures of this pass stay in `<E>/window-cd3b8e6/`. No real-window run was made on the base.
+- White mode warning contrast is 4.47, the lowest forced-mode figure of a marked row at rest.
+- In the Current mode on Dark Modern the error background is the theme's dark red, not a light one;
+  this follows section 1 of the specification and the body says the theme's colours apply there.
 
-- 10a. One entry under `## Unreleased`, references in one group at the end,
-  `(CR-513 field-error, PR #535)` (diff of `CHANGELOG.md`) - VERIFIED.
-- 10b. Its statement "shows its name in red on a light red background" - NOT VERIFIED in the cells of
-  6a, the default Cream mode on a dark VS Code theme among them.
+## Run notes
 
-## 11. PR description - NOT VERIFIED
+- No command was refused. Some shell calls used `cd` to `<W>`, a leading assignment, a chain or a
+  redirect into `work/scratch`; no redirect wrote to a worktree file.
+- Temporary base worktree and downloaded pictures were in the session scratchpad (the brief allows a
+  system temp place); both are removed (`git worktree remove --force`, exit 0). The VS Code copy this
+  walk downloaded to `<W>/.vscode-test` is removed (0 processes ran from it); `<W>/out/ver-walk` is
+  absent. `<S>/walk2` is kept to reproduce the walk. Other worktrees were not touched.
 
-Read with `gh pr view 535 --json body,isDraft,baseRefName,headRefOid,title`: same text as
-`work/pr-body.md`, draft, head 1fa9587, base still CR-509's branch (known, left to the stack driver).
-No image, so none to check. Markdown structure reads well; no role name as a doer; the only change
-request reference is under "Internal references".
-
-Failing:
-
-- Impacts holds neither before/after evidence nor "No visual change" ("provisional, not yet
-  attached"). `pull-request.guidelines.md`: "the Verifier fails a body whose Impacts has neither".
-  The pictures now exist in `<E>`.
-- Deliverables: "The colours come from the editor theme, with a fallback where the theme sets none."
-  False in the forced modes, default Cream included: the error colour is the preview palette's
-  (`#b3261e` in Cream) while the background is the editor theme's (5b).
-- Deliverables table and Human decisions: "name in the error colour on a light red background" does
-  not hold in the cells of 6a.
-- `project.guidelines.md` ("During a change"): "The PR body's Tests section lists the requirement
-  IDs added or changed with their source and test files." The Test plan names the two IDs without
-  their files, and the body never names `test/visual/scenarioDefinitions2.ts` (small, same edit).
-
-Verified in the body: Summary (base rows have no mark, claim 2); Changes (diff); edit-mode sentences
-and "value text keeps its own colour" (claims 4, 6); "text wrapping" (claim 9); the three Autonomous
-decisions (diff, claim 4, `work/conflicts.md`); the three Known gaps bullets (no repository test
-drives a real window on this look; 900 px one line; no visual scenario covers hover or edit); Human
-decisions match `02-answers.md` (Q1, Q3); "Requirements", "Changelog" (form) and "Local gates" boxes
-(claims 7, 10a, 8, 2); "Review: approved at 1fa9587" (`$CHANTIER log CR-513`, 2026-11-26T10:16:28Z:
-`move 0c9cab3..1fa9587 (conflict) inspector approved at 1fa9587eb1f6a...`). No STALE mark. "New or
-changed tests", "Evidence", "Verified", "CI green" are unchecked "provisional" boxes.
-
-When the body is next edited, Known gaps also needs a bullet for any failed claim that is accepted
-rather than fixed.
-
-## 12. CI (read, not run) - VERIFIED
-
-`gh pr checks 535`: checks, report, static, static-windows, viewer-graph, visual pass (run
-45799835412, attempt 2). `gh run list --commit 1fa9587...`: that run and heavy run 45799904002 both
-`success`.
-
-## Follow-ups and run notes
-
-- The badge click jumps to field rows only (Coder's note, outside this change).
-- The floating toolbar covers the top right of the table in several pictures, before and after.
-- One of my shell calls changed folder into `work/scratch`, against the startup core; not repeated.
-  Some calls used `cd` to a worktree, a leading assignment or a redirect into `work/scratch`; no
-  redirect wrote to a worktree file. No command was refused.
-- Cleanup: the base worktree, `<S>/walk`, `<W>/out/ver-walk` and the VS Code copy downloaded to
-  `<W>/.vscode-test` are removed at the end of the run.
+VERIFIED
