@@ -22,7 +22,7 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 - A CR that must not merge alone was announced with "ready to merge" next to "do not merge", and the owner merged it (CR-510). Wanted: while a CR of a stack waits for the others, neither the CLI's line nor the steering session's message reads "ready to merge"; the user gets one instruction.
 - The board runs a cached build of the CLI that has no `brief` command, while the new cards call it (newer cached builds have it). Check that another project's sessions, in plugin mode, always get a CLI that matches the cards they read from chantier's checkout. Not verified.
 - A running Driver blocks the main checkout's fast-forward when a lower CR of the stack is merged early (its cards and CLI are read live from that checkout).
-- CR-511's own Known gaps: to add from its PR at its hand-back.
+- CR-511's own Known gaps: below, added at its hand-back.
 
 ### CR-510's Known gaps (https://github.com/gsemet/chantier/pull/488), as posted
 
@@ -56,3 +56,19 @@ Asked by the owner, verbatim: « J'ai mergé car tu m'as dit qu'elle était prê
 - `docs/proofs/claude-code.md` still holds a local home path, as it did before this change.
 - `just test` was already far above the time budget of `AGENTS.md` before this change.
 - **UNVERIFIED:** the test suite's added time stays within the expected 3 seconds: one pair of runs on the same machine gives 165.0 to 167.2 seconds of wall time (157.8 to 162.5 as the test runner counts), while runs of the new head span 139 to 265 seconds.
+
+### CR-511's Known gaps (https://github.com/gsemet/chantier/pull/489), as posted at its hand-back
+
+- 329 rows stay open (62 of kind a, 139 inferable with no quiz case, 128 others), listed in
+- The 62 open kind-a rows were read one by one against the new cards; the other 267 open rows were
+- A sample suggests up to about one in ten automatically mapped homes of non-protective rows may not
+- Reported by review on an earlier state and not changed since: some homes point at text that does
+- The stack driver card's context hand-back points to a host means that names direct mode only (it
+- The 539 kind-a rows that have a home are checked by quote only (the text is still where the row
+- 20 of the 36 hand-over checklist items end as known gaps, each with its reason in the inventory,
+- H-1360 (a rule dropped by default, pending the owner's confirmation) needs that confirmation.
+- Card size targets exceeded by this change, in LF bytes (before to now, target): cr-driver 3749 to
+- Brief byte ceilings raised in `test_brief_bytes.py`: cr-driver 9900 to 11100, release-driver 9600
+- Not run: skipped on the owner's word, 2026-11-26: `just quiz <role> --plan --max-usd 10`,
+- Real run not done (a later, separate campaign).
+- The seconds the new test adds to `just test` were not measured as two runs before and after; the
