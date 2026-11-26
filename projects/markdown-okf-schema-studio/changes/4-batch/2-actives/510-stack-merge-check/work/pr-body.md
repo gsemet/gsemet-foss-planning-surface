@@ -61,7 +61,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`, 19 passed at `7d35be3`; on the previous script (`5a73b6e`) 4 of the new cases fail, and the 3 others guard against a looser check, so they pass on both by design
-- [x] Evidence: before at `5a73b6e`, after at `7d35be3`, both scripts run on the real chain of the failing run in a throwaway clone; with this head merged on top of that chain the new script passes, and still fails on a merge carried by a branch above
+- [x] Evidence: before at `5a73b6e`, after at `7d35be3`, both scripts run on the real chain of the failing run in a throwaway clone. At `7d35be3`, with this head test-merged the same way onto that chain's merge of the pull request below, the new script passes against the default branch and against that lower branch, and still fails on a merge carried by a branch above
 - [x] Requirements: no behaviour change of the extension (build tooling, no requirement covers it)
 - [x] Changelog: no user-facing change (a `ci` change adds no line)
 - [x] Local gates: `just preflight` at `7d35be3` passed (on Windows it runs the static stage, `just ci-static`; 212 build tests passed, the merge-check ones included, and 4 Sphinx contract tests)
