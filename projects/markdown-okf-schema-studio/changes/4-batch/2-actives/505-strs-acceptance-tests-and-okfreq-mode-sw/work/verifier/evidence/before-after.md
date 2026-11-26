@@ -132,8 +132,9 @@ warnings of the in-tree lint at the head.
 
 - Before: the description posted on pull request 532 at `5a8a593` (updated `2026-11-26T09:19:30Z`,
   `posted-body-5.md`), naming the old head and the old CI runs.
-- After: the description posted at `9d7e788` (updated `2026-11-26T10:06:51Z`, `posted-body-6.md`);
-  judged in `work/verify.md`.
+- After: the description posted at `9d7e788` (updated `2026-11-26T10:31:27Z`, `posted-body-7.md`;
+  it differs from the `10:06:51Z` version, `posted-body-6.md`, in two Test plan lines); judged in
+  `work/verify.md`.
 
 ## Cannot be shown (limits of the evidence plan)
 

@@ -207,7 +207,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
   - Re-run of the shard alone ([run 45774743144](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45774743144)), at `9d7e788a` (carried from `5a8a593`): job 91 s, test step 55 s; it uploaded `e2e-acceptance-trust-security-attempt-3`, and `report` ran again and logged `acceptance trust-security: kept attempt 3`.
   - Requirements bundle copied and checked in the new coverage mode at `9d7e788a`: 0 errors, 100 warnings (74 use cases without an acceptance test, 26 broken links also reported in the current mode); the tracked mode is unchanged.
 - [x] Review: approved at `9d7e788a`
-- [ ] Verified
+- [x] Verified at `9d7e788a`: the delivered change and the claims of this description were checked against that commit
 - [x] CI green at `9d7e788a`: the pull request checks passed (run 45794229373); the manually started heavy run 45794286167 passed on its first attempt
 
 ## Internal references
