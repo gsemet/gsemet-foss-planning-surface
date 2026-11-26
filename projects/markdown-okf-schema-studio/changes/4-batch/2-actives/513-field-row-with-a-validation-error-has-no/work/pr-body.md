@@ -22,12 +22,28 @@ The value text keeps its own colour. In the **Current** preview mode the colours
 - `src/core/preview/styles/propertiesStyles.ts`: new style rules for error and warning field rows and for whole-table warning rows; the edit-mode hover of a marked name cell; no underline on a cell being edited. The markup, the validation, the messages and the badge are unchanged.
 - `src/core/preview/styles/pageChromeStyles.ts`: the Dark, White and Cream palettes declare an error background and a warning colour of their own, read only by the rows this change styles.
 - Requirements: the software requirement (SwRS) `SwRS-MDOKFSTUDIO-FMSCHEMA-084` now states how a field row with an error or a warning looks, with three new scenarios (no underline during an edit, the hover of a marked name cell in edit mode, marked rows in a forced preview mode); the software requirement `SwRS-MDOKFSTUDIO-FMSCHEMA-023` states the look of the whole-table warning row, with one new scenario for the forced modes. Markers are in the companion marker files.
-- Tests: `test/core/preview/fieldIssueStyles.test.ts` checks the shipped stylesheet, including the colours it resolves to with the values of a dark and of a light VS Code theme; four visual scenarios (field rows and whole-table warning, light and dark) check the computed styles of the rendered page in the Current mode, with the status colours a VS Code theme sets on the page, two fixtures and one schema file that cannot be parsed; the test that counts the visual scenarios now expects four more.
+- Tests: `test/core/preview/fieldIssueStyles.test.ts` checks the shipped stylesheet, including the colours it resolves to with the values of a dark and of a light VS Code theme.
+- Visual tests: four scenarios in `test/visual/scenarioDefinitions2.ts` (field rows and whole-table warning, light and dark) check the computed styles of the rendered page in the Current mode, with status colours that `test/visual/themes.ts` sets on the page as a VS Code theme does. They use two new fixtures in `test/visual/fixtures/` and one schema file that cannot be parsed. `test/site/e2eGroups.test.ts`, which counts the visual scenarios, now expects four more.
 - `CHANGELOG.md`: one line under `## Unreleased`.
 
 ## Impacts
 
-A visible change: rows with an error or a warning are coloured in the properties table. Before and after screenshots: provisional, not yet attached.
+A visible change: rows with an error or a warning are coloured in the properties table.
+
+Current preview mode, pages of the visual test harness. The pictures before the change set no status colour on the page; the pictures after it set the status colours of a VS Code theme (in the light pictures the warning colour is a darker stand-in).
+
+| | Before (at `928ebd7`, carried from `9d7e788`) | After (at `7f7cc06`) |
+| --- | --- | --- |
+| Field rows, light | ![Field rows before, light](https://github.com/user-attachments/assets/1ac3d1bd-7598-4268-8eb5-ad2665250e16) | ![Field rows after, light](https://github.com/user-attachments/assets/6c9459ee-c35d-4a18-80f8-f1a35546b781) |
+| Field rows, dark | ![Field rows before, dark](https://github.com/user-attachments/assets/3c77d15d-7b8c-46d3-a3aa-cbedd572371d) | ![Field rows after, dark](https://github.com/user-attachments/assets/a8a387fd-d5e9-4d57-91a5-62824e2543fc) |
+| Whole-table warning, light | ![Table warning before, light](https://github.com/user-attachments/assets/c016f740-069f-4b0b-9002-4677f065dbcf) | ![Table warning after, light](https://github.com/user-attachments/assets/17821188-0654-4c86-a6dd-e851e3d902ae) |
+| Whole-table warning, dark | ![Table warning before, dark](https://github.com/user-attachments/assets/28155425-22fb-4cb5-932a-5f2fcea1a739) | ![Table warning after, dark](https://github.com/user-attachments/assets/9bae17fa-9f2f-450d-a393-9fc6cb484b93) |
+
+The default **Cream** mode with the colour values of a dark VS Code theme set on the page (at `7f7cc06`): the marked rows keep the colours of the Cream palette.
+
+![Field rows in Cream over a dark theme](https://github.com/user-attachments/assets/b544bb92-19fe-4ec1-a56d-c8b8972873a0)
+
+![Whole-table warning in Cream over a dark theme](https://github.com/user-attachments/assets/7006b9c4-07f7-403b-86b1-6e19d2421a7d)
 
 ## Blast radius
 
@@ -55,17 +71,18 @@ Grade: **1**. Style rules of the properties table and two new colour variables i
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): provisional
-- [ ] Requirements: provisional
-- [ ] Changelog: provisional
-- [ ] Local gates: provisional
-- [ ] Evidence: provisional
-- [ ] Review: provisional
-- [ ] Verified: provisional
-- [ ] CI green: provisional
+- [ ] New or changed tests (they fail on the previous code): `test/core/preview/fieldIssueStyles.test.ts` and the four visual scenarios of `test/visual/scenarioDefinitions2.ts`
+- [x] Requirements at `7f7cc06`: `SwRS-MDOKFSTUDIO-FMSCHEMA-084` and `SwRS-MDOKFSTUDIO-FMSCHEMA-023` updated. Source files `src/core/preview/styles/propertiesStyles.ts` and `src/core/preview/styles/pageChromeStyles.ts` (markers in their `.markers.ts` files); test files `test/core/preview/fieldIssueStyles.test.ts` and `test/visual/scenarioDefinitions2.ts`. `just requirements-update` changes no file; requirement validation reports 0 errors and 26 warnings
+- [x] Changelog at `7f7cc06`: one line under `## Unreleased` in `CHANGELOG.md`, with the number of this pull request
+- [x] Local gates at `7f7cc06`: `just preflight` passed on Windows, where it runs the static stage only (unit tests: 5375, 5367 pass, 0 fail, 8 skipped; other Node runs 56/56 and 116/116; Python 254 and 4 passed); the `frontmatter-schema` visual group passed (35 scenarios)
+- [x] Evidence: before at `928ebd7` (carried from `9d7e788`), after at `7f7cc06`, under Impacts
+- [x] Review: approved at `7f7cc06`
+- [ ] Verified at `7f7cc06`
+- [ ] CI green at `7f7cc06`
 
 ## Internal references
 
 - CR-513 field-error.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+

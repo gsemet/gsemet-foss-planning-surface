@@ -151,3 +151,5 @@ Drift probes, each a temporary edit then `just unit`, each with one failing test
 ## Internal references
 
 - CR-507 how-we-test.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
