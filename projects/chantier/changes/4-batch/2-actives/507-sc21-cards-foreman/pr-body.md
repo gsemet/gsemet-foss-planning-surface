@@ -75,7 +75,8 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,997 (4,000
 | board-griller, on an inbox item | 11,964 | 3,132 |
 | direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,933 |
 
-Host claude, no unit but where a row says otherwise. Every row was measured in one run before this PR's
+Host claude. The six workers' rows were measured on this change's unit, the rows that say so on an
+inbox item, every other row with no unit. Every row was measured in one run before this PR's
 last commit; a run at `88d9ab4` gives the same bytes for every row but the six workers', each 396 bytes
 less on both sides. A unit's brief also holds the unit's facts from the record, so the six workers'
 bytes, measured on this change's unit, move between measurements on both sides (today's coder brief:
@@ -155,10 +156,11 @@ Grade: 1
   obeys only "stop" and "hold", a note does not wake it, `judge` then send, the `--no-gate` check,
   no release merge without the grant, a user's yes does not push a branch that is not chantier's, a
   session in a worktree takes no CR, a refusal ranks above `next`). Of the 59 written cases, 49 are
-  named in the check of the inventory rows they test (84 rows); 10 test no inventory row: 7 Driver
-  cases, whose cards no inventory walks, and the 3 cases of the Chief of Staff's new routes for a
-  refused `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base.
-  The mapping was read by hand, by the behaviour each case tests; no run checks it.
+  named in the check of the inventory rows they test (84 rows); 10 are named in no row's check: 7
+  Driver cases, whose cards no inventory walks (a few shared rows carry part of what some of them
+  test, and name no case), and the 3 cases of the Chief of Staff's new routes for a refused
+  `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base. The
+  mapping was read by hand, by the behaviour each case tests; no run checks it.
   The changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards, the shared files,
   the skill texts and many topics: their score is owed at the final head. Plans only, no spend (costs of an
   earlier version of the cards): chief-of-staff with griller 54 runs, about
@@ -338,7 +340,7 @@ No visual change; no session loads the new files (`just quiz` and `just eval-dry
   - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
 - [x] Review: approved at `88d9ab4`
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `88d9ab4`
 
 ## Internal references
 
