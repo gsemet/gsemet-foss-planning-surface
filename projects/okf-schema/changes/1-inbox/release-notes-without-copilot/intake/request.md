@@ -1,0 +1,3 @@
+# Release notes without Copilot in publish.yml
+
+publish.yml and release-notes.yml generate the notes with gh copilot only. The user, 2026-11-26: "Il faudra que tu fasse la release notes toi même je n' ai plus de crédit copilot". Without credit every CI-started Release run publishes to PyPI, creates no GitHub release and ends red, until a manual dispatch supplies the notes. Idea: let a release supply its notes without Copilot.

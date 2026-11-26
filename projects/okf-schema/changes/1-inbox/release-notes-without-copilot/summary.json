@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Release notes without Copilot in publish.yml",
+  "summary": "Not grilled: the publication workflow needs Copilot credit for its notes; the user has none left, so each release ends red until a manual dispatch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "8e694bad79d05a6133ba91e2023ae1af14681db566d76d6dada7674307a2d121"
+  },
+  "summarized": "2026-11-26T06:35:57Z"
+}
