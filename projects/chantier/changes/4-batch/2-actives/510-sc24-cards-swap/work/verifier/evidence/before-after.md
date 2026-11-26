@@ -1,11 +1,17 @@
 # CR-510: before and after
 
-- Before: base `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba` (origin/main), a detached worktree (`<base>`).
-- After: pushed head `b85be4cbeac5dac2208e26aeb440a9f6676e6ce3`, the CR's worktree (`<head>`).
+- Before: base `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba` (origin/main).
+- After: pushed head `4380df52776791c42253d49e971a6a38aaf9517e`, the CR's worktree (`<head>`).
+- Pairs 1 to 7: captured at `b85be4cbeac5dac2208e26aeb440a9f6676e6ce3` (before: a detached
+  worktree of the base, `<base>`), carried from `b85be4c`: the one commit since adds a link line at
+  the end of 32 `references/topics/host-*.md` files, which none of these commands prints or reads
+  into its output.
+- Pair 8: captured at `b85be4c`; its "Head" column printed again at `4380df5`, same figures.
+- Pair 9: new, captured at `4380df5`.
 - Captured 2026-11-26. Text captures only (no UI change in this CR). Local paths are made up:
   `<tree>` is the code tree under test, `<project>` the throwaway project.
 
-## How to reproduce
+## How to reproduce (pairs 1 to 6)
 
 For each case: a new `git init` project with one `AGENTS.md`, host `claude`
 (`CHANTIER_HOST=claude`, no session or `CHANTIER_*` variable inherited), no `chantier.yaml` unless
@@ -124,12 +130,14 @@ Before: `You are ... a chantier session; after this compaction, call your chanti
 After: ``You are ... a chantier session; after this compaction, run your brief again (`brief <role>` through your skill's `$CHANTIER` command; the Foreman with `--epoch <n>`) and read the file it names whole; the floor, in that brief, holds.``
 
 (Source: `git diff ea11a9e HEAD -- hooks/register.tsx`.) `just mod`: base 118 pass, 0 fail; head
-119 pass, 0 fail; the same 14 TypeScript warning messages at both.
+119 pass, 0 fail (run again at `4380df5`); the same 14 TypeScript warning messages at base and
+`b85be4c`.
 
 ## 8. Old start reading and new brief, bytes
 
 Old column: `e7_bytes.py` (the quiz's old-card boot) on `git archive` of the base. New column:
-`pytest -q -s skills/chantier/scripts/cli/tests/test_brief_bytes.py` at head.
+`pytest -q -s skills/chantier/scripts/cli/tests/test_brief_bytes.py` at head (run at `b85be4c` and
+again at `4380df5`: same figures).
 
 | Role | Base | Head |
 | --- | --- | --- |
@@ -142,6 +150,18 @@ Old column: `e7_bytes.py` (the quiz's old-card boot) on `git archive` of the bas
 | chief-of-staff | 202,936 | 24,351 |
 | foreman | 91,612 | 22,125 |
 | griller | 22,294 | 6,441 |
+
+## 9. A host topic's link to its trial history
+
+Before, at the base: `git grep -c "docs/proofs/" ea11a9e -- skills/chantier/references
+skills/chantier/cards-next` prints nothing, exit 1.
+
+After, at `4380df5`: `git grep -l "](../../../../docs/proofs/" 4380df5 -- skills/chantier/references`
+names 32 files (27 link `claude-code.md`, 5 `copilot.md`); `chantier help host-turn-end` ends with:
+
+```text
+[Trials](../../../../docs/proofs/claude-code.md#other-the-foremans-turn-end-notice)
+```
 
 ## Not captured
 
