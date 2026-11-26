@@ -2630,7 +2630,7 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/lost-silent.md:6 | read a Driver's row before clearing its id | review |
 | topics/main-checkout-p1.md:1, 3 | `main-checkout.md` split in two: on by default, the last merge's attempt, the order of the other steps unchanged | review |
 | topics/main-checkout-p2.md:1, 3, 4, 6, 8, 9 | the second part: the steps in full; only the Chief of Staff syncs | review |
-| topics/merge-gaps.md:4, 5 | line 4: `cut: project`, `asking`, `'failed' (on a stack ask, or no clause):`, `Ask`; line 5: `On a stack ask, ask it in the same message, naming that PR and which PRs are below and ...` | review |
+| topics/merge-gaps.md:4, 5 | line 4: `cut: project`, `asking`, `saying`, `'failed' (a 'deliver by' time), or no clause on a partial stack ask: say`, `Ask`; line 5: `Screenshot`, `On a stack ask, ask in the same message, naming that PR and those below and above it, ...` | review |
 | topics/merge-recorded.md:5, 6 | a parallel batch's merge order; a GitLab fold keeps its precedence over the forge check | review |
 | topics/merge-recorded.md:7 | line 7: `once, a rule that keeps its precedence over the forge check` | review |
 | topics/merge-series-stack-p1.md:5 | a series keeps its order; when the next CR and a CR with a dependency start | review |
