@@ -385,7 +385,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
   - `SwRS-MDOKFSTUDIO-CORE-097` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
   - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `DIAG-128`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids, scenario order and test markers only)
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows) at the head
+- [x] Local gates: `just preflight` (static stage on Windows, which runs `just check` and `just requirements-lint`) passes at `2c0a01a`
 - [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser before the restack on the changes below (screenshots not posted)
 - [x] Review: approved at `2c0a01a`
 - [ ] Verified at the head

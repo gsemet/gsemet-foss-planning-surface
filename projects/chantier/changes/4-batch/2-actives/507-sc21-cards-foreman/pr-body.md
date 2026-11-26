@@ -156,11 +156,15 @@ Grade: 1
   obeys only "stop" and "hold", a note does not wake it, `judge` then send, the `--no-gate` check,
   no release merge without the grant, a user's yes does not push a branch that is not chantier's, a
   session in a worktree takes no CR, a refusal ranks above `next`). Of the 59 written cases, 49 are
-  named in the check of the inventory rows they test (84 rows); 10 are named in no row's check: 7
-  Driver cases, whose cards no inventory walks (a few shared rows carry part of what some of them
-  test, and name no case), and the 3 cases of the Chief of Staff's new routes for a refused
-  `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base. The
-  mapping was read by hand, by the behaviour each case tests; no run checks it.
+  named in the check of at least one inventory row (84 rows name a case); 10 are named in no row's
+  check: 7 Driver cases, whose cards no inventory walks (a few shared rows carry part of what some of
+  them test, and name no case), and the 3 cases of the Chief of Staff's new routes for a refused
+  `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base. Not every
+  row that restates a tested rule names the case: H-412, H-1566 and C-732 do not name the Chief of
+  Staff's no-merge case, C-045 its missing-agent case, H-1026 its turn-notice case; these were found
+  by reading, and no search for every such row was made. C-576 names the default-branch push case,
+  which gives no yes of the user, the point of that row. The mapping was read by hand, by the
+  behaviour each case tests; no run checks it.
   The changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards, the shared files,
   the skill texts and many topics: their score is owed at the final head. Plans only, no spend (costs of an
   earlier version of the cards): chief-of-staff with griller 54 runs, about
