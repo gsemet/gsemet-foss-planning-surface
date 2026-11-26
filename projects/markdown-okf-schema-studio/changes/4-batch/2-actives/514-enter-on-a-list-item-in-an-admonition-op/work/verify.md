@@ -2,71 +2,99 @@
 
 Head: f9dc2c630b852635e8bffcd0b00b42cc886b293c
 
-Base of every "before": `5f0746d79ca28e564841daa19288075aa7823776` (`origin/main`). Third
-verification; the earlier ones are `verify-a5550c3.md` (claims F1 to F3) and `verify-739f9e3.md`
-(claims A to C), both NOT VERIFIED. Verdict at the end: NOT VERIFIED (one description sentence is
-false; claims A and B of the previous verdict are fixed, everything else listed holds).
+Base of every "before": `5f0746d79ca28e564841daa19288075aa7823776` (`origin/main`). Fourth
+verification, a short pass on the posted description of pull request 540. The first verdict at this
+head is kept as `verify-f9dc2c6-first.md` (NOT VERIFIED on its claim C, the card sentence of Known
+gaps). The code did not change since; the description did. Verdict at the end: VERIFIED.
 
-Placeholders: `<wt>` the CR worktree; `<base>` = `<wt>/out/vbase`, a detached worktree of the base,
-removed at the end; `<repro>`, `<r2>`, `<r3>` = the folders `verifier/repro`, `verifier/r2`,
-`verifier/r3` beside this file; `<build>` = `<wt>` (head) or `<base>`; `<node>` =
-`fnm exec -- node --import ./scripts/register-myst-patches.mjs`, run from the build root;
-`<chantier>` the CLI of the brief with `--batch batch-09`. Outputs are saved in `<r3>` under the log
-names below.
+Placeholders: `<wt>` the CR worktree; `<r3>`, `<r4>` = the folders `verifier/r3`, `verifier/r4`
+beside this file; `<node>` = `fnm exec -- node --import ./scripts/register-myst-patches.mjs`, run
+from `<wt>`; `<chantier>` the CLI of the brief with `--batch batch-09`; the other placeholders of the
+carried claims are `<base>` = a detached base worktree used by the first verdict (since removed),
+`<repro>` and `<r2>` = `verifier/repro` and `verifier/r2`.
 
-## The move since 739f9e3
+## Judged in this pass
 
-- Command: `git rev-parse HEAD`; `git log --oneline -5`; `git status --short`
-- Output: `f9dc2c630b852635e8bffcd0b00b42cc886b293c`; `f9dc2c63`, `8539f1cc`, `b09dc7d0`,
-  `5a686ab0`, `5f0746d7`; clean.
-- Command: `git rev-parse 739f9e3^{tree} 8539f1c^{tree} 223a8c49^{tree} 5f0746d^{tree}`
-- Output: both heads `6c2bb41f5ef4635515955bf68a3bdceb2c2280a1`, both bases
-  `e6f6894de333c24969709306715c4f3c06d06418`.
-- Command: `git diff --stat 8539f1c f9dc2c6`
-- Output: 10 files, +645/-38: `boxFirstBlock.ts`, `mystBoxLines.ts`, `mystRawHtml.ts`,
-  `mystRenderer.ts`, `boxBlockSourceLines.test.ts`, the user guide, BLOCK-014, BLOCK-124,
-  BLOCK-254, the requirements log. Whole change: `git diff --stat 5f0746d f9dc2c6`: 74 files.
+### D0. Only three Known gaps bullets changed: VERIFIED (f9dc2c6)
 
-## Failed claim
+- Command: `gh pr view 540 --json number,headRefOid,isDraft,title,body,updatedAt,state,baseRefName`
+  (saved as `verifier/pr-540-f9dc2c6-second.json`); `git rev-parse HEAD`
+- Output: head `f9dc2c630b852635e8bffcd0b00b42cc886b293c` on both, draft, OPEN, base `main`, same
+  title, updated `2026-11-26T19:39:07Z`.
+- Command: `python -I verifier/desc-diff.py <work>` (the body judged by the first verdict,
+  `pr-540-f9dc2c6-end.json`, against the one posted now; log `verifier/desc-diff-f9dc2c6.log`)
+- Output: `old chars 14243 new chars 14542 local chars 14542`,
+  `posted equals pr-body.md (trailing newline ignored): True`, and three `replace` hunks only: the
+  bullets "Clicking the first paragraph of a tight list item", "Emptying the first block of a box
+  body" and "A card of a box". Nothing else is new.
 
-### C. The Known gaps sentence about cards says more than what happens: NOT VERIFIED (f9dc2c6)
+### D1. The card bullet (failed before as claim C): VERIFIED (f9dc2c6)
 
-Claimed by: the posted description, Known gaps, "The move chord, and drawing": "A card of a box
-whose body starts with `---`, or holds it after its first block, shows only part of its body".
-Source of the sentence: `coder/r6.md`, item 27, whose example is
-`"::::{note}\n:::{card}\nAlpha\n\n---\n\nBeta\n:::\n::::\n"`.
+Posted: "A card of a box loses words of its body when a `---` line that no second `---` line closes
+stands right under the card's opening line (it is read as the start of a block of options), and a
+`{div}` that is not shown as a box (the callout class written as its argument) and starts with `---`
+stops the preview (both as before this change); the move chord does not refuse to write that in such a
+`{div}`."
 
-- Command: `<node> <r3>/cards.js <wt>` (the DOM of that example)
-- Output (`cards-f9dc2c6.log`): `<aside admonition note>` holds the card body `<p>Alpha`, `<hr>`,
-  `<p>Beta`: the whole body.
-- Command: `<node> <r3>/cards2.js <wt>` (16 bodies, in 5 boxes, as 4 card spellings: 315 pages)
-- Output (`cards2-f9dc2c6.log`): the 195 pages whose body holds `---` after its first block show
-  every body word (`missing=-`). A body that starts with `---` after a blank line or after an option
-  line also shows every word. Words are lost (`missing=Beta`) only in the 40 pages of the two bodies
-  where a `---` line that no second line closes stands right under the opening line (read as the
-  start of a block of options).
-- Command: `<node> <r3>/cards-browser.js <wt> <r3>/cardpages`, then
-  `.venv/Scripts/python.exe <r3>/cards-browser.py <r3>/cardpages <r3>/cardpages` (Chromium, the
-  preview style sheets, to rule out a part hidden by a style)
-- Output (`cards-browser-f9dc2c6.log`): in a note, a dropdown, an alert and a grid card the words
-  after `---` are `visible=true ... hit=true`; only `note-card-start-tight` has `Beta: not in the
-  page`. Opened: `cardpages/note-card-twice.png` shows Alpha, rule, Beta, rule, Gamma.
-- Base: the same pages (`cards2-5f0746d.log` is byte-identical): the renderer is not at fault in
-  this change, only the sentence.
-- The rest of the sentence holds: a `{div}` with the class as its argument that starts with `---`
-  makes the renderer throw on both builds, and the chord does not refuse to write it
-  (`calloutdiv-f9dc2c6.log`: `ok=true`, then `THROWS Cannot read properties of undefined`).
+- Command: `<node> <r4>/three.js <wt> C` (log `r4/three-C-f9dc2c6.log`)
+- Output: with the unclosed line right under the opening line, all 7 body shapes in all 4 card
+  spellings lose a word (`missing=Beta`, and `missing=Alpha` for the one-word body); the DOM shows the
+  lines read as options (`<code .shiki.language-yaml>`). A closed block and a `---` after a blank line
+  show every word (`missing=-`). The three `{div}` callout-argument spellings throw
+  (`THROWS Cannot read properties of undefined (reading 'length')`) for every body that starts with
+  `---`, blank line first or not; a closed options block draws.
+- Command: `<node> <r3>/cards2.js <wt>`, then `cmp` with `r3/cards2-5f0746d.log` (base)
+- Output: `cards2-same-as-base`: 315 pages, byte-identical to the base ("as before this change").
+- Command: `diff` of the "cards and divs with dashes" section of `r3/gapsC-f9dc2c6.log` and
+  `r3/gapsC-5f0746d.log`
+- Output: `cards-and-divs-section-same-as-base` (the `{div}` throws on the base too).
+- Command: `<node> <r2>/calloutdiv.js <wt>`, then `cmp` with the first verdict's log
+- Output: `calloutdiv-same`: in `{div} with class argument, ---` the chord answers `ok=true`, writes
+  the `---` first and the page `THROWS`; the `:class:` spelling and the fence div are refused.
 
-To fix in the same edit (not counted as a failed claim): the Known gaps bullet "Emptying the first
-block of a box body ... a `---` line first: a note, an alert or a callout then shows its title only,
-a dropdown disappears ..." does not name the titled `{admonition} T`: it then shows the title
-"Admonition" with "T" as a body paragraph and drops the rest, also with `:class: dropdown`
-(`<node> <r3>/gapsC.js <wt>`, `gapsC-f9dc2c6.log`: `titled|rule after "AdmonitionT"`; the base log
-is identical).
+### D2. "Emptying the first block of a box body": VERIFIED (f9dc2c6)
 
-## Claims that hold
+- Command: `<node> <r4>/three.js <wt> B` (log `r4/three-B-f9dc2c6.log`: click the first paragraph,
+  empty the editor through `PreviewManager`, render again; every case keeps `Lastword kept=true`)
+- Output: `{admonition}` with a title, 10 spellings (colon and backtick fence, `:class: dropdown`,
+  also with `:open:`, `:class: tip`, `:class: tip dropdown`, `:name:`, a title with markup): title
+  "Admonition", its own title as a body paragraph, nothing else of the box. `{note}`, `{tip}`,
+  `{warning}`, alert, callout, callout with a `title` attribute: the title only. `{dropdown}`: no box.
+  `{dropdown}` with `:open:`: `after THROWS value.replace is not a function`.
+- The heading half of the first sentence is unchanged: carried from f9dc2c6 (`gapsC-f9dc2c6.log`:
+  `note|heading` after shows "Headword" as the title).
+
+### D3. "Clicking the first paragraph of a tight list item": VERIFIED (f9dc2c6)
+
+- Command: `<node> <r4>/three.js <wt> A` (log `r4/three-A-f9dc2c6.log`: 8 following contents in a
+  note, a dropdown and an alert; the arrows walked with the real `structuralMove`; each editor emptied)
+- Output: "click on first paragraph" opens the `<li>` with the following content in all 24 cases and
+  `after emptying, content left=false`. "Enter on the item" (`block 1, Right, Right`) does the same in
+  all 12 HTML comment and HTML cases.
+- Observation, not counted: Enter on the whole item takes the hidden content for the other listed
+  kinds too. What differs by kind is Enter on the item's first paragraph (one Right further): of the
+  listed contents it takes only an HTML comment or HTML written with no blank line before it. The
+  sentence is true as written and does not say otherwise.
+
+### D4. The posted description renders, with no new claim, name or mark: VERIFIED (f9dc2c6)
+
+- Command: `gh api repos/gsemet/markdown-okf-schema-studio/pulls/540 -H "Accept: application/vnd.github.html+json" --jq .body_html`,
+  then `python -I <r4>/rendered.py <r4>/pr-540-body.html` (log `r4/rendered-f9dc2c6.log`)
+- Output: headings `Summary, Deliverables, Changes, Impacts, Blast radius, Autonomous decisions,
+  Known gaps, Test plan, Internal references`; each of the three bullets renders as one list item with
+  its whole text. Their text (D0) names no role as a doer, no person and no path, and adds no mark.
+- Command: `gh pr checks 540`; `git ls-remote origin refs/heads/main <branch>`; first and last lines
+  of `work/gates/prepush-f9dc2c6-preflight.log`; `<chantier> handoff CR-514`
+- Output: `checks`, `report`, `static`, `static-windows`, `viewer-graph`, `visual`, `visual-2` pass,
+  the others skipping; branch `f9dc2c63...`, main `5f0746d7...`;
+  `head f9dc2c630b852635e8bffcd0b00b42cc886b293c base 5f0746d...: just preflight`, `exit 0`,
+  `tree checked`; handoff: rounds 6 of 6, head f9dc2c6.
+
+## Carried claims
 
 ### Previous claim A, Enter on a formula of a list in a box: fixed, VERIFIED (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - Command: `<node> <r3>/formula.js <wt> <r2>/shapes/dollar-*.md`
 - Output (`formula-f9dc2c6.log`): `held=true` 41 times, `held=false` 0: the click and Enter on
@@ -81,6 +109,8 @@ is identical).
 
 ### Previous claim B, a `{div}` callout and the chord: fixed, VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `<node> <r2>/calloutdiv.js <wt>`
 - Output (`calloutdiv-f9dc2c6.log`): with `:class: callout-tip`, `---` and a heading are refused
   with their reasons, the document unchanged; the fence-div control is refused too.
@@ -92,6 +122,8 @@ is identical).
   in Known gaps).
 
 ### Gate, handoff, pull request and CI: VERIFIED (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - Command: first line and result lines of `work/gates/prepush-f9dc2c6-preflight.log`
 - Output: `head f9dc2c630b852635e8bffcd0b00b42cc886b293c base 5f0746d79ca28e564841daa19288075aa7823776: just preflight`;
@@ -111,6 +143,8 @@ is identical).
 
 ### New tests pass at the head and fail without their change: VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `fnm exec -- npm.cmd run compile`, then `<node> --test --test-reporter=spec` on
   `alertBlockEditOpen`, `boxBlockSourceLines`, `emptiedBlockDelete`, `core/edits/sourceEdits`,
   `core/mapping/blockMove`, `page/runtimeBlockMoves`, `page/runtimeStructuralNavigation`,
@@ -125,6 +159,8 @@ is identical).
   cover" holds.
 
 ### Pointed or selected element opens; title, frame or selected box opens all: VERIFIED (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - Command: `fnm exec -- npm.cmd run visual:render`, then
   `.venv/Scripts/python.exe test/visual/capture.py --scenario <id>` for the five scenarios of
@@ -142,6 +178,8 @@ is identical).
 
 ### The other Changes and Deliverables rows: VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `<node> <r3>/changes.js <wt>`
 - Output (`changes-f9dc2c6.log`): the title of a `{div}` callout opens the whole callout, also
   nested (`[=Tip] click -> <aside 1-7>`); a version admonition body maps its written lines and its
@@ -152,11 +190,15 @@ is identical).
 
 ### Blocks outside a box are mapped as before: VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `<node> <repro>/diff-outside.js <wt> <base> .`, then over `<r2>/corpus`
 - Output: `files=2176 errors=0 outsideBoxMappingDiffs=0 insideBoxMappingDiffs=3 htmlDiffsBesidesLineAttributes=0`;
   corpus `files=401 errors=0 outsideBoxMappingDiffs=0 insideBoxMappingDiffs=148 htmlDiffsBesidesLineAttributes=0`.
 
 ### Move chord, refusals, Down and Up at list edges: VERIFIED (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - Commands: `<node> <repro>/gaps.js <wt>`, `<node> <repro>/refusal.js <wt>`,
   `<node> <r3>/chords.js <wt>`
@@ -172,11 +214,15 @@ is identical).
 
 ### Erased alert block keeps the alert: VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `<node> <repro>/gaps.js <wt>`
 - Output: `erase 2-2: writes=1 -> "> [!NOTE]\n>\n>\n> Second.\n>\n> Third.\n"`, one admonition, no
   plain quote; with a lazy line the later quoted lines leave the alert (disclosed).
 
 ### Earlier F1, F2, F3: still fixed, VERIFIED (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - `<node> <repro>/gesture.js` on the captioned `{table}` and `{figure}` shapes (`f1-f9dc2c6.log`):
   lines 2-3 and 5-5, both fences kept. `<node> <repro>/property.js <wt> <r2>/corpus`:
@@ -184,7 +230,9 @@ is identical).
 - `image-gap.js`, `image-gap2.js` (`crossingMoved 0`, 970 refusals with the disclosed message),
   `firstplace.js`, `kinds2.js` (`{"moved":268,"broken":0}`): output identical to the run at 739f9e3.
 
-### The other Known gaps: VERIFIED apart from C (f9dc2c6)
+### The other Known gaps: VERIFIED (the sentence failed as C is judged in D1) (f9dc2c6)
+
+_carried from f9dc2c6: same head; every bullet but the three of D1 to D3 is unchanged (claim D0). The observation at its end is replaced by D3._
 
 - Commands: `<node> <r3>/bullets.js <wt>`, `<node> <r3>/bullets2.js <wt>`,
   `<node> <r3>/chords.js <wt>`, `<node> <r3>/gapsC.js <wt>` (logs `bullets*`, `chords*`, `gapsC*`;
@@ -196,6 +244,8 @@ is identical).
   by hidden content ..." also happens with Enter for an item followed by an HTML comment or HTML.
 
 ### Keyboard navigation clip: VERIFIED from its committed files (f9dc2c6)
+
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
 
 - `check.json`: passed, 26 s, MP4 543383 B, WebM 368400 B, GIF 1696690 B, 960 px, 12 fps, 128
   colours, ladder step 0, VS Code 1.147.0, win32; the description's figures match it and `clip.md`.
@@ -217,6 +267,8 @@ is identical).
 
 ### Requirements, markers, changelog, user guide: VERIFIED (f9dc2c6)
 
+_carried from f9dc2c6: same head, and none of the description text it judges changed (claim D0)._
+
 - Command: `git diff --stat 5f0746d f9dc2c6 -- requirements docs/user CHANGELOG.md`: 17 files.
 - `git diff 5f0746d f9dc2c6 -- requirements | grep -cE '^[+-]req_lifecycle'`: `0`; no StRS and no
   `skills/` file in `--name-only` (`0`).
@@ -227,7 +279,9 @@ is identical).
   Unreleased; the CHANGELOG, user guide and requirement sentences about formulas, tags, options
   blocks and `{div}` callouts agree with the probes above.
 
-### PR description form: VERIFIED apart from C (f9dc2c6)
+### PR description form: VERIFIED (the sentence failed as C is judged in D1) (f9dc2c6)
+
+_carried from f9dc2c6: same head; the template, diagram and name checks stand (claim D0: only three bullets changed). The posted body and its length are judged again in D4._
 
 - Posted body equals `work/pr-body.md` (14243 characters;
   `verifier/pr-540-f9dc2c6-end.json`).
@@ -287,5 +341,8 @@ Clip of the branch (already linked by the description at f9dc2c6):
 - Browser behaviour is covered by the visual harness and DOM-level page tests; the chord, formula
   and Known gaps claims were judged through the real renderer, page helpers and `PreviewManager`.
 - The clip was viewed as sampled frames, not frame by frame.
+- This pass: the three bullets were judged through the real renderer, page helpers, cursor model and
+  `PreviewManager` at the head; the base side of "as before this change" is carried from the base logs
+  of the first verdict (no base build of mine in this pass).
 
-NOT VERIFIED
+VERIFIED

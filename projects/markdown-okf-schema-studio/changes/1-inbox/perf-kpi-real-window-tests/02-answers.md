@@ -53,3 +53,35 @@ Notes on the specification's open questions (Chief of Staff):
 - Open question 4: answered in chat on 2026-11-26 (no "ISO 28149" found; likely ISO/IEC/IEEE
   29148:2018, with ISO/IEC 25010:2023 and ISO/IEC 25023:2016 for time behaviour). No mention was
   asked for; the specification claims no conformance.
+
+7. perf-kpi-Q6 (2026-11-26), "CR-516 adds a manual CI job and a local command for its measure; the KPI
+   campaign adds its own `perf` job and commands; what becomes of CR-516's?", choices "A. replace them
+   (recommended)", "B. keep both". Answer, verbatim: "A. Les remplacer (reco.)" (one entry only; a
+   one-off measure then needs a full heavy run).
+
+8. perf-kpi-Q7 (2026-11-26), "on Linux or macOS, what does `just preflight` do when a time passes a
+   maximum calibrated for the CI machine?", choices "A. compare (recommended)", "B. fail locally too".
+   Answer, verbatim: "A. Comparer (reco.)" (locally it shows the differences without failing; the
+   maximums block in CI only).
+
+9. perf-kpi-Q8 (2026-11-26), "is the scores page on GitHub Pages a CR of its own, above the KPI job,
+   in batch-09?", choices "A. two CRs (recommended)", "B. one CR". Answer, verbatim: "A. Deux CR
+   (reco.)" (job, maximums and requirement first, mergeable without waiting for the page).
+
+10. perf-kpi-Q9 (2026-11-26), "the local comparison command would run on Linux/macOS only, as the
+    real-window tests do not run on Windows, your machine; what do you want?", choices "A. Windows
+    later (recommended)", "B. Windows in batch-09", "C. Linux/macOS is enough". Answer, verbatim:
+    "B. Windows dès batch-09" (as offered: clearly larger work, not specified yet; delays the end of
+    the batch).
+
+Chief of Staff's reading of answer 10: the local comparison command (`just perf-kpi`) also runs on
+Windows, in this CR. The question was about that command only; the other real-window stages stay on
+Linux and macOS. Found on main 5f0746d, to be confirmed by the specification: the real-window tests
+inject mouse and keyboard through Playwright over the window's debugging port
+(`test/integration/run-tests.ts`), not through the system's pointer; what skips Windows today is in the
+`justfile` (`preflight`, the `ci-*` targets) and `CONTRIBUTING.md`, "Windows".
+
+Answer 9 splits this CR: the site page is `perf-kpi-pages`, stacked above this one. This CR ends at the
+report files (`kpi.json`, `kpi.md`), the job, the maximums and their requirement.
+
+Spec critic: second pass after the next specification (answer 10 changes behaviour).
