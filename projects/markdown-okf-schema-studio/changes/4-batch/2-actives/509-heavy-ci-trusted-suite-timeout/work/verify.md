@@ -3,7 +3,8 @@
 Head: b24d3bf08f01ae0e72fe7d251b25833df558608c
 
 Verdict: **VERIFIED**. The code and the CI proof do what the specification says, and the posted
-PR description, as edited, passes (D1 to D10). D7 rests on the target list output recorded at this
+PR description, as now posted, passes (D1 to D11; D11 is the last pass, on the edit that ticked
+the "Verified" box). D7 rests on the target list output recorded at this
 head by the earlier pass: running it again was refused (see D7).
 
 Notation: `W` = the CR worktree (every command runs there unless said), `S` = `work/scratch`,
@@ -347,8 +348,53 @@ viewer-graph, report, checks `pass`; integration, stress `skipping`. "Verified" 
 as b24d3bf08f01ae0e72fe7d251b25833df558608c`; also `2026-11-26T02:13:56Z driver note note=r4 body
 re-inspection approved at b24d3bf...`.
 
+### D11 the "Verified" box edit, judged on the posted text (b24d3bf) - VERIFIED
+
+Posted at `updatedAt` 2026-11-26T02:19:12Z. L1 to E6 are kept as judged at `b24d3bf` (no code
+moved); no CI run was dispatched and no script was run over downloaded files.
+
+Difference from the judged text. GitHub's edit history (`gh api graphql`,
+`pullRequest(number:529){userContentEdits{editedAt diff}}`) lists 5 edits, the last two at
+02:14:07Z (the text judged in D0 to D10) and 02:19:12Z (current). The `diff` of the 02:14:07Z edit
+was saved to `S/verify-r5-body-judged.md` and `gh pr view 529 R --json body --jq .body` to
+`S/verify-r5-body-posted.md` (both removed after the check);
+`git diff --no-index --ignore-space-at-eol -U0` on the two prints one hunk:
+
+```text
+@@ -171 +171 @@ frame lookup; it needs one heavy run to confirm.
+-- [ ] Verified
++- [x] Verified at `b24d3bf`
+```
+
+So D1, D3 to D9 and the rest of the text are carried from the earlier passes at `b24d3bf`: the
+only changed line is that box.
+
+The box. `$CHANTIER log CR-509`: `2026-11-26T02:18:36Z driver verdict result=VERIFIED
+head=b24d3bf08f01ae0e72fe7d251b25833df558608c base=5a73b6ebcf66ef80b412afcdbfd09c4defc028d8`,
+recorded before the edit, at the SHA the box cites. The Review box still matches D10 (the same
+log's two notes). This replaces D9's last sentence ("Verified" unchecked).
+
+Render and images, run again on the current text:
+`gh api repos/gsemet/markdown-okf-schema-studio/pulls/529 -H "Accept: application/vnd.github.full+json" --jq ...`
+(counts over `body_html` and `body`):
+
+```text
+head b24d3bf08f01ae0e72fe7d251b25833df558608c, base 5a73b6ebcf66ef80b412afcdbfd09c4defc028d8, open, draft true
+h2 9, h3 1, tables 1, rows 6, pre 2, checkboxes 8, checked 8, details 0, literal ** 0
+img 0, markdown images 0, user name or home paths 0, STALE or UNVERIFIED 0
+role names or cr-<n>: one line, "CR-509 heavy-ci-trusted-suite-timeout." (Internal references)
+headings: Summary, Deliverables, Changes, What the failed frame lookup showed, Impacts,
+Blast radius, Autonomous decisions, Known gaps, Test plan, Internal references
+```
+
+CI green box: `gh pr checks 529 R` (run 45734227734): static, static-windows, visual,
+viewer-graph, report, checks `pass`; integration, stress, release-check, toc-loop `skipping`.
+
+At the end of the pass `gh pr view 529 R --json headRefOid,updatedAt,state,isDraft` shows the same
+head and `updatedAt`, OPEN, draft; `git status --short` in `W` prints nothing.
+
 ## Notes on this pass
 
-- Refused action: see D7.
+- Refused action: see D7 (the earlier pass; nothing was refused in the D11 pass).
 - One no-op shell call of this pass changed into the CR's `work/` folder (`cd ... ; true`), which the
   startup core forbids; the shell was back in the worktree at the next call.
