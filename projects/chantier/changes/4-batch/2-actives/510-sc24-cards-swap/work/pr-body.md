@@ -50,6 +50,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 
 ## Known gaps
 
+- Do not merge alone: it merges in order with the changes stacked with it, in one sitting, by the owner.
 - Quiz of the roles on the new cards, not run: skipped on the owner's word, 2026-11-26: `just quiz coder conflict-resolver cr-driver debugger demo-explorer release-driver stack-driver verifier --max-usd 40` and `just quiz chief-of-staff foreman griller --model claude-sonnet-5-5 --max-usd 45` (only the free `--plan` form was run).
 - Old-card quiz baseline to compare against, not run: skipped on the owner's word, 2026-11-26: the same two commands with `--cards ea11a9e0` (the last head with the old set), then each new run with `--against <that results file>`.
 - No transcript of a real Claude Code session showing the reload message after `/compact`: only the hook's own tests ran.
@@ -103,7 +104,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 | the long sentences of `test_cli_stop.py` | floor rule 4 |
 | the split pieces of `test_help_topics.py` | the topic files |
 | the proof-file date test of `test_host_rows.py` | its capability-heading test and history check |
-| the manifest test and "Visible evidence" check of `test_release_template.py` | the `release-evidence` topic |
+| the manifest test and "Visible evidence" check of `test_release_template_card.py` | the `release-evidence` topic |
 
 - Card text edited beyond the move (link fixes, and sentences that named a removed file):
   - `references/topics.json` (the `paths` note), `references/topics/foreman-start-p2.md` (step 4 names `brief foreman`), `references/concepts.md` (host reference and Driver card names, the four Driver `Card` cells).
