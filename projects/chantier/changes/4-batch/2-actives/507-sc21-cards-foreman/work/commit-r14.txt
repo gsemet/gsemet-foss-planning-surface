@@ -1,0 +1,7 @@
+docs(cards): restore lost rules and re-home them in the new card set
+
+Put back rules and conditions the new cards and topics had dropped or
+misstated, split the topics that went over their budget, and remove the
+trial stories from them.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
