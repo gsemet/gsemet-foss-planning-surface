@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "Release 0.19.0",
-  "summary": "Version pull request 76 is open and ready to merge at 60d07fa, notes written by hand without Copilot. Waits for the user's merge; publishing the GitHub release notes needs their approval.",
+  "summary": "Version pull request 76 merged 2026-11-26. A Release driver is checking CI, the tag and PyPI, then publishes the GitHub release notes with the user's approval.",
   "origin": {
     "kind": "verbal"
   },
@@ -11,5 +11,5 @@
     "03-change-spec.md": "e543cb101db14c60b61f6e8f93142c8ba6c3c9e6f4def25ce2f09bfc405dd15d",
     "intake/request.md": "c3351e5d9b5f033c0588fe0272928f269f1c5dc96d674b965efe2b64713e1757"
   },
-  "summarized": "2026-11-26T06:50:10Z"
+  "summarized": "2026-11-26T06:54:24Z"
 }
