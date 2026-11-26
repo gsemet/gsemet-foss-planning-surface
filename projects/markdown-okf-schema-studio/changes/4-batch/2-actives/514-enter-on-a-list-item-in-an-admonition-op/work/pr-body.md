@@ -68,10 +68,10 @@ The re-filmed keyboard navigation clip walks with the arrows into an admonition,
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
 ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change
-([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
-[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
+([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
+[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
 
-![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/a5550c32100a24e646efdf293db93cdac30e3cba/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
+![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/739f9e3ecd771efce1938ebdb0685f324a6cf0a2/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
 ## Blast radius
 
@@ -89,8 +89,8 @@ behaviour, with no data or settings change.
   an opening line opens its directive, so that the lines a block of a box opens on hold no fence
   line of a directive around it.
 - The chord's heading refusal covers every untitled admonition fence (colon, backtick, tilde) and
-  callouts, and its `---` refusal every kind of box, because they all misrender the same way; moves
-  that still render are not refused.
+  callouts, and its `---` refusal every kind of box, because they all misrender the same way. A
+  heading in a titled admonition, a dropdown or an alert, and a `***` line, still move.
 - The palette overlap found by the new visual scenarios is fixed here, with a new requirement
   scenario.
 - The real VS Code replay of the alert lazy line opens the alert from its title, so its assertions
@@ -110,10 +110,15 @@ behaviour, with no data or settings change.
   moves past them.
 - When a `:::` admonition is left open at the end of the file and ends on a quoted one
   (`> :::{tip}` up to `> :::`), that quoted tip does not open on its own.
-- Erasing the block above a `---` line at the start of a box body leaves that line first, and the
-  box then shows its title only; the text stays in the file.
+- Erasing the first block of a box body can leave a `---` line first, and the box then shows its
+  title only, or leave a heading first in an untitled admonition, which then becomes its title; the
+  text stays in the file. A card or a div inside a box whose body starts with dashes misrenders the
+  same way.
 - A paragraph that is only bold text, moved first in an untitled admonition or a callout, becomes
   its title; the move is not refused.
+- A directive name written with spaces (`:::{ note }`) is not recognised by the new move refusals,
+  so such a move there is done. Any `.callout-*` class counts as a callout for the heading refusal,
+  one that renders no callout included.
 - In a box that starts with a `---` block of options and holds a `---` rule further down, the
   renderer maps blocks one line down (as before this change), so a block opened on its own there
   shows the wrong line.

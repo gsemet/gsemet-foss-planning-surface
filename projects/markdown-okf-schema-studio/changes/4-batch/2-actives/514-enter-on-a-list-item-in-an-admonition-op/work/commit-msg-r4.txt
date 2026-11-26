@@ -1,0 +1,9 @@
+fix(editor): keep fences whole and refuse moves that spoil a box
+
+In an admonition or an alert, opening or erasing a block held by a list item no
+longer takes a line of a directive nested beside it. The move chord now refuses
+to put a `---` line first in a box, or a heading first in an admonition without
+a title or in a callout, with a reason, instead of hiding the content or turning
+the heading into the title.
+
+Assisted-by: Claude:Sonnet-5.5
