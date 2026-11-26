@@ -1,0 +1,4 @@
+[
+  ["topics/worker-shell.md", "A `$CHANTIER` that cannot run is a stop (floor 4).", "A `$CHANTIER` that cannot run is a stop (floor 4): end your turn with its error as text."],
+  ["concepts.md", "printed as `ci:` and `timing:` lines).", "printed as `ci:` and `timing:` lines). Permissions are scoped to session, project and effect: a started agent inherits only its role's, never merge or publication permission."]
+]

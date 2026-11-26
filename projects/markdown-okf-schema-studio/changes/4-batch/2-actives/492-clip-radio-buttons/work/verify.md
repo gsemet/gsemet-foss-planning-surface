@@ -10,7 +10,7 @@ VERIFIED at 211f3a59. `git range-diff 4a47151e..211f3a59 8c6845a5..1d55649b`: co
 (`check.mjs`, `storyboard.mjs` MAX_LENGTH 12 to 30), `docs/user/editing.md`,
 `siteClips.test.ts`, requirements and chart / width-mode sources.
 
-## Judged again at 1d55649b (code, tests, clip)
+## Code, tests, clip (judged at 1d55649b by the earlier pass at this head; head unmoved)
 
 - Diff scope: `git diff --name-only 8c6845a5...1d55649b` lists 19 files: the radio-buttons clip folder, `docs/user/editing.md`, `check.test.mjs`, `storyboard.test.mjs`, `test/site/siteClips.test.ts`. No `src/`, `skills/`, `requirements/`, README or CHANGELOG file. `git log --merges 8c6845a5..HEAD`: empty. Tree clean. `git ls-remote`: the pushed branch is 1d55649b. PASS.
 - Conflict resolution: `git diff 8c6845a5 1d55649b -- check.test.mjs siteClips.test.ts` shows only additions beside the base's (title names "renderings tour and radio"; radio import and `{ editMode: "off", paste: false }` after the tour's; the radio site test, marker `SwRS-MDOKFSTUDIO-CORE-095`, after the tour test). PASS.
@@ -29,27 +29,32 @@ VERIFIED at 211f3a59. `git range-diff 4a47151e..211f3a59 8c6845a5..1d55649b`: co
 - carried from 211f3a59: the take proves a real click selects the option and moves the `x` on two lines (`run` checks and `verify`). Reason: clip folder, `radioMarkers.ts`, `radioGroups.ts` and `checkboxes.ts` have an empty diff between the two heads; the base's source changes are charts, code-block width, find index and export snapshot, and the stage holds none of those elements. The take was not refilmed.
 - carried from 211f3a59: the first run on the shared scratch folder showed another clip's pictures and was rerun with its own `CLIP_SCRATCH` (history, untouched by the move).
 
-## Description pass (second, replaces the failed one of 00:38Z)
+## Description pass (third, description only; replaces the failed one of 00:43Z)
 
 Head: 1d55649b51bee924e24186700634cef03413272f
 
-Body read with `gh pr view 513 --json body,headRefOid,updatedAt,isDraft,baseRefName`: head is the
-SHA above, last updated 2026-11-26T00:40:38Z, draft, base is the CR-493 branch. Re-read at
-00:42:32Z, unchanged. It equals `work/pr-body.md` but for one trailing blank line (`diff`).
+Body as posted: `gh pr view 513 --json body,headRefOid,updatedAt,isDraft,baseRefName,title`:
+head is the SHA above, last updated 2026-11-26T00:43:17Z (re-read at the end of the pass,
+unchanged), draft, base is the CR-493 branch (`baseRefOid` 8c6845a5, `mergeStateStatus` CLEAN),
+title "docs: add the radio choice feature clip". `diff` with `work/pr-body.md`: one trailing blank
+line only. The whole body was judged.
 
-- PASS, renders: `gh api repos/gsemet/markdown-okf-schema-studio/pulls/513 -H "Accept: application/vnd.github.full+json" --jq .body_html`: eight `h2` sections, lists, six checked task items, the GIF as an `img` with `data-animated-image`, the three links.
-- PASS, links name the head: `curl -sL` at `.../1d55649b.../radio-buttons/`: gif 200 image/gif 1265741 bytes, mp4 200 369217, webm 200 256389, clip.md 200. The served GIF's sha256 is `80ccaa74...2bc605`, equal to the LFS object of the head (`git lfs ls-files -l`). No `211f3a5` link is left (rendered body).
-- PASS, the attached image's look: the served GIF (126 frames, 960x540) sampled every 21st frame into one tile and opened: title "plan.md - workspace", reading mode left, raw text right, first option then second selected, marks on `(x)` then `( )`, both captions; no username or home folder.
-- PASS, Summary, Deliverables, Changes, Impacts: `git diff --stat 8c6845a5...HEAD`: 19 files, the clip folder, `docs/user/editing.md`, three test files, no `src/` file; 2 commits `fd5cbb9f`, `1d55649b`.
-- PASS, Test plan: `gh pr checks 513` and `statusCheckRollup` at head 1d55649b: static, static-windows, visual, viewer-graph, report, checks SUCCESS; integration, stress, toc-loop, release-check, release, pages, gallery, tag-release skipped. "40 tests", `just check` and the unchanged tree after `just requirements-update`: the claims above, at 1d55649b.
+- PASS, renders: `gh api repos/gsemet/markdown-okf-schema-studio/pulls/513 -H "Accept: application/vnd.github.full+json" --jq .body_html`: nine `h2` sections, three lists (one of six checked task items), the GIF as an `img` with `data-animated-image`, the four links.
+- PASS, form: the project template's sections are all present in its order (Summary, Deliverables, Changes, Impacts, Blast radius, Test plan), with the added Deviation, What the clip proves and Autonomous decisions; the stack guideline asks nothing of the body.
+- PASS, no internal reference, old SHA or username: `gh pr view 513 --json body --jq .body | grep -n -i -E "CR-[0-9]|batch|round|driver|verifier|inspector|coder|foreman|griller|spec|chief of staff|\.agents/|STALE|UNVERIFIED|211f3a|4a47151|gaeta|C:.Users|03-zoomed"`: no output (exit 1). `... | grep -o -E "[0-9a-f]{7,40}" | sort | uniq -c`: only `1d55649` (3) and the full head (5).
+- PASS, links: `curl -sL` at `.../1d55649b.../radio-buttons/`: gif 200 image/gif 1265741 bytes, mp4 200 369217, webm 200 256389, clip.md 200. Served GIF sha256 `80ccaa74...cd` equals the head's LFS object (`git lfs ls-files -l`).
+- PASS, the attached image's look: the committed GIF (the served object) sampled every 21st frame into one tile and opened: title "plan.md - workspace", reading mode left, raw text right, first option then second selected, marks on `(x)` then `( )`, both captions; no username, home folder or local path.
+- PASS, Summary, Deliverables, Changes against the diff: `git diff --stat 8c6845a5...HEAD`: 19 files (clip folder, `docs/user/editing.md`, `check.test.mjs`, `storyboard.test.mjs`, `siteClips.test.ts`), no `src/` file. `check.json`: win32, extension source `vsix`, 1280x720, 15 fps, length 10.5, GIF loop count 0. "Two characters on two lines": the stage test (40/40 above) and its diff (`changed` is `[7, 8]`).
+- PASS, "selects it at once" (What the clip proves): `npm run compile`, `node scripts/node-test.mjs unit out/test/page/runtimeRadioGroups.test.js` at 1d55649b: "clicking an unselected radio option selects it at once and asks the host to move the x" ok; tests 12, pass 12, fail 0. In the committed MP4, frame 22 (about 1.47 s, click at 1.33 s), extracted with `ffmpeg` and opened, already shows the second option clicked and `(x)` on line 8. "Moves the `x`": `scenario.mjs` lines 193 to 211 and `verify`, `check.json` `verifyPassed: true`. Tree clean after.
+- PASS, Deviation: the take from the draft (spec, radio-Q3); "then approved": `02-answers.md`, owner approval of 2026-11-25 evening, clip folder unchanged since.
+- PASS, Autonomous decisions, the failed point on frames: `git grep -n -e "Measured by" -e "Key frames" -e "focus" -e "03-zoomed" HEAD -- .../clip.md`: the focus ring note (line 92), measured times (line 100), key frames (lines 101 to 103) naming `pointed`, `chosen`, `04-mark-1`, `05-mark-2`; `03-zoomed` is no longer claimed.
+- PASS, Autonomous decisions, the failed point on backticks: the body now has "The Mark 1 and Mark 2 rows of the storyboard write `(x)` and `( )` without the backticks of the draft"; `git diff --no-index work/storyboard/clip.md docs/demo-video/clips/radio-buttons/clip.md` shows exactly that on the two mark rows; the other differences are the adaptations the specification's section 2 prescribes. `work/coder/r1.md` records no other decision; `conflict-resolver/conflicts.md` keeps both sides only.
+- PASS, Autonomous decisions, scratch folder: `work/gates/clip-all.log` (default scratch under the temporary folder): MP4 12.000 s against Length 10.5, loop SSIM 0.71740, failed; `clip-all2.log` (`C:\okfclip492`): passed, SSIM 0.99529; `lib/profile.mjs:26` puts `remotion` under the one scratch root (`lib/platform.mjs:24`); the diff changes no kit code (only two kit test files). What the failed render showed is carried (above).
+- PASS, Impacts: one line, no change to the extension and what the reader gets (the clip in the user guide); not the template's comment. Read as the guideline's "no visual change" line with its reason; the visual is the GIF in Deliverables.
+- PASS, Blast radius: one grade (1) with its reason; the diff is docs, a clip folder and tests.
+- PASS, Test plan: `gh pr checks 513` and `statusCheckRollup` at 1d55649b: static, static-windows, visual, viewer-graph, report, checks SUCCESS; integration, stress, toc-loop, release-check, release, pages, gallery, tag-release skipped. "40 tests", `just check`, unchanged tree after `just requirements-update`: claims above at 1d55649b. "One added `@tests_req`": `git diff 8c6845a5...HEAD | grep -c "^+.*@tests_req"`: 1. "No user-facing change": no `CHANGELOG.md` in the diff. The New tests, Requirements and Changelog items carry no SHA, as the project template writes them.
 - PASS, Review box: `$CHANTIER log CR-492`: `2026-11-26T00:40:13Z driver note note=move 211f3a5..1d55649 (restack) inspector approved at 1d55649`.
-- PASS, "The storyboard and the clip were then approved": `02-answers.md`, owner approval of 2026-11-25 evening ("the storyboard and the clip of this PR are approved"), also order O-93 in the log; the clip folder is unchanged since (carried above).
-- Known gaps: the project template has no such section; no UNVERIFIED claim, no evidence pair declared uncaptured, no failed claim accepted.
-- FAIL, Autonomous decisions, a false statement: the body says the key frames "`pointed`, `chosen`, `03-zoomed`, `04-mark-1`, `05-mark-2`" are in the Review notes of `clip.md`. `git grep -n -e "03-zoomed" HEAD -- docs/demo-video/clips/radio-buttons`: no output. `git grep -n -e "frames/" HEAD -- .../clip.md`: the Review notes (lines 93 to 103) name `pointed`, `chosen`, `04-mark-1`, `05-mark-2` only. The file `frames/03-zoomed.png` exists (LFS list) but the notes do not name it.
-- FAIL, Autonomous decisions, a decision left out: `git diff --no-index work/storyboard/clip.md <head>/docs/demo-video/clips/radio-buttons/clip.md` shows the backticks of the Mark 1 and Mark 2 rows dropped (`` new `(x)` `` to `new (x)`, `` now `( )` `` to `now ( )`). The specification, section 2, says that when they are dropped "Autonomous decisions" says so (section 7: the section holds the differences from the draft); `work/coder/r1.md` records it under "Autonomous decisions". `gh pr view 513 --json body --jq .body | grep -n -i -e backtick -e "mark row" -e draft`: only the Deviation line (21), nothing on the mark rows. The project's PR guideline also asks that a decision taken without the user be listed there.
-
-Fix (body only, same head): drop `03-zoomed` from that sentence (or say it is in `frames/`), and
-add a bullet saying the mark rows of `clip.md` drop the draft's backticks around `(x)` and `( )`.
+- PASS, Known gaps: the project template has no such section; no UNVERIFIED claim, no evidence pair declared uncaptured, no failed claim accepted. The notes' limits are stated in the body (judged by watching; filmed on Windows).
 
 ## Before / after
 
@@ -57,8 +62,7 @@ No new pair: the previous judgment captured none, the CR changes no extension sc
 
 ## Verdict
 
-Every code, test and clip claim passes at 1d55649b. The posted description fixes the stale SHA
-links and the Test plan numbers, but its Autonomous decisions section names a key frame in notes
-that do not name it and leaves out a decision the specification requires there.
+Every code, test and clip claim passes at 1d55649b, and the posted description (updated
+00:43:17Z) passes as a whole, the two points failed before included.
 
-NOT VERIFIED
+VERIFIED

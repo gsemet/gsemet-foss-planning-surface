@@ -1,0 +1,5 @@
+[
+  ["forges/github.md", "the forge hub reads the PRs a running batch waits for", "the forge hub reads only the PRs a running batch waits for"],
+  ["forges/gitlab.md", "the forge hub reads the MRs a running batch waits for", "the forge hub reads only the MRs a running batch waits for"],
+  ["griller-skill.md", "`[griller→chief-of-staff] <slug> specified`.", "`[griller→chief-of-staff] <slug> specified`, and run no `triage`, whatever destination the grill recorded."]
+]
