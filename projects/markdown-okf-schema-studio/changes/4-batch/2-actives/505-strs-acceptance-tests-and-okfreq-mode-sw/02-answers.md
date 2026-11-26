@@ -11,3 +11,7 @@ Grilled enough (2026-11-25): by the Chief of Staff, the design being already gri
 Destination: running batch batch-09. Critic: yes.
 
 Owner's overnight grant (2026-11-25, near midnight, the owner to the Chief of Staff: "je vais aller au lit. tu as toute latitude pour finaliser la stack cette nuit: tu peux passer les contexts a 300K des driver, faire 10 rework max"): the Chief of Staff decides alone to get the stack finished tonight; a CR may take up to 10 rounds; a Driver or stack driver hands back for context only at 300,000 tokens.
+
+5. acceptance-Q5 (2026-11-26, Chief of Staff, ask A-28, partial delivery): **Where the rest of the acceptance tests goes: "Dans batch-09".** One follow-up CR per e2e group joins the running batch, the coverage-mode switch and its gate in the last one. The owner chose it knowing that batch-09 then stays open long (Driver estimate: 25 to 35 rounds in all, up to 15 groups).
+
+6. acceptance-Q6 (2026-11-26, Chief of Staff): **The three paths this CR cannot accept (TRUST-012 S1 and S2, TRUST-014 S1): "Écrire les tests (Recommandé)".** Another kind of test (driving the real window, a real install) is written in a follow-up, before the switch. The strict marker rule is unchanged.
