@@ -1,0 +1,13 @@
+$ uv run --project <worktree> pytest <scratch>/vbase/test/build/test_no_merge_commits.py ...
+  (head's test file, script of the base 5a73b6e)
+PASSED: the 12 earlier cases (the two parametrized ones included)
+FAILED test_chained_test_merge_of_a_linear_stack_passes
+FAILED test_chained_test_merge_passes_against_the_lower_branch_base
+FAILED test_chained_test_merge_fails_when_the_top_branch_carries_a_merge
+       assert not ['208f20f', '326f3b2', '45d8ece']        (the chain merges are listed)
+FAILED test_chained_test_merge_fails_when_a_lower_branch_carries_a_merge
+       assert not ['b406f81', 'e5bddf1', '783f311']        (the chain merges are listed)
+PASSED test_chain_with_non_nested_heads_reports_every_merge
+PASSED test_nested_chain_with_another_subject_reports_every_merge
+PASSED test_chain_not_rooted_on_the_base_reports_every_merge
+======================== 4 failed, 15 passed in 21.61s ========================

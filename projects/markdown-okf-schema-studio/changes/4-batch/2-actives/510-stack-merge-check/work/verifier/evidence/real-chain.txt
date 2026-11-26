@@ -1,0 +1,22 @@
+HEAD 921754e34c6303ad94babd5490106b3806bd9386 (forge's refs/pull/516/merge, fetched)
+base 17b779d502b9633fd42dd275986067397db5c4aa (main)
+--- previous script (5a73b6e)
+921754e3 Merge 8ce169f0fad80bbb6da8bcdf73969d1705d8dc49 into 1f63061c570e04384e31f4772143a9c15c216289
+1f63061c Merge 5a73b6ebcf66ef80b412afcdbfd09c4defc028d8 into 408acb2b45d63ba784c679c3579c1866837b2f53
+408acb2b Merge b7518fb3c16b8ac5da27f87c1165837530e5127f into c41695b330324c3ed5c806f61c9c26fffc5538ec
+c41695b3 Merge 37ef61b338b3ca56d1cb428983c78ebdb54684f0 into 66dbc5a5e084e2372b46052d2e69b4ea8ee0e181
+66dbc5a5 Merge af4a4aa62da55cd2093d30c7a5763c0b6bdee8ea into fa335d6df0cf02dbe75981418cabf277644fa9a0
+fa335d6d Merge d386ff61a3d5a2cda0cb54130a5ffea5600a3793 into 60a1b56faa2d33bfd18e00bed52d65555ac46c53
+60a1b56f Merge cae819b958dff6138d9b5dee1638a487234a5d79 into d3cbb4c57b82ce976d1af5b2c310681a4e7fdf75
+d3cbb4c5 Merge c3c3a57ed16874bf56f5834ef6d789443e842fbb into 3d6e1ff14bcec8ae0db339e7491d8cc8a52bfadc
+3d6e1ff1 Merge 1d55649b51bee924e24186700634cef03413272f into 039e66ae290b4beff4a9e90c1fe97c875720b54c
+039e66ae Merge 8c6845a50d411d894d83c7160e52e1306548330d into 17b779d502b9633fd42dd275986067397db5c4aa
+The repository merges by rebase only, so a branch is updated by rebase, never by merge.
+Remove the merge commits with a rebase (a plain git rebase linearizes them):
+  git fetch origin && git rebase origin/main && git push --force-with-lease
+check-no-merge-commits: FAILED
+exit 1
+--- new script (7d35be3)
+check-no-merge-commits: passed (24 commits since origin/main, no merge commit)
+exit 0
+count origin/main..HEAD^2 = 24; merges in it = 0

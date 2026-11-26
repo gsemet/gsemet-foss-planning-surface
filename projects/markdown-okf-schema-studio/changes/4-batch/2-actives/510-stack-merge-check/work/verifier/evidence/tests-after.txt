@@ -1,0 +1,21 @@
+$ uv run pytest test/build/test_no_merge_commits.py -v -p no:cacheprovider      (head 7d35be3)
+test_linear_branch_passes PASSED
+test_branch_updated_by_merge_fails_with_the_rebase_command PASSED
+test_default_base_is_origin_main PASSED
+test_test_merge_of_a_linear_branch_passes PASSED
+test_test_merge_passes_when_main_moved_after_it PASSED
+test_test_merge_of_a_branch_that_carries_a_merge_fails PASSED
+test_chained_test_merge_of_a_linear_stack_passes PASSED
+test_chained_test_merge_passes_against_the_lower_branch_base PASSED
+test_chained_test_merge_fails_when_the_top_branch_carries_a_merge PASSED
+test_chained_test_merge_fails_when_a_lower_branch_carries_a_merge PASSED
+test_chain_with_non_nested_heads_reports_every_merge PASSED
+test_nested_chain_with_another_subject_reports_every_merge PASSED
+test_chain_not_rooted_on_the_base_reports_every_merge PASSED
+test_stacked_base_counts_only_the_branch_commits PASSED
+test_unresolved_base_fails_naming_the_base_and_the_fetch PASSED
+test_ci_static_runs_the_check_first_with_the_base_of_the_ci PASSED
+test_static_jobs_check_out_the_full_history[static] PASSED
+test_static_jobs_check_out_the_full_history[static-windows] PASSED
+test_guideline_has_the_updating_a_branch_section_without_a_process_role PASSED
+======================== 19 passed in 75.88s (0:01:15) ========================
