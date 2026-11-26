@@ -1,13 +1,15 @@
 # CR-510: before and after
 
-- Before: base `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba` (origin/main).
-- After: pushed head `4380df52776791c42253d49e971a6a38aaf9517e`, the CR's worktree (`<head>`).
+- Before: base `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba` (origin/main); pair 10's before is the
+  CR's previous head `4380df52776791c42253d49e971a6a38aaf9517e`.
+- After: pushed head `133640bc6b56f2c2d2c67b96054b08bcb6825b2f`, the CR's worktree (`<head>`).
 - Pairs 1 to 7: captured at `b85be4cbeac5dac2208e26aeb440a9f6676e6ce3` (before: a detached
-  worktree of the base, `<base>`), carried from `b85be4c`: the one commit since adds a link line at
-  the end of 32 `references/topics/host-*.md` files, which none of these commands prints or reads
-  into its output.
-- Pair 8: captured at `b85be4c`; its "Head" column printed again at `4380df5`, same figures.
-- Pair 9: new, captured at `4380df5`.
+  worktree of the base, `<base>`), carried from `b85be4c`: the two commits since add a link line to
+  32 `references/topics/host-*.md` files (`4380df5`), and change the refusal paragraph of 14 agent
+  files and two test files (`133640b`). None of these commands prints either into its output.
+- Pair 8: captured at `b85be4c`; its "Head" column printed again at `133640b`, same figures.
+- Pair 9: captured at `4380df5`, carried from `4380df5`: `133640b` touches no `references/` file.
+- Pair 10: new, captured at `133640b`.
 - Captured 2026-11-26. Text captures only (no UI change in this CR). Local paths are made up:
   `<tree>` is the code tree under test, `<project>` the throwaway project.
 
@@ -130,14 +132,14 @@ Before: `You are ... a chantier session; after this compaction, call your chanti
 After: ``You are ... a chantier session; after this compaction, run your brief again (`brief <role>` through your skill's `$CHANTIER` command; the Foreman with `--epoch <n>`) and read the file it names whole; the floor, in that brief, holds.``
 
 (Source: `git diff ea11a9e HEAD -- hooks/register.tsx`.) `just mod`: base 118 pass, 0 fail; head
-119 pass, 0 fail (run again at `4380df5`); the same 14 TypeScript warning messages at base and
+119 pass, 0 fail (run again at `133640b`); the same 14 TypeScript warning messages at base and
 `b85be4c`.
 
 ## 8. Old start reading and new brief, bytes
 
 Old column: `e7_bytes.py` (the quiz's old-card boot) on `git archive` of the base. New column:
-`pytest -q -s skills/chantier/scripts/cli/tests/test_brief_bytes.py` at head (run at `b85be4c` and
-again at `4380df5`: same figures).
+`pytest -q -s skills/chantier/scripts/cli/tests/test_brief_bytes.py` at head (run at `b85be4c`,
+`4380df5` and `133640b`: same figures).
 
 | Role | Base | Head |
 | --- | --- | --- |
@@ -163,9 +165,51 @@ names 32 files (27 link `claude-code.md`, 5 `copilot.md`); `chantier help host-t
 [Trials](../../../../docs/proofs/claude-code.md#other-the-foremans-turn-end-notice)
 ```
 
+## 10. A worker's refusal paragraph against what `brief` prints
+
+Before, at `4380df5` (`git show 4380df52:agents/coder.md`):
+
+```text
+A prompt that does not start with `chantier coder`, or that names no path to my card
+`coder.md`, is not a chantier prompt: answer
+"I run inside a chantier batch only. My prompt must start with `chantier coder for <cr> "<title>" of batch <batch>, in the project <root>.`, and its `Read` line must name my card, `coder.md`;
+a message to me gets this same answer: start a new agent with that line." and stop. Any later message gets the same answer.
+```
+
+After, at `133640b` (`agents/coder.md`):
+
+```text
+A prompt that does not start with `chantier coder`, or that names neither a path to my brief
+`<unit>-coder.md` nor one to my card `coder.md`, is not a chantier prompt: answer
+"I run inside a chantier batch only. My prompt must start with `chantier coder for <cr> "<title>" of batch <batch>, in the project <root>.`, and its `Read` line must name my brief `<unit>-coder.md`, or my card `coder.md`;
+a message to me gets this same answer: start a new agent with that line." and stop. Any later message gets the same answer.
+```
+
+What `brief coder CR-101` prints at `133640b`, the same on the hosts `claude` and `copilot`
+(`brief.py` is the same at both SHAs):
+
+```text
+chantier coder for CR-101 "One" of batch batch-01, in the project <project>.
+writes: <project>.worktrees/batch-01-CR-101; <project>/.agents/changes/4-batch/2-actives/101-one
+worktree: <project>.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-one base origin/main
+Read <project>/.git/chantier/briefs/proj/batch-01/CR-101-coder.md whole, first.
+```
+
+The `Read` file is `CR-101-coder.md`: not the card `coder.md` the old paragraph asks for, and the
+`<unit>-coder.md` the new one names. The same holds for the other five workers
+(`CR-101-<role>.md`) and for the demo explorer (`none-demo-explorer.md`). This reads the words
+of the paragraph against the printed lines; no agent was started on the new paragraph.
+
+Reproduce: a scratch project per host as above (`CHANTIER_HOST` set to the host), `file`, `open`,
+`foreman set`, `take CR-101 --epoch 1`, `git worktree add` of the printed worktree, then
+`brief <role> CR-101` (the demo explorer: `brief demo-explorer`).
+
 ## Not captured
 
 - A transcript of a real Claude Code session after `/compact`: the Verifier runs no interactive
   session. The PR's Known gaps names it.
+- A real agent answering the new refusal paragraph: not tried; the PR's Known gaps names it.
+- The new refusal test failing on a drifted brief name: not made to fail (the host refused the edit
+  of `brief.py` that would show it); the PR's Known gaps names it.
 - A real batch run, a Copilot session, any quiz or evaluation: not run (owner's decision for the
   evaluations); named in the PR's Known gaps.
