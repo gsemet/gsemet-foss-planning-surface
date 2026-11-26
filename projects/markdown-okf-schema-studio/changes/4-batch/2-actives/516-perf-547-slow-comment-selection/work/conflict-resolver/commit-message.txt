@@ -1,0 +1,6 @@
+docs: list the perf-547 measure job on the How we test page
+
+Readers learn how the on-demand measure of comments on a large document is
+run, that it sets no limit, and that it never gates a merge.
+
+Assisted-by: Claude:Sonnet-5.5
