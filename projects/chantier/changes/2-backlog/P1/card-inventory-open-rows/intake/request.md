@@ -43,7 +43,7 @@ The whole `references` folder is 620 KB in 330 files (the program's study counte
 
 Not true yet, as known today:
 
-- **Other projects cannot be counted on (goal 1).** The version is still 0.15.1. uv's cached build of the main checkout (built 2026-11-25 22:38) lacks the card swap's source changes (commit 7714288e, 19 files) and still names removed card files: `driver.md` (commands/access.py, commands/facts.py), `foreman-stack.md` (stack_shape.py), `reload-rules.md` (status/ready_line.py), `startup-core.md` and `startup-manifest.json` (driver_prompt.py). Found by reading the cached files, not by running them; that uv reuses this build while `pyproject.toml` is unchanged is expected, not tested. A version bump is the expected cure; the proof is a project in plugin mode seen running the new cards. `status` also says the running board is another build of 0.15.1 (a cached one) than the checkout's.
+- **Other projects cannot be counted on (goal 1).** The version is still 0.15.1. uv's cached build of the main checkout (built 2026-11-25 22:38) lacks the card swap's source changes (commit 7714288e, 19 files) and still names removed card files: `driver.md` (commands/access.py, commands/facts.py), `foreman-stack.md` (stack_shape.py), `reload-rules.md` (status/ready_line.py), `startup-core.md` and `startup-manifest.json` (driver_prompt.py). Found by reading the cached files, not by running them; Seen in use after that: on 2026-11-26 at 17:42 and 17:48, another project's watchers, started with `uvx --from` the checkout and `--skill` on its cards, ran from this old build (read from the process list). So that project reads the new cards live against the old CLI, its batch running; whether anything failed there was not checked. A version bump is the expected cure; the proof is a project in plugin mode seen running the new cards. `status` also says the running board is another build of 0.15.1 (a cached one) than the checkout's.
 - **Cards and CLI disagree in places (goal 2).** Retro point 6 below lists the cases. Seen on 2026-11-26: `help <topic> --batch <batch>` is refused (the other cases were not re-checked). New the same day: the Claude host row `run-watcher` starts the watcher with `Monitor` "with no timeout", but the tool now ends a monitor after 30 minutes at most, so a watcher kept armed wakes the session every 30 minutes; the Chief of Staff left it unarmed after batch-31 to save usage.
 - **Nothing proves that behaviour was kept (goal 3).** The serious lost rules were restored (CR-511); many inventory rows stay open (332 without a compliant home at its round 1). No quiz or eval campaign, no batch started from scratch. One real use seen: the Chief of Staff's reload after a compaction worked on the new cards, in chantier's own checkout.
 - **No gate keeps it so (goal 4).** The card gates were not written (CR-512, CR-513).
@@ -53,10 +53,10 @@ What cost most in batch-31: card rewrite CRs too large for their round limit (CR
 ### Know this before acting
 
 - Nothing starts without the owner's word. The owner announced the specs to be redone "in a batch 32".
-- batch-31: 40 CRs merged, main at 4d12a5b, CI green, paused, $492 of $800. It closes only on the owner's word: `close --batch batch-31`, then `--yes`, then the worktrees and branches that command lists. Archive the Foreman and Chief of Staff sessions after the close, not before (the close prices the Foreman's transcript).
+- batch-31 was closed on 2026-11-26 on the owner's word (« Ok ferme le batch »): 40 CRs merged, main at 4d12a5b, CI green, $492.37 of $800. Record and retro: `5-archives/batches/batch-31.json` and `.md`. The merged and dropped CRs' worktrees and branches are removed, but for CR-471's empty folder under the checkout's worktrees folder (Windows: in use by another process, WinError 32).
 - A copy of the batch's journal, which the close deletes and git does not hold: folder `chantier-batch-31-journal`, beside the main checkout on the owner's machine.
 - Decisions taken for the owner while they asked to be asked nothing (that order was about finishing batch-31) are marked "to confirm by the owner" in the CRs' `02-answers.md`.
-- Copied here: CR-510's and CR-511's known gaps, the retro points kept, the owed items and the leftovers. The other merged CRs' known gaps were not copied: 35 of the 40 CR folders hold them in `work/pr-body.md` (`4-batch/3-done` now, `5-archives` after the close); for CR-469, 475, 476, 502 and 507, which have no such file, read the PRs (#445, #451, #453, #484, #487 of gsemet/chantier).
+- Copied here: CR-510's and CR-511's known gaps, the retro points kept, the owed items and the leftovers. The other merged CRs' known gaps were not copied: 35 of the 40 CR folders hold them in `work/pr-body.md` (under `5-archives`); for CR-469, 475, 476, 502 and 507, which have no such file, read the PRs (#445, #451, #453, #484, #487 of gsemet/chantier).
 
 ## Reference material, not a plan
 
@@ -196,6 +196,7 @@ The dropped points: `retro-dropped.md` beside this file.
 - 48 git worktrees besides the main checkout (24 of batch-29), 2 of them removed by batch-31's close.
 - 50 local branches whose remote branch is gone; 3 stashes.
 - 3 old draft pull requests: #386, #347, #346.
+- CR-471's empty worktree folder, to delete once nothing holds it.
 - Untracked in the main checkout: `commands.py`, `concepts.md`, `state.py`, `test.md`, `.agents/`.
 - The evaluation campaign's folder and plugin entries set up on 2026-11-26.
 - Worktree `old-kit` (detached, 2026-11-12, in a temp folder that a cleanup may erase): uncommitted lines in `evals/kit/audit.py` and `sandbox.py` (finding a Windows `gh.cmd` through the PATH), not on main. A patch copy is in `chantier-batch-31-journal`, with CR-463's local scenario results.
