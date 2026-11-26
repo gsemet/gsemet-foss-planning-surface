@@ -2,9 +2,39 @@
 
 Head: 88d9ab40d706ce2442821ad77385812af35ba846
 
-Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Judgments so far: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe` (NOT VERIFIED, F1 to F6); `88d9ab4`, first pass (NOT VERIFIED, F7 and F8); `88d9ab4`, second pass (NOT VERIFIED, F7 alone); `88d9ab4`, this short delta pass. Since the second pass no worktree file changed (`git rev-parse HEAD`: `88d9ab40...`; `git status --porcelain --branch`: the branch line alone, level with its remote) and no evidence file changed (`ls -la --time-style=full-iso`: newest evidence file 2026-11-26 05:27:32 local, before that pass ran). One thing changed: the Known gaps bullet on `just quiz` in the PR description, narrowed and posted again.
+Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Judgments so far: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe` (NOT VERIFIED, F1 to F6); `88d9ab4`, first pass (NOT VERIFIED, F7 and F8); `88d9ab4`, second pass (NOT VERIFIED, F7 alone); `88d9ab4`, third pass (VERIFIED, F7's unmet part accepted and stated in Known gaps); `88d9ab4`, this fourth pass, the posted description alone.
 
-Result: **VERIFIED**. F7's unmet part is not fixed: it is accepted, and the posted Known gaps states it. The new sentences hold.
+Result: **VERIFIED**. The description posted again at 04:48:23Z differs from the third pass's by one new Autonomous decisions bullet and the checked `Verified` box; both hold.
+
+## D. The description as posted now: VERIFIED (judged at 88d9ab4)
+
+`gh pr view 487 --repo gsemet/chantier --json headRefOid,baseRefName,isDraft,state,mergeable,updatedAt,body` (`r17-pr.log`), then `uv run --no-project python -I work/verifier/scripts/r17/body.py`:
+
+```text
+headRefOid 88d9ab40d706ce2442821ad77385812af35ba846 base main OPEN draft MERGEABLE updatedAt 2026-11-26T04:48:23Z
+local bytes 33295 bom False crlf False
+posted chars 33282 crlf in posted False bom False
+posted == local True
+lines before 370 now 372            (split on newline, against posted-r16.md)
+== insert  now 104-105
++ - The inventory rows found to restate a tested rule without naming its case are left as they are, and
++   stated in Known gaps.
+== replace 346 now 348
+- - [ ] Verified
++ - [x] Verified at `88d9ab4`
+name hits 0
+```
+
+| Claim, posted line | Proof |
+| --- | --- |
+| New bullet, 104-105: the rows are left as they are | a read of those rows in the four inventories this pass: the `check` cells of C-045 (`help grill-critic`), C-732 (`help merge-series-stack`), H-412 and H-1566 (`floor.md:5`) and H-1026 (`help host-turn-end`) name no quiz case; C-576 still names `a8-push-refused-default-branch`; `ls -la --time-style=full-iso evidence/`: newest file 05:27:32 local, as at the third pass |
+| New bullet: "stated in Known gaps" | posted lines 165-168 name H-412, H-1566, C-732, C-045, H-1026 and C-576, and say no search for every such row was made |
+| New bullet: a decision taken without the user | `$CHANTIER log CR-507`, 04:44:45Z: "F7 left (five rows a case tests do not name it), accepted: Known gaps narrowed and reposted" |
+| "Verified at `88d9ab4`", 348 | same log: `04:47:55Z driver verdict result=VERIFIED head=88d9ab40d706ce2442821ad77385812af35ba846`, the last verdict at the head, before the post at 04:48:23Z; `git rev-parse HEAD` is that SHA and `git status --porcelain` prints nothing |
+| "CI green at `88d9ab4`", 349 | `gh pr checks 487`: the three `just check` jobs, `just eval-dry-run` and `just scenario (ubuntu-latest)` pass (run 45748025918) |
+| Renders, no internal reference, no image, no username | `body.py`: sections Summary to Known gaps (1, 12, 89, 95, 142), one fold 228-369, no `![` or `<img`; CR and child references on lines 353 and 359 only, under "Internal references" (351); no username or home path. The new bullet is a list item with an indented continuation, ahead of the next bullet; no `STALE` mark |
+
+Observation, not a failure: the new bullet gives no reason for leaving the rows, which the PR template asks of an Autonomous decisions bullet; the Verifier card's description checks do not include it.
 
 Paths: `<worktree>` the CR's worktree, `<CR folder>` this CR's folder, `<next>` = `skills/chantier/cards-next`. Scripts: `work/verifier/scripts/r14/`, `r15/` and `r16/`; raw logs: `work/verifier/*.log`; before and after: `work/verifier/evidence/before-after.md`. "First pass" and "second pass" below: the two earlier runs at `88d9ab4`.
 
@@ -55,9 +85,9 @@ lines before 365 now 369
 
 The bullet's other sentences (four planned cases and eight Foreman behaviours marked as needing a case, read by hand, no run) are carried from the second pass: the text and the evidence are the same.
 
-## F8. The PR description as posted: VERIFIED (judged at 88d9ab4)
+## F8. The PR description as posted at the third pass: VERIFIED (judged at 88d9ab4, carried by D: the other lines are unchanged)
 
-The second pass verified the six claims that had failed, on a body that differs from today's in lines 159-167 only (`r16-body.log` above); from old line 164 on, add 4 to the line numbers.
+The second pass verified the six claims that had failed, on a body that differs from the third pass's in lines 159-167 only (`r16-body.log` above); from old line 164 on, add 4 to the line numbers.
 
 | Claim, posted line at the second pass | Proof |
 | --- | --- |
@@ -106,21 +136,23 @@ The 28 are capability lines of the host JSON, for which the specification asks n
 
 ### C23. Test plan boxes and evidence lines: VERIFIED (carried: those lines unchanged)
 
-"No test added or changed" (C3), `just check` at `88d9ab4` (C26), the byte copies, unloaded, links, index and Driver table lines (C8, C4, C12, C9, C13). "CI green at `88d9ab4`": C27. "Verified" unchecked: no claim.
+"No test added or changed" (C3), `just check` at `88d9ab4` (C26), the byte copies, unloaded, links, index and Driver table lines (C8, C4, C12, C9, C13). "CI green at `88d9ab4`": C27. "Verified at `88d9ab4`", now checked: D.
 
-### C27. CI at head, the long gate included: VERIFIED (re-read this pass)
+### C27. CI at head, the long gate included: VERIFIED (re-read this fourth pass)
 
 `gh pr checks 487`, run 45748025918: `just check` macos 7m42s, ubuntu 2m12s, windows 9m6s pass; `just eval-dry-run (ubuntu-latest)` pass 1m26s; `just scenario (ubuntu-latest)` pass 7m44s. No local scenario run is owed (no stack top); none was run here.
 
-### C28. Review box: VERIFIED (re-read this pass)
+### C28. Review box: VERIFIED (re-read this fourth pass; now posted line 347)
 
 `$CHANTIER log CR-507`: "r15 inspector approved at 88d9ab40d706ce2442821ad77385812af35ba846 (reviewed: the round's evidence changes, worktree unchanged, and pr-body.md)" and "r15 approved at 88d9ab40..., committed as 88d9ab40... (no new commit: the round changed evidence and pr-body.md only)". The box cites `88d9ab4` (posted line 345).
 
-### C29. Rendering, images, names: VERIFIED (searched again on today's body)
+### C29. Rendering, images, names: VERIFIED (third pass's body; searched again on today's in D)
 
 `posted-r16.md`, searched for `<details|</details>|<summary|^## |!\[|<img` and `CR-[0-9]|batch-[0-9]|child [0-9]|round [0-9]|<login name>|<home paths>`: sections Summary to Known gaps, one fold (lines 226-367), no image; CR and child references on lines 351 and 357 only, under "Internal references" (line 349); no username or home path. The new lines are one bullet's continuation lines, none starting with a list or heading marker; the role names in them are terms of the cards the diff changes.
 
 ## Claims carried
+
+Fourth pass: every claim outside D is carried from the third pass: the head and the worktree are the same, no evidence file changed, and the two changed body places enter no other proof.
 
 All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `03f973e`, as said). Reason for each: the head and every worktree file are the same, and neither the evidence's `check` cells (changed before the second pass) nor the changed body lines enter its proof. C1 and C22 were read again where said.
 
@@ -164,7 +196,9 @@ All were judged at `88d9ab4` in the first pass (C16 and parts of C18, C25 from `
 
 ## How this run departed from its rules
 
-This pass: none seen.
+Fourth pass: the rules command was run in the same step as the card's first read, not after it; some shell calls used a chain, and one changed folder into the worktree.
+
+Third pass: none seen.
 
 Second pass:
 
