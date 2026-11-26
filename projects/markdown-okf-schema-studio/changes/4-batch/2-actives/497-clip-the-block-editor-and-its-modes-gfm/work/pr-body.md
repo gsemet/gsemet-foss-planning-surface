@@ -52,7 +52,7 @@ The recipe has the maintainer review the storyboard before the take. Under the o
 - Mark 1 covers the union of the MyST buttons that have a box on screen.
 - Key frames `gfm`, `mode-select` and `myst`; `01-selected` and `02-pasted` are the kit's fixed names and are not linked.
 - The GIF sits under the "Full mode adds ..." sentence of `docs/user/editing.md`, inside that item.
-- At 11 s and in the last frame the faint hover outline and block handle of the paragraph still fade after Escape (no editor is open); kept as filmed.
+- After Escape at 11.3 s the paragraph's hover outline and block handle show, then fade up to the last frame (no editor is open); kept as filmed.
 - The clip was filmed on its own scratch folder (`CLIP_SCRATCH=C:/okfclip497`) and debugging port (`CLIP_PORT=9497`), with no kit change.
 
 ## Known gaps
