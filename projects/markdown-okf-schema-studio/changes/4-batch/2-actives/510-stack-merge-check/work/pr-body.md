@@ -1,6 +1,6 @@
 ## Summary
 
-New CI runs fail on a pull request above the bottom of a GitHub native stack: the checked-out test merge (`refs/pull/<n>/merge`) is then a chain of merges, one per pull request below plus its own, and the merge-commit check peeled only the last one. The check now peels the whole chain, so such a pull request passes `static`, `static-windows` and the required `checks`, while every merge commit that a branch of the stack really carries still fails it.
+New CI runs fail on a pull request above the bottom of a GitHub native stack: the checked-out test merge (`refs/pull/<n>/merge`) is then a chain of merges, one per pull request below plus its own, and the merge-commit check peeled only the last one. The check now peels the whole chain: on the chains its tests build, it passes a clean stack and still fails on every merge commit that a branch of the stack really carries.
 
 ## Deliverables
 
@@ -60,7 +60,7 @@ Grade: 2. The check is part of the required CI of every pull request; a defect w
 - [x] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`, 19 passed; on the previous script 4 of the new cases fail, and the 3 others guard against a looser check, so they pass on both by design
 - [x] Requirements: no behaviour change of the extension (build tooling, no requirement covers it)
 - [x] Changelog: no user-facing change (a `ci` change adds no line)
-- [ ] Local gates: `just ci-static`, `just preflight`
+- [x] Local gates: `just preflight` at `7d35be3` passed (on Windows it runs the static stage, `just ci-static`; 212 build tests passed, the merge-check ones included, and 4 Sphinx contract tests)
 - [x] Review: approved at `7d35be3`
 - [ ] CI green
 
