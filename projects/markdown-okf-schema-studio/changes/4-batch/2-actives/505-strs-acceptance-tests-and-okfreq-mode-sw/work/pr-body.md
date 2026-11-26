@@ -52,7 +52,7 @@ Groups with no acceptance file yet: rendering-core, code-blocks, gfm, myst, diag
 
 ### Trust and security software requirements
 
-Every one of the 94 scenarios of this group's software requirements now has a test marker (76 at the start of this work); no scenario was removed. In the tables, `NNN` stands for `SwRS-MDOKFSTUDIO-TRUST-NNN` and file paths are under `test/`. Across all groups, 702 of 2638 scenarios still have no marker, and 134 of 156 use case paths are not accepted.
+Every one of the 94 scenarios of this group's software requirements now has a test marker (74 at the base of this change); no scenario was removed. In the tables, `NNN` stands for `SwRS-MDOKFSTUDIO-TRUST-NNN` and file paths are under `test/`. Across all groups, 702 of 2638 scenarios still have no marker, and 134 of 156 use case paths are not accepted.
 
 | SwRS | Scenario | Now covered by |
 | --- | --- | --- |
@@ -74,6 +74,8 @@ Every one of the 94 scenarios of this group's software requirements now has a te
 | 090 | S8 | page/runtimePaletteActions (new test) |
 | 090 | S10 | page/runtimePaletteActions (new test), session/trustReq |
 | 092 | S4 | security/package-contract (new test) |
+| 092 | S1 | security/builtPackage (new test) |
+| 092 | S2 | security/builtPackage (new test) |
 
 Markers dropped by the earlier scenario numbering without a replacement, for this group:
 
