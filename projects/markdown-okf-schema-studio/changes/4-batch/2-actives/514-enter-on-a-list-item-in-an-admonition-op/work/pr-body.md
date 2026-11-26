@@ -71,8 +71,9 @@ edit the whole box with the mouse, click its title or its frame. In the editor o
 block, the `> ` markers are part of the text. While an editor is open inside an admonition, wide
 content of that admonition does not scroll.
 
-Screenshots from the visual test harness, before and after the change. A click on the title of an
-admonition or alert opens all of it, before and after.
+Screenshots from the visual test harness: before at `5f0746d` (carried from `cd3b8e6`: the same
+tree), after at `f9dc2c6`. A click on the title of an admonition or alert opens all of it, before
+and after.
 
 | Gesture | Before | After |
 | --- | --- | --- |
@@ -83,11 +84,12 @@ admonition or alert opens all of it, before and after.
 The re-filmed keyboard navigation clip walks with the arrows into an admonition, down to an item of
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
-ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change
+ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change before
+its last three commits (`b09dc7d` to `f9dc2c6`); the filmed walk opens the same lines at `f9dc2c6`
 ([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
 [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
 
-![Arrow keys walk into a note down to a nested list item, and Enter opens that line alone.](https://github.com/user-attachments/assets/eb774f44-e8d4-4507-a7f5-66117717246f)
+![Arrow keys walk into a note down to a nested list item, and Enter opens that line alone.](https://github.com/gsemet/markdown-okf-schema-studio/raw/f9dc2c630b852635e8bffcd0b00b42cc886b293c/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
 ## Blast radius
 
@@ -227,9 +229,9 @@ Outside a box:
   markers in code and tests; the checks of `just requirements-update` report nothing to change
 - [x] Changelog, at `f9dc2c6`: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just preflight` at `f9dc2c6` on Windows (the static stage) passed: 5503 unit
-  and contract tests (5495 pass, 0 fail, 8 skipped), then 116 of 116 security tests; 56 of 56 clip
-  kit tests; requirements validation 0 errors, 26 warnings. The visual stages did not run locally;
-  CI runs them
+  tests (5495 pass, 0 fail, 8 skipped), then 116 of 116 security tests; 56 of 56 clip kit tests;
+  requirements validation 0 errors, 26 warnings. The visual stages did not run locally; CI runs
+  them
 - [x] Review: approved at `f9dc2c6` (reviewed on `8539f1c` before the commit, committed unchanged)
 - [x] CI green at `f9dc2c6`: `checks`, `report`, `static`, `static-windows`, `viewer-graph`,
   `visual` and `visual-2` pass; the jobs that do not run for this pull request are skipped
