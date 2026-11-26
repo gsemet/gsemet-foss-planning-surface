@@ -14,5 +14,11 @@ Short name: `visual-job`
    (CR-512, CR-511, CR-513, CR-514, CR-507) sits above and gets the fix. The specification is written
    against CR-505's head as its base, not against main.
 
+3. Placement, replaces item 2 (2026-11-26, Chief of Staff, after the user's word "Il faut que tu
+   prioritize la finition du stack"): directly above CR-512
+   (https://github.com/gsemet/markdown-okf-schema-studio/pull/536) and below CR-511, so that CR-512,
+   already verified, does not wait for this change. The CI files of that base are CR-505's. If
+   CR-512's own CI cannot pass because of the `visual` limit, this change moves below CR-512.
+
 Destination: running batch batch-09.
 Spec critic: no, a CI change with no product behaviour (Chief of Staff; the owner may ask for it).
