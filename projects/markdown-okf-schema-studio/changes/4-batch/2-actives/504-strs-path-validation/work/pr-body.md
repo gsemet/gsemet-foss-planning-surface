@@ -388,7 +388,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [x] Local gates: `just preflight` (static stage on Windows, which runs `just check` and `just requirements-lint`) passes at `2c0a01a`
 - [x] Evidence: no visual change in the extension; the requirements site is checked by its unit tests and was compared in a browser, before at `17b779d`, after at `2c0a01a` (carried from `2f3c629`); screenshots not posted
 - [x] Review: approved at `2c0a01a`
-- [ ] Verified at the head
+- [x] Verified at `2c0a01a`
 - [x] CI green: all checks that run on a pull request pass at `2c0a01a`
 
 ## Internal references
