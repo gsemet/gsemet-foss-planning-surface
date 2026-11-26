@@ -8,5 +8,11 @@ Short name: `visual-job`
    backlog item only, with the same risk on every run. The question said that the CI rules forbid
    raising the limit to make a slow run pass.
 
+2. Placement (2026-11-26, Chief of Staff's decision under visual-job-Q1's "placed low in the stack"):
+   directly above CR-505 (https://github.com/gsemet/markdown-okf-schema-studio/pull/532, head 9d7e788)
+   and below CR-512. CR-509 and CR-505 are ready to merge and stay so; every CR that still waits for CI
+   (CR-512, CR-511, CR-513, CR-514, CR-507) sits above and gets the fix. The specification is written
+   against CR-505's head as its base, not against main.
+
 Destination: running batch batch-09.
 Spec critic: no, a CI change with no product behaviour (Chief of Staff; the owner may ask for it).

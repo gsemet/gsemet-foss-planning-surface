@@ -75,7 +75,7 @@ run. No quiz was run.
 | # | Claim (SHA) | Command and output | Verdict |
 | --- | --- | --- | --- |
 | 1 | `cards-next/` named nowhere (133640b) | `git grep -n cards-next HEAD` -> exit 1 | VERIFIED |
-| 1 | `cards-next/` empty; `REFS` equals BASE's staged set but for the named edits (4380df5, carried: M2 touches no `REFS`) | `<v2>/move.py`: 330 and 330 files; the 36 that differ are named in the body | VERIFIED |
+| 1 | `cards-next/` empty; `REFS` equals BASE's staged set but for the named edits (4380df5, carried: M2 touches no `REFS`) | `<v2>/move.py`: 330 and 330 files; 36 files differ, and those beyond the link lines are named in the body | VERIFIED |
 | 1 | Every removed path listed with its completeness row (b85be4c, carried: M2 removes no file) | `<v1>/rows.py` -> 45 paths, none without a row | VERIFIED |
 | 2 | Checklist truthful (133640b) | F3; rows 11 to 14 not done, order O-159 | VERIFIED |
 | 3 | Driver table, `"Change Request"`, `host` rows; `floor.md` and the two JSON files unchanged (b85be4c, 4380df5; carried: M2 touches none) | `verify-4380df5.md`, acceptance 3 | VERIFIED |
