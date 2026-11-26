@@ -2,14 +2,12 @@
 
 Head: 7d35be3430689c4979a58f471d4cd588ecb93fac
 
-Verdict: **NOT VERIFIED**. One failure, in the posted description (claim 11, third description
-pass): one Autonomous decisions sentence places the pull request "low in the current stack",
-which the stack's own data contradicts. Every claim about the code, tests, gates and CI is
-VERIFIED. All claims were judged at `7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first
-pass at this same head and base (no move): they were not re-run since, except where claim 11 says
-so. `<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. The earlier passes'
-throwaway files and detached worktree are removed; the third pass made none. Evidence:
-`verifier/evidence/before-after.md`.
+Verdict: **VERIFIED** (fourth description pass; see claim 11 and the verdict at the end). All
+claims were judged at `7d35be3`; base `5a73b6e`. Claims 1 to 10 come from the first pass at this
+same head and base (no move): they were not re-run since, except where claim 11 says so.
+`<worktree>` is the CR's worktree, `<scratch>` the CR's `work/scratch`. The earlier passes'
+throwaway files and detached worktree are removed; the third and fourth passes made none.
+Evidence: `verifier/evidence/before-after.md`.
 
 ## 1. Head, diff and scope: VERIFIED (7d35be3)
 
@@ -139,62 +137,69 @@ lower branch moved, upper not rebased:             previous exit 1 / head exit 1
 - Changelog and requirements boxes: `ci` change, no `src/` change (claim 1).
 - The wording of the UNVERIFIED bullet changed since this claim was judged: see claim 11.
 
-## 11. Posted description, third pass, whole body: NOT VERIFIED (7d35be3)
+## 11. Posted description, fourth pass: VERIFIED (7d35be3)
 
-State: `git rev-parse HEAD` `7d35be34...`, `git status --porcelain` empty, `git ls-remote` head
-and base unchanged. `diff --strip-trailing-cr <(gh pr view 530 --json body --jq .body)
-work/pr-body.md`: only one trailing empty line differs. `gh api .../pulls/530 --jq .body_html`:
-sections, table, task list and Mermaid block render. `grep -inE
+State: `git rev-parse HEAD` `7d35be34...`, `git status --porcelain` empty, `git ls-remote origin`
+head `7d35be34...` and base branch `5a73b6eb...`, both unchanged. `gh pr view 530 --json ...`:
+open, draft, head and base as above. `diff --strip-trailing-cr <(gh pr view 530 --json body --jq
+.body) work/pr-body.md`: only one trailing empty line differs.
+
+Only two sentences changed since the third pass judged the whole body. The third pass wrote its
+note at 03:56 UTC against the edit of 03:52:51Z; the one later edit is 03:56:49Z
+(`gh api graphql ... userContentEdits`). `diff` of those two versions: lines 38 (Impacts) and 50
+(Autonomous decisions, third bullet), nothing else. The rest of the body is carried from the third
+pass (same head, same text), whose findings on it were all "passed".
+
+Autonomous decisions, third bullet: true.
+
+```text
+- The fix ships as a pull request in the current stack, based on the branch of #522, not as a
+separate one on the default branch: no pull request below it moves, and every pull request stacked
+on it checks out the fixed script.
+```
+
+- "based on the branch of #522", not on the default branch: 530's `baseRefName` is #522's
+  `headRefName` (`.../cr-501-clip-keyboard-navigation-in-nested-admon`), `baseRefOid` `5a73b6e` =
+  #522's head (`gh pr list --state open`).
+- "no pull request below it moves": heads 512 `8c6845a`, 513 `1d55649`, 514 `c3c3a57`, 515
+  `cae819b`, 517 `d386ff6`, 518 `af4a4aa`, 519 `37ef61b`, 521 `b7518fb`, 522 `5a73b6e`, the same
+  as at the third pass, each the base of the next, and 522's the base of 530: the fix needed no
+  rebase below it.
+- "every pull request stacked on it": a branch stacked on this one contains `7d35be3`, which
+  carries the script (claim 1). No open pull request is based on this branch yet; #516 and #529
+  are based on #522's branch, beside it, and the bullet claims nothing of them.
+- "in the current stack": by its base branch. It is not yet in the forge's stack 528
+  (`gh api .../stacks`: 512 to 522 and 516), as Known gaps says ("not linked into the stack yet").
+- The decision is `02-answers.md` Q1, taken without the user.
+
+Impacts: true as far as the forge's observed behaviour goes.
+
+```text
+For a stacked pull request that contains this fix, in a stack whose branches are rebased on one
+another, the check no longer fails on the forge's own test merges (shown on the tests' chains and
+on the replayed real chain; a live chain in CI is listed under Known gaps).
+```
+
+- "shown on the tests' chains and on the replayed real chain": claims 3, 6 and 7 (carried).
+- Live chain listed under Known gaps: the UNVERIFIED bullet is there.
+- The stack of the failing run reports the default branch as base: `gh run view 45741461955
+  --log-failed`, both static jobs run the script with `"origin/main"`, on PR #516, whose own base
+  is a lower branch. With that base the chain's root (the default branch tip the forge merged on)
+  is an ancestor of the base, the condition of the walk.
+
+Whole body: `gh api .../pulls/530` full body_html renders the sections and both new sentences
+(`#522` links to the pull request). `grep -inE
 "gaeta|semet|C:.Users|/home/|/Users/|!\[|<img|STALE|UNVERIFIED"` on the posted body: the one
-match is the Known gaps UNVERIFIED bullet (no image, no username or home path, no STALE mark).
-`gh pr checks 530`: same results as claim 9; `gh run list --commit 7d35be3...`: the one run
-45748406898, success.
+match is the Known gaps UNVERIFIED bullet. `gh pr checks 530`: `checks`, `report`, `static`,
+`static-windows`, `viewer-graph`, `visual` pass, the others skipping (run 45748406898). Review
+box: `chantier log CR-510`, `r1 approved at 5a73b6e..., committed as 7d35be34...`. "Verified at"
+unchecked as intended.
 
-Passed:
+Observation, not a failure (read in `scripts/check-no-merge-commits.sh`, not probed): if a forge
+ever checked out a chain while naming a lower branch as the base, and the default branch had moved
+past what that lower branch contains, no first parent of the chain would be an ancestor of that
+base, and the merges would be reported. The one observed stack run names the default branch; the
+specification keeps the lower-base case as "should the forge report it". The first CI run after
+the pull request is linked into the stack shows which base the forge gives.
 
-- The second pass's failure is fixed: the UNVERIFIED bullet now says the tests run the check on
-  their chains "locally and in the CI run at `7d35be3`" (`ci-45748406898.log` lines 6079 and
-  13392, `212 passed` in both static jobs), the real chain "replayed locally only", a single test
-  merge in CI (`Merge 7d35be34... into 5a73b6eb...`, lines 292 and 7608), and the pull request not
-  linked into the stack (stack 528 below). Its one `UNVERIFIED` mark has its bullet.
-- Title, project template sections in order, Autonomous decisions, Internal references last; no
-  internal reference outside it. Summary, diagram and Changes match `git diff 5a73b6e HEAD`.
-- Table, five rows: `verifier/evidence/real-chain.txt`, `tests-before.txt`, `tests-after.txt`;
-  the single-merge tests use the subject `test merge`, so "no subject required" holds.
-- Autonomous decisions: they are `02-answers.md` decisions taken without the user (Q1, Q2, Q5).
-- Known gaps, other bullets: claim 10 probes. Test plan: claims 3 to 9; Review box matches the
-  `chantier log` note `r1 approved at 5a73b6e..., committed as 7d35be34...`; "Verified at"
-  unchecked as intended.
-
-Failure: Autonomous decisions, third bullet.
-
-```text
-- The fix ships as a pull request low in the current stack, not as a separate one on the default
-  branch: no pull request below it moves, and every pull request above it checks out the fixed
-  script.
-```
-
-`gh api repos/gsemet/markdown-okf-schema-studio/stacks`, stack 528 (open, base `main`), listed
-bottom to top:
-
-```text
-512 8c6845a, 513 1d55649, 514 c3c3a57, 515 cae819b, 517 d386ff6, 518 af4a4aa, 519 37ef61b,
-521 b7518fb, 522 5a73b6e, 516 8ce169f
-```
-
-`gh pr list --state open --json number,baseRefName,headRefName,isDraft`: 530's base is 522's
-branch, and the bases run down 522, 521, 519, 518, 517, 515, 514, 513, 512, `main`; 512 to 522
-are ready, 516, 524, 529 and 530 are drafts. So nine of the stack's pull requests are below this
-one and, in stack 528, only 516 sits at that level or higher: it is near the top, not low. The
-position is "directly above the highest ready pull request" (`02-answers.md` Q1, Q4).
-
-Fix, in `pr-body.md` and on the pull request, for that bullet: "The fix ships as a pull request in
-the current stack, directly above its highest pull request ready for review, not as a separate one
-on the default branch: no pull request below it moves, and every pull request stacked on it checks
-out the fixed script." Then a description-only pass. No code change needed.
-
-Observation, judged not a failure (optional in the same edit): Impacts, "A contributor whose
-stacked pull request contains this fix no longer gets a red `static` job from the forge's own test
-merges", is proved for a nested stack (claims 6, 7; live CI marked unverified in Known gaps) and
-its exception, a lower branch moved without a rebase, is stated in Known gaps. "whose rebased
-stacked pull request" would say it in place.
+**VERIFIED** (7d35be3).
