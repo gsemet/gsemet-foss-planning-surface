@@ -97,8 +97,10 @@ Documentation, the project site and one new unit test. A plain `git revert` remo
   page.
 - The built site was checked with `just site-from-run` (the reports of a green full CI run, then
   `just site-assemble` on this branch), because `just site-assemble` alone needs end-to-end reports.
-- The rebase onto the default branch had one conflict, in the requirements log: both new entries are
-  kept whole.
+- The change is two commits where one was planned: the second names the second visual job,
+  `visual-2`, which a change merged underneath added, and states which stress scenarios run only
+  when named. Commits already pushed are not folded together.
+- The rebases of this branch conflicted only in the requirements log: all entries are kept whole.
 
 Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx fixtures are in
 `sphinx/tests/fixtures/`; no target calls `test/release/audit-lockfile.mjs`.
@@ -113,17 +115,16 @@ Seen and left as they are: `AGENTS.md` names `tests/fixtures/` while the Sphinx 
 - The drift test does not see a removed or renamed item that the page still names (except in the
   coverage mode and acceptance group lines), when a level runs, or the content of the diagram, and no
   guideline rule covers a change of a test level's own `just` command.
-- The page does not say that some stress scenarios run only when named.
+- The first of the two commits fails the page's drift test on its own. It does not name the
+  `visual-2` job of the current CI workflow; the second commit does.
 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: no user-facing change
-- [x] Local gates at `fb5fb2f`: `just preflight` (static stage on Windows) passed: unit 5378 tests,
-  5370 pass, 0 fail, 8 skipped; security 116 of 116; release tests 254 passed; requirements 0 errors;
-  Sphinx 4 passed; audit 0 vulnerabilities
-- [x] Review: approved at `fb5fb2f`
+- [ ] Local gates
+- [ ] Review
 - [ ] Verified
 - [ ] CI green
 
@@ -139,16 +140,17 @@ The new and changed tests against the previous code: 13 of 49 fail.
 - "SIMPLE_CARDS covers the home, Contributing, How we ship and How we test pages": the entry
   `docs/how-we-test.md` is missing.
 
-Built site, a scan of the new page and the headers (on an earlier wording of the page, edited
-since): 20 headings, 10 table rows, 11 relative links, the six header links in order on the home
-page, "How we ship", "How we test" and a requirements viewer page, the manifest's page and card
-entries and `og/how-we-test.png`: no problem found.
+Built site, made with the reports of a green full CI run on an earlier commit below this branch, then
+a scan of the new page and the headers: 20 headings, 10 table rows, the diagram resolves, 11 relative
+links all resolve, the six header links in order on the home page, "How we ship", "How we test" and a
+requirements viewer page, the manifest's page and card entries and `og/how-we-test.png`: no problem
+found.
 
-Drift probes (same earlier wording), each a temporary edit then `just unit`, each with one failing
-test:
+Drift probes, each a temporary edit then `just unit`, each with one failing test (5443 tests, 5435
+pass, 1 fail, 7 skipped):
 
-- every mention of the `stress` job removed from the page: "How we test names every CI job",
-  missing `stress`;
+- every `stress` of the page replaced by `stress-probe`: "How we test names every CI job", missing
+  `stress`;
 - coverage mode set to `linked-swrs-and-acceptance-paths`: `the page names the coverage mode
   linked-swrs-and-validation-test, requirements/config.yml has linked-swrs-and-acceptance-paths` and
   `the page keeps "## What is not enforced yet" under the mode linked-swrs-and-acceptance-paths`;
