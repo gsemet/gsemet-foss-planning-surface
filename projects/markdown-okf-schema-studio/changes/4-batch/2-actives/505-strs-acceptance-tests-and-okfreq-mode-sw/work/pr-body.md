@@ -175,7 +175,7 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 ## Known gaps
 
 - The 3-minute test step of an acceptance shard ends before the default budget of a test step (3 minutes) and the 15-minute launch deadline can expire: a hang that no shorter check catches leaves the processes and logs left behind, without the window state and screenshots.
-- The two timeouts come from two attempts of one shard in one run; a slower group added later has to measure and set them again.
+- Both timeouts come from one shard's first attempt in one run (a second attempt was faster); a slower group added later has to measure and set them again.
 - `StRS-MDOKFSTUDIO-TRUST-012` (both paths) and `StRS-MDOKFSTUDIO-TRUST-014` S1 are not accepted: the public VS Code API cannot read the preview's texts or the Extensions view, and a test performs no install. Each needs another kind of test, or a decision, before the coverage mode can be switched.
 - The table of `SwRS-MDOKFSTUDIO-TRUST-065` scenario S2 omits newer message types of the preview page; its test checks the listed types only. The requirement text needs an update.
 - The other requirement groups have no acceptance file; the coverage mode is not switched and no gate fails on an untested scenario or a path not accepted.
@@ -192,8 +192,8 @@ Grade: **3**. CI, release tagging and the Pages report reuse change. A `git reve
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] New or changed tests: the runner, attempt selection, unpacking and workflow tests exercise code that is new here; the new scenario tests cover existing behaviour and so pass on the previous code (four tightened ones were seen to fail with the behaviour broken)
+- [x] Requirements: two SwRS updated and one verification note corrected, markers in tests, `just requirements-update`
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just preflight` passed at `0feab1d9` on Windows, where it runs the static stage only
 - [ ] Evidence:
