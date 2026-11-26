@@ -61,7 +61,8 @@ Grade: 1. Requirements text, one unit test and test markers; nothing shipped to 
 
 - [ ] New or changed tests (they fail on the previous code): no behaviour change. The new unit test
       passes on the current code and fails (`AssertionError: TABLE`) when the widening rule is
-      temporarily changed to accept any element.
+      temporarily changed to accept any element, and (`AssertionError: P`) when only the check that
+      an image's paragraph is at the top level is removed.
 - [ ] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` changed (one scenario added), source
       `src/page/modules/widthMode.ts` (unchanged), tests `test/page/runtimePageControls.test.ts`
       and `test/page/codeBlockBreakout.test.ts`; `just requirements-update` run
