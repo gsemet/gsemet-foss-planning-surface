@@ -23,6 +23,8 @@ five rows of three values are pasted into a table of two columns and one body ro
 | The committed test (after the existing body-cell paste test) | pass (2 runs) |
 | The committed test, repeated in one window | pass, 20 of 20, in each of 2 runs |
 | The clip itself, with both ways the clip tool can send the keys | yes (5 of 5 takes) |
+| The committed test in CI's real-window suite (Linux), at `e76c084` | pass (2 runs) |
+| The committed test repeated alone in CI (Linux), at `e76c084` | pass, 11 of 11 |
 
 ```mermaid
 flowchart LR
@@ -64,15 +66,18 @@ new real-window test that fails intermittently in the manually started or post-m
 
 ## Test plan
 
-- [ ] New or changed tests: the new real-window scenario covers behaviour that already works, so it
-      also passes on the previous code
-- [ ] Requirements: verification notes updated, marker in the new test,
-      `just requirements-update` and `just requirements-lint`
+- [x] New or changed tests at `e76c084`: the new real-window scenario covers behaviour that already
+      works, so it also passes on the previous code
+- [x] Requirements at `e76c084`: verification notes updated, marker in the new test,
+      `just requirements-update` and `just requirements-lint` (0 errors)
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just preflight` (on Windows, the static checks)
-- [ ] Review
+- [x] Local gates at `e76c084`: `just check` and `just preflight` (on Windows, the static checks)
+      pass
+- [x] Review: approved at `e76c084`
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `e76c084`: the pull request checks (the visual job passed on its second run; the
+      first was cut at its 15-minute limit just after its checks had passed), and two manually
+      started runs that include the real VS Code jobs
 
 ## Autonomous decisions
 
