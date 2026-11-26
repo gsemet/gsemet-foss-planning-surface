@@ -14,7 +14,7 @@ The base is `main`.
 | Area | Added under `skills/chantier/cards-next/` |
 | --- | --- |
 | Foreman | `foreman.md`, its topics |
-| Chief of Staff, Griller | `chief-of-staff.md`, `griller-skill.md`, one sentence of `griller.md`, their topics, quiz cases under `evals/quiz/chief-of-staff/` |
+| Chief of Staff, Griller | `chief-of-staff.md`, `griller-skill.md`, one sentence and one clause of `griller.md`, their topics, quiz cases under `evals/quiz/chief-of-staff/` |
 | Shared | `concepts.md`, `pr-template.md`, `release-template.md`, `status-layout.md`, `routing.md`, `init.md`, `review-step.md`, `sync-checkout.md`, `ticket-summary-example.md`, `forges/` |
 | Hosts | `hosts/claude-code.json` and `copilot.json` (byte copies), `hosts/claude-code.md` (allow rules), `topics/host-*.md` |
 | Skills | `skills/{chantier,chief-of-staff,griller,status}-SKILL.md` |
@@ -75,8 +75,9 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,997 (4,000
 | board-griller, on an inbox item | 11,964 | 3,132 |
 | direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,933 |
 
-Host claude, no unit but where a row says otherwise. Every row was measured in one run on the cards of
-this PR's last commit. A unit's brief also holds the unit's facts from the record, so the six workers'
+Host claude, no unit but where a row says otherwise. Every row was measured in one run before this PR's
+last commit; a run at `88d9ab4` gives the same bytes for every row but the six workers', each 396 bytes
+less on both sides. A unit's brief also holds the unit's facts from the record, so the six workers'
 bytes, measured on this change's unit, move between measurements on both sides (today's coder brief:
 9,575 here, 9,790 and 9,116 in earlier measurements). Start readings before this change, as the specification gives
 them (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB, Griller 145 / 36 KB.
@@ -180,12 +181,13 @@ Grade: 1
 - "Never fix a check red on the default branch there" is stated in `inspector.md` only, not in
   `verifier.md` or the `ci` topic; no card names the forge's "Update branch" button (the `ship`
   refusal covers it).
-- Inventory homes: of the 4,224 rows of the four inventories, 3,916 name a text home under `cards-next/`.
-  A script compared each one's source sentences at the base with its home's words. At least 1,835 of
+- Inventory homes: of the 4,127 rows of the four inventories, 3,885 name a text home under `cards-next/`.
+  A script compared each one's source sentences at the base with its home's words. At least 1,824 of
   them, every row it still flags included, were read by hand against the home, and the losses found were
-  fixed. The other rows (at most 2,081) were not read by hand in that pass, and a lost condition worded
-  with the home's own words can escape the script. Each of the four inventories lists the
-  protecting-looking rows a topic carries, for the later review.
+  fixed. The other rows (at most 2,061) were not read by hand in that pass, and a lost condition worded
+  with the home's own words can escape the script. Each of the four inventories has a list of
+  protecting-looking rows for the later review; at least one such row a topic carries is not listed
+  (FM-103).
 - Rules, or parts of rules, held by no card, floor or refusal: never rewrite an earlier retro section
   (FM-026); a held agent that has ended with no transcript is cleared on the user's word (C-304);
   another session's Driver is cleared only on the user's word that it does not run (C-885, part: the
@@ -294,7 +296,7 @@ The labels of the specification's section 4. Rows are `FM-` rows of `cards-inven
 | B5b | yes | B045 | refusal "cancel <cr>: no destination recorded; …" (`commands/release.py:137`) | `orders` |
 | B5c | yes | B046-B051 | card:29; refusal "<cr> is <status>: a Driver takes it back only with `--note` …" (`rails.py:249`); B047-B051: inferable or topic | `take-back` |
 | B5d | no | B052 | topic only | `take-back` |
-| B6 | yes | B053, B054 | card:24, with "stop" and "hold" only (the third case, the user's words in the Foreman's chat, is dropped by default) | - |
+| B6 | yes | B053, B054 | card:24, with "stop" and "hold" only (the third case, the user's line allowing a refused action, is dropped as the specification sets it: a refused command goes to the Chief of Staff) | - |
 | B7a | yes | B055 | card:22 | - |
 | B7b | yes (the named exception) | B056, B065 | card:22 | `drop` |
 | B7c | yes | B057-B059 | card:22, card:25; floor 5; B057: topic | `cleanup` |
@@ -311,7 +313,7 @@ The labels of the specification's section 4. Rows are `FM-` rows of `cards-inven
 
 ## Impacts
 
-No visual change; nothing loads the new files.
+No visual change; no session loads the new files (`just quiz` and `just eval-dry-run` read the quiz cases).
 
 ## Test plan
 
@@ -342,10 +344,11 @@ No visual change; nothing loads the new files.
   stack batch, `shape: stack: read `$CHANTIER help stack` now and after each compaction`. Child 24
   changes `src/stack_shape.py`'s `shape_line()`, which prints
   `rules: {skill_dir}/references/foreman-stack.md (reread after a compaction)`, a path the swap
-  removes, and converts the tests that read the old Foreman cards: `test_came_back.py`,
+  removes, and converts the tests the specification names as reading the old Foreman cards: `test_came_back.py`,
   `test_stack_shape.py`, `test_reload_rules.py`, `test_role_cards_split.py`,
   `test_startup_manifest.py`, `test_stack_chain_cards.py`, `test_rebase_rules.py`,
-  `test_release_tag.py` and `moved_rules.tsv`.
+  `test_release_tag.py` and `moved_rules.tsv`; `test_plugin_files.py`, not named there, reads
+  `foreman-stack.md` too.
 
 </details>
 
