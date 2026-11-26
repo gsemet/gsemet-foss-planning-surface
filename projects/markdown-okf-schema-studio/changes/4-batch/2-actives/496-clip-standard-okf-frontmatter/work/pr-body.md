@@ -16,7 +16,7 @@ Contact sheet of the take:
 
 ## Changes
 
-- `docs/demo-video/clips/okf-frontmatter/`: the stage, the live storyboard, the scenario, and the rendered MP4, WebM, GIF, poster, contact sheet, key frames and `check.json` (11.5 s, 1280x720, 15 fps, a loop).
+- `docs/demo-video/clips/okf-frontmatter/`: the stage, the live storyboard, the scenario, and the rendered MP4, WebM, GIF, poster, contact sheet, key frames and `check.json` (11.5 s, a loop; MP4 and WebM at 1280x720 and 15 fps, GIF at 960 px and 12 fps).
 - `docs/user/okf.md`: the clip on the OKF user page.
 - Tests: the shipped storyboard and stage and the scenario checks in the clip kit, and a site test of the OKF page playing the clip.
 
@@ -46,7 +46,7 @@ The take does not prove motion, rhythm, the loop as watched or the texts and the
 
 ## Deviation from the feature clip process
 
-The recipe has the maintainer review the storyboard before the take. Under the owner's rule of the first clip stack that review moved after the take, into this pull request: the take was filmed from the drafted storyboard. A review change lands as follows: an *(on screen)* row changed is a render (`just clip okf-frontmatter render`, then `check`); a *(filmed)* row is a retake, a follow-up. This clip has a twin, `okf-schema-bundle-frontmatter` (the same page inside an OKF Schema bundle), to watch side by side.
+The recipe has the maintainer review the storyboard before the take. Under the owner's rule for these feature clips that review moved after the take, into this pull request: the take was filmed from the drafted storyboard. A review change lands as follows: an *(on screen)* row changed is a render (`just clip okf-frontmatter render`, then `check`); a *(filmed)* row is a retake, a follow-up. This clip has a twin, `okf-schema-bundle-frontmatter` (the same page inside an OKF Schema bundle), to watch side by side.
 
 ## Autonomous decisions
 

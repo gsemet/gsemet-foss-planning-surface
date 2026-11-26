@@ -12,7 +12,7 @@ A short feature clip of the Width button's Auto mode on a very wide table. A pag
 
 ## Changes
 
-- `docs/demo-video/clips/wide-table-auto-width/`: the stage, the live storyboard, the scenario, and the rendered MP4, WebM, GIF, poster, contact sheet, first and last frames, key frames and `check.json` (10.6 s, 1280x720, 15 fps, a loop).
+- `docs/demo-video/clips/wide-table-auto-width/`: the stage, the live storyboard, the scenario, and the rendered MP4, WebM, GIF, poster, contact sheet, first and last frames, key frames and `check.json` (10.6 s, a loop; MP4 and WebM at 1280x720 and 15 fps, GIF at 960 px and 12 fps).
 - `docs/user/wide-tables.md`: the clip under the existing capture.
 - Tests: the shipped storyboard and stage and the scenario checks in the clip kit, and a site test of the wide tables page playing the clip.
 
@@ -42,7 +42,7 @@ The take does not prove motion, rhythm, the jump at the click, the loop as watch
 
 ## Deviation from the feature clip process
 
-The recipe has the maintainer review the storyboard before the take. Under the owner's rule of the first clip stack that review moved after the take, into this pull request: the take was filmed from the drafted storyboard. A review change lands as follows: an *(on screen)* row changed is a render (`just clip wide-table-auto-width render`, then `check`); a *(filmed)* row is a retake, a follow-up.
+The recipe has the maintainer review the storyboard before the take. Under the owner's rule for these feature clips that review moved after the take, into this pull request: the take was filmed from the drafted storyboard. A review change lands as follows: an *(on screen)* row changed is a render (`just clip wide-table-auto-width render`, then `check`); a *(filmed)* row is a retake, a follow-up.
 
 ## Autonomous decisions
 
