@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Stack CI: the merge-commit check accepts the forge's chained test merge",
+  "summary": "Specified: the merge-commit check peels a nested chain of GitHub test merges (subject Merge <sha> into <sha>) rooted on the base and still reports every merge a stack branch carries; single test merge unchanged; proof by unit tests and the PR's CI above CR-501.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "cf4d471393d601d1a5e7017b312fa516617a86a717c788c5c99c065b17db2c81",
+    "02-answers.md": "480a52a852ccb14931ed324127881bbb4a0cc182802107e4fd05eee830a0181a",
+    "03-change-spec.md": "570fe1265013338d63f081d00f00c03a40a3221e2894f86da4620590d93175cf",
+    "intake/request.md": "f7db5cb2a68c859d394db1cdc41faa8befdc50f7df415f0cda812b72785bc4d2"
+  },
+  "summarized": "2026-11-26T02:38:45Z"
+}

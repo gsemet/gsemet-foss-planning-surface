@@ -8,3 +8,5 @@ Short name: `stack-merge-check`
 Spec critic: no, it changes one CI script and its tests.
 
 Destination: running batch batch-09.
+
+5. stack-merge-check-Q5 (2026-11-26, night, decided by the Chief of Staff): **Require GitHub's subject for chains.** A chain of two or more merges is accepted only when each of them also has the forge's test-merge subject `Merge <sha> into <sha>`; a single test merge keeps today's behaviour (GitLab included). The Driver reads the real subjects of the observed chain first; if they differ, it matches what GitHub writes and says so in the pull request.
