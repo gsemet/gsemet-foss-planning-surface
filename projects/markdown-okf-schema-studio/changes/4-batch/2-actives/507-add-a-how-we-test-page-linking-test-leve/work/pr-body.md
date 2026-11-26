@@ -172,15 +172,15 @@ The tests that fail on the base `4e4eeb4`:
   `docs/how-we-test.md` is missing.
 
 Built site at `6c5106e`, made with the reports of a green full CI run on a commit with the same
-files as one below this branch, then a scan: the new page has 20 headings and a table of 10 rows,
-its diagram and its 11 relative links resolve, the home page, "How we ship", "How we test" and the
-requirements viewer home list the six header links in order, as does every other page with a site
-header (643 pages), and the site manifest lists the page and `og/how-we-test.png`.
+files as one below this branch, then a scan: the new page has 20 headings and one table of 10 rows,
+header row included; its 11 relative links and image addresses all resolve; all 643 pages with a site
+header, requirements viewer pages included, list the six header links in order; and the site manifest
+lists the page and `og/how-we-test.png`.
 
 Drift probes at `6c5106e`, each a temporary edit then `just unit`, each with one failing test (5443
 tests, 5435 pass, 1 fail, 7 skipped):
 
-- every `stress` mention removed from the page: "How we test names every CI job", missing `stress`;
+- every `stress` code span removed from the page: "How we test names every CI job", missing `stress`;
 - coverage mode set to `linked-swrs-and-acceptance-paths`: `the page names the coverage mode
   linked-swrs-and-validation-test, requirements/config.yml has linked-swrs-and-acceptance-paths` and
   `the page keeps "## What is not enforced yet" under the mode linked-swrs-and-acceptance-paths`;
