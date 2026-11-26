@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": {
+    "editMode": "on",
+    "paste": true
+  },
+  "outcome": {
+    "text": "# Release 2.4 checklist\n\n| Task | Owner | Due |\n| --- | --- | --- |\n| Freeze the branch | Ana | Mon |\n| Run the migrations | Ben | Tue |\n| Restart the workers | Chen | Wed |\n| Announce the release | Dev | Thu |\n"
+  },
+  "notes": {
+    "readingMode": "on",
+    "selectedRows": 5,
+    "pasteWidgets": 0,
+    "tableShape": {
+      "headers": [
+        "Task",
+        "Owner",
+        "Due"
+      ],
+      "rows": [
+        [
+          "Freeze the branch",
+          "Ana",
+          "Mon"
+        ],
+        [
+          "Run the migrations",
+          "Ben",
+          "Tue"
+        ],
+        [
+          "Restart the workers",
+          "Chen",
+          "Wed"
+        ],
+        [
+          "Announce the release",
+          "Dev",
+          "Thu"
+        ]
+      ]
+    },
+    "cellEditorOpenAfterPaste": true,
+    "cellEditorOpen": false
+  }
+}
