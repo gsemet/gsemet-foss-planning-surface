@@ -25,6 +25,11 @@ flowchart LR
 | Job limit | 15 minutes | 15 minutes each |
 | Local run | `just ci-visual` | `just ci-visual` (both parts, then the merge); `just ci-visual 1` or `2` runs one part |
 
+On the CI run of this pull request at `2fb89df`, `visual` took 413 seconds and `visual-2` 476
+seconds, out of 900 each. The `report` job merged them into one result with all 523 scenarios
+passed, and both jobs installed their system packages from the cache without contacting the package
+mirror.
+
 ## Changes
 
 - `test/visual/capture.py --part 1|2` runs the groups listed for that part (`VISUAL_PARTS`) and
@@ -63,8 +68,7 @@ No visual change: only CI, its scripts, its tests and the contributor docs chang
 
 Grade: 2. It changes the CI jobs that gate merges and which runs the site deployment reuses. It
 changes no data, file format or public API, and no publication step: a plain `git revert` restores
-the single job, with nothing to migrate. The first runs after the merge show whether the time limit
-holds.
+the single job, with nothing to migrate.
 
 ## Autonomous decisions
 
@@ -83,24 +87,30 @@ holds.
 
 - Locally, when the two parts were run one by one without a pinned run id, the merge step prints
   `visual parts: merged` and the review step then fails with a message that names no remedy. The
-  `justfile` comment and the contributor guide give it: run `just ci-visual` with no part.
+  contributor guide gives it: run `just ci-visual` with no part.
 - One sentence of the contributor guide, on the job that also runs the table breakout width tests,
   reads awkwardly ("and in part 1 then ..."); its meaning is unchanged.
+- The first run on `main` after the merge, where the real VS Code jobs also run and the report job
+  merges their results with both parts, has not happened yet; the job durations and the merged report
+  are to be checked on it.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): new `test/build/test_visual_parts.py`
-  and changed workflow and run selection tests; against the code of the base branch the new file does
-  not import and the changed tests fail
-- [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-076` updated (new scenario S12), markers in code and
-  tests, `just requirements-update` leaves no change
-- [x] Changelog: No user-facing change
+- [x] New or changed tests (they fail on the previous code), at `2fb89df`: new
+  `test/build/test_visual_parts.py` and changed workflow and run selection tests, 184 passed;
+  against the code of the base at `b9a1abd` the new file does not import and 18 cases of the two
+  changed files fail
+- [x] Requirements, at `2fb89df`: `SwRS-MDOKFSTUDIO-CORE-076` updated (new scenario S12), markers
+  in code and tests, both steps of `just requirements-update` in check mode report no change
+- [x] Changelog, at `2fb89df`: No user-facing change
 - [x] Local gates: `just preflight` at `2fb89df` on Windows (the static stage, which runs
   `just check`) passed: 5358 unit and contract tests passed, 0 failed, 8 skipped, then 116 of 116;
   56 of 56 clip kit tests; 296 Python tests passed; requirements validation 0 errors, 26 warnings.
   The visual stages did not run locally; CI runs them
 - [x] Review: approved at `2fb89df` (carried from `0b310d4`)
-- [ ] CI green
+- [x] CI green at `2fb89df`: `static`, `static-windows`, `viewer-graph`, `visual`, `visual-2`,
+  `report` and `checks` passed; the real VS Code, release and Pages jobs do not run on this pull
+  request
 
 ## Internal references
 
