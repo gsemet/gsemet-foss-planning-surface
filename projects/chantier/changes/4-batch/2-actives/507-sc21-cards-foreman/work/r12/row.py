@@ -31,7 +31,16 @@ for name in sorted(old_files - {"topics.json"}):
     for part in parts:
         actual[part] = {n for n, line in enumerate(ns["read"](part), 1) if line not in before}
 
-body = (HERE.parents[1] / "pr-body.md").read_text(encoding="utf-8").split("\n")
+whole = (HERE.parents[1] / "pr-body.md").read_text(encoding="utf-8")
+if "--pairs" in ARGS:
+    import json
+
+    for pair in json.loads((HERE.parent / "r12-body.json").read_text(encoding="utf-8")):
+        count = whole.count(pair["old"])
+        print("pair: old found", count, "time(s):", pair["old"])
+        assert count == 1
+        whole = whole.replace(pair["old"], pair["new"])
+body = whole.split("\n")
 ENTRY = r"([\w./-]+) (\d+(?:(?:, | and )\d+)*)(?![\d,]*[a-z-])"
 listed: dict[str, set[int]] = {}
 where: dict[str, list[int]] = {}
