@@ -1,0 +1,16 @@
+[
+  ["release-template.md", "  - **restore**: it undoes a mistake of an earlier release;", "  - **restore**: it undoes a mistake of an earlier release (a revert, a behaviour put back);"],
+  ["release-template.md", "  - **internal**: nothing the user sees changes.", "  - **internal**: nothing the user sees changes (tooling, tests, docs process)."],
+  ["release-template.md", "the user decides, the Driver never changes the version itself.", "the user decides, the Driver never changes the version itself: it states this in the PR and asks no question."],
+  ["release-template.md", "Say the consequence for the user, not the mechanism.", "Say the consequence for the user, not the mechanism: what they see or can do, not how the code does it."],
+  ["release-template.md", "Never only in a folded section, never inside a paragraph about something else, never softened (\"streamlined\") when the truth is \"removed\".", "Never only in a folded section (a user-facing known issue is not a contributor's detail), never inside a paragraph about something else, never softened (\"streamlined\", \"simplified\") when the truth is \"removed\"."],
+  ["release-template.md", "and before the version PR's body is refreshed), answer", "and before the version PR's body is refreshed from them), answer"],
+  ["review-step.md", "A review the project added to the team. Your prompt", "A review the project added to the team in its `AGENTS.md` `chantier` section. Your prompt"],
+  ["review-step.md", "The rules (`$CHANTIER rules`) rank above this card.", "Read the rules (`$CHANTIER rules`) first: where they touch your task they rank above this card."],
+  ["topics/worker-shell.md", "- Run no `sleep` and no background shell.\n", "- Run no `sleep` and no background shell.\n- Write `$CHANTIER` out in full in each call, never in a shell variable.\n"],
+  ["topics/session-shell-p1.md", "The shell calls of a Driver, a steering session, a Griller and a specification or retro agent.\n", "The shell calls of a Driver, a steering session, a Griller and a specification or retro agent. Write `$CHANTIER` out in full in each call, never in a shell variable.\n"],
+  ["skills/chantier-SKILL.md", "Carry `$CHANTIER` verbatim into every brief and command:", "Carry `$CHANTIER` verbatim into every brief and command, in full, never in a shell variable:"],
+  ["skills/chief-of-staff-SKILL.md", "Carry `$CHANTIER` verbatim into every brief and command:", "Carry `$CHANTIER` verbatim into every brief and command, in full, never in a shell variable:"],
+  ["skills/griller-SKILL.md", "Carry `$CHANTIER` verbatim into every brief and command:", "Carry `$CHANTIER` verbatim into every brief and command, in full, never in a shell variable:"],
+  ["skills/status-SKILL.md", "Carry `$CHANTIER` verbatim into every brief and command:", "Carry `$CHANTIER` verbatim into every brief and command, in full, never in a shell variable:"]
+]

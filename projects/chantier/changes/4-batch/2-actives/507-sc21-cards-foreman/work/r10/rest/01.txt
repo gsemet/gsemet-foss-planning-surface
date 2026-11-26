@@ -1,0 +1,255 @@
+C-052 [e] -> floor.md,topics/main-checkout-p1.md,topics/main-checkout-p2.md
+  S: never offer a workaround the rules forbid ("No fallback" holds).
+  H: On by default unless the project's rules forbid it (an eval or a worktree session:
+  H: The project's rules (`$CHANTIER rules`) forbid changing it now:
+  H: `the project's rules forbid it:
+C-053 [e] -> chief-of-staff.md,topics/refusals-to-say-p1.md,topics/refusals-to-say-p2.md
+  S: The known refusals: [Refusals to say before they are met](chief-of-staff-any.md#refusals-to-say-before-they-are-met).
+  H: what, why, what they can do now (`help refusals-to-say`).
+  H: # Refusals to say before they are met (part 1 of 2)
+  H: # Refusals to say before they are met (part 2 of 2)
+C-080 [e] -> topics/project-rules-p1.md,topics/project-rules-p2.md
+  S: The write, in one sentence: the entry goes in the main checkout's root `chantier.yaml`, uncommitted, so gates run at once, and in the same message you offer an inbox CR that commits it;
+  H: ask, with the exact lines proposed (a name and the rules' command), written on the user's yes in the code repository's root `chantier.yaml`, in the main checkout, uncommitted, so gates run at once (also how a project that updated the plugin mid-batch gets the entry);
+  H: in the same message offer an inbox CR that commits it:
+  H: propose the `AGENTS.md` line naming the gate by its name and the `chantier.yaml` entry holding the command (`docs/gates.md`), written on the user's yes;
+C-105 [e] -> topics/allow-rules-more-p1.md,topics/allow-rules-more-p2.md
+  S: Stale rules.** When P10 names a stale rule (one that no longer matches the plugin's path), name it in the same question as the new rule, with its file, for the user to remove by hand: one question per update.
+  H: in the same question offer to add at once, on the user's yes, the real-path rules P10 named beside it, not those marked `present`.
+  H: - A stale rule (its path no longer matches the plugin's):
+  H: name it in the same question, with its file, for the user to remove by hand.
+C-116 [e] -> floor.md,topics/allow-rules-more-p1.md,topics/allow-rules-more-p2.md
+  S: The host refuses the edit.** Say so with the refusal's exact text (concepts rule 7).
+  H: Report a refusal with its exact text;
+  H: - The host refuses the edit:
+  H: say it with the exact text (floor 9), give the host row's "Allow rules to add" command for the user's shell, say it needs the user at that computer, not on the phone;
+C-118 [e] -> topics/allow-rules-more-p1.md,topics/allow-rules-more-p2.md
+  S: Try no other way: no other file, no other tool, no retry by another route.
+  H: say once per session as a strong warning, with the file and "lets any command through";
+  H: name it in the same question, with its file, for the user to remove by hand.
+  H: no other file, tool or retry.
+C-137 [e] -> topics/config-p1.md,topics/config-p2.md,topics/config-p3.md
+  S: `$CHANTIER playbook` prints what each role runs (the exact agent and model to pass, "Starting an agent" in [concepts](concepts.md)), or says there is no `chantier.yaml`;
+  H: every role runs the plugin's agent with its file's model unless the configuration says otherwise.
+  H: `$CHANTIER playbook` prints what each role runs (the exact agent and model to pass;
+  H: - Your own subagents (spec-writer, spec-critic, retro-critic, demo-explorer) start with the agent and model `playbook` prints for their role, as printed.
+C-140 [e] -> topics/config-p1.md,topics/config-p2.md,topics/config-p3.md
+  S: the user's own agent (`agent`); the plugin's agent with a model (`model`), where the host starts a named agent with a model (Claude Code), else a generic agent with the role's contract in its prompt;
+  H: every role runs the plugin's agent with its file's model unless the configuration says otherwise.
+  H: `hosts.<host>.roles.<role>.agent|model|skills|tools`, `long_gate.parallel` (1 when absent), `long_gate.commands` (only the code repository's root file names commands), `specifying.parallel` (4 by default), `batch.slots` (4 by default, 0 or more), `ci.beside_gate` (more CI minutes, spent on every approved round), `hosts.<host>.timing` (wakes, cache TTL, CI re-runs).
+  H: the plugin's agent with a model (`model`), where the host starts a named agent with a model, else a generic agent with the role's contract in its prompt;
+C-152 [e] -> topics/pr-template-own.md
+  S: a CR Driver delivers the guideline and the template by PR, as [pr-template](pr-template.md) part "A customised version" says.
+  H: # The user's own PR template
+  H: On the user's request for their own PR template, file a CR for it (`$CHANTIER file`), grilled and specified like any other;
+  H: a CR Driver delivers the guideline and the template by PR (the PR template's "A customised version").
+C-179 [e] -> topics/seat-handover.md
+  S: the new one starts its own from that line or `status` (another session's watcher, the old one's included, does not count; its `status` names it).
+  H: the new one's watcher, from the line of its `seat take` on its yes, registers on a board still running or starts one (a hand-started board joins).
+  H: The old watcher ends once the new session takes the seat;
+  H: the new one starts its own from that line or `status` (another session's does not count).
+C-199 [a] -> chief-of-staff.md,floor.md
+  S: Start a session in a turn the user did not start, or when preflight fails.
+  H: You are the one session that opens and runs batches, with the user, in their language (repo and forge text:
+  H: You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode.
+  H: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `sea
+C-232 [d] -> topics/forge-permissions-gitlab.md
+  S: GitLab (the remote's host is GitLab), all unproved; trial: one run on a GitLab project.
+  H: # Forge permissions, GitLab
+  H: All unproved.
+  H: These probes run at step 1 for the capabilities the batch uses.
+C-247 [e] -> topics/forge-permissions-say.md
+  S: With a grant, the publication is a command of the capability "a release on its own": its rules are offered ("The project"), and when they are not added, the strong warning says the release may stop at publication with nobody to answer.
+  H: what may stop an unattended batch (a P10 warn first), each line with what to change in the forge's own words (for example a ruleset refusing force pushes on `chantier/*`:
+  H: allow them for `chantier/**`, or exclude that pattern), the host's auto-mode alert sentence, and the release publication when the procedure runs it.
+  H: with a grant its rules are offered (`help allow-rules`), and when they are not added the strong warning says the release may stop at publication.
+C-249 [e] -> topics/forge-permissions-say.md
+  S: When the host refuses, "the publication is yours: you will be asked to run `<the command>`" (the user is told now, not at the end).
+  H: allow them for `chantier/**`, or exclude that pattern), the host's auto-mode alert sentence, and the release publication when the procedure runs it.
+  H: When the host refuses:
+  H: you will be asked to run `<the command>`", said now, not at the end.
+C-268 [e] -> topics/first-turn-p1.md,topics/first-turn-p2.md
+  S: First use: "init" for a guided tour; "file this: ..."; "which agents and models?"; "use my agent X as the coder".
+  H: skip it if they know chantier or their first request is `init`.
+  H: end with "new here? say init for a guided tour".
+  H: "file this", "run the P1s", "status?", "drop CR-<n>", "I merged #<n>", "what did it cost?", "which agents and models?".
+C-275 [e] -> topics/release-chief-after-p1.md,topics/release-chief-after-p2.md
+  S: During a release: "auto"; the draft's link to review as soon as `status` shows it.
+  H: - `status`'s `draft <path>` on the release's line:
+  H: give the user the link as soon as it appears.
+  H: once the Driver records `release published` (its note carries the version and link), list the issues the release ships, one line each:
+C-280 [e] -> topics/options.md
+  S: The host says nothing:** offer every option that fits, each with its condition in a few words ("from the machine", "from the phone too").
+  H: # Offering options
+  H: Before you offer an option, check where the user can take it from (the phone on Remote Control, the desktop app, a terminal);
+  H: offer every option that fits, each with its condition in a few words.
+C-281 [e] -> topics/options.md
+  S: Something you can do yourself (run a command, send a file) you do, or you say you cannot and why; it is not handed to a user who has no shell.
+  H: when none fits, say so and why.
+  H: What you can do yourself (run a command, send a file) you do or say you cannot;
+  H: it is not handed to a user with no shell.
+C-311 [e] -> topics/refusals-to-say-more.md
+  S: A red the batch caused (a restack, a rebase onto another CR, a CR merged or moved below) is the rounds exception: you grant the next round yourself, up to the batch's `max_rounds` + 2, and say so (Steering). | | **H.** A model with no price | Nothing is refused: `close` still runs and the cost is a floor;
+  H: A red the batch caused (a restack, a rebase onto another CR, a CR merged or moved below) is the rounds exception:
+  H: you grant the next round yourself, up to the batch's `max_rounds` + 2, and say so.
+  H: `close` runs and the cost is a floor, as is the budget check.
+C-320 [e] -> topics/delivery-time-p1.md,topics/delivery-time-p2.md
+  S: Say it with the CRs of that chain, in order: "critical path: CR-221 → CR-237 → …".
+  H: the longest chain of CRs that wait for one another (`depends.json`, an approved chain, the order of a series;
+  H: Say it with the chain:
+  H: "critical path:
+C-327 [e] -> topics/delivery-time-p1.md,topics/delivery-time-p2.md
+  S: The two terms, and the floor.** The **lock term** is the gates times the long gate's time.
+  H: CRs still to pass their long gate, queued behind one lock whatever the slots.
+  H: - Lock term = gates times the gate's time.
+  H: Chain term = depth times (the gate's time plus one CI run).
+C-329 [e] -> topics/delivery-time-p1.md,topics/delivery-time-p2.md
+  S: The floor is the larger of the two; the line says which one it is.
+  H: the floor of a batch (part 1 of 2)
+  H: The floor is the larger;
+  H: the floor of a batch (part 2 of 2)
+C-337 [e] -> topics/delivery-time-p1.md,topics/delivery-time-p2.md
+  S: When it cannot be read (no `gh` or `glab`, no rights, no passed run yet), the chain term counts the gate alone and the line says `CI time unknown, not counted`;
+  H: Under a rule that asks a local run, every CR of a parallel or series batch that owes it counts, and a stack's top counts once, unless a waiver's words name that gate.
+  H: Chain term = depth times (the gate's time plus one CI run).
+  H: Unreadable (no `gh` or `glab`, no rights, no passed run yet):
+C-343 [e] -> topics/delivery-time-p1.md,topics/delivery-time-p2.md
+  S: Example (batch-17's figures; the CI time is a symbol): "lock: 13 gates × 35 min = about 7.6 h;
+  H: - Lock term = gates times the gate's time.
+  H: - Example (a symbol for the CI time):
+  H: 13 gates × 35 min = about 7.6 h;
+C-354 [e] -> topics/trials-p1.md,topics/trials-p2.md
+  S: fixes on a grant: no harmless form: "no trial: P10's rule check only".
+  H: one harmless trial per used capability, each writing nothing (a `--dry-run` push of a missing branch or tag stops at the refspec, before the remote;
+  H: P10's rule check only".
+  H: P10's rule check only`, with the P10 line.
+C-363 [e] -> topics/trials-p1.md,topics/trials-p2.md
+  S: Before a batch (a first turn), the result is told, not recorded.
+  H: At step 1 of a batch, after the preflight with the batch's options:
+  H: - every batch:
+  H: Before a batch, the result is told, not recorded.
+C-376 [e] -> topics/batch-plan.md
+  S: Then the trials** ([below](#the-trials-before-the-go)).
+  H: # Starting a batch:
+  H: the preflight and the plan
+  H: Then the trials (`help trials`).
+C-396 [e] -> topics/batch-plan-mode-p1.md,topics/batch-plan-mode-p2.md,topics/batch-plan-mode-p3.md
+  S: When the user asks for a stack (or the plan proposes one) on GitHub, recommend installing the `gh stack` extension (github/gh-stack) and say why: the stack driver then makes one native stack the user may merge in one action from its top PR, or one PR at a time from the bottom: the user may also merge each PR ready to merge as it comes, before the stack is made, while that CR is the only open PR of the stack, and nothing about the merge path is fixed at the go nor recorded in `brief.md`.
+  H: recommend installing the `gh stack` extension (the stack driver makes one native stack, mergeable from its top PR or one PR at a time from the bottom;
+  H: each ready PR may be merged as it comes while it is the only open PR of the stack, and the ready ones below at any time;
+  H: The stack is made at two PRs handed back ready, each CR joins on top as a draft, a new stack of what remains is made silently after a merge.
+C-398 [e] -> topics/batch-plan-mode-p1.md,topics/batch-plan-mode-p2.md,topics/batch-plan-mode-p3.md
+  S: On a no, say that the stack will be made by `$CHANTIER forge-stack create` over the REST API, and record the choice in `brief.md` (step 3) so the Foreman passes it to the stack driver.
+  H: recommend installing the `gh stack` extension (the stack driver makes one native stack, mergeable from its top PR or one PR at a time from the bottom;
+  H: `$CHANTIER forge-stack create` over the REST API, recorded in `brief.md`.
+  H: `forge-stack create` makes the chain of MRs, merged one at a time from the bottom, a middle MR folding into the one below;
+C-403 [e] -> topics/batch-plan-show-p1.md,topics/batch-plan-show-p2.md
+  S: The user may say it during the run: record it the same way, and `--note -` withdraws it.
+  H: on a yes `$CHANTIER order waive stack --note "<the user's words>"`, also during the run;
+  H: `--note -` withdraws it.
+  H: A waiver of one CR or of every CR is recorded one CR at a time, `order waive <cr> --note "<the user's words>" --follow-up <folder>`, after filing the CR that runs the long gate on main (`$CHANTIER file`);
+C-405 [e] -> topics/batch-plan-show-p1.md,topics/batch-plan-show-p2.md
+  S: Re-read the seat first ([session-start](session-start.md)).
+  H: The CRs (the `3-ready` ones first) and what each waits for, with the reason of any queue that is no real dependency.
+  H: how many CRs start at once, on how many slots (the `batch slots` of the `limits:` line of `$CHANTIER playbook`:
+  H: - Re-read the seat first (`help seat`).
+C-413 [e] -> topics/batch-plan-mode-p1.md,topics/batch-plan-mode-p2.md,topics/batch-plan-mode-p3.md
+  S: direct on a host that cannot start a Foreman (a terminal, VS Code, a Copilot session whose session tools do not load): the test is the Foreman-mode preflight's P1 and P2 (step 1);
+  H: that word ("you are in direct mode", "use a Foreman") works with or without an argument and also holds for the session.
+  H: direct under the host's Remote Control notice (even if a Foreman could be reused) or on a host that cannot start a Foreman (a terminal, VS Code, a Copilot session whose session tools do not load:
+  H: - A forced `foreman` where none can start (a terminal, VS Code) is refused at the plan with the reason and the way (say "direct", or start from the desktop app);
+C-430 [e] -> topics/batch-plan-cut-p1.md,topics/batch-plan-cut-p2.md
+  S: The plan shows both: the whole batch with its floor, and the cut with its own floor.
+  H: Show the whole batch with its floor and the cut with its own;
+  H: no cut, the floor and its delivery time are said, nothing else.
+  H: - While a batch is not closed (running or paused) there is no new plan:
+C-454 [e] -> floor.md,topics/batch-plan-mode-p1.md,topics/batch-plan-mode-p2.md,topics/batch-plan-mode-p3.md
+  S: It makes the mode you name, always passed with `--mode` as the user answered (`parallel` is only the CLI's default for `open`, never the Chief of Staff's): `parallel`, independent CRs, each on the default branch;
+  H: `parallel`, independent CRs, each on the default branch;
+  H: Always pass `open --mode` as the user answered;
+  H: never take parallel by default (that is only the CLI's default for `open`).
+C-505 [e] -> topics/steering-reports-p1.md,topics/steering-reports-p2.md
+  S: When the delivery time passes the time the user gave** (the batch will not finish by it): record `$CHANTIER order note - --note "deliver by <time>"` (it prints the line to send to the Foreman, and a restarted Foreman finds it).
+  H: When it passes the time the user gave:
+  H: `$CHANTIER order note - --note "deliver by <time>"` and send the printed line to the Foreman;
+  H: direct mode applies the Foreman's "Deliver by a time" yourself.
+C-508 [e] -> topics/order-verbs-p1.md,topics/order-verbs-p2.md
+  S: Steering: each order is one `$CHANTIER order`, applied to the state at once and printed as the line to send the Foreman (by your host's means), who does what needs its hands and marks it done;
+  H: Each is one `$CHANTIER order`, applied to the state at once and printed as the line to send the Foreman (by your host's means), who does what needs its hands and marks it done;
+  H: For `order qa`, send the order's line and the `qa-driver prompt` block it printed, together, as printed.
+  H: - `order note <cr> --note "<one line:
+C-511 [e] -> topics/order-verbs-p1.md,topics/order-verbs-p2.md
+  S: A CR is named `CR-104` or `104`; a second drop of a dropped CR, and a note on a cancelled one, are refused (exit 2).
+  H: A CR is named `CR-<n>` or `<n>`;
+  H: a second drop of a dropped CR, and a note on a cancelled one, are refused (exit 2).
+  H: - `order drop <cr> --note trash|ready|P1..P4`:
+C-554 [e] -> topics/chain-conflict.md
+  S: the paths they both change; that each PR stays ready to merge on its own, but merging one makes the others conflict, and those go back to their Drivers for a rebase after that merge (the parallel rule);
+  H: the paths both change;
+  H: that each PR stays ready to merge on its own but merging one makes the others conflict and go back to their Drivers for a rebase;
+  H: the batch stays parallel.
+C-555 [e] -> topics/conflict-check.md
+  S: and the offer: switch the batch to a stack, so the later CR is rebased once onto the earlier one.
+  H: in a series or stack batch the PRs sit on one another, and a conflict is the stack driver's `anomaly <cr> conflict:
+  H: switch to a stack?"`.
+  H: The stack driver then orders from the record (ready CRs at the bottom, in the order they became ready) and rebases the later CR onto the earlier, once, on the `anomaly <cr> conflict:
+C-575 [e] -> chief-of-staff.md,topics/refused-push-chief-p1.md,topics/refused-push-chief-p2.md
+  S: record `push refused <branch>: not a chantier branch`, answer it to the Foreman, and tell the user as information (the branch asked and the CR that asked it; no question, nothing to answer).
+  H: A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's):
+  H: A failed check pushes nothing and answers `push refused <branch>:
+  H: answer `push failed <branch> <git's text>` and tell the user at once, as information, with git's text and what it means (the remote moved since the Driver read it;
+C-578 [e] -> topics/refused-push-chief-more-p1.md,topics/refused-push-chief-more-p2.md
+  S: tell the user at once, in the report's shape (the **For you:** line, no tip), naming both judgements: the Foreman's (its note) and yours (what you found);
+  H: tell the user at once in the report's shape (**For you:**, no tip) naming both judgements, the CR, the branch, the expected and local shas.
+  H: <exact command> -> <exact text>"`, then one question in the report's shape (in direct mode also `$CHANTIER asks "<question>"`) naming the CR, branch, shas, both judges with their `push judged legitimate` lines, each step's outcome quoted from `handoff <cr>` (the Driver's refusal, the Foreman's refusal or its `push not tried`, yours, each with exact command and text) and the exact command you will 
+  H: - The Foreman's `pushed <branch>` answers nothing (a report line);
+C-583 [e] -> topics/refused-push-chief-p1.md,topics/refused-push-chief-p2.md
+  S: In direct mode** (the Driver's `push` line): you are the steering session; run the check and judgement.
+  H: On `[foreman→chief-of-staff] push <branch> <expected remote sha> <local sha>` (direct mode:
+  H: The check and judgement are the Foreman's (`help refused-push`), run again in full whatever its note says, at the shas of the line;
+  H: in direct mode the CR goes back to a fresh Driver with the result as its `take` note (`push:
+C-602 [e] -> topics/refused-push-chief-p1.md,topics/refused-push-chief-p2.md
+  S: A failed lease: as above.
+  H: A covered branch (any `chantier/*` branch that is not the default branch, `--force-with-lease`) is never a question for the user:
+  H: <one line>"`, then the plain `git push --force-with-lease` in the route form, no ask.
+  H: - A failed lease or a protected-branch rejection:
+C-624 [e] -> floor.md,topics/asks.md
+  S: A host may limit messages between sessions (its reference says how): a refused send is reported, never sent another way.
+  H: Report a refusal with its exact text;
+  H: A host may limit messages between sessions (its row says how):
+  H: a refused send is reported, never sent another way.
+C-635 [e] -> topics/watcher-lines-p1.md,topics/watcher-lines-p2.md
+  S: After a watcher's notification (its last line `still watching`): no restart, it runs on.
+  H: # The watcher's lines (part 1 of 2)
+  H: - `watch:
+  H: After a notification (last line `still watching`) there is no restart;
+C-637 [e] -> topics/watcher-lines-p1.md,topics/watcher-lines-p2.md
+  S: A watcher that ends with `the seat of <project> is another session's now` is not started again: the seat moved.
+  H: - `did not start within 20 s`, `does not answer`, `refused the key`, `no seat`, `records no session transcript`, `cannot be read`, `no session key`:
+  H: For the seat ones take the seat as printed only when this session is the Chief of Staff (`help seat`), then start it again.
+  H: - It ends when the seat is another session's (`the seat of <project> is another session's now`:
+C-644 [e] -> topics/watcher-events-p1.md,topics/watcher-events-p2.md
+  S: *A watcher's notification or end:* read its output, each line handled the same way.
+  H: # A watcher's notification or end (part 1 of 2)
+  H: Each line of its output:
+  H: # A watcher's notification or end (part 2 of 2)
+C-674 [e] -> topics/watcher-pull.md
+  S: *The pull path:* when no watcher can wake this session (its host's reference, or the user's no), run the printed `watch --once` command (the `watch: not running` line's `after the user's no` clause, the `pull path` line of `status`, or the last `--once` output's `next` line) at the start of each turn the user's message opens: run it as is: no flag added.
+  H: # The pull path
+  H: When no watcher can wake this session (the host row, or the user's no), run the printed `watch --once` command (the `watch:
+  H: not running` line's `after the user's no` clause, `status`'s `pull path` line, or the last output's `next` line) as is, no flag added, at the start of each turn the user's message opens.
+C-687 [e] -> floor.md,topics/merge-words-p1.md,topics/merge-words-p2.md
+  S: the words you say to the user are that line in the user's language: its icon, its full PR link (never a named link), each gap next to the link, its `do not merge: waits for` text on a draft, and its `owed before the merge` clauses (what is still owed; the user may merge anyway, recorded as any merge).
+  H: it waits for its gate", never "the next ready to merge will be 🟢 #<pr>" while it is a draft).
+  H: say its icon, its full PR link, each gap, its `do not merge:
+  H: waits for` text and its `owed before the merge` clauses in the user's language, never the prefix.
+C-694 [e] -> topics/merge-words-p1.md,topics/merge-words-p2.md
+  S: Right: "🟤 #171 CR-237, do not merge: it waits for its gate; it will be the next ready to merge".
+  H: "ready to merge" only for a PR the user can merge now;
+  H: "Ready" alone is never said of a CR or PR, and "mergeable" never of a draft, whatever the forge's `mergeable` field says.
+  H: it waits for its gate", never "the next ready to merge will be 🟢 #<pr>" while it is a draft).
+C-724 [e] -> topics/merge-recorded.md
+  S: A CR taken out of a batch whose PR the user merges later, outside any batch (its folder is in the backlog or the next batch, `3-ready`, with `formerly.json`), has a route of its own: on "I merged #n" for it, run `order add --note <folder>`, which brings back its number and its PR, then `order merged <cr>` at once (Foreman mode: both lines to the Foreman in one message, the add first).
+  H: `order merged <cr>`, then Foreman mode sends its line to the Foreman;
+  H: - A CR taken out and whose PR the user merges later (its folder in the backlog or `3-ready`, with `formerly.json`):
+  H: on "I merged #n", `order add --note <folder>` (brings back its number and PR), then `order merged <cr>` at once (Foreman mode:

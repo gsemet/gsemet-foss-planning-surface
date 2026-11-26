@@ -1,0 +1,295 @@
+C-1469 [e] -> topics/seat-p1.md,topics/seat-p2.md
+  S: "become a griller" in the Chief of Staff: with a batch running, the hand-over rules apply first (its Drivers are its own); then `seat leave`, rename.
+  H: I will not follow the batches actively, but I can help refine the backlog's ideas", one option "become chief of staff".
+  H: chosen here, the hand-over rules apply with a batch active, else `seat take --over <id>`.
+  H: with a batch running the hand-over rules first, then `seat leave`, rename.
+C-1476 [e] -> topics/first-turn-p1.md,topics/first-turn-p2.md
+  S: Once per session; skip it if the user says they know chantier, or if their first request is `init`: the [tour](init.md) covers it.
+  H: At your first turn, after the start checks, give a short factual report in the user's language, then answer;
+  H: skip it if they know chantier or their first request is `init`.
+  H: end with "new here? say init for a guided tour".
+C-1490 [e] -> topics/foreman-start-p1.md,topics/foreman-start-p2.md
+  S: Direct or Foreman:** a batch (`batch-<n>`) is steered either:
+  H: # Opening, starting the Foreman, the watcher (part 1 of 2)
+  H: `chantier Foreman n°<n> of batch <batch>, for the Chief of Staff <your session id>.`, `Your session title:
+  H: <title>` (`[<code>] ⚙️ Project · Foreman (Batch <nn>)`), the `Read` line of startup-core, role-core and the named sections, `CLI:
+C-1515 [e] -> topics/reload.md
+  S: Says: rules reloaded, batch status, a free seat.
+  H: # Reload
+  H: Read only (`seat`, `status`):
+  H: Open with one line saying chantier's rules were reloaded, then the batch status and a free seat.
+C-1519 [e] -> topics/board-p1.md,topics/board-p2.md
+  S: It starts with the watcher, on the session's one question (**The watcher**, below), and the one a watcher starts stops by itself when the seat leaves or 30 minutes after its last client.
+  H: - It starts with the watcher, on the session's one yes (`help watcher`).
+  H: - A watcher's board stops by itself when the seat leaves or 30 minutes after its last client.
+  H: - A `--forge-always` board you started stops when the seat moves and reads the forge with or without a client, so the pull path still prints its `forge saw merged` lines.
+C-1527 [e] -> topics/board-restart.md
+  S: Another project runs chantier from its checkout in plugin mode, a build uv caches by version: it changes at each version bump.
+  H: On `board runs another build`, `board runs a build of chantier <v> older than this notice`, `board is chantier <v>:
+  H: chantier <v> serves this surface ...`, or after a merge that changes the board's code (`board/`, `hub/`, `writer/`, `clients/web/`) in the dev mode, offer the restart once, in one line with its cost:
+  H: - A board started from another project's session runs that build for every project, chantier too, with no notice at equal versions.
+C-1532 [e] -> topics/board-lines.md
+  S: `board on <URL> over ...`: report the server-announced binding (the link and its key), not verified local readiness.
+  H: - `board on <URL> over ...`:
+  H: the link and its key as announced, not a readiness proof (only a successful probe such as `GET /api/board` is;
+  H: A non-loopback binding (`board:
+C-1536 [e] -> topics/conflict-check.md
+  S: The link is theirs only.
+  H: # An early conflict check
+  H: Parallel batch only:
+  H: When a CR is handed back `ready` with a PR (`hand-back ready to merge <link>` or `PR in draft <link>`) and another CR is `ready` with an unmerged PR on the default branch, run once per such hand-back, after that CR's own ask went up unchanged:
+C-1543 [e] -> topics/board-p1.md,topics/board-p2.md
+  S: One board serves a planning surface (or a repository), on whatever port: a second session's `serve --seat <id>` registers its seat on it and prints this line.
+  H: it serves the web board, the planning files to live clients, the surface's writer and the forge hub.
+  H: One board serves a surface, on whatever port;
+  H: a second session's `serve --seat <id>` registers on it (on a surface it keeps `$CHANTIER`'s `--project`).
+C-1554 [e] -> topics/board-p1.md,topics/board-p2.md
+  S: When the user's word asks for a board started by hand (`serve --seat <id>`, as the watcher's line prints it), run it by the host's background means (the host's reference, "Run the board"), never in the foreground (a board that starts never returns), and read its first lines.
+  H: On a host that cannot run a watcher, ask first, then run `$CHANTIER serve --seat <own session id> --forge-always` in the background by the host row, no `--stop-idle`;
+  H: To stop it sooner, on the user's word only, run the stop command with the PID of the watcher's start line or `status`'s `forge hub:` line (`taskkill /PID <pid> /T /F` on Windows, else `kill <pid>`).
+  H: A board started by hand runs in the background, never the foreground.
+C-1559 [e] -> topics/board-restart.md
+  S: While `sync pending` holds, the sync goes first ([sync-checkout](sync-checkout.md)); the restart is not a sync's stop.
+  H: # Restart the board
+  H: restart it to run this version`, `board:
+  H: - With `sync pending`, the sync goes first (`help sync`).
+C-1562 [e] -> topics/watcher.md
+  S: the board as above (its persistent process, which stops by itself 30 minutes after its last client or when the seat leaves, its configured network exposure, its forge reads while a client is subscribed, its writer).
+  H: the watcher runs on in the background, subscribed to the board, and tells within about 20 s what the user does in the board and what the forge shows;
+  H: the board (persistent, stops 30 minutes after its last client or when the seat leaves, its network exposure, its forge reads, its writer).
+  H: - A yes starts both (the watcher starts a missing board, detached, while this session holds the seat) and holds for the session:
+C-1619 [e] -> ticket-summary-example.md
+  S: Closes #336 ```
+  H: # Ticket summary:
+  H: a reference
+  H: Closes #<n>
+FM-007 [e] -> foreman.md
+  S: Read the project's rules (`$CHANTIER rules`), then the brief and `$CHANTIER status`.
+  H: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>);
+  H: - `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`;
+  H: - Read rules and `status`;
+FM-013 [e] -> foreman.md
+  S: Every CR of the batch merged or cancelled, with the fewest questions to the user that still leave every decision that is theirs to them.
+  H: You steer one batch for the Chief of Staff until paused;
+  H: every CR merged or cancelled with the fewest questions to the user, their decisions left to them.
+  H: a critical-path CR or the user's next merge only, not on a Driver's say.
+FM-014 [e] -> topics/retro-critic-write.md,topics/retro-critic.md,topics/retro-lines.md,topics/retro.md
+  S: The CLI then removes the merged CRs' worktrees and branches and pauses the batch itself, on the end of the last CR (`order merged`, a release CR's `handback ready`, `cancel`, `order drop`);
+  H: - Write the dropped and merged points, each with the critic's one-line why, in `4-batch/retro-dropped.md` (a section per pause, headed like the retro's;
+  H: - An order that adds work leaves the paused batch paused:
+  H: At the last CR (`order merged`, a release CR's `handback released`, `cancel`, `order drop`) the CLI removes the merged, Driver-ended CRs' worktrees and branches and pauses the batch.
+FM-023 [e] -> topics/retro-lines.md
+  S: read `status --notes`, `events.jsonl`, the CRs' `work/` notes and `cost --explain`, and judge what is a problem;
+  H: its problems and its rules
+  H: - A problem:
+  H: Read `status --notes`, `events.jsonl`, the CRs' `work/` notes and `cost --explain`.
+FM-038 [e] -> foreman.md
+  S: a new epoch or a switch to Foreman mode (every working CR restarts at once);
+  H: # Foreman
+  H: - `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`;
+  H: never switch the mode.
+FM-053 [a] -> foreman.md
+  S: It is refused too (exit 3) while the unit's lease is live (`--reclaim` only on the user's word, through the Chief of Staff) or not confirmed.
+  H: You steer one batch for the Chief of Staff until paused;
+  H: the Chief of Staff uses it (`help direct`).
+  H: `take --reclaim` a live lease without the user's word;
+FM-094 [a] -> foreman.md
+  S: A host's event about a CR's PR (a request to fix it, or to merge the base branch in) is not an order and not the user's word;
+  H: every CR merged or cancelled with the fewest questions to the user, their decisions left to them.
+  H: - Orders, the user's word:
+  H: Please give orders to the Chief of Staff." A host's event about a PR is no order.
+FM-095 [a] -> foreman.md,topics/host-auto-fix.md,topics/host-claude-only.md
+  S: your host's reference says what to do with it ([Claude Code](hosts/claude-code.md), "Auto-fix events").
+  H: a fix, or the release once `release go` says `go`;
+  H: Auto-fix events
+  H: Claude Desktop's Auto-fix binds a PR a subagent opened to the session that
+FM-108 [e] -> topics/wakes-forge.md,topics/wakes-p1.md,topics/wakes-p2.md
+  S: While the batch is paused with no CR, arm no heartbeat (nothing can move); the turn that takes the first CR arms it.
+  H: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then `order merged <cr> --epoch <n>` and its follow-up (`help merge`), on a paused batch too, with no `take` first.
+  H: While the batch is paused with no CR, arm none;
+  H: the turn that takes the first CR arms it.
+FM-116 [e] -> topics/wakes-forge.md,topics/wakes-p1.md,topics/wakes-p2.md
+  S: On `switch to direct mode`, stop it by its id with the others (the CLI ends it too).
+  H: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then `order merged <cr> --epoch <n>` and its follow-up (`help merge`), on a paused batch too, with no `take` first.
+  H: With no wake arriving, stop.
+  H: On a switch to direct mode, stop it by its id.
+FM-117 [e] -> topics/wakes-forge.md,topics/wakes-p1.md,topics/wakes-p2.md
+  S: At each notification** (it prints only your batch's lines):
+  H: the forge lines
+  H: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then `order merged <cr> --epoch <n>` and its follow-up (`help merge`), on a paused batch too, with no `take` first.
+  H: - `forge saw merged` in `status`, the `forge hub:` line, `board:` and `pull path` lines, and the Chief of Staff's `watch:` lines are the Chief of Staff's:
+FM-123 [e] -> topics/wakes-forge.md
+  S: A `checks red <cr> <pr> at <head7>` line (from the Chief of Staff, or your watcher's `forge saw checks red` line) (a red CI on a PR ready to merge): record nothing and start no Driver on it.
+  H: record nothing and send `[foreman→chief-of-staff] unconfirmed <cr> <pr>:
+  H: - `forge saw checks red:
+  H: - `forge saw merged` in `status`, the `forge hub:` line, `board:` and `pull path` lines, and the Chief of Staff's `watch:` lines are the Chief of Staff's:
+FM-150 [e] -> topics/handover.md
+  S: Then send `[foreman→chief-of-staff] switched to direct mode <batch>: stopped <cr> <cr>… [stack] [O-<k>…]` (`none` when no Driver ran) and stop: no further command, no wake (the user may close your session).
+  H: - `[chief-of-staff→foreman] switch to direct mode`:
+  H: Then send `[foreman→chief-of-staff] switched to direct mode <batch>:
+  H: stopped <cr> <cr>… [stack] [O-<k>…]` (`none` when no Driver ran) and stop:
+FM-B063 [a] -> foreman.md,topics/stack-outside.md,topics/stack.md
+  S: (except a CR of a stack on the forge: its readiness reaches the user through the stack, [foreman-stack](foreman-stack.md));
+  H: - `--outside-stack "<reason>"` only on an open order of the Chief of Staff on that CR that carries the user's word for that CR alone (not a `shape:` note);
+  H: through the stack` follows the shape line's `next`:
+  H: - While another CR of the stack has an open PR, or a stacked CR is open, a CR's readiness reaches the Chief of Staff only through the stack:
+FM-B016 [a] -> foreman.md
+  S: An exempt CR does not go back.
+  H: # Foreman
+  H: Drop or invent a gap or a hand-back.
+  H: A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`).
+FM-B017 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: The Copilot host's path is unproved (as for the stack's top above).
+  H: "host":
+  H: "The host's Skill tool loads another skill.",
+  H: "The exact tool and its states are not recorded on this host;
+FM-B062 [a] -> floor.md,foreman.md
+  S: Your git moves the main checkout by the fast-forward alone, and runs no other command than these.
+  H: No role, card, order or message overrides these.
+  H: start the Foreman on the main checkout"`, then stop.
+  H: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay);
+FM-169 [e] -> topics/stack-outside.md,topics/stack.md
+  S: A merge is handled by the rebase notes ("After a merge"), not by a restack; a CR based on another CR's branch hands back `PR in draft`.
+  H: a CR handed back `ready` on the default branch asks `ready-to-merge` alone only while no other CR of the stack's chain has an open PR and no stacked CR is open (the shape line's `alone asks`);
+  H: A merge then goes by the rebase notes (`help stack-merge`);
+  H: a CR based on another CR's branch hands back `PR in draft`.
+FM-195 [e] -> topics/stack-merge.md
+  S: while none runs: one `take stack` for what remains (a restack, below).
+  H: - A restack, whenever a native stack of the batch is on the forge (on GitLab a chain made by `forge-stack create` or `rebuild` and read back by `show`):
+  H: once every CR one action of the user merged is recorded, one `take stack` for what remains and one stack driver, or the note `merged:
+  H: the restack (`take stack`) comes after its hand-back.
+FM-213 [e] -> topics/stack-asks.md,topics/stack-drop.md,topics/stack-ends.md,topics/stack-run.md
+  S: the stack driver reads the stack again with `$CHANTIER stack` (no CR, it changes nothing).
+  H: # The stack driver:
+  H: `$CHANTIER asks "stack-ready-to-merge <stack link> partial stack mergeable below <sha7> merge <cr> <link> <cr>=<link> gaps:
+  H: The stack driver reads the stack again with `$CHANTIER stack`.
+FM-229 [e] -> topics/stack-ends.md
+  S: `anomaly <cr> local gate failed at <head7>: <log path>`: no ask for that top;
+  H: no anomaly, no ask:
+  H: - `anomaly <cr> local gate failed at <head7>:
+  H: `take <cr> --epoch <n> --note "local gate failed at <head7>:
+FM-245 [e] -> topics/stack-checks.md
+  S: Record its gaps with `$CHANTIER note <cr> "gaps: …"` (`none` when it has none, no `gaps:` text) and quote them after its link in the `stack-ready-to-merge`, partial or complete;
+  H: - A CR of the stack handed back, ready to merge or in draft:
+  H: Record its gaps with `$CHANTIER note <cr> "gaps:
+  H: …"` (`none` when it has none) and quote them after its link in the `stack-ready-to-merge`, partial or complete.
+FM-248 [a] -> foreman.md
+  S: You edit no PR yourself.
+  H: # Foreman
+  H: You steer one batch for the Chief of Staff until paused;
+  H: Code, review, commit, rebase, push, edit a PR or create a worktree.
+FM-251 [e] -> topics/stack-checks.md
+  S: it holds every PR of the stack as it stands (the bottom CRs with a PR), and no other;
+  H: # The five checks of a stack
+  H: Read the stack on the forge with `$CHANTIER forge-stack show` (one line per failed check;
+  H: it holds every PR of the stack as it stands, and no other;
+FM-283 [e] -> topics/merge.md
+  S: Nothing else: no `take`, no restart.
+  H: `help take-back`.
+  H: each CR handed back ready as a draft PR waiting for it, with all dependencies now merged, goes back with `take <cr> --note "rebase:
+  H: no `take`, no restart.
+FM-288 [f] -> foreman.md
+  S: the CLI runs no fast-forward (it removes, at the batch's end, only the merged CRs' worktrees and branches).
+  H: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>);
+  H: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay);
+  H: removing a kept merged CR's worktree and branch after its Driver ends;
+FM-295 [e] -> topics/main-checkout-p1.md,topics/main-checkout-p2.md
+  S: The steps,** stopping at the first that says no; each "no" is one line, its `<why>`:
+  H: The order of the other steps after a merge (rebase notes, `take`) is unchanged.
+  H: The steps:
+  H: The first step that says no stops the whole attempt, nothing more done, with its `<why>`:
+FM-304 [e] -> topics/main-checkout-p1.md,topics/main-checkout-p2.md
+  S: A failure: do nothing.
+  H: a skip costs nothing, asks nothing, has no workaround.
+  H: The first step that says no stops the whole attempt, nothing more done, with its `<why>`:
+  H: retry nothing;
+FM-348 [a] -> floor.md
+  S: Its worktree and branch stay as they are.
+  H: # The floor
+  H: Rebase only, with `--force-with-lease`, and only on the CR's own branch.
+  H: Never discard the worktree's work.
+FM-364 [e] -> topics/park-back.md,topics/park.md
+  S: a CR handed back `blocked` with such a wait (`question:`, `approval:`, `waits:` with a typed `--wait`): `park <cr> --epoch <n>`, then, when `park` prints the `agents set` line (an agent still recorded), `agents set <cr> - --epoch <n>` once its Driver has ended.
+  H: A CR whose work waits on an outside step (the user's trial or answer, an approval, an outside pipeline or merge) is parked at once, with no question once the wait is recorded.
+  H: - Handed back `blocked` with such a wait (`question:`, `approval:`, `waits:` with a typed `--wait`):
+  H: `park <cr> --epoch <n>`, then `agents set <cr> - --epoch <n>` when `park` prints it.
+FM-372 [e] -> topics/park-back.md
+  S: No round is counted.
+  H: # A parked CR:
+  H: back, dropped
+  H: <what>" --epoch <n>`, a new Driver, before any queued CR, no round.
+FM-375 [e] -> topics/park-back.md
+  S: In a series or parallel batch, send each dependent with a Driver or a branch the note `rebase: <cr> dropped`, by the usual path (read `status` first: `working`, `[foreman→driver <dep>] note rebase: <cr> dropped`; `ready` or `blocked`, `take <dep> --note "rebase: <cr> dropped"`);
+  H: else each dependent with a Driver or a branch gets `rebase:
+  H: `working`, `[foreman→driver <dep>] note rebase:
+  H: `ready` or `blocked`, `take <dep> --note "rebase:
+FM-422 [e] -> topics/lost-restart.md
+  S: A CR the Chief of Staff's Driver handed back `blocked stopped` with the switch's note is taken back the same way and counts toward nothing.
+  H: switch to Foreman mode`, and a CR the Chief of Staff's Driver handed back `blocked stopped` with the switch's note.
+  H: A silent end (a task ending with no hand-back) restarts the same way, and a second on one CR is `handback <cr> blocked driver ended twice`.
+  H: A death by the host, a stop from outside and a `context:` hand-back count for nothing.
+FM-442 [c] -> topics/lost-outside.md
+  S: It is covered by the batch's go: no ask, no question to the user, no wait for the user's word.
+  H: Its own stops (a switch of mode, a drop, the user's stop or hold, the `stop` after 3 idle hours) keep their own paths;
+  H: The batch's go covers it:
+  H: no ask, no wait for the user, whatever the host's words about the user's explicit ask.
+FM-447 [e] -> topics/lost-restart.md
+  S: A host failure:** a Driver (CR, stack, release, QA) whose end carries the host's error rather than a hand-back takes the restart path at once, with no ping round (the host's error is the proof it ended).
+  H: every `working` CR, the recorded stack driver and every open QA order with an agent id restart at once, no ping.
+  H: A silent end (a task ending with no hand-back) restarts the same way, and a second on one CR is `handback <cr> blocked driver ended twice`.
+  H: - A host failure (the end carries the host's error):
+FM-452 [e] -> topics/lost-silent.md
+  S: resume it once by the host's means to resume a stopped agent (its reference): `[foreman→driver <cr>] record your hand-back: $CHANTIER handback <cr> as your report says, then the host's hand-back with the line it prints`;
+  H: - Ended with no hand-back recorded (the `status` flag, or its `[driver <cr>→foreman] hand-back …` while the CR is `working`):
+  H: resume it once, `[foreman→driver <cr>] record your hand-back:
+  H: $CHANTIER handback <cr> as your report says, then the host's hand-back with the line it prints`, and `agents set <cr> <id> --epoch <n>`.
+FM-468 [e] -> topics/conflict-check.md
+  S: A hand-back after a `take <cr> --note` (a rebase, a fix) is a new hand-back and is checked again.
+  H: When a CR is handed back `ready` with a PR (`hand-back ready to merge <link>` or `PR in draft <link>`) and another CR is `ready` with an unmerged PR on the default branch, run once per such hand-back, after that CR's own ask went up unchanged:
+  H: A hand-back after a `take <cr> --note` is checked again.
+  H: - It stops no Driver, sends no `take` or note to a Driver and never switches the mode:
+FM-469 [e] -> topics/conflict-check.md
+  S: It does not run in a `series` or `stack` batch: there the PRs are already placed on one another, and a conflict is the stack driver's `anomaly <cr> conflict: …`.
+  H: in a series or stack batch the PRs sit on one another, and a conflict is the stack driver's `anomaly <cr> conflict:
+  H: a chained or already noted pair is skipped), notes each conflicting pair on the CR (`early conflict:
+  H: The stack driver then orders from the record (ready CRs at the bottom, in the order they became ready) and rebases the later CR onto the earlier, once, on the `anomaly <cr> conflict:
+FM-470 [e] -> topics/conflict-check.md
+  S: Which pairs:** the new CR against each other CR that is `ready`, has a PR whose base is the default branch, and is not merged or cancelled.
+  H: When a CR is handed back `ready` with a PR (`hand-back ready to merge <link>` or `PR in draft <link>`) and another CR is `ready` with an unmerged PR on the default branch, run once per such hand-back, after that CR's own ask went up unchanged:
+  H: A hand-back after a `take <cr> --note` is checked again.
+  H: - The command runs the pairs (the CR against each other ready CR with a PR on the default branch;
+FM-472 [e] -> topics/conflict-check.md
+  S: Skip a pair already noted (see "On conflicts").
+  H: # An early conflict check
+  H: a chained or already noted pair is skipped), notes each conflicting pair on the CR (`early conflict:
+  H: <paths>`), notes a pair it could not run (`early conflict check:
+FM-498 [e] -> topics/release-take.md
+  S: An `order approve` on a release CR handed back `ready` whose release PR waits for its merge is not work for a Driver: mark it `order done` at once and do not take the CR (the PR stays as it is, ready);
+  H: The Release driver takes the release CR once the others are handed back ready (ordered batch;
+  H: - On the merge of the release PR (`order merged`), start the Release driver again at once.
+  H: - An `order approve` on a release CR handed back `ready` whose PR waits for its merge is no work for a Driver:
+FM-503 [e] -> floor.md,foreman.md,topics/release-take.md
+  S: Received while the release's Driver is still `working` (the user published before the refusal reached you), it goes as the `[foreman→driver <cr>] note <text>` message, as for any note to a working Driver.
+  H: A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`).
+  H: The take note names the steps the user approved before the merge, from the `approvals unused:` line of `$CHANTIER handoff <release-cr>`:
+  H: `[foreman→driver <cr>] note <text>`.
+FM-528 [a] -> floor.md,foreman.md
+  S: Else push nothing.
+  H: Code, review, commit, rebase, push, edit a PR or create a worktree.
+  H: a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`;
+  H: a push judged too;
+FM-531 [e] -> topics/refused-push-gate.md,topics/refused-push-judgement.md
+  S: the local head holds the remote head's work rebased onto the CR's base (the `base` that `handoff` prints: the default branch, or another CR's branch in a series or a stack): the base is an ancestor of the local head and the remote head's commits are in it (`git range-diff`, or `git cherry`);
+  H: a covered branch that `handoff` ties to no CR of this batch, and no long gate at the local head (outside the skips).
+  H: - the local head holds the remote head's work rebased onto the CR's `base` (as `handoff` prints it):
+  H: the base is an ancestor of the local head and the remote head's commits are in it (`git range-diff`, `git cherry`);
+FM-538 [d] -> topics/refused-push-gate.md
+  S: Likewise when the project's rules name a pipeline job as the long gate: skip this gate check (the steering session checks that job at the PR's head; GitLab and Copilot: unproved).
+  H: Skip the gate check when `handoff` prints `ci:
+  H: `handback ready` still enforces the gate), or when the project's rules name a pipeline job as the long gate (the steering session checks that job at the PR's head;
+  H: a covered branch that `handoff` ties to no CR of this batch, and no long gate at the local head (outside the skips).
+FM-563 [e] -> floor.md,foreman.md,topics/refused-push-run.md
+  S: That line from you now means: judged legitimate, then refused to you or not tried (your notes say which).
+  H: Report a refusal with its exact text;
+  H: `$CHANTIER note <cr> "push judged legitimate at <local sha7> for <branch>:
+  H: Record each refusal once, whoever sees it, before the next step's line.

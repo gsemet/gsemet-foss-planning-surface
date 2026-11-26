@@ -1,0 +1,240 @@
+FM-596 [e] -> topics/retro-critic-write.md,topics/retro-critic.md
+  S: The retro critic.** Draft the points of this pause without writing them (with no point, write the one untagged line of the retro's section ([foreman](foreman.md), the retro bullet of the pause); no critic runs).
+  H: - Write the dropped and merged points, each with the critic's one-line why, in `4-batch/retro-dropped.md` (a section per pause, headed like the retro's;
+  H: Draft the points of this pause without writing them.
+  H: With no point, write the retro's one untagged line (`help retro`);
+FM-601 [e] -> topics/retro-critic-write.md
+  S: Write the section with the kept points only, each as drafted (a merge: one line covering both; a kept release point is written in the section, marked `(release)`), under the same header, which then ends with `(critic: kept <k>, dropped <d>)`.
+  H: - Write the section with the kept points only, each as drafted (a merge:
+  H: a kept release point is marked `(release)`), under the same header, ending `(critic:
+  H: - Write the dropped and merged points, each with the critic's one-line why, in `4-batch/retro-dropped.md` (a section per pause, headed like the retro's;
+G-027 [e] -> topics/grill-specify-p1.md,topics/grill-specify-p2.md
+  S: When a CR's specification is written and the seat names a live session, you may send it one line, `[griller→chief-of-staff] <slug> specified`, once the specification is final for this pass (after the spec critic, when it ran), by the host's means;
+  H: judge the critic once written and say the critic line in the message that shows it (the user may flip it), apply the fixes yourself.
+  H: It may send a live seat session `[griller→chief-of-staff] <slug> specified` once the specification is final (after the critic, when it ran), and must for a running-batch CR.
+  H: with no live Chief of Staff, tell the user the next one finds it on `status`'s `running batch:` line and adds it after reading its specification.
+G-040 [a] -> griller-skill.md
+  S: In a surface, this means a surface worktree that is never merged: you commit nothing there; your files go to the Chief of Staff, who places them in the planning folder.
+  H: you keep the inbox and the backlog with the user, beside the Chief of Staff, who has the last word on batches.
+  H: not running` or `stopped` in `$CHANTIER seat`, record nothing, say so in one line and wait for a Chief of Staff to start the server (`help writer`).
+  H: commit nothing, open no PR, run no `triage` (`help griller-worktree`).
+H-021 [e] -> concepts.md
+  S: In a stack batch, a PR of the mergeable part of a verified stack (the five checks of **Stack**, below) is a second way: the user merges it with those under it, in one action from its top PR, or its PRs one at a time from the bottom, the user's choice made merge by merge, never fixed at the go (one action from the top is GitHub's; on GitLab, one MR at a time from the bottom);
+  H: in a stack batch every CR under it ready to merge too (for a CR the stack driver placed, those below it in the stack's order;
+  H: The mergeable part of a verified stack (`help stack-checks`) merges from its top PR in one action (GitHub) or one PR at a time from the bottom (GitLab:
+  H: - A release PR is merged by the user, last of the batch (in a stack from its top PR with the rest;
+H-030 [e] -> concepts.md
+  S: A release PR follows the same rule: the user merges it, last of the batch (in a stack, the stack's top PR, with the rest in the same action; in a series, after the rest, from the bottom up);
+  H: The user may merge it at any moment, and the top of a stack ready to merge makes the whole stack mergeable.
+  H: The mergeable part of a verified stack (`help stack-checks`) merges from its top PR in one action (GitHub) or one PR at a time from the bottom (GitLab:
+  H: - A release PR is merged by the user, last of the batch (in a stack from its top PR with the rest;
+H-032 [e] -> concepts.md
+  S: On GitHub a PR in a native stack is merged through the asynchronous merge, which takes every open PR below it, so the steering session merges it only when nothing open sits below it ([foreman-merge](foreman-merge.md), "Merging on GitHub").
+  H: in a stack batch every CR under it ready to merge too (for a CR the stack driver placed, those below it in the stack's order;
+  H: The steering session merges only under the grant, never a stack that holds it;
+  H: GitHub's asynchronous merge takes every open PR below, so it merges there only with nothing open below (`help merge-github`).
+H-059 [a] -> chief-of-staff.md,griller-skill.md
+  S: the agent's memory and the host's settings (`~/.claude/`), never a CR's place.
+  H: Editing `~/.claude/settings.json`:
+  H: - Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory;
+  H: - Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory;
+H-086 [e] -> topics/writer.md
+  S: With no writer a write to the surface is refused (the Chief of Staff starts the server);
+  H: # The surface's writer states
+  H: The surface server is the one writer:
+  H: start the surface server (`help board`);
+H-093 [e] -> topics/pr-extras.md,topics/pr-gitlab.md,topics/pr-images.md
+  S: Size: as is up to 1 MB, zipped from 1 to 10 MB, very big above 10 MB; no retained version named, nothing from `prototypes/` ([driver](driver.md)).
+  H: - The retained prototype goes in as `prototypes/NN-<idea>/`, or zipped as `prototypes/NN-<idea>.zip` above 1 MB (up to 10 MB);
+  H: follow a decision in `02-answers.md` on a very big folder.
+  H: out of the archive, a `note`, and Known gaps "retained prototype not in the archive:
+H-111 [e] -> concepts.md
+  S: **A CR's name:** when an agent names a CR to a person or in a report (messages, report tables, asks; in a CR's PR only the description's Internal references section, never the title or the body's text, unless the project's rules say otherwise), it gives the number and the short slug together, like "CR-142 grill-rules", never one alone.
+  H: A CR is named with its number and short slug together ("CR-<n> <slug>");
+  H: In a CR's PR the name appears only in the Internal references section, unless the project's rules say otherwise.
+  H: ["<slug>"]}`, a slug being a folder's name without its number) is written with the Chief of Staff during the grill, only when a CR needs the result of another, never for a shared file.
+H-115 [b] -> concepts.md
+  S: It has no name, only a number: `batch-<n>` (`<n>` on two digits, counting all batches), its own files in `4-batch/` (its CRs in the three state folders there), and `--batch` takes the number, `4` or `batch-04`.
+  H: the folder of the CRs that wait for the next batch (never "the ready CRs"), specified or automatable (no specification:
+  H: A new prototype version is a new folder (two digits and a kebab-case name) and the earlier ones stay;
+  H: A subagent of the Chief of Staff writes its files in a CR's folder (or a folder its brief names) with a number prefix (`04-report.md`), except the names a card fixes (`03-change-spec.md`, `delivery.md`, `STATUS.md`, `retro.md`, the `work/` files the cards name);
+H-125 [e] -> topics/merge-series-stack-p1.md,topics/merge-series-stack-p2.md
+  S: a CR with a dependency starts only once that dependency is `ready` (`take` refuses it until then), on the branch of its last dependency still open, else on the default branch (see **Dependencies**), and its PR stays a draft on that branch until the dependency merges;
+  H: On each ask say which PR is next (the bottom one, ready to merge on the default branch), that the others are drafts waiting on it, the gaps;
+  H: the next CR starts once the previous one is `ready`, from its pushed branch, its PR a draft.
+  H: A CR with a dependency starts only once it is `ready` (`take` refuses until then), on the branch of its last dependency still open, else on the default branch;
+H-142 [e] -> topics/stack-joins.md
+  S: each further CR joins on top as a draft when it has its PR (`$CHANTIER forge-stack rebuild`: unstack, then create);
+  H: order it on top (`stack`), have it rebased, then `$CHANTIER forge-stack rebuild` (GitLab:
+  H: order it below them, rebase it and the drafts above (theirs by their Drivers' notes when working), `rebuild`, the chain check, ready, `stack --out-of-draft <cr>`.
+  H: `$CHANTIER stack` again, restack what remains on `origin/<default branch>` with the CRs being added (one pass), `rebuild`.
+H-163 [e] -> topics/stack-changes.md
+  S: then the new CR's PR is inserted at its place, the PRs above are restacked on it, the stack is rebuilt on the forge (`$CHANTIER forge-stack rebuild`) and verified, and only then the PRs above turn ready again;
+  H: Every PR that will sit above a change goes back to draft first (`gh pr ready --undo`, `glab mr update --draft`, then `$CHANTIER stack --draft <cr>…`), before any other step.
+  H: read the five checks, run the local gate at the mergeable top if its head has no pass, then after the chain check turn the PRs above ready (`stack --out-of-draft`), the release last.
+  H: - Push each moved branch, `ship` bottom up, judge what each move touched again (a drop carries when the CR's own commits are unchanged), heavy CI at the top (`help stack-hold`), then `forge-stack rebuild`:
+H-179 [e] -> concepts.md
+  S: `open` with no CR creates the batch **paused**, with no CR: no cost to show, no retro, no close offer at that pause (steps 3 and 4 do not apply to it);
+  H: `1-inbox/`, `2-backlog/P1…P4/`, `3-ready/`, then in the running batch `4-batch/1-pending/` (a CR arrives by `open` or `order add`, the latter from the destination the user chose at "grilled enough?"), `2-actives/` (taken by a Driver), `3-done/` (merged, until `close`), then `5-archives/<YYMMDD-HHMM>-<number>-<slug>/` (after `close`, the merge's time) or, after `order drop`, `6-trash/`, always with
+  H: One batch at a time, from `open` to the user's `close`.
+  H: `open` creates it running (paused when it holds no CR):
+H-185 [e] -> topics/batch-pause.md
+  S: **Paused:** nothing runs.
+  H: # The pause
+  H: The CLI removed the merged CRs' worktrees and branches and paused the batch when the last CR ended (`kept:` or `not removed:` names a leftover);
+  H: the Foreman wrote the retro in `4-batch/retro.md` after the pause and before `final`, and stays idle;
+H-202 [e] -> concepts.md
+  S: The budget is dollars the Foreman's session and its agents may spend;
+  H: The steering session merges only under the grant, never a stack that holds it;
+  H: the budget is dollars;
+  H: A session's title is `[<code>] 💬 Project · <role>`, the Foreman's `[<code>] ⚙️ Project · Foreman (Batch <nn>)` (`help titles`).
+H-222 [e] -> topics/release-take.md
+  S: In an ordered batch a Release driver prepares it on top, once the others are handed back ready and stacked, and its PR is the top PR; in a parallel batch, after the merges.
+  H: The Release driver takes the release CR once the others are handed back ready (ordered batch;
+  H: in a stack, `take stack` first, then `take <release>`) or merged (parallel batch) (nothing to confirm).
+  H: - An `order approve` on a release CR handed back `ready` whose PR waits for its merge is no work for a Driver:
+H-228 [b] -> concepts.md
+  S: **Griller:** a session that keeps the inbox and the backlog with the user (file, triage, grill, answers, specification) and may prepare work for the Chief of Staff.
+  H: `1-inbox/`, `2-backlog/P1…P4/`, `3-ready/`, then in the running batch `4-batch/1-pending/` (a CR arrives by `open` or `order add`, the latter from the destination the user chose at "grilled enough?"), `2-actives/` (taken by a Driver), `3-done/` (merged, until `close`), then `5-archives/<YYMMDD-HHMM>-<number>-<slug>/` (after `close`, the merge's time) or, after `order drop`, `6-trash/`, always with
+  H: the steering session writes the retro, the Chief of Staff offers it, and `close --yes` runs only on the user's yes.
+  H: The **Griller** keeps the inbox and the backlog with the user:
+H-331 [e] -> concepts.md
+  S: When the work is for a CR, its brief names that CR's folder and the place in it (a `prototypes/NN-<idea>/` or `experiments/`), and its result (the study, the report) is written there as a file, not only returned in the conversation.
+  H: **A CR's folder holds its work.** Whatever an agent makes for a CR (a prototype, a script, a test, a benchmark, a study, a research note, a screenshot it keeps, a plan) is written in that CR's folder, in the place the tree gives, never in the host's scratchpad or a temporary folder:
+  H: ["<slug>"]}`, a slug being a folder's name without its number) is written with the Chief of Staff during the grill, only when a CR needs the result of another, never for a shared file.
+  H: A subagent of the Chief of Staff writes its files in a CR's folder (or a folder its brief names) with a number prefix (`04-report.md`), except the names a card fixes (`03-change-spec.md`, `delivery.md`, `STATUS.md`, `retro.md`, the `work/` files the cards name);
+H-333 [a] -> demo-explorer.md
+  S: It never implements: no commit, no push, no PR, nothing in a CR's worktree.
+  H: say what has none, invent nothing);
+  H: the stack's highest worktree, else a detached worktree at the stack's top, clean, outside the repository, removed at the end.
+  H: - commit, push, comment or open a PR;
+H-461 [e] -> pr-template.md
+  S: When `take` says `archive: not in the PR`, the diff holds no archive folder and the description names none.
+  H: - It is the description of a CR's PR (GitHub) or MR (GitLab), written in `<work folder>/pr-body.md`.
+  H: the archive folder is part of the diff, named only in Internal references;
+  H: the description names none.
+H-477 [e] -> pr-template.md
+  S: The verb is what closes the issue at the merge (a bare `#<n>` only links it); a project that wants a link only says so in its rules.
+  H: - With an `issue:` line in the specification, the body has `## Issues References`, one line per ticket, in the form the project's rules give, else:
+  H: The verb closes the issue at merge;
+  H: a project that wants a link only says so.
+H-506 [e] -> pr-template.md
+  S: A claim in Summary, Deliverables, Changes or Impacts with no proof (no test, no gate, no Verifier claim, no evidence) starts with `**UNVERIFIED:**`, or is narrowed to what is proven;
+  H: A claim with no proof starts with `**UNVERIFIED:**` or is narrowed to what is proven.
+  H: a part of the specification not delivered, each `**UNVERIFIED:**` claim, evidence the Verifier could not capture, a defect accepted rather than fixed, a cosmetic one included.
+  H: one `<details><summary>Details</summary>` block after Autonomous decisions, holding Changes, Human decisions (when present), Impacts, Test plan and Internal references, a blank line after `</summary>` and before `</details>`, nothing after it;
+H-521 [e] -> pr-template.md
+  S: A `STALE` proof is never a gap: it is fixed before the hand-back.
+  H: This is the only place the PR names the ticket, and the Driver never comments on the issue.
+  H: a proof the head has moved past is `STALE (judged at <sha7>, head now <sha7>)`.
+  H: A `STALE` proof is never a gap:
+H-541 [e] -> pr-template.md
+  S: Human decisions matches the CR's `02-answers.md`: each decision that shapes the change is there, nothing dropped, nothing invented; absent only when there is no such decision.
+  H: omitted when the CR had no grill (a quick fix, a fix CR) or its answers hold no decision that shapes the change.
+  H: Human decisions present only when `02-answers.md` records a decision that shapes the change;
+  H: each decision that shapes the change is there, nothing dropped, nothing invented.
+H-553 [e] -> release-template.md
+  S: The mechanics (version, tag, publication, gates) are always the project's own, and this file adds none.
+  H: - The project's own release procedure, and what `$CHANTIER rules` reaches, rank above it.
+  H: - The mechanics (version, tag, publication, gates) are the project's own;
+  H: this file adds none.
+H-556 [e] -> release-template.md
+  S: a title: the product name and the full version (`X.Y.Z`, never `X.Y`), then a subtitle line that names the release's kind first, then the two or three main changes, in the kind's words (not "as verbs" whatever ships), and a `<sub>` line with N changes since the previous version, what it runs on, and the licence;
+  H: then a subtitle that names the release's kind first, then the two or three main changes in the kind's words;
+  H: then a `<sub>` line with the number of changes since the previous version, what it runs on and the licence;
+  H: - The subtitle names the kind in its first words ("A bug-fix release:
+H-561 [e] -> release-template.md
+  S: Every changelog line (each `feat:` and `fix:` commit since the previous version) appears once, as a highlight, a smaller change or a folded line, never twice.
+  H: then a `<sub>` line with the number of changes since the previous version, what it runs on and the licence;
+  H: Every changelog line (each `feat:` and `fix:` commit since the previous version) appears once:
+  H: as a highlight, a smaller change or a folded line.
+H-624 [e] -> topics/release-evidence.md,topics/release-thread.md
+  S: The image protocol:
+  H: One image per highlight;
+  H: - Only a visible change (a fix too) gets an image, one per change, cropped to it (never the whole window), 900 to 1200 px wide, at most 600 px high;
+  H: before/after is one joined image, same region and scale.
+H-636 [e] -> topics/release-evidence.md,topics/release-thread.md
+  S: Nothing visible to show: no image and no sentence about it.
+  H: One image per highlight;
+  H: a change that replaces a visible behaviour shows before and after side by side, from the Verifier's before/after.
+  H: - Only a visible change (a fix too) gets an image, one per change, cropped to it (never the whole window), 900 to 1200 px wide, at most 600 px high;
+H-640 [e] -> topics/release-evidence.md,topics/release-thread.md
+  S: The same goes for the version PR's body.
+  H: # Release pictures
+  H: the version PR's Known gaps (no version PR:
+  H: - Name an image as `<img src="...">` or in prose, never a Markdown link to a file that may not exist, the PR's body too.
+H-642 [e] -> topics/release-evidence.md,topics/release-thread.md
+  S: the story, which may be long: first person, a concrete moment of work the release improves, then what is different now, at most three changes in plain words;
+  H: # Release pictures
+  H: `release go` first.
+  H: the story (first person, a concrete moment of work the release improves, then what is different now, at most three changes, the thread's one image);
+H-662 [e] -> status-layout.md
+  S: **A CR's name:** name every CR by its number and slug together, like "CR-142 grill-rules", never one alone; an item with no number yet is named by its slug.
+  H: - Name every CR by its number and slug together ("CR-<n> <slug>");
+  H: an item with no number yet by its slug.
+  H: - **Header line:** the batch's number and name, who steers it (`direct (the Chief of Staff)` or `Foreman`) and its shape (`parallel`, `series`, `stack`), copied from the first line of `$CHANTIER status`, never judged;
+H-670 [e] -> status-layout.md
+  S: Each icon is the one `status` draws in the CR's `label` (the same as `STATUS.md` and the board; read it there, in the Status column of the batch's `STATUS.md`, or in `label` of its `STATUS.json`, which `status --refresh` has just written): copy it, never judge it. 🟠 is a CR that waits for a thing already on its way, named: the stack driver, another CR, a fix of a release, a slot, the user's word on a release, the budget a queued CR cannot start on;
+  H: Each icon is the one `status` draws in the CR's `label` (the Status column of the batch's `STATUS.md`, or `label` of its `STATUS.json`):
+  H: 🟠 waits for a thing already on its way, named (the stack driver, another CR, a fix of a release, a slot, the user's word on a release, the budget a queued CR cannot start on);
+  H: - **Header line:** the batch's number and name, who steers it (`direct (the Chief of Staff)` or `Foreman`) and its shape (`parallel`, `series`, `stack`), copied from the first line of `$CHANTIER status`, never judged;
+H-738 [e] -> status-layout.md
+  S: You group, add and regroup nothing: the ratio line is the one grouping, and the CLI makes it.
+  H: <the ratio line, as printed>
+  H: Below it, the ratio line `Orchestration (steering + Drivers):
+  H: you group, add and regroup nothing.
+H-758 [e] -> routing.md
+  S: | Chief of Staff → Foreman | also `pushed <branch>`, `push failed <branch> <text>`, `push refused <branch>: <reason or git's exact text>` (the CR's fresh Driver then hands back `blocked refused <exact text>`), `checks red <cr> <pr> at <head7>` (a red CI on a PR ready to merge, relayed from a watcher only while `status` shows `foreman watch: not running`; the Foreman records nothing for it; with the Foreman's watcher running, it hears the merge, red CI or met wait from its own watcher and the Chief of Staff sends none of the three), `chief-of-staff <session id>` (a hand-over: the new Chief of Staff's session), `switch to direct mode` (the Foreman stops its Drivers, answers and stops; see [foreman](foreman.md)) |
+  H: <reason or git's exact text>` (the CR's fresh Driver then hands back `blocked refused <exact text>`), `checks red <cr> <pr> at <head7>` (a red CI on a PR ready to merge, relayed from a watcher only while `status` shows `foreman watch:
+  H: with the Foreman's watcher running, it hears the merge, red CI or met wait from its own watcher and the Chief of Staff sends none of the three), `chief-of-staff <session id>` (a hand-over:
+  H: the new Chief of Staff's session), `switch to direct mode` (the Foreman stops its Drivers, answers and stops;
+H-815 [e] -> topics/init-checks.md
+  S: on a no, propose `parallel: 1`, so the question is not asked again.
+  H: ask how many runs at once the machine carries, and propose `long_gate:` / `parallel:
+  H: propose `parallel:
+  H: Not asked when `long_gate.parallel` is set (a `long_gate:` holding only `commands` is still asked).
+H-818 [e] -> topics/init-checks.md
+  S: The write is the one of the Chief of Staff's offer, with the same inbox CR offered.
+  H: # The tour's checks:
+  H: gates and long-gate settings
+  H: Write it, with the inbox CR offered, as `help project-rules` says.
+H-828 [e] -> topics/init-tools.md
+  S: **The allow rules:** the Chief of Staff's question and write ([chief-of-staff](chief-of-staff.md), "The project"), and the command line of your host's "Allow rules to add" when the host refuses the edit.
+  H: - **The allow rules:** the Chief of Staff's question and write (`help allow-rules`);
+  H: the host refusing the edit:
+  H: `help host-allow-add-lines`.
+H-917 [e] -> forges/github.md
+  S: **Command-line tool:** `gh`, the user's own, logged in by them.
+  H: # GitHub
+  H: the startup cards say "a forge" and name no tool.
+  H: - **Tool:** `gh`, the user's own, logged in by them;
+H-934 [d] -> topics/host-configuration-copilot.md,topics/host-configuration.md
+  S: **proved**: seen on the host, with where and when;
+  H: All of it **unproved** on this host.
+  H: the host may stop an unwatched session on a prompt, which halts the batch.
+  H: - Known host issues (GitHub):
+H-936 [d] -> topics/host-configuration-copilot.md,topics/host-configuration.md
+  S: **unproved**: nobody has seen it, and the trial that settles it is named.
+  H: All of it **unproved** on this host.
+  H: the trials run
+  H: **documented** (the docs say so, link given), **unproved** (nobody saw it:
+H-943 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | Load another skill (the router) | the host's Skill tool | unproved until the router runs; trial: `/chantier:chantier` in a session with no Chief of Staff, answer a role, see the skill load |
+  H: "`/chantier:chantier` (the router), `/chantier:chief-of-staff [foreman|direct]`, `/chantier:griller`, `/chantier:status`.",
+  H: "The router (`/chantier:chantier`) asks which role, then loads that role's skill."
+  H: `skills/chantier` (the router), `skills/chief-of-staff`, `skills/griller`, `skills/status`.",
+H-944 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | List the sessions and their state; is the seat's session alive | the session tools found in the `mcp__ccd_session__` set: the exact tool and its states are not recorded | unproved; trial: two sessions on one repository, one stopped, list both and record the states |
+  H: "`mcp__ccd_session__start_session` with `initiation:
+  H: "The session tools of the `mcp__ccd_session__` set list the sessions and tell whether the seat's session is alive.",
+  H: "The exact tool and its states are not recorded on this host;
+H-982 [e] -> topics/host-heartbeat-copilot.md,topics/host-heartbeat.md
+  S: It ends the heartbeat, never its session, with `ScheduleWakeup` `stop: true` (after `chantier status --stop-heartbeat --batch <batch> --epoch <n>`, which every pause already does): right after the pause, the steering session's own or the automatic one (the record alone does not stop the wake, and a later wake's `status --refresh` resets it), and on the first wake that sees no Driver of any kind (CR, stack, QA, release) run for 30 minutes or more, whatever the wake's interval, and no order is undone.
+  H: `/every <steering wake> chantier status --refresh --batch <batch> --epoch <n>`, the wake read from
+  H: `chantier status --stop-heartbeat --batch <batch> --epoch <n>` (`pause` already does);
+  H: the first wake that sees no Driver of any kind run for 30 minutes or more with no order undone.
+H-994 [e] -> topics/host-auto-fix.md,topics/host-claude-only.md
+  S: It ends the turn at once.
+  H: # Claude Code:
+  H: Auto-fix events
+  H: rebase, push, no relay to the Driver) and end the turn.

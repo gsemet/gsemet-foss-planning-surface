@@ -1,0 +1,240 @@
+C-727 [e] -> topics/merge-recorded.md
+  S: One exception, on GitLab: a fold (`forge-stack show` prints `folded into <cr below>`) is recorded at once by the fold rule below, whatever the line says.
+  H: record it once the forge confirms it (`help watcher-events`):
+  H: With no batch open say it is recorded the same way in the next batch and leave the folder.
+  H: a fold (`forge-stack show` prints `folded into <cr below>`) is recorded at once, a rule that keeps its precedence over the forge check (`help merge-stack-gitlab`).
+C-731 [e] -> topics/merge-series-stack-p1.md,topics/merge-series-stack-p2.md
+  S: The user may merge the bottom PR as soon as it is ready to merge, which is what the series already does; nothing waits for a "go" of the user to merge.
+  H: On each ask say which PR is next (the bottom one, ready to merge on the default branch), that the others are drafts waiting on it, the gaps;
+  H: to a stack or series the PRs above the bottom go to draft while it is rebuilt, "do not merge them meanwhile" (name them);
+  H: stack to series, the PRs above the bottom stop being mergeable (name them);
+C-740 [e] -> topics/merge-series-stack-p1.md,topics/merge-series-stack-p2.md
+  S: Before the stack is made on the forge, each CR handed back `ready` on the default branch is an ordinary `ready-to-merge` ask, offered as mergeable now, while that CR is the only open PR of the stack's chain (the shape line's `alone asks`) (the bullet above);
+  H: On each ask say which PR is next (the bottom one, ready to merge on the default branch), that the others are drafts waiting on it, the gaps;
+  H: before the stack exists each CR handed back ready on the default branch is an ordinary ask while it is the only open PR of the chain (the shape line's `alone asks`).
+  H: offer `order hold <blocked cr>` (the held CR leaves the chain, so the ready one may ask alone), or an order on the ready CR carrying the user's word for `--outside-stack "O-<k>:
+C-742 [e] -> topics/merge-series-stack-p1.md,topics/merge-series-stack-p2.md
+  S: Each Foreman ask is checked against the batch's shape, not only for being rebased and green.
+  H: to parallel each open PR is rebased, its gates run again, and it leaves draft once ready.
+  H: before the stack exists each CR handed back ready on the default branch is an ordinary ask while it is the only open PR of the chain (the shape line's `alone asks`).
+  H: Check each ask against `status --refresh`'s shape line:
+C-758 [e] -> topics/merge-stack-ready-p1.md,topics/merge-stack-ready-p2.md
+  S: All hold: first tell the user the one PR to merge, by the ask's `merge <cr> <link>` (its number and link): on GitHub, merging that PR merges those under it in one action;
+  H: ...`), read the stack on the forge yourself first (`$CHANTIER forge-stack show`, the five checks, exit 0 when all hold), then quote each CR's gaps and any screenshot or local-gate clause as for a plain ask (`help merge-gaps`), before the sentence that says it can be merged.
+  H: tell the one PR to merge by the ask's `merge <cr> <link>`:
+  H: on GitHub merging it merges those under it in one action;
+C-766 [e] -> topics/merge-stack-ready-p1.md,topics/merge-stack-ready-p2.md
+  S: A CR of the stack that turns ready to merge reaches the user through the next report's partial-stack line, never as an ask;
+  H: # A stack ready to merge (part 1 of 2)
+  H: On `stack-ready-to-merge <stack link> ...
+  H: A CR that turns ready reaches the user through the next report's partial-stack line.
+C-771 [e] -> topics/merge-stack-gitlab.md
+  S: On GitLab (unproved; trial: one run on a GitLab project), `forge-stack show` reads the same checks on the chain and names the commit the same way;
+  H: # A stack on GitLab
+  H: Unproved on GitLab.
+  H: `forge-stack show` reads the same checks on the chain and names the commit the same way.
+C-778 [e] -> topics/merge-stack-gitlab.md
+  S: only the bottom MR (on the default branch) can join the train, the next once it is retargeted after that merge (unproved; trial: one run on a GitLab project with merge trains).
+  H: each next MR is mergeable once GitLab shows it so (retargeted to the default branch, pipeline green;
+  H: an MR merged in the middle folds into the one below, its change reaching the default branch when that MR merges.
+  H: Only the bottom MR can join the train, the next once retargeted after that merge.
+C-787 [e] -> topics/merge-stack-ready-p1.md,topics/merge-stack-ready-p2.md
+  S: the Foreman passes it on, and its `heavy-ci <cr> <head7> green|red <checks>` ask is told to the user (a red result changes nothing by itself: the user decides).
+  H: ...`), read the stack on the forge yourself first (`$CHANTIER forge-stack show`, the five checks, exit 0 when all hold), then quote each CR's gaps and any screenshot or local-gate clause as for a plain ask (`help merge-gaps`), before the sentence that says it can be merged.
+  H: tell the one PR to merge by the ask's `merge <cr> <link>`:
+  H: at its head"`, and the Foreman's `heavy-ci <cr> <head7> green|red <checks>` ask is told (red changes nothing by itself).
+C-791 [e] -> topics/stack-changes-chief-p1.md,topics/stack-changes-chief-p2.md
+  S: Backlog or next batch (`3-ready`): its PR goes to draft and, by the rebuild, onto the default branch;
+  H: Tell the user its commits come out of the PRs above it, which are drafts (do not merge) until the next partial-stack line shows them ready.
+  H: its PR goes to draft and, by the rebuild, onto the default branch, its branch and worktree stay and are not offered for removal at `close`, its folder keeps its number.
+  H: nothing to rebuild (already a draft on the default branch).
+C-799 [e] -> topics/stack-changes-chief-p1.md,topics/stack-changes-chief-p2.md
+  S: The CRs that wait with it (an `after`, or in a series a start on it) wait too: name them to the user.
+  H: Tell the user the stack is not mergeable until the Foreman's next `stack-ready-to-merge` and that the release notes will name the change (the release CR goes back to `redo:`).
+  H: CRs that wait with it wait too:
+  H: say so, name it, offer to wait (a parked one returns when its wait is cleared, then `take`) or `order unhold <cr>` or `order drop <cr> --note <destination>` (the user's), and act on the answer only.
+C-826 [e] -> topics/retro-route-p1.md,topics/retro-route-p2.md
+  S: its points went through the Foreman's critic with the batch's, so only the kept ones (marked `(release)` in the section) are offered.
+  H: - A release's `work/retro.md` is offered once, with the batch's, each point by its own tag;
+  H: only the kept ones (marked `(release)`).
+  H: - Before proposing on your own initiative any other list of changes (a retro after a release, a report's suggestions, even a single change), start one `retro-critic` with the points and their evidence, its first line copied from `$CHANTIER playbook`, and offer only the kept points and the dropped line (the list stays in the chat, shown on request).
+C-837 [e] -> topics/batch-pause.md
+  S: New work for the paused batch is `order add`, once per CR: until the user's `close`, the paused batch is still the running batch, and a CR placed in `1-pending` (by `order add`) starts it again at the next `take`.
+  H: - New work for the paused batch is `order add`, once per CR:
+  H: until `close` the paused batch is still the running batch, and a CR in `1-pending` starts it again at the next `take`;
+  H: - Where the heartbeat is yours (host row), tell the user to delete it in the Foreman chat at the pause and again when the Foreman ends it on its first wake that sees no Driver run for 30 minutes or more;
+C-852 [e] -> topics/retro-route-chantier-p1.md,topics/retro-route-chantier-p2.md
+  S: then the body: what happened (the problem), the long-term fix proposed, chantier's version (`$CHANTIER --version`) and the host and its version when known, one line saying it came from a batch retro, and, for a point caused by the host, that it may belong upstream.
+  H: `4-batch/chantier-issue-<n>.md`, `<n>` the first point's number (one point, or the points of one cause the user groups).
+  H: then what happened, the long-term fix, chantier's version (`$CHANTIER --version`), the host and version when known, one line saying it came from a batch retro, and for a host cause that it may belong upstream.
+  H: `gh issue create --repo <owner/name> --title "<title line>" --body-file <path>`, the body in `4-batch/chantier-issue-<n>-body.md`;
+C-854 [e] -> topics/retro-route-chantier-p1.md,topics/retro-route-chantier-p2.md
+  S: In English; no label is set.
+  H: # The chantier route (part 1 of 2)
+  H: English;
+  H: no label.
+C-863 [e] -> topics/retro-route-chantier-p1.md,topics/retro-route-chantier-p2.md
+  S: No record: the drafts stay in `4-batch/` until `close` deletes them with the batch's other files; the retro is not rewritten; the link of a posted issue is said in the chat only.
+  H: a match is named with its link and not drafted.
+  H: the drafts stay until `close` deletes them;
+  H: the link is said in the chat only.
+C-867 [e] -> chief-of-staff.md,floor.md,topics/refusals-to-say-p1.md,topics/refusals-to-say-p2.md
+  S: Closing: `--yes` only on the user's word (their yes to the close offered at the pause, or "close the batch").
+  H: You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode.
+  H: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`;
+  H: use `close --yes` only on the user's yes.
+C-869 [e] -> topics/batch-close-p1.md,topics/batch-close-p2.md
+  S: it is also run unprompted at the pause, to offer the close, and only once the retro critic has handed back (below).
+  H: At the pause, after the Completion report and the Retro, once the steering session's retro critic has handed back (Foreman mode:
+  H: `close` does not judge a running critic, so this keeps its calls in the final cost), offer the close unprompted:
+  H: run `$CHANTIER close --batch <batch>` (the check, no `--yes`), show the bilan, the final cost, what goes (the batch's own files;
+C-875 [e] -> topics/batch-close-p1.md,topics/batch-close-p2.md
+  S: It refuses too, with or without `--yes` and naming the cause, when nothing at all can be priced (no priced call in the batch; no Foreman transcript recorded, which leaves the batch no way through `close`).
+  H: run `$CHANTIER close --batch <batch>` (the check, no `--yes`), show the bilan, the final cost, what goes (the batch's own files;
+  H: `open` writes the `.json` as `running`, `close` completes it), its line of worktrees and branches to remove (the merged CRs' leftovers beside the trashed CRs', whatever `final` said, with why each was kept, from `final` or the `cleanup:` lines) and its `kept, moved out with their work` line (show it, remove nothing on it), and ask "close the batch?".
+  H: - It refuses, naming each cause, while a CR is not merged or cancelled, an order is open, a stack agent is recorded, or a held agent (the current Foreman included) has a transcript showing it still runs or unreadable;
+C-879 [e] -> topics/batch-close-p1.md,topics/batch-close-p2.md
+  S: When the refusal names a held agent that still runs, wait for that agent's hand-back (its notification), then run `close` again, never on a timer.
+  H: - It refuses, naming each cause, while a CR is not merged or cancelled, an order is open, a stack agent is recorded, or a held agent (the current Foreman included) has a transcript showing it still runs or unreadable;
+  H: A held agent that still runs:
+  H: wait for its hand-back, never a timer.
+C-934 [e] -> topics/stack-asks.md,topics/stack-drop.md,topics/stack-ends.md,topics/stack-run.md
+  S: A stack batch.** The Foreman's check of the five checks of a stack ready to merge ([foreman-stack](foreman-stack.md), "The five checks") is yours;
+  H: On its `hand-back ready to merge <stack link> <cr>=<link>…`, read the stack on the forge, the five checks (`help stack-checks`), then:
+  H: `$CHANTIER asks "stack-ready-to-merge <stack link> partial stack mergeable below <sha7> merge <cr> <link> <cr>=<link> gaps:
+  H: `asks "stack-ready-to-merge <stack link> mergeable below <sha7> merge <cr> <link> <cr>=<link>…"`, gaps after each link.
+C-953 [e] -> floor.md,topics/direct-mode-accept-p1.md,topics/direct-mode-accept-p2.md
+  S: `triage --ready` never joins the running batch: a CR joins it only by `order add`, from a destination the user chose ("Where the CR goes").
+  H: `triage --ready` never joins the running batch:
+  H: a CR joins only by `order add` from a destination the user chose.
+  H: - Inbox ideas may be grilled at the pause and any number added with `order add --note <folder>` before your first `take`, which sets the batch running again.
+C-978 [e] -> topics/direct-mode-back.md,topics/direct-mode-switch-p1.md,topics/direct-mode-switch-p2.md,topics/direct-mode-switch-p3.md,topics/direct-mode-switch-p4.md
+  S: The switch can be undone by the switch to direct mode (next bullet).
+  H: - A switch to direct mode undoes it.
+  H: # A switch to direct mode (part 1 of 4)
+  H: The user's word only ("switch the batch to direct mode", "take over the batch"), on a running or paused Foreman batch, its Foreman alive or not.
+C-1004 [e] -> topics/direct-mode-back.md,topics/direct-mode-switch-p1.md,topics/direct-mode-switch-p2.md,topics/direct-mode-switch-p3.md,topics/direct-mode-switch-p4.md
+  S: Then, as after any claim of yours: `$CHANTIER rules` and the rule files, your title `[<code>] 💬 Project · CoS (Batch <nn>)`, and your heartbeat, as this section says.
+  H: - No Driver of yours runs once the Foreman claims (two Drivers on one CR is what this prevents).
+  H: compare this session's transcript id (the host row says where it is) with the batch record's `chief_transcript` (`batch.json`).
+  H: `$CHANTIER rules` and the rule files, your title `[<code>] 💬 Project · CoS (Batch <nn>)`, and your heartbeat (`help direct-mode`).
+C-1068 [e] -> topics/retro-critic-write.md,topics/retro-critic.md,topics/retro-lines.md,topics/retro.md
+  S: "(recommandé)"), on both sides.
+  H: # The retro critic:
+  H: the section and the verdicts
+  H: A cause on both sides is two lines.
+C-1080 [e] -> topics/grill-specify-p1.md,topics/grill-specify-p2.md
+  S: The text written first:
+  H: a CR bound for the running batch first gets `triage <folder> --running-batch`.
+  H: its prompt names the card and the CR folder, its first line is the one `$CHANTIER playbook` prints, copied unchanged.
+  H: - A refused first line ends that agent:
+C-1085 [e] -> topics/titles.md
+  S: Name the CR first (recommended).
+  H: # Session titles
+  H: `[<code>]` first:
+  H: the machine's name (first label of `hostname`) when it has 6 letters or fewer, else its first 6 letters, first letter uppercase (`Mac`, `Battle`);
+C-1093 [e] -> topics/grill-options.md
+  S: Recommendation: A, the CR is what the user knows; "Other" is there for anything else.
+  H: The recommended one is `A.`, marked "(recommended)" in the user's language, in the text and the tool.
+  H: The text says the tool's free answer ("Other") is there for anything else.
+  H: **Numbering.** <the answer, with the user's words>`.
+C-1168 [e] -> chief-of-staff.md,topics/grill-surface.md
+  S: A clone missing at `checkout.yml`'s path (`preflight` fails naming it) is cloned on the user's word.
+  H: You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode.
+  H: - Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+  H: A clone missing at `checkout.yml`'s path (`preflight` names it) is cloned on the user's word.
+C-1184 [e] -> topics/grill-outside-pr.md
+  S: ```markdown # Delivery
+  H: # An outside PR:
+  H: the title as `file` slugs it, at most 40 characters) with `intake/request.md` (the description, or the title as a `# ` line) and `delivery.md`:
+  H: `# Delivery`, then `- PR:
+C-1186 [e] -> topics/grill-outside-pr.md
+  S: Author: <the author's login>
+  H: # An outside PR:
+  H: `gh pr view <link> --json number,title,url,author,state,mergedAt,files,body`;
+  H: <link>`, `- Author:`, `- Merged:
+C-1194 [e] -> topics/grill-restate.md
+  S: Shared understanding: ask whether a CR is grilled enough only after a complete restatement of it, in the user's language: what it changes, every decision taken (from `02-answers.md`), what is still open.
+  H: - Ask "grilled enough?" only after a complete restatement in the user's language:
+  H: what changes, every decision from `02-answers.md`, what is open.
+  H: - The user may ask for or cancel the critic in the free answer ("specify, no critic"):
+C-1243 [e] -> topics/grill-critic-steps.md
+  S: "critique : 10 points, 6 corrigés sans vous, 4 questions"; a dropped one is counted too, e.g.
+  H: a fix it refuses with a reason you accept is dropped, else it is a question.
+  H: one summary line counting what is true ("critique :
+  H: 10 points, 6 corrigés sans vous, 4 questions"), then the questions with the spec's own, in the series format (at most 5 per call).
+C-1249 [e] -> topics/grill-critic-steps.md
+  S: Start the critic again only if those answers change behaviour (one more pass, the same steps; its summary line says so, e.g.
+  H: Start one `spec-critic` in the background, first line copied from `playbook`, agent and model as it prints;
+  H: one summary line counting what is true ("critique :
+  H: Run the critic again only if the answers change behaviour ("critique, 2e passage");
+C-1273 [e] -> topics/ticket-summary-p1.md,topics/ticket-summary-p2.md
+  S: Written for the reporter: no CR number or slug, batch, round, agent role, cost, requirement ID or `.agents/changes/` path.
+  H: A CR with an `issue:` line has its reporter told what was accepted before any code;
+  H: no CR number or slug, batch, round, role, cost, requirement ID or `.agents/changes/` path), `issue-plan.md` (the decisions for an outside reader), `issue-demo.html` only when the change is visible and imitable (self-contained, no external resource, an HTML comment and a visible line saying it imitates the result;
+  H: the ticket named is the `issue:` line's, no private path (home folder, drive letter, `.agents/changes/`), no internal link (planning surface, CR, batch), no other person's data.
+C-1289 [e] -> topics/ticket-summary-post-p1.md,topics/ticket-summary-post-p2.md
+  S: The route for the plan and the demo is chosen before the ask (step 6) from what the tracker and the capability offer, in this order: the tracker's issue artifacts, else its attachments, else a collapsed section (`<details>`) of the comment.
+  H: the tracker's issue artifacts, else attachments, else a collapsed `<details>` of the comment.
+  H: Else collapsed sections (plan as Markdown, demo as a fenced `html` block).
+  H: its attachment action if any, else a collapsed section, else the plan in the comment and no demo, said in the ask.
+C-1293 [e] -> topics/ticket-summary-post-p1.md,topics/ticket-summary-post-p2.md
+  S: put their links in the comment's link line (Edit), then `gh issue comment <link> --body-file work/issue-comment.md`.
+  H: `gh issue artifact create <link> work/issue-plan.md --type plan`, then `work/issue-demo.html --type embedded_html`;
+  H: put the links in the comment, then `gh issue comment <link> --body-file work/issue-comment.md`.
+  H: <PR link>." in the ticket's language, same ask, steps 7 to 9 (`work/issue-followup.md`), a draft PR of a series or stack too;
+C-1326 [e] -> topics/release-chief-p1.md,topics/release-chief-p2.md
+  S: When the user asks for a release in a parallel batch, explain why it cannot be prepared before the merges (no branch holds all the work until then) and recommend a stack batch instead;
+  H: in an ordered batch it is prepared on top once the others are ready, in a parallel batch after the merges.
+  H: explain why it cannot be prepared before the merges and recommend a stack batch for the next one (a parallel batch cannot be switched to a stack).
+  H: - The user merges the release PR (the whole stack from the bottom in an ordered batch);
+C-1336 [e] -> floor.md,topics/release-chief-approve-p1.md,topics/release-chief-approve-p2.md
+  S: What it leaves out: never the merge itself, which stays the user's, and never the announcement, which stays the user's and is never an agent's step.
+  H: Never merge without the user's word.
+  H: When the release PR is offered (the `ready-to-merge <release-cr>` ask, or the complete `stack-ready-to-merge` whose top is the release PR), ask in that same message the user's word for each irreversible step the procedure runs after the merge, each on its own (chantier:
+  H: Never the merge itself, and never the announcement:
+C-1369 [e] -> topics/release-chief-auto-p1.md,topics/release-chief-auto-p2.md
+  S: Send the order's line to the Foreman (direct mode: act on it yourself; a release CR blocked on an approval goes back to a Driver with `--note "auto: <the grant line>"`).
+  H: While the release runs (from its Driver's start to `release published` or the CR's end) offer "auto" as the "during a release" tip, one line with the exact word;
+  H: Send the order's line to the Foreman (direct mode:
+  H: a CR blocked on an approval goes back to a Driver with `--note "auto:
+C-1370 [e] -> topics/release-chief-auto-p1.md,topics/release-chief-auto-p2.md
+  S: Tell the user in one line what auto now does (the steering session merges the release PR, by the GitHub route of [foreman-merge](foreman-merge.md), "Merging on GitHub", once every other CR is merged or cancelled, and the steps the procedure asks a go for, this release only) and what stays theirs (the announcement, posted by them; a fix, unless they grant it).
+  H: Tell the user in one line what auto does (the steering session merges the release PR by the GitHub route once every other CR is merged or cancelled, and the steps the procedure asks a go for, this release only) and what stays theirs (the announcement, a fix unless granted).
+  H: never an announcement, a fix's start or merge, the procedure's word (`order confirm`) or a budget raise.
+  H: Under a live grant the steering session merges and no ready line goes to the user;
+C-1371 [e] -> topics/release-chief-auto-p1.md,topics/release-chief-auto-p2.md
+  S: "auto" covers this release only: the next release asks again.
+  H: # "auto" for a release (part 1 of 2)
+  H: Tell the user in one line what auto does (the steering session merges the release PR by the GitHub route once every other CR is merged or cancelled, and the steps the procedure asks a go for, this release only) and what stays theirs (the announcement, a fix unless granted).
+  H: "auto" covers this release only;
+C-1389 [e] -> topics/release-chief-approve-p1.md,topics/release-chief-approve-p2.md
+  S: The ready ask's naming of the approved steps (CONTRIBUTING.md step 4, `just tag`) is unchanged.
+  H: When the release PR is offered (the `ready-to-merge <release-cr>` ask, or the complete `stack-ready-to-merge` whose top is the release PR), ask in that same message the user's word for each irreversible step the procedure runs after the merge, each on its own (chantier:
+  H: CONTRIBUTING.md "Release" step 4, `just tag`, and step 5, `gh release create vX.Y.Z --verify-tag ...`).
+  H: <step>`, the ask follows, the answer is `order approve`.
+C-1423 [e] -> topics/session-start.md
+  S: what it means for this role: a Chief of Staff here cannot steer a batch (preflight will fail at the go);
+  H: Run `$CHANTIER preflight --direct` (it prints P6 and P7).
+  H: what it means for the role (a Chief of Staff cannot steer a batch:
+  H: a Griller cannot write the planning folder but may work and send its files to the Chief of Staff, `help griller-worktree`);
+C-1433 [e] -> topics/session-start-surface-p1.md,topics/session-start-surface-p2.md
+  S: With no pointer line and a `.agents/changes/` in the checkout, the project plans in itself (in-project layout): no `--project`.
+  H: read the project's `AGENTS.md` pointer line (`- planning:
+  H: No pointer and a `.agents/changes/` in the checkout:
+  H: it plans in itself, no `--project`.
+C-1441 [e] -> topics/session-start-surface-p1.md,topics/session-start-surface-p2.md
+  S: The other preflight lines are a batch's and are not reported here, except what the configuration checks add to the first message (P5, P9, P10), which goes in the same message;
+  H: add its checkout to this session, or start the session there", and plan nothing in the project.
+  H: - The other preflight lines are a batch's, but P5, P9 and P10 go in the first message.
+  H: check first.
+C-1442 [e] -> topics/allow-rules.md
+  S: P10's warning (one per capability, the base only at a first turn) comes as the Chief of Staff's question ([chief-of-staff](chief-of-staff.md), "The project").
+  H: one, in the first message after the P5 and P10 lines:
+  H: A first turn covers "every batch" only;
+  H: A Griller reports the P10 line and says the Chief of Staff asks.
+C-1446 [e] -> topics/seat-p1.md,topics/seat-p2.md
+  S: A session's CRs are its own project's (the one its `--project` names; for the Chief of Staff, the seat's).
+  H: A session's CRs are its project's:
+  H: - `$CHANTIER seat` prints the seat (session id, environment, title, link) and, with no watcher, the CRs that arrived from another session or a pull (`surface pull brought`, `another session wrote`, at most ten, then the `watch --once` command):
+  H: The router asks the role (a Chief of Staff chosen over a stopped seat asks that line too), otherwise as `chief-of-staff`.

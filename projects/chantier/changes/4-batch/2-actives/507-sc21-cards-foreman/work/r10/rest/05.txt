@@ -1,0 +1,180 @@
+H-1034 [d] -> topics/host-claude-only.md,topics/host-turn-end.md
+  S: **Unproved**: no such notice has been seen.
+  H: known or tried there (unproved), so tell the user nothing about it as a fact.
+  H: the Foreman's turn-end notice
+  H: **Unproved** as a rule.
+H-1063 [e] -> topics/host-configuration-copilot.md,topics/host-configuration.md
+  S: The Chief of Staff, at its first turn of a session and at each batch's preflight: it runs the check (P5, P9, P10).
+  H: as there (the Chief of Staff's own calls, one per used capability, a refusal told and recorded
+  H: the host may stop an unwatched session on a prompt, which halts the batch.
+  H: the Chief of Staff at a session's first turn and each batch's preflight (P5 tools,
+H-1091 [e] -> topics/host-allow-rules-copilot.md,topics/host-allow-rules.md
+  S: Settings precedence: managed > command line > local > project > user; deny > ask > allow; a user deny blocks a project allow (<https://code.claude.com/docs/en/settings>, permissions).
+  H: (<https://code.claude.com/docs/en/permissions>):
+  H: (<https://code.claude.com/docs/en/tools-reference>).
+  H: managed > command line > local > project > user;
+H-1146 [e] -> topics/host-allow-extra.md,topics/host-claude-only.md
+  S: When the user grants a release to run on its own, or fixes to merge on a grant, the Chief of Staff offers the rules of that capability ("Capabilities and their commands"), and only then.
+  H: - The base set holds no release, merge or tag rule, by design:
+  H: When the user grants a release on its own, or fixes on a grant, the Chief of Staff
+  H: offers that capability's rules (the table of `hosts/claude-code.md`), and only then.
+H-1165 [e] -> hosts/claude-code.md
+  S: A missing rule is a strong warning, never a failure: the host's auto-mode classifier judges each command at run time, and in a remote session (Remote Control) nobody may be there to answer its prompt.
+  H: | `Bash(uv run --no-sync --project "<checkout>" chantier *)` and `PowerShell(…)`, `<checkout>` filled with the checkout's real path as P10 prints it | every `$CHANTIER` command in chantier's own checkout, when the session's project is chantier, the dev mode | every chantier subcommand of the checkout at that path (`gate` runs only the long gates the code repository's `chantier.yaml` names, and `le
+  H: the host's classifier judges each command at run time, and in
+  H: a remote session nobody may be there to answer its prompt.
+H-1187 [e] -> topics/host-auto-mode.md,topics/host-claude-only.md
+  S: Seen otherwise for a subagent.
+  H: # Claude Code:
+  H: auto mode and a refusal
+  H: A subagent may differ:
+H-1201 [e] -> topics/host-auto-mode-steering.md,topics/host-claude-only.md
+  S: Cause: the classifier blocks destructive git in subagents ("Git Destructive");
+  H: The classifier blocks destructive git in subagents;
+  H: `git -C <worktree> push --force-with-lease=...` goes through for the Chief of Staff in direct
+  H: - **With the route rule set** an allow rule resolves a matching command before the classifier for
+H-1202 [e] -> topics/host-auto-mode-steering.md,topics/host-claude-only.md
+  S: the steering session's own `git -C <worktree> push --force-with-lease=...` went through (**proved by use**, 2026-11-11, batch-09; not always: refused on 2026-11-13 as a loop).
+  H: the steering session's push in auto mode
+  H: the steering session's
+  H: `git -C <worktree> push --force-with-lease=...` goes through for the Chief of Staff in direct
+H-1283 [e] -> hosts/claude-code.json,hosts/copilot.json
+  S: The guard is role-free: a worker's shell writes in its worktree and CR folder pass, as its Write does.
+  H: "A CR Driver starts in the folder the plugin's mod gives it, as `write-guard` says.",
+  H: "A session in a planning surface writes the planning folder by absolute paths, and the project's clone and worktrees outside its own folder.",
+  H: "The write guard's start folder does not apply here (see `write-guard`)."
+H-1303 [d] -> topics/host-claude-only.md,topics/host-remote.md
+  S: The refusal on a Remote Control session to start a session in another place: proved in use, 2026-11-20 (a start with a `cwd`, the planning surface or the eval root, or with a saved `preset` is refused with "The user is working over Remote Control, and this turn can't start that session").
+  H: starting a session from Remote Control
+  H: A start with a `cwd` (the planning surface, the eval root) or a saved
+  H: `preset` is refused ("The user is working over Remote Control, and this turn can't start that
+H-1304 [d] -> topics/host-sessions-copilot.md,topics/host-sessions.md
+  S: The cloud row: unproved; trial: start a Foreman there and run `git rev-parse --show-toplevel`; the same trial tells a cloud session, for `Remote` in the title.
+  H: The Foreman is started by `create_session`;
+  H: | Main checkout | `git rev-parse --git-dir` equals `--git-common-dir` | yes |
+  H: | Remote or app session | often starts in a linked worktree `.claude/worktrees/<name>`:
+H-1305 [e] -> topics/host-claude-only.md,topics/host-surfaces.md
+  S: A Remote Control session is told by its notice (the Remote Control row), for the offer to fork.
+  H: the phone on Remote Control;
+  H: desktop app adds a Remote Control notice to the conversation when the user works through Remote
+  H: session connected to Remote Control is **unproved**.
+H-1310 [e] -> topics/host-claude-only.md,topics/host-remote.md
+  S: With neither, the new session lands in the steering session's own folder, its main checkout (`--git-dir` equals `--git-common-dir`).
+  H: starting a session from Remote Control
+  H: With neither, the new session lands in the steering session's own folder, which must be
+  H: a main checkout (the surface's, or the project's with the surface as a working directory).
+H-1329 [e] -> topics/host-claude-only.md,topics/host-surfaces.md
+  S: The surfaces where the user can be: the phone (or another device) on Remote Control; the desktop app, typed at the keyboard; a terminal (the CLI).
+  H: the phone on Remote Control;
+  H: desktop app adds a Remote Control notice to the conversation when the user works through Remote
+  H: | Option | Desktop | Remote Control | Terminal |
+H-1365 [d] -> topics/host-claude-only.md,topics/host-reuse-foreman.md
+  S: `foreman set --epoch 1` accepted in a reused session: **proved**, same trial.
+  H: When the previous batch's Foreman session still exists, even stopped, the Chief of Staff may reuse
+  H: `foreman set --epoch 1` is accepted.
+  H: Before a reuse, recommend `/compact` in the Foreman's session,
+H-1368 [d] -> topics/host-claude-only.md,topics/host-reuse-foreman.md
+  S: Trial: after closing a Foreman session, send it a message from the Chief of Staff and see whether a turn starts.
+  H: When the previous batch's Foreman session still exists, even stopped, the Chief of Staff may reuse
+  H: - An idle session answers a message (`SendMessage`), and a reused session's
+  H: a new session starts with an empty context;
+H-1376 [d] -> topics/host-claude-only.md,topics/host-sessions-more.md
+  S: trial: fork a Chief of Staff session, compare `get_session("self")` and the variable with the seat.
+  H: (`$CLAUDE_CODE_SESSION_ID`) and whether anything tells it it is a fork are unknown.
+  H: `get_session("self")` and the variable with the seat makes it a Griller;
+  H: - A Griller in a worktree sends its files by `SendMessage` to the seat's session, naming absolute
+H-1394 [d] -> topics/host-claude-only.md,topics/host-remote.md
+  S: A session the user creates from the remote client's own New session on a chosen folder stays unproved (trial above).
+  H: With neither, the new session lands in the steering session's own folder, which must be
+  H: user creates from the remote client's own "Remote Control" entry lands in a worktree, which blocks
+  H: a session the user creates from the remote client on a
+H-1404 [e] -> topics/host-claude-only.md,topics/host-for-you-sessions.md
+  S: **Do:** type `/compact`; wait for it to end.
+  H: # Claude Code only
+  H: This topic's subject is a Claude Code feature.
+  H: In its session type `/compact` and wait;
+H-1406 [e] -> topics/host-claude-only.md,topics/host-for-you-sessions.md
+  S: If the session is closed, paste the prompt into it (next block).
+  H: # The "For you" block:
+  H: if the session is closed (unproved that a message wakes it), paste
+  H: the prompt into it (desktop app, the session in the list, click its input, paste);
+H-1435 [e] -> topics/host-allow-add.md,topics/host-claude-only.md
+  S: The command line the Chief of Staff gives when the host refused its edit of `~/.claude/settings.json`, or when that file cannot be read as JSON (P10 prints `unreadable: ...`).
+  H: the allow-rules command line
+  H: The Chief of Staff gives it only when the host refused its edit of `~/.claude/settings.json`, or
+  H: that file is not JSON (P10 prints `unreadable:
+H-1440 [e] -> topics/host-allow-add.md,topics/host-claude-only.md
+  S: Then start a new session: whether a running session picks up a settings change is **unproved** (see "What the docs do not say").
+  H: The Chief of Staff gives it only when the host refused its edit of `~/.claude/settings.json`, or
+  H: - **Do:** run the one line for your shell, with the rules P10 named, then start a new session
+  H: (whether a running session picks up a settings change is **unproved**).
+H-1447 [e] -> topics/host-allow-add.md,topics/host-claude-only.md
+  S: A path holding a `'` breaks the quoting of the two command lines below: the Chief of Staff says so instead of giving them.
+  H: The Chief of Staff gives it only when the host refused its edit of `~/.claude/settings.json`, or
+  H: A path holding a `'`
+  H: say so instead of giving the lines.
+H-1476 [e] -> hosts/claude-code.json,hosts/copilot.json
+  S: | A Driver's hand-back to its steering session (the Foreman; in direct mode the Chief of Staff) | the Driver's final answer; in direct mode it returns to the Chief of Staff that started the Driver: unproved |
+  H: "The Driver's final answer is its hand-back to its steering session (the Foreman).",
+  H: "In direct mode the final answer returns to the Chief of Staff that started the Driver."
+  H: "In direct mode the Driver's final answer returns to the Chief of Staff that started the Driver.",
+H-1490 [e] -> hosts/claude-code.json,hosts/copilot.json
+  S: | The skills | the same four, same names: `skills/chantier` (the router), `skills/chief-of-staff`, `skills/griller`, `skills/status`, declared in `.github/plugin/plugin.json`; how Copilot passes the argument `foreman` or `direct`, or the argument `reload` (router, `chief-of-staff`, `griller`), is not known (unproved) |
+  H: "`/chantier:chantier` (the router), `/chantier:chief-of-staff [foreman|direct]`, `/chantier:griller`, `/chantier:status`.",
+  H: `skills/chantier` (the router), `skills/chief-of-staff`, `skills/griller`, `skills/status`.",
+  H: how Copilot passes the arguments `foreman`, `direct` or `reload` is not known."
+H-1491 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | Set a session's own title (the Chief of Staff, a Griller) | when the host offers a way; else nothing (unproved) |
+  H: "Set a session's own title",
+  H: "`set_session_title` renames the session itself (the Chief of Staff, a Griller, the Foreman).",
+  H: "When the host offers a way, the session sets its own title (the Foreman first);
+H-1492 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | List the sessions; is the seat's session alive | not known: the seat's session always "looks stopped" to a new session, and the "looks stopped" line of `session-start.md` is asked (unproved) |
+  H: the \"looks stopped\" line of `session-start.md` is asked."
+  H: "The seat's session always looks stopped to a new session;
+  H: the \"looks stopped\" line of `session-start.md` is asked."
+H-1493 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | Message another session of the user (hand-over, a Griller's line) | `send_message` to its link (unproved) |
+  H: "`SendMessage` to the other session's id (a hand-over, a Griller's line).",
+  H: "`send_message` to the other session's link (a hand-over, a Griller's line).",
+  H: "`send_message` takes a session link (see `message-chief`)."
+H-1494 [d] -> hosts/claude-code.json,hosts/copilot.json
+  S: | A Griller in a worktree | its files sent as for a Griller on Claude Code (unproved) |
+  H: "The transcript's id is `$CLAUDE_CODE_SESSION_ID`."
+  H: "A Griller in a worktree sends its files by `SendMessage` to the seat's session, naming the absolute paths.",
+  H: "A Griller in a worktree sends its files as on Claude Code:
+H-1510 [e] -> topics/host-configuration-copilot.md,topics/host-configuration.md
+  S: P9's forge side (rights and branch rules) runs on Copilot as on Claude Code: it is the card's check.
+  H: - Prerequisites as for Claude Code:
+  H: - The capability table (`hosts/claude-code.md`) holds the commands both hosts run;
+  H: P9 forge rights, P10 allow rules).
+H-1514 [e] -> topics/host-configuration-copilot.md,topics/host-configuration.md
+  S: P10 does not run on Copilot and no allow rule is recorded for it, so the Foreman skips the route-rule read (step 3) and tries the push, as a Driver already does there.
+  H: P10 does not run on Copilot and no allow rule or permission setting is recorded:
+  H: With no route rule
+  H: known, the Foreman skips the route-rule read and tries the push, as a Driver does.
+H-1517 [d] -> topics/host-allow-rules-copilot.md,topics/host-allow-rules.md
+  S: No permission configuration is recorded for Copilot: **unproved**; nothing is recommended until a Copilot trial records one.
+  H: # Copilot:
+  H: P10 does not run on Copilot and no allow rule or permission setting is recorded:
+  H: recommend none
+H-1544 [e] -> topics/worker-shell.md
+  S: A skill or tool the playbook names but the session lacks is no stop: your card says how.
+  H: - A skill or tool the playbook says your role needs but the session lacks is not a stop:
+  H: A `$CHANTIER` that cannot run is a stop (floor 4):
+  H: stop and say why.
+H-1561 [e] -> topics/merge-words-p1.md,topics/merge-words-p2.md
+  S: For each CR you name to the user, copy its `handed back:` line from `status` with the prefix dropped: its icon, its full link, each gap, its `owed before the merge` clauses (the user may merge anyway; record it as any merge) and its long gate clause.
+  H: - `status` prints a `handed back:` line per CR:
+  H: say its icon, its full PR link, each gap, its `do not merge:
+  H: waits for` text and its `owed before the merge` clauses in the user's language, never the prefix.
+H-115 [b] -> concepts.md
+  S: It has no name, only a number: `batch-<n>` (`<n>` on two digits, counting all batches), its own files in `4-batch/` (its CRs in the three state folders there), and `--batch` takes the number, `4` or `batch-04`.
+  H: the folder of the CRs that wait for the next batch (never "the ready CRs"), specified or automatable (no specification:
+  H: A new prototype version is a new folder (two digits and a kebab-case name) and the earlier ones stay;
+  H: A subagent of the Chief of Staff writes its files in a CR's folder (or a folder its brief names) with a number prefix (`04-report.md`), except the names a card fixes (`03-change-spec.md`, `delivery.md`, `STATUS.md`, `retro.md`, the `work/` files the cards name);
+H-228 [b] -> concepts.md
+  S: **Griller:** a session that keeps the inbox and the backlog with the user (file, triage, grill, answers, specification) and may prepare work for the Chief of Staff.
+  H: `1-inbox/`, `2-backlog/P1…P4/`, `3-ready/`, then in the running batch `4-batch/1-pending/` (a CR arrives by `open` or `order add`, the latter from the destination the user chose at "grilled enough?"), `2-actives/` (taken by a Driver), `3-done/` (merged, until `close`), then `5-archives/<YYMMDD-HHMM>-<number>-<slug>/` (after `close`, the merge's time) or, after `order drop`, `6-trash/`, always with
+  H: the steering session writes the retro, the Chief of Staff offers it, and `close --yes` runs only on the user's yes.
+  H: The **Griller** keeps the inbox and the backlog with the user:
