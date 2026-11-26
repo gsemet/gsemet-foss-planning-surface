@@ -25,6 +25,23 @@ flowchart LR
 
 Brief sizes in bytes (old start reading to new brief, test fixture): Foreman 91,612 to 22,125; Chief of Staff 202,936 to 24,351; CR Driver 27,834 to 9,773; Coder 14,226 to 3,939.
 
+What `take` prints for the agent that will drive a change, excerpts. Before, at `ea11a9e`:
+
+```text
+cr-driver prompt (copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
+  ...
+  Read <tree>/skills/chantier/references/startup-core.md, the host core, role core, and the short startup section named by <tree>/skills/chantier/references/startup-manifest.json; defer the rest until an action names it.
+  ...
+  Team: <the team: lines, as printed, then the review steps>
+```
+
+After, at `4380df5` (carried from `b85be4c`):
+
+```text
+brief: uvx --from "<tree>" chantier --skill "<tree>/skills/chantier" brief cr-driver <cr> --lease 1 --batch <batch>
+next: run it and pass its output, unchanged, as the Driver's whole prompt
+```
+
 ## Blast radius
 
 Grade: 3. Every role's contract and the way every agent is started change at once. It merges in order with the changes stacked with it, in one sitting. A rollback is a revert of this change together with those.
@@ -59,7 +76,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - Real run not done: no real batch has run on these cards.
 - Launcher not switched: it leaves the CLI running after its stop on Windows.
 - The board Griller does not read the floor.
-- Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`. Card content was not rewritten here; these sentences should be fixed before a real batch runs on these cards.
+- Some new cards still describe output the CLI no longer prints (a worker's opening lines, the worker `writes:` line, the prompt skeleton of `take` and `order qa`): `topics/cr-workers.md`, `concepts.md` ("The prompt" and its template), `topics/trouble-worker.md`, `foreman.md`, `topics/direct-mode-p2.md`, `topics/direct-mode-switch-p4.md`, `topics/qa-order.md`, `topics/order-verbs-p1.md`, `topics/stack-run.md`, `topics/wakes-p1.md`. Card content was not rewritten here; these sentences should be fixed before a real batch runs on these cards.
 - A worker's agent file refuses a prompt that names no path to its card (`coder.md`), while the short prompt of `brief` names `.../<unit>-coder.md`. Not tried with a real agent.
 - `AGENTS.md` says `brief` reads the record and the planning folder only; it now also reads the project's instructions for the review steps. `AGENTS.md` is unchanged here.
 - Review steps are read when `brief` runs, while two docs pages say a running batch keeps the team it started with.
@@ -75,6 +92,7 @@ Grade: 3. Every role's contract and the way every agent is started change at onc
 - One sentence of `evals/README.md` still names a removed test.
 - The new hook test case reads only the test's own constants; the cases next to it tie them to what the hook sends.
 - The type checker's warnings on `hooks/register.tsx` were there before.
+- The new tests were not run against the previous code.
 - **UNVERIFIED:** the test suite's added time stays within the expected 3 seconds: one pair of runs on the same machine gives 165.0 to 167.2 seconds of wall time (157.8 to 162.5 as the test runner counts), while runs of the new head span 139 to 265 seconds.
 
 <details>
@@ -125,11 +143,11 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py` and `test_brief_bytes.py` pass at `4380df5`; they were not run against the previous code
 - [x] Local gates: `just check` (2748 passed, 19 skipped) and `just mod` (119 pass) at `4380df5`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the topic links, and on CI at `4380df5`
-- [ ] Evidence: before at `ea11a9e`, after at `4380df5`
+- [x] Evidence: before at `ea11a9e`, after at `4380df5` (the command captures carried from `b85be4c`)
 - [x] Review: approved at `4380df5`
-- [ ] Verified
+- [x] Verified at `4380df5` (claims the topic links cannot change carried from `b85be4c`); the bound on the added test time is not proved, see Known gaps
 - [x] CI green at `4380df5`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
 
 ## Internal references
@@ -143,7 +161,7 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 | 2 | Quiz on every role against the baseline | owner answered otherwise: no evaluation run in this batch, 2026-11-26 |
 | 3 | `topics.json` swapped; every `help <name>` resolves; docs links fixed | done |
 | 4 | Host cards' history in `docs/proofs/` or `docs/incidents.md`; the host topics link `docs/proofs/` | done |
-| 5 | `AGENTS.md`'s role sentences true; `CONTRIBUTING.md` aligned | done |
+| 5 | `AGENTS.md`'s role sentences true; `CONTRIBUTING.md` aligned | done, but for the two `AGENTS.md` sentences named in Known gaps |
 | 6 | `take` prints the `brief` command; no worker opening lines; the Foreman runs `brief foreman` | done |
 | 7 | `test_brief_bytes.py` replaces `test_start_reading.py`; the manifest check goes | done |
 | 8 | One facts builder, no strip list | done |
