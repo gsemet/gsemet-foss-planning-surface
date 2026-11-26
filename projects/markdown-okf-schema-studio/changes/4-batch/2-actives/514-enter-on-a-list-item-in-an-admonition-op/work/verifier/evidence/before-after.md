@@ -3,7 +3,9 @@
 - Before: base `cd3b8e6a8f02c18e3bca13aa5a32259ef01f720f` (same tree as the restacked base
   `223a8c49a47f8af786412e7cff748860b18d3782`).
 - After: `a5550c32100a24e646efdf293db93cdac30e3cba` (same tree as the restacked pull request head
-  `4e4eeb4eb548fc4a8f05838f6d0257b76d6b9f0e`).
+  `4e4eeb4eb548fc4a8f05838f6d0257b76d6b9f0e`). At the next head
+  `739f9e3ecd771efce1938ebdb0685f324a6cf0a2`, the five "after" scenarios below were captured again
+  against base `223a8c49` and the five images are byte-identical to the `after-*.png` here.
 
 ## Screenshots (visual harness, dark theme, 900 px)
 
@@ -26,62 +28,41 @@ present in `out/vbase` as well; no base code imports them (the compiled base ren
 
 No screenshot shows a user name or a home folder.
 
-## Text evidence for the failed claims
+## Text evidence for the failed claims at 739f9e3
 
-Run from the worktree, with `<build>` the worktree (after) or `<worktree>/out/vbase` (before).
-`<repro>` stands for the full path of the `repro` folder beside this one.
+Run from the build root, with `<build>` the worktree at the head (after) or
+`<worktree>/out/vbase` at `223a8c49` (before). `<r2>` and `<repro>` stand for the full paths of the
+`r2` and `repro` folders beside this one; `<node>` is
+`fnm exec -- node --import ./scripts/register-myst-patches.mjs`.
 
-### A block of a box that cuts a fence
+### A. Enter on a formula held by a list item of a box
 
-```
-fnm exec -- node --import ./scripts/register-myst-patches.mjs <repro>/gesture.js <build> <repro>/gap-note.md "Step one" enter erase
-```
+`<node> <repro>/gesture.js <build> <r2>/shapes/dollar-one-blank.md "y = 2" enter erase`
 
-(`gap-alert.md` with the same text; `gap-fig.md` with `"Caption text"`; leave `erase` out on the
-base.)
+Source: `":::{note}\n- Text\n  $$\n  y = 2\n  $$\n\n- next\n:::\n"`.
 
-Source `gap-note.md`:
-
-````markdown
-::::{note}
-- Step one
-
-  ```{table} Caption
-  | a | b |
-  | - | - |
-  | 1 | 2 |
-  ```
-::::
-
-After.
-````
-
-| | Enter on "Step one" | Editor text | After erasing it and committing |
+| | Enter on the formula opens | Editor text | After erasing it and committing |
 | --- | --- | --- | --- |
-| Before | the whole box, lines 1-9 | the whole directive | not run (the whole box is open) |
-| After | the paragraph, lines 2-4 | `- Step one`, a blank line, the opening fence line of the `{table}` | the `{table}` directive and its caption are gone; its rows stay as a plain table and its closing fence is left alone, opening an empty code block |
+| Before | the whole box, lines 1-8 | the whole directive | the document is emptied (the whole box was open) |
+| After | lines 2-2 | `- Text` | the text of the item is gone, the formula stays |
 
-`gap-fig.md` (a `{figure}` inside a list of a note): after, Enter on "Caption text" opens lines 5-7
-(the caption and the closing fence of the figure); erasing it removes both, so the figure is left
-unclosed in the file (the image still renders, the caption is gone). Before, the whole box opens
-(lines 1-9). `figrender.js <build>` renders the documents left.
+### B. The move chord on a callout written as a `{div}` directive
 
-### The move chord past a thematic break empties the box
+`<node> <r2>/calloutdiv.js <build>`
 
-```
-fnm exec -- node --import ./scripts/register-myst-patches.mjs <repro>/firstplace.js <build-after>
-```
+Source: `":::{div}\n:class: callout-tip\n\nBefore.\n\n---\n\nAfter.\n:::\n"`.
 
-Source: `":::{note}\nBefore.\n\n---\n\nAfter.\n:::\n"`.
-
-| | Chord down on "Before." | Document | Preview of the box |
+| | Chord down on "Before." | Document | Preview of the callout |
 | --- | --- | --- | --- |
-| Before | no block of a box has an editor of its own: a gesture inside opens the whole box | unchanged by any inner move | title, "Before.", rule, "After." |
-| After | accepted | `":::{note}\n\n---\n\nBefore.\n\nAfter.\n:::\n"` | the title only |
+| Before | no inner move exists on the base page | unchanged by any inner move | "Tip", "Before.", rule, "After." |
+| After | accepted | `":::{div}\n:class: callout-tip\n\n---\n\nBefore.\n\nAfter.\n:::\n"` | "Tip" only |
 
-The same happens in a backtick `{note}` and in a GitHub alert. The renderer already shows a box
-written that way as empty on the base (`render2.js <build>` on both): what is new is that the chord
-writes it.
+## Text evidence of the earlier verdict (a5550c32), both fixed at 739f9e3
+
+A captioned `{table}` and a `{figure}` in a list of a box no longer get a fence line cut by Enter,
+and the chord that moved a thematic break first in the body of a note or an alert is now refused:
+see `<r2>/firstplace-head.log` and `verify.md`. The earlier commands are in
+`verify-a5550c3.md`.
 
 ## Not captured
 
@@ -89,4 +70,4 @@ writes it.
   from its committed files.
 - No screenshot of the move chord, of a refused move or of an erased alert block: their effect is a
   document change, shown by the tests and by session probes (text), see `verify.md`.
-- No screenshot of the two failures above: the evidence is the document text and the rendered HTML.
+- No screenshot of the failures above: the evidence is the document text and the rendered HTML.
