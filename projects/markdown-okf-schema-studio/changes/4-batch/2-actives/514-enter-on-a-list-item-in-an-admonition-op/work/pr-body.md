@@ -1,5 +1,3 @@
-# feat(editor): edit the pointed block inside admonitions and alerts
-
 ## Summary
 
 In edit mode, an admonition (a MyST `{note}`-style box) or a GitHub alert (`> [!NOTE]`) opened as
@@ -64,8 +62,11 @@ content of that admonition does not scroll.
 The re-filmed keyboard navigation clip walks with the arrows into an admonition, down to an item of
 a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
 0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
-ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change. The GIF
-and the MP4 and WebM links are added here from the files at the pushed head.
+ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change
+([MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4),
+[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)).
+
+![Arrow keys walk into an admonition down to a nested list item, and Enter opens that line alone](https://github.com/gsemet/markdown-okf-schema-studio/raw/9023d10a1e7288d64927bd844c3fd98941b288d5/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
 ## Blast radius
 
