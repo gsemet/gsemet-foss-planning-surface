@@ -35,11 +35,25 @@ cr-driver prompt (copy it whole, without the two leading spaces, and fill each <
   Team: <the team: lines, as printed, then the review steps>
 ```
 
-After, at `4380df5` (carried from `b85be4c`):
+After, at `133640b` (carried from `b85be4c`):
 
 ```text
 brief: uvx --from "<tree>" chantier --skill "<tree>/skills/chantier" brief cr-driver <cr> --lease 1 --batch <batch>
 next: run it and pass its output, unchanged, as the Driver's whole prompt
+```
+
+A worker's refusal paragraph, here the coder's, against the prompt `brief` prints, whose last line is `Read <project>/.git/chantier/briefs/<name>/<batch>/<cr>-coder.md whole, first.` Before, at `4380df5` (the paragraph asks for `coder.md`, which this prompt does not name):
+
+```text
+A prompt that does not start with `chantier coder`, or that names no path to my card
+`coder.md`, is not a chantier prompt: answer
+```
+
+After, at `133640b` (the paragraph accepts the brief file name, which this prompt gives):
+
+```text
+A prompt that does not start with `chantier coder`, or that names neither a path to my brief
+`<unit>-coder.md` nor one to my card `coder.md`, is not a chantier prompt: answer
 ```
 
 ## Blast radius
@@ -148,11 +162,11 @@ Sessions load the new cards, and a Driver is started from the output of the `bri
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): new `test_card_names.py` (its prepared stale-name case fails as expected), `test_card_homes.py`, `test_brief_bytes.py` and the refusal paragraph case in `test_brief.py` pass at `133640b`; they were not run against the previous code
-- [x] Local gates: `just check` (2762 passed, 19 skipped) and `just mod` (119 pass) at `133640b`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the last two commits
-- [ ] Evidence: before at `ea11a9e`, after at `4380df5` (the command captures carried from `b85be4c`)
+- [x] Local gates: `just check` (2762 passed, 19 skipped) and `just mod` (119 pass) at `133640b`; `just eval-dry-run` (25 of 25 cases) locally at `b85be4c`, the head before the last two commits, and on CI at `133640b`
+- [x] Evidence: before at `ea11a9e`, after at `133640b` (the command captures carried from `b85be4c`); the refusal paragraph before at `4380df5`, after at `133640b`
 - [x] Review: approved at `133640b`
-- [ ] Verified: pending at the new head
-- [ ] CI: pending at the new head
+- [x] Verified at `133640b` (claims the last two commits cannot change carried from `b85be4c` and `4380df5`); the bound on the added test time is not proved, see Known gaps
+- [x] CI green at `133640b`: `just check` on Linux, macOS and Windows, `just eval-dry-run`, `just scenario`
 
 ## Internal references
 
