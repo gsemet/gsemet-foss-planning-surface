@@ -1,0 +1,8 @@
+test: cover the editor reopening after a header-cell paste
+
+A paste of spreadsheet rows into a header cell is now checked in a real VS
+Code window: the table fills and the cell editor is open again in that
+cell. The paste feature clip waits for the editor and records whether it
+was open.
+
+Assisted-by: Claude:Sonnet-5.5
