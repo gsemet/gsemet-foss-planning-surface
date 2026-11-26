@@ -44,7 +44,8 @@ flowchart LR
   Blocks outside a box are mapped as before.
 - The move chord works from the editor of a direct block of the body, never leaving the box; a
   refused move shows its reason next to the box's insert point. A block inside a list item, or in a
-  quote, card or grid inside the box, does not move; nor does a `{table}` that has a caption.
+  quote, card or grid inside the box, does not move; nor does a `{table}` directive, with or
+  without a caption.
 - The move planner understands a GitHub alert's `>` prefix: a prefix-only line counts as blank and
   an added separator carries the prefix.
 - An erased block of an alert body is written as the alert's prefix alone.
@@ -60,6 +61,12 @@ edit the whole box with the mouse, click its title or its frame. In the editor o
 block, the `> ` markers are part of the text. While an editor is open inside an admonition, wide
 content of that admonition does not scroll.
 
+The re-filmed keyboard navigation clip walks with the arrows into an admonition, down to an item of
+a nested sub-list, and Enter opens that line alone. It lasts 26.0 s with 15 key presses (MP4
+0.52 MB, WebM 0.35 MB, GIF 1.62 MB at 960 px, 12 fps, 128 colours, the first step of the size
+ladder), filmed on Windows with VS Code 1.147.0 and the extension built from this change. The GIF
+and the MP4 and WebM links are added here from the files at the pushed head.
+
 ## Blast radius
 
 Grade: 2. It changes which block the most common editing gesture opens, the renderer's line mapping
@@ -68,8 +75,8 @@ behaviour, with no data or settings change.
 
 ## Autonomous decisions
 
-- A neighbour that is not a direct block of the body (a `{table}` with a caption) also stops the
-  move chord: moving past it would not keep its wrapper whole.
+- A neighbour that is not a direct block of the body (a `{table}` directive) also stops the move
+  chord: moving past it would not keep its wrapper whole.
 - A move between blocks under different quote prefixes is refused with the existing "out of date"
   refusal; no new message.
 - Inside a box, a directive that shares no block of its own opens as a whole directive, and text on
@@ -88,7 +95,9 @@ behaviour, with no data or settings change.
 - Outside a box, a move past a diagram directive can still put the moved paragraph inside its
   fence, and a click on a top-level diagram, formula or code directive opens its opening line only
   (both as before this change).
-- The move chord next to a `{table}` with a caption has no test.
+- The move chord next to a `{table}` directive has no test.
+- The clip's contact sheet shows neither the selection of the list nor that of the sub-list; only
+  its named frames do.
 - The real VS Code replay edited here runs only on the main branch or a heavy CI run.
 - An erased line of an alert block that holds a lazy continuation line (no `>`) keeps the previous
   behaviour.
