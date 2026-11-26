@@ -1,196 +1,139 @@
 # CR-510: verification
 
-Head: b85be4cbeac5dac2208e26aeb440a9f6676e6ce3
+Head: 4380df52776791c42253d49e971a6a38aaf9517e
 
-**NOT VERIFIED.** The code at this head does what the specification says in every point checked but
-two (F1: the host topics link nothing in `docs/proofs/`; F5: one matrix cell, accepted and
-disclosed). The pull request misses two things the specification requires of it (F2, F3) and names
-one test file that does not exist (F4). F2, F3 and F4 are fixes of the description alone; F1 needs a
-Known gaps bullet or the links.
+**VERIFIED.** F1 to F4 of the judgment at `b85be4c` are fixed, the move broke nothing, and the
+posted description matches the diff. One matrix cell of the specification is still not met (F5: the
+generic-agent contract lines on Claude Code). It is not produced by the base either, the Driver
+accepted it as a known gap, and the description discloses it. This verdict does not say that cell
+is met. Not run on the owner's word: every quiz (evidence 6). Not captured: a `/compact` transcript
+(evidence 11). Both are in Known gaps.
 
-Conventions: `<wt>` the CR's worktree; `<CR>` the CR folder; `<v1>` = `<CR>/work/scratch/v1` (raw
-logs and the throwaway scripts); `BASE` = `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba`; `HEAD` =
-`b85be4cbeac5dac2208e26aeb440a9f6676e6ce3`; `REFS` = `skills/chantier/references`; `SRC` =
-`skills/chantier/scripts/cli/src/chantier`; `TESTS` = `skills/chantier/scripts/cli/tests`. Commands
-run in `<wt>` at HEAD unless said otherwise. Every claim is judged at HEAD (`b85be4c`) unless a
-"carried from" line says otherwise. Outputs are excerpts.
+Conventions: `<wt>` the CR's worktree; `<CR>` the CR folder; `<v1>`, `<v2>` =
+`<CR>/work/scratch/v1`, `v2` (raw logs and throwaway scripts of this pass and the last);
+`BASE` = `ea11a9e05c3e682bf83ee2bb4e546de9b9db2dba`; `OLD` =
+`b85be4cbeac5dac2208e26aeb440a9f6676e6ce3`; `HEAD` = `4380df52776791c42253d49e971a6a38aaf9517e`;
+`REFS` = `skills/chantier/references`; `SRC` = `skills/chantier/scripts/cli/src/chantier`;
+`TESTS` = `skills/chantier/scripts/cli/tests`. Commands run in `<wt>`. Outputs are excerpts. The
+previous judgment is kept at `<CR>/work/verifier/verify-b85be4c.md`.
 
-## Failed claims
+"Carried from b85be4c" always rests on M2 below: the one commit since `OLD` only appends a blank
+line and a `[Trials]` link to 32 `REFS/topics/host-*.md` files.
 
-### F1. The host topics do not link `docs/proofs/` (hand-over row 4): NOT VERIFIED (b85be4c)
+## The move (judged at 4380df5)
 
-Specification, row 4: "The host cards' history leaves the cards: what child 23 did not carry goes to
-`docs/proofs/` (already) or `docs/incidents.md`; the host topics link `docs/proofs/`".
+| # | Claim | Command and output | Verdict |
+| --- | --- | --- | --- |
+| M1 | The head verified is the pushed head, clean; base unchanged (4380df5) | `git rev-parse HEAD` -> HEAD; `git status --porcelain` -> empty; `<v1>/pr_check.py` -> `head HEAD base BASE draft True OPEN`; `git rev-parse origin/main` and `git merge-base HEAD origin/main` -> BASE | VERIFIED |
+| M2 | One commit since `OLD`, 32 host topics, only link lines (4380df5) | `git log --oneline BASE..HEAD` -> `4380df52 docs(cards): link the host topics to their trial history`, `b85be4cb feat(cards)!: ...`; `git diff --stat OLD HEAD` -> `32 files changed, 64 insertions(+)`; `<v2>/move.py` -> `changed files that are not exactly 'old text + blank line + one [Trials] link': []`; `git diff --stat OLD HEAD -- . ":(exclude)REFS/topics/host-*.md"` -> empty | VERIFIED |
 
-- `git grep -n proofs/ HEAD -- skills/chantier/references` -> no output, exit 1.
-- Same at BASE: `git grep -n -i docs/proofs BASE -- skills/chantier/cards-next REFS` -> exit 1.
-- The rest of the row holds: `git ls-tree --name-only HEAD docs/proofs/` -> `docs/proofs/claude-code.md`,
-  `docs/proofs/copilot.md`; `git grep -n proofs/ HEAD -- docs/incidents.md` -> 11 lines linking
-  `proofs/claude-code.md`.
-- The pull request marks row 4 "done" with the clause dropped from its text, and no Known gaps bullet
-  names it (`<v1>/pr_check.py`: `Known gaps lines naming proofs: []`).
+## F1 to F5
 
-Fix: a Known gaps bullet and row 4 corrected, or the links.
+| # | Claim | Command and output | Verdict |
+| --- | --- | --- | --- |
+| F1 | Hand-over row 4: the host topics link `docs/proofs/` (4380df5) | `<v2>/move.py` -> `host topics at head: 33`; `linked: 32; claude-code.md: 27; copilot.md: 5; unlinked: ['host-claude-only.md']`; every link prints an existing heading with a body (no `MISSING`, no `HOST MISMATCH`); `host-claude-only.md` printed whole: it only says the subject is a Claude Code feature with nothing recorded for Copilot. At BASE: `git grep -c "docs/proofs/" BASE -- REFS skills/chantier/cards-next` -> exit 1 | FIXED, VERIFIED |
+| F2 | Known gaps holds the "do not merge" statement (4380df5) | `<v1>/pr_check.py` -> `"do not merge" in body: True`, `Known gaps lines on merge: ['- Do not merge alone: it merges in order with the changes st...']`; the wording drops "after child 28's campaign", as `02-answers.md` 5 says | FIXED, VERIFIED |
+| F3 | The checklist is ticked with its commits (4380df5) | `<CR>/work/pr-body.md`, Internal references lead: "Rows marked done are in commit `b85be4c`; the links of row 4 are in commit `4380df5` (rows 11 to 14: not done ... D9 under order O-159)"; both commits are in `git log BASE..HEAD` (M2); row 2 reads "owner answered otherwise: no evaluation run in this batch, 2026-11-26" (`02-answers.md` 4); 25 rows | FIXED, VERIFIED |
+| F4 | The deleted-tests table names real files (4380df5) | `git diff --name-status BASE HEAD -- TESTS` -> `D` `moved_rules.tsv`, `test_role_cards_split.py`, `test_session_start_split.py`, `test_stack_chain_cards.py`, `test_start_reading.py`, `test_startup_manifest.py`, `test_watcher_step.py`; `M` `test_release_template_card.py` and the other files the table names; `A` `test_brief_bytes.py`, `test_card_homes.py`, `test_card_names.py`; `<v1>/pr_check.py` -> `lines naming test_release_template.py: []`; the pin-list comment names `test_release_template_card.py` only | FIXED, VERIFIED |
+| F5 | Matrix cell "Claude Code, configured generic agent: brief carries the contract lines" | carried from b85be4c: M2 touches no CLI source, test or configuration. `<v1>/probe.py` at `OLD`: `coder` with `agent: general-purpose` records `start: named`, brief 5055 bytes, one `=== floor`, 0 contract lines; BASE the same; no such case in `TESTS/test_brief.py` (`git grep -n -i -E 'generic\|contract'` -> exit 1). Accepted: `$CHANTIER log CR-510` 2026-11-26T08:02:09Z. Its Known gaps bullet and Autonomous decision are in the posted body | NOT MET, accepted, disclosed |
 
-### F2. Known gaps holds no "do not merge" statement (specification, Handback): NOT VERIFIED (b85be4c)
-
-Specification: "The typed merge wait ... is recorded once child 28's PR exists. Until then the PR's
-Known gaps say "do not merge: merges with children 19 to 28 as one unit, after child 28's
-campaign"". `02-answers.md` 5 drops only "after child 28's campaign" ("the CRs still merge in order,
-in one sitting, by the owner").
-
-- `<v1>/pr_check.py` -> `"do not merge" in body: False`, `Known gaps lines on merge: []` (24
-  bullets).
-- `$CHANTIER log CR-510` -> no wait recorded; order O-174: "one merge ask once CR-510..513 are all
-  handed back, never CR-510 without CR-511's verdict".
-- The merge order is told only in "Blast radius" and "Human decisions".
-
-Fix: a Known gaps bullet, in the description's own words (no internal reference there), for example
-"Do not merge alone: it merges in order with the changes stacked with it, in one sitting, by the
-owner."
-
-### F3. The hand-over checklist is not ticked with its commit (acceptance evidence 2): NOT VERIFIED (b85be4c)
-
-Specification: "The PR's Internal references hold the hand-over checklist, every row ticked with its
-commit, or marked "owner answered otherwise: <answer>"".
-
-- `<CR>/work/pr-body.md` lines 137 to 163: columns `# | What | State`, 25 rows, states "done" or
-  "not done: ...", no commit column and no SHA in the table or its lead line.
-- `git log --oneline BASE..HEAD` -> one commit, `b85be4cb feat(cards)!: swap in the new role cards
-  and remove the old set`.
-
-Fix: name `b85be4c` on the done rows (or in the table's lead line, for all of them).
-
-### F4. The deleted-tests table names a file that does not exist: NOT VERIFIED (b85be4c)
-
-The body, "Changes": "the manifest test and "Visible evidence" check of `test_release_template.py`".
-
-- `git ls-tree -r --name-only BASE -- TESTS/test_release_template.py TESTS/test_release_template_card.py`
-  -> `TESTS/test_release_template_card.py` only; the same command at HEAD -> the same one line.
-- `git diff --name-status BASE HEAD -- "TESTS/test_release_template*"` ->
-  `M TESTS/test_release_template_card.py`.
-- `git diff BASE HEAD -- TESTS/test_release_template_card.py` removes
-  `test_release_template_is_an_action_reading_only` (the manifest test) and the
-  `## Visible evidence` heading check, and reads `topics/release-evidence.md`: the row means this file.
-
-Fix: write `test_release_template_card.py`.
-
-### F5. Matrix cell 2, a configured generic agent on Claude Code gets the contract lines: NOT VERIFIED (b85be4c); accepted and disclosed
-
-Specification matrix: "Claude Code | a configured generic agent for a worker | Its brief carries the
-contract lines (child 10's case in `test_brief.py`)".
-
-- `<v1>/probe.py` (scratch `git init` project, `hosts.claude.roles.coder.agent: general-purpose`,
-  `take`, then `chantier brief coder CR-101`) -> exit 0, the record holds
-  `"coder": {"agent": "general-purpose", "start": "named"}`, brief 5055 bytes, starts `# Coder`,
-  one `=== floor`, `lines holding 'contract (a generic agent': 0` (`<v1>/probe-head3.log`). A take
-  at BASE with the same configuration gives no contract lines either (`<v1>/probe-base.log`).
-- `git grep -n -i -E 'generic|contract' HEAD -- TESTS/test_brief.py` -> exit 1: no such case.
-- `git grep -n NAMED_AGENT_MODEL_AT_START HEAD -- SRC` -> `playbook/models.py:57:
-  NAMED_AGENT_MODEL_AT_START = {"claude": True, "copilot": False}`; `git diff --stat BASE HEAD --
-  SRC/playbook/layers.py SRC/playbook/escalation.py` -> empty. The branch did not introduce this.
-
-State: the Driver accepted it (log 2026-11-26T08:02:09Z, not blocking under O-166); its Known gaps
-bullet and Autonomous decision are in the body and are true. On its own this does not keep the
-description NOT VERIFIED.
-
-## Head, move and gates
+## Gates
 
 | Claim (SHA) | Command and output | Verdict |
 | --- | --- | --- |
-| The head verified is the pushed head, clean (b85be4c) | `git rev-parse HEAD` -> HEAD; `git status --porcelain` -> empty; `<v1>/pr_check.py` -> `head HEAD base BASE draft True OPEN` | VERIFIED |
-| One commit on BASE, which is origin/main (b85be4c) | `git log --oneline BASE..HEAD` -> one line; `git rev-parse origin/main` -> BASE; `git diff --shortstat BASE HEAD` -> `515 files changed, 4550 insertions(+), 16579 deletions(-)` | VERIFIED |
-| The move 7d2c4dc on 88d9ab40 -> b85be4c on ea11a9e is a clean rebase (b85be4c) | `git rev-parse 88d9ab40^{tree} BASE^{tree} 7d2c4dc^{tree} HEAD^{tree}` -> `b6c77cd5...` twice, `f48002c3...` twice; `git show <c> \| git patch-id --stable` -> `38539a12654f92c6b714fa9c37d9d066770101c8` for both; `git diff --stat 7d2c4dc HEAD` -> empty | VERIFIED |
-| `just check` passes (b85be4c) | run in `<wt>`: `just check` -> exit 0; `<v1>/just-check.log`: `All checks passed!`, `Success: no issues found in 533 source files`, `2748 passed, 19 skipped in 183.78s`, release notes `ok` | VERIFIED |
-| `just eval-dry-run` passes (b85be4c) | run in `<wt>`: `just eval-dry-run` -> exit 0; `<v1>/dry-run.log` line 28: `dry run: 25 of 25 cases as expected` | VERIFIED |
-| `just mod` passes (b85be4c) | run in `<wt>`: `just mod` -> exit 0; `<v1>/mod.log`: `Validation passed with warnings`, `119 pass`, `0 fail`, `(pass) the reload message names the floor and no removed file`. At BASE, `uv run --no-project python scripts/mod.py` in a detached base worktree -> exit 0, `<v1>/mod-base.log`: 118 pass, the same 14 TypeScript warnings | VERIFIED |
-| Long gate: CI `just scenario (ubuntu-latest)` green at the head (b85be4c) | `gh pr view 488 --json statusCheckRollup` (`<v1>/pr-check.log`): `just check` ubuntu, macos, windows, `just scenario (ubuntu-latest)`, `just eval-dry-run (ubuntu-latest)`: all `SUCCESS` | VERIFIED |
+| `just check` passes (4380df5) | run in `<wt>` -> exit 0; `<v2>/just-check.log`: `All checks passed!`, `Success: no issues found in 533 source files`, `2748 passed, 19 skipped in 218.68s`, release notes `ok` | VERIFIED |
+| `just mod` passes (4380df5) | run in `<wt>` -> exit 0; `<v2>/mod.log`: `Validation passed with warnings`, `119 pass`, `0 fail`, `(pass) the reload message names the floor and no removed file` | VERIFIED |
+| `just eval-dry-run`, 25 of 25 (4380df5 on CI; locally at `OLD`) | `gh run view --job 139828767099 --log` (`<v2>/ci-dry-run.log`): `HEAD is now at 229ed95 Merge 4380df5... into ea11a9e...`, `dry run: 25 of 25 cases as expected`. Local, carried from b85be4c (M2 touches no `SRC` or `evals/kit`): `<v1>/dry-run.log` the same line | VERIFIED |
+| CI green, long gate `just scenario (ubuntu-latest)` included (4380df5) | `<v1>/pr_check.py` -> `just check` ubuntu, macos, windows, `just scenario (ubuntu-latest)`, `just eval-dry-run (ubuntu-latest)`: all `SUCCESS` | VERIFIED |
 
-No local `gate` log exists and none is owed: this CR is not the top of its stack. `gate` was not run.
-No quiz was run but the free `--plan` form.
+No local `gate` log exists and none is owed: this CR is not the top of its stack. `gate` was not
+run. No quiz was run.
 
 ## Acceptance evidence
 
-| # | Claim (SHA b85be4c) | Command and output | Verdict |
+| # | Claim (SHA) | Command and output | Verdict |
 | --- | --- | --- | --- |
-| 1 | `cards-next/` is empty; `REFS` equals its list minus `skills/` | `<v1>/verify-run.log` "e1 lists": `cards-next: 0 files`; `HEAD references: 330; base cards-next: 334; minus skills/: 330`; only-in lists `[]` both ways; contents differ for 6 files, all named in the body | VERIFIED |
-| 1 | `cards-next` named nowhere | `git grep -n cards-next HEAD` -> exit 1 | VERIFIED |
-| 1 | Every removed path listed with its completeness row | 45 removed paths, none missing from `evidence/removed-files.md`; `<wt>/.venv/Scripts/python.exe -I <v1>/rows.py` -> `removed paths: 45`, `without a completeness row: []`, no row fate outside "not carried" / "folded" | VERIFIED |
-| 2 | Checklist ticked with its commits | see F3; row 4 see F1 | NOT VERIFIED |
-| 2 | Rows 2 and 11 to 14 not done, truthfully | row 2: `02-answers.md` 4; rows 11 to 14: order O-159 (D9) and CR-502's pull request body line 47 (the launcher leaves the CLI running after its stop on Windows) | VERIFIED |
-| 3 | Driver table: four rows, cards equal `roles.yaml` | `driver_prompt.driver_table()` -> `cr-driver.md`, `release-driver.md`, `stack-driver.md`, `qa-driver.md`; `load_roles()` the same four | VERIFIED |
-| 3 | `"Change Request"` found | `git grep -n "Change Request" HEAD -- REFS/concepts.md` -> `concepts.md:20:## Change Request (CR)` | VERIFIED |
-| 3 | `host` prints the JSON rows on both hosts | `<v1>/host_check.py`: claude and copilot exit 0, `json rows 50; printed ids in order equal True`, `row texts not found in the output: 0` | VERIFIED |
-| 3 | `floor.md` and the two JSON files unchanged | `git ls-tree -r BASE` (staged paths) and `HEAD` (`REFS`): blobs `61da01e8` floor, `3f2daf79` claude-code.json, `b4dec473` copilot.json on both sides | VERIFIED |
-| 4 | `help` lists the topics; each name the CLI prints resolves; `help --for` for 18 roles | `<v1>/help_only.py`: `help: exit 0`, `topics in topics.json: 240 missing from the listing: []`, `board`, `host-allow-not-add`, `lease`, `merge`, `refused-push`, `stack`, `stack-merge`, `watcher` exit 0 (the other grep words are not topic names), `every topic, exit non-zero: []`, 18 `help --for` exit 0 | VERIFIED |
-| 5 | `just roles` | `roles: 18 roles, 15 wrappers on 2 hosts agree`, exit 0 | VERIFIED |
-| 6 | Quiz against the baseline | not run, owner's word (`02-answers.md` 4, O-168). `just quiz ... --plan` (the four commands, new and `--cards ea11a9e0`) exit 0: 90 runs ~$32.19, 87 ~$32.29, ~$33.52, ~$41.80. Known gaps name both skipped sets with their commands | NOT RUN, disclosed; does not block |
-| 7 | Bytes per role; over-target cards listed | `uv run --locked --group dev pytest -q -s -p no:cacheprovider TESTS/test_brief_bytes.py` -> `18 passed`, `cr-driver 9773`, `coder 3939`, `chief-of-staff 24351`, `foreman 22125` and 14 more, equal to `evidence/e7-bytes.md` (`<v1>/bytes.log`); `git ls-tree -l HEAD REFS/`: release-driver 3809, spec-writer 1667, coder 1603, verifier 3112, demo-explorer 1612, spec-critic 1572, retro-critic 1565, as in Known gaps | VERIFIED |
-| 8 | `test_card_names.py` passes; its prepared case; CLI lines before and after | `pytest TESTS/test_brief.py test_brief_bytes.py test_card_names.py test_card_homes.py` -> `66 passed in 26.93s`; failure line and CLI lines in `evidence/e8-card-names.md` (carried from the committed tree: e8 was made on the tree committed as 7d2c4dc, same tree as HEAD) | VERIFIED |
-| 9 | Test seconds at base and head, expected at most +3 s | `evidence/e9-test-seconds.md` (carried from 7d2c4dc: same tree): base 157.82 s / 165.0 wall; head 265.01 / 267.6, then 162.47 / 167.2, 138.63 inside `just check`. Figures quoted; the bound is neither proved nor disproved | figures VERIFIED; bound NOT PROVED, marked `**UNVERIFIED:**` in Known gaps |
-| 10 | No broken relative link, none into `cards-next/` | `<v1>/links.py <wt> HEAD blob` -> `sources 617, relative links 311, broken 0, bad anchors 0`; at BASE 12 broken; the 2 `blob/v0.13.0` card links exist at that tag; `evidence/e10-links.md`: no D5 rewrite | VERIFIED |
-| 11 | `just mod` and the new hook case | `<v1>/mod.log` as above; `hooks/register.test.tsx:1103` | VERIFIED |
-| 11 | Transcript of a real session after `/compact` | not captured; disclosed in Known gaps | NOT CAPTURED, disclosed; no project rule requires it |
-| 12 | Gates | "Head, move and gates" above | VERIFIED |
+| 1 | `cards-next/` empty and named nowhere (4380df5) | `git ls-tree -r --name-only HEAD skills/chantier/cards-next \| wc -l` -> 0; `git grep -n cards-next HEAD` -> exit 1 | VERIFIED |
+| 1 | `REFS` equals BASE's `cards-next/` minus `skills/` (4380df5) | `<v2>/move.py` -> `330` and `330`, only in base `[]`, only in head `[]`; 36 files differ, of which beyond the link lines: `concepts.md`, `sync-checkout.md`, `topics.json`, `topics/foreman-start-p2.md`, `topics/host-allow-rules-copilot.md`, `topics/host-allow-rules.md`, all named in the body | VERIFIED |
+| 1 | Every removed path listed with its completeness row (b85be4c) | carried from b85be4c: M2 removes no file. `<v1>/rows.py` -> `removed paths: 45`, `without a completeness row: []` | VERIFIED |
+| 2 | Checklist ticked with commits; rows 2 and 11 to 14 truthful (4380df5) | F1, F3; rows 11 to 14: O-159 (D9) | VERIFIED |
+| 3 | Driver table equals `roles.yaml`; `"Change Request"`; `host` rows (b85be4c) | carried from b85be4c: M2 touches neither `concepts.md`, `roles.yaml`, `SRC` nor `hosts/*.json`. `driver_table()` four rows equal; `concepts.md:20:## Change Request (CR)`; `<v1>/host_check.py` both hosts, 50 rows, none missing | VERIFIED |
+| 3 | `floor.md` and the two JSON files unchanged (4380df5) | `<v2>/move.py` -> `floor.md` `61da01e8`, `claude-code.json` `3f2daf79`, `copilot.json` `b4dec473`, head equal to base | VERIFIED |
+| 4 | `help` lists the topics; every printed name resolves; `help --for` 18 roles (4380df5) | `<v1>/help_only.py` on a scratch project (`<v2>/help.log`): `help: exit 0`, `topics in topics.json: 240 missing from the listing: []`, the 8 topic names printed by `SRC` exit 0, `every topic, exit non-zero: []`, 18 `help --for` exit 0; `help host-turn-end` exit 0, ends with its `[Trials]` line | VERIFIED |
+| 5 | `just roles` (4380df5) | `roles: 18 roles, 15 wrappers on 2 hosts agree`, exit 0 | VERIFIED |
+| 6 | Quiz against the baseline | not run: `02-answers.md` 4, O-168; both skipped sets in Known gaps with their commands | NOT RUN, disclosed; does not block |
+| 7 | Brief bytes per role (4380df5) | `uv run --locked --group dev pytest -q -s -p no:cacheprovider TESTS/test_brief_bytes.py` -> `18 passed`: `cr-driver 9773`, `release-driver 9531`, `stack-driver 9179`, `qa-driver 6032`, `coder 3939`, `griller 6441`, `chief-of-staff 24351`, `foreman 22125` (`<v2>/bytes.log`) | VERIFIED |
+| 7 | Over-target files listed with sizes (4380df5) | role cards, carried from b85be4c (M2 touches none): `git ls-tree -l` sizes equal Known gaps. Host topics: `<v2>/move.py` lists exactly nine over 1,500 (1578, 1571, 1561, 1558, 1540, 1524, 1522, 1520, 1509), each 1,500 or less before the link; names and sizes equal the new bullet | VERIFIED |
+| 8 | `test_card_names.py` passes, prepared case, CLI lines (4380df5) | in `just check` above (2748 passed); failure line and CLI lines carried from b85be4c (`evidence/e8-card-names.md`; M2 touches no `SRC` or test) | VERIFIED |
+| 9 | `just test` seconds, expected at most +3 s | carried from b85be4c: `evidence/e9-test-seconds.md`, same CLI and tests. This pass's run (218.68 s) and round 3's (153.74 s, `r3-check.log`) are inside the body's "139 to 265" | figures VERIFIED; bound NOT PROVED, marked `**UNVERIFIED:**` in Known gaps |
+| 10 | No broken relative link, none into `cards-next/` (4380df5) | `<v1>/links.py . HEAD show-blob` -> `sources 617, relative links 343, broken 0, bad anchors 0`; the 2 `blob/v0.13.0` card links exist at the tag; equals `evidence/e10-links.md` (343, 0) | VERIFIED |
+| 11 | `just mod` and the new hook case (4380df5) | `<v2>/mod.log` as above | VERIFIED |
+| 11 | Transcript of a real session after `/compact` | not captured; in Known gaps | NOT CAPTURED, disclosed; no project rule requires it |
+| 12 | Gates (4380df5) | "Gates" above | VERIFIED |
 
-## Specification sections (b85be4c)
+## Specification sections
 
-| Claim | Command and output | Verdict |
+All carried from b85be4c: M2 touches none of the files these commands read (`SRC`, `TESTS`,
+`roles.yaml`, agent files, `SKILL.md`, `hooks/`, `evals/kit/`, `scenario/`, `CONTRIBUTING.md`,
+`docs/incidents.md`, `review-step.md`).
+
+| Claim (b85be4c) | Command and output | Verdict |
 | --- | --- | --- |
-| The review step's reply block is unchanged | `git grep -n -A2 -F '```json' BASE HEAD -- REFS/review-step.md` -> the same JSON line at BASE:40 and HEAD:12 | VERIFIED |
-| `roles.yaml` cards and replies | `git diff -U0 BASE HEAD -- skills/chantier/roles.yaml`: 4 Driver cards, chief-of-staff and griller cards, 14 `reply:` lines; `git diff --stat BASE HEAD -- agents com.github.copilot/agents` -> 30 files, 44+, 58-; `Read the brief your prompt` once in 14 + 14 wrappers; `git grep -i 'startup core'` in them exit 1; board Griller wrappers keep `## Started from the board` | VERIFIED |
-| CLI lines of section 3 | `git grep` at HEAD: `commands/opening.py:269` "its first step is `brief foreman ...`"; `commands/seat.py:58` `next: $CHANTIER brief foreman`; `stack_shape.py:58` "shape: stack: read `$CHANTIER help stack`"; `commands/preflight.py:220` names `hosts/claude-code.md`; `status/ready_line.py:135` "run your brief again"; `topics.json:136` `refused-push`; `foreman-refused` exit 1; `startup-core\|startup-manifest\|cards-next/` in `SRC` and `hooks/register.tsx` exit 1 | VERIFIED |
-| `take`, `take stack`, `order qa`, `round`, `handoff` print `brief` | before and after captures, `<CR>/work/verifier/evidence/before-after.md` | VERIFIED |
-| SKILL.md texts | `git diff --numstat BASE:skills/chantier/cards-next/skills/<s>-SKILL.md HEAD:skills/<s>/SKILL.md` -> 2/12 (three), 1/11 (status): today's `$CHANTIER` paragraph kept | VERIFIED |
-| Hook reload message | `git diff -U0 BASE HEAD -- hooks/register.tsx`: only `reloadLine`; the new text names `brief`, `--epoch <n>` and "the floor, in that brief, holds" | VERIFIED |
-| Tests converted or deleted | `<v1>/removed_tests.py` (each removed test and its file); `<v1>/homes.py`: 271 pin lines, `comment homes missing from test_card_homes: 0`; `test_driver_prompt.py:24,36` checks the card cells; no test reads the planning folder: `git grep -n -E "planning-surface\|4-batch\|cards-inventory\|gsemet-foss" HEAD -- TESTS/test_card_homes.py TESTS/test_card_names.py TESTS/test_brief_bytes.py` -> exit 1 | VERIFIED |
-| Eval kit, dry run, scenario, CONTRIBUTING | `evals/kit/audit.py:570,573`; dry run 25 of 25; `scenario/README.md:158`; CI scenario green; `CONTRIBUTING.md:106` | VERIFIED |
-| Incident stories of home `incidents file` in `docs/incidents.md` | the one card inventory holding that home (host and shared; `incidents file` occurs in no other) counts 19 rows; `docs/incidents.md` has 11 dated entries that tell them or link their story in `docs/proofs/claude-code.md` | VERIFIED |
-| D9: launcher not switched | O-159; Known gaps line "Launcher not switched" | VERIFIED |
-| No version bump | `git diff --stat BASE HEAD -- pyproject.toml plugin.json .claude-plugin .github/plugin` -> empty | VERIFIED |
+| The review step's reply block is unchanged | `git grep -n -A2 -F '```json' BASE OLD -- REFS/review-step.md` -> the same JSON line at both | VERIFIED |
+| `roles.yaml` cards and replies; wrappers | `git diff -U0 BASE OLD -- skills/chantier/roles.yaml`: 4 Driver cards, chief-of-staff and griller cards, 14 `reply:` lines; 30 agent files, `Read the brief your prompt` once in 14 + 14; no `startup core` | VERIFIED |
+| CLI lines of section 3 | `git grep`: `commands/opening.py:269`, `commands/seat.py:58`, `stack_shape.py:58`, `commands/preflight.py:220`, `status/ready_line.py:135`; no `startup-core\|startup-manifest\|cards-next/` in `SRC` or the hook | VERIFIED |
+| `take`, `take stack`, `order qa`, `round`, `handoff` print `brief` | `<CR>/work/verifier/evidence/before-after.md`, pairs 1 to 4 | VERIFIED |
+| SKILL.md texts | `git diff --numstat BASE:cards-next/skills/<s>-SKILL.md OLD:skills/<s>/SKILL.md` -> only today's `$CHANTIER` paragraph kept | VERIFIED |
+| Hook reload message | `git diff -U0 BASE OLD -- hooks/register.tsx`: only `reloadLine` | VERIFIED |
+| Tests converted or deleted | `<v1>/removed_tests.py`; `<v1>/homes.py`: 271 pin lines, none missing from `test_card_homes`; no test reads the planning folder | VERIFIED |
+| Eval kit, dry run, scenario, CONTRIBUTING | `evals/kit/audit.py:570,573`; `scenario/README.md:158`; `CONTRIBUTING.md:106`; gates above | VERIFIED |
+| Incident stories in `docs/incidents.md` | 19 inventory rows of that home; 11 dated entries tell them or link them | VERIFIED |
+| D9: launcher not switched | O-159; Known gaps "Launcher not switched" | VERIFIED |
+| No version bump | `git diff --stat BASE OLD -- pyproject.toml plugin.json .claude-plugin .github/plugin` -> empty | VERIFIED |
 
 ## Host and default matrix
 
 | Cell | Judged at | Proof | Verdict |
 | --- | --- | --- | --- |
-| 1 Claude Code, shipped: briefs for 18 roles; reload message | b85be4c | 66 tests pass (`test_brief.py`, `test_brief_bytes.py` among them); `mod.log` 119 pass with the reload case. The quiz and the `/compact` transcript of this column: not run, not captured, disclosed | VERIFIED for what ran |
-| 2 Claude Code, configured generic agent | b85be4c | F5 | NOT VERIFIED |
-| 3 Copilot, shipped: briefs for 18 roles, rows untested, no hook | carried from 7d2c4dc: clean rebase, same tree and patch-id, empty diff | `<CR>/work/verifier/matrix-r2.md` claim 3. Inertness is inferred from `.github/plugin/plugin.json` (no `hooks`) and `hooks/hooks.json` (a Claude mod); unproved in a real Copilot session | VERIFIED with that limit |
-| 4 Copilot, configured | carried from 7d2c4dc: same reason | `matrix-r2.md` claim 4 (`gpt-6.1-terra`) | VERIFIED with that limit |
+| 1 Claude Code, shipped | 4380df5 | `just check` (`test_brief.py`, `test_brief_bytes.py` among the 2748), the reload case in `mod.log`, CI scenario. Quiz and transcript: not run, not captured, disclosed | VERIFIED for what ran |
+| 2 Claude Code, configured generic agent | carried from b85be4c: no CLI change | F5 | NOT MET, accepted, disclosed |
+| 3 Copilot, shipped | carried from b85be4c (from 7d2c4dc, same tree): M2 adds link lines only; the 5 Copilot topic links resolve (F1) | `<CR>/work/verifier/matrix-r2.md` claim 3. Hook inertness is read from the manifests; unproved in a real Copilot session (Known gaps) | VERIFIED with that limit |
+| 4 Copilot, configured | carried from b85be4c, same reason | `matrix-r2.md` claim 4 | VERIFIED with that limit |
 
-## Pull request description (b85be4c)
+## Pull request description
 
-| Claim | Command and output | Verdict |
+| Claim (SHA) | Command and output | Verdict |
 | --- | --- | --- |
-| The posted body is `<CR>/work/pr-body.md`; it renders | `<v1>/pr_check.py` -> `posted == pr-body.md: True`; rendered HTML: the ten `h2` in order, 3 tables, 1 `details` opened and closed, one mermaid block (2 fence lines), 0 images | VERIFIED |
-| No username or home folder published | same script: 13 files read (body, `evidence/`, `work/verifier/`) `with a hit: []`; body and the pin-list comment: no hit | VERIFIED |
-| No internal reference outside "Internal references" | search of `CR-n`, `O-n`, `Dn`, `batch-n`, `child n`, `scNN` in the body: only lines 134 to 161 | VERIFIED |
-| Summary, Deliverables, Changes match the diff | the rows of the sections above; card text beyond the move: `git diff --numstat BASE:skills/chantier/cards-next/<f> HEAD:REFS/<f>` gives exactly the 6 files named, and `git diff -U0` of `sync-checkout.md`, `foreman-start-p2.md` and the two allow-rule topics says what the body says (the two sync steps that left are in `topics/sync-offer-p1.md`, `-p2.md`) | VERIFIED but F4 |
-| Brief sizes in "Deliverables" | `<v1>/bytes.log` at HEAD for the new figures; old figures `evidence/e7-bytes.md` (base tree) | VERIFIED |
-| Autonomous decisions | `<v1>/claims-run.log`: `facts split`, `griller board`, `griller brief`, `refusals`, `roles reply`, `runbooks`, `read key test`, `generic *`; `02-answers.md` 2 and 3 for the two defaults; `before-after.md` for `take`'s lines and `Team:` / `Note:` | VERIFIED |
-| "The quiz builds a new-card boot with the batch variable removed ... because an inherited batch variable made the boot fail" | `git grep -n CHANTIER_BATCH HEAD -- evals/kit/quiz.py` -> line 394 drops it and sets the host to claude. `<v1>/brief_env.py` on a scratch project: `brief coder` without the variable exit 0; with `CHANTIER_BATCH=batch-99` exit 2, `error: unknown batch batch-99` (`<v1>/env-run.log`). Shows the cause for a batch the project does not hold | VERIFIED |
-| Known gaps facts | `<v1>/claims-run.log`: `copilot marks` (50 untested), `copilot plugin`, `worker refusal` (`agents/coder.md:18`), `agents md reads` (`AGENTS.md:262-263`), `docs team` (two pages), `contract heading` (`plugin_files.py:263`), `generic test` (exit 1), `hosts json names`, `old wording base/head`, `stale names`, `team entries` (exit 1: no filter of these names), `budget` (`9_900`), `hook test`; `mod-base.log` for the old warnings; `e7` for sizes | VERIFIED |
-| Each unrun or unproved item has its bullet | quiz, baseline, transcript, Copilot, generic case, real run, launcher, over-target cards, `**UNVERIFIED:**` seconds: present. Missing: F1 and F2 | NOT VERIFIED (F1, F2) |
-| Human decisions | `02-answers.md` 4 and 5, orders O-168, O-171, O-174 | VERIFIED |
-| Test plan: local gates and CI boxes | "Head, move and gates" | VERIFIED |
-| Test plan: Review box | `$CHANTIER log CR-510`: 07:51:19Z "r2 inspector approved at 88d9ab40...", 07:51:31Z "committed as 7d2c4dc..."; carried to b85be4c by the clean rebase above | VERIFIED |
-| "its branch started on CR-507's (PR 487, merged)" | `gh pr view 487` -> `MERGED`, head `88d9ab40...`, the base of 7d2c4dc | VERIFIED |
+| The posted body is `<CR>/work/pr-body.md`; it renders (4380df5) | `<v1>/pr_check.py` -> `posted == pr-body.md: True 15876 15876`; rendered: the ten `h2` in order, 3 tables, 1 `details` opened and closed, one mermaid fence pair, 0 images | VERIFIED |
+| No username or home folder published (4380df5) | same script -> `files read for private paths: 14 with a hit: []`, `body hit: False comment hit: [False]` | VERIFIED |
+| What changed in the body since the last judgment (4380df5) | `git diff --no-index <v1>/posted-body.md <CR>/work/pr-body.md`: the merge bullet (F2), the host-topic size bullet (acceptance 7), the "32 of the 33" bullet (F1, M2), the table's file name (F4), the Test plan SHAs, the checklist lead and rows 2 and 4 (F3). Nothing else | VERIFIED |
+| "32 of the 33 ... one added line each, `[Trials](...)`" | M2 and F1 (the added line is preceded by a blank separator line) | VERIFIED |
+| Summary, Deliverables, Changes match the diff (4380df5) | acceptance 1 (the card text beyond the move is the 6 files plus the link lines, all named); `git diff --shortstat BASE HEAD` -> 515 files; rest carried from b85be4c (M2 changes nothing else) | VERIFIED |
+| Brief sizes in "Deliverables" (4380df5) | acceptance 7; old figures from the base tree (`evidence/e7-bytes.md`) | VERIFIED |
+| Autonomous decisions (b85be4c) | carried from b85be4c: text unchanged, M2 touches none of their subjects. `<v1>/claims-run.log`, `<v1>/brief_env.py`, `02-answers.md` 2 and 3 | VERIFIED |
+| Known gaps facts that did not change (b85be4c) | carried from b85be4c: text unchanged, M2 touches none of the files they describe (`<v1>/claims-run.log`) | VERIFIED |
+| Each unrun, unproved or accepted-failed item has its bullet (4380df5) | merge, both quizzes, transcript, Copilot, F5, real run, launcher, over-target cards and topics, `**UNVERIFIED:**` seconds; no `STALE` mark (one `UNVERIFIED`, the seconds bullet) | VERIFIED |
+| Human decisions (b85be4c) | carried from b85be4c: text unchanged; `02-answers.md` 4 and 5 | VERIFIED |
+| Test plan: local gates and CI at the named SHAs (4380df5) | "Gates" above: 2748 passed, 19 skipped; 119 pass; 25 of 25; five checks green | VERIFIED |
+| Test plan: Review box `approved at 4380df5` | `$CHANTIER log CR-510`: 09:55:59Z "r3 inspector approved at b85be4c (round 3 diff, 32 host topics, and pr-body.md)", 09:56:13Z "r3 approved at b85be4c..., committed as 4380df52776791c42253d49e971a6a38aaf9517e" | VERIFIED |
+| "its branch started on CR-507's (PR 487, merged)" (b85be4c) | carried from b85be4c: `gh pr view 487` -> `MERGED`, head `88d9ab40...` | VERIFIED |
+
+The unticked boxes "Evidence: before at `ea11a9e`, after at `4380df5`" and "Verified" are now
+backed by `<CR>/work/verifier/evidence/before-after.md` and this file.
 
 ## Before and after
 
-`<CR>/work/verifier/evidence/before-after.md`: eight pairs, BASE against HEAD. Not captured: a
-`/compact` transcript, a real batch run, a Copilot session, the quizzes.
+`<CR>/work/verifier/evidence/before-after.md`: nine pairs, before at BASE. Pairs 1 to 7 carried
+from b85be4c (M2 reaches none of their outputs), pair 8 printed again at HEAD, pair 9 (the topic
+link) new at HEAD. Not captured: a `/compact` transcript, a real batch run, a Copilot session, the
+quizzes; each is in Known gaps.
 
 ## Observations (no effect on the verdict)
 
-- `REFS/topics/wakes-p1.md:5` still names the `prompt` blocks `take` and `order qa` no longer print;
-  it is not in the Known gaps list of such files.
-- Checklist row 5 reads "done" for `AGENTS.md`'s role sentences (the specification asks no
-  `AGENTS.md` edit); Known gaps names two sentences of `AGENTS.md` that are now stale.
-- "Changes" says links and sentences naming removed files are fixed; Known gaps names those left.
-- `evidence/e3` to `e10` were made on the uncommitted tree (base 88d9ab40), the content later
-  committed; the facts above were judged again at HEAD where a row says so.
-- The brief-sizes sentence of "Deliverables" names no SHA.
-- `docs/proofs/claude-code.md:885` holds a local home path; it is so at BASE too and this change
-  does not touch `docs/proofs/` (`git diff --stat BASE HEAD -- docs/proofs` -> empty): a follow-up.
-- The `just test` time is far above the `AGENTS.md` budget already at the base (157.8 s).
+- `REFS/topics/wakes-p1.md:5` still names the `prompt` blocks `take` and `order qa` no longer
+  print; the Known gaps list of such files says "Some" and does not name it.
+- Known gaps names two sentences of `AGENTS.md` that are now stale, while checklist row 5 reads
+  "done" (the specification asks no `AGENTS.md` edit).
+- `docs/proofs/claude-code.md:885` holds a local home path, as at BASE; this change does not touch
+  `docs/proofs/` but 27 topics now link that file: a follow-up.
+- The `just test` time is far above the `AGENTS.md` budget already at the base.
