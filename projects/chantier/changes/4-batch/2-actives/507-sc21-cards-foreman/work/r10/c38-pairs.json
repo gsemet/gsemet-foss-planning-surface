@@ -1,0 +1,6 @@
+[
+  ["topics/pr-extras.md", "The project ignores `.agents/changes/`: say it in a `note`, hand back with the PR as it is (no `git add -f`).", "The project ignores `.agents/changes/`: `note` it, hand back the PR as it is (no `git add -f`)."],
+  ["topics/pr-extras.md", "is an image to attach: remove its Known gaps bullet,", "is an image to attach: drop its Known gaps bullet,"],
+  ["topics/pr-extras.md", "out of the archive, a `note`, and Known gaps", "out of the archive, a `note`, Known gaps"],
+  ["topics/pr-extras.md", "at that path in your worktree and commit it", "at that path in the worktree and commit it"]
+]
