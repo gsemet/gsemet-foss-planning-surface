@@ -150,7 +150,15 @@ Grade: 1
   conflict-resolver, cr-driver, debugger, demo-explorer, foreman, griller, release-driver,
   stack-driver and verifier; the new push and ask-first cases need at least 1 of 3. Four planned cases
   are not written, as they have no rule id the loader accepts (`a8-ask-settings-json`,
-  `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`).
+  `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`): their inventory rows are
+  marked as needing a case, as are the rows of eight Foreman behaviours no case tests yet (its chat
+  obeys only "stop" and "hold", a note does not wake it, `judge` then send, the `--no-gate` check,
+  no release merge without the grant, a user's yes does not push a branch that is not chantier's, a
+  session in a worktree takes no CR, a refusal ranks above `next`). Of the 59 written cases, 49 are
+  named in the check of the inventory rows they test (84 rows); 10 test no inventory row: 7 Driver
+  cases, whose cards no inventory walks, and the 3 cases of the Chief of Staff's new routes for a
+  refused `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base.
+  The mapping was read by hand, by the behaviour each case tests; no run checks it.
   The changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards, the shared files,
   the skill texts and many topics: their score is owed at the final head. Plans only, no spend (costs of an
   earlier version of the cards): chief-of-staff with griller 54 runs, about

@@ -1,0 +1,6 @@
+[
+  {
+    "old": "need at least 1 of 3. Four planned cases\n  are not written, as they have no rule id the loader accepts (`a8-ask-settings-json`,\n  `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`).",
+    "new": "need at least 1 of 3. Four planned cases\n  are not written, as they have no rule id the loader accepts (`a8-ask-settings-json`,\n  `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`): their inventory rows are\n  marked as needing a case, as are the rows of eight Foreman behaviours no case tests yet (its chat\n  obeys only \"stop\" and \"hold\", a note does not wake it, `judge` then send, the `--no-gate` check,\n  no release merge without the grant, a user's yes does not push a branch that is not chantier's, a\n  session in a worktree takes no CR, a refusal ranks above `next`). Of the 59 written cases, 49 are\n  named in the check of the inventory rows they test (84 rows); 10 test no inventory row: 7 Driver\n  cases, whose cards no inventory walks, and the 3 cases of the Chief of Staff's new routes for a\n  refused `gh pr ready`, `gh pr edit --base` or chained subcommand, which have no row at the base.\n  The mapping was read by hand, by the behaviour each case tests; no run checks it."
+  }
+]
