@@ -39,7 +39,7 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just clip-kit-test` 56 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
 - [x] Review (Inspector approved at 8ce169f)
-- [ ] CI green
+- [ ] CI green (at 8ce169f the two static jobs fail, and so does `checks`: the merge-commit check reads the stacked pull request's test merge as merge commits of the branch, which has none; the visual, viewer-graph and report jobs pass)
 
 ## Known gaps
 

@@ -29,6 +29,10 @@ so the pairs are read from the two commits' git objects; no extension screen dif
   11.33, 11.47, 11.6, 11.93 s; each tile is labelled with its position 0 to 5 in this list).
   The editor is open at 11.0 and 11.2 s, closed from 11.33 s; the paragraph's outline and block
   handle then show and fade to the last frame.
+- `after-mp4-tail-af4a4aa.png`: MP4 frames 168 to 179 of the committed file (same sha256 as the
+  posted one), cropped to the paragraph (`ffmpeg -start_number 168 -i mp4-%03d.png -vf
+  crop=920:60:170:265,tile=1x12`). Editor open in the first two tiles; then the outline and block
+  handle show, hold, and fade up to the last frame.
 
-Both images were looked at: no username or home folder shows (window title
-`release-plan.md - workspace`).
+All three images were looked at: no username or home folder shows (window title
+`release-plan.md - workspace`; the tail image shows only the page).
