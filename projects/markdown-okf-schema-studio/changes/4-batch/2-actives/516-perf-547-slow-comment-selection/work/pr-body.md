@@ -27,7 +27,7 @@ flowchart LR
 |---|---|---|
 | Elements restyled by saving one comment (headless browser, page of 3072 elements) | 3125 | 26 |
 | **Comment** button on a selection change | recomputed at every event | at most once per frame |
-| **Comment** button on a scroll | selection read again | button moved only |
+| **Comment** button on a scroll | selection read again | button moved only; the selection is read once more, at the next frame, only after the page changed under it |
 | Hover outline and copy button | recomputed at every pointer event | at most once per frame |
 | Selection text in scroll position reports | read at every report | read again only when it can have changed |
 | Text before a selection, when its start has no source line | every source line of the document listed | walks back from the selection |
