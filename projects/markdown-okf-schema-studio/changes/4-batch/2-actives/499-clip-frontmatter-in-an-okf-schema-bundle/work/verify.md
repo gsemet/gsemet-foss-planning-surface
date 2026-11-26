@@ -47,9 +47,10 @@ unless marked "carried from 635f1ba". Commands run in the CR's worktree; tree cl
     960x540 12/1 12.000 s; one video stream each, no audio. `git lfs ls-files` lists 14 files of the
     clip. PASS.
 11. Take history. `work/gates/clip-all-1.log`: `FAILED: the table headers are ["Name","Value◀▶",...]`;
-    `clip-all-2.log`: `FAILED: the save did not clear the error: {... "statusValue":"\"published\""
-    ... "errorRows":[] ...}`; `clip-all-3.log`: all checks ok. The two scenario fixes are at
-    `scenario.mjs` lines 98 (header text stripped) and 227 (`JSON.stringify("published")`). PASS.
+    `clip-all-2.log`: `FAILED: the save did not clear the error: {... "errorRows":[] ...
+    "statusValue":"\"published\"" ...}`; `clip-all-3.log`: no FAILED line, `ok   scenario verify
+    passed: true`. The two scenario fixes are at `scenario.mjs` lines 98 (header text stripped) and 227
+    (`JSON.stringify("published")`). PASS.
 12. What the scenario proves (`scenario.mjs`): select options after the click (lines 187-196), two
     ArrowDown `draft` then `published` (203-211), save clears rows, badge, body `published`
     (220-229), file equals EXPECTED and schema unchanged (258-268). No Escape press in the file.
@@ -64,9 +65,10 @@ unless marked "carried from 635f1ba". Commands run in the CR's worktree; tree cl
     "Choose a value..." then `draft`, `published`; save badge; badge gone and body "Status:
     published"; Text 1 then Text 2; mark 1 on the status row, mark 2 on the Status line; no native
     popup; window title "release-note.md - workspace"; no username or home path. PASS.
-15. Stage (carried from 635f1ba, files unchanged): schema enum draft/published/retired; `grep -c $'\r'`
-    -> 0 on both files; `diff okf-frontmatter/stage/release-note.md .../notes/release-note.md` ->
-    only `type: note` added and `status: draft` -> `publshed`. PASS.
+15. Stage (carried from 635f1ba: same blob ids at b7518fb): schema enum draft/published/retired;
+    `tr -cd '\r' < <file> | wc -c` -> 0 on both files, `git ls-files --eol` -> `i/lf w/lf`;
+    `diff okf-frontmatter/stage/release-note.md .../notes/release-note.md` -> only `type: note` added
+    and `status: draft` -> `publshed`. PASS.
 
 ## PR description (judged again, body at b7518fb, last edit 2026-11-26T01:55:08Z)
 
