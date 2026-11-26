@@ -30,9 +30,15 @@ The frame lookup now chooses its candidates from `frame.url()` alone, before any
 the frame's document:
 
 ```ts
-// test/shared/webviewFrames.ts: only a VS Code webview URL can be a Studio frame
-// skipped: "" (no document yet), about:blank, any URL that is not vscode-webview://
-// a skipped frame receives no call but url()
+// test/shared/webviewFrames.ts
+// undefined for a "vscode-webview://" URL, else why the frame is skipped
+// ("" = no document yet, about:blank, any other scheme)
+export function frameUrlSkipReason(url: string): string | undefined { ... }
+
+// a skipped frame receives no call but url(); `inspect` only sees webview frames
+const scan = await scanWebviewFrames(page.frames(), async (frame) => ...);
+frameLookups.record(scan);   // listed by waitFor if it times out
+return scan.found;
 ```
 
 A timeout on a webview frame still fails the step (the 10 s bound is unchanged). When a wait for
@@ -46,7 +52,8 @@ the Studio frame times out, the message now lists every frame seen, with why eac
   `ci-toc-loop` and the probe) stay one launch.
 - `test/integration/trusted-suite.ts` runs the steps of the received part and logs
   `TRUSTED LAUNCH: <name>`; `test/integration/run-tests.ts` starts part 1, then part 2. The
-  frontmatter evidence is written after part 2, the part that produces it.
+  frontmatter evidence is written after part 2, the part that produces it, so its recorded suite
+  result now covers part 2 only (serializer and workspace disposal run in part 1).
 - `test/shared/launchWatchdog.ts`: the dump folder of a launch timeout or hang names the trusted
   part.
 - `test/shared/webviewFrames.ts` (new), `test/integration/realInput/harness.ts` and the marked-line
@@ -88,11 +95,15 @@ frame lookup; it needs one heavy run to confirm.
 - The cause is fixed rather than hidden: no deadline, budget or time limit is raised, no test is
   skipped, and a re-run until green does not count.
 - The bar for each part is 600 s, two thirds of its 900 s launch deadline, in each of two heavy
-  runs on the same commit. The long `real-input` step is not split to reach it.
-- The whole integration step only has to stay under its 1200 s limit: no parallel CI jobs and no
-  change to the open-at-line probe's fixed pauses here (see Known gaps).
-- No new stress scenario for the frame lookup: the URL filter and the frame list in the failure
-  message are what this change adds.
+  runs on the same commit: that leaves 300 s, four times the spread seen between passing and
+  failing runs. The long `real-input` step is not split, because the two parts reach the bar
+  without it.
+- The whole integration step only has to stay under its 1200 s limit: parallel CI jobs would
+  change the report and release jobs, and shortening the open-at-line probe's fixed pauses is a
+  separate change (see Known gaps).
+- No new stress scenario for the frame lookup: it failed once and the open-at-line steps are not
+  stress scenarios, so this change adds the URL filter and the frame list in the failure message
+  only.
 - The last group of steps (`edit-keys` to `workspace-disposal`) moved to part 1 rather than
   keeping a contiguous split: reading the code found no state it takes from the two steps it no
   longer follows, and the contiguous split would leave part 2 over 600 s on a slow runner. One

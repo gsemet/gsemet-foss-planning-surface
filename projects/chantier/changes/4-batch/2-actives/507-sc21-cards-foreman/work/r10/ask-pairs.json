@@ -1,0 +1,6 @@
+[
+  ["foreman.md", "every decision of theirs left to them", "their decisions left to them"],
+  ["foreman.md", "(stack: `help stack` too)", "(stack: `help stack`)"],
+  ["foreman.md", "plus one sentence at most (an image note goes in it); `no ask:` means none.", "plus at most one sentence (image note included); `no ask:` means none; others: `help ask-lines`."],
+  ["foreman.md", "Rare cases: `$CHANTIER help --for foreman`.", "Rare: `$CHANTIER help --for foreman`."]
+]
