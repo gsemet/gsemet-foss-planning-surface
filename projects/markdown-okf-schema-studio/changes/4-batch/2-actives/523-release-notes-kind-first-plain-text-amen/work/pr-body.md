@@ -79,7 +79,7 @@ as it stands, shows the faults it would have caught:
 | 4 | Every fix starts "Fixed:" | no | none does (30-32) |
 | 5 | Every restore owns the earlier break | no | "as it did before 1.11.0" (20), "as in 1.12.0" (32) do not say a release broke it |
 | 6 | Bad news on labelled lines | no | two removed settings and a postponed ability sit in paragraphs (20, 22) |
-| 7 | One sentence per line, budgets kept | no | bold lead plus a second sentence (30-32); subtitle 18 words for 16; longer highlight, lines and visible part than allowed |
+| 7 | One sentence per line, budgets kept | no | bold lead plus a second sentence (30-32); subtitle 18 words for 16; a highlight and lines longer than allowed |
 | 8 | Consequence, no banned construction | no | "Studio no longer watches the files you open" (20) is mechanism; bad news is buried |
 | 9 | Pictures within bounds, none apologised for | yes | no picture, and no sentence about it |
 | 10 | Version matches the kind, or the pull request says it is probably wrong | no | a patch that removes two settings; its pull request calls the number the owner's choice, never probably wrong |

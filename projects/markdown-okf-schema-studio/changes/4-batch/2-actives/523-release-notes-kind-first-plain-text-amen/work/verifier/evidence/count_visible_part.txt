@@ -1,0 +1,2 @@
+words holding a letter or digit: 243
+every whitespace token (markup markers excluded): 253 ['·', '·', '·', '·', '·', '·', '📄', '>', '⬜', '🛠']

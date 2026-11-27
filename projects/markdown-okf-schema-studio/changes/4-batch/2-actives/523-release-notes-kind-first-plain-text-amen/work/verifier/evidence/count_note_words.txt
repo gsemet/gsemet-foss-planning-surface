@@ -1,0 +1,15 @@
+subtitle: 18 | A Markdown file opens as text again, the blank-lines editor closes, each blank line is its own block.
+--- list lines (smaller changes and folded)
+30 12 ok
+31 23 over20
+32 26 over20
+37 27 over20
+38 17 ok
+45 28 over20
+46 15 ok
+47 21 over20
+--- highlights (heading + text)
+18 23 111 sentences in text: 6
+24 27 37 sentences in text: 2
+visible, links removed: 243 | links counted: 259
+visible body from first highlight: 211

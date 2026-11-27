@@ -1,0 +1,40 @@
+banned rows card 8 guideline 7 identical False
+questions 10 10 10
+1 card==guide | spec==guide
+2 card==guide | spec==guide
+3 card==guide | spec==guide
+4 card==guide | spec==guide
+5 card==guide | spec==guide
+6 card==guide | spec==guide
+7 card==guide | spec==guide
+8 card==guide | spec==guide
+9 card!=guide | spec==guide
+   card : Does every image show only the changed element, within the size `help release-evidence` gives, its alt text saying what it shows, with no sentence about a missing image?
+   guide: Does every picture show only the changed element, within the sizes of "Images" (a clip GIF excepted), its alt text saying what it shows, with no sentence about a missing picture?
+10 card==guide | spec==guide
+--- sections unchanged against origin/main
+# Release process guidelines True
+## Rules of a release True
+## The release folder True
+## The steps of a release False
+## The version PR on top of a stack True
+## The version PR body True
+### Publishing True
+## Announcement thread True
+## Hero image False
+--- headings at head
+1 # Release process guidelines
+19 ## Rules of a release
+31 ## The release folder
+43 ## The steps of a release
+152 ## The version PR on top of a stack
+176 ## The version PR body
+212 ## Release notes
+218 ### The kind
+240 ### Writing
+285 ### Structure
+326 ### Images
+353 ### Publishing
+359 ### Self-check
+377 ## Announcement thread
+400 ## Hero image
