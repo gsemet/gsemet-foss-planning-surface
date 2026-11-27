@@ -6,13 +6,18 @@
 
    Objectif: des cartes claires, efficace, des tools dans des CLI organisé logiquement, exploitant au maximum le progressive disclousre du modele. »
 
+4. Added later the same day, while the review ran: « deja tous ces cartes p1 p2 ... c'est beaucoup trop. il faut mettre dans une carte un theme. et surtout avec un nombre de carte important il faut orgnaiser le progressive disclosure efficacement, retirer tout ce qui pourra etre inferer directement par le modele, par exemple par le retour de la CLI. »
+
 ## What is asked
 
 A big cleanup, planned by a review run on Fable:
 
 - keep as instructions only the most important elements; the model already does much on its own;
 - move into the CLI everything mechanical that need not stay in the context;
-- delete what serves nothing.
+- delete what serves nothing;
+- one page per theme, with no `-p1`, `-p2` parts;
+- organise progressive disclosure efficiently, as the number of pages is large;
+- remove everything the model can infer by itself, for example from what the CLI returns.
 
 Goal: clear and effective cards, tools in logically organised CLIs, making the most of the model's progressive disclosure.
 
