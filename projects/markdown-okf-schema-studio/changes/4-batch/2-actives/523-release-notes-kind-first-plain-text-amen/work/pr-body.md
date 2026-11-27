@@ -27,6 +27,7 @@ section on the notes and its section on release pictures). Each rule against the
 
 | Rule | Lines | Shared template | This guideline | Same |
 | --- | --- | --- | --- | --- |
+| Written for the user: a maintainer's plain words, no ticket number, internal term or implementation | 242-244 | yes | same, kept from before | yes |
 | Kinds, decided before writing | 220-226 | feature, fix, restore, breaking, internal | same five, same definitions | yes |
 | Subtitle names the kind | 228-230, 291-292 | first words; no "you can now" in a fix | same | yes |
 | Several kinds | 232-233 | breaking, feature, restore, fix, internal | same | yes |
@@ -43,14 +44,14 @@ section on the notes and its section on release pictures). Each rule against the
 | Setting named as a setting | 268-269 | name, default, where to turn it on | same | yes |
 | Word budgets | 319-324 | 16, 20, 40, 120, 250; a judgement, not a check | same | yes |
 | One picture per visible change | 328 | yes | same | yes |
-| Crop | 329-332 | cropped to the change | the changed element; a gesture keeps its target | **differs**: a feature clip's GIF is not cropped (342-344) |
-| Size | 333 | 900 to 1200 px wide, at most 600 px high | same, for still pictures | **differs**: a feature clip's GIF is exempt (342-344) |
+| Crop | 329-332 | cropped to the change | the changed element; a gesture keeps its target | **differs**: a feature clip's GIF is not cropped (342-344), because it shows the whole filmed window and its zoom stands in for the crop |
+| Size | 333 | 900 to 1200 px wide, at most 600 px high | same, for still pictures | **differs**: a feature clip's GIF is exempt (342-344), because it films the whole window, as it is already exempt from cropping |
 | Before and after | 334-336 | one joined image, same region and scale | same | yes |
 | Alt text | 339 | the caption, no caption line | same | yes |
-| Missing picture | 340-341 | the notes say nothing; the pull request's known gaps name it | the notes say nothing; the version pull request's body names it | **differs**: where it is named |
+| Missing picture | 340-341 | the notes say nothing; the pull request's known gaps name it | the notes say nothing; the version pull request's body names it | **differs**: where it is named, because this project's release is reviewed on the version pull request |
 | Hero image | 402-404 | not covered | announcement thread only; the first highlight takes its own picture | **differs**: a project picture the new size would not allow in the notes |
-| Self-check | 359-375, 58-59 | ten questions, before the notes are final | same ten, before the version pull request opens and before its body is regenerated | **differs**: when it runs |
-| Capture a missing picture; read each picture before keeping it; name a picture without a Markdown link; upload | none | release mechanics | not carried | **differs**: only the writing rules are taken |
+| Self-check | 359-375, 58-59 | ten questions, before the notes are final | same ten, before the version pull request opens and before its body is regenerated | **differs**: when it runs, because this project's notes are reviewed on the version pull request and its body is regenerated after remarks |
+| Capture a missing picture; read each picture before keeping it; name a picture without a Markdown link; upload | none | release mechanics | not carried | **differs**: only the writing and picture rules are taken, because this change leaves how a release is run to the project's own steps |
 
 </details>
 
@@ -94,6 +95,7 @@ Grade: 1. One guideline file; no code, script, workflow or published note change
 - [x] New or changed tests: none, a documentation change
 - [x] Requirements: No behaviour change
 - [x] Changelog: No user-facing change
+- [ ] "what you can now do" appears in the guideline only as the feature kind's heading
 - [ ] Local gates: `just release-notes-check`, `just check`, `just preflight`
 - [ ] Review
 - [ ] CI green
@@ -131,3 +133,5 @@ Grade: 1. One guideline file; no code, script, workflow or published note change
 ## Internal references
 
 - CR-523 notes-kind
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
