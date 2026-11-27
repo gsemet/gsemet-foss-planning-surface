@@ -1,5 +1,6 @@
 Destination: next batch (3-ready).
 Spec critic: yes: it removes a proof and restores rules that protect the user, in cards and tests.
+Short name: `last-reading`
 
 ## Answers
 

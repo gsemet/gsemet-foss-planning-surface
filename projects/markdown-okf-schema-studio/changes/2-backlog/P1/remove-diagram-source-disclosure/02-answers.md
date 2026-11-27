@@ -35,6 +35,31 @@ Decided: when a diagram or a chart fails to render, its source panel stays, so t
 HTML export without the Markdown file does not lose the content. It narrows "no generated source
 panel is left" above to the figures that render.
 
+## 2026-11-27: a failed chart in the preview shows its source too
+
+Question: « Un graphique en échec dans la preview montre-t-il aussi sa source ? » The owner's
+answer, in French:
+
+> « Oui, aussi »
+
+Decided: one rule everywhere, preview and export, diagrams and charts: the source panel appears only
+when the render fails. It changes SwRS DIAG-123, which shows no **Chart source** for a failed chart
+in the preview.
+
+## 2026-11-27: automatable
+
+Question: « Ce CR : automatisable, ou une spécification à relire d'abord ? » The owner's answer, in
+French:
+
+> « Automatisable »
+
+Decided: grilled enough and automatable, with a short specification the owner does not review. The
+two approved requirements it changes (StRS DIAG-001 and DIAG-006) need the owner's re-approval.
+
+Destination: next batch (3-ready).
+
+Spec critic: no (a removal fully decided here, cheap to undo).
+
 ## Similar panels (facts read in the code at `b9b29c5a`, not decisions)
 
 - The extension generates three source panels, all in `normalizeDiagram`
