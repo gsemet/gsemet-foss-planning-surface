@@ -1,6 +1,6 @@
 ## Summary
 
-In `chantier live`, the widths of the three main columns (left, central Flow, right) were fixed. They can now be resized by dragging the borders with the mouse, and the widths are kept for the next start.
+In `chantier live`, the widths of the three main columns (left, central Flow, right) could not be changed. They can now be resized by dragging the borders with the mouse, and the widths are kept for the next start.
 
 ## Deliverables
 
@@ -56,6 +56,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 - The same hand run on Linux or macOS is not done.
 - A widened column can snap back at release on a terminal that is not wide enough: the narrow-terminal order then gives that width back to the Flow, while `live.json` keeps the dragged value. At 140 columns with one project and the defaults, a right column widened from 44 to 49 is drawn at 44 again.
 - A terminal that answers the mouse question later than 1 second has its late answer read as keys.
+- A `live.json` nested thousands of levels deep ends `live` with a traceback instead of the one refusal line; no normal edit produces such a file.
 
 <details>
 <summary>Details</summary>

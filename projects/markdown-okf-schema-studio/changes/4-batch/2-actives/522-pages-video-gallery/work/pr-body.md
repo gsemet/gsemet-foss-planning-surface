@@ -64,7 +64,7 @@ next release.
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just check` (298 release tests among them) and `just preflight` (static stage on
       Windows) pass at 5ed8550
-- [x] Review: approved at 5ed8550 (carried from 7e9c0d8)
+- [ ] Review
 - [ ] CI green
 
 ## Autonomous decisions
@@ -86,8 +86,7 @@ next release.
   already play a video, were not.
 - Pausing a video while it is still loading leaves an unhandled `play()` rejection in the browser
   console.
-- No test runs the "the build passes" half of the case with no video at all, and the comment above
-  the Chromium site test job in the CI workflow does not mention the video tests.
+- No test runs the "the build passes" half of the case with no video at all.
 - The full site build with the screenshot gallery filled from real VS Code runs was not run
   locally; neither was a dry run of the Pages deployment.
 
