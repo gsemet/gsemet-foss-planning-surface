@@ -108,11 +108,12 @@ Grade: 2
       the unchanged-behaviour tests pass (the comment shortcut test was not run on it).
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just check` green twice in a row (5538 unit tests, 5531 pass, 7 skipped; 298
-      Python tests); 20 of 20 browser tests; the five timing-dependent test files pass 10 times in a
-      row each, and once each while `just check` runs beside them; `just ci-visual` on Windows on the
-      final code: 524 of 530 captures pass, the 6 failed captures fail the same way without this
-      change
+- [x] Local gates: `just preflight` passes at aeefa1b (static stage on Windows: 5538 unit tests,
+      5530 pass, 8 skipped; 298 Python tests). Carried from e52cd28 (the later commit changes the
+      change log and a blank line of a test): 20 of 20 browser tests; the five timing-dependent test
+      files pass 10 times in a row each, and once each while `just check` runs beside them;
+      `just ci-visual` on Windows: 524 of 530 captures pass, the 6 failed captures fail the same way
+      without this change
 - [x] Review: the change approved at aeefa1b
 - [ ] CI green
 
