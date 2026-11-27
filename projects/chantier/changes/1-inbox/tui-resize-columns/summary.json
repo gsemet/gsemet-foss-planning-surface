@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "TUI: wider default columns in live, narrowed on a small terminal",
-  "summary": "chantier live: wider defaults (left column 42, Flow Project 20, Who 15); on a narrow terminal the left column shrinks to 28, then Who and Project to 10, so Event keeps 20, and the left column goes only when that does not fit. Mouse resizing is tui-mouse-resize.",
+  "summary": "chantier live: wider defaults (left column 42, Flow Project 20, Who 15); on a narrow terminal the left column shrinks to 28, then Who, then Project to 10, so Event keeps 20 (left column from 122 columns, Time width in both modes). Mouse resizing is tui-mouse-resize.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ecf9c316f8d5150389cf1e13834b374640f7e57703492d966789286704e1047c",
-    "02-answers.md": "c4d83f357b2722d83bd43cb7792cfee850ab621bd438476415b79a36c3c506d7",
-    "03-change-spec.md": "bbdbe3b4176d8e0a9cd397f5ea971f790759029055fa17db03320dac68915ccf",
+    "02-answers.md": "0f663e8e5cee9727aa34329c4d7f19cf72394d096e0b41b0d8229a53b6d6d837",
+    "03-change-spec.md": "3616d3bdb81197ec79003646b2d4753b3cd19685abf2f9e2588bb262f5b115c3",
     "intake/request.md": "e11516dd5a6885f0fc5e1a4af75d1467bf5c275fa9e04d7bed97e853950756ea"
   },
-  "summarized": "2026-11-27T10:21:00Z"
+  "summarized": "2026-11-27T10:52:30Z"
 }

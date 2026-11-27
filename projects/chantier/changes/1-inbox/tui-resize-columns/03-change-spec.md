@@ -36,9 +36,9 @@ The widths of section 1 are what the screen draws when they fit. When they do no
 gives way in this order, so that the Event column keeps at least 20 columns:
 
 1. the left column shrinks, from 42 down to 28 (today's width);
-2. then the Flow's Who and Project columns shrink, down to 10 each (today's width; Project's
-   two board-label columns, with several boards, stay on top of it) (the order between the two:
-   question Q1);
+2. then the Flow's Who column shrinks, down to 10 (today's width), and only then its Project
+   column, down to 10 (today's width; its two board-label columns, with several boards, stay on
+   top of it) (answer 8);
 3. only when even that does not fit (left column at 28, Who and Project at 10, Event at 20,
    `RIGHT_W` at 44) is the left column no longer drawn.
 
@@ -50,10 +50,15 @@ Consequences, which the Coder keeps:
   `RIGHT_W`. With today's drawing (a 4-column box border and padding, one-column gaps), that is
   122 columns with one project watched and the `Time` column (28 + 44 + 4 + 14 + 1 + 10 + 1 +
   20), 133 with several projects, 135 with several boards; the full defaults need 141, 162 and
-  164. The tests measure the drawn text, not these sums. (Whether the `Ago` column, narrower and
-  changing with the times shown, moves that threshold: question Q2.)
+  164. The tests measure the drawn text, not these sums. On a 120-column terminal with one
+  project, where today the left column is drawn at 28 with an 18-column Event, it is no longer
+  drawn: the owner chose Event's 20 columns first (answer 7).
+- The threshold is computed with the `Time` column's width (14) in both modes, also when `t`
+  shows the narrower `Ago` column, so `t`, or a line ageing, never shows or hides the left
+  column; the columns `Ago` frees still go to Event, as today (answer 9).
 - Without the left column, the same rule applies to the Flow alone: Who and Project take back as
-  much of their default as leaves Event 20 columns. The Event column is narrower than 20 only on a
+  much of their default as leaves Event 20 columns (Project first, then Who, the reverse of the
+  order in which they close). The Event column is narrower than 20 only on a
   terminal where even Who and Project at 10, with no left column, leave it less, as today.
 - A maximized Flow (`m`) spans the whole body: it draws Who and Project at their defaults when
   they fit, under the same rule.
@@ -73,9 +78,9 @@ Consequences, which the Coder keeps:
   - the Flow's paragraph names the Who and Project widths and how they close up;
   - the keys table's Tab line ("under 100 columns: Flow, Ready, Tasks") says "without the left
     column" instead of a number;
-  - the `--once` capture is regenerated with the new widths, at a terminal width the Coder names
-    in the sentence above it (today 120 columns, where, with one project, the left column would no
-    longer be drawn: question Q3).
+  - the `--once` capture is regenerated with the new widths at 140 columns (today 120, where,
+    with one project, the left column would no longer be drawn), and the sentence above it says
+    140 (answer 9).
 - The `screen.py` module docstring and `flow()`'s docstring say the widths and the order in which
   they give way; `NARROW`'s comment goes with the constant.
 
@@ -92,6 +97,11 @@ Consequences, which the Coder keeps:
 - Answer 5: on a narrow terminal the columns close up, Event keeps at least 20: the left column
   down to 28 first, then Who and Project down to 10, and the left column is dropped only when even
   that does not fit: section 2.
+- Answer 7: Event's 20 columns come first: with one project the left column is drawn only from
+  122 columns (100 today): section 2.
+- Answer 8 (Chief of Staff's call): Who closes first, down to 10, then Project: section 2.
+- Answer 9 (Chief of Staff's call): the threshold uses the `Time` column's width in both modes,
+  so `t` never hides the left column; the docs' capture moves to 140 columns: sections 2 and 3.
 - Answer 6: the columns the mouse will resize are the screen's main columns, a matter of
   `tui-mouse-resize`; this CR keeps the wider defaults, Project x2 and Who x1.5 inside the central
   column: section 1.
@@ -119,9 +129,12 @@ Consequences, which the Coder keeps:
   - at a width where everything fits, with one project and with several projects (and two
     boards), the left column is 42 wide, Project 20 (22 with two boards), Who 15;
   - parametrized over widths: the left column narrows from 42 to 28 before Who or Project
-    narrow; Who and Project narrow to 10 and no further; the Event column is never under 20 while
+    narrow; Who narrows to 10 before Project narrows; both stop at 10; the Event column is never under 20 while
     the left column is drawn; at one column under the threshold of section 2 the left column is
-    not drawn and Who and Project widen back as far as Event's 20 allows;
+    not drawn and Who and Project widen back as far as Event's 20 allows; at 122 columns with one
+    project the left column is drawn, at 121 it is not;
+  - with `t` (the `Ago` column), at the threshold's width, the left column is drawn as it is with
+    the `Time` column;
   - the existing panel tests (Tab order, the active panel when a resize hides it, the keys) pass,
     `live_world.py`'s `NARROW` (90) still drawing no left column and `WIDE` (140) still drawing
     it with one project.
@@ -135,16 +148,4 @@ Consequences, which the Coder keeps:
 
 ## Questions for the Chief of Staff
 
-- **Q1, Who or Project first.** Answer 5 says "then Who and Project down to 10". Which closes
-  first? Suggested: Who first, down to 10, then Project, down to 10 (Project's names, `board/
-  project`, are the longer text the owner asked to double). Alternative: both by the same share,
-  one column at a time.
-- **Q2, the `Ago` column and the threshold.** With `t`, the time column is 3 to 8 columns wide
-  and changes as times pass, so a threshold computed from it would show and hide the left column
-  on `t`, or as a line ages. Suggested: the threshold is computed with the `Time` column's width
-  (14) in both modes, so `t` never hides the left column; the columns `Ago` frees still go to
-  Event, as today.
-- **Q3, 120 columns.** The rule of answer 5 drops the left column on a 120-column terminal with
-  one project watched (it needs 122), where today it is drawn at 28 columns with an 18-column
-  Event. Is that the owner's intent? Suggested: yes, as answered (Event's 20 columns first), and
-  the docs' capture moves to 140 columns.
+None: answers 7 to 9 settled the three questions of the previous run.
