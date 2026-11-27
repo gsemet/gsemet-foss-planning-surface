@@ -27,6 +27,9 @@ index, even with no comments file; note it as an idea to grill after batch-09?",
 Read by the Chief of Staff: no separate idea about the indexing; the `.comments.json` file goes, which
 is this change.
 
+Then, 2026-11-27, same session, verbatim: "Pas de migration des commentaires existant cette feature
+n'est pas utilisée". Settles for the grill: existing `.comments.json` files are not migrated.
+
 ## Place against issue 547
 
 Chief of Staff's judgement of 2026-11-27: the reported bug can be fixed without this change
@@ -44,6 +47,10 @@ runs, not made yet. So this change is not added to batch-09.
   new one. It is anchored at one point of the Markdown, not on a quoted passage, and the module shows
   no resolved state.
 
+- GitHub issue 547 (open, from an outside user, 2026-11-26) describes a document with 9 review
+  comment threads in `.comments.json`: someone outside the project appears to use the feature. Told
+  to the owner on 2026-11-27.
+
 ## To grill
 
 - The tag: the owner's `<!-- Threaded-Comment: ... -->` or the existing `<!-- THREAD`.
@@ -52,6 +59,6 @@ runs, not made yet. So this change is not added to batch-09.
 - Resolve, reopen, delete; the orphaned list.
 - Writing a comment then changes the document itself (unsaved changes, Git diff): when it is written
   and saved, and what happens in Restricted Mode or on a read-only file.
-- Existing `.comments.json` files: migrate, keep reading, or ignore.
+- Existing `.comments.json` files: no migration (owner, above). To confirm: no longer read at all.
 - What the setting switches (the whole thread feature, or the storage), and its default: on.
 - The writing skill, the user documentation and the requirements to change.
