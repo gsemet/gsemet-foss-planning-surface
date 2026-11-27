@@ -58,6 +58,9 @@ next release.
       and over the shipped clips, a Chromium test of loading and playing, a README test, header
       link assertions
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+      (the new gallery requirement: `test/site/videoGalleryPage.ts`, `test/site/buildSite.ts`,
+      `test/site/videoGalleryPage.test.ts`, `test/site/videoGallery.browser.test.ts`; the header
+      requirement: `test/site/siteHeader.ts` and the header link tests)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
 - [ ] Review
@@ -71,6 +74,8 @@ next release.
   the raw Markdown"; the slash menu grid and figure editor clips in "Edit MyST visually", after
   the existing still; the side-by-side diff clip replaces the still of the change marks, and the
   radio buttons clip replaces the Cream and Dark stills.
+- The poster of the presentation video is its first frame, committed with Git LFS; the README top
+  line links the new page; the cards show the 16:9 pictures uncropped.
 - The three still pictures the README no longer shows stay in the repository with their visual
   scenarios.
 
@@ -80,6 +85,8 @@ next release.
   already play a video, were not.
 - Pausing a video while it is still loading leaves an unhandled `play()` rejection in the browser
   console.
+- No test runs the "the build passes" half of the case with no video at all, and the comment above
+  the Chromium site test job in the CI workflow does not mention the video tests.
 - The full site build with the screenshot gallery filled from real VS Code runs was not run
   locally; neither was a dry run of the Pages deployment.
 
