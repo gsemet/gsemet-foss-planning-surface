@@ -6,7 +6,7 @@ change updates only what differs. It also measures two other costs behind the sa
 of a comment write for the Git user name, and the indexing of a document for its comment threads.
 
 Part of https://github.com/gsemet/markdown-okf-schema-studio/issues/547 (creating a comment is
-slow on a large document).
+slow on a large document). Stacked on #549: this pull request adds only the commits above that one.
 
 ## Deliverables
 
@@ -103,11 +103,19 @@ Grade: 2
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
+- [x] New or changed tests: `test/page/modules/commentThreadsUpdate.test.ts` (20 tests; on the
+  previous code 3 of them fail: other threads' elements replaced, one read per thread, a measure
+  after an update that moves nothing; the 17 others check "same result as before") and
+  `test/build/perf547ThreadIndex.test.ts` for the new measure
+- [x] Requirements: SwRS-MDOKFSTUDIO-REVIEW-224 added, markers in code and tests,
+  `just requirements-update`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates: `just check-no-merge-commits` and `just check` pass at 6c099bf
+- [x] Review: an independent review approved the change committed as 6c099bf
 - [ ] CI green
+
+## Internal references
+
+- Change request CR-517 (perf-547-comment-update-and-author).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
