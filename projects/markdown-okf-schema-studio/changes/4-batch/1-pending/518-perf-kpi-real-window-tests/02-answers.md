@@ -129,3 +129,7 @@ own).
     Applied by the Chief of Staff: A for this CR (replaces the last sentence of item 14). The CR
     `split-heavy-ci-jobs` comes after CR-517 and before this one, which then adapts its job to the
     split workflow.
+
+16. The owner's instruction (2026-11-27, Chief of Staff session), verbatim: "Fait ce qu'il faut pour
+    merger ce qui reste rapidement et on clos le batch vite. On fera les teste visuels lourd dans un
+    second batch". Which CRs leave batch-09 is being confirmed (close-Q1).

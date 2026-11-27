@@ -29,6 +29,10 @@ Short name: `ci-split`
    12 min (`visual-2` 11.9 min and `static-windows` 7 min in run 45893802335), so splitting the
    visual jobs alone would not surely shorten a run.
 
+6. The owner's instruction (2026-11-27), verbatim: "Fait ce qu'il faut pour merger ce qui reste
+   rapidement et on clos le batch vite. On fera les teste visuels lourd dans un second batch". Whether
+   this CR leaves batch-09 is being confirmed (close-Q1); it is not added to the batch meanwhile.
+
 Spec critic: yes (it changes which jobs gate a release tag, in several files that must agree).
 
 Destination: running batch batch-09.

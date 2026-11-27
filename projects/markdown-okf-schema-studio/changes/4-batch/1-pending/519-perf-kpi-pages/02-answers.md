@@ -39,3 +39,7 @@ Spec critic: no (the page was in the specification the critic checked before the
    découpe la CI maintenant juste après celle que tu fini il faut pouvoir aller vite." Applied: no
    visual tests on the owner's PC (CI runs them), `just check` once per round and not re-run by the
    reviewer, targeted tests during the work (replaces "the rigor is unchanged" of item 5).
+
+7. The owner's instruction (2026-11-27), verbatim: "Fait ce qu'il faut pour merger ce qui reste
+   rapidement et on clos le batch vite. On fera les teste visuels lourd dans un second batch". Which
+   CRs leave batch-09 is being confirmed (close-Q1).

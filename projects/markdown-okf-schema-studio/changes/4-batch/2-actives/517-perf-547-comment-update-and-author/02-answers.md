@@ -50,3 +50,8 @@ split changes no behaviour of them).
    Applied by the Chief of Staff: replaces, for CR-516 and this CR, the single heavy run of item 6. One
    heavy CI at this CR's final head once verified (it covers CR-516, under it); then both PRs leave
    draft for the owner to merge, in order. CR-518 and CR-519 keep their one heavy run at CR-519's head.
+
+8. The owner's instruction (2026-11-27, Chief of Staff session), verbatim: "Fait ce qu'il faut pour
+   merger ce qui reste rapidement et on clos le batch vite. On fera les teste visuels lourd dans un
+   second batch". Applied: this CR is finished and shipped now with CR-516, before anything else
+   (order O-208).
