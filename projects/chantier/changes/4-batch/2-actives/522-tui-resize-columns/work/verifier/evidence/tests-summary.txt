@@ -1,0 +1,9 @@
+# reruns at 3412cd9, last line of each (pytest -q); K='closes_the_columns_up or never_shows_or_hides'
+base, new cases:
+20 failed, 4 passed, 7 deselected in 2.03s
+base, test_live_panels + test_live_link:
+20 failed, 28 passed in 7.59s
+head, new cases:
+24 passed, 7 deselected in 0.31s
+head, panels + link + model:
+103 passed in 7.58s

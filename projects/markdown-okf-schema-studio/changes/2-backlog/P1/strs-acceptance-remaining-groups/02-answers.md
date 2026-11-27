@@ -17,3 +17,16 @@ Open points for the grill:
 - Whether "every StRS" means every declared path (as the site shows them), and what the three StRS accepted outside VS Code, and the paths TRUST-012 S1 and S2, show under "Tested by".
 - What check keeps both columns filled: the stricter okfreq mode named in `docs/how-we-test.md` asks for acceptance of every path, and it says nothing of simulated walks.
 - Whether the acceptance job, or the integration job too, runs on every pull request (asked on 2026-11-27, not answered; last `main` run: acceptance 1.4 min, integration 17.7 min).
+- 2026-11-27, the owner, asking about reuse: « on ne peut pas remplacer des tests existant par ces tests ? il y a beaucoup de test d'integration. »
+
+Facts for that question (2026-11-27, not decisions):
+
+- 95 live StRS: 38 declare 1 path, 54 declare 2, 2 declare 3, 1 declares 4 (156 paths).
+- CR-504's final marker sort (its `evidence/strs-marker-sort.md`) removed 111 StRS marker lines as "partial path" on live StRS: 65 under `test/integration/`, 46 elsewhere, on 73 StRS; the files named still exist at `b9b29c5a`. Of the 68 StRS with no walk today, 59 have at least one such partial test, 9 have none. The sort is per StRS, not per path, and read only tests that carried a StRS marker then.
+- The same sort's rule: every step through the product mechanism, every named state and outcome asserted; an injected page message, a test hook or a faked host result does not count. The simulated bench of `test/visual` plays against a mock host.
+
+Open points for the grill:
+
+- Existing tests first: extend or merge partial tests into whole walks, their SwRS markers kept, before writing new ones.
+- How a path that goes through the host can count under "Tested by": a simulated bench running the real host logic, or another rule for that column.
+- 2026-11-27, the owner, asked whether both columns are filled for every path (156) or once per StRS (95): « Chaque parcours ». Every declared path of every live StRS shows a "Tested by" and an "Accepted by"; this settles the first open point on "every StRS".

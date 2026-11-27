@@ -1,0 +1,5 @@
+$ narrow_same.py, head 3412cd9 then base 4d12a5be's source on PYTHONPATH
+screens: 175 head, 175 base
+ff2b9e03a3f0c4123d5c6a691ecdec6c2566c96826ef8c16add6efd98a67cd8d *-
+ff2b9e03a3f0c4123d5c6a691ecdec6c2566c96826ef8c16add6efd98a67cd8d *-
+IDENTICAL base 4d12a5be vs head 3412cd9

@@ -193,6 +193,12 @@ async function exportFile(page, name) {
   return { target, ok: answer?.ok, userGesture: message.userGesture };
 }
 
+/** The page from its top to a little under its last paragraph. */
+async function clipped(page, file) {
+  const box = await page.getByText("The text after the figures.").boundingBox();
+  await page.screenshot({ path: file, fullPage: true, clip: { x: 0, y: 0, width: 900, height: Math.ceil(box.y + box.height + 28) } });
+}
+
 async function editMode(page) {
   await page.locator("[data-sphinx-preview-edit-toggle]").first().evaluate((button) => button.click());
   await page.waitForFunction(() => document.documentElement.getAttribute("data-sphinx-preview-edit-mode") === "on");
@@ -262,7 +268,7 @@ async function editMode(page) {
         const svg = src ? decodeURIComponent(src.slice(src.indexOf(",") + 1)) : "";
         return { state: d.getAttribute("data-render-state"), picture: Boolean(src), says: [...new DOMParser().parseFromString(svg || "<svg/>", "image/svg+xml").querySelectorAll("text")].map((e) => e.textContent).join(" ").slice(0, 260), message: d.querySelector("p")?.textContent?.slice(0, 200) };
       }));
-      await page.locator("#sphinx-myst-preview-content").screenshot({ path: path.join(root, "syntax-light.png") });
+      await clipped(page, path.join(root, "syntax-light.png"));
       report.syntax.pageErrors = problems;
       await page.close();
     } else {
@@ -274,12 +280,12 @@ async function editMode(page) {
         const height = await page.evaluate(() => document.documentElement.scrollHeight);
         await page.setViewportSize({ width: 900, height: Math.min(height + 20, 3000) });
         await page.waitForTimeout(1500);
-        await page.locator("#sphinx-myst-preview-content").screenshot({ path: path.join(root, `preview-${themeId}.png`) });
+        await clipped(page, path.join(root, `preview-${themeId}.png`));
         const exported = await exportFile(page, themeId);
         const reader = await noJs.newPage();
         await reader.goto(pathToFileURL(exported.target).href);
         report[themeId].export = await rows(reader);
-        await reader.locator("#sphinx-myst-preview-content").screenshot({ path: path.join(root, `export-${themeId}.png`) });
+        await clipped(reader, path.join(root, `export-${themeId}.png`));
         await reader.close();
         await page.close();
       }
