@@ -1,0 +1,228 @@
+{
+  "schema": 1,
+  "scenario": "perf-547",
+  "generatedAt": "2026-11-27T02:34:56.148Z",
+  "environment": {
+    "vscode": "1.148.0",
+    "platform": "linux",
+    "previewViewport": {
+      "width": 671,
+      "height": 799
+    }
+  },
+  "document": {
+    "lines": 464,
+    "tables": 22,
+    "rows": 197,
+    "images": 11,
+    "threads": 9,
+    "elements": 3114
+  },
+  "fixtureFolder": {
+    "gitRepository": true,
+    "localUserName": "Lorem Reviewer",
+    "commits": 0
+  },
+  "interactions": {
+    "selectionRelease": {
+      "unit": "ms",
+      "samples": [
+        17.5,
+        18,
+        18.2,
+        16.9,
+        16.9,
+        26.1,
+        17.4,
+        15.2,
+        18.1,
+        23.9,
+        17.2,
+        17.4,
+        17,
+        25.6
+      ],
+      "median": 17.45
+    },
+    "commentCreate": {
+      "unit": "ms",
+      "samples": [
+        46.8,
+        46.4,
+        46.6,
+        47.6,
+        46.1,
+        47.8,
+        47.5,
+        45.6,
+        45.7
+      ],
+      "median": 46.6
+    },
+    "dragTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        3.04,
+        2.25,
+        2.94,
+        3.88,
+        2.7,
+        4.17,
+        2.97
+      ],
+      "median": 2.97
+    },
+    "dragCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.59,
+        2.76,
+        2.81,
+        2.37,
+        3.04,
+        5.71,
+        5.43
+      ],
+      "median": 2.81
+    },
+    "releaseTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.33,
+        2.62,
+        2.25,
+        2.4,
+        2.6,
+        2.3,
+        2.19
+      ],
+      "median": 2.33
+    },
+    "releaseCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.58,
+        2.52,
+        2.77,
+        2.68,
+        2.73,
+        2.54,
+        2.77
+      ],
+      "median": 2.68
+    }
+  },
+  "authorWait": {
+    "unit": "ms",
+    "samples": [
+      15.41,
+      15.39,
+      15.86,
+      10.37,
+      10.76,
+      10.23,
+      10.14,
+      10.71,
+      10.21,
+      10.77,
+      10.81,
+      10.62
+    ],
+    "median": 10.74
+  },
+  "commentCreateRestyledElements": {
+    "unit": "elements",
+    "samples": [
+      40,
+      41,
+      44
+    ],
+    "median": 41,
+    "largestRecalc": [
+      38,
+      40,
+      42
+    ]
+  },
+  "threads": {
+    "before": 9,
+    "after": 21
+  },
+  "threadIndex": {
+    "node": "v24.22.3",
+    "documents": [
+      {
+        "name": "issue-size",
+        "lines": 464,
+        "bytes": 64579,
+        "threads": 9,
+        "createDocumentIndex": {
+          "unit": "ms",
+          "samples": [
+            2.47,
+            1.84,
+            1.83,
+            1.82,
+            1.75,
+            1.77,
+            1.65,
+            1.75,
+            1.73
+          ],
+          "median": 1.77
+        },
+        "reanchorThreads": {
+          "unit": "ms",
+          "samples": [
+            1.94,
+            2.13,
+            2.11,
+            2.05,
+            2.27,
+            1.92,
+            2.6,
+            2.35,
+            2.09
+          ],
+          "median": 2.11
+        }
+      },
+      {
+        "name": "four-times",
+        "lines": 1856,
+        "bytes": 261223,
+        "threads": 36,
+        "createDocumentIndex": {
+          "unit": "ms",
+          "samples": [
+            8.3,
+            7.16,
+            6.74,
+            7.06,
+            7,
+            7.4,
+            6.7,
+            6.97,
+            6.94
+          ],
+          "median": 7
+        },
+        "reanchorThreads": {
+          "unit": "ms",
+          "samples": [
+            10.28,
+            10.02,
+            10.27,
+            10.3,
+            10.28,
+            10,
+            10.36,
+            10.31,
+            10.63
+          ],
+          "median": 10.28
+        }
+      }
+    ]
+  }
+}
