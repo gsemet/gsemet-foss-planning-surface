@@ -1,0 +1,9 @@
+fix(render): save a comment without restyling a whole large document
+
+Saving a review comment in a large document no longer restyles the whole
+page, and the layout around aligned images, figures and tables stays the
+same, also in an exported file. The Comment button, the copy button and the
+edit mode outline now follow the selection or the pointer at most once per
+frame, and they appear and disappear in the same situations as before.
+
+Assisted-by: Claude:Sonnet-5.5
