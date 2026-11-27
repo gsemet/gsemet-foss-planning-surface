@@ -115,3 +115,8 @@ own).
     now, without waiting for CR-518 and CR-519?", answer, verbatim: "A. Livrer maintenant (reco.)".
     CR-516 and CR-517 get their own heavy CI and are merged first; item 12 stays for this CR: no heavy
     run at its head, the next heavy run is the one at CR-519's head.
+
+14. fin-batch-Q1 (2026-11-27, Chief of Staff session), "how do I finish batch-09: stop at the fix,
+    keep CR-518 and CR-519 with lighter rounds, or change nothing?", answered later in the same
+    session, verbatim: "Mais fini tout les 3 autres." Read by the Chief of Staff: CR-517, this CR and
+    CR-519 stay in batch-09 and are finished. No lighter rule was chosen: the rigor is unchanged.

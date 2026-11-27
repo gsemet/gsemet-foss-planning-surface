@@ -31,7 +31,8 @@ Then, 2026-11-27, same session, verbatim: "Pas de migration des commentaires exi
 n'est pas utilisée". Settles for the grill: existing `.comments.json` files are not migrated.
 
 Then, 2026-11-27, same session, verbatim: "Ok on fait pas ce P- sur les commentaires ." Not clear
-whether this drops the change or only postpones its grill: asked to the owner, nothing changed.
+whether this drops the change or only postpones its grill: asked to the owner. Answer, verbatim:
+"Met la en backlog P3 pour l'instant. Mais fini tout les 3 autres." Moved to P3, not grilled.
 
 ## Place against issue 547
 

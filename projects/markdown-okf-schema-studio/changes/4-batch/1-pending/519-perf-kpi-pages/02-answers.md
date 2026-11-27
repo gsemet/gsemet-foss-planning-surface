@@ -30,3 +30,7 @@ Spec critic: no (the page was in the specification the critic checked before the
    now, without waiting for CR-518 and CR-519?", answer, verbatim: "A. Livrer maintenant (reco.)".
    CR-516 and CR-517 get their own heavy CI and are merged first; item 3 stays for CR-518 and this CR:
    one heavy run at this CR's head, the second of the night's work.
+
+5. fin-batch-Q1 (2026-11-27, Chief of Staff session), "how do I finish batch-09?", answer, verbatim:
+   "Mais fini tout les 3 autres." Read by the Chief of Staff: CR-517, CR-518 and this CR stay in
+   batch-09 and are finished; the rigor is unchanged.
