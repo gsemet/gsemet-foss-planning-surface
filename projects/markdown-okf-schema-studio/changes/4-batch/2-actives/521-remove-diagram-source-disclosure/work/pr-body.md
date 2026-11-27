@@ -90,10 +90,10 @@ behaviour.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: provisional
-- [ ] Review
-- [ ] CI green
+- [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update` (table above)
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates: `just preflight` at 4000024 (static stage on Windows) passed
+- [x] Review: approved at 17f6bb8 plus the follow-up changes committed as 4000024
+- [x] CI green at 4000024: pull request checks, and an on-demand run with the real VS Code jobs
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "StRS acceptance tests: the remaining groups, then the mode switch",
+  "summary": "P1 since 2026-11-27. One change per e2e group with no acceptance file (15), the three trust-security paths left out, the coverage-mode switch last. To be split when its batch is prepared.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "cffb81d795347473169bc4d49fabe326808a239d7761c8bb693e1ffc95bac659",
+    "intake/request.md": "13d7d9fcc5ce15e78339e3f44d734e75787e4537668be2ddad970580f51fb243"
+  },
+  "summarized": "2026-11-27T12:38:51Z"
+}
