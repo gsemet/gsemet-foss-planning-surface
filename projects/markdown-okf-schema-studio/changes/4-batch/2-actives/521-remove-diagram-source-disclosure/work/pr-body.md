@@ -3,7 +3,8 @@
 Every Mermaid and PlantUML diagram carried a collapsed "Diagram source" section under it, and a chart
 carried a "Chart source" section in the HTML export. A reader who wants the source reads the Markdown.
 A figure that draws now shows no source section; a figure that fails to render keeps it, closed, so a
-reader of an exported file does not lose the content.
+reader of an exported file does not lose the content. One case does not hold yet: some EBNF syntax errors
+hide their source (see Known gaps).
 
 ## Deliverables
 
@@ -12,7 +13,7 @@ One rule for diagrams and charts, in the preview and in the HTML export:
 | Figure state                      | Before                                      | After                  |
 | --------------------------------- | ------------------------------------------- | ---------------------- |
 | Mermaid or PlantUML, drawn        | "Diagram source" in preview and export      | no source section      |
-| Mermaid or PlantUML, failed       | "Diagram source" in preview and export      | unchanged              |
+| Mermaid or PlantUML, failed       | "Diagram source" in preview and export      | unchanged, but see gap |
 | Chart, drawn                      | "Chart source" in the export only           | no source section      |
 | Chart, failed                     | "Chart source" in the export only           | in preview and export  |
 | Any figure not yet drawn          | diagrams: source section shown              | no source section      |
@@ -32,7 +33,8 @@ diagram element:
 - HTML export: the rule that showed "Chart source" again is removed, so the export follows the preview.
   The exported file needs no JavaScript for this.
 - Find bar: it skips a hidden source section of any kind and searches a shown one.
-- Built-in PlantUML engine: its syntax-error picture now marks the figure as failed.
+- Built-in PlantUML engine: its syntax-error picture for `@startuml` sources now marks the figure as
+  failed; the EBNF "Syntax error!" picture does not (see Known gaps).
 - Requirements, the charts page of the user documentation, the changelog and the tests follow.
 
 ## Approved requirements changed
@@ -77,8 +79,8 @@ behaviour.
 
 ## Autonomous decisions
 
-- A PlantUML syntax error that the built-in engine draws as its own error picture counts as a failed
-  render: the picture shows as before and the source stays under it, closed.
+- A PlantUML syntax error that the built-in engine draws as one of its three recognised error pictures
+  counts as a failed render: the picture shows as before and the source stays under it, closed.
 - The hidden or shown choice is a style sheet rule on the render state, so the export decides the same
   way as the preview.
 - The find bar does not search again by itself when a render state changes after a search: a figure
@@ -86,8 +88,14 @@ behaviour.
 
 ## Known gaps
 
-- A valid light `@startsalt` diagram whose first text is "Your data does not sound like JSON data" is
-  taken for an error picture: it still draws, with its source shown under it.
+- An EBNF syntax error that the built-in engine draws as "Syntax error!" (for example `a = [ "x" ;` inside
+  `@startebnf`) still counts as drawn: its source is hidden in the preview and the export, although it was
+  shown before this change.
+- Some valid diagrams are taken for an error picture and show their source although they draw: a light
+  `@startsalt` whose first text is the engine's JSON, YAML or "Diagram not supported" message, and, in both
+  themes, a boxless mindmap or work breakdown diagram whose root is one of these messages.
+- The picture the engine draws when it crashes is not recognised, and a source the engine draws only in part
+  counts as drawn.
 - Only the light-theme error picture is covered by a committed test.
 - The find bar does not search again by itself when a figure's render state changes while it is open.
 - The PlantUML engine in Java (JAR) was not run for the syntax-error case; that path was read in code.
@@ -101,8 +109,9 @@ behaviour.
 - [ ] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update` (table above)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates
+- [x] Local gates: `just preflight` (static stage, Windows) at 0afb09dc: unit 5563 pass and 8 skipped,
+  security 116 pass
 - [ ] Review
-- [ ] CI green
+- [x] CI green at 0afb09dc: pull request jobs and one run with the real VS Code window jobs
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)

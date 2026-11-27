@@ -90,14 +90,16 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just eval-dry-run`, the end-to-end scenario on Windows
+- [x] Local gates at `d8397a4`: `just check` pass (2880 passed, 19 skipped); `just eval-dry-run` pass (26 of 26 cases); `just scenario` pass on Windows
 - [ ] Evidence: before and after
-- [ ] Review
+- [x] Review: approved at `d8397a4` (carried from `7fd7eec`)
 - [ ] Verified
 - [ ] CI green
 
 ## Internal references
 
 CR-523 tui-mouse-resize
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
 </details>
