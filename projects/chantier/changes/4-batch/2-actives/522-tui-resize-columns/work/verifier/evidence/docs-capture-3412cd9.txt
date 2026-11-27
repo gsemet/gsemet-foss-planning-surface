@@ -1,0 +1,14 @@
+chantier live  /work/demo  v0.15.1  ws  live  2026-11-23 12:26:25 UTC+01:00
+working 1  ready 2  held 1  done 0
+╭─ Projects ────────────────────────────╮╭─ ▸ Flow ────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo  batch-01 running batch          ││ Time           Who             Event                ││ PR  CR     State          Age Title      │
+│   inbox 0 backlog 2                   ││ 11-23 12:14:00 foreman         handback CR-102      ││ #13 CR-103 ready to merge 35m Add the a… │
+╰───────────────────────────────────────╯│ 11-23 11:51:00 foreman         handback CR-103      ││ #12 CR-102 checks running 12m Fix the l… │
+╭─ Agents ──────────────────────────────╮│ 11-23 10:02:31 foreman         take CR-101          │╰──────────────────────────────────────────╯
+│ Chief of Staff (seat)  Demo, the Chi… ││ 11-22 18:40:12 chief-of-staff  open                 │╭─ Tasks ──────────────────────────────────╮
+│ Foreman  beat 3 min ago               ││                                                     ││ State   Task                             │
+│ Driver CR-101 coder r1                ││                                                     ││ working CR-101  Export the report as CSV │
+│                                       ││                                                     ││         lease 08:55  round 1/3  coder r1 │
+│                                       ││                                                     ││ blocked CR-104  Rename the config key    │
+╰───────────────────────────────────────╯╰─────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+Ctrl-C to quit
