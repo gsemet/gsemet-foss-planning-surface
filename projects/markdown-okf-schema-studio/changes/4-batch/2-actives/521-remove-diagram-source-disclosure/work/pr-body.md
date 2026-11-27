@@ -71,7 +71,8 @@ Before and after screenshots: provisional, to be added.
 
 ## Blast radius
 
-Grade: 1. Styles and the find bar's text collection only; a plain `git revert` restores the previous
+Grade: 1. Styles, the find bar's text collection and the render state the built-in PlantUML engine's page
+module sets; a plain `git revert` restores the previous
 behaviour.
 
 ## Autonomous decisions
@@ -85,9 +86,10 @@ behaviour.
 
 ## Known gaps
 
+- A valid light `@startsalt` diagram whose first text is "Your data does not sound like JSON data" is
+  taken for an error picture: it still draws, with its source shown under it.
+- Only the light-theme error picture is covered by a committed test.
 - The find bar does not search again by itself when a figure's render state changes while it is open.
-- The acceptance criteria line of `SwRS-MDOKFSTUDIO-DIAG-001` does not repeat the new show-on-failure
-  rule; its description, normative statement and first scenario state it.
 - The PlantUML engine in Java (JAR) was not run for the syntax-error case; that path was read in code.
 - The test with the real built-in engine needs a browser and is skipped by the static CI jobs; a test
   with a stand-in engine runs there.
