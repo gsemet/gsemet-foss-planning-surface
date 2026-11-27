@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Brief prints host rows by name only, so sessions boot lighter",
+  "summary": "Specified: brief names host rows on one line (host <cap> unchanged); Steering fact and ~28 card/page pointers name $CHANTIER host <cap>; worker cards name end-turn-background; brief ceilings lowered, CoS and Foreman under 9 KB. 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fc1f32c3c6044f1dec4b8aaa61f3da1af2d2ec7a29010e70ef2aa27770c7618f",
+    "02-answers.md": "5ff091e1ff38ac89c82244bda3f9f836f289aaf55a6056fb76cf5f82b10dd8e7",
+    "03-change-spec.md": "26fc64c30b06751cf66b59fa558fdc16ecf0936081f331cc08cc788e53e593ba",
+    "intake/request.md": "99c117dab023bd64c99ff3fd577d225da389cda8e4a2831a45dd63cd601576b2"
+  },
+  "summarized": "2026-11-27T10:03:10Z"
+}

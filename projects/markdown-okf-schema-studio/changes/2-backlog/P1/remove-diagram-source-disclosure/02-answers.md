@@ -24,6 +24,17 @@ Decided: this change also removes **Chart source** from the HTML export, for the
 generated source panel is left, in the preview or in the export. It supersedes the "not decided"
 note on **Chart source** below.
 
+## 2026-11-27: a failed render keeps the source
+
+Question: « Quand un diagramme ou un graphique échoue au rendu, que montre-t-on ? » (the failures
+named: a syntax error, a missing PlantUML engine). The owner's answer, in French:
+
+> « Garder la source »
+
+Decided: when a diagram or a chart fails to render, its source panel stays, so that a reader of an
+HTML export without the Markdown file does not lose the content. It narrows "no generated source
+panel is left" above to the figures that render.
+
 ## Similar panels (facts read in the code at `b9b29c5a`, not decisions)
 
 - The extension generates three source panels, all in `normalizeDiagram`
