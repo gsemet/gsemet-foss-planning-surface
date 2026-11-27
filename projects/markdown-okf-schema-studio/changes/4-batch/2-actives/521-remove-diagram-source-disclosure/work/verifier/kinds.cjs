@@ -135,6 +135,7 @@ const SETS = {
   },
 };
 SETS.errors2 = require("./more-errors.cjs")(uml, kind);
+SETS.errors3 = require("./more-ebnf.cjs")(uml, kind);
 const names = Object.keys(SETS[set]);
 const FIGURES_SRC = names.map((n) => ({ word: n, kind: "plantuml", md: ["## " + n, "", "```plantuml", ...SETS[set][n], "```", ""] }));
 const source = fs.readFileSync(path.join(__dirname, "realflow.cjs"), "utf8");

@@ -182,6 +182,7 @@ Grade: **1**. Documentation, tests and the eval kit only; no card, command or ho
 - Some `to add` lines name no step of the cleanup plan, because no step brings them; each says so.
 - Three listed rules (lines `N1`, `N7` and `C4`) are held only by topic pages planned for deletion; the changes that delete those pages have to move each rule and update its line.
 - No test guards `docs/protective-rules.md`, by choice, so it can drift.
+- The long local scenario was not run for this change; a later change of the same stack validates it.
 - In line `B18` the quoted span stops at a line wrap, before the word `wildcard`; the rule beside it is whole.
 
 <details>
@@ -207,10 +208,10 @@ No visual change. Eval cases may name floor rules, scorecard `J` rows and `R-nnn
 
 ## Test plan
 
-- [ ] New or changed tests
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
+- [x] No behaviour change in the product; changed tests: `test_card_homes.py` (homes table, floor lines word for word) and the eval dry-run case `quiz-rule-id`; the inventory's two test modules are removed
+- [x] Local gates at `22ccbe0`: `just check` (2785 passed, 19 skipped) and `just eval-dry-run` (26 of 26 cases), on Windows
+- [x] Evidence: before at `fbdb53d`, after at `22ccbe0`: `git grep -nE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id"` finds the removed names in six files before and prints nothing after
+- [x] Review: approved at `22ccbe0` (carried from `5d7549e`)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
@@ -219,3 +220,5 @@ No visual change. Eval cases may name floor rules, scorecard `J` rows and `R-nnn
 CR-515 cards-inventory-last-reading. Work files in the CR folder: `work/investigator/`, `work/coder/`.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
