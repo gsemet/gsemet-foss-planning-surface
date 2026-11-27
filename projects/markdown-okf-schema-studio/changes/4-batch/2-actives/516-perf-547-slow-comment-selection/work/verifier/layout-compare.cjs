@@ -151,6 +151,8 @@ function compare(label, a, b) {
 }
 
 async function main() {
+  // The probe ends itself rather than waiting for ever.
+  setTimeout(() => { console.log("watchdog: the probe did not end in time"); process.exit(3); }, 540000).unref();
   const browser = await chromium.launch();
   try {
     for (const width of [900, 420]) {
@@ -166,8 +168,7 @@ async function main() {
             const page = await context.newPage();
             const file = path.join(built.root, `${surface}-${name}.html`);
             fs.writeFileSync(file, built.pages[name][surface]);
-            await page.goto(pathToFileURL(file).href);
-            await settle(page);
+            await page.goto(pathToFileURL(file).href, { waitUntil: "load" });
             results[side] = await layoutOf(page);
             await context.close();
           }
