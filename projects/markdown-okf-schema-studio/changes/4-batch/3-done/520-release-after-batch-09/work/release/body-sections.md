@@ -32,7 +32,7 @@ Grade: 3
 - [x] Local gates: `just preflight` passed (on Windows, the static stage only; CI runs the others), `just release-notes-check` passed
 - [x] Heavy CI of the released code: run [45958381383](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45958381383) on `b1e23cc`, every job green
 - [ ] Review: the owner reviews the notes folder
-- [ ] CI green
+- [x] CI green: every job that runs on the pull request passes at `3fefbd67`; the real VS Code jobs are skipped there and run on the version push
 
 ## Internal references
 
