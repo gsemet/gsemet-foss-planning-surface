@@ -1,0 +1,82 @@
+CR-516 round 4, S: stability of the timing-dependent test files (head 1fc9528 plus the uncommitted rounds 2 to 4), STUDIO_REQUIRE_CHROMIUM=1.
+Each run: node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec <file>. Green = exit 0, no failure, no skip.
+
+## 10 runs in a row each, alone
+alone frameReadsInChromium run 1: exit 0 pass 3 fail 0 skipped 0 7076 ms
+alone frameReadsInChromium run 2: exit 0 pass 3 fail 0 skipped 0 7000 ms
+alone frameReadsInChromium run 3: exit 0 pass 3 fail 0 skipped 0 7002 ms
+alone frameReadsInChromium run 4: exit 0 pass 3 fail 0 skipped 0 7107 ms
+alone frameReadsInChromium run 5: exit 0 pass 3 fail 0 skipped 0 7128 ms
+alone frameReadsInChromium run 6: exit 0 pass 3 fail 0 skipped 0 7048 ms
+alone frameReadsInChromium run 7: exit 0 pass 3 fail 0 skipped 0 7029 ms
+alone frameReadsInChromium run 8: exit 0 pass 3 fail 0 skipped 0 7022 ms
+alone frameReadsInChromium run 9: exit 0 pass 3 fail 0 skipped 0 7015 ms
+alone frameReadsInChromium run 10: exit 0 pass 3 fail 0 skipped 0 6995 ms
+alone frameReadsInChromium TOTAL: 10 of 10 runs green, 0 not green
+alone hoverFrames run 1: exit 0 pass 3 fail 0 skipped 0 522 ms
+alone hoverFrames run 2: exit 0 pass 3 fail 0 skipped 0 526 ms
+alone hoverFrames run 3: exit 0 pass 3 fail 0 skipped 0 532 ms
+alone hoverFrames run 4: exit 0 pass 3 fail 0 skipped 0 526 ms
+alone hoverFrames run 5: exit 0 pass 3 fail 0 skipped 0 527 ms
+alone hoverFrames run 6: exit 0 pass 3 fail 0 skipped 0 520 ms
+alone hoverFrames run 7: exit 0 pass 3 fail 0 skipped 0 539 ms
+alone hoverFrames run 8: exit 0 pass 3 fail 0 skipped 0 531 ms
+alone hoverFrames run 9: exit 0 pass 3 fail 0 skipped 0 524 ms
+alone hoverFrames run 10: exit 0 pass 3 fail 0 skipped 0 528 ms
+alone hoverFrames TOTAL: 10 of 10 runs green, 0 not green
+alone scrollSelection run 1: exit 0 pass 2 fail 0 skipped 0 511 ms
+alone scrollSelection run 2: exit 0 pass 2 fail 0 skipped 0 515 ms
+alone scrollSelection run 3: exit 0 pass 2 fail 0 skipped 0 531 ms
+alone scrollSelection run 4: exit 0 pass 2 fail 0 skipped 0 515 ms
+alone scrollSelection run 5: exit 0 pass 2 fail 0 skipped 0 518 ms
+alone scrollSelection run 6: exit 0 pass 2 fail 0 skipped 0 519 ms
+alone scrollSelection run 7: exit 0 pass 2 fail 0 skipped 0 517 ms
+alone scrollSelection run 8: exit 0 pass 2 fail 0 skipped 0 518 ms
+alone scrollSelection run 9: exit 0 pass 2 fail 0 skipped 0 521 ms
+alone scrollSelection run 10: exit 0 pass 2 fail 0 skipped 0 524 ms
+alone scrollSelection TOTAL: 10 of 10 runs green, 0 not green
+alone alignedFloatLayout run 1: exit 0 pass 2 fail 0 skipped 0 2288 ms
+alone alignedFloatLayout run 2: exit 0 pass 2 fail 0 skipped 0 2293 ms
+alone alignedFloatLayout run 3: exit 0 pass 2 fail 0 skipped 0 2273 ms
+alone alignedFloatLayout run 4: exit 0 pass 2 fail 0 skipped 0 2318 ms
+alone alignedFloatLayout run 5: exit 0 pass 2 fail 0 skipped 0 2269 ms
+alone alignedFloatLayout run 6: exit 0 pass 2 fail 0 skipped 0 2290 ms
+alone alignedFloatLayout run 7: exit 0 pass 2 fail 0 skipped 0 2269 ms
+alone alignedFloatLayout run 8: exit 0 pass 2 fail 0 skipped 0 2292 ms
+alone alignedFloatLayout run 9: exit 0 pass 2 fail 0 skipped 0 2289 ms
+alone alignedFloatLayout run 10: exit 0 pass 2 fail 0 skipped 0 2264 ms
+alone alignedFloatLayout TOTAL: 10 of 10 runs green, 0 not green
+alone commentRestyle run 1: exit 0 pass 1 fail 0 skipped 0 2958 ms
+alone commentRestyle run 2: exit 0 pass 1 fail 0 skipped 0 2937 ms
+alone commentRestyle run 3: exit 0 pass 1 fail 0 skipped 0 2909 ms
+alone commentRestyle run 4: exit 0 pass 1 fail 0 skipped 0 2932 ms
+alone commentRestyle run 5: exit 0 pass 1 fail 0 skipped 0 3020 ms
+alone commentRestyle run 6: exit 0 pass 1 fail 0 skipped 0 2936 ms
+alone commentRestyle run 7: exit 0 pass 1 fail 0 skipped 0 2933 ms
+alone commentRestyle run 8: exit 0 pass 1 fail 0 skipped 0 2913 ms
+alone commentRestyle run 9: exit 0 pass 1 fail 0 skipped 0 2945 ms
+alone commentRestyle run 10: exit 0 pass 1 fail 0 skipped 0 2945 ms
+alone commentRestyle TOTAL: 10 of 10 runs green, 0 not green
+
+## Once each while a full just check runs in parallel
+just check started 00:53:18
+unit tests of just check started 00:53:33
+load frameReadsInChromium run 1: exit 0 pass 3 fail 0 skipped 0 14555 ms
+load frameReadsInChromium TOTAL: 1 of 1 runs green, 0 not green
+load hoverFrames run 1: exit 0 pass 3 fail 0 skipped 0 1937 ms
+load hoverFrames TOTAL: 1 of 1 runs green, 0 not green
+load scrollSelection run 1: exit 0 pass 2 fail 0 skipped 0 1120 ms
+load scrollSelection TOTAL: 1 of 1 runs green, 0 not green
+load alignedFloatLayout run 1: exit 0 pass 2 fail 0 skipped 0 8759 ms
+load alignedFloatLayout TOTAL: 1 of 1 runs green, 0 not green
+load commentRestyle run 1: exit 0 pass 1 fail 0 skipped 0 7383 ms
+load commentRestyle TOTAL: 1 of 1 runs green, 0 not green
+parallel runs ended 00:54:11, just check still running: yes
+just check ended 00:58:05, exit 0
+That just check (exit 0), unit stage: tests 5538, pass 5531, fail 0, skipped 7; second node stage 116 of 116; pytest 298 passed; requirements 1229, 0 errors.
+
+## Temporary folders frame-reads-*, aligned-float-*, comment-restyle-* in the user's temp folder
+68 before the first round 4 run of these tests (left by earlier rounds), 68 after the 50 runs above.
+
+## Visual captures that use the checks edited in this round
+test/visual/capture.py with --scenario for code-blocks v01, v02, v03, v17, v18 and block-editing v06, v07, v08: 8 of 8 passed, 3 runs in a row.
