@@ -40,7 +40,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 - Each mouse query waits at most 1 second, passed as a parameter, so a silent terminal does not hold the keys for longer; the `BLESSED_QUERY_TIMEOUT_SECONDS` variable is neither read nor set for these queries.
 - During a drag the other side column keeps the width it had; the release saves the dragged column as drawn and leaves the other saved value unchanged.
 - A width is changed and written only when the dragged column's drawn width differs from the one at the start of the drag, so a plain click on a border never overwrites a kept width.
-- Where the Flow is already under its minimum, a drag can narrow a side column but not widen it. `?` or `m` during a drag drops it.
+- Where the Flow is already under its minimum, a drag can narrow a side column but not widen it. Any key pressed during a drag drops it, writing nothing, so a release the terminal never delivers does not leave the widths frozen.
 - On a narrow terminal a right column kept wider than 44 gives way first; without the left column it takes spare columns back toward its kept width.
 - The wheel does nothing while the help is open or a filter is typed; the mouse words are the first part of the footer to be cut.
 - A `live.json` with an unknown key is refused like any wrong value. It is written atomically with the user's default file mode.
@@ -51,7 +51,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 
 ## Known gaps
 
-- **UNVERIFIED:** mouse support on a real terminal. The hand run in Windows Terminal is not done: first screen with no felt wait, keys typed at start handled in order, both drags, the wheel, widths kept at a second start, the terminal given back after `q`, and which of the library's two Windows paths runs (terminal escape modes or the console's own mouse input). Tests use a stand-in terminal only. No screenshot of the real terminal.
+- **UNVERIFIED:** mouse support on a real terminal. This change requires a hand run in Windows Terminal before it is merged, and stops if mouse support fails there. It needs a person at the keyboard and mouse and is not done yet: first screen with no felt wait, keys typed at start handled in order, both drags, the wheel, widths kept at a second start, the terminal given back after `q`, and which of the library's two Windows paths runs (terminal escape modes or the console's own mouse input). Tests use a stand-in terminal only. No screenshot of the real terminal.
 - **UNVERIFIED:** the footer's words `Shift-drag: select` and `Ctrl-click: open a PR` were not tried; on other terminals the link modifier may differ.
 - The same hand run on Linux or macOS is not done.
 - A widened column can snap back at release on a terminal that is not wide enough: the narrow-terminal order then gives that width back to the Flow, while `live.json` keeps the dragged value. At 140 columns with one project and the defaults, a right column widened from 44 to 49 is drawn at 44 again.
@@ -68,7 +68,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 - `commands/live.py`: reads `live.json` before connecting, except with `--once`.
 - `clients/profiles.py`: the configuration folder comes from `platformdirs` (`CHANTIER_CONFIG_HOME` still first).
 - `pyproject.toml`, `uv.lock`: `platformdirs==4.14.8`, one pure-Python wheel (`py3-none-any`) for Linux, macOS and Windows. On Windows it asks the system's known-folder API (or `WIN_PD_OVERRIDE_APPDATA`), not `APPDATA`; on the machine checked, the folder equals `%APPDATA%\chantier`.
-- Docs: `AGENTS.md`, `docs/boards.md`, `docs/server-api.md`, the surface server diagram and its text file.
+- Docs: `AGENTS.md`, `docs/boards.md`, `docs/server-api.md`, the surface server diagram and its text file, and the web board's help text on `chantier live` (English and French).
 
 ## Human decisions
 
@@ -76,6 +76,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 - Mouse tracking is accepted (a plain drag no longer selects text) if the status bar says what to do and the wheel keeps scrolling the main part.
 - One configuration folder, computed by `platformdirs`; on macOS only, `profiles.json` moves and `chantier login` is run again; nothing changes on Windows.
 - Smallest widths: 20 for the left column, 30 for the right one.
+- The widths are kept in a JSON file in the user's configuration folder, found with `platformdirs`.
 - The first screen is drawn before the terminal is asked about the mouse.
 
 ## Impacts

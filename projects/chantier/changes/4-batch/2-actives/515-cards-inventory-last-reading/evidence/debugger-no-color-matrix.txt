@@ -1,0 +1,13 @@
+test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words (2 parameters)
+Windows, Python of the worktree's .venv, uv.lock identical at 4d12a5be and 22ccbe0
+
+revision                     NO_COLOR unset   NO_COLOR=1
+22ccbe0 (CR head)            2 passed         2 failed (line 221)
+fbdb53d2 (origin/main)       2 passed         2 failed (line 221)
+4d12a5be (old base)          2 passed         2 failed (line 221)
+22ccbe0, alone, 20 runs      20 x 2 passed    20 x 2 failed
+
+just check at 22ccbe0, NO_COLOR unset: 2785 passed, 19 skipped, exit 0
+
+rich Console(force_terminal=True, color_system="truecolor") under NO_COLOR=1: colour code absent
+same with no_color=False: colour code present
