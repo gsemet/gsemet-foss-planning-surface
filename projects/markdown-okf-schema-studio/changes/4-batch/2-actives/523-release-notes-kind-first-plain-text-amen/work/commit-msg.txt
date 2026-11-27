@@ -1,0 +1,8 @@
+docs: write release notes kind first, in short plain text
+
+A reader of a release note can tell at once whether it is a feature, fix,
+restore, breaking or internal release. A removal, a changed behaviour and a
+known issue are said plainly in the visible part, the text stays short and
+each picture shows only what changed.
+
+Assisted-by: Claude:Sonnet-5.5
