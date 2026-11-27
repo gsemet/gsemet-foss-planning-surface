@@ -75,7 +75,7 @@ const select = (page, from, to) => page.evaluate(([a, b]) => {
   window.getSelection().setBaseAndExtent(all[a].firstChild, 0, all[b].firstChild, 7);
 }, [from, to]);
 
-const shortcut = () => document.body.dispatchEvent(new KeyboardEvent("keydown", { key: "m", code: "KeyM", ctrlKey: true, altKey: true, bubbles: true, cancelable: true }));
+const installShortcut = () => { window.__shortcut = () => document.body.dispatchEvent(new KeyboardEvent("keydown", { key: "m", code: "KeyM", ctrlKey: true, altKey: true, bubbles: true, cancelable: true })); };
 
 const pointOf = async (page, selector, index = 0, dx = 40, dy = 8) => {
   const r = await page.locator(selector).nth(index).boundingBox();
@@ -112,28 +112,28 @@ const STEPS = [
   }],
   ["click in a paragraph (selection cleared)", async (page) => { await page.mouse.click(...await pointOf(page, P, 1, 60)); }],
   ["shortcut in the same task as a new selection", async (page) => {
-    await page.evaluate(([fn]) => {
+    await page.evaluate(() => {
       const all = document.querySelectorAll("#sphinx-myst-preview-content p");
       window.getSelection().setBaseAndExtent(all[1].firstChild, 0, all[1].firstChild, 15);
-      (0, eval)(`(${fn})`)();
-    }, [shortcut.toString()]);
+      window.__shortcut();
+    });
   }],
   ["escape", async (page) => { await page.keyboard.press("Escape"); }],
   ["an earlier selection, then another one and the shortcut at once after the announcement", async (page) => {
     await select(page, 0, 0); await settle(page);
-    await page.evaluate(([fn]) => new Promise((done) => {
-      document.addEventListener("selectionchange", () => queueMicrotask(() => { (0, eval)(`(${fn})`)(); done(); }), { once: true });
+    await page.evaluate(() => new Promise((done) => {
+      document.addEventListener("selectionchange", () => queueMicrotask(() => { window.__shortcut(); done(); }), { once: true });
       const all = document.querySelectorAll("#sphinx-myst-preview-content p");
       window.getSelection().setBaseAndExtent(all[2].firstChild, 0, all[2].firstChild, 17);
-    }), [shortcut.toString()]);
+    }));
   }],
   ["escape again", async (page) => { await page.keyboard.press("Escape"); }],
   ["a selection removed, the shortcut at once after the announcement", async (page) => {
     await select(page, 0, 0); await settle(page);
-    await page.evaluate(([fn]) => new Promise((done) => {
-      document.addEventListener("selectionchange", () => queueMicrotask(() => { (0, eval)(`(${fn})`)(); done(); }), { once: true });
+    await page.evaluate(() => new Promise((done) => {
+      document.addEventListener("selectionchange", () => queueMicrotask(() => { window.__shortcut(); done(); }), { once: true });
       window.getSelection().removeAllRanges();
-    }), [shortcut.toString()]);
+    }));
   }],
   ["escape once more", async (page) => { await page.keyboard.press("Escape"); }],
   ["click on the Comment button", async (page) => {
@@ -184,6 +184,7 @@ async function main() {
         page.setDefaultTimeout(10000);
         const errors = [];
         page.on("pageerror", (e) => errors.push(e.message));
+        await page.addInitScript(installShortcut);
         await page.addInitScript(() => {
           const posted = [];
           Object.assign(window, { __posted: posted, acquireVsCodeApi: () => ({ getState: () => ({}), setState: () => undefined, postMessage: (m) => { posted.push(m); } }) });
