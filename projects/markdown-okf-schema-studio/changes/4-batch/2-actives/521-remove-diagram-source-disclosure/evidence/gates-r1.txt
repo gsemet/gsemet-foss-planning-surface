@@ -1,0 +1,29 @@
+CR-521, round 1: gate results (Windows, worktree batch-11-CR-521, base origin/main, changes uncommitted)
+
+just dev                         pass (new worktree)
+just requirements-update         pass (2 index files updated)
+just requirements-lint           pass, exit 0; rerun after the line-ending normalisation. W2 "Broken cross-link"
+                                 warnings are printed for requirement files this change does not edit
+just check                       pass, exit 0
+  clip-kit                       56 tests, 56 pass
+  unit                           5569 tests, 5561 pass, 0 fail, 8 skipped
+  contracts                      0 tests run (as the glob stands; not changed here)
+  security                       116 tests, 116 pass
+  main paths                     96 StRS checked, 625 SwRS citations, all valid
+just preflight                   pass, exit 0: "ci-static: passed" (merge-commit check, format check, check,
+                                 audit, sphinx-check 4 passed, requirements report). On Windows the visual,
+                                 viewer-graph, integration, acceptance, report and gallery jobs are skipped
+npm run visual:render            pass
+test/visual/capture.py           diagrams group, toolbar-navigation v42 v43 v44, myst v20 v21:
+                                 23 passed, 4 failed
+  diagrams v04, v05              fail: "PlantUML diagram 1 requires a loaded image without an error; install
+                                 PlantUML for success coverage" (PlantUML is not installed here)
+  diagrams v15, v16              fail on Windows: the include host stub of test/visual/renderFixtures.ts splits
+                                 a backslash path on "/", so no include is found
+  diagrams v15, v16, probe       2 passed after work/scratch/patch_include_pages.py rewrote the generated pages
+                                 under out/ (no source file touched)
+not run                          the rest of the visual campaign; just clip; real VS Code jobs
+
+Screenshots (work/screenshots/): mermaid-drawn-before.png, mermaid-drawn-after.png, mermaid-failed-before.png,
+mermaid-failed-after.png. "Before" is the page of this change with its display:none rule for the Mermaid source
+panel removed in the browser, not a build of the base commit. Scenarios diagrams v01 (drawn) and v08 (failed).
