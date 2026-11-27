@@ -87,7 +87,7 @@ Grade: 2
       row each, and once each while `just check` runs beside them; `just ci-visual` on Windows on the
       final code: 524 of 530 captures pass, the 6 failed captures fail the same way without this
       change
-- [ ] Review
+- [x] Review: the change approved at e52cd28
 - [ ] CI green
 
 Autonomous decisions:
