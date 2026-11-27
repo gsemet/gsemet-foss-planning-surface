@@ -27,3 +27,5 @@ Spec critic: no (the project's procedure rules; the specification only fixes the
 and the notes' options).
 
 - 2026-11-27, close-Q2 (Chief of Staff session): "do I close batch-09?", choices "A. yes (recommended)", "B. not yet". Answer, verbatim: "Ok pour Q6. Laisse le batch en pause si un fix est nécessaire pour la ci lourde". Applied: batch-09 is not closed and stays paused, so a fix the heavy CI needs can join it. State at the answer: the heavy run 45958381383 on b1e23cc, the head of `main`, is green.
+
+- 2026-11-27, close-Q3 (Chief of Staff session): "the heavy CI is green: do I close batch-09?", choices "A. yes, close (recommended)", "B. no, keep it paused". Answer, verbatim: "Oui". Applied: `close --yes`.
