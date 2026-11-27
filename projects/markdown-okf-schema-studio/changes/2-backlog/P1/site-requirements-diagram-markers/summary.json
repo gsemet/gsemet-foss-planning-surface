@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Requirements page: show where @tests_req and @accepts_req sit",
+  "summary": "P1, filed 2026-11-27. The How it works figure draws one @tests_req box fed by Code: draw one for SwRS and one for StRS (simulated, faster) and show @accepts_req. Open: the SwRS box words (owner: integration test; rules allow any level).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "2e73d6ae17899fd8b6a5782062bb6df25546eb451092ebd533df20f5cb548807"
+  },
+  "summarized": "2026-11-27T14:10:52Z"
+}
