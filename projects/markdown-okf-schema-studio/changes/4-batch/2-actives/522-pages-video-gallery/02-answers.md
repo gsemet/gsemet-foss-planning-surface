@@ -27,6 +27,13 @@ Destination: running batch batch-11.
 - `vidéos-Q7` (weight): « Tels quels » : the existing clip GIFs, at most 3 MB each, none regenerated.
 - `vidéos-Q8` (placement in the README, the one-minute demo video staying at the top): the owner answered « No preference ». The Chief of Staff takes the recommended option as a routine gap: each GIF goes in the section of its feature, in place of the still picture that shows the same thing, else added to that section.
 
+## After the first specification, 2026-11-27, Chief of Staff (routine gaps)
+
+- Correction: there are 17 feature clips, not 18. The Chief of Staff miscounted in the facts above and in `vidéos-Q1` (18 clips and the presentation video, so 19 videos); the owner's answer, « Tout », does not depend on the count. No clip in flight was meant.
+- `table-anchors` stays in the README section « Highest respect for the raw Markdown », where the specification put it: the clip shows the raw table following the drag.
+- The one-minute demo video staying at the top of the README is the project's current rule (feature clip guideline) and was stated in `vidéos-Q8`; the owner gave no separate decision on it.
+- Spec critic: no (a site page and README pictures; no product behaviour and no approved requirement; a wrong point costs one round).
+
 ## What follows from these answers
 
 - The five chosen GIFs weigh about 7.3 MB together (1.1, 1.7, 1.8, 1.4 and 1.3 MB).

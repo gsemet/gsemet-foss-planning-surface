@@ -77,7 +77,7 @@ Grade: 1. Only the layout of the terminal live view changes; it writes nothing a
 
 ## Impacts
 
-Wider left, `Project` and `Who` columns on large terminals; on terminals between 100 and 121 columns (more with several projects) the left column is no longer drawn.
+Wider left, `Project` and `Who` columns on large terminals; on terminals between 100 and 121 columns (more with several projects) the left column is no longer drawn. Where the left column still shows, `Event` can be narrower than before: with one project at 141 columns it goes from 39 to 20.
 
 ## Test plan
 

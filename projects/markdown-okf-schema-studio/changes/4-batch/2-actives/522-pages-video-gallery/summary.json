@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A video gallery on the Pages site, and five clip GIFs in the README",
+  "summary": "Specified, final: new videos.html page (17 clips with a WebM plus the presentation video, poster, play on click) with a Videos header link; five existing clip GIFs placed in their README sections. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "23e5da92f758e2ce4e7fdf91ef250c54dc450894d583bbbf365edc5878b4b3f2",
+    "02-answers.md": "465b6613ce0dd5b83a4df8698b82d941ad36de1080f725a8f84a0c9e64d59569",
+    "03-change-spec.md": "846320a7f421d79fbc65f64a516d8518821b00d77badaefb0287d5b2382a7114",
+    "intake/request.md": "d9fbf617fb480678093e2bfd2a4671d0404361ad138e20b7c45c6f5829e35194"
+  },
+  "summarized": "2026-11-27T12:12:38Z"
+}

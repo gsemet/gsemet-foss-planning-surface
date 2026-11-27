@@ -15,32 +15,34 @@ it and take the next free requirement id at that point.
 ## Decisions (from `02-answers.md` and `intake/request.md`)
 
 1. Priority P2 (owner, 2026-11-26); destination: the running batch, batch-11 (owner, 2026-11-27).
-2. The gallery shows every feature clip and the presentation video; a new clip enters it with no
-   code change (`vidéos-Q1`).
+2. The gallery shows every feature clip (17 at `origin/main`) and the presentation video; a new clip
+   enters it with no code change (`vidéos-Q1`, count corrected in "After the first specification").
 3. It is a page of its own, with its own **Videos** link in the site header (`vidéos-Q2`).
 4. A video shows a still picture and starts on a click (`vidéos-Q3`).
 5. The README GIFs are part of this change request (`vidéos-Q4`).
 6. The README shows the GIFs of `slash-menu-grid`, `table-anchors`, `figure-editor`,
    `diff-side-by-side` and `radio-buttons` (`vidéos-Q5`, `vidéos-Q6`): the existing files, none
    regenerated (`vidéos-Q7`).
-7. The one-minute demo video stays at the top of the README (`01-intent.md`).
+7. The one-minute demo video stays at the top of the README: the project's current rule (feature
+   clip guideline), stated in `vidéos-Q8`, not a separate owner decision.
 8. Placement, decided by the Chief of Staff as a routine gap (`vidéos-Q8`): each GIF goes in the
    section of its feature, in place of the still picture that shows the same thing, else added to
    that section.
+9. `table-anchors` goes in "Highest respect for the raw Markdown", a Chief of Staff decision
+   (routine gap, "After the first specification"): the clip shows the raw table following the drag.
 
 ## Facts that shape the change
 
-- `origin/main` has **17** clip folders under `docs/demo-video/clips/` with a `<clip>.webm` and a
-  `poster.png` (frame 0), not 18 as `02-answers.md` counted. Decision 2 is "every clip", so the
-  gallery lists what the folder holds when the site is built.
+- `origin/main` has 17 clip folders under `docs/demo-video/clips/`, each with a `<clip>.webm` and a
+  `poster.png` (frame 0). The gallery lists what the folder holds when the site is built.
 - The presentation video is `docs/demo-video/short-demo-01/output/short-demo-01.mp4` (Git LFS,
   12 MB). It has no WebM and no poster file.
 - The site is built by `test/site/buildSite.ts` (`npm run site`, `just site`, `just site-assemble`).
   `test/site/siteClips.ts` copies each clip's WebM, GIF and poster into the site (`copyClipMedia`)
   and turns a page image of a clip GIF into a looping, autoplaying `<video>` (`clipVideos`, SwRS
   CORE-095). The README is rendered as `index.html` by the same path, so the five README GIFs
-  become autoplaying looping videos on the site's home page. That follows CORE-095 and is wanted:
-  click-to-play (decision 4) applies to the gallery page only.
+  become autoplaying looping videos on the site's home page (CORE-095 behaviour). Click-to-play
+  (decision 4) is decided for the gallery page.
 - `.github/workflows/pages.yml` checks out with `lfs: true` and runs `git lfs pull`: the MP4, the
   WebMs and the posters reach the site build.
 - `scripts/package-extension.mjs` passes `--baseImagesUrl https://media.githubusercontent.com/media/
@@ -103,10 +105,9 @@ it and take the next free requirement id at that point.
   - `slash-menu-grid` and `figure-editor`, in "Edit MyST visually" (the section that names grids
     and figures): **added** after the existing still, which shows an admonition being edited, not
     the same thing. Each GIF gets a one-line lead-in sentence. The still stays.
-  - `table-anchors`: no README section is about table editing. Spec-writer's reading of decision 8:
-    the GIF goes in "Highest respect for the raw Markdown". Its section has no picture, and the clip
-    proves that section's claim (the raw table follows the drag and each cell keeps its spacing).
-    See question 1.
+  - `table-anchors`, in "Highest respect for the raw Markdown" (decision 9): **added**; the section
+    has no picture, and the clip shows its claim (the raw table follows the drag and each cell keeps
+    its spacing).
 - The one-minute demo link and its place before "Example of complex Markdown rendering" do not
   change. README lines outside tables and images stay within 100 columns.
 - The three replaced stills stay in `images/readme/`, and their `README_BY_ID` entries stay
@@ -202,12 +203,3 @@ requirement covers the site, its header or the README pictures). Add markers (`@
   plain `id` anchors.
 - Removing the three replaced stills or their visual scenarios.
 - Videos in `docs/user/` pages (CORE-095 already plays a clip GIF placed there).
-
-## Questions for the Chief of Staff
-
-1. `table-anchors` has no README section about table editing. This spec places it in "Highest
-   respect for the raw Markdown" (the spec-writer's reading of decision 8). Is that placement right,
-   or should it go in "And more", next to a new bullet on dragging table rows and columns?
-2. `02-answers.md` counts 18 feature clips; `origin/main` has 17. Decision 2 ("every clip") does not
-   depend on the count, so the spec lists what the folder holds. Confirm that nothing else was meant
-   by 18, for example a clip in flight on another branch.
