@@ -1,0 +1,10 @@
+fix(render): measure again when a comment mark can move a block
+
+Adding or removing a comment highlight, and a badge change that can move a
+block, now measure the page again, with comments shown or hidden, so that
+scroll sync does not keep stale block positions. Replies, resolved states and
+the orphan list still measure nothing.
+
+Part of https://github.com/gsemet/markdown-okf-schema-studio/issues/547
+
+Assisted-by: Claude:Sonnet-5.5
