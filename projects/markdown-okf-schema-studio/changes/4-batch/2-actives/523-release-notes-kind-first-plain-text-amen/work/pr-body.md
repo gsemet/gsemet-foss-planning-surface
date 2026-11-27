@@ -98,7 +98,7 @@ Grade: 1. One guideline file; no code, script, workflow or published note change
 - [x] "what you can now do" appears in the guideline only as the feature kind's heading (`git grep` at eb493a3: line 252)
 - [x] Local gates at eb493a3: `just release-notes-check`, `just check`, `just preflight` (on Windows, its static stage) all pass
 - [x] Review: approved at b9b29c5 with the change uncommitted, committed unchanged as eb493a3
-- [ ] CI green
+- [x] CI green at eb493a3: `checks`, `report`, `static`, `static-windows`, `viewer-graph`, `visual`, `visual-2` pass; the real VS Code, release and pages jobs are skipped, as they do not run on a pull request
 
 ## Human decisions
 
