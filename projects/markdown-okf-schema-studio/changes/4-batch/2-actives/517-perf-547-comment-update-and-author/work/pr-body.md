@@ -28,7 +28,8 @@ flowchart LR
 | Reads of the page's mapped blocks | one or two per thread | one per update |
 | Measure of every block's position | every time | only when a block can have moved (below) |
 
-A content change or a new render still places every thread from nothing, as before.
+A content change or a new render still places every thread again, as before (see the case of text
+nodes that sit side by side under Known gaps).
 
 The page measures again, with comments shown or hidden, when an update:
 
@@ -123,6 +124,11 @@ Grade: 2
   badge. The page code before this change does the same, and no rendered page checked in headless
   Chromium 156 holds such nodes, so no user action that meets this is known; older Chromium builds,
   as in older VS Code releases, were not checked.
+- Three descriptions lag behind the case above or behind a corrected comment and are not changed
+  here: the module comment of the comment stylesheet still says its output is unchanged, one function
+  comment of the comment threads module still says threads are placed "again from nothing", and the
+  repeat-apply criterion of SwRS-MDOKFSTUDIO-REVIEW-017 does not cover text nodes that sit side by
+  side.
 - The real VS Code integration and acceptance jobs do not run at this pull request's head: they run
   once, at the last commit of the stack of pull requests this one ships with.
 
@@ -132,10 +138,13 @@ Grade: 2
   previous code 4 of them fail: other threads' elements replaced with extra block reads, replies and
   resolved states replacing elements, and a measure after an update that moves nothing, comments
   shown and hidden; the 21 others check "same result as before" and the measures that stay),
-  `test/build/perf547ThreadIndex.test.ts` for the new measure, and the pinned stylesheet text of
-  `test/core/preview/commentStyles.test.ts`, updated for a corrected stylesheet comment
+  `test/build/perf547ThreadIndex.test.ts` for the new measure,
+  `test/session/reviewReqComments.requirements.test.ts` for the recorded wait for the Git user name,
+  and the pinned stylesheet text of `test/core/preview/commentStyles.test.ts`, updated for a
+  corrected stylesheet comment
 - [x] Requirements: SwRS-MDOKFSTUDIO-REVIEW-224 added, markers in code and tests,
-  `just requirements-update`
+  `just requirements-update`; no stakeholder requirement text changes (two gain the generated link
+  to the new requirement)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
 - [ ] Review
