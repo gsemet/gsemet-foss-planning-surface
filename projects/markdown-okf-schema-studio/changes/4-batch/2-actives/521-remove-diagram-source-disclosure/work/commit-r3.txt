@@ -1,0 +1,7 @@
+fix(render): keep the source of a PlantUML syntax error
+
+A PlantUML syntax error drawn by the built-in engine counts as a failed
+diagram: its source stays under the error picture, in the preview and in
+the exported HTML file.
+
+Assisted-by: Claude:Sonnet-5.5

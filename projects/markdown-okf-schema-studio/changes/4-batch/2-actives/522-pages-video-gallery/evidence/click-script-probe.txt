@@ -1,0 +1,84 @@
+== playwright chromium 156.0.8078.4
+table-anchors | middle, middle, middle | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [middle] paused ready=4 t=1.3 muted=true fullscreen=false
+  [middle] playing ready=4 t=2.3 muted=true fullscreen=false
+table-anchors | play button, play button, play button | video requests on load=0 after=1
+  [playButton] playing ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] playing ready=4 t=2.6 muted=true fullscreen=false
+table-anchors | space, middle, middle | video requests on load=0 after=1
+  [space] playing ready=4 t=1.3 muted=true fullscreen=false
+  [middle] paused ready=4 t=1.3 muted=true fullscreen=false
+  [middle] playing ready=4 t=2.3 muted=true fullscreen=false
+table-anchors | middle, play button (pause), play button (play) | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] playing ready=4 t=2.6 muted=true fullscreen=false
+table-anchors | middle, timeline | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [timeline] playing ready=4 t=10.2 muted=true fullscreen=false
+table-anchors | middle, play button (pause), timeline | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.3 muted=true fullscreen=false
+  [timeline] paused ready=4 t=8.9 muted=true fullscreen=false
+table-anchors | unloaded: rightmost control | video requests on load=0 after=0
+  [rightMost] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: second control from the right | video requests on load=0 after=0
+  [secondRight] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: third control from the right | video requests on load=0 after=0
+  [thirdRight] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: timeline | video requests on load=0 after=0
+  [timeline] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | middle, second control from the right | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [secondRight] playing ready=4 t=2.6 muted=true fullscreen=true
+table-anchors | middle, third control from the right | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [thirdRight] playing ready=4 t=2.6 muted=true fullscreen=false
+table-anchors | double click in the middle | video requests on load=0 after=1
+  [double] playing ready=4 t=1.3 muted=true fullscreen=false
+== chrome 158.0.8127.37
+table-anchors | middle, middle, middle | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [middle] paused ready=4 t=1.3 muted=true fullscreen=false
+  [middle] playing ready=4 t=2.3 muted=true fullscreen=false
+table-anchors | play button, play button, play button | video requests on load=0 after=1
+  [playButton] playing ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.3 muted=true fullscreen=false
+  [playButton] playing ready=4 t=2.6 muted=true fullscreen=false
+table-anchors | space, middle, middle | video requests on load=0 after=1
+  [space] playing ready=4 t=1.3 muted=true fullscreen=false
+  [middle] paused ready=4 t=1.3 muted=true fullscreen=false
+  [middle] playing ready=4 t=2.4 muted=true fullscreen=false
+table-anchors | middle, play button (pause), play button (play) | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.4 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.5 muted=true fullscreen=false
+  [playButton] playing ready=4 t=2.8 muted=true fullscreen=false
+table-anchors | middle, timeline | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [timeline] playing ready=4 t=10.2 muted=true fullscreen=false
+table-anchors | middle, play button (pause), timeline | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.4 muted=true fullscreen=false
+  [playButton] paused ready=4 t=1.5 muted=true fullscreen=false
+  [timeline] paused ready=4 t=8.9 muted=true fullscreen=false
+table-anchors | unloaded: rightmost control | video requests on load=0 after=0
+  [rightMost] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: second control from the right | video requests on load=0 after=0
+  [secondRight] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: third control from the right | video requests on load=0 after=0
+  [thirdRight] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | unloaded: timeline | video requests on load=0 after=0
+  [timeline] paused ready=0 t=0.0 muted=true fullscreen=false
+table-anchors | middle, second control from the right | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [secondRight] playing ready=4 t=2.7 muted=true fullscreen=true
+table-anchors | middle, third control from the right | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.3 muted=true fullscreen=false
+  [thirdRight] playing ready=4 t=2.8 muted=true fullscreen=false
+table-anchors | double click in the middle | video requests on load=0 after=1
+  [double] playing ready=4 t=1.3 muted=true fullscreen=false
+short-demo-01 | middle, middle, middle | video requests on load=0 after=1
+  [middle] playing ready=4 t=1.0 muted=false fullscreen=false
+  [middle] paused ready=4 t=1.1 muted=false fullscreen=false
+  [middle] playing ready=4 t=2.1 muted=false fullscreen=false

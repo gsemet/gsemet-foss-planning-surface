@@ -1,0 +1,8 @@
+requirements/tiers/log.md
+requirements/tiers/swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-001.md
+requirements/tiers/swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-032.md
+requirements/tiers/swrs/diagrams/index.md
+src/page/modules/plantumlDiagram.ts
+test/page/chartPage.ts
+test/page/modules/plantumlDiagram.test.ts
+test/page/plantumlErrorPicture.test.ts
