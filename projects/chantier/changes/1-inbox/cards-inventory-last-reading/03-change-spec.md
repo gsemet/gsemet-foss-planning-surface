@@ -55,7 +55,13 @@ kind f. The Driver counts them again at the base it branches from.
   extends an existing floor line nor adds an eleventh before the owner has answered about that
   rule. It sends the rule, its row id and the floor change it proposes to the steering session
   (`$CHANTIER msg steering`), which asks the owner; the floor changes only as the owner answers.
-  While an answer is open, the PR's Known gaps name the rule and the question.
+- The CR waits for that answer (last-reading-Q4): it is not handed back ready while a floor
+  question of its reading is unanswered. The PR's Known gaps name each open floor question, its
+  rule and its row id until the owner answers.
+- A floor change lands in its own PR (last-reading-Q4), never in this CR's PR: this CR's diff
+  changes no line of `skills/chantier/references/floor.md`. A rule the owner sends to the floor is
+  listed in `docs/protective-rules.md` with the floor change as its home once that PR has
+  merged; until then the line names the open question.
 - Each restored line is new text in the cards' plain style. No other card text is reworded.
 - The PR body, under Deliverables, gives:
   - how many rows were read (the recount at the base);
@@ -90,7 +96,7 @@ kind f. The Driver counts them again at the base it branches from.
 - A rule of plan section 5's table or of verdicts section D that nothing holds at the base, and
   that one card line could hold, is restored by this CR, as section 1 restores an open row's
   rule, in the same places and under the same limits (no page with a delete verdict, no new
-  page, the floor only on the owner's answer), and is marked `restored here`
+  page, the floor only on the owner's answer and in its own PR), and is marked `restored here`
   (last-reading-Q2). A rule that needs code stays `to add`.
 - The list follows the owner's answers where they differ from the plan's table:
   - the allow rules (card-cleanup-Q3): the user writes them, from a command the CLI builds for the
@@ -122,21 +128,42 @@ kind f. The Driver counts them again at the base it branches from.
   - `docs/proofs/cards-inventory-open.tsv`;
   - `skills/chantier/scripts/cli/tests/test_cards_inventory.py`;
   - `skills/chantier/scripts/cli/tests/cards_inventory.py`.
-- `skills/chantier/scripts/cli/tests/test_card_homes.py`:
-  - drop every pin that only says where a removed card's sentence lives: the `HOMES` table with
-    its topics, cards, skills and host rows, and the test parametrized on it;
-  - keep the floor check as a test of its own that reads the `FLOOR` dictionary directly against
-    `skills/chantier/references/floor.md`, read at the head under test, and asserts each line
-    stands word for word. Today `FLOOR` is reached only through `HOMES` (`_gone`, for a `floor <n>`
-    home) and `test_every_rule_pinned_in_a_removed_card_has_its_home`, so dropping `HOMES` alone
-    would leave no assertion on it. `FLOOR` pins all ten floor lines (today it holds eight: 1, 3 to
-    7, 9 and 10; lines 2 and 8 are added). The Driver may move the test next to
-    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` in `test_brief.py`;
-  - when section 1 or 2 changes the floor on the owner's answer (last-reading-Q1), update the
-    pinned text with it, and with an eleventh line, the ten-line count of
-    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules`;
-  - keep the floor within `FLOOR_BYTES` (1,200);
-  - the docstring stops citing the family inventories.
+- `skills/chantier/scripts/cli/tests/test_card_homes.py`: keep each assertion that protects a
+  rule today and drop what only pins where a removed card's sentence lives (intake item 2). The
+  judgment is made with this CR's reading and `docs/protective-rules.md` as this CR leaves it:
+  - `HOMES` stays, with its shape (a test file's name -> its topics, its other homes), and keeps a
+    home only when that home holds a protective rule:
+    - every `floor <n>` home stays (a floor line is a protective rule);
+    - a `topic`, `card` (with or without `#heading`), `skill` or `host` home stays when
+      `docs/protective-rules.md` names it as the home of a `held` or `restored here` line, or when
+      section 1 or 2 restores a rule into it;
+    - every other home is dropped. A key left with no home is removed.
+  - The PR's Deliverables list, for each key, the homes kept, each with the line of
+    `docs/protective-rules.md` it holds, and how many homes were dropped.
+  - `test_every_rule_pinned_in_a_removed_card_has_its_home` stays, parametrized on the `HOMES`
+    that survives.
+  - `_gone`, `_file_gone` and `test_a_home_that_is_gone_is_named` serve only `HOMES`, so they stay
+    with the part of `HOMES` that survives. Since every `floor <n>` home stays, `HOMES` survives,
+    and they stay. Each kind of home keeps its branch in `_gone` and its case in
+    `test_a_home_that_is_gone_is_named` (`topic`, `card`, `card#heading`, `host`, `floor`), even a
+    kind with no home left: the stack's later CRs add `topic` and `card` homes (below).
+  - `FLOOR` gains lines 2 and 8, so it pins all ten floor lines (today eight: 1, 3 to 7, 9 and
+    10). A test of its own reads `FLOOR` against `skills/chantier/references/floor.md`, read at
+    the head under test, and asserts each line stands word for word; the `floor <n>` homes keep
+    reading it through `_gone`. The Driver may move that test next to
+    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` in `test_brief.py`.
+  - This CR changes no floor line (last-reading-Q4). The PR that changes the floor on the owner's
+    answer updates `FLOOR` with it, and, with an eleventh line, the ten-line count of
+    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules`, within `FLOOR_BYTES` (1,200).
+  - The docstring says the table keeps the homes of the protective rules of
+    `docs/protective-rules.md`, and stops citing the family inventories.
+  - Stack consistency: the three delete CRs edit `HOMES` at their base
+    (`cards-delete-pages-chief`, specification line 290; `cards-delete-pages-crew`, line 269;
+    `cards-delete-aggregate-topics`, line 183). Each removes the names of the pages it deletes and
+    adds the new homes of their rules. A name this CR already dropped leaves that CR nothing to
+    remove. A home they add is the new home of a protective rule, which `docs/protective-rules.md`
+    lists, so it belongs in the surviving table by the same test. For a key this CR removed, see
+    the question below.
 
 ### 4. The eval kit runs without the inventory
 
@@ -183,6 +210,9 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
 9. last-reading-Q3, answer B, "abandon both": `512-sc26-card-gates-pytest` and
    `514-sc28-cards-real-run`, which build on the inventory, are abandoned by the Chief of Staff;
    this CR does not touch them.
+10. last-reading-Q4, answer A, "the CR waits": the CR is not handed back ready while a floor
+   question of its reading is unanswered, and a floor change lands in its own PR (sections 1, 2
+   and 3).
 
 ## Out of scope
 
@@ -207,11 +237,18 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
 - `just check` passes.
 - `just eval-dry-run` passes, since `evals/kit/` changes. Its `quiz-cases` and `quiz-rule-id`
   cases load the shipped cases and refuse `X-9999`.
-- When a card or the floor changes (a restored line), the change owes what `AGENTS.md` asks of a
+- When a card changes (a restored line), the change owes what `AGENTS.md` asks of a
   cards change: the pipeline's `just scenario (ubuntu-latest)` job green at the PR's head. In
   this stack batch, the local Windows run is owed only by the CR on top. If a brief's byte ceiling
   in `test_brief_bytes.py` has to rise, the PR's Known gaps name it, with the before and after.
 
 ## Questions for the Chief of Staff
 
-None.
+1. The floor's own PR (last-reading-Q4): which CR carries it, a CR the Chief of Staff files for
+   each floor answer, or a separate PR opened from this CR's batch? The answers say only that it
+   lands in its own PR.
+2. `cards-delete-pages-chief` (line 290) adds homes to the `test_session_start_split` and
+   `test_launch_modes` keys of `HOMES`, and `cards-delete-pages-crew` (line 269) points names at
+   their new homes. If this CR's judgment removes one of those keys (no protective home left),
+   should those CRs add the key back for the homes they add, and should their specifications say
+   "a name still in `HOMES` at the base", as `cards-delete-aggregate-topics` already does?
