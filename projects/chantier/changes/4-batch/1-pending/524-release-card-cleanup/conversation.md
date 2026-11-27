@@ -48,3 +48,5 @@ request to change that limit is still in the backlog.
 ## First pull request
 
 *Chief of Staff (summary):* the wider columns of `live` are the first change request ready to merge.
+
+*Chief of Staff (summary):* the owner merged it, the first change request of the batch.
