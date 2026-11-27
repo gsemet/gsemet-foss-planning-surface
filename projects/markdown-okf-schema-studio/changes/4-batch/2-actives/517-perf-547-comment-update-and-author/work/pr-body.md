@@ -146,8 +146,9 @@ Grade: 2
   `just requirements-update`; no stakeholder requirement text changes (two gain the generated link
   to the new requirement)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
+- [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows: the static stage, which
+  includes `just check`; CI runs the other stages)
+- [x] Review: the changes are reviewed and approved, committed as 44a2e93
 - [ ] CI green
 
 ## Internal references
