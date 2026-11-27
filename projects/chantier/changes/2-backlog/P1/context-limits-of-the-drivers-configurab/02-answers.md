@@ -64,3 +64,32 @@ Asked (Chief of Staff): "Je passe en ready les 10 CR à respécifier, pour batch
 Not automatable: the request is not its specification. The Chief of Staff told the owner that the specification stays to be written before the launch: write it from these answers before any batch takes this CR; context-limits-Q6, Q7 and Q8 stay open.
 
 Destination: next batch (3-ready), batch-32. Replaces the earlier destination.
+
+# Answer 10, context-limits-Q9 (2026-11-27, the owner, in chat)
+
+Asked (Chief of Staff), after the owner saw a Driver of batch-32 hand back for its context: take this CR up again now, for batch-32 (recommended), or later?
+
+Answer, verbatim: "context-limits-of-the-drivers-configurab => laisse les drivers s'autocompacter, cette limite c'est pour tuer un driver qui n'a pas d'autocompact, donc il faudrait plutot le mettre a 500K. c'est vraiment pour éviter des driver qui monte au million de context sans control. il faudra bien expliquer que c'est pour les cas ou le autocompact est mal configuré. Il doit y avoir un settings qui permette de placer un autocompact autour de 400K par defaut (remonte par rapport a 200K, c'est trop peu), et que ce soit configurable par l'utilisateur.
+
+doncil y a 2 chose: config autocompact qui depend du harnais, certains ne permettant pas cet autocompact, et de l'autre le max context pour tuer le driver quand il depasse 500K (pareil, configurable). laisse ca en P1"
+
+What it asks, two separate settings:
+
+- Autocompact: the Drivers are left to compact themselves. A setting places the autocompact around 400,000 tokens by default (200,000 is too low), configurable by the user. It depends on the host; some hosts do not allow it.
+- Maximum context: the Driver's context limit is a safety net that ends a Driver passing it, default 500,000 tokens, configurable by the user. It exists so that no Driver climbs to a million tokens with no control. The text must say clearly that it is for a missing or badly configured autocompact.
+
+Replaces: the 200,000 hand-back threshold and the window "for instance 300,000" of Answers 2 and 6.
+
+Not named by the owner, so Answers 3 to 5 stand (settings in `chantier.yaml` and on the board's Limits tab, warn without blocking, a list of the context limits only).
+
+Open, for the next grill or the specification:
+
+- the closing hand-off at 115,000 tokens, not named;
+- who ends a Driver past the maximum: itself (today's hand-back) or the steering session;
+- context-limits-Q7 (release and QA Drivers) and context-limits-Q8 (when a threshold change applies);
+- not measured: whether the agents' model and host accept a window of 400,000;
+- not proved: that a compacted Driver reads its rules again (the host row `reload-after-compact` says the plugin's mod leaves a subagent's compaction alone).
+
+Measured in batch-32 on 2026-11-27, from the Driver and worker transcripts: CR-515's Driver handed back at about 133,000 tokens and CR-522's closing hand-off came at about 116,000, neither having compacted; workers compacted between about 166,000 and 175,000 and went on.
+
+Destination: backlog, P1 ("laisse ca en P1"); not batch-32. Replaces the destination of Decision 9.

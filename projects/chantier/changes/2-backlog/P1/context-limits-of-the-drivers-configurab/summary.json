@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "title": "Drivers' context limits: 200k, configurable, listed, warned",
-  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Drivers' context limits configurable and listed, with warnings. Three questions open: failed window trial, release and QA Drivers, when a change applies.",
+  "title": "Drivers autocompact at 400k, a 500k safety stop, both configurable",
+  "summary": "Drivers compact themselves (about 400k by default, host dependent) instead of handing back early; a 500k maximum ends a Driver whose autocompact fails. Both configurable. Owner, 2026-11-27: stays in backlog P1. Spec to rewrite; open points in 02-answers.md.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "01-intent.md": "e8175bda8f7522df72cd50c9dcda2f6ebe0a84c50066587710b783c674f09a97",
-    "02-answers.md": "912f8694cb87a765c40740a0f692a23540fdbc9481ebd0f99e16f784368bb866",
+    "01-intent.md": "80e2e69560bcc1054b193a15996b09f9ec358184ba086f363c982ea6edba0b8c",
+    "02-answers.md": "e59814631d014a0bf90d04ad6f1ae58f3d157b4cdedd5235244c08f6b5176b68",
     "intake/request.md": "891d18e54f8080d7d058f1e029e8fc3053cd1b2a30ae94d9b61dc560aa0a999e"
   },
-  "summarized": "2026-11-25T22:09:01Z"
+  "summarized": "2026-11-27T13:10:13Z"
 }
