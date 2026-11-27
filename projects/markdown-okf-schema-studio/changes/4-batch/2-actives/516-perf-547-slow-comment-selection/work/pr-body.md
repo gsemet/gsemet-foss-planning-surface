@@ -84,9 +84,9 @@ Grade: 2
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just check` green twice in a row (5538 unit tests, 5531 pass, 7 skipped; 298
       Python tests); 20 of 20 browser tests; the five timing-dependent test files pass 10 times in a
-      row each, and once each while `just check` runs beside them; `just ci-visual` on Windows: 524
-      of 530 captures pass, the 6 failed captures fail the same way without this change (run before
-      the last test-timing edits; the 8 captures those touch pass alone)
+      row each, and once each while `just check` runs beside them; `just ci-visual` on Windows on the
+      final code: 524 of 530 captures pass, the 6 failed captures fail the same way without this
+      change
 - [ ] Review
 - [ ] CI green
 

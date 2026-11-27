@@ -1,0 +1,42 @@
+fnm exec -- just ci-visual, head 1fc952897df11915ce2b4f060414fde732567d17 plus the uncommitted changes of rounds 2 to 4, Windows host: exit 1
+started 01:20:33 ended 01:33:20
+passed captures: 524
+failed captures: 6
+failed: diagrams/v05-plantuml-success-dark-900
+failed: diagrams/v04-plantuml-success-light-900
+failed: diagrams/v16-plantuml-include-dark-900
+failed: diagrams/v15-plantuml-include-light-900
+failed: theme-zoom/v06-forced-cream-paragraph-editor-cream-900
+failed: block-editing/v04-paragraph-editor-open-dark-900
+
+rendering checks failed:
+  12-plantuml-optional--light--sticky-3--success.html: PlantUML diagram 1 requires a loaded image without an error; install PlantUML for success coverage
+  51-plantuml-include--light--sticky-3--builtin.html: PlantUML diagram 1 was not drawn by the built-in engine as a loaded image without an error
+  51-plantuml-include--light--sticky-3--builtin.html: the diagram is rendered by the built-in engine: expected 1 match(es), found 0 (.myst-plantuml-diagram[data-plantuml-engine="builtin"][data-render-state="rendered"])
+  51-plantuml-include--light--sticky-3--builtin.html: one visible picture: expected 1 match(es), found 0 (img.myst-plantuml-image)
+  51-plantuml-include--light--sticky-3--builtin.html: one visible picture: no element (img.myst-plantuml-image)
+  51-plantuml-include--light--sticky-3--builtin.html: no error message: expected 0 match(es), found 1 (.myst-plantuml-error)
+  51-plantuml-include--light--sticky-3--builtin.html: the picture holds the participant of the nested include: expression is "threw TypeError: Cannot read properties of undefined (reading 'getAttribute')": decodeURICompo
+  51-plantuml-include--light--sticky-3--builtin.html: the page asked the host for the include, then for the nested one next to it: expression is false: window.visualMessages.filter((message) => message.type === 'previewP
+  12-plantuml-optional--dark--sticky-3--success.html: PlantUML diagram 1 requires a loaded image without an error; install PlantUML for success coverage
+  51-plantuml-include--dark--sticky-3--builtin.html: PlantUML diagram 1 was not drawn by the built-in engine as a loaded image without an error
+  51-plantuml-include--dark--sticky-3--builtin.html: the diagram is rendered by the built-in engine: expected 1 match(es), found 0 (.myst-plantuml-diagram[data-plantuml-engine="builtin"][data-render-state="rendered"])
+  51-plantuml-include--dark--sticky-3--builtin.html: one visible picture: expected 1 match(es), found 0 (img.myst-plantuml-image)
+  51-plantuml-include--dark--sticky-3--builtin.html: one visible picture: no element (img.myst-plantuml-image)
+  51-plantuml-include--dark--sticky-3--builtin.html: no error message: expected 0 match(es), found 1 (.myst-plantuml-error)
+  51-plantuml-include--dark--sticky-3--builtin.html: the picture holds the participant of the nested include: expression is "threw TypeError: Cannot read properties of undefined (reading 'getAttribute')": decodeURICompon
+  51-plantuml-include--dark--sticky-3--builtin.html: the page asked the host for the include, then for the nested one next to it: expression is false: window.visualMessages.filter((message) => message.type === 'previewPl
+rendering checks failed:
+  08-okf-schema--dark--sticky-3--default.html: paragraph editor caret is not at the clicked word (selectionStart=63, clicked_word=None)
+  08-okf-schema--dark--sticky-3--default.html: paragraph editor caret is not at the clicked word (selectionStart=63, clicked_word=None)
+
+ℹ restyled 26 elements in 7 style passes (largest 20); the page has 3072 elements
+visual part 1: failed, 274 scenarios, 345 s
+visual part 2: failed, 256 scenarios, 388 s
+visual parts: refused, part 1 failed; part 2 failed (run-manifest.json is written with status failed)
+ci-visual: FAILED
+test:breakout inside the stage (STUDIO_REQUIRE_CHROMIUM=1):
+ℹ tests 20
+ℹ pass 20
+ℹ fail 0
+ℹ skipped 0
