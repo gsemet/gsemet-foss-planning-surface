@@ -1,0 +1,11 @@
+fix(render): redraw only the comment marks that changed
+
+Adding, answering, resolving or deleting a review comment no longer removes
+and redraws the highlights, badges and orphan entries of every other comment
+thread. The preview updates only what differs, reads the page's blocks once,
+and measures the page again only when a badge below a block is added, moved
+or removed. What the page shows is the same as before.
+
+Part of https://github.com/gsemet/markdown-okf-schema-studio/issues/547
+
+Assisted-by: Claude:Sonnet-5.5
