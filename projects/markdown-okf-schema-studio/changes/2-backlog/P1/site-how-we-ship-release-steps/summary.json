@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "How we ship page: show the release steps instead of the 1.6.1 timings",
+  "summary": "P1, filed 2026-11-27, not grilled. The owner wants the How we ship section on release 1.6.1 without times, showing the steps: release CR and notes with the Chief of Staff, human approval, CI release, then Marketplace monitoring.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "d1f97743f9b9f30d269b405d6e93d9d18f33d2be4409f297b828efae5bdce571"
+  },
+  "summarized": "2026-11-27T12:31:37Z"
+}

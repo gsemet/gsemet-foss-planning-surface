@@ -20,7 +20,7 @@ Guideline lines of `.agents/guidelines/release-process.guidelines.md` in the wor
 | Setting named as a setting | 268-269 | name, default, where | same | yes |
 | Budgets | 319-324 | 16, 20, 40, 120, 250; judgement, not a check | same | yes |
 | Only visible changes | 328 | one image per change | same | yes |
-| Crop | 329-332 | cropped to the change, never the whole window | changed element; a gesture keeps its target | difference: clip GIF (342-344) and hero image (404-408, 426-427 of the thread side) |
+| Crop | 329-332 | cropped to the change, never the whole window | changed element; a gesture keeps its target | difference: clip GIF (342-344); hero image, used by the thread only (400-408, 422-423) |
 | Size | 333 | 900-1200 px wide, at most 600 px high | same, still pictures | difference: clip GIF exempt |
 | Before and after | 334-336 | one joined image, same region and scale | same | yes |
 | Alt text | 339 | the caption; no caption line | same | yes |
