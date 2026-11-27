@@ -50,3 +50,5 @@ request to change that limit is still in the backlog.
 *Chief of Staff (summary):* the wider columns of `live` are the first change request ready to merge.
 
 *Chief of Staff (summary):* the owner merged it, the first change request of the batch.
+
+*Chief of Staff (summary):* the last reading of the rules inventory is handed back; it waits for the stack.
