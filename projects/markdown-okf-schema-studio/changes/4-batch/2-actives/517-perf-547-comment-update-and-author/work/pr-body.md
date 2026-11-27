@@ -86,7 +86,8 @@ While a document has unsaved changes and no thread is orphaned, further typing d
 ## Impacts
 
 No visual change: highlights, badges and the orphan list sit where they did; a test compares the
-page updated in place with a page placed from nothing. Creating a comment on selected words is not
+page updated in place with a page placed from nothing (one exception under Known gaps, as before
+this change). Creating a comment on selected words is not
 expected to be measurably faster: its new highlight still measures the page.
 
 Wait of a comment write for the Git user name, in the same three runs (12 samples each, medians
@@ -115,9 +116,13 @@ Grade: 2
   timed in plain Node, not inside VS Code.
 - Each update still searches the text of the blocks of every thread to find its place; only the
   changes to the page are limited to what differs.
-- Where two text nodes touch and a highlight spans their seam, a page updated in place can split the
-  text into nodes differently from a page placed from nothing. Nothing visible differs; the previous
-  code did the same when it placed the highlights again.
+- Where two text nodes of a block sit side by side, a highlight that starts or ends between them
+  joins them: after the next thread list (a reply or any other comment change) or a content patch
+  that keeps the block, a quote crossing that place turns from a badge into a highlight that a
+  freshly opened page does not show, and a thread whose words that highlight takes turns into a
+  badge. The page code before this change does the same, and no rendered page checked in headless
+  Chromium 156 holds such nodes, so no user action that meets this is known; older Chromium builds,
+  as in older VS Code releases, were not checked.
 - The real VS Code integration and acceptance jobs do not run at this pull request's head: they run
   once, at the last commit of the stack of pull requests this one ships with.
 
@@ -126,8 +131,9 @@ Grade: 2
 - [x] New or changed tests: `test/page/modules/commentThreadsUpdate.test.ts` (25 tests; on the
   previous code 4 of them fail: other threads' elements replaced with extra block reads, replies and
   resolved states replacing elements, and a measure after an update that moves nothing, comments
-  shown and hidden; the 21 others check "same result as before" and the measures that stay) and
-  `test/build/perf547ThreadIndex.test.ts` for the new measure
+  shown and hidden; the 21 others check "same result as before" and the measures that stay),
+  `test/build/perf547ThreadIndex.test.ts` for the new measure, and the pinned stylesheet text of
+  `test/core/preview/commentStyles.test.ts`, updated for a corrected stylesheet comment
 - [x] Requirements: SwRS-MDOKFSTUDIO-REVIEW-224 added, markers in code and tests,
   `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
