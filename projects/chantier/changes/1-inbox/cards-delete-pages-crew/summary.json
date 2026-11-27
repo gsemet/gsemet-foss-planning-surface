@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Delete the dead help pages of the Foreman, Driver and host side",
+  "summary": "Specified: delete 32 topic pages and 22 topics, move each protective rule to a named home, add three host rows, let help take a one-host map, fix every pointer and docs/protective-rules.md. Six questions open for the Chief of Staff.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "eaa2529b34112d6228686a95c335950fd831c8ac7acb4625d689fbe2b6c0201f",
+    "02-answers.md": "dc747032d80a62d623bc2b8bdef76a1901faad5f3f2fdefc0eab521e6e5fe773",
+    "03-change-spec.md": "b921003094b882fa0a9fa92385d2c0c38be42415d847f24243057d34705e952a",
+    "intake/request.md": "0232d1da335d06e300b74979986e8672e51d7bc21e12e3b63c6e686a1e64e781"
+  },
+  "summarized": "2026-11-27T10:01:27Z"
+}

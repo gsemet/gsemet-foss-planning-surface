@@ -24,8 +24,9 @@ Driver checks them again at its base (see "Before starting").
   changed `test_card_homes.py`. Read each of the 33 pages at the base, not this specification's
   copy. A sentence it added to a page this CR deletes is judged like the others below (protective:
   it moves; else it goes) and named in the PR.
-- That CR commits a short list of protective rules (plan section 5 and verdicts section D). If it
-  exists at the base, the PR's table (below) cites its entries by their own words.
+- That CR adds `docs/protective-rules.md`, one line per protective rule with its home (plan
+  section 5 and verdicts section D). If it is not at the base, stop and tell the steering session.
+  The PR's table (below) cites its lines by their own words.
 
 ## What changes
 
@@ -108,6 +109,15 @@ owner's choice in card-cleanup-Q1.
 The PR carries this table, updated to what the Driver found at its base: for each protective
 statement of a deleted page, where it lives afterwards. A page found to hold something still needed
 that this table does not list: move it to its home and say so in the PR.
+
+### 3b. `docs/protective-rules.md`
+
+Each line of `docs/protective-rules.md` (added by `cards-inventory-last-reading`) whose home is one
+of the 33 deleted pages is updated, in this CR's PR, with the rule's new home from the table above
+(the card, kept page, floor item or CLI refusal). No other line of that file changes, and no line is
+removed: a rule whose page goes keeps its line, with its new home. A line the table does not cover
+gets its home found and moved the same way, and is added to the PR's table. After this CR, no line
+of that file names a deleted page.
 
 ### 4. The moved text and the pointer fixes, file by file
 
@@ -241,14 +251,17 @@ All read the shipped files at the head under test.
 
 ## Evidence
 
-- The diff is the 33 deletions, the `topics.json` entries, the pointer fixes, the moved sentences
-  and the tests: nothing else.
+- The diff is the 33 deletions, the `topics.json` entries, the pointer fixes, the moved sentences,
+  the updated lines of `docs/protective-rules.md` and the tests: nothing else.
 - `chantier help` lists none of the 16 removed names and no topic reads a deleted file;
   `chantier help sync-offer` (and each of the 16) answers `no topic …`. The PR quotes `help`'s first
   line before and after (topic count).
 - The new pointer test passes; `grep` for each of the 33 file names and 16 names over the repository
   (outside git history) finds none, quoted in the PR.
 - The PR's table of protective rules (part 3), checked at the base, each home quoted.
+- No line of `docs/protective-rules.md` names one of the 33 deleted pages; each line this CR
+  changed names a home that exists at the PR's head and holds the rule (the PR quotes it).
+  If `test_card_homes.py` or another test at the base reads that file, it passes.
 - `just check` passes. The cards change, so the pipeline's `just scenario (ubuntu-latest)` job is
   green at the PR's head; in this stack batch the local Windows `scenario` run is owed only by the
   CR on top of the stack (AGENTS.md).

@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "title": "Remove the \"Diagram source\" disclosure under diagrams",
-  "summary": "P1, to grill. Remove the source panel under diagrams, in the preview and the HTML export: raw Markdown shows the source. Open: Chart source still in the export, and whether a failed diagram keeps its source.",
+  "title": "Remove the source panels under diagrams and charts",
+  "summary": "P1, to grill. Remove the collapsed Diagram source and Chart source panels, in the preview and the HTML export: raw Markdown shows the source. Open: whether a failed diagram or chart keeps its source.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "01-intent.md": "0eeb41375e68812e9d0fcf237d74dbfb7ed966fe6a17b2c9a71859bb148fa3a6",
-    "02-answers.md": "ee8fa4742c0dd2b143b2ecab33c8db65f2c6c65c353f8684e0056f034d826938",
+    "01-intent.md": "51edf0122b4041e8c4874ad42571cad40c4a8ecd1e30225fbc8bb5481e485a66",
+    "02-answers.md": "0b017e8430f7ca3c344e6d43495daf148e41e4cf3358be231b18d6c6014335b5",
     "intake/request.md": "fe748456da550de1089d38ba36fb37457d5cea1adb5739b21956e9a5085fbf00"
   },
-  "summarized": "2026-11-27T09:56:52Z"
+  "summarized": "2026-11-27T10:00:51Z"
 }

@@ -13,6 +13,17 @@ The owner's words, in French:
 Decided: **Diagram source** is removed from the HTML export as well as from the preview. Reason: a
 reader who wants the source reads the raw Markdown.
 
+## 2026-11-27: **Chart source** leaves the HTML export too
+
+Question: « Retirer aussi « Chart source » de l'export HTML dans ce CR ? » The owner's answer, in
+French:
+
+> « Oui, aussi »
+
+Decided: this change also removes **Chart source** from the HTML export, for the same reason. No
+generated source panel is left, in the preview or in the export. It supersedes the "not decided"
+note on **Chart source** below.
+
 ## Similar panels (facts read in the code at `b9b29c5a`, not decisions)
 
 - The extension generates three source panels, all in `normalizeDiagram`
