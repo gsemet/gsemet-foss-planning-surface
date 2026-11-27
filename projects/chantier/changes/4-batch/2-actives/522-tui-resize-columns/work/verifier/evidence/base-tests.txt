@@ -1,5 +1,5 @@
 # base source 4d12a5be with the head's test files (3412cd9)
-C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\chantier\changes\4-batch\2-actives\522-tui-resize-columns\work\scratch\base\skills\chantier\scripts\cli\src\chantier\__init__.py
+<CR folder>/work/scratch/base/skills/chantier/scripts/cli/src/chantier/__init__.py  (path shortened)
 FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-164-False-42-None-15-43]
 FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-141-False-42-None-15-20]
 FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-162-False-42-20-15-20]

@@ -1,0 +1,14 @@
+$ chantier live --once --transport http | (a pipe; the head 3412cd9, my own demo board, made-up data)
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ─────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ Time           Who             Event                                     ││ PR CR State Age Title                    │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the us… ││ no PR ready                              │
+│ 11-27 13:45:25 foreman         take CR-102                               │╰──────────────────────────────────────────╯
+│ 11-27 13:45:17 foreman         take CR-101                               │╭─ Tasks ──────────────────────────────────╮
+│ 11-27 13:45:11 chief-of-staff  open                                      ││ State   Task                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                ││ working CR-101  export-the-report-as-csv │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                ││         lease 02:24  round 0/3  coder r1 │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                ││ blocked CR-102  fix-the-login-redirect   │
+╰──────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+Ctrl-C to quit

@@ -52,7 +52,14 @@ const FIGURES = [
   { word: "wnotedfail", kind: "mermaid", want: "error", md: ["## Inside an admonition, broken", "", ":::{note}", "```{mermaid}", ":caption: A captioned broken diagram", "", "flowchart LR", "  %% wnotedfail", "  A --> -->", "```", ":::", ""] },
 ];
 const SHOT_WORDS = ["wmermaiddrawn", "wmermaidfail", "wlitedrawn", "wlitefail"];
-const figures = mode === "shots" ? FIGURES.filter((f) => SHOT_WORDS.includes(f.word)) : FIGURES;
+// Mode "syntax": PlantUML sources the built-in engine cannot understand.
+const uml = (word, lines) => ({ word, kind: "plantuml", want: "?", md: ["## " + word, "", ...fence("plantuml", ["@startuml", "' " + word, ...lines, "@enduml"])] });
+const SYNTAX = [
+  uml("wplantsyntaxline", ["Alice -> Bob: hello", "this is not plantuml ((( ###"]),
+  uml("wplantsyntaxarrow", ["Alice ->>>>x<< : ", "}}}"]),
+  uml("wplantsyntaxclass", ["class A {", "  +x : int", "activate ??? !!"]),
+];
+const figures = mode === "shots" ? FIGURES.filter((f) => SHOT_WORDS.includes(f.word)) : mode === "syntax" ? SYNTAX : FIGURES;
 const MARKDOWN = ["# Figures", "", ...figures.flatMap((f) => f.md), "The text after the figures.", ""].join("\n");
 
 const root = path.resolve(outDir);
@@ -147,7 +154,12 @@ async function find(page) {
     const count = await page.evaluate(() => [...document.querySelectorAll("[data-sphinx-preview-find] *")]
       .filter((e) => e.children.length === 0 && /\d+ of \d+|No results|No match/iu.test(e.textContent)).map((e) => e.textContent.trim()).join(" | "));
     const openPanels = await page.evaluate(() => [...document.querySelectorAll("details[class$='-source']")].filter((d) => d.open).length);
-    out.push({ word, count, openPanels });
+    const matchesIn = await page.evaluate(() => [...(CSS.highlights || [])].flatMap(([, highlight]) => [...highlight].map((range) => {
+      const owner = range.startContainer.parentElement;
+      const part = owner.closest("details[class$='-source'], [class$='-diagram']");
+      return part ? part.className : owner.tagName.toLowerCase();
+    })));
+    out.push({ word, count, matchesIn: [...new Set(matchesIn)].sort(), openPanels });
   }
   await page.keyboard.press("Escape");
   return out;
@@ -241,6 +253,18 @@ async function editMode(page) {
       await pending.page.waitForTimeout(1500);
       report.pending = { preview: await rows(pending.page), find: await find(pending.page) };
       await pending.page.close();
+    } else if (mode === "syntax") {
+      const { page, problems } = await openPage(browser, await buildPage("syntax", "builtin", true), "light");
+      await settle(page);
+      report.syntax = { preview: await rows(page) };
+      report.syntax.pictures = await page.evaluate(() => [...document.querySelectorAll(".myst-plantuml-diagram")].map((d) => {
+        const src = d.querySelector("img")?.getAttribute("src");
+        const svg = src ? decodeURIComponent(src.slice(src.indexOf(",") + 1)) : "";
+        return { state: d.getAttribute("data-render-state"), picture: Boolean(src), says: [...new DOMParser().parseFromString(svg || "<svg/>", "image/svg+xml").querySelectorAll("text")].map((e) => e.textContent).join(" ").slice(0, 260), message: d.querySelector("p")?.textContent?.slice(0, 200) };
+      }));
+      await page.locator("#sphinx-myst-preview-content").screenshot({ path: path.join(root, "syntax-light.png") });
+      report.syntax.pageErrors = problems;
+      await page.close();
     } else {
       const pagePath = await buildPage("shots", "builtin", true);
       for (const themeId of ["light", "dark"]) {

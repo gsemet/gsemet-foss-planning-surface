@@ -1,0 +1,9 @@
+$ python event_at_141.py, base source (PYTHONPATH on a git archive of 4d12a5be) then head
+source: base 4d12a5be
+width 121: left 28, Who 10, Event 19
+width 140: left 28, Who 10, Event 38
+width 141: left 28, Who 10, Event 39
+source: head 3412cd9
+width 121: left 0, Who 15, Event 42
+width 140: left 41, Who 15, Event 20
+width 141: left 42, Who 15, Event 20

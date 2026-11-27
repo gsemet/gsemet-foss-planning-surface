@@ -16,7 +16,7 @@ from ctypes import wintypes
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-WORKTREE = Path("C:/Users/gaeta/Projets/chantier.worktrees/batch-32-CR-522")
+WORKTREE = Path.home() / "Projets/chantier.worktrees/batch-32-CR-522"
 SCRATCH = HERE.parent / "scratch"
 TITLE = "chantier live (demo)"
 HOME_MARKS = (os.environ.get("USERNAME", "").lower(), Path.home().name.lower(), "users")
@@ -153,7 +153,6 @@ def send(text: str) -> None:
 def resize(cols: int, rows: int = 28) -> None:
     """The window resized as a user's drag does: by its width in pixels, 8 px per cell."""
     hwnd = k32.GetConsoleWindow()
-    asked = None
     for _ in range(8):
         now_c, now_r = size()
         if (now_c, now_r) == (cols, rows):
@@ -161,9 +160,7 @@ def resize(cols: int, rows: int = 28) -> None:
         cr, wr = wintypes.RECT(), wintypes.RECT()
         u32.GetClientRect(hwnd, ctypes.byref(cr))
         u32.GetWindowRect(hwnd, ctypes.byref(wr))
-        asked = (asked or wr.right - wr.left) + (cols - now_c) * 8
-        w = asked
-        print(f'resize {now_c}x{now_r} -> {cols}: client {cr.right}, window {wr.right - wr.left}, ask {w}', file=sys.__stderr__, flush=True)
+        w = wr.right - wr.left + (cols - now_c) * round(cr.right / now_c)
         h = wr.bottom - wr.top + (rows - now_r) * round(cr.bottom / now_r)
         assert u32.SetWindowPos(hwnd, None, 0, 0, w, h, 0x16), ctypes.get_last_error()
         time.sleep(1.5)
@@ -286,19 +283,22 @@ def main() -> None:
         resize(121)
         show("resized to 121 with Ago")
         send("t")
-        resize(150)
-        send("\t\t\t\t")
         time.sleep(1.5)
-        show("Tab x4 at 150 (the active panel moves into the left column)")
+        show("key t again at 121 (Time)")
+        resize(122)
+        send("				")
+        time.sleep(1.5)
+        show("Tab x4 at 122 (the active panel moves into the left column)")
         resize(121)
         show("resized to 121: the left column goes")
         send("m")
+        time.sleep(1.5)
+        show("key m at 121 (maximized)")
         resize(90)
-        show("m (maximized) at 90")
+        show("maximized, resized to 90")
         send("m")
         time.sleep(1.5)
         show("m again at 90 (normal layout)")
-        resize(150)
         send("q")
         deadline = time.monotonic() + 20
         while not Path(str(pidfile) + ".exit").exists():

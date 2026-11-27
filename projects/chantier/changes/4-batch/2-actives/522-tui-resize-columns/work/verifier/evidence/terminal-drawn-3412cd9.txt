@@ -1,0 +1,396 @@
+started conhost PID 31244, its python PID 27960; `chantier live` at 3412cd9
+
+== start: terminal 150x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ─────────────────────────────╮╭─ ▸ Flow ─────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 running parallel   ││ Time           Who             Event                         ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 ready 0            ││ 11-27 13:45:26 driver          handback CR-102 blocked wait… ││ no PR ready                              │
+╰────────────────────────────────────────╯│ 11-27 13:45:25 foreman         take CR-102                   │╰──────────────────────────────────────────╯
+╭─ Agents ───────────────────────────────╮│ 11-27 13:45:17 foreman         take CR-101                   │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                                ││ 11-27 13:45:11 chief-of-staff  open                          ││ State   Task                             │
+│ Driver CR-101 coder r1                 ││ 11-27 13:45:11 chief-of-staff  add CR-103                    ││ working CR-101  export-the-report-as-csv │
+│                                        ││ 11-27 13:45:11 chief-of-staff  add CR-102                    ││         lease 03:25  round 0/3  coder r1 │
+│                                        ││ 11-27 13:45:11 chief-of-staff  add CR-101                    ││ blocked CR-102  fix-the-login-redirect   │
+│                                        ││                                                              ││         waits for the user's answer      │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+│                                        ││                                                              ││                                          │
+╰────────────────────────────────────────╯╰──────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+captured live-terminal-150.png: window 1216x487 px, client 1200x448, 150x28 cells (8.00x16.00 px, font 8x16); painted over x 126..1208, y 31..48 (header row from column 15)
+
+== resized to 141: terminal 141x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ─────────────────────────────╮╭─ ▸ Flow ────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 running parallel   ││ Time           Who             Event                ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 ready 0            ││ 11-27 13:45:26 driver          handback CR-102 blo… ││ no PR ready                              │
+╰────────────────────────────────────────╯│ 11-27 13:45:25 foreman         take CR-102          │╰──────────────────────────────────────────╯
+╭─ Agents ───────────────────────────────╮│ 11-27 13:45:17 foreman         take CR-101          │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                                ││ 11-27 13:45:11 chief-of-staff  open                 ││ State   Task                             │
+│ Driver CR-101 coder r1                 ││ 11-27 13:45:11 chief-of-staff  add CR-103           ││ working CR-101  export-the-report-as-csv │
+│                                        ││ 11-27 13:45:11 chief-of-staff  add CR-102           ││         lease 03:22  round 0/3  coder r1 │
+│                                        ││ 11-27 13:45:11 chief-of-staff  add CR-101           ││ blocked CR-102  fix-the-login-redirect   │
+│                                        ││                                                     ││         waits for the user's answer      │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+│                                        ││                                                     ││                                          │
+╰────────────────────────────────────────╯╰─────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== resized to 140: terminal 140x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ────────────────────────────╮╭─ ▸ Flow ────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 running parallel  ││ Time           Who             Event                ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 ready 0           ││ 11-27 13:45:26 driver          handback CR-102 blo… ││ no PR ready                              │
+╰───────────────────────────────────────╯│ 11-27 13:45:25 foreman         take CR-102          │╰──────────────────────────────────────────╯
+╭─ Agents ──────────────────────────────╮│ 11-27 13:45:17 foreman         take CR-101          │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                               ││ 11-27 13:45:11 chief-of-staff  open                 ││ State   Task                             │
+│ Driver CR-101 coder r1                ││ 11-27 13:45:11 chief-of-staff  add CR-103           ││ working CR-101  export-the-report-as-csv │
+│                                       ││ 11-27 13:45:11 chief-of-staff  add CR-102           ││         lease 03:19  round 0/3  coder r1 │
+│                                       ││ 11-27 13:45:11 chief-of-staff  add CR-101           ││ blocked CR-102  fix-the-login-redirect   │
+│                                       ││                                                     ││         waits for the user's answer      │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+│                                       ││                                                     ││                                          │
+╰───────────────────────────────────────╯╰─────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== resized to 122: terminal 122x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ───────────────╮╭─ ▸ Flow ───────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 run… ││ Time           Who        Event                ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 rea… ││ 11-27 13:45:26 driver     handback CR-102 blo… ││ no PR ready                              │
+╰──────────────────────────╯│ 11-27 13:45:25 foreman    take CR-102          │╰──────────────────────────────────────────╯
+╭─ Agents ─────────────────╮│ 11-27 13:45:17 foreman    take CR-101          │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                  ││ 11-27 13:45:11 chief-of-… open                 ││ State   Task                             │
+│ Driver CR-101 coder r1   ││ 11-27 13:45:11 chief-of-… add CR-103           ││ working CR-101  export-the-report-as-csv │
+│                          ││ 11-27 13:45:11 chief-of-… add CR-102           ││         lease 03:15  round 0/3  coder r1 │
+│                          ││ 11-27 13:45:11 chief-of-… add CR-101           ││ blocked CR-102  fix-the-login-redirect   │
+│                          ││                                                ││         waits for the user's answer      │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+╰──────────────────────────╯╰────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== resized to 121: terminal 121x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ──────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ Time           Who             Event                                      ││ PR CR State Age Title                    │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the use… ││ no PR ready                              │
+│ 11-27 13:45:25 foreman         take CR-102                                │╰──────────────────────────────────────────╯
+│ 11-27 13:45:17 foreman         take CR-101                                │╭─ Tasks ──────────────────────────────────╮
+│ 11-27 13:45:11 chief-of-staff  open                                       ││ State   Task                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                 ││ working CR-101  export-the-report-as-csv │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                 ││         lease 03:12  round 0/3  coder r1 │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                 ││ blocked CR-102  fix-the-login-redirect   │
+│                                                                           ││         waits for the user's answer      │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+╰───────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+captured live-terminal-122.png: window 992x487 px, client 976x448, 122x28 cells (8.00x16.00 px, font 8x16); painted over x 126..984, y 31..48 (header row from column 15)
+
+== key t at 122 (Ago): terminal 122x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ───────────────╮╭─ ▸ Flow ───────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 run… ││   Ago Who        Event                         ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 rea… ││ 6 min driver     handback CR-102 blocked wait… ││ no PR ready                              │
+╰──────────────────────────╯│ 6 min foreman    take CR-102                   │╰──────────────────────────────────────────╯
+╭─ Agents ─────────────────╮│ 7 min foreman    take CR-101                   │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                  ││ 7 min chief-of-… open                          ││ State   Task                             │
+│ Driver CR-101 coder r1   ││ 7 min chief-of-… add CR-103                    ││ working CR-101  export-the-report-as-csv │
+│                          ││ 7 min chief-of-… add CR-102                    ││         lease 03:06  round 0/3  coder r1 │
+│                          ││ 7 min chief-of-… add CR-101                    ││ blocked CR-102  fix-the-login-redirect   │
+│                          ││                                                ││         waits for the user's answer      │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+╰──────────────────────────╯╰────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== resized to 121 with Ago: terminal 121x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ──────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│   Ago Who             Event                                               ││ PR CR State Age Title                    │
+│ 6 min driver          handback CR-102 blocked waits for the user's answer ││ no PR ready                              │
+│ 6 min foreman         take CR-102                                         │╰──────────────────────────────────────────╯
+│ 7 min foreman         take CR-101                                         │╭─ Tasks ──────────────────────────────────╮
+│ 7 min chief-of-staff  open                                                ││ State   Task                             │
+│ 7 min chief-of-staff  add CR-103                                          ││ working CR-101  export-the-report-as-csv │
+│ 7 min chief-of-staff  add CR-102                                          ││         lease 03:03  round 0/3  coder r1 │
+│ 7 min chief-of-staff  add CR-101                                          ││ blocked CR-102  fix-the-login-redirect   │
+│                                                                           ││         waits for the user's answer      │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+╰───────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== key t again at 121 (Time): terminal 121x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ──────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ Time           Who             Event                                      ││ PR CR State Age Title                    │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the use… ││ no PR ready                              │
+│ 11-27 13:45:25 foreman         take CR-102                                │╰──────────────────────────────────────────╯
+│ 11-27 13:45:17 foreman         take CR-101                                │╭─ Tasks ──────────────────────────────────╮
+│ 11-27 13:45:11 chief-of-staff  open                                       ││ State   Task                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                 ││ working CR-101  export-the-report-as-csv │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                 ││         lease 03:01  round 0/3  coder r1 │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                 ││ blocked CR-102  fix-the-login-redirect   │
+│                                                                           ││         waits for the user's answer      │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+╰───────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== Tab x4 at 122 (the active panel moves into the left column): terminal 122x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ Projects ───────────────╮╭─ Flow ─────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ demo-shop  batch-01 run… ││ Time           Who        Event                ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0 rea… ││ 11-27 13:45:26 driver     handback CR-102 blo… ││ no PR ready                              │
+╰──────────────────────────╯│ 11-27 13:45:25 foreman    take CR-102          │╰──────────────────────────────────────────╯
+╭─ ▸ Agents ───────────────╮│ 11-27 13:45:17 foreman    take CR-101          │╭─ Tasks ──────────────────────────────────╮
+│ Foreman                  ││ 11-27 13:45:11 chief-of-… open                 ││ State   Task                             │
+│ Driver CR-101 coder r1   ││ 11-27 13:45:11 chief-of-… add CR-103           ││ working CR-101  export-the-report-as-csv │
+│                          ││ 11-27 13:45:11 chief-of-… add CR-102           ││         lease 02:55  round 0/3  coder r1 │
+│                          ││ 11-27 13:45:11 chief-of-… add CR-101           ││ blocked CR-102  fix-the-login-redirect   │
+│                          ││                                                ││         waits for the user's answer      │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+│                          ││                                                ││                                          │
+╰──────────────────────────╯╰────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== resized to 121: the left column goes: terminal 121x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ──────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ Time           Who             Event                                      ││ PR CR State Age Title                    │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the use… ││ no PR ready                              │
+│ 11-27 13:45:25 foreman         take CR-102                                │╰──────────────────────────────────────────╯
+│ 11-27 13:45:17 foreman         take CR-101                                │╭─ Tasks ──────────────────────────────────╮
+│ 11-27 13:45:11 chief-of-staff  open                                       ││ State   Task                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                 ││ working CR-101  export-the-report-as-csv │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                 ││         lease 02:51  round 0/3  coder r1 │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                 ││ blocked CR-102  fix-the-login-redirect   │
+│                                                                           ││         waits for the user's answer      │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+│                                                                           ││                                          │
+╰───────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== key m at 121 (maximized): terminal 121x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Time           Who             Event                                                                                  │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the user's answer                                    │
+│ 11-27 13:45:25 foreman         take CR-102                                                                            │
+│ 11-27 13:45:17 foreman         take CR-101                                                                            │
+│ 11-27 13:45:11 chief-of-staff  open                                                                                   │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                                                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                                                             │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                                                             │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+│                                                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== maximized, resized to 90: terminal 90x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ───────────────────────────────────────────────────────────────────────────────╮
+│ Time           Who             Event                                                   │
+│ 11-27 13:45:26 driver          handback CR-102 blocked waits for the user's answer     │
+│ 11-27 13:45:25 foreman         take CR-102                                             │
+│ 11-27 13:45:17 foreman         take CR-101                                             │
+│ 11-27 13:45:11 chief-of-staff  open                                                    │
+│ 11-27 13:45:11 chief-of-staff  add CR-103                                              │
+│ 11-27 13:45:11 chief-of-staff  add CR-102                                              │
+│ 11-27 13:45:11 chief-of-staff  add CR-101                                              │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+│                                                                                        │
+╰────────────────────────────────────────────────────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+== m again at 90 (normal layout): terminal 90x28
+chantier live  /work/demo-shop (real path rewritten)…
+working 1  ready 0  held 1  done 0
+╭─ ▸ Flow ───────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ Time           Who        Event            ││ PR CR State Age Title                    │
+│ 11-27 13:45:26 driver     handback CR-102… ││ no PR ready                              │
+│ 11-27 13:45:25 foreman    take CR-102      │╰──────────────────────────────────────────╯
+│ 11-27 13:45:17 foreman    take CR-101      │╭─ Tasks ──────────────────────────────────╮
+│ 11-27 13:45:11 chief-of-… open             ││ State   Task                             │
+│ 11-27 13:45:11 chief-of-… add CR-103       ││ working CR-101  export-the-report-as-csv │
+│ 11-27 13:45:11 chief-of-… add CR-102       ││         lease 02:44  round 0/3  coder r1 │
+│ 11-27 13:45:11 chief-of-… add CR-101       ││ blocked CR-102  fix-the-login-redirect   │
+│                                            ││         waits for the user's answer      │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+│                                            ││                                          │
+╰────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+? keys  / filter  Tab panel  m max  t time  q quit
+
+q: `chantier live` exit 0
+conhost PID 31244 ended
