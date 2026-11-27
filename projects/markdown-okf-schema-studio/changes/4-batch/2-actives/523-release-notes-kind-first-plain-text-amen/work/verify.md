@@ -10,6 +10,7 @@ folder, `V` = `W/verifier`, `G` = `.agents/guidelines/release-process.guidelines
 Second judgment at the same head. The first one (NOT VERIFIED) failed claim 7 only, row 7 of the
 PR body's dry run. The body on the forge is now edited; claim 7 and the head are judged again,
 the other claims are carried. Result in short: claims 0 to 8 pass.
+Third judgment at the same head (description pass): the posted body alone, claim 9. Result: pass.
 
 ## 0. Head, base and PR head: pass (eb493a3)
 
@@ -162,6 +163,83 @@ carried from eb493a3: same head, and the body differs from the judged copy in ro
   260-262 against 316-317; 329 and 373; 347, present on origin/main too).
 - Internal references are in their own last section; no role name does the work elsewhere; no image,
   no user name or home path in the body.
+
+## 9. Description pass (third judgment): pass (eb493a3)
+
+The posted description alone, read from the forge. Code, gates and CI are claims 0 to 6 (carried
+from eb493a3: same head). Body copy: `V/evidence/pr-body-eb493a37-3.md`.
+
+Head and body
+
+- `git rev-parse HEAD`, `git ls-remote origin <branch> refs/heads/main`, `gh pr view 554 --json
+  headRefOid,isDraft,state,updatedAt` -> worktree, branch and PR head `eb493a37...22b4`, main
+  `b9b29c5a...515b52c`, open draft; `git status --porcelain` -> no output.
+- `diff --strip-trailing-cr pr-body-eb493a37-2.md pr-body-eb493a37-3.md` -> exit 0 (the body of the
+  second judgment); against `W/pr-body.md` one added trailing blank line only. `gh api graphql ...
+  lastEditedAt` -> `2026-11-27T13:13:55Z`.
+- Title `docs: write release notes kind first, in short plain text`: Conventional Commit, no id.
+
+Render and template
+
+- `bodyHTML` (`W/scratch/pr-bodyhtml-description-pass.json`) -> h2: Summary, Deliverables, Changes,
+  Impacts, Blast radius, Test plan, Human decisions, Autonomous decisions, Known gaps, Internal
+  references; 3 tables, 1 fold, 7 task boxes all checked, 0 images, 13 `br` (source wraps).
+- Against `.github/PULL_REQUEST_TEMPLATE.md`: every template section in order, no template comment
+  left, one blast grade explained, the six template boxes plus one `git grep` box. `01-intent.md`
+  names no GitHub issue, so no `Fixes #N`.
+- Against `pull-request.guidelines.md`: Deliverables after Summary with a before and after table;
+  Impacts says "No visual change" with the reason; "Autonomous decisions" present; "Internal
+  references" last, before the Claude Code line.
+
+Ids, roles, personal data
+
+- Case-insensitive search of the body copy for change, batch, round and question ids, role names,
+  process tool and planning words, user name, drive or home paths, e-mail addresses, `STALE`,
+  `UNVERIFIED`, image syntax, `Fixes #` and `agent` -> two hits: line 137 (`CR-523 notes-kind`,
+  under "Internal references") and line 20 ("answered by the agent": the content of the delivered
+  rule, guideline line 361-362, not a delivery role). No personal data, no image.
+
+Test plan, box by box
+
+- Tests "none", requirements "No behaviour change", changelog "No user-facing change": `git diff
+  --name-status origin/main...HEAD` -> only `M .agents/guidelines/release-process.guidelines.md`
+  (`1 file changed, 117 insertions(+), 31 deletions(-)`).
+- `git grep -n "what you can now do" eb493a3 -- <guideline>` -> line 252 only.
+- Local gates: claim 6; re-read here: `W/just-check-eb493a37.log` and `W/preflight-eb493a37.log`
+  first lines, preflight ending `ci-static: passed` and the Windows skip line.
+- Review: `chantier log CR-523` -> `12:37:23Z driver note ... r1 approved at b9b29c5a...515b52c,
+  committed as eb493a3735e3...22b4` (the box's two SHAs). `git diff b9b29c5a eb493a37 | git
+  patch-id --stable` and the same on `evidence/guideline-r1.diff` -> both `434aefdd...9299a9`.
+- CI: `gh pr checks 554` -> the seven named checks `pass`, every other job `skipping`.
+
+Other claims
+
+- Summary and the before column: `git show origin/main:<guideline>` -> title `X.Y`, "as verbs",
+  "what you can now do", "any known issue" under "For contributors", no word budget, no picture
+  size, no self-check, hero image for "post 1 and the first highlight".
+- "Changes" and the after column against `git diff origin/main...HEAD`: each claimed change is
+  there; the delivered ones (step 3 clause, version mismatch, missing picture) are in the table or
+  its fold.
+- Rule table: claim 4 (carried from eb493a3: same head and same body). Template and topic read
+  again: kinds, order, 16 / 20 / 40 / 120 / 250 words, 900 to 1200 px, 600 px agree.
+- Dry run: the 1.12.1 note read at the head (rows 1 to 6, 8, 9 hold on the quoted lines);
+  `python -I V/count_note_words.py` -> subtitle 18, highlights 111 and 37, lines 31, 32, 37, 45, 47
+  at 23, 26, 27, 28, 21 (row 7). Row 10: `gh pr view 496 --json body` (version 1.12.1) -> "Commitizen
+  would number 1.13.0; the version is the owner's choice", no "probably wrong".
+- Human decisions against `02-answers.md` (Q2 to Q6, performance rule). Autonomous decisions against
+  `coder/r1.md`, `02-answers.md` and the diff: the three are there, none found missing.
+- Known gaps: read in the guideline at the head (lines 176-210, 215, 260-262, 302-307, 316-317,
+  329, 347, 373). Last bullet: constitution section 8 (lines 81-83) says project guidelines name no
+  process role; line 347 does. No `UNVERIFIED` claim and no accepted failure needs a bullet.
+
+Noted, no failure
+
+- The "Local gates" box names the targets without the counts the template comment asks for; recent
+  merged pull requests 552 and 536 give none either.
+- The dry run names no SHA of its own; its subject is a published note the PR does not change.
+- Known gap 4, "so a regenerated body needs them added again", is an inference: a statement kept in
+  `body-sections.md` (guideline 189-199) would survive a regeneration. The gap itself (the section
+  does not say where they go) holds.
 
 ## Verifier's own anomaly (first judgment)
 
