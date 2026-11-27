@@ -1,0 +1,94 @@
+one       width 121: panels ['flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'flow', 'ready', 'tasks']
+one       width 122: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+one       width 230: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+one       left column first drawn at 122 (spec 122); all defaults from 141 (spec 141)
+projects  width 132: panels ['flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'flow', 'ready', 'tasks']
+projects  width 133: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+projects  width 230: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+projects  left column first drawn at 133 (spec 133); all defaults from 162 (spec 162)
+boards    width 134: panels ['flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'flow', 'ready', 'tasks']
+boards    width 135: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+boards    width 230: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+boards    left column first drawn at 135 (spec 135); all defaults from 164 (spec 164)
+boards4   width 134: panels ['flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'flow', 'ready', 'tasks']
+boards4   width 135: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+boards4   width 230: panels ['projects', 'agents', 'flow', 'ready', 'tasks']; Tab x5 from flow: ['ready', 'tasks', 'projects', 'agents', 'flow']
+boards4   left column first drawn at 135 (spec 135); all defaults from 164 (spec 164)
+
+case      width mode       left project who event
+one         100 Time          0    None  15    21
+one         100 t (Ago)       0    None  15    29
+one         120 Time          0    None  15    41
+one         120 t (Ago)       0    None  15    49
+one         121 Time          0    None  15    42
+one         121 t (Ago)       0    None  15    50
+one         122 Time         28    None  10    20
+one         122 t (Ago)      28    None  10    28
+one         123 Time         28    None  11    20
+one         123 t (Ago)      28    None  11    28
+one         126 Time         28    None  14    20
+one         126 t (Ago)      28    None  14    28
+one         127 Time         28    None  15    20
+one         127 t (Ago)      28    None  15    28
+one         128 Time         29    None  15    20
+one         128 t (Ago)      29    None  15    28
+one         140 Time         41    None  15    20
+one         140 t (Ago)      41    None  15    28
+one         141 Time         42    None  15    20
+one         141 t (Ago)      42    None  15    28
+one         142 Time         42    None  15    21
+one         142 t (Ago)      42    None  15    29
+projects     90 Time          0      10  10     5
+projects     90 t (Ago)       0      10  10    13
+projects    110 Time          0      15  10    20
+projects    110 t (Ago)       0      15  10    28
+projects    117 Time          0      20  12    20
+projects    117 t (Ago)       0      20  12    28
+projects    132 Time          0      20  15    32
+projects    132 t (Ago)       0      20  15    40
+projects    133 Time         28      10  10    20
+projects    133 t (Ago)      28      10  10    28
+projects    134 Time         28      11  10    20
+projects    134 t (Ago)      28      11  10    28
+projects    142 Time         28      19  10    20
+projects    142 t (Ago)      28      19  10    28
+projects    143 Time         28      20  10    20
+projects    143 t (Ago)      28      20  10    28
+projects    144 Time         28      20  11    20
+projects    144 t (Ago)      28      20  11    28
+projects    148 Time         28      20  15    20
+projects    148 t (Ago)      28      20  15    28
+projects    149 Time         29      20  15    20
+projects    149 t (Ago)      29      20  15    28
+projects    161 Time         41      20  15    20
+projects    161 t (Ago)      41      20  15    28
+projects    162 Time         42      20  15    20
+projects    162 t (Ago)      42      20  15    28
+boards      134 Time          0      22  15    32
+boards      134 t (Ago)       0      22  15    40
+boards      135 Time         28      12  10    20
+boards      135 t (Ago)      28      12  10    28
+boards      136 Time         28      13  10    20
+boards      136 t (Ago)      28      13  10    28
+boards      145 Time         28      22  10    20
+boards      145 t (Ago)      28      22  10    28
+boards      146 Time         28      22  11    20
+boards      146 t (Ago)      28      22  11    28
+boards      150 Time         28      22  15    20
+boards      150 t (Ago)      28      22  15    28
+boards      151 Time         29      22  15    20
+boards      151 t (Ago)      29      22  15    28
+boards      163 Time         41      22  15    20
+boards      163 t (Ago)      41      22  15    28
+boards      164 Time         42      22  15    20
+boards      164 t (Ago)      42      22  15    28
+one          90 maximized     0    None  15    55
+projects     90 maximized     0      20  15    34
+boards       90 maximized     0      22  15    32
+projects     70 maximized     0      19  10    20
+one         200 maximized     0    None  15   165
+projects    140 maximized     0      20  15    84
+
+active panel at 140: agents; after redraw at 121: flow, drawn ['flow', 'ready', 'tasks']
+
+screens checked against the oracle: 3995; failures: 0

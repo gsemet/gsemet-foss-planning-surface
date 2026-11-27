@@ -1,0 +1,23 @@
+# base source 4d12a5be with the head's test files (3412cd9)
+C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\chantier\changes\4-batch\2-actives\522-tui-resize-columns\work\scratch\base\skills\chantier\scripts\cli\src\chantier\__init__.py
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-164-False-42-None-15-43]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-141-False-42-None-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-162-False-42-20-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[boards-164-False-42-22-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-140-False-41-None-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-127-False-28-None-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-126-False-28-None-14-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-161-False-41-20-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-148-False-28-20-15-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-143-False-28-20-10-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-142-False-28-19-10-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[one-121-False-0-None-15-42]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-132-False-0-20-15-32]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[boards-134-False-0-22-15-32]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-117-False-0-20-12-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-110-False-0-15-10-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[boards-100-False-0-12-10-13]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-90-True-0-20-15-34]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_a_narrower_screen_closes_the_columns_up_before_the_left_one_goes[projects-70-True-0-19-10-20]
+FAILED skills/chantier/scripts/cli/tests/test_live_panels.py::test_the_ago_column_never_shows_or_hides_the_left_column[121-0]
+20 failed, 28 passed in 16.97s

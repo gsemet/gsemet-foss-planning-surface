@@ -1,0 +1,24 @@
+chantier live  2 boards  2030-01-01 01:00:00 UTC+01:00
+a  /work/demo  v0.15.1  ws live
+b  /work/demo  v0.15.1  ws live
+working 2  ready 0  held 0  done 0
+╭─ Projects ─────────────────────────────╮╭─ ▸ Flow ───────────────────────────────────────────────────────────────────╮╭─ Ready ──────────────────────────────────╮
+│ a/demo-shop  batch-01 running batch    ││ Time           Project                Who             Event                ││ PR CR State Age Title                    │
+│   inbox 0 backlog 0                    ││ 01-01 00:50:00 b/demo-shop            hub             an event text long … ││ no PR ready                              │
+│ b/demo-shop  batch-01 running batch    ││ 01-01 00:50:00 b/demo-shop            a-very-long-ac… took CR-1            │╰──────────────────────────────────────────╯
+│   inbox 0 backlog 0                    ││ 01-01 00:50:00 a/demo-shop            hub             an event text long … │╭─ Tasks ──────────────────────────────────╮
+╰────────────────────────────────────────╯│ 01-01 00:50:00 a/demo-shop            a-very-long-ac… took CR-1            ││ State   Task                             │
+╭─ Agents ───────────────────────────────╮│                                                                            ││ working a CR-1  Demo change              │
+│ a/demo-shop Driver CR-1 coding         ││                                                                            ││         round 1/3  coding                │
+│ b/demo-shop Driver CR-1 coding         ││                                                                            ││ working b CR-1  Demo change              │
+│                                        ││                                                                            ││         round 1/3  coding                │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+│                                        ││                                                                            ││                                          │
+╰────────────────────────────────────────╯╰────────────────────────────────────────────────────────────────────────────╯╰──────────────────────────────────────────╯
+Ctrl-C to quit
