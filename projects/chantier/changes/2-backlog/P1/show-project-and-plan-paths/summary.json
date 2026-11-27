@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Show project and plan paths in the mod pane and on the web home page",
+  "summary": "The mod pane and the web home page show the project's path and, when it differs (planning surface), the plan's path. Small change, not grilled yet.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "01306f6dcb1ae254a6787cd759ac462ff8afa5a864a648ba1ff829b31b4e3990"
+  },
+  "summarized": "2026-11-27T08:31:54Z"
+}

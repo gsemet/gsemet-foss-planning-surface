@@ -29,3 +29,14 @@ and the notes' options).
 - 2026-11-27, close-Q2 (Chief of Staff session): "do I close batch-09?", choices "A. yes (recommended)", "B. not yet". Answer, verbatim: "Ok pour Q6. Laisse le batch en pause si un fix est nécessaire pour la ci lourde". Applied: batch-09 is not closed and stays paused, so a fix the heavy CI needs can join it. State at the answer: the heavy run 45958381383 on b1e23cc, the head of `main`, is green.
 
 - 2026-11-27, close-Q3 (Chief of Staff session): "the heavy CI is green: do I close batch-09?", choices "A. yes, close (recommended)", "B. no, keep it paused". Answer, verbatim: "Oui". Applied: `close --yes`.
+
+- 2026-11-27, the go (Chief of Staff session), verbatim: "ouvre un foreman et faisons la release". It
+  answered a message asking to open the batch for release v1.13.0 and saying that a yes would settle
+  release113-Q1 (version 1.13.0) and release113-Q2 (no docs diagram). Applied: version 1.13.0, no
+  diagram.
+- 2026-11-27, asked: the batch's mode (recommended: parallel). Answer: "Stack". It replaces the
+  specification's assumption that no stack tops the version PR, if a change request joins the batch.
+- 2026-11-27, asked: the grant for the release's irreversible actions (recommended: ask each time).
+  Answer: "Correctifs autonomes" (the Foreman may start and merge the release's fixes). Each other
+  irreversible action still waits for the owner; the owner merges the release PR.
+- 2026-11-27, asked: the batch budget. Answer: "100 $ (Recommended)".

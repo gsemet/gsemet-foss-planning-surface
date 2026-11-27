@@ -6,3 +6,7 @@
 > visuels lourd dans un second batch"
 
 > "Monitor juste la pipeline main et fix si nécessaire. Prépare une release"
+
+2026-11-27, the owner, at the next batch:
+
+> "ouvre un foreman et faisons la release"
