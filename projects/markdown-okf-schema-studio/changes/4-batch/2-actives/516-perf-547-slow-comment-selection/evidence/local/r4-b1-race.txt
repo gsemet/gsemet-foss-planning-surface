@@ -8,5 +8,6 @@ run 3: {"scrollY":200,"reports":[]}  (asked 300: taken back to the old place, no
 run 4: {"scrollY":200,"reports":[]}  (asked 300: taken back to the old place, nothing reported)
 run 5: {"scrollY":200,"reports":[]}  (asked 300: taken back to the old place, nothing reported)
 
-The pass that takes it back is stabilizeLayout in src/page/features/scrollCore.ts, unchanged by this CR.
+The pass that takes it back is stabilizeLayout in src/page/features/scrollCore.ts; this CR does not change that
+function (it changes the selection text in the same file).
 Fix in the test: each scroll waits two drawn frames after the last change, so the pass has run.

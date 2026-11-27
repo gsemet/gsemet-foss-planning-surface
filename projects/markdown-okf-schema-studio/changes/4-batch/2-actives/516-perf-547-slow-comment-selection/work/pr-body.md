@@ -26,11 +26,11 @@ flowchart LR
 | In the page | Before | After |
 |---|---|---|
 | Elements restyled by saving one comment (headless browser, page of 3072 elements) | 3125 | 26 |
-| **Comment** button on a selection change | recomputed at every event | at most once per frame |
+| **Comment** button on a selection change | recomputed at every event | at most once per frame; the comment shortcut pressed before that frame reads it at once |
 | **Comment** button on a scroll | selection read again | button moved only; the selection is read once more, at the next frame, only after the page changed under it |
 | Hover outline and copy button | recomputed at every pointer event | at most once per frame |
 | Selection text in scroll position reports | read at every report | read again only when it can have changed |
-| Text before a selection, when its start has no source line | every source line of the document listed | walks back from the selection |
+| Source line of a selection that ends at the very start of a block | every source line of the document listed | walks back from that block |
 
 ## Changes
 
@@ -79,12 +79,14 @@ Grade: 2
 - [x] New or changed tests (they fail on the previous code): new tests for the restyle count, the
       layout with and without an aligned float and the switch between them, the once-per-frame
       handlers and the unchanged behaviours. On the previous code the new-behaviour tests fail and
-      the unchanged-behaviour tests pass.
+      the unchanged-behaviour tests pass (the comment shortcut test was not run on it).
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just check` (5537 unit tests, 5530 pass, 7 skipped; 298 Python tests);
-      `just ci-visual` on Windows: 524 of 530 captures pass and 20 of 20 browser tests pass, the 6
-      failed captures fail the same way without this change
+- [x] Local gates: `just check` green twice in a row (5538 unit tests, 5531 pass, 7 skipped; 298
+      Python tests); 20 of 20 browser tests; the five timing-dependent test files pass 10 times in a
+      row each, and once each while `just check` runs beside them; `just ci-visual` on Windows: 524
+      of 530 captures pass, the 6 failed captures fail the same way without this change (run before
+      the last test-timing edits; the 8 captures those touch pass alone)
 - [ ] Review
 - [ ] CI green
 
@@ -98,8 +100,6 @@ Known gaps:
 
 - No local real-window run: the real-window stages do not run on Windows.
 - The real-window runs after the change are not done yet.
-- Between a selection change and the next frame, the **Comment** button still remembers the previous
-  selection; opening the comment box reads the selection afresh.
 
 ## Internal references
 
