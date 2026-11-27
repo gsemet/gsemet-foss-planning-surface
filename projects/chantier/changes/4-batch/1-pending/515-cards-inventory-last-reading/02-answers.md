@@ -1,4 +1,4 @@
-Destination: next batch (3-ready).
+Destination: running batch batch-32.
 Spec critic: yes: it removes a proof and restores rules that protect the user, in cards and tests.
 Short name: `last-reading`
 
@@ -13,3 +13,4 @@ Short name: `last-reading`
 7. last-reading-Q3 (2026-11-27): **Abandon both.** « B. Les abandonner » : `512-sc26-card-gates-pytest` and `514-sc28-cards-real-run` are abandoned by the Chief of Staff on this answer; this change request does not touch them.
 8. last-reading-Q4 (2026-11-27): **The change request waits.** « A. La CR attend (recommandé) » : the change request is not handed back ready while a floor question of its reading is unanswered; a floor change lands in this change request's own pull request, the same one, never a separate one (the option read: "Le floor change dans la même PR ; la pile attend ta réponse").
 9. Chief of Staff's call (2026-11-27), on the specification's question 2 about `HOMES`: a later change request that adds a home under a key this one removed adds the key back; a name is changed or removed only if it is still in `HOMES` at that change request's base.
+10. card-cleanup-Q6 (2026-11-27): **Plan approved.** « A. Ajouter et démarrer (recommandé) » to the plan of batch-32 shown to the owner: this specification is grilled enough; the change request joins batch-32 and starts.

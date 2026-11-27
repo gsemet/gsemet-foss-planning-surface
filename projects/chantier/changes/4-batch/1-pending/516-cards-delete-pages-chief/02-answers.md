@@ -1,4 +1,4 @@
-Destination: next batch (3-ready).
+Destination: running batch batch-32.
 Spec critic: yes: protective rules move out of deleted pages; a role's contract.
 
 ## Answers
@@ -8,3 +8,4 @@ Spec critic: yes: protective rules move out of deleted pages; a role's contract.
 3. card-cleanup-Q1 (2026-11-27): « A. Tout, règles replacées (recommandé) »: delete all 65 pages now (git keeps them); each change request says where every protective rule goes before it deletes.
 4. card-cleanup-Q5 (2026-11-27): « A. Étapes 1 à 3 (recommandé) »: now the inventory's last reading, then steps 1 to 3, with a new version, in small change requests; steps 4 to 7 wait. The other project whose batch is open reads the cards live: the moment is to fit with it.
 5. Chief of Staff's call (2026-11-27): `cards-inventory-last-reading` keeps only the `HOMES` entries of `test_card_homes.py` that hold a protective rule. Where this specification edits `HOMES`, a name is changed or removed only if it is still there at the base, and a home added under a removed key adds the key back.
+6. card-cleanup-Q6 (2026-11-27): **Plan approved.** « A. Ajouter et démarrer (recommandé) » to the plan of batch-32 shown to the owner: this specification is grilled enough; the change request joins batch-32 and starts.

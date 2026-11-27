@@ -1,4 +1,4 @@
-Destination: next batch (3-ready).
+Destination: running batch batch-32.
 Spec critic: yes: what the user sees, a new dependency and a rule of AGENTS.md.
 Short name: `tui-mouse`
 
@@ -23,3 +23,4 @@ Short name: `tui-mouse`
 17. Chief of Staff's call (2026-11-27): a `live.json` that cannot be read or holds a wrong value, an unknown key included, refuses the start with one line; `--once` reads no `live.json`, writes nothing and draws the defaults.
 18. Chief of Staff's call (2026-11-27): the Windows Terminal hand run must prove mouse support, else the change request stops and reports.
 19. Chief of Staff's call (2026-11-27), on the critic's import point: the check that `clients/tui/` imports nothing else of chantier stays as it is; the configuration folder reaches the new module from outside `clients/tui/`.
+20. card-cleanup-Q6 (2026-11-27): **Plan approved.** « A. Ajouter et démarrer (recommandé) » to the plan of batch-32 shown to the owner: this specification is grilled enough; the change request joins batch-32 and starts.

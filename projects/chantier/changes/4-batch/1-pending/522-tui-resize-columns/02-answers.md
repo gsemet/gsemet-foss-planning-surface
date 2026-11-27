@@ -1,4 +1,4 @@
-Destination: next batch (3-ready).
+Destination: running batch batch-32.
 Spec critic: yes: what the user sees, a new dependency and a rule of AGENTS.md.
 Short name: `tui-widths`
 
@@ -13,3 +13,4 @@ Short name: `tui-widths`
 7. tui-widths-Q3 (2026-11-27): **Text first.** « A. Le texte d'abord (recommandé) » : answer 5 stands; the Event column keeps 20 columns, so the left column is drawn only from 122 columns with one project (100 today).
 8. Chief of Staff's call (2026-11-27), on the specification's question 1: Who closes first, down to 10, then Project.
 9. Chief of Staff's call (2026-11-27), on its question 2: the threshold is computed with the Time column's width in both modes, so `t` never hides the left column. The docs' capture moves to 140 columns.
+10. card-cleanup-Q6 (2026-11-27): **Plan approved.** « A. Ajouter et démarrer (recommandé) » to the plan of batch-32 shown to the owner: this specification is grilled enough; the change request joins batch-32 and starts.

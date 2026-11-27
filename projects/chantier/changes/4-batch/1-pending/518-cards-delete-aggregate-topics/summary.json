@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Delete the help topics that only print other topics' pages again",
-  "summary": "Specified: remove the 10 topics with no text of their own at the base (202 to 192), make refused-push and stack print only their own pages, fix 8 pointers (trouble names its four pages), add a test that bars a name with no text; 22 mixed topics unchanged. Open: owner's confirmation.",
+  "summary": "Specified and approved for batch-32: remove the 10 topics with no text of their own at the base (202 to 192), make refused-push and stack print only their own pages, fix 8 pointers, add a test that bars a name with no text; 22 mixed topics unchanged.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "aa5cf2c9cf2e1027684e043eb8edfe52d37c29e40809bbf1f5d7ccabf04b7fc1",
-    "02-answers.md": "7dabdd938c95c9c6a9ec77afd1ec55d7cd85fd79fa2c3086e407e2fedf47761f",
+    "02-answers.md": "e7b7a86447563a65689b0f84f9d93464eaaa6324548229979ecad1db006fac9f",
     "03-change-spec.md": "dfdfc634fc60a4b4ace4ccc3663ac76efd73bb5d50bd51c2dc658a30077c7e8a",
     "intake/request.md": "448cc5b5c4f8779fa484d93a417be673399a811dfd3bafc2f8b72b0d6768e6c1"
   },
-  "summarized": "2026-11-27T11:28:38Z"
+  "summarized": "2026-11-27T11:35:12Z"
 }

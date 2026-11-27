@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Group chantier --help and list each role's commands in help",
-  "summary": "Specified, one CR (owner): --help in six groups, help --for <role> prints the role's commands from a new roles.yaml field, twelve old names get a new spelling (triage --abandon, order park, msg --read, board serve...) and all still run. Open: owner's confirmation.",
+  "summary": "Specified and approved for batch-32 (one CR, after brief-host-row-names): --help in six groups, help --for <role> prints the role's commands from a new roles.yaml field, twelve old names get a new spelling and all still run.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "62420576751c84ff7b5537737cd06812267db8ceb441ec5dbcfd19f339159ed9",
-    "02-answers.md": "bcb9d4baf3844746ed807ee5db58d53e5f0a944dbdcaa0572bc291bb4d3613ac",
+    "02-answers.md": "3c7f492ae4f4c531bcb0209f70733a5157d2e8e04ae608e311da40a5061946de",
     "03-change-spec.md": "2f1b3b985ec852d3d272cc196398a55a963ec07307e8e35099a950f2b3ea9135",
     "intake/request.md": "60e6afd4e14b7f511340e8a8c55dd17d82c55e0b136c3b36c1bf1be9bd3745f1"
   },
-  "summarized": "2026-11-27T11:28:38Z"
+  "summarized": "2026-11-27T11:35:13Z"
 }

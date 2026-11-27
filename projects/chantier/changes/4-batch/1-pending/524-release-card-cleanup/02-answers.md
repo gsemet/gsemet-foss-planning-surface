@@ -1,4 +1,4 @@
-Destination: next batch (3-ready).
+Destination: running batch batch-32.
 Spec critic: no: it follows the project's release procedure, changes no code or card, and each irreversible step waits for the owner (Chief of Staff's judgment, 2026-11-27).
 Short name: `card-release`
 
@@ -9,3 +9,4 @@ Short name: `card-release`
 3. card-cleanup-Q5 (2026-11-27): « A. Étapes 1 à 3 (recommandé) »: now the inventory's last reading, then steps 1 to 3, with a new version, in small change requests; steps 4 to 7 wait. The other project whose batch is open reads the cards live: the moment is to fit with it.
 4. card-release-Q1 (2026-11-27): **No campaign before publishing.** « B. Aucun avant » : no eval campaign runs before this release; a real run on a test project comes later, and a fault it finds takes a patch release. The claims file says `Runs: none`.
 5. card-release-Q2 (2026-11-27): the owner first asked « donne moi les impacts sur les schema existant ? »; told that only `docs/surface-server.svg` becomes wrong (its `chantier live` box says it reads only), and that `tui-mouse-resize` corrects it. **The server diagram goes in the notes.** « B. Schéma du serveur » : the release notes show `docs/surface-server.svg` as updated by this batch.
+6. card-cleanup-Q6 (2026-11-27): **Plan approved.** « A. Ajouter et démarrer (recommandé) » to the plan of batch-32 shown to the owner: this specification is grilled enough; the change request joins batch-32 and starts. Version 0.16.0; no release grant: the tag and the publication each wait for the owner.

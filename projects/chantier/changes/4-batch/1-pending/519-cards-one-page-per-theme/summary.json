@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Join every -pN page set into one page per theme",
-  "summary": "Specified: join the 48 -pN sets of the base (83 pages) into one file each by script, no rewording but the merge-gaps references; topics.json and pointers updated; a test bars -pN files; the 22 mixed topics wait for step 6. Open: owner's confirmation.",
+  "summary": "Specified and approved for batch-32: join the 48 -pN sets of the base (83 pages) into one file each by script, no rewording but the merge-gaps references; topics.json and pointers updated; a test bars -pN files; the 22 mixed topics wait for step 6.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "0dab4cab63c0e90affe02843f1f506f46c7c6a257e701fe582a8649065ee761b",
-    "02-answers.md": "e01c227301e9757f5c51ca15e95b196627e09f2aed94b7c60d4e7e58024f9d9e",
+    "02-answers.md": "e0f63eb6ea6640a70231de0bd4f520a6c518ab3383ca34685c367d0624152b16",
     "03-change-spec.md": "1221e6d7e785328445e5c11e9ff7c72a0abcf2bd62420728eb2f18b3834b53ef",
     "intake/request.md": "cca86a93c94edd1f95c0ed6251445c24d92f6a1f2c239e05516256b7cd2c7940"
   },
-  "summarized": "2026-11-27T11:28:38Z"
+  "summarized": "2026-11-27T11:35:13Z"
 }
