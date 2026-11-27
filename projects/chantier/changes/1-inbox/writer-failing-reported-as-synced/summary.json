@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "The writer fails every cycle while status and preflight say synced",
+  "summary": "2026-11-27: the surface's writer failed 38 cycles (09:10 to 09:34) on another project's folder while sync and preflight said synced. Cause suspected, not proved. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "6f39272c7a5fa1467f77864acaf7316956805adedfb6897571bb7b623929d4fb"
+  },
+  "summarized": "2026-11-27T08:38:54Z"
+}
