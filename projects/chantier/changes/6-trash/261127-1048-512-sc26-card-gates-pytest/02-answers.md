@@ -10,3 +10,7 @@ Destination: running batch batch-31.
 5. sc26-Q4: **Default.** Chief of Staff under the owner's autonomy: a detector no card states leaves the measure and goes in Known gaps. To confirm by the owner.
 6. Rework first, evals by the owner later. 2026-11-26, the owner: « Oui c'est ça. Quiz evals etc tu mets de côté fini le batch il faut que j'ai le rework de terminé. Puis je ferais moi même les evals. Mais la priorité était des cartes plus simple et des CLI plus puissants. Il faut finir ça ». Chief of Staff's reading, to confirm by the owner: the unit's merge no longer waits for any quiz or campaign (drop 'after child 28's campaign' from the merge wording; the CRs still merge in order, in one sitting, by the owner); quiz and eval work is done only where a test or a gate of the CR needs it; a quiz or eval finding is a Known gap, never blocking, and costs no round; the priority is the simpler cards and the stronger CLI.
 7. Speed up the batch. 2026-11-26, the owner: « C'est ce qui me fait peur. Peut on accélérer quitte à désactiver certains tests et corriger par une CR à la fin ? » Chief of Staff's decision under O-173, advised by a Fable advisor, to confirm by the owner: CR-512 and CR-513 (gates and process) leave batch-31 for the backlog, P1, to be done afterwards; CR-511 becomes the top of the stack, narrowed to lost rules, O-158 and O-176, other findings as Known gaps.
+
+## Abandoned (2026-11-27)
+
+The owner, to last-reading-Q3 (change request `cards-inventory-last-reading`, which removes the cards' inventory this one builds on): « B. Les abandonner ».

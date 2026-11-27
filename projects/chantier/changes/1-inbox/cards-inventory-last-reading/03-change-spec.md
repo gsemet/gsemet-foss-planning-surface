@@ -51,6 +51,11 @@ kind f. The Driver counts them again at the base it branches from.
     in a guide alone");
   - never pick a page whose verdict in `fable-review-verdicts.md` is a delete verdict. The
     stack's next CRs delete those pages, and the rule would go with them.
+- A rule whose place is the floor waits for the owner (last-reading-Q1): the Driver neither
+  extends an existing floor line nor adds an eleventh before the owner has answered about that
+  rule. It sends the rule, its row id and the floor change it proposes to the steering session
+  (`$CHANTIER msg steering`), which asks the owner; the floor changes only as the owner answers.
+  While an answer is open, the PR's Known gaps name the rule and the question.
 - Each restored line is new text in the cards' plain style. No other card text is reworded.
 - The PR body, under Deliverables, gives:
   - how many rows were read (the recount at the base);
@@ -72,7 +77,7 @@ kind f. The Driver counts them again at the base it branches from.
   - `held`: by a floor line (its number), a card (file and a quoted span), a refusal (command and
     a span of its message) or a hook;
   - `restored here`: by this CR;
-  - `to add`: a refusal or rule the plan proposes and no code holds yet. The line names the plan
+  - `to add`: a refusal or rule that needs code and that no code holds yet. The line names the plan
     step that brings it by its number and its command or rule together (for example "plan step
     20, `preflight --add-rules`"), since the plan lives in the planning surface
     (`projects/chantier/changes/2-backlog/P1/card-inventory-open-rows/work/fable-review-plan.md`,
@@ -80,8 +85,13 @@ kind f. The Driver counts them again at the base it branches from.
 - Every home is checked against the base, not copied from the plan. Each "exists?" and "not
   verified" claim of section D is settled by reading the code or by running the command:
   - a claim that holds becomes `held`;
-  - a claim that does not hold becomes `to add`;
+  - a claim that does not hold becomes `to add` when the rule needs code;
   - neither is assumed.
+- A rule of plan section 5's table or of verdicts section D that nothing holds at the base, and
+  that one card line could hold, is restored by this CR, as section 1 restores an open row's
+  rule, in the same places and under the same limits (no page with a delete verdict, no new
+  page, the floor only on the owner's answer), and is marked `restored here`
+  (last-reading-Q2). A rule that needs code stays `to add`.
 - The list follows the owner's answers where they differ from the plan's table:
   - the allow rules (card-cleanup-Q3): the user writes them, from a command the CLI builds for the
     running system and host; the CLI checks that they are in place; no agent writes the settings;
@@ -122,7 +132,9 @@ kind f. The Driver counts them again at the base it branches from.
     would leave no assertion on it. `FLOOR` pins all ten floor lines (today it holds eight: 1, 3 to
     7, 9 and 10; lines 2 and 8 are added). The Driver may move the test next to
     `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` in `test_brief.py`;
-  - when section 1 or 2 changes a floor line, update the pinned text with it;
+  - when section 1 or 2 changes the floor on the owner's answer (last-reading-Q1), update the
+    pinned text with it, and with an eleventh line, the ten-line count of
+    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules`;
   - keep the floor within `FLOOR_BYTES` (1,200);
   - the docstring stops citing the family inventories.
 
@@ -162,13 +174,24 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
    and why section 1 never restores into a page with a delete verdict.
 6. card-cleanup-Q2 and Q3 give the wording of the list's push, rebase and allow-rule rows
    (section 2).
+7. last-reading-Q1, "ask the owner": a protective rule that belongs in the floor is put to the
+   owner before the floor changes; no floor line is extended and no eleventh is added without
+   that answer (sections 1 and 3).
+8. last-reading-Q2, answer A, "restore it": a protective rule of the plan's table or of verdicts
+   section D that nothing holds today, and that one card line could hold, is restored by this
+   CR, as an open row's is; a rule that needs code stays `to add` (section 2).
+9. last-reading-Q3, answer B, "abandon both": `512-sc26-card-gates-pytest` and
+   `514-sc28-cards-real-run`, which build on the inventory, are abandoned by the Chief of Staff;
+   this CR does not touch them.
 
 ## Out of scope
 
 - Deleting topic pages, the aggregate names, joining `-pN` pages (the stack's next CRs).
 - Rewording cards beyond the restored lines.
 - Any new CLI refusal, hook or command, including the `to add` rows of the list: they stay listed
-  for plan steps 4 and 5.
+  for the plan steps each line names.
+- `512-sc26-card-gates-pytest` and `514-sc28-cards-real-run`, abandoned by the Chief of Staff
+  (last-reading-Q3).
 - Changes to `AGENTS.md`.
 - The version bump. Q5 asks for one after step 3, not in this CR.
 - The real batch on a test project.
@@ -191,12 +214,4 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
 
 ## Questions for the Chief of Staff
 
-1. Section 2's check may find a rule of the plan's table or of section D that nothing holds today
-   and that one card or floor line could hold (not a code refusal). Should this CR restore it, as
-   section 1 does for the open rows? Or should the list mark it `to add`, for the CR that owns its
-   family? The specification asks only for the marking.
-2. Answered by the Chief of Staff: the kept floor check pins all ten floor lines (section 3).
-3. Two backlog specifications build on the inventory: `2-backlog/P1/512-sc26-card-gates-pytest`
-   (its `rows` field and a check that each id exists in `docs/proofs/cards-inventory.md`) and
-   `514-sc28-cards-real-run` (its owner lists). Once this CR lands, they no longer hold. Should
-   they be marked superseded by the cleanup plan, or reworked? This CR does not touch them.
+None.
