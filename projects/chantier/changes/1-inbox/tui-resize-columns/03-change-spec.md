@@ -100,6 +100,11 @@ minimum, and never change the file because of a narrow terminal.
   (`chantier login`, `logout`), in one file outside any project, `chantier/profiles.json` in the
   user's config folder (...), mode 0600 ..."): add `live.json`, its folder and its writer, with
   the same folder rule as decided in Q1. Its mode is the user's default (it holds no secret).
+- Under Q1's answer (a) only: `AGENTS.md`'s first rule also spells out `profiles.json`'s folder
+  rule ("`$CHANTIER_CONFIG_HOME`, else `%APPDATA%` on Windows, else `$XDG_CONFIG_HOME` or
+  `~/.config`"); it is rewritten to the `platformdirs` rule (macOS:
+  `~/Library/Application Support`), and so is the docstring of `config_dir()` in
+  `clients/profiles.py`, which states the same branches.
 - `AGENTS.md`, the "no setup" claim: `live.json` is not configuration of a project; it is the
   terminal's own view state, absent until the first drag.
 - `docs/boards.md`, "The live terminal view": "writes nothing" becomes "writes nothing but its
@@ -114,6 +119,8 @@ minimum, and never change the file because of a narrow terminal.
 - Answer 2: the request's words are the source: wider defaults (left +50 %, Project x2, Who
   x1.5), resizing with the mouse, widths kept in a JSON file in the user's configuration folder
   found with `platformdirs`. All three are in sections 1 to 3 and 5.
+- Answer 3: the request's empty last bullet held nothing else ("Rien d'autre"): the three
+  points above are the whole request.
 - Header: spec critic yes (what the user sees, a new dependency, a rule of `AGENTS.md`).
 
 ## Out of scope
@@ -124,6 +131,8 @@ minimum, and never change the file because of a narrow terminal.
 - The web board's columns.
 - Moving `profiles.json`, unless Q1's answer says one folder computed by `platformdirs`.
 - The CR board pane (`hooks/register.tsx`): untouched, so its screenshot rule does not apply.
+- `2-backlog/P1/tui-live-batch-kanban`, a later item on the same layout (`screen.py`'s
+  `_plan`/`render`): whichever of the two lands second rebases on the stored widths.
 
 ## Evidence
 

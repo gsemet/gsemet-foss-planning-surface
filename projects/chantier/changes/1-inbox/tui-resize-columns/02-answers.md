@@ -1,5 +1,6 @@
 Destination: next batch (3-ready).
 Spec critic: yes: what the user sees, a new dependency and a rule of AGENTS.md.
+Short name: `tui-widths`
 
 ## Answers
 

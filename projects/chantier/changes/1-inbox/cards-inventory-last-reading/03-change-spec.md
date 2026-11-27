@@ -35,8 +35,9 @@ kind f. The Driver counts them again at the base it branches from.
 
 ### 1. The last reading of the open rows
 
-- Read every row of `docs/proofs/cards-inventory-open.tsv`, one by one. CR-511 judged 267 of
-  them from their wording alone, and this reading does not repeat that. For each row, read:
+- Read every open row of `docs/proofs/cards-inventory-open.tsv`, one by one; none is skipped.
+  CR-511 judged 267 of them from their wording alone; what this reading does not repeat is that
+  way of judging, a row from its wording alone. For each row, read:
   - its line in `## Rows` of `docs/proofs/cards-inventory.md` (behaviour, trigger, source);
   - when the behaviour text is cut or unclear, its source line at the inventory's base,
     `git show f08cf41f2c80e2e4f7ab834adc3dc06820ae7f93:<path>`.
@@ -72,7 +73,10 @@ kind f. The Driver counts them again at the base it branches from.
     a span of its message) or a hook;
   - `restored here`: by this CR;
   - `to add`: a refusal or rule the plan proposes and no code holds yet. The line names the plan
-    step that brings it.
+    step that brings it by its number and its command or rule together (for example "plan step
+    20, `preflight --add-rules`"), since the plan lives in the planning surface
+    (`projects/chantier/changes/2-backlog/P1/card-inventory-open-rows/work/fable-review-plan.md`,
+    section 6) and a bare number points at nothing in the code repository.
 - Every home is checked against the base, not copied from the plan. Each "exists?" and "not
   verified" claim of section D is settled by reading the code or by running the command:
   - a claim that holds becomes `held`;
@@ -81,13 +85,23 @@ kind f. The Driver counts them again at the base it branches from.
 - The list follows the owner's answers where they differ from the plan's table:
   - the allow rules (card-cleanup-Q3): the user writes them, from a command the CLI builds for the
     running system and host; the CLI checks that they are in place; no agent writes the settings;
-    each host has its own case;
+    each host has its own case. This row is `to add` (plan step 20, `preflight --add-rules`, read
+    in the light of Q3), not `held`: today `AGENTS.md` ("on the user's yes, the Chief of Staff adds
+    to `~/.claude/settings.json` the allow rules preflight's P10 named, and nothing else there")
+    and `skills/chantier/references/chief-of-staff.md` line 13 ("Editing `~/.claude/settings.json`:
+    only the P10 allow rules preflight named, merged, nothing else there", under "Asks first, each
+    only on the user's yes in this turn") still have the Chief of Staff write them. The line quotes
+    those two as what holds the protective part today: only the P10 rules, only added, only on the
+    user's yes;
   - a refused push or rebase (card-cleanup-Q2): the CLI checks the branch and prints the exact
     command, and the agent runs it.
   The plan's "a CLI write that can only add" and "the steering push and rebase as rails" are not
   carried over as written.
 - The file names no file this CR removes. It speaks of "the old cards' inventory, removed by this
   change", so the check in Evidence finds no reference.
+- Stack consistency: a line marked `held` by a page that a later CR of this stack deletes stays
+  true, because that delete CR updates the line in `docs/protective-rules.md` (its new home, or
+  `to add`), in the same PR as the delete.
 - The file is not a card. It sits outside `skills/`, so no brief, `help` topic or role loads it,
   and no test guards it (plan section 7 keeps the structural tests for its step 7).
 
@@ -101,9 +115,12 @@ kind f. The Driver counts them again at the base it branches from.
 - `skills/chantier/scripts/cli/tests/test_card_homes.py`:
   - drop every pin that only says where a removed card's sentence lives: the `HOMES` table with
     its topics, cards, skills and host rows, and the test parametrized on it;
-  - keep the assertion that the floor's lines stand word for word in
-    `skills/chantier/references/floor.md`, read at the head under test (today the `FLOOR`
-    dictionary, lines 1, 3 to 7, 9 and 10). The Driver may move it next to
+  - keep the floor check as a test of its own that reads the `FLOOR` dictionary directly against
+    `skills/chantier/references/floor.md`, read at the head under test, and asserts each line
+    stands word for word. Today `FLOOR` is reached only through `HOMES` (`_gone`, for a `floor <n>`
+    home) and `test_every_rule_pinned_in_a_removed_card_has_its_home`, so dropping `HOMES` alone
+    would leave no assertion on it. `FLOOR` pins all ten floor lines (today it holds eight: 1, 3 to
+    7, 9 and 10; lines 2 and 8 are added). The Driver may move the test next to
     `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` in `test_brief.py`;
   - when section 1 or 2 changes a floor line, update the pinned text with it;
   - keep the floor within `FLOOR_BYTES` (1,200);
@@ -111,8 +128,8 @@ kind f. The Driver counts them again at the base it branches from.
 
 ### 4. The eval kit runs without the inventory
 
-No shipped quiz case under `evals/quiz/` names an inventory row id (all 80 cases checked at
-4d12a5b: their `rules` are floor rules and `J` rows). The quiz therefore loses nothing it uses.
+No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON cases under
+`evals/quiz/` checked at 4d12a5b: their `rules` are floor rules and `J` rows). The quiz therefore loses nothing it uses.
 
 - `evals/kit/quiz.py`:
   - remove `INVENTORY` and `inventory_rows()`;
@@ -178,8 +195,7 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 80 cases
    and that one card or floor line could hold (not a code refusal). Should this CR restore it, as
    section 1 does for the open rows? Or should the list mark it `to add`, for the CR that owns its
    family? The specification asks only for the marking.
-2. The floor pin in `test_card_homes.py` covers eight of the ten floor lines today (not 2 and 8).
-   Should the kept check pin all ten?
+2. Answered by the Chief of Staff: the kept floor check pins all ten floor lines (section 3).
 3. Two backlog specifications build on the inventory: `2-backlog/P1/512-sc26-card-gates-pytest`
    (its `rows` field and a check that each id exists in `docs/proofs/cards-inventory.md`) and
    `514-sc28-cards-real-run` (its owner lists). Once this CR lands, they no longer hold. Should
