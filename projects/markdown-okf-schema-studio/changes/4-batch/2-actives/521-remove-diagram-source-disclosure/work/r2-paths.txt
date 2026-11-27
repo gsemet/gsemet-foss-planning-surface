@@ -1,0 +1,5 @@
+CHANGELOG.md
+requirements/tiers/swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-001.md
+requirements/tiers/swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-023.md
+test/visual/capture_support.py
+test/visual/scenarioIds.ts

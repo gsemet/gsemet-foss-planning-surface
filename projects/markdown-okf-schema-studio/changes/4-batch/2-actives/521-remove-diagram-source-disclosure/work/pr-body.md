@@ -45,7 +45,8 @@ The maintainer agreed to these changes before the work started.
 
 ## Requirements changed
 
-All identifiers start with `-MDOKFSTUDIO-`. Test paths are under `test/`, source paths under `src/`.
+A short name such as "SwRS DIAG-001" stands for `SwRS-MDOKFSTUDIO-DIAG-001`. Test paths are under
+`test/`, source paths under `src/`.
 
 | Requirement                     | Source                                                                                      | Tests                                                                                                                  |
 | ------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -77,6 +78,14 @@ behaviour.
   way as the preview.
 - The find bar does not search again by itself when a render state changes after a search: a figure
   that fails while the bar is open is matched at the next search.
+
+## Known gaps
+
+- The find bar does not search again by itself when a figure's render state changes while it is open.
+- The acceptance criteria line of `SwRS-MDOKFSTUDIO-DIAG-001` does not repeat the new show-on-failure
+  rule; its description, normative statement and first scenario state it.
+- The two PlantUML success screenshots scenarios need a PlantUML engine and were not run on the
+  author's machine.
 
 ## Test plan
 

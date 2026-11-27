@@ -1,0 +1,7 @@
+test: check that a drawn diagram does not show its source
+
+The visual checks and requirement texts now hold that the source under a
+drawn diagram is not displayed, and the changelog line names the pull
+request.
+
+Assisted-by: Claude:Sonnet-5.5
