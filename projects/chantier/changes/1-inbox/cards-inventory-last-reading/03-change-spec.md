@@ -58,17 +58,25 @@ kind f. The Driver counts them again at the base it branches from.
 - The CR waits for that answer (last-reading-Q4): it is not handed back ready while a floor
   question of its reading is unanswered. The PR's Known gaps name each open floor question, its
   rule and its row id until the owner answers.
-- A floor change lands in its own PR (last-reading-Q4), never in this CR's PR: this CR's diff
-  changes no line of `skills/chantier/references/floor.md`. A rule the owner sends to the floor is
-  listed in `docs/protective-rules.md` with the floor change as its home once that PR has
-  merged; until then the line names the open question.
+- A floor change lands in this CR's own PR, the same one, never a separate one (last-reading-Q4).
+  Once the owner answers, the Driver changes `skills/chantier/references/floor.md` in this PR as
+  the owner said (an existing line extended, or an eleventh line added), and in the same PR
+  updates the tests that pin the floor (section 3): `FLOOR` in `test_card_homes.py` and, with an
+  eleventh line, the ten-line count of `test_the_floor_is_short_lf_only_and_holds_the_ten_rules`
+  in `test_brief.py`. A rule the owner sends to the floor is listed in `docs/protective-rules.md`
+  as `restored here`, with its floor line's number as its home. A rule the owner keeps out of the
+  floor is restored in a role card or an existing page under the limits above, or, when the owner
+  drops it, listed with the owner's answer as its reason.
 - Each restored line is new text in the cards' plain style. No other card text is reworded.
 - The PR body, under Deliverables, gives:
   - how many rows were read (the recount at the base);
   - how many were judged protective;
   - one line for each row judged protective: the row id, the rule in a few words, and where it
     lives now. That is either an existing home quoted with a short span (file, or command and
-    refusal text), or "restored: <file>" for a line this CR adds.
+    refusal text), "restored: <file>" for a line this CR adds, or "floor <n>" for a floor line
+    this CR changes or adds on the owner's answer;
+  - for each floor question: the rule, its row id, the owner's answer and the floor line it
+    changed, if any.
 - A row judged not protective needs no line of its own. The count covers it.
 
 ### 2. The list of protective rules
@@ -82,7 +90,7 @@ kind f. The Driver counts them again at the base it branches from.
 - One line per rule, each with its home and its state, which is one of:
   - `held`: by a floor line (its number), a card (file and a quoted span), a refusal (command and
     a span of its message) or a hook;
-  - `restored here`: by this CR;
+  - `restored here`: by this CR, a floor line changed or added on the owner's answer included;
   - `to add`: a refusal or rule that needs code and that no code holds yet. The line names the plan
     step that brings it by its number and its command or rule together (for example "plan step
     20, `preflight --add-rules`"), since the plan lives in the planning surface
@@ -96,7 +104,7 @@ kind f. The Driver counts them again at the base it branches from.
 - A rule of plan section 5's table or of verdicts section D that nothing holds at the base, and
   that one card line could hold, is restored by this CR, as section 1 restores an open row's
   rule, in the same places and under the same limits (no page with a delete verdict, no new
-  page, the floor only on the owner's answer and in its own PR), and is marked `restored here`
+  page, the floor only on the owner's answer, in this PR), and is marked `restored here`
   (last-reading-Q2). A rule that needs code stays `to add`.
 - The list follows the owner's answers where they differ from the plan's table:
   - the allow rules (card-cleanup-Q3): the user writes them, from a command the CLI builds for the
@@ -147,14 +155,18 @@ kind f. The Driver counts them again at the base it branches from.
     and they stay. Each kind of home keeps its branch in `_gone` and its case in
     `test_a_home_that_is_gone_is_named` (`topic`, `card`, `card#heading`, `host`, `floor`), even a
     kind with no home left: the stack's later CRs add `topic` and `card` homes (below).
-  - `FLOOR` gains lines 2 and 8, so it pins all ten floor lines (today eight: 1, 3 to 7, 9 and
-    10). A test of its own reads `FLOOR` against `skills/chantier/references/floor.md`, read at
-    the head under test, and asserts each line stands word for word; the `floor <n>` homes keep
-    reading it through `_gone`. The Driver may move that test next to
+  - `FLOOR` pins every line of the floor as this PR leaves it: today it pins eight (1, 3 to 7, 9
+    and 10), and it gains lines 2 and 8, and any line the owner's answers change or add. A test of
+    its own reads `FLOOR` against `skills/chantier/references/floor.md`, read at the head under
+    test, and asserts each line stands word for word; the `floor <n>` homes keep reading it
+    through `_gone`. The Driver may move that test next to
     `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` in `test_brief.py`.
-  - This CR changes no floor line (last-reading-Q4). The PR that changes the floor on the owner's
-    answer updates `FLOOR` with it, and, with an eleventh line, the ten-line count of
-    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules`, within `FLOOR_BYTES` (1,200).
+  - When the owner's answer changes the floor (section 1), this PR changes the floor line, the
+    matching `FLOOR` entry and, with an eleventh line, the count of
+    `test_the_floor_is_short_lf_only_and_holds_the_ten_rules` (today `range(1, 11)`), renaming
+    that test to match; the floor stays within `FLOOR_BYTES` (1,200) and LF only. If the owner's
+    wording cannot fit within `FLOOR_BYTES`, the Driver does not raise it on its own: it says so
+    to the steering session, and the PR's Known gaps name it until the owner answers.
   - The docstring says the table keeps the homes of the protective rules of
     `docs/protective-rules.md`, and stops citing the family inventories.
   - Stack consistency: the three delete CRs edit `HOMES` at their base
@@ -162,13 +174,17 @@ kind f. The Driver counts them again at the base it branches from.
     `cards-delete-aggregate-topics`, line 183). Each removes the names of the pages it deletes and
     adds the new homes of their rules. A name this CR already dropped leaves that CR nothing to
     remove. A home they add is the new home of a protective rule, which `docs/protective-rules.md`
-    lists, so it belongs in the surviving table by the same test. For a key this CR removed, see
-    the question below.
+    lists, so it belongs in the surviving table by the same test. A later CR that adds a home
+    under a key this CR removed (for example `test_session_start_split` or `test_launch_modes`)
+    adds the key back; a name is changed or removed only if it is still in `HOMES` at that CR's
+    base (02-answers entry 9). This CR's Deliverables list the keys it removed, so those CRs'
+    Drivers find them.
 
 ### 4. The eval kit runs without the inventory
 
 No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON cases under
-`evals/quiz/` checked at 4d12a5b: their `rules` are floor rules and `J` rows). The quiz therefore loses nothing it uses.
+`evals/quiz/` checked at 4d12a5b: their `rules` are floor rules and `J` rows). The quiz therefore
+loses nothing it uses.
 
 - `evals/kit/quiz.py`:
   - remove `INVENTORY` and `inventory_rows()`;
@@ -176,6 +192,8 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
     `floor-10` and `R-nnn`;
   - the refusal message in `read_case` and the docstring of `load_cases` stop naming the
     inventory.
+- If the owner's answer adds an eleventh floor line, `floor-11` is accepted as a rail too: the
+  rail range follows the floor's line count as this PR leaves it.
 - `evals/kit/dry_run.py`: the case `quiz-row-id` is replaced by `quiz-rule-id`, updated in the
   header table, the case list and the dispatch table. In it:
   - a case whose `rules` name a `J` row of `SCORECARD.md` loads;
@@ -195,8 +213,8 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
    real batch on a test project. Sections 1 to 3 do this. The real batch is not part of this CR.
 4. card-cleanup-Q5, answer A: first the inventory's last reading, then steps 1 to 3, with a new
    version, in small CRs; steps 4 to 7 wait. The other project with an open batch reads the cards
-   live, so the moment has to fit with it. This CR's restored lines change cards that project
-   reads live, so it lands in the stack as the batch plans it.
+   live, so the moment has to fit with it. This CR's restored lines, and any floor change, change
+   cards that project reads live, so it lands in the stack as the batch plans it.
 5. card-cleanup-Q1 (each protective rule placed before a page is deleted) is why the list exists
    and why section 1 never restores into a page with a delete verdict.
 6. card-cleanup-Q2 and Q3 give the wording of the list's push, rebase and allow-rule rows
@@ -211,13 +229,17 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
    `514-sc28-cards-real-run`, which build on the inventory, are abandoned by the Chief of Staff;
    this CR does not touch them.
 10. last-reading-Q4, answer A, "the CR waits": the CR is not handed back ready while a floor
-   question of its reading is unanswered, and a floor change lands in its own PR (sections 1, 2
+   question of its reading is unanswered; once the owner answers, the floor change lands in this
+   CR's own PR, never a separate one, with the `FLOOR` pins and the ten-line count (sections 1
    and 3).
+11. The Chief of Staff's call on `HOMES` (entry 9): a later CR that adds a home under a key this
+   CR removed adds the key back; a name is changed or removed only if it is still in `HOMES` at
+   that CR's base (section 3, stack consistency).
 
 ## Out of scope
 
 - Deleting topic pages, the aggregate names, joining `-pN` pages (the stack's next CRs).
-- Rewording cards beyond the restored lines.
+- Rewording cards beyond the restored lines and the floor lines the owner's answers change.
 - Any new CLI refusal, hook or command, including the `to add` rows of the list: they stay listed
   for the plan steps each line names.
 - `512-sc26-card-gates-pytest` and `514-sc28-cards-real-run`, abandoned by the Chief of Staff
@@ -226,29 +248,31 @@ No shipped quiz case under `evals/quiz/` names an inventory row id (all 59 JSON 
 - The version bump. Q5 asks for one after step 3, not in this CR.
 - The real batch on a test project.
 - Running `just quiz` with a model: it costs money, and no case changes.
+- Editing the three delete CRs' specifications: entry 9 is theirs to apply at their base.
 
 ## Evidence
 
-- The PR's Deliverables hold the count of rows read and the per-row lines of section 1. Its diff
-  holds `docs/protective-rules.md`, with every line marked `held`, `restored here` or `to add`, and
+- The PR's Deliverables hold the count of rows read, the per-row lines of section 1 and, for each
+  floor question, the owner's answer and the floor line it changed. Its diff holds
+  `docs/protective-rules.md`, with every line marked `held`, `restored here` or `to add`, and
   every `held` home quoting a span found at the head.
+- The PR is handed back ready only with no floor question open: its Known gaps name none.
+- A floor line changed or added on the owner's answer is in this PR's diff of
+  `skills/chantier/references/floor.md`, word for word as the owner answered, and `FLOOR`'s own
+  test passes against that file at the head under test, as does
+  `test_the_floor_is_short_lf_only_and_holds_the_*` with the floor's line count.
 - `git grep -nE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id"` at the PR's head
   prints nothing.
 - `just check` passes.
 - `just eval-dry-run` passes, since `evals/kit/` changes. Its `quiz-cases` and `quiz-rule-id`
   cases load the shipped cases and refuse `X-9999`.
-- When a card changes (a restored line), the change owes what `AGENTS.md` asks of a
-  cards change: the pipeline's `just scenario (ubuntu-latest)` job green at the PR's head. In
+- When a card changes (a restored line or a floor line), the change owes what `AGENTS.md` asks of
+  a cards change: the pipeline's `just scenario (ubuntu-latest)` job green at the PR's head. In
   this stack batch, the local Windows run is owed only by the CR on top. If a brief's byte ceiling
-  in `test_brief_bytes.py` has to rise, the PR's Known gaps name it, with the before and after.
+  in `test_brief_bytes.py` has to rise (the floor is in every brief), the PR's Known gaps name it,
+  with the before and after.
 
 ## Questions for the Chief of Staff
 
-1. The floor's own PR (last-reading-Q4): which CR carries it, a CR the Chief of Staff files for
-   each floor answer, or a separate PR opened from this CR's batch? The answers say only that it
-   lands in its own PR.
-2. `cards-delete-pages-chief` (line 290) adds homes to the `test_session_start_split` and
-   `test_launch_modes` keys of `HOMES`, and `cards-delete-pages-crew` (line 269) points names at
-   their new homes. If this CR's judgment removes one of those keys (no protective home left),
-   should those CRs add the key back for the homes they add, and should their specifications say
-   "a name still in `HOMES` at the base", as `cards-delete-aggregate-topics` already does?
+None. Entry 8 as corrected settles where a floor change lands, and entry 9 settles the `HOMES`
+keys.

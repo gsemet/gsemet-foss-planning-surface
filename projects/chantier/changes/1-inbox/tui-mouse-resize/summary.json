@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "TUI: resize live's main columns with the mouse and keep the widths",
-  "summary": "chantier live: drag the borders between the left, central and right columns (min 20 and 30), mouse on after the first screen, wheel still scrolls, footer says how to select; widths kept in live.json in the platformdirs config folder; AGENTS.md and docs updated; proved in Windows Terminal.",
+  "summary": "chantier live: drag the borders between the left, central and right columns (min 20 and 30), mouse on after the first screen with a 1 s query timeout, wheel still scrolls, footer says how to select; widths kept in live.json in the platformdirs config folder; proved in Windows Terminal.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9da86c0d1c655abb7cf755786d550ee14f4722fd25f93aad86863fa42bbdf37a",
-    "02-answers.md": "afe0fb5901ed1ae5cdd2bcaf9c81e952239153ed9237bcd8e52a701bee757431",
-    "03-change-spec.md": "931437122871f254cbb44378293d9a75a86e15b0ec1b490add761c70df849580",
+    "02-answers.md": "7e3516b6775f8fcd2ddda337fbea1dcb47f6e3a7660ecae0b14950fba8bd7f96",
+    "03-change-spec.md": "3adc13db55556aa8acef9c80de5c1fbb829fc719ffedd47061e0b4f8548386d8",
     "intake/request.md": "760dfa288bd17fbe76f1978842bdec84cab5c39d405e4ea54749d56cee45765b"
   },
-  "summarized": "2026-11-27T11:10:51Z"
+  "summarized": "2026-11-27T11:16:26Z"
 }
