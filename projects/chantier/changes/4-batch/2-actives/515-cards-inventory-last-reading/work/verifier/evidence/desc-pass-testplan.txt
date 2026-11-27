@@ -1,0 +1,41 @@
+$ git rev-parse HEAD; git log --oneline fbdb53d2..HEAD; git diff --stat fbdb53d2..HEAD
+22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6
+22ccbe0b docs(cards): list the protective rules and remove the old cards' inventory
+ docs/proofs/cards-inventory-open.tsv               |  330 -
+ docs/proofs/cards-inventory.md                     | 7143 --------------------
+ docs/protective-rules.md                           |  227 +
+ evals/README.md                                    |    4 +-
+ evals/kit/dry_run.py                               |   20 +-
+ evals/kit/quiz.py                                  |   16 +-
+ .../chantier/scripts/cli/tests/cards_inventory.py  |  255 -
+ .../chantier/scripts/cli/tests/test_card_homes.py  |   72 +-
+ .../scripts/cli/tests/test_cards_inventory.py      |  238 -
+ 9 files changed, 269 insertions(+), 8036 deletions(-)
+$ git grep -nE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id" 22ccbe0b
+exit 1
+$ git grep -lE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id" fbdb53d2
+fbdb53d2:docs/proofs/cards-inventory.md
+fbdb53d2:evals/README.md
+fbdb53d2:evals/kit/dry_run.py
+fbdb53d2:evals/kit/quiz.py
+fbdb53d2:skills/chantier/scripts/cli/tests/cards_inventory.py
+fbdb53d2:skills/chantier/scripts/cli/tests/test_cards_inventory.py
+exit 0
+$ grep the two local gate logs (work/scratch)
+2785 passed, 19 skipped in 147.58s (0:02:27)
+ok quiz-rule-id: a case naming the J row J1 loads; one naming X-9999 is refused with exit 2
+dry run: 26 of 26 cases as expected
+$ git range-diff 5d7549e~1..5d7549e 22ccbe0~1..22ccbe0
+1:  5d7549ed = 1:  22ccbe0b docs(cards): list the protective rules and remove the old cards' inventory
+$ gh pr checks 491
+just check (macos-latest)	pass
+just check (ubuntu-latest)	pass
+just check (windows-latest)	pass
+just eval-dry-run (ubuntu-latest)	pass
+just scenario (ubuntu-latest)	pass
+$ git merge-base --is-ancestor 22ccbe0b d8397a47 (head of the stack's recorded validating PR 492)
+exit 1
++ 22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6
+$ git grep -n -i protective-rules 22ccbe0b -- tests '*/tests/*'
+22ccbe0b:skills/chantier/scripts/cli/tests/test_card_homes.py:1:"""Each protective rule of `docs/protective-rules.md` that lives in a card, a skill, the floor or a
+exit 0

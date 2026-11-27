@@ -1,0 +1,38 @@
+| P15/C8 | A long-gate waiver is recorded with the user's own words and a follow-up CR filed first, never as a note in a brief. | `held` | refusal of `order waive` "--follow-up <backlog folder>"; `topics/long-gate-waiver.md` "A waiver is the user's word, recorded by the Chief of Staff"; `topics/batch-plan-show-p2.md` "never a note in a brief" |
+| N1 | A workaround the user allows for one batch's Foreman in a worktree is passed in their words, stays in that batch and never becomes a rule. | `held` | `topics/foreman-start-more.md` "pass their words as they wrote them and never turn them into a rule"; `topics/host-foreman-worktree.md` "never becomes a rule" |
+| N7 | A board line about the specifying limit, a role's key or another board write that asks for no step is told in one line, with no tool call and no action. | `held` | `topics/watcher-events-p2.md` "A `specifying.parallel` or role-key line: one line of a few words, no tool call, no action."; `topics/watcher-board-p2.md` "Other `board wrote` lines: one line, no tool call." |
+| C4 | `asks --read all` is never used to clear the list. | `held` | `topics/asks.md` "never to clear the list" |
+| B18 | Never `rm -rf` or `Remove-Item -Recurse` on `.claude` or on temporary folders named by a wildcard. | `held` | `topics/host-refused.md` "`Remove-Item -Recurse -Force` or `rm -rf` on `.claude`, or on temporary folders named by a" |
+| P11 | The user writes the allow rules, from a command the CLI builds for the running system and host; the CLI checks they are in place; no agent writes the settings; each host has its own case (card-cleanup-Q3). | `to add` | plan step 20, `preflight --add-rules`, read in the light of card-cleanup-Q3. Today the Chief of Staff still writes them; what protects the user (only the P10 rules, only added, only on the user's yes) is held by `AGENTS.md` "on the user's yes, the Chief of Staff adds to `~/.claude/settings.json` the allow rules preflight's P10 named, and nothing else there" and `chief-of-staff.md` "Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, not
+| P2-code | For a refused push or rebase the CLI checks the branch and prints the exact command, and the agent runs it, so the host still checks it (card-cleanup-Q2). | `to add` | plan step 15, steering `push` and `rebase`. Today the rule is held by the lines above. |
+| N5 | A review step added by the project writes, commits, pushes and stashes nothing. | `held` | `review-step.md` "Never write a file, commit, push, rebase, merge, `git stash`" |
+| B6 | Never record a hand-back for a Driver. | `held` | `topics/lost-silent.md` "Never record a hand-back yourself."; refusal of `handback` "needs --lease <n>". Note: the refusal covers the hand-back of a working CR; a CR already `blocked` hands back with no lease check |
+== P15/C8 code at head
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:16:    '"<the user\'s words>" --follow-up <backlog folder> (--note - withdraws)'
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:20:def stack_waiver(b: Batch) -> GateWaiver | None:
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:28:def waive_stack(b: Batch, note: str, follow_up: str | None, oid: str) -> list[str]:
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:34:            "gate on the top PR needs a stack (`order waive <cr> --follow-up <folder>` "
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:44:    if follow_up:
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:45:        raise ChantierError("order waive stack: the top's gate validates, no --follow-up")
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:57:def waive_cr(b: Batch, c: CrEntry, note: str, follow_up: str | None, oid: str) -> list[str]:
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:74:    if not follow_up:
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:76:            f"order waive {c.id}: --follow-up <backlog folder> names the CR that runs the long "
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:79:    folder = backlog_folder(b.repo, Path(follow_up.replace("\\", "/")).name).name
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:80:    c.gate_waiver = GateWaiver(order=oid, scope="cr", note=note, follow_up=folder)
+HEAD:skills/chantier/scripts/cli/src/chantier/commands/orders_waive.py:82:    return [f"{c.id}: long gate waived ({oid}): follow-up {folder}"]
+
+== B18 page
+HEAD:skills/chantier/references/topics/host-refused.md:10:- `Remove-Item -Recurse -Force` or `rm -rf` on `.claude`, or on temporary folders named by a
+HEAD:skills/chantier/references/topics/host-refused.md-11-  wildcard: a pattern can reach what is not chantier's.
+
+== protective ids: first judging against the posted lines
+first: 93 posted: 112 dropped since: [] added: 19 ['C-011', 'C-014', 'C-1014', 'C-1442', 'C-1542', 'C-659', 'C-669', 'D-021', 'D-080', 'FM-436', 'FM-577', 'FM-578', 'FM-595', 'H-009', 'H-010', 'H-1071', 'H-313', 'H-356', 'H-357']
+== rendering
+<em>: 0
+<strong>: 1
+<del>: 0
+<blockquote>: 0
+<a>: 1
+angle brackets outside code: ['</details>', '</summary>', '<details>', '<summary>']
+odd backtick lines: []
+user name or home path: False

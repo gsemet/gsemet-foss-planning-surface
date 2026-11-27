@@ -1,0 +1,68 @@
+== layout
+  ## Summary
+  ## Deliverables
+  ### The last reading of the open rows
+  ### Homes kept in `test_card_homes.py`
+  ## Blast radius
+  ## Autonomous decisions
+  ## Known gaps
+  <details>
+  <summary>Details</summary>
+  ## Changes
+  ## Human decisions
+  ## Impacts
+  ## Test plan
+  ## Internal references
+  </details>
+  🤖 Generated with [Claude Code](https://claude.com/claude-code)
+blank after </summary>: True | blank before </details>: True
+text after </details>: '\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n'
+length: 28357 | <img>: False | '![': False
+STALE: 0 | UNVERIFIED: 1
+rendered h2/h3: [('2', 'Summary'), ('2', 'Deliverables'), ('3', 'The last reading of the open rows'), ('3', 'Homes kept in <code class="notranslate">test_card_homes.py</code>'), ('2', 'Blast radius'), ('2', 'Autonomous decisions'), ('2', 'Known gaps'), ('2', 'Changes'), ('2', 'Human decisions'), ('2', 'Impacts'), ('2', 'Test plan'), ('2', 'Internal references')]
+rendered <details>: 1 closed: 1
+rendered <table>: 1 closed: 1
+rendered <pre>: 0 closed: 0
+rendered <li>: 156 closed: 156
+rendered <input>: 6 closed: 0
+task boxes checked: 6
+== list counts
+file lines: 227 | rows: 111 {'`held`': 99, '`to add`': 12}
+  to add P2-code -> plan step 15
+  to add P3-code -> no step of plan section 6
+  to add D20-code -> no step of plan section 6
+  to add P11 -> plan step 20
+  to add P12-code -> no step of plan section 6
+  to add P13-restart -> plan step 16
+  to add P13-seat -> no step of plan section 6
+  to add P14-code -> no step of plan section 6
+  to add A23-code -> no step of plan section 6
+  to add P15-code -> plan step 7
+  to add D16-code -> no step of plan section 6
+  to add A24-code -> no step of plan section 6
+== inventory files at base
+  docs/proofs/cards-inventory.md 1474636 | at head: False
+  docs/proofs/cards-inventory-open.tsv 19506 | at head: False
+  skills/chantier/scripts/cli/tests/cards_inventory.py 7695 | at head: False
+  skills/chantier/scripts/cli/tests/test_cards_inventory.py 8503 | at head: False
+== open rows and per-row lines
+open rows: 329 {'a': 62, 'b': 139, 'c': 1, 'd': 11, 'e': 112, 'f': 4}
+pr row lines: 112 unique: 112 {'a': 52, 'b': 15, 'c': 1, 'd': 2, 'e': 42}
+span misses: 0
+== homes summary in body
+keys: 16 kept: 127 dropped: 81
+== ids the body gives after homes, against the list
+ids named after homes: 101 not in the list: []
+== internal references outside the last section
+  CR-n: []
+  batch-n: []
+  round: []
+  order O-n: []
+  planning path: []
+  question id: []
+  CR slug: []
+  PR number: []
+  machine path: []
+  role capitalised: [(107, 'Driver')]
+title: "docs(cards): list the protective rules and remove the old cards' inventory"
+rendered text sample after </details>: 🤖 Generated with Claude Code

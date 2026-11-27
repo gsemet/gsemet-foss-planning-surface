@@ -1,0 +1,6 @@
+base keys 18 homes 210
+head keys 16 homes 127 dropped 83
+added {}
+removed keys {'test_triage_moves': ['topic session-shell'], 'test_board_running_lane': ['topic where-cr-goes']}
+keys in body 16 missing set() errors []
+listed kept 127 listed dropped 81
