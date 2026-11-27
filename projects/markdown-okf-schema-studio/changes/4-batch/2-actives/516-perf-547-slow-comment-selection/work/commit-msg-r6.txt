@@ -1,0 +1,7 @@
+docs: name the pull request in the changelog line
+
+Readers of the change log can follow the entry about commenting on a large
+document to its pull request. A test file also loses a stray blank line at
+its end.
+
+Assisted-by: Claude:Sonnet-5.5

@@ -52,8 +52,10 @@ No visual change: the layout around aligned images and tables is the same, and t
 button, the hover outline and the copy button appear and disappear in the same situations, at the
 next frame.
 
-Real VS Code window on a Linux CI runner, three runs before and three after the change on the same
-generated document. A run value is the median of its samples:
+Real VS Code window on a Linux CI runner, three runs before (at 1fc9528, which adds the measure
+only) and three after the change (at aeefa1b, carried from e52cd28: the later commit changes the
+change log and a blank line of a test) on the same generated document. A run value is the median of
+its samples:
 
 | Measure | Before, 3 runs | After, 3 runs | Median of runs | Reading |
 |---|---|---|---|---|
@@ -66,7 +68,7 @@ generated document. A run value is the median of its samples:
 | Longest task, release across cells (ms) | 2.62, 2.79, 2.60 | 2.73, 2.92, 2.91 | 2.62 to 2.91 | not separable from runner noise |
 
 The two release tasks have medians about 0.3 ms higher after the change; the two sets of runs touch
-or overlap, and no sample of any drag or release takes more than 4.9 ms after the change. The
+or overlap, and no longest task during a drag or a release exceeds 4.9 ms after the change. The
 slowness of a text selection was not reproduced in a real window: before the change, no drag or
 release blocked the page for more than 50 ms (largest sample 12.26 ms).
 
@@ -85,6 +87,19 @@ Runs before:
 
 Grade: 2
 
+## Autonomous decisions
+
+- The pointer-move listener of the edit mode outline is not throttled: it only records that the
+  pointer, not the keyboard, owns the hover actions, once per switch.
+- The time limits of the manual `perf-547` job follow its measured duration (job 5 minutes, step 4).
+
+## Known gaps
+
+- No local real-window run: the real-window stages do not run on Windows.
+- The real VS Code integration and acceptance jobs have not run at this head: they run once, at the
+  last commit of the stack of pull requests this one ships with. The CI checks of this pull request
+  cover its simulated jobs only; the `perf-547` runs above are the real-window evidence here.
+
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): new tests for the restyle count, the
@@ -98,18 +113,8 @@ Grade: 2
       row each, and once each while `just check` runs beside them; `just ci-visual` on Windows on the
       final code: 524 of 530 captures pass, the 6 failed captures fail the same way without this
       change
-- [x] Review: the change approved at e52cd28
+- [x] Review: the change approved at aeefa1b
 - [ ] CI green
-
-Autonomous decisions:
-
-- The pointer-move listener of the edit mode outline is not throttled: it only records that the
-  pointer, not the keyboard, owns the hover actions, once per switch.
-- The time limits of the manual `perf-547` job follow its measured duration (job 5 minutes, step 4).
-
-Known gaps:
-
-- No local real-window run: the real-window stages do not run on Windows.
 
 ## Internal references
 
