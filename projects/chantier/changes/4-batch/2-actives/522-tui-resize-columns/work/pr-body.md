@@ -82,9 +82,9 @@ Wider left, `Project` and `Who` columns on large terminals; on terminals between
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just eval-dry-run`
-- [ ] Evidence: the live view at this head
-- [ ] Review: approved
+- [x] Local gates at `3412cd9`: `just check` pass (2813 passed, 19 skipped); `just eval-dry-run` pass (26 of 26 cases)
+- [ ] Evidence: the live view at `3412cd9`
+- [x] Review: approved at `3412cd9`
 - [ ] Verified
 - [ ] CI green
 
