@@ -48,10 +48,10 @@ Both served 1.13.0 within 3 minutes of the end of the Release VSIX run.
   owner's account at 09:16:38, 21 seconds after the merge of PR #552, with no closing PR or commit,
   although the comment posted on it at 07:56 says it stays open until its reporter has tried the
   release.
-- Release comment on the issue: handled by the session that steered the release, which reports
-  that the owner approved its text there, with the choice that leaves the issue closed, and that it
-  posts it and reads it back. None was posted by this follow-up. Not yet on the issue when it was
-  read back at 09:42, where the last comment is the one of 07:56.
+- Release comment on the issue:
+  https://github.com/gsemet/markdown-okf-schema-studio/issues/547#issuecomment-7215044789, posted
+  09:44:45 and read back; the issue stays closed. The session that steered the release handled it
+  and reports the owner's approval of the text there; this follow-up posted nothing.
 - No other issue ships with this release (#485 was released and commented with 1.12.1).
 
 ## Clip
