@@ -1,0 +1,81 @@
+{
+  "scenario": "perf-547",
+  "note": "LOCAL run of the Node step only (Windows 11, developer machine); no VS Code window, not a CI figure",
+  "threadIndex": {
+    "node": "v24.22.3",
+    "documents": [
+      {
+        "name": "issue-size",
+        "lines": 464,
+        "bytes": 64579,
+        "threads": 9,
+        "createDocumentIndex": {
+          "unit": "ms",
+          "samples": [
+            1.27,
+            1.17,
+            1.07,
+            1.05,
+            0.97,
+            1.03,
+            1.28,
+            1.08,
+            1.03
+          ],
+          "median": 1.07
+        },
+        "reanchorThreads": {
+          "unit": "ms",
+          "samples": [
+            1.31,
+            1.24,
+            1.23,
+            1.14,
+            1.19,
+            1.29,
+            1.19,
+            1.36,
+            1.44
+          ],
+          "median": 1.24
+        }
+      },
+      {
+        "name": "four-times",
+        "lines": 1856,
+        "bytes": 261223,
+        "threads": 36,
+        "createDocumentIndex": {
+          "unit": "ms",
+          "samples": [
+            4.19,
+            4.11,
+            4.17,
+            4.9,
+            7.08,
+            4.25,
+            4.29,
+            4.19,
+            3.96
+          ],
+          "median": 4.19
+        },
+        "reanchorThreads": {
+          "unit": "ms",
+          "samples": [
+            6.31,
+            6.45,
+            6.35,
+            6.42,
+            6.52,
+            6.38,
+            6.35,
+            6.35,
+            6.3
+          ],
+          "median": 6.35
+        }
+      }
+    ]
+  }
+}
