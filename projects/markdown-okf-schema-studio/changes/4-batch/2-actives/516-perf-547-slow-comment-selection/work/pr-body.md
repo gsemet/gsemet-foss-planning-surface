@@ -115,7 +115,8 @@ Grade: 2
       `just ci-visual` on Windows: 524 of 530 captures pass, the 6 failed captures fail the same way
       without this change
 - [x] Review: the change approved at aeefa1b
-- [ ] CI green
+- [x] CI green at aeefa1b: 7 checks pass (checks, report, static, static-windows, viewer-graph,
+      visual, visual-2); the jobs started on demand or after merge are skipped, not run
 
 ## Internal references
 
