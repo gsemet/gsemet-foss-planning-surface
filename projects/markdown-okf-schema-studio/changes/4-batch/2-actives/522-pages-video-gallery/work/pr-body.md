@@ -27,8 +27,10 @@ flowchart LR
 ## Changes
 
 - `test/site/videoGalleryPage.ts` lists the videos and builds the page body: each card is a
-  `<video>` with a poster, `controls` and `preload="none"`, no `autoplay` and no script. Clips are
-  muted and loop; the presentation video does neither.
+  `<video>` with `controls`, `preload="none"`, no `autoplay`, and its poster when the folder has
+  one. Clips are muted and loop; the presentation video does neither.
+- A few lines of script make a click on a picture play a video that has not been loaded yet;
+  every later click is left to the browser's controls.
 - `test/site/buildSite.ts` writes `videos.html`, copies the presentation video and its poster,
   adds the page and its social card to the site manifest.
 - The site header gets a **Videos** link between **Gallery** and **Requirements**, and the README's
@@ -39,8 +41,7 @@ flowchart LR
 ## Impacts
 
 - Site visitors find a **Videos** link in the header. No video byte loads until a video is played.
-- In Chromium, a video starts from the play button of its controls or the space bar; a click in the
-  middle of the picture does nothing.
+- A click on a picture starts its video; the browser's controls and the space bar work as usual.
 - README readers see five animated clips (about 7.3 MB of GIFs in total). On the site's home page
   they play as looping videos, like clips on the documentation pages. In the packaged extension the
   README loads them from the repository's Git LFS host, and they are not part of the VSIX.
@@ -66,15 +67,19 @@ next release.
 
 - The page order in the header, the card layout, titles taken from each clip's first on-screen text,
   and the title "One-minute demo" for the presentation video were chosen without the owner.
-- Videos play through the browser's own controls with no script. Because a click on the picture
-  does not start a video in Chromium, the page text and documentation speak of the play button.
+- Each README clip sits in the section of its feature: the table drag clip in "Highest respect for
+  the raw Markdown"; the slash menu grid and figure editor clips in "Edit MyST visually", after
+  the existing still; the side-by-side diff clip replaces the still of the change marks, and the
+  radio buttons clip replaces the Cream and Dark stills.
 - The three still pictures the README no longer shows stay in the repository with their visual
   scenarios.
 
 ## Known gaps
 
-- A click in the middle of a video's picture does not play it in headless Chromium and Chrome; only
-  the play button or the space bar does. Firefox, Safari and a headed window were not checked.
+- The click on a picture was checked in Chromium only; Firefox and Safari, whose own click may
+  already play a video, were not.
+- Pausing a video while it is still loading leaves an unhandled `play()` rejection in the browser
+  console.
 - The full site build with the screenshot gallery filled from real VS Code runs was not run
   locally; neither was a dry run of the Pages deployment.
 

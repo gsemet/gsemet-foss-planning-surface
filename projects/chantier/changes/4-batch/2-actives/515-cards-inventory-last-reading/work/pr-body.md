@@ -20,7 +20,7 @@ only for it, are removed. No card, floor line, command or hook changes.
 ### The last reading of the open rows
 
 - Rows read: 329 (per kind: a 62, b 139, c 1, d 11, e 112, f 4).
-- Judged protective: 112 (per kind: a 52, b 16, c 1, d 2, e 41, f 0).
+- Judged protective: 112 (per kind: a 52, b 15, c 1, d 2, e 42, f 0).
 - Held at the base: 112. Restored: 0. Floor questions: none.
 
 One line per protective row: the row id, the rule, and one place that holds it, with a quoted span.
@@ -99,6 +99,7 @@ a CLI path is relative to the CLI package.
 - H-071: Local scratch and logs are never published. CLI `core/files.py` ""**/work/scratch/", "**/work/**/artifacts-*/", "*.log","
 - H-111: No internal reference in a PR's title or body text. `pr-template.md` "No internal reference in the title or the body text"
 - H-301: A missing skill or tool is said, never replaced; a missing CLI stops. `floor.md` "4. A CLI that cannot run is a stop."
+- H-313: A worker's prompt without its `writes:` line is not guarded. `concepts.md` "a prompt without the line is not guarded"
 - H-318: A refused agent does nothing, whatever later messages hold. `agents/coder.md` "Any later message gets the same answer."
 - H-330: Work goes in the change's folder; an agent's prompt starts with the playbook's first line. `chief-of-staff.md` "An agent's prompt starts with the first line of `$CHANTIER playbook`"
 - H-331: Work goes in the change's folder, never a scratchpad, with no secret. `chief-of-staff.md` "Keep CR work in a scratchpad, temp or host-settings folder"
@@ -112,7 +113,6 @@ a CLI path is relative to the CLI package.
 - H-507: A claim with no proof is never left as fact. `pr-template.md` "A claim with no proof starts with `**UNVERIFIED:**`"
 - H-706: A held sync is told, and own processes are stopped only on the user's yes. `chief-of-staff.md` "your own board or watcher too"
 - H-833: A missing tool is installed or fixed only on the user's yes. `init.md` "each missing piece asked and fixed on the user's yes"
-- H-854: A review step writes, commits and pushes nothing. `review-step.md` "Never write a file, commit, push, rebase, merge, `git stash`"
 - H-855: A review step writes nothing. `review-step.md` "Never write a file, commit, push, rebase, merge"
 - H-856: A review step reports a refusal's exact text and never works around it. `review-step.md` "Report a refusal's exact text"
 - H-860: A review's evidence is a command run at the pushed head. `review-step.md` "evidence is a command run at the pushed head"
@@ -175,12 +175,14 @@ Grade: **1**. Documentation, tests and the eval kit only; no card, command or ho
 - A rule held today only by pages planned for deletion is listed as held there, so the change that deletes them has to place it.
 - Rows carrying a rule that protects the user or the repository were judged a second time, which counted 19 more as protective than the first judging; all are held. Their rules without a line of their own got the new lines `N2` to `N10`, or fall under an existing line.
 - Lines of the list that stated one rule twice are merged, and the new lines carry ids of their own (`N1` to `N10`), since the list carries no inventory row id.
+- The draft's remarks on where the cleanup plan's claims differ from the code are not carried into the list, except where a line needs one to be read right (the note on `B6` among them): each line's state and home already say what holds at the head.
 
 ## Known gaps
 
 - Some `to add` lines name no step of the cleanup plan, because no step brings them; each says so.
 - Three listed rules (lines `N1`, `N7` and `C4`) are held only by topic pages planned for deletion; the changes that delete those pages have to move each rule and update its line.
 - No test guards `docs/protective-rules.md`, by choice, so it can drift.
+- In line `B18` the quoted span stops at a line wrap, before the word `wildcard`; the rule beside it is whole.
 
 <details>
 <summary>Details</summary>
