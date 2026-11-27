@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Apply Claude Code's official permission guidance to chantier",
+  "summary": "Official rules on wildcards, runners, auto mode and reload, where chantier may differ (uv rules possibly dropped in auto mode, unproved), and one consistent allow-rule view across projects. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "7baa779c3ecbce8600b587746cbcaa6230ca534e54e04eca47a39c048e2d91b5"
+  },
+  "summarized": "2026-11-27T08:35:36Z"
+}
