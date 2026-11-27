@@ -29,10 +29,10 @@ Grade: 3
 - [ ] New or changed tests (they fail on the previous code): none, version and notes only
 - [x] Requirements: no behaviour change
 - [x] Changelog: the lines move under the version heading
-- [ ] Local gates: `just release-notes-check` and the release tests passed at `4222c324`; `just preflight` running
+- [x] Local gates: `just preflight` passed at `4222c324` (on Windows, the static stage only; CI runs the others), `just release-notes-check` passed
 - [x] Heavy CI of the released code: run [45958381383](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45958381383) on `b1e23cc`, every job green
 - [ ] Review: the owner reviews the notes folder
-- [ ] CI green: running at `4222c324`; the real VS Code jobs are skipped there and run on the version push
+- [ ] CI green: still running at `4222c324` when this was merged; every job runs again on the version push to `main`
 
 ## Internal references
 
