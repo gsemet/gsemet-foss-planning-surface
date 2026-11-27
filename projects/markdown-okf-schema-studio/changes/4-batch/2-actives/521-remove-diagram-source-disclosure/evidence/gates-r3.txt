@@ -1,0 +1,32 @@
+CR-521, round 3: gate results (Windows, worktree batch-11-CR-521, round 3 edits uncommitted on 4000024f)
+
+Logs are in work/gates/ (*-r3.log).
+
+just requirements-update         pass (1 index updated: requirements/tiers/swrs/diagrams/index.md; 0 projections)
+just requirements-lint           pass, exit 0: 1230 requirements, 0 errors, 26 warnings (W2 "Broken cross-link", in
+                                 requirement files this change does not edit)
+just check                       pass, exit 0 (check-r3.log). Run before one data row (the YAML source) was added to
+                                 test/page/plantumlErrorPicture.test.ts
+just preflight                   pass, exit 0, on the final worktree: "ci-static: passed" (it runs just check again)
+  clip-kit                       56 tests, 56 pass
+  unit                           5571 tests, 5563 pass, 0 fail, 8 skipped (the two round 3 tests ran and passed)
+  contracts                      0 tests run (as the glob stands; not changed here)
+  security                       116 tests, 116 pass
+  npm audit                      0 vulnerabilities
+  Sphinx contract                4 pass
+                                 On Windows the visual, viewer-graph, integration, acceptance, report and
+                                 gallery jobs are skipped
+
+New tests, out/test/page/plantumlErrorPicture.test.js and out/test/page/modules/plantumlDiagram.test.js:
+  on the fix                     23 pass, 0 fail, 0 skipped (tests-head-r3.log)
+  state forced to "rendered"     21 pass, 2 fail: the two round 3 tests (tests-previous-r3.log); this is the
+  as on 4000024f                 previous state logic, applied for the run and then restored
+
+npm run visual:render            pass
+test/visual/capture.py           diagrams v10, v11, v12, v13, v14, v18 (built-in engine): 6 passed, 0 failed
+engine probe                     38 saved error pictures (19 sources, light and dark) match the pattern, 12 saved
+                                 drawn pictures do not (work/scratch/engine-r3/)
+git ls-files --eol -m            all i/lf w/lf; requirements-update had written CRLF in two requirement files,
+                                 converted back to LF; the new test file is LF
+not run                          a PlantUML JAR (no Java here); v04, v05; the rest of the visual campaign; real
+                                 VS Code jobs

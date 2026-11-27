@@ -32,6 +32,7 @@ diagram element:
 - HTML export: the rule that showed "Chart source" again is removed, so the export follows the preview.
   The exported file needs no JavaScript for this.
 - Find bar: it skips a hidden source section of any kind and searches a shown one.
+- Built-in PlantUML engine: its syntax-error picture now marks the figure as failed.
 - Requirements, the charts page of the user documentation, the changelog and the tests follow.
 
 ## Approved requirements changed
@@ -56,6 +57,7 @@ A short name such as "SwRS DIAG-001" stands for `SwRS-MDOKFSTUDIO-DIAG-001`. Tes
 | SwRS DIAG-123 (failed chart)    | `core/preview/styles/contentBlockStyles.ts`                                                 | `page/chartCsp.test.ts`, `page/modules/chartError.test.ts`                                                            |
 | SwRS DIAG-105 (PlantUML JAR)    | markup unchanged                                                                            | `visual/scenarioDefinitions1.ts`, `visual/capture_support.py`                                                         |
 | SwRS DIAG-068 (PlantUML file)   | markup unchanged                                                                            | `visual/scenarioAssertions.ts`                                                                                         |
+| SwRS DIAG-032 (syntax error)    | `page/modules/plantumlDiagram.ts`                                                          | `page/modules/plantumlDiagram.test.ts`, `page/plantumlErrorPicture.test.ts`                                          |
 | SwRS BLOCK-014 (edit clicks)    | behaviour unchanged, wording only                                                           | `page/blockReq.requirements.test.ts`                                                                                   |
 | StRS DIAG-009, DIAG-015         | proposed requirements, wording only                                                         | none                                                                                                                   |
 
@@ -74,6 +76,8 @@ behaviour.
 
 ## Autonomous decisions
 
+- A PlantUML syntax error that the built-in engine draws as its own error picture counts as a failed
+  render: the picture shows as before and the source stays under it, closed.
 - The hidden or shown choice is a style sheet rule on the render state, so the export decides the same
   way as the preview.
 - The find bar does not search again by itself when a render state changes after a search: a figure
@@ -84,16 +88,19 @@ behaviour.
 - The find bar does not search again by itself when a figure's render state changes while it is open.
 - The acceptance criteria line of `SwRS-MDOKFSTUDIO-DIAG-001` does not repeat the new show-on-failure
   rule; its description, normative statement and first scenario state it.
-- The two PlantUML success screenshots scenarios need a PlantUML engine and were not run on the
-  author's machine.
+- The PlantUML engine in Java (JAR) was not run for the syntax-error case; that path was read in code.
+- The test with the real built-in engine needs a browser and is skipped by the static CI jobs; a test
+  with a stand-in engine runs there.
+- On a syntax error the built-in engine shows its error picture without a hint about the JAR engine,
+  as before this change, which `StRS-MDOKFSTUDIO-DIAG-006` does not describe.
 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update` (table above)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just preflight` at 4000024 (static stage on Windows) passed
-- [x] Review: approved at 17f6bb8 plus the follow-up changes committed as 4000024
-- [x] CI green at 4000024: pull request checks, and an on-demand run with the real VS Code jobs
+- [ ] Local gates
+- [ ] Review
+- [ ] CI green
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
