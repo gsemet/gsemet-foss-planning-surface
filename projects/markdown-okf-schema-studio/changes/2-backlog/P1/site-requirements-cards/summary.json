@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Requirements page: drop one figure card to get two tidy rows",
+  "summary": "P1, filed 2026-11-27. The Requirements home shows 11 figure cards on three rows: remove one so they make two tidy rows. Which card is open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "40402a44fb588a12778d9143096616f6f71325a00cd3b30af9a1bba491e1b01d"
+  },
+  "summarized": "2026-11-27T14:07:02Z"
+}

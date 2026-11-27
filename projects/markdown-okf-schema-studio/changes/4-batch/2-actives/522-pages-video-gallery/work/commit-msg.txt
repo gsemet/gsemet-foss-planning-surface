@@ -1,0 +1,7 @@
+feat: add a video gallery to the site and five clips to the README
+
+Every feature clip and the one-minute demo can be watched on one Videos
+page of the project site: a click on a picture starts its video, and no
+video loads before that. The README shows five features in motion.
+
+Assisted-by: Claude:Sonnet-5.5
