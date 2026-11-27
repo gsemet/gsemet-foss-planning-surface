@@ -43,6 +43,21 @@ The maintainer agreed to these changes before the work started.
 - `StRS-MDOKFSTUDIO-DIAG-006`: the collapsed "Diagram source" section shows only when the diagram
   fails to render.
 
+## Requirements changed
+
+All identifiers start with `-MDOKFSTUDIO-`. Test paths are under `test/`, source paths under `src/`.
+
+| Requirement                     | Source                                                                                      | Tests                                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| SwRS DIAG-001 (Mermaid)         | `core/preview/styles/contentBlockStyles.ts`, `core/export/exportStyles.ts`, `page/modules/findIndex.ts` | `page/modules/chartError.test.ts`, `page/modules/findIndex.test.ts`, `visual/scenarioAssertions.ts`, `visual/capture_export_html.py` |
+| SwRS DIAG-023 (PlantUML)        | the same three files                                                                        | `page/modules/chartError.test.ts`, `page/modules/findIndex.test.ts`, `visual/scenarioAssertions.ts`                   |
+| SwRS DIAG-121 (charts)          | the same three files                                                                        | `page/chartCsp.test.ts`, `page/modules/chartError.test.ts`, `page/modules/findIndex.test.ts`                           |
+| SwRS DIAG-123 (failed chart)    | `core/preview/styles/contentBlockStyles.ts`                                                 | `page/chartCsp.test.ts`, `page/modules/chartError.test.ts`                                                            |
+| SwRS DIAG-105 (PlantUML JAR)    | markup unchanged                                                                            | `visual/scenarioDefinitions1.ts`, `visual/capture_support.py`                                                         |
+| SwRS DIAG-068 (PlantUML file)   | markup unchanged                                                                            | `visual/scenarioAssertions.ts`                                                                                         |
+| SwRS BLOCK-014 (edit clicks)    | behaviour unchanged, wording only                                                           | `page/blockReq.requirements.test.ts`                                                                                   |
+| StRS DIAG-009, DIAG-015         | proposed requirements, wording only                                                         | none                                                                                                                   |
+
 ## Impacts
 
 - A drawn diagram or chart has no source section under it, in the preview and in exported HTML files.

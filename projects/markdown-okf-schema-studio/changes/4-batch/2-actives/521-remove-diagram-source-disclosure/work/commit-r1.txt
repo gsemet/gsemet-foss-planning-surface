@@ -1,0 +1,9 @@
+feat(render): show a figure's source only when it fails to draw
+
+A drawn Mermaid or PlantUML diagram and a drawn chart no longer carry a
+source section under them, in the preview and in the exported HTML file.
+A figure that fails to draw keeps its source, closed, so a reader of an
+exported file does not lose the content. A failed chart now shows its
+source in the preview too.
+
+Assisted-by: Claude:Sonnet-5.5
