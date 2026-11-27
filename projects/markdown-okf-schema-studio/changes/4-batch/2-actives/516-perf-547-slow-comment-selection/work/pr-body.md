@@ -96,9 +96,12 @@ Grade: 2
 ## Known gaps
 
 - No local real-window run: the real-window stages do not run on Windows.
-- The real VS Code integration and acceptance jobs have not run at this head: they run once, at the
-  last commit of the stack of pull requests this one ships with. The CI checks of this pull request
-  cover its simulated jobs only; the `perf-547` runs above are the real-window evidence here.
+- The real VS Code integration and acceptance jobs have not run at this head itself. They ran, with
+  stress, at 44a2e93, the head of #550, which is stacked on this pull request and holds its commits,
+  and passed there
+  ([run 45951664534](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45951664534)).
+  The CI checks of this pull request cover its simulated jobs only; the `perf-547` runs above are
+  its own real-window evidence.
 
 ## Test plan
 
@@ -117,6 +120,9 @@ Grade: 2
 - [x] Review: the change approved at aeefa1b
 - [x] CI green at aeefa1b: 7 checks pass (checks, report, static, static-windows, viewer-graph,
       visual, visual-2); the jobs started on demand or after merge are skipped, not run
+- [x] Real VS Code jobs: the full CI run at 44a2e93 (the head of #550, which holds the commits of
+      this pull request) passes, integration, acceptance and stress included
+      ([run 45951664534](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45951664534))
 
 ## Internal references
 
