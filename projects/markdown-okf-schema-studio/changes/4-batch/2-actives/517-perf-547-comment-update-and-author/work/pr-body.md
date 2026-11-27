@@ -7,7 +7,7 @@ also measures two other costs behind the same report: the wait of a comment writ
 name, and the indexing of a document for its comment threads.
 
 Part of https://github.com/gsemet/markdown-okf-schema-studio/issues/547 (creating a comment is
-slow on a large document). Stacked on #549: this pull request adds only the commits above that one.
+slow on a large document). Builds on #549, which is merged.
 
 ## Deliverables
 
@@ -91,13 +91,15 @@ this change).
 
 ### Real-window timings
 
-Three manual `perf-547` runs at 44a2e93, in a real VS Code window on a Linux CI runner:
+Three manual `perf-547` runs of c308596, in a real VS Code window on a Linux CI runner:
 [run 1](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45947065460),
 [run 2](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45947068376),
 [run 3](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45947071021).
-They are compared with the three runs reported by #549, and with three runs of 7d24547, the commit
-of this pull request that adds the measure and keeps the behaviour of #549. The runs of 7d24547
-and of 44a2e93 use a test folder that is a Git repository with a user name; those of #549 did not.
+They are compared with the three runs reported by #549, and with three runs of 6523ff6, the commit
+of this pull request that adds the measure and keeps the behaviour of #549. The runs of 6523ff6
+and of c308596 use a test folder that is a Git repository with a user name; those of #549 did not.
+All six runs were made before the branch was rebased onto main: 6523ff6 and c308596 name the
+rebased commits, whose file trees are identical to those of the commits the runs used.
 Each cell lists the median of each of the three runs, in ms except the last row.
 
 | Interaction | This change, runs 1, 2, 3 | #549 | Same test folder, without this change | Result |
@@ -125,7 +127,7 @@ Milliseconds one comment write waited for the Git user name, 12 writes per run:
 | 3 | 12.74, 13.11, 13.96, 8.91, 9.17, 8.54, 7.93, 7.85, 8.31, 8.33, 8.79, 8.78 | 8.79 |
 
 The median of the three runs is 8.79 ms (median of all 36 samples: 8.32 ms). The three runs of
-7d24547 had medians of 10.74, 8.69 and 6.79 ms (median of the runs 8.69 ms, of all samples
+6523ff6 had medians of 10.74, 8.69 and 6.79 ms (median of the runs 8.69 ms, of all samples
 9.64 ms). Both are under the 10 ms threshold set for this work, so the author name lookup is
 unchanged.
 
@@ -138,9 +140,9 @@ Grade: 2
 
 ## Autonomous decisions
 
-- The Git author name is not cached: the median wait of the three runs of 7d24547 is 8.69 ms,
-  under the 10 ms threshold, although one of those runs measured 10.74 ms; the three runs at
-  44a2e93 confirm it (8.79 ms).
+- The Git author name is not cached: the median wait of the three runs of 6523ff6 is 8.69 ms,
+  under the 10 ms threshold, although one of those runs measured 10.74 ms; the three runs of
+  c308596 confirm it (8.79 ms).
 - The pull request refers to issue 547 and does not close it: the slow text selection it reports
   was not reproduced (no drag or release blocks for 50 ms in any of these runs), and these runs do
   not show that slow comment creation is fixed.
@@ -183,12 +185,12 @@ Grade: 2
   `just requirements-update`; no stakeholder requirement text changes (two gain the generated link
   to the new requirement)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows, where it runs the static
-  stage only, `just check` included)
-- [x] Review: the changes are reviewed and approved, committed as 44a2e93
-- [x] CI green: the pull request checks pass at 44a2e93
-- [x] Real VS Code jobs: the full CI run at 44a2e93, which covers the commits of #549 under it,
-  passes, integration, acceptance and stress included
+- [x] Local gates: `just preflight` passes on the file tree of c308596, run before the rebase onto
+  main (on Windows, where it runs the static stage only, `just check` included)
+- [x] Review: the changes are reviewed and approved, committed as c308596
+- [x] CI green: the pull request checks pass at c308596
+- [x] Real VS Code jobs: the full CI run on the same file tree as c308596, made before the rebase
+  onto main with the changes of #549 under it, passes, integration, acceptance and stress included
   ([run 45951664534](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45951664534))
 
 ## Internal references
@@ -196,3 +198,4 @@ Grade: 2
 - Change request CR-517 (perf-547-comment-update-and-author).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
