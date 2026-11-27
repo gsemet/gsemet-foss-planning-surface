@@ -21,4 +21,9 @@ Destination: running batch batch-11.
 - `notes-kind-Q5` (rewrite of the 1.12.1 note): « Pas de réécriture » : only the rule changes. This replaces the request's « The 1.12.1 note itself also needs a rewrite ».
 - Told to the owner with the series, with no objection in the answers: the guideline also gets the rule the owner gave for 1.13.0 (« il faut mettre en avant que le rendu est plus rapide dans la release note », figures estimated if need be): a performance gain the user can see is a highlight with figures, never only a folded line.
 
+## After the first specification, 2026-11-27
+
+- `notes-kind-Q6` (owner; the hero image in the release notes): « Post X seul » : the hero image serves post 1 of the announcement thread only; the first highlight of the notes takes a picture cropped within the new bounds.
+- Chief of Staff, routine gap: in a fix release the smaller changes are headed `## 🛠 Other fixes`, as the specification has it.
+
 - Spec critic: no (a project guideline only, aligned on a card already checked and merged in chantier; a wrong point is fixed by an edit, no product behaviour).

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release notes: kind-first plain text, amend the guideline",
+  "summary": "Specified, final, for batch-11: the release guideline gets the kind first, full version, Fixed/Removed/Known issue lines, word budgets, image bounds (clip GIF exempt), perf figures, a self-check; hero image for post 1 only. No script change, 1.12.1 kept.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d5cfb9ae0be54ee8b52e8a8ef6dc7810af214de749024b87a67fbf85ff865683",
+    "02-answers.md": "d9c1e77a5af1ec4d577fa0014d9e81de5a52faead0a9347621dbef35ff34ba40",
+    "03-change-spec.md": "0736df02ae8d322f0c1e99f2085304c26855dedf71aa93e2612db2261f88eb46",
+    "intake/request.md": "fad443ddc9196bf05b2a377397fe58395106fcb10343b2d389bd04d25d851aa7"
+  },
+  "summarized": "2026-11-27T12:20:40Z"
+}

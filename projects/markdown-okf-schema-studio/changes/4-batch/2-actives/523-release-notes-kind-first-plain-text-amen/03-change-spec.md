@@ -19,7 +19,7 @@ topic, and with the owner's decisions of `02-answers.md`.
 
 ## Decisions carried (none dropped, none added)
 
-From `02-answers.md` (owner, 2026-11-27) and `intake/request.md`:
+From `02-answers.md` (owner, 2026-11-27, and one Chief of Staff decision) and `intake/request.md`:
 
 1. **notes-kind-Q2**: a fix release keeps today's structure (header, links, highlights, smaller
    changes, folded sections); only the tone of its headings and lines changes to its kind
@@ -41,6 +41,11 @@ From `02-answers.md` (owner, 2026-11-27) and `intake/request.md`:
    item 20, visible part 120 for a patch, 250 for a feature); the image protocol (only visible
    changes, cropped to the changed element, 900 to 1200 px wide, at most 600 px high, before and
    after joined, alt text as the caption); the rules stay in step with chantier's card.
+7. **notes-kind-Q6** (owner, after the first specification): the hero image serves post 1 of the
+   announcement thread only; the first highlight of the notes takes a picture cropped within the
+   new bounds.
+8. **Chief of Staff, routine gap** (after the first specification): in a fix release the smaller
+   changes are headed `## 🛠 Other fixes`.
 
 ## What changes
 
@@ -103,8 +108,8 @@ The order is unchanged (decision 1). Item by item:
 3. **Highlights**: two to four, `## <emoji> <heading in the kind's words>` (was `<what you can now
    do>`), following "Writing".
 4. **Smaller changes**: `## 🛠 Smoother editing` stays for a feature release; in a fix, restore or
-   internal release the heading takes the kind's tone (`## 🛠 Other fixes` for a fix release). This
-   heading wording is my choice, not an owner decision. The `Removed:`, `Changed:` and
+   internal release the heading takes the kind's tone (`## 🛠 Other fixes` for a fix release,
+   decision 8). The `Removed:`, `Changed:` and
    `Known issue:` lines sit here or right above it, never only in a folded section.
 5. **Folded sections**: unchanged, except "For contributors": it keeps the tooling changes and a
    known issue that only contributors meet; a user-facing known issue moves to the visible part.
@@ -164,10 +169,10 @@ about `scripts/release_notes.py`, which is not changed (decision 2).
 
 Today the hero image "serves post 1 and the first highlight of the notes", at 1200 px in a 16:9 to
 4:3 frame, that is 675 to 900 px high, over the new 600 px bound, and not cropped to the changed
-element. My reading of the request's image protocol: the hero image serves post 1 of the thread
+element. Decision 7 (notes-kind-Q6): the hero image serves post 1 of the thread
 (and the release folder) only; the first highlight takes a picture cropped within the bounds of
 "Images". The sentence "It serves post 1 and the first highlight of the notes" becomes "It serves
-post 1 of the announcement thread". This is my choice; see question 1.
+post 1 of the announcement thread".
 
 ### Not touched in the guideline
 
@@ -225,13 +230,3 @@ the hero image's visual scenario.
 5. `just release-notes-check` and `just check` green at the PR head (the 1.13.0 note, unchanged,
    still passes the unchanged script); `just preflight` as the completion gate (on Windows, its
    static stage; CI runs the rest).
-
-## Questions for the Chief of Staff
-
-1. **Hero image in the first highlight.** The request's bounds (at most 600 px high, cropped to the
-   changed element) do not fit the hero image the guideline puts in the first highlight (1200 px in
-   a 16:9 to 4:3 frame). The spec, by my choice, keeps the hero image for post 1 only. The owner
-   did not rule on this: confirm, or ask the owner whether the hero image keeps its place in the
-   notes as an exception like the clip GIF.
-2. **Smaller-changes heading in a fix release.** The spec names it `## 🛠 Other fixes` (my
-   choice, under notes-kind-Q2's "headings in the tone of the kind"). Keep, or another wording?
