@@ -30,6 +30,9 @@ is this change.
 Then, 2026-11-27, same session, verbatim: "Pas de migration des commentaires existant cette feature
 n'est pas utilisée". Settles for the grill: existing `.comments.json` files are not migrated.
 
+Then, 2026-11-27, same session, verbatim: "Ok on fait pas ce P- sur les commentaires ." Not clear
+whether this drops the change or only postpones its grill: asked to the owner, nothing changed.
+
 ## Place against issue 547
 
 Chief of Staff's judgement of 2026-11-27: the reported bug can be fixed without this change
