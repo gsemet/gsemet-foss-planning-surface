@@ -21,6 +21,12 @@ Earlier, 2026-11-26, during the issue 547 work: "Si c'est le cas on désactivera
 commentaire en thread et on fera une CR pour mettre le fil de commentaire dans le fichier au lieu du
 json à côté".
 
+Later, 2026-11-27, answer to perf547-Q6 ("every save of a previewed document computes the comment
+index, even with no comments file; note it as an idea to grill after batch-09?", choices "A. yes
+(recommended)", "B. no, leave it"), verbatim: "Non , je veux supprimer ce fichier de commentaire".
+Read by the Chief of Staff: no separate idea about the indexing; the `.comments.json` file goes, which
+is this change.
+
 ## Place against issue 547
 
 Chief of Staff's judgement of 2026-11-27: the reported bug can be fixed without this change
