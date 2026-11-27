@@ -1,0 +1,8 @@
+ci: measure the Git name wait and the comment thread index
+
+The manual perf-547 run now also reports how long saving a comment waits for
+the Git user name, in a test folder that is a Git repository, and how long
+indexing a large document for its comment threads takes, at two document
+sizes. It sets no limit.
+
+Assisted-by: Claude:Sonnet-5.5
