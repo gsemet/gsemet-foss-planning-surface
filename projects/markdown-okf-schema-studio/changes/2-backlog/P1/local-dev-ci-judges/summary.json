@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A plan to speed up local and CI checks: parallel runs, heavy tests later",
+  "summary": "Plan to speed up checks: parallel runs locally and in CI; heavy tests only after the merge or on demand on a pull request; quick targeted local work while CI judges.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b61e95ef0c026c8ca412fb118594ba0781e935c6cd705b6264f317d3b30bd5a8"
+  },
+  "summarized": "2026-11-27T07:01:52Z"
+}

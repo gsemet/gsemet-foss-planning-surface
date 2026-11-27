@@ -25,6 +25,30 @@ On CR-516 the three local runs of `just ci-visual` (rounds 2, 3, 5) each gave 52
 with the same 6 failures as on the unchanged head (this Windows host): they showed nothing about the
 change.
 
+## The owner's request that widens this CR (2026-11-27, same session), verbatim
+
+"Il faut rebase. Après en P1 tu mets une CR sur un plan d'optimisation des check locau et CI.
+Parallisarion, test lourd que après merge ou optionnellelenr sur les PR"
+
+So this CR is **a plan to optimise the local and CI checks**, with at least:
+
+- parallel runs, locally and in CI;
+- heavy tests run only after the merge, or on a pull request only when asked.
+
+Related, already specified and in the same backlog: `split-heavy-ci-jobs` (the heavy `integration`
+and `stress` jobs split in two parallel parts).
+
+## Measured in CI and on this PC (2026-11-27)
+
+- Pull request checks today (run 45947061700, jobs in minutes): static-windows 8.4, visual-2 7.8,
+  visual 7.4, static 5, viewer-graph 1.7. The visual jobs run on every pull request; integration,
+  acceptance and stress already run only on a push to `main` or on demand.
+- Heavy run 45951664534 (22.9 min end to end): integration 19.4, stress 16.3, static-windows 12,
+  visual 7.9, visual-2 7.8, static 3.9, viewer-graph 2.1, acceptance 1.4.
+- `just check` (about 4 to 5 min on the owner's PC, 16 logical cores): its 15 steps run one after
+  another; the Node tests already run files in parallel (unit about 53 s); pytest runs one test at a
+  time (about 97 s, no pytest-xdist). A gain by parallel steps is estimated, not measured.
+
 ## Where the rule comes from
 
 `.agents/guidelines/change-requests-lifecycle.guidelines.md`, "Project bindings", "Visual evidence":

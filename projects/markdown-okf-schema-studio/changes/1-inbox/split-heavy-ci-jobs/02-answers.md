@@ -33,6 +33,12 @@ Short name: `ci-split`
    rapidement et on clos le batch vite. On fera les teste visuels lourd dans un second batch". Whether
    this CR leaves batch-09 is being confirmed (close-Q1); it is not added to the batch meanwhile.
 
+7. The owner's instruction (2026-11-27), verbatim: "Il faut rebase. Après en P1 tu mets une CR sur
+   un plan d'optimisation des check locau et CI. Parallisarion, test lourd que après merge ou
+   optionnellelenr sur les PR". Applied by the Chief of Staff: this CR leaves batch-09 for the
+   backlog P1, next to that plan (`local-dev-ci-judges`). Its specification's place (a stack above
+   CR-517, below CR-518) is to be read again against `main` when it is taken.
+
 Spec critic: yes (it changes which jobs gate a release tag, in several files that must agree).
 
 Critic, 2026-11-27: 4 findings; 4 applied as fixes (the job-name commands of the release and
