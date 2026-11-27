@@ -12,7 +12,9 @@ The main columns are the left column (Projects and Agents), the central column (
 right column (Ready and Tasks). The user grabs either of the two panel borders already drawn where
 two columns meet and drags it; the columns inside the Flow (Project, Who and the others) are not
 resized with the mouse (answer 4). The widths are kept in one JSON file in the user's chantier
-configuration folder, computed with `platformdirs` (answers 2 and 6).
+configuration folder, computed with `platformdirs` (answers 2 and 6). A drag stops at 20 columns
+for the left column and 30 for the right one (answer 7). `live` shows its content first and turns
+the mouse on after, when the terminal handles it (answer 8).
 
 This change request sits on top of `tui-resize-columns` in a stack batch (answers 1 and 3; its
 `depends.json`: `{"after": ["tui-resize-columns"]}`). It builds on that CR's wider defaults (the
@@ -27,31 +29,66 @@ column is not drawn only when even that does not fit). The code and doc names be
 All paths below are under `skills/chantier/scripts/cli/src/chantier/` unless they start at the
 repository root.
 
-### 1. Mouse tracking (`clients/tui/screen.py`, `run`)
+### 1. Mouse tracking, turned on after the first draw (`clients/tui/screen.py`, `run`)
 
-- When `live` runs with a keyboard (`term` is a `blessed.Terminal`, or the stand-in `run`
-  accepts) and `term.does_mouse(clicks=True, report_drag=True)`, asked once at start, is true,
-  `run` turns on `blessed`'s mouse tracking, `term.mouse_enabled(clicks=True, report_drag=True)`,
-  in the same `with` as `term.cbreak()`, so the terminal is given back, tracking off, on every way
-  out that `docs/boards.md` lists today (`q`, Ctrl-C, a refused key, an error, SIGTERM on POSIX).
-- What `does_mouse` means differs by platform in the pinned blessed 1.53.0. On POSIX it asks the
-  terminal for the DEC private modes. On Windows (`blessed/win_terminal.py`,
-  `WinTerminal.does_mouse`, about lines 408-421) it asks nothing: it is true on any tty with
-  styling, and false only when the output is not a tty or styling is off. There `mouse_enabled`
-  probes the DEC modes (SGR, 1006) and, when they are not answered, turns on the console's own
-  mouse input instead (`ENABLE_MOUSE_INPUT`, QuickEdit off), converting its events into the same
-  mouse keystrokes. So on Windows a true `does_mouse`, and the footer's mouse words it brings,
-  prove nothing about the terminal: only the hand run of the Evidence does, and its PR records
-  which of blessed's two paths ran (the DEC modes or the console's mouse input). How the run tells
-  the two apart is the Coder's.
+- **Content first (answer 8).** `run` draws the first screen (today `Live(frame(), ...)`, entered
+  inside `with term.cbreak()`) before it asks the terminal anything about the mouse. Only then, in
+  the loop, before its first `term.inkey(...)`, does it ask and turn tracking on. No mouse question
+  is sent before the first screen is on the terminal.
+- **What asks, and when, in the pinned blessed 1.53.0** (read in its sources; the Coder re-reads
+  them at the pinned version):
+  - POSIX (`blessed/terminal.py`): `does_mouse(clicks=True, report_drag=True)` sends one DECRQM
+    query per mode it needs (1006, SGR, then 1002, drag), each through `get_dec_mode` and
+    `_query_with_boundary`: the query and a cursor position request (CPR) are written, and the
+    call blocks until the CPR comes back or the timeout ends. A terminal that answers the CPR but
+    not the mode gives a fast negative (one round trip). The first DECRQM may be preceded by an
+    XTVERSION query (`_is_apple_terminal`, `get_software_version`) unless the environment names
+    the terminal (`TERM_PROGRAM` and the like). The answers are cached:
+    `mouse_enabled(clicks=True, report_drag=True)` then reads the cache (`dec_modes_enabled`) and
+    only writes the DECSET sequence, asking nothing more.
+  - Windows (`blessed/win_terminal.py`): `WinTerminal.does_mouse` asks nothing (true on any tty
+    with styling). The asking is in `mouse_enabled`: it runs the POSIX `does_mouse` probe (the same
+    DECRQM and CPR queries, blocking the same way), uses the DEC modes when they are answered,
+    and otherwise turns on the console's own mouse input (`ENABLE_MOUSE_INPUT`, QuickEdit off),
+    converting its events into the same mouse keystrokes. So on Windows the moment that waits is
+    entering `mouse_enabled`, and it too comes after the first draw.
+  - The timeout of each query is blessed's `TERMINAL_QUERY_TIMEOUT_SECONDS`, 5 s by default, set
+    by the user's `BLESSED_QUERY_TIMEOUT_SECONDS`. After a first DECRQM that times out, blessed
+    sends no other DECRQM (`NOT_QUERIED`, a false `does_mouse`). So a terminal that answers
+    nothing, not even the CPR (a pexpect script, some `ssh -t` relays), holds the loop once, for
+    up to the XTVERSION timeout plus one DECRQM timeout (10 s with the defaults). Whether `live`
+    keeps blessed's default there is question Q1.
+- **Keys typed meanwhile are not lost.** While a query waits, `_read_until` reads all the input
+  that arrives; it removes the terminal's answers (the CPR, the DECRQM reply) and puts the rest
+  back with `ungetch`, in order, for the next `inkey` (on Windows, `_read_available` reads the
+  key-down events the same way). The query runs in the loop's own thread, between two `inkey`
+  calls, never in another thread: blessed reads the keyboard itself during it, and two readers
+  would split the keys. While it waits, no key is handled and the screen is not redrawn; the keys
+  are handled, in order, once it returns. What the code cannot prove, and the Coder checks by
+  hand (Evidence): that the keys typed during the wait arrive whole and in order on a real
+  terminal, on Windows Terminal and on a POSIX terminal; that the wait is not felt on a terminal
+  that answers (one round trip); and on Windows which of blessed's two paths ran.
+- When the question says yes (POSIX: `does_mouse` true; Windows: `does_mouse` true, then whichever
+  path `mouse_enabled` takes), `run` enters `term.mouse_enabled(clicks=True, report_drag=True)`
+  so that it is left on every way out that `docs/boards.md` lists today (`q`, Ctrl-C, a refused
+  key, an error, SIGTERM on POSIX), before the alternate screen is left and `cbreak` ends: the
+  terminal is given back, tracking off. How the code nests it once the loop has started (for
+  instance an exit stack held by the `with`) is the Coder's. The footer's mouse words (section 4)
+  appear at the first redraw after tracking is on, not on the first screen.
 - Where `does_mouse` is false, or with no keyboard (`term is None`), tracking stays off: no border
   drags, the footer carries no mouse words (section 4), the keys and the terminal's own mouse
   (selection, wheel, links) work as today. This is the absence of a feature the terminal lacks,
-  not a substitute. Windows Terminal must deliver the drags in the hand run (Evidence: if it does
-  not, the CR stops).
+  not a substitute. On Windows a true `does_mouse`, and the footer's mouse words it brings, prove
+  nothing about the terminal: only the hand run of the Evidence does, and its PR records which of
+  blessed's two paths ran (the DEC modes or the console's mouse input). How the run tells the two
+  apart is the Coder's. Windows Terminal must deliver the drags in the hand run (Evidence: if it
+  does not, the CR stops).
 - The loop reads mouse events from the same `term.inkey(...)` call as the keys. A key still goes
   through `key_name` and `View.press` exactly as today; a mouse event goes to the new handling of
   sections 2 and 3. Each mouse event that changes the screen redraws at once, as a key does.
+- `blessed.Terminal()` itself, built in `run` before the first draw, already sends an XTGETTCAP
+  query at its creation today (`Terminal.__init__xtgettcap`). It is not about the mouse and this CR
+  does not change it.
 
 ### 2. Dragging a border (`clients/tui/screen.py`, `clients/tui/view.py`)
 
@@ -75,17 +112,49 @@ repository root.
   defaults (42 after `tui-resize-columns`, and 44). The hit test of a press is computed from the
   same plan `render` draws, so the borders the user sees are the borders that move. How close a
   press must be to count, and how the code is split, are the Coder's.
-- A drag is bounded: no column narrower than its minimum (question Q1), and a drag that would
-  leave the central column narrower than its minimum stops there. The central column's minimum is
-  the one `tui-resize-columns` draws, computed by its one width function (used by `_plan` and
-  `render`), which this CR reads and does not restate. Within those bounds, when the central
-  column holds less than its defaults, Who and Project close up as that CR's rule says.
-- On a terminal narrower than the kept widths need, the right column gives way first, down to 44
-  (`RIGHT_W`), before the left column (the Chief of Staff's call, 2026-11-27); then the drawing
-  gives way as `tui-resize-columns` says, starting from the kept left width instead of the
-  default. The kept widths are not changed by it. A drag starts from the width drawn.
+- **Bounds (answer 7).** A drag stops at 20 columns for the left column and 30 for the right one
+  (the defaults stay 42 and 44); these are the two minimums, named once in the code. A drag that
+  would leave the central column narrower than its minimum stops there. The central column's
+  minimum is the one `tui-resize-columns` draws, computed by its one width function (used by
+  `_plan` and `render`), which this CR reads and does not restate. There is no other maximum: the
+  largest width a drag reaches depends on the terminal. Within those bounds, when the central
+  column holds less than its defaults, Who and Project close up as that CR's rule says. How a drag
+  behaves on a terminal already too narrow for the kept widths is question Q3.
 
-### 3. The wheel (`clients/tui/screen.py`)
+### 3. A narrow terminal, with kept widths (`clients/tui/screen.py`)
+
+`tui-resize-columns`' rule, read with the kept widths `L` (left) and `R` (right) in place of the
+defaults. The automatic shrinking stops at 28 for the left column and 44 for the right one; a
+column the user set below that floor (`L` from 20 to 27, `R` from 30 to 43) is drawn at its kept
+width, never widened to the floor and never narrowed by the terminal. When the terminal is
+narrower than the kept widths need, the drawing gives way in this order, so that the Event column
+keeps at least 20 columns:
+
+1. the right column, from `R` down to 44 (not at all when `R` is 44 or less) (the Chief of
+   Staff's call, 2026-11-27);
+2. the left column, from `L` down to 28 (not at all when `L` is 28 or less);
+3. Who, down to 10, then Project, down to 10, as `tui-resize-columns` says;
+4. only when even that does not fit is the left column not drawn.
+
+Consequences, which the Coder keeps:
+
+- The threshold under which the left column is not drawn is `tui-resize-columns`' sum with
+  `min(L, 28)` for the left column and `min(R, 44)` for the right one. With the defaults it is
+  that CR's 122 columns (one project watched, the `Time` column); with `L` 22 and `R` 30 it is 102
+  (22 + 50 + 30, the Flow's minimum of 50 being that CR's 4 + 14 + 1 + 10 + 1 + 20). The tests
+  measure the drawn text, not these sums. As in that CR, the threshold uses the `Time` column's
+  width in both modes.
+- A right column kept at or under 44 never gives way; a left column kept at or under 28 never
+  shrinks; neither is ever drawn wider than kept. A column kept narrower than its floor only
+  frees columns for the central one.
+- Without the left column, the Flow and the right column share the width under the same floors:
+  Who and Project take back their defaults as Event's 20 allows (that CR's rule), and the right
+  column is drawn at no more than `R` and, when `R` is over 44, at no less than 44. Whether it
+  takes back toward `R` once Who and Project are whole is question Q2.
+- The kept widths are not changed by any of this: only a drag's release writes them (section 6).
+  A drag starts from the width drawn.
+
+### 4. The wheel (`clients/tui/screen.py`)
 
 With tracking on, the terminal no longer scrolls on its own: a wheel event up is the `up` key
 and a wheel event down the `down` key, given to `View.press` for the active panel (the Flow at
@@ -93,7 +162,7 @@ the start), with no modifier, so scrolling the main part keeps working directly 
 wheel event is one line. A wheel event does nothing while the help is open or while a filter is
 being typed (`/`) (the Chief of Staff's call, 2026-11-27).
 
-### 4. What the status bar says (`clients/tui/screen.py`, `clients/tui/view.py`)
+### 5. What the status bar says (`clients/tui/screen.py`, `clients/tui/view.py`)
 
 Answer 5 accepts that, with tracking on, a plain drag no longer selects text and a link may need
 a modifier, on condition that the status bar says what to do:
@@ -102,28 +171,30 @@ a modifier, on condition that the status bar says what to do:
   border), how to select text, and how to open a PR link in Ready. When the footer lacks room,
   the mouse words give way first: the typed filter (`/<text>`) and `filter: <text>` stay visible,
   as `docs/boards.md` promises (the Chief of Staff's call, 2026-11-27). Where they go in the line
-  so that they are cut first is the Coder's. The exact words for text
-  selection and links are the ones the Windows Terminal run of section 7 proves (Shift-drag is
-  the usual way to select; the link's modifier is what the run shows); the PR records them.
+  so that they are cut first is the Coder's. The exact words for text selection and links are the
+  ones the Windows Terminal run of the Evidence proves (Shift-drag is the usual way to select; the
+  link's modifier is what the run shows); the PR records them.
 - The help (`HELP`, `?`) gains the same lines: dragging a border between two columns resizes them
   (kept for the next start), the wheel scrolls the active panel, and the selection and link
   modifiers.
-- With tracking off, the footer and the help are as today.
+- With tracking off, and on the first screen before tracking is turned on (section 1), the footer
+  and the help are as today.
 
-### 5. The kept widths: `live.json` (a new module, `clients/tui/widths.py`)
+### 6. The kept widths: `live.json` (a new module, `clients/tui/widths.py`)
 
 - One file, `live.json`, in the user's chantier configuration folder (`config_dir()` of section
-  6, beside `profiles.json`). Its content is one object, `{"left": <int>, "right": <int>}`, the
+  7, beside `profiles.json`). Its content is one object, `{"left": <int>, "right": <int>}`, the
   two widths last dragged. A key that is absent takes its default.
 - `live` (not `--once`) reads it once at start, before it connects to any board. A file that
-  cannot be read, is not JSON, is not an object, or holds a value that is not an integer within
-  the bounds of Q1 makes `live` refuse to start with one line naming the file and the fault, in
-  the form of `clients/profiles.py`'s `_bad`, with `EXIT_PRECONDITION`: `live: <path>: <fault>:
-  fix or delete it`. No default is drawn in its place (no fallback; the Chief of Staff's call).
-  A key other than `left` and `right` is refused like any other wrong value, in the same form
-  (the Chief of Staff's call, 2026-11-27).
-- `--once` reads no `live.json` and writes nothing, and draws the default widths, so a test, a script and a bug report print
-  the same for every user (the Chief of Staff's call).
+  cannot be read, is not JSON, is not an object, or holds a value that is not an integer, or a
+  `left` under 20 or a `right` under 30 (answer 7), makes `live` refuse to start with one line
+  naming the file and the fault, in the form of `clients/profiles.py`'s `_bad`, with
+  `EXIT_PRECONDITION`: `live: <path>: <fault>: fix or delete it`. No default is drawn in its place
+  (no fallback; the Chief of Staff's call). A key other than `left` and `right` is refused like
+  any other wrong value, in the same form (the Chief of Staff's call, 2026-11-27). A large value
+  is not refused: the narrow rule of section 3 draws it narrower.
+- `--once` reads no `live.json` and writes nothing, and draws the default widths, so a test, a
+  script and a bug report print the same for every user (the Chief of Staff's call).
 - `live` writes the file on a drag's release when a width changed, and at no other moment: never
   on a redraw, a key, a wheel event, a resize of the terminal or a quit. The write is atomic (a
   temporary file in the same folder, then a replace), as `clients/profiles.py` writes
@@ -132,14 +203,15 @@ a modifier, on condition that the status bar says what to do:
   terminal given back.
 - With no file, nothing is written until the first drag. Deleting the file resets the widths.
 
-### 6. The configuration folder, with `platformdirs` (`clients/profiles.py`, root `pyproject.toml`, `uv.lock`)
+### 7. The configuration folder, with `platformdirs` (`clients/profiles.py`, root `pyproject.toml`, `uv.lock`)
 
 - `platformdirs` is added to `[project].dependencies` in the root `pyproject.toml`, pinned with
   `==` like the others, and `uv.lock` is regenerated (`uv lock`). Nothing in the repository shows
   what wheel it ships: the Coder checks, on the pinned version, that it ships a wheel for Linux,
   macOS and Windows (a pure-Python one would do), as `AGENTS.md` asks of a dependency, and the PR
-  records what it found; if it does not, the CR stops and reports. It is imported inside the function that
-  uses it, like the other heavy imports (adding it to `banned-module-level-imports` is allowed).
+  records what it found; if it does not, the CR stops and reports. It is imported inside the
+  function that uses it, like the other heavy imports (adding it to `banned-module-level-imports`
+  is allowed).
 - One folder (answer 6): `config_dir()` keeps `$CHANTIER_CONFIG_HOME` first, as it is, and takes
   the rest from `platformdirs.user_config_dir("chantier", appauthor=False, roaming=True)`,
   replacing its hand-written branches, as `AGENTS.md` asks of a dependency ("replaces
@@ -149,16 +221,17 @@ a modifier, on condition that the status bar says what to do:
   checks it on the pinned version and the PR records the result. If the folder it gives on the
   user's Windows is not today's `%APPDATA%\chantier`, the CR stops and reports (answer 6: nothing
   changes on Windows).
-- What that gives: Windows `%APPDATA%\chantier` (to check, above) and Linux `$XDG_CONFIG_HOME/chantier` or
-  `~/.config/chantier`, as today; macOS `~/Library/Application Support/chantier` instead of
-  `~/.config/chantier`. On macOS only, `profiles.json` is no longer found where it was: the user
-  runs `chantier login` again (answer 6). The CR moves no file. Nothing changes on Windows.
+- What that gives: Windows `%APPDATA%\chantier` (to check, above) and Linux
+  `$XDG_CONFIG_HOME/chantier` or `~/.config/chantier`, as today; macOS
+  `~/Library/Application Support/chantier` instead of `~/.config/chantier`. On macOS only,
+  `profiles.json` is no longer found where it was: the user runs `chantier login` again (answer
+  6). The CR moves no file. Nothing changes on Windows.
 - `config_dir()`'s `platform` and `environ` parameters, used by `test_the_config_folder`, keep a
   way to test each platform's rule; how, with `platformdirs`, is the Coder's. The test's Windows
   case follows the way `platformdirs` really resolves the folder (found above): it sets `APPDATA`
   only if that is what `platformdirs` reads, else it stands in for what it does read.
 
-### 7. The rules and docs that change
+### 8. The rules and docs that change
 
 - Root `AGENTS.md`, the `live` bullet ("it reads the server only ... writes nothing and messages
   no agent"): `live` writes one file, `live.json` in the user's chantier configuration folder,
@@ -176,52 +249,61 @@ a modifier, on condition that the status bar says what to do:
 - `clients/profiles.py`: `config_dir()`'s docstring states the new rule; the module docstring
   says the folder also holds `live.json` (written by `clients/tui/widths.py`).
 - `docs/boards.md`, "The live terminal view": "writes nothing" becomes "writes nothing but its
-  column widths"; a paragraph says the two borders that drag, which columns they size, the wheel,
-  the footer's mouse words, where `live.json` lives, when it is written, the refusal on a bad
-  file, that a narrow terminal draws narrower without changing the file, that `--once` reads no
-  `live.json` and writes nothing, and that on a terminal without mouse reporting nothing of this applies. The keys table
-  gains the mouse lines of the help. The `--once` capture does not change (`--once` draws the
-  defaults; `tui-resize-columns` regenerates it).
+  column widths"; a paragraph says the two borders that drag, which columns they size, their
+  minimums (20 and 30), the wheel, the footer's mouse words, that the mouse is turned on just
+  after the first screen (keys typed meanwhile are kept), where `live.json` lives, when it is
+  written, the refusal on a bad file, that a narrow terminal draws narrower without changing the
+  file and never touches a column kept under 28 (left) or 44 (right), that `--once` reads no
+  `live.json` and writes nothing, and that on a terminal without mouse reporting nothing of this
+  applies. The keys table gains the mouse lines of the help. The `--once` capture does not change
+  (`--once` draws the defaults; `tui-resize-columns` regenerates it).
 - No doc under `docs/` names `profiles.json`'s folder today; `docs/boards.md`'s paragraph above
   names it for `live.json`, with the macOS folder.
-- The `screen.py` and `view.py` module docstrings say the border drags, the wheel and the kept
-  widths.
+- The `screen.py` and `view.py` module docstrings say the border drags, the wheel, the kept
+  widths and when the mouse is turned on.
 
 ## Decisions of `02-answers.md`
 
 - Answer 1: the batch is a stack batch. This CR is the upper of the two stacked CRs; as the CR on
   top, it owes the local Windows run of the long gate `scenario` (`AGENTS.md`).
 - Answer 2: the owner's words are the source: resizing with the mouse and sizes kept in a JSON
-  file in the user's configuration folder found with `platformdirs`: sections 2, 5 and 6.
+  file in the user's configuration folder found with `platformdirs`: sections 2, 6 and 7.
 - Answer 3: split from `tui-resize-columns` and stacked on it: its wider defaults and its
-  narrow-terminal rule are its own; this CR builds on them (section 2) and changes neither.
+  narrow-terminal rule are its own; this CR builds on them (sections 2 and 3) and changes neither.
 - Answer 4: the mouse resizes the main columns (left, central, right), grabbed by either of the
   two existing panel borders where two columns meet; nothing new is drawn; the columns inside the
   central one are not resized with the mouse: section 2. Where `work/spec-before-split.md`
   differs (the Flow's Project and Who edges), this answer wins.
 - Answer 5: tracking on is accepted (a plain drag no longer selects, a link may need a modifier),
-  on two conditions: the status bar says what to do (section 4), and the main part's scrolling
-  keeps working directly with the wheel (section 3).
+  on two conditions: the status bar says what to do (section 5), and the main part's scrolling
+  keeps working directly with the wheel (section 4).
 - Answer 6: one configuration folder, computed by `platformdirs`, `$CHANTIER_CONFIG_HOME` still
   first; on macOS only `profiles.json` moves and `chantier login` is run again; nothing changes
-  on Windows: section 6.
+  on Windows: section 7.
+- Answer 7 (tui-mouse-Q4): a drag stops at 20 columns for the left column and 30 for the right
+  one, the defaults staying 42 and 44; `live.json` is refused under them: sections 2, 3 and 6.
+- Answer 8 (tui-mouse-Q5): live draws its first screen without waiting for any answer of the
+  terminal about the mouse; the mouse question comes after it, and tracking is turned on then if
+  the terminal handles it: section 1.
 - Header: spec critic yes (what the user sees, a new dependency, a rule of `AGENTS.md`).
 - The Chief of Staff's calls (in the brief): a bad `live.json` refuses the start with one line
-  (section 5); `--once` reads no `live.json`, writes nothing and draws the defaults (section 5);
+  (section 6); `--once` reads no `live.json`, writes nothing and draws the defaults (section 6);
   the Windows Terminal run must prove mouse support, else the CR stops and reports (section
   "Evidence").
-- The Chief of Staff's calls of 2026-11-27, answering this specification's questions: when the
-  footer lacks room, the mouse words give way first and the typed filter text stays visible
-  (section 4); a wheel event does nothing while the help is open or a filter is being typed
-  (section 3); on a terminal too narrow for a kept right column, the right column gives way
-  first, down to 44, before the left column (former Q2, section 2); an unknown key in `live.json`
-  is refused like any other wrong value (former Q3, section 5).
+- The Chief of Staff's calls of 2026-11-27, answering this specification's earlier questions:
+  when the footer lacks room, the mouse words give way first and the typed filter text stays
+  visible (section 5); a wheel event does nothing while the help is open or a filter is being
+  typed (section 4); on a terminal too narrow for a kept right column, the right column gives way
+  first, down to 44, before the left column (section 3); an unknown key in `live.json` is refused
+  like any other wrong value (section 6).
 
 ## Out of scope
 
 - Resizing the columns inside the Flow (Time, Ago, Project, Who, CR, Event), Ready's or Tasks'
   columns, or the boxes' heights (answer 4).
 - The wider defaults and the narrow-terminal rule: `tui-resize-columns`.
+- The XTGETTCAP query blessed sends when `Terminal()` is created, before the first draw, as
+  today: not about the mouse.
 - A keyboard way to resize, a reset key or a reset command (deleting `live.json` resets).
 - Moving `profiles.json` for macOS users (answer 6: they log in again).
 - The web board's columns.
@@ -237,11 +319,15 @@ a modifier, on condition that the status bar says what to do:
   - with no `live.json`, the screen draws the default widths, read from the drawn text of
     `screen.plain`, not from the constants;
   - the widths a `View` holds are the widths drawn;
+  - content first: through a stand-in terminal that records the order of calls, the first frame
+    is drawn before `does_mouse` or `mouse_enabled` is called; the first frame's footer has no
+    mouse words and the next redraw's has them; keys the stand-in holds from before tracking is
+    turned on are handled, in order, after it;
   - parametrized over the four borders (each of the two pairs, either border): a simulated
     press-drag-release through the stand-in terminal's mouse events moves that column's width by
     the drag's distance, redraws, and writes `live.json` once, on release, with both keys; a key,
     a wheel event and a click elsewhere write nothing and change no width;
-  - a drag is stopped at each bound (Q1, and the central column's minimum);
+  - a drag is stopped at 20 (left) and 30 (right), and at the central column's minimum;
   - with the help open or a panel maximized, a press on a border's position resizes nothing;
   - a wheel event up and down moves the active panel as `up` and `down` do; with the help open or
     a filter being typed, it changes nothing;
@@ -249,20 +335,24 @@ a modifier, on condition that the status bar says what to do:
     stand-in whose `does_mouse` is false: no tracking turned on, footer as today); on a footer too
     narrow for both, the typed filter and `filter: <text>` stay visible and the mouse words are
     cut;
-  - read: a file with both keys gives those widths; a missing key gives its default; a file that
-    is not JSON, not an object, holds a value out of bounds or not an integer, or holds a key
-    other than `left` and `right` makes `live`
-    exit with `EXIT_PRECONDITION` and the one line naming the file and the fault, before any
-    connection;
+  - read: a file with both keys gives those widths; `left` 20 and `right` 30 are accepted; a
+    missing key gives its default; a file that is not JSON, not an object, holds a value that is
+    not an integer, a `left` of 19 or a `right` of 29, or a key other than `left` and `right` makes
+    `live` exit with `EXIT_PRECONDITION` and the one line naming the file and the fault, before
+    any connection;
   - `--once` with a `live.json` holding other widths draws the defaults and leaves the file
     unchanged;
-  - a terminal narrower than the kept widths draws narrower and leaves the file unchanged; with a
-    kept right column wider than 44, the right column gives way first, down to 44, before the left
-    column;
+  - narrow terminal, parametrized over kept widths and terminal widths: a terminal narrower than
+    the kept widths draws narrower and leaves the file unchanged; with a kept right column wider
+    than 44, the right column gives way first, down to 44, before the left column; with `left` 22
+    and `right` 30 kept, both are drawn at 22 and 30 at every width where the left column is
+    drawn (never widened to 28 or 44, never narrowed), Who and Project close up before the left
+    column goes, and the left column is drawn down to the lower threshold `min(L, 28)` and
+    `min(R, 44)` give (102 columns with one project; 101 does not draw it);
   - the existing panel tests (keys, Tab order, settle) pass unchanged.
 - `test_the_config_folder` (`test_remote_cli.py`) covers the new rule: `$CHANTIER_CONFIG_HOME`
   first; Windows and Linux (with and without `XDG_CONFIG_HOME`) give today's folders, the Windows
-  case built on the way `platformdirs` really resolves the folder (section 6); macOS gives
+  case built on the way `platformdirs` really resolves the folder (section 7); macOS gives
   `~/Library/Application Support/chantier`. The PR records what `platformdirs` reads on Windows
   and what wheel the pinned version ships.
 - `just check` and `just eval-dry-run` (a change under the CLI's `src/`); the pipeline's long gate
@@ -271,20 +361,37 @@ a modifier, on condition that the status bar says what to do:
 - Mouse support in Windows Terminal, proved by hand, the Chief of Staff's condition: `chantier
   live` in Windows Terminal (PowerShell) on a running board (the footer's mouse words prove
   nothing there: `does_mouse` is true on any styled Windows tty, section 1); the PR records which
-  of blessed's two paths ran, the DEC private modes or the console's own mouse input; a drag of
-  each of the two borders (either side), the wheel
-  scrolling the Flow, `q`, a second start showing the widths kept; then the terminal is given back
-  (typing, selecting text and the wheel work as before after `q`); and the words the footer gives
-  for selecting text and opening a Ready PR link are tried and work. The PR's Deliverables carry
-  one screenshot of the real terminal after the drags, showing no username and no home folder
-  (floor rule 8; `live.json`'s path is not on it). If mouse support does not work there (no
-  tracking, no drag events, the terminal not given back), the CR stops and reports, with no other
-  gate or substitute. The same run on Linux or macOS is named in the PR as done or not done.
+  of blessed's two paths ran, the DEC private modes or the console's own mouse input; the first
+  screen shows with no wait felt before it; keys typed at once on start (for instance `?` then a
+  key, or Tab) are all handled, in order; a drag of each of the two borders (either side), the
+  wheel scrolling the Flow, `q`, a second start showing the widths kept; then the terminal is
+  given back (typing, selecting text and the wheel work as before after `q`); and the words the
+  footer gives for selecting text and opening a Ready PR link are tried and work. The PR's
+  Deliverables carry one screenshot of the real terminal after the drags, showing no username and
+  no home folder (floor rule 8; `live.json`'s path is not on it). If mouse support does not work
+  there (no tracking, no drag events, the terminal not given back), the CR stops and reports,
+  with no other gate or substitute. The same run on Linux or macOS (the first screen, the keys
+  typed at start, the drags, the terminal given back) is named in the PR as done or not done.
 
 ## Questions for the Chief of Staff
 
-- **Q1, a column's minimum width.** A drag stops at a minimum, and `live.json` is refused below
-  it. Which? Suggested: today's widths, the left column 28 (the floor of `tui-resize-columns`'
-  narrow rule) and the right column 44 (`RIGHT_W`), so no column the user drags is narrower than
-  today; the maximum is where the central column reaches its minimum. Alternative: a smaller floor
-  (the boxes' titles and table headers plus one).
+- **Q1, the wait on a terminal that answers nothing.** After the first screen, the mouse question
+  holds the loop until the terminal answers; on a terminal that answers nothing, not even the
+  cursor position (a pexpect script, some `ssh -t` relays), that is up to blessed's timeout for
+  XTVERSION plus one DECRQM, 10 s with blessed's default of 5 s each, keys kept but not handled
+  and the screen not redrawn meanwhile. Suggested: keep blessed's default, which the user can set
+  with `BLESSED_QUERY_TIMEOUT_SECONDS`; such a terminal already waits up to 5 s today when
+  `Terminal()` is created (XTGETTCAP), and a shorter timeout could turn the mouse off on a slow
+  link to a terminal that does answer. Alternative: `live` passes its own shorter timeout to
+  `does_mouse` and `mouse_enabled`.
+- **Q2, the right column without the left column.** On a terminal too narrow for the left
+  column, with a right column kept over 44: once Who and Project are back to their defaults, does
+  the right column take back the columns left over toward its kept width, or stay at 44 and leave
+  them to Event? Suggested: it takes them back, after Project and Who, the reverse of the order in
+  which they gave way (section 3), so the kept width shows wherever it fits.
+- **Q3, a drag on a terminal already too narrow.** When the terminal draws a column narrower than
+  kept (section 3), a drag of the other border could make the narrow rule shrink the column on
+  the far side or leave the dragged border behind the pointer. Suggested: during a drag, the
+  column on the other side keeps the width drawn, the dragged border follows the pointer until a
+  bound (its minimum, or the central column's minimum), and the release keeps the width drawn at
+  that moment.
