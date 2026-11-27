@@ -1,0 +1,500 @@
+import { readPreviewBootSettings } from "../../core/configuration/previewConfiguration";
+
+/**
+ * The list items the TOC never lists: the generated `[TOC]` list, the footnotes, the lists in a
+ * table cell and those in a hidden element (a tab panel not shown).
+ */
+const LIST_ITEM_EXCLUDED = "nav.okf-toc, section.footnotes, table, [hidden]";
+
+/** The most characters of a list item's first line the TOC shows; a longer line ends with "…". */
+export const LIST_ITEM_TEXT_LIMIT = 80;
+
+// @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-138
+/**
+ * The TOC text of a list item: the first line of its first paragraph (or of its own text in a
+ * tight list), white space collapsed, cut to {@link LIST_ITEM_TEXT_LIMIT} characters.
+ */
+function listItemText(item: Element): string {
+  const first = item.children?.[0];
+  const source = first && first.tagName.toUpperCase() === "P" ? first : item;
+  const line = ((source.textContent ?? "").trimStart().split("\n")[0] ?? "").replace(/\s+/gu, " ").trim();
+  const characters = Array.from(line);
+  return characters.length > LIST_ITEM_TEXT_LIMIT
+    ? characters.slice(0, LIST_ITEM_TEXT_LIMIT - 1).join("").trimEnd() + "\u2026"
+    : line;
+}
+
+export interface TocColumnContext {
+  documentId: string;
+  revision: number;
+  requestId: number;
+  initialViewPreferences?: { toc?: boolean };
+  /** The `preview.listItemsInToc` boot setting, read with the page defaults. */
+  listItemsInToc?: unknown;
+}
+
+/**
+ * TOC column: a right-hand column below the toolbar that lists the h1-h4 headings of the content.
+ * The column is runtime UI appended to the body (never part of the page shell) and is
+ * built only while it is open. `scrollToHeading` reveals a heading at the reading line; `onChange`
+ * runs after the column opened or closed, because that changes the available width. CSS reserves
+ * the width on wide panes. On a narrow pane the same open state shows a rail instead: a thin
+ * strip on the right with one tick per heading (the section at the reading line highlighted). Hover
+ * or focus on the rail opens the column as an overlay above the text; it closes 300 ms after the
+ * pointer and the focus have left, or on Escape. A tick goes to its heading. CSS decides which of
+ * the two shows; the script builds both whenever the TOC is open. Parent entries fold with a twisty (the folded
+ * keys, level + occurrence + text, live in the webview state and survive rebuilds). `track` marks
+ * the entry of the section at the reading line from heading tops cached per rebuild; `remeasure`
+ * refreshes those tops after a layout change (zoom, width mode, resize, content patch).
+ */
+export function installTocColumn(
+  document: Document,
+  window: Window & typeof globalThis,
+  vscode: {
+    postMessage(message: unknown): void;
+    getState?(): unknown;
+    setState?(state: unknown): void;
+  },
+  context: TocColumnContext,
+  scrollToHeading: (heading: Element) => void,
+  onChange: () => void,
+  readingLine: () => number = () => 0,
+): {
+  open(): boolean;
+  refresh(): void;
+  rebuild(): void;
+  layout(): void;
+  track(): void;
+  remeasure(): void;
+  collapsed(): string[];
+} {
+  const contentId = "sphinx-myst-preview-content";
+  const headingSelector = "h1, h2, h3, h4";
+  // `preview.listItemsInToc`, read once: a change reloads the page (a startup setting).
+  const listItems = readPreviewBootSettings(context).listItemsInToc;
+  const excluded = "[data-okf-properties], .admonition, div[class*=\"admonition-\"], "
+    + "[data-sphinx-preview-block-editor], [data-sphinx-preview-sticky-headings]";
+  const button = document.querySelector("[data-sphinx-preview-toc-toggle]");
+  const saved = vscode.getState?.() as { viewToc?: unknown; tocCollapsed?: unknown } | undefined;
+  // @implements_req SwRS-MDOKFSTUDIO-LIFE-170
+  let open = typeof saved?.viewToc === "boolean"
+    ? saved.viewToc
+    : context.initialViewPreferences?.toc === true;
+
+  const nav = document.createElement("nav");
+  nav.setAttribute("data-sphinx-preview-toc", "");
+  nav.setAttribute("aria-label", "Table of contents");
+  document.body.appendChild(nav);
+  // The rail is built the first time the TOC is open, so a page that never opens it has none.
+  let rail: HTMLElement | undefined;
+  // One slot per entry, so that an entry's index finds its tick; a list item has none.
+  let ticks: Array<HTMLElement | undefined> = [];
+  let overlayOpen = false;
+  let pointerInside = false;
+  let focusInside = false;
+  let closeTimer: unknown;
+  const CLOSE_DELAY_MS = 300;
+  let list: HTMLElement | undefined;
+  let dirty = true;
+  let scheduled = false;
+
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-037
+  const layout = (): void => {
+    const toolbar = document.querySelector("[data-sphinx-preview-toolbar]");
+    const bounds = toolbar?.getBoundingClientRect?.();
+    const bottom = bounds && Number.isFinite(bounds.bottom) ? Math.max(0, bounds.bottom) : 0;
+    nav.style.setProperty("--sphinx-preview-toc-top", bottom + 8 + "px");
+    rail?.style.setProperty("--sphinx-preview-toc-top", bottom + 8 + "px");
+  };
+
+  const setOverlay = (value: boolean): void => {
+    overlayOpen = value;
+    if (value) nav.setAttribute("data-sphinx-preview-toc-overlay", "open");
+    else nav.removeAttribute("data-sphinx-preview-toc-overlay");
+  };
+  const cancelClose = (): void => {
+    if (closeTimer !== undefined) window.clearTimeout?.(closeTimer as number);
+    closeTimer = undefined;
+  };
+  const scheduleClose = (): void => {
+    cancelClose();
+    if (pointerInside || focusInside) return;
+    closeTimer = window.setTimeout(() => {
+      closeTimer = undefined;
+      if (!pointerInside && !focusInside) setOverlay(false);
+    }, CLOSE_DELAY_MS);
+  };
+  const enter = (): void => {
+    pointerInside = true;
+    cancelClose();
+    if (open) setOverlay(true);
+  };
+  const leave = (): void => {
+    pointerInside = false;
+    scheduleClose();
+  };
+  const focusEnter = (): void => {
+    focusInside = true;
+    cancelClose();
+    if (open) setOverlay(true);
+  };
+  const focusLeave = (): void => {
+    focusInside = false;
+    scheduleClose();
+  };
+  const closeNow = (): void => {
+    cancelClose();
+    pointerInside = false;
+    focusInside = false;
+    setOverlay(false);
+  };
+  const ensureRail = (): HTMLElement => {
+    if (rail) return rail;
+    const made = document.createElement("div");
+    rail = made;
+    made.setAttribute("data-sphinx-preview-toc-rail", "");
+    made.setAttribute("role", "group");
+    made.setAttribute("tabindex", "0");
+    made.setAttribute("aria-label", "Table of contents rail");
+    document.body.appendChild(made);
+    for (const surface of [made, nav]) {
+      surface.addEventListener("mouseenter", enter);
+      surface.addEventListener("mouseleave", leave);
+      surface.addEventListener("focusin", focusEnter);
+      surface.addEventListener("focusout", focusLeave);
+    }
+    return made;
+  };
+  // Escape closes the overlay when it comes from the overlay, from the rail or from no focused
+  // element (the pointer alone can have opened it). A key typed in the text or in a field, or
+  // already consumed by another handler, is not ours: it stays with its owner. The focus goes back
+  // to the rail only when it was inside.
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-037
+  window.addEventListener?.("keydown", (event) => {
+    const key = event as KeyboardEvent;
+    if (key.key !== "Escape" || !overlayOpen || key.defaultPrevented) return;
+    const target = key.target as Element | null | undefined;
+    const unfocused = !target || target === document.body || target === document.documentElement;
+    if (!unfocused && !target.closest?.("[data-sphinx-preview-toc], [data-sphinx-preview-toc-rail]")) return;
+    event.preventDefault?.();
+    const hadFocus = focusInside;
+    closeNow();
+    if (hadFocus) rail?.focus?.();
+  });
+
+  const headingText = (heading: Element): string => {
+    // A comment chip and its hidden body are not part of the heading's wording.
+    let source: Element = heading;
+    if (typeof heading.cloneNode === "function" && heading.querySelector?.(".okf-comment")) {
+      source = heading.cloneNode(true) as Element;
+      source.querySelectorAll?.(".okf-comment").forEach((comment) => comment.remove());
+    }
+    let text = source.textContent ?? "";
+    const permalink = source.querySelector?.("a.headerlink, .headerlink");
+    const glyph = permalink?.textContent;
+    if (glyph) text = text.split(glyph).join("");
+    return text.replace(/\s+/gu, " ").trim();
+  };
+
+  interface Entry {
+    heading: Element;
+    level: number;
+    text: string;
+    key: string;
+    /** A list item, not a heading: it gets no rail tick. */
+    listItem?: boolean;
+    item: HTMLElement;
+    target: HTMLElement;
+    twisty?: HTMLElement;
+    parent: number;
+    top: number;
+  }
+  let entries: Entry[] = [];
+  let represent: number[] = [];
+  let shown = -1;
+  let tickShown = -1;
+  const collapsedKeys = new Set<string>(
+    Array.isArray(saved?.tocCollapsed)
+      ? (saved.tocCollapsed as unknown[]).filter((key): key is string => typeof key === "string")
+      : [],
+  );
+
+  type Found = { heading: Element; level: number; text: string; key: string; listItem?: boolean };
+
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-040
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-138
+  // With `preview.listItemsInToc` on, an item of a top-level list (a list that is not inside
+  // another list item) is listed by its first line, cut to LIST_ITEM_TEXT_LIMIT characters, one
+  // level below the heading before it (level 1 before any heading). An item whose first line has
+  // no letter or digit has no wording to show and is not listed.
+  const collect = (): Found[] => {
+    const content = document.getElementById(contentId);
+    const found: Found[] = [];
+    const seen = new Map<string, number>();
+    const selector = listItems ? headingSelector + ", li" : headingSelector;
+    let headingLevel = 0;
+    for (const element of Array.from(content?.querySelectorAll(selector) ?? [])) {
+      if (element.closest?.(excluded)) continue;
+      let level: number;
+      let text: string;
+      let listItem = false;
+      if (element.tagName.toUpperCase() === "LI") {
+        if (element.parentElement?.closest?.("li") || element.closest?.(LIST_ITEM_EXCLUDED)) continue;
+        text = listItemText(element);
+        if (!/[\p{L}\p{N}]/u.test(text)) continue;
+        level = headingLevel + 1;
+        listItem = true;
+      } else {
+        text = headingText(element);
+        if (!text) continue;
+        level = Number(element.tagName.slice(1));
+        headingLevel = level;
+      }
+      const base = level + "|" + text;
+      const occurrence = seen.get(base) ?? 0;
+      seen.set(base, occurrence + 1);
+      found.push({ heading: element, level, text, key: base + "|" + occurrence, ...(listItem ? { listItem } : {}) });
+    }
+    return found;
+  };
+
+  const scrollTop = (): number => (Number.isFinite(window.scrollY) ? window.scrollY : 0);
+
+  const measureTops = (): void => {
+    const offset = scrollTop();
+    for (const entry of entries) {
+      const top = entry.heading.getBoundingClientRect?.().top;
+      entry.top = (Number.isFinite(top) ? top : 0) + offset;
+    }
+  };
+
+  const keepVisible = (item: HTMLElement): void => {
+    const area = nav.getBoundingClientRect?.();
+    const box = item.getBoundingClientRect?.();
+    if (!area || !box || !Number.isFinite(area.top) || !Number.isFinite(box.top)) return;
+    if (box.bottom > area.bottom) nav.scrollTop += box.bottom - area.bottom;
+    else if (box.top < area.top) nav.scrollTop -= area.top - box.top;
+  };
+
+  // The tick of entry `index`: a list item has none, so it shows the tick of its section.
+  const tickFor = (index: number): HTMLElement | undefined => {
+    for (let at = index; at >= 0; at -= 1) {
+      const tick = ticks[at];
+      if (tick) return tick;
+    }
+    return undefined;
+  };
+
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-045
+  // Marks the entry of the section at the reading line from the cached tops; no layout read.
+  const track = (force = false): void => {
+    if (!open || entries.length === 0) return;
+    const line = scrollTop() + readingLine();
+    let current = -1;
+    for (let index = 0; index < entries.length; index += 1) {
+      // 1 px of tolerance: a heading revealed at the reading line can sit a fraction below it.
+      if (entries[index].top <= line + 1) current = index;
+      else break;
+    }
+    const next = current < 0 ? -1 : represent[current];
+    if (next === shown && current === tickShown && !force) return;
+    const previousTick = tickShown >= 0 ? tickFor(tickShown) : undefined;
+    if (previousTick) {
+      previousTick.removeAttribute("aria-current");
+      previousTick.removeAttribute("data-sphinx-preview-toc-tick-current");
+    }
+    tickShown = current;
+    const currentTick = current >= 0 ? tickFor(current) : undefined;
+    if (currentTick) {
+      currentTick.setAttribute("aria-current", "location");
+      currentTick.setAttribute("data-sphinx-preview-toc-tick-current", "");
+    }
+    if (shown >= 0 && entries[shown]) {
+      entries[shown].target.removeAttribute("aria-current");
+      entries[shown].item.removeAttribute("data-sphinx-preview-toc-current");
+    }
+    shown = next;
+    if (next < 0) return;
+    entries[next].target.setAttribute("aria-current", "location");
+    entries[next].item.setAttribute("data-sphinx-preview-toc-current", "");
+    keepVisible(entries[next].item);
+  };
+
+  const applyCollapse = (): void => {
+    const hidden: boolean[] = [];
+    represent = [];
+    entries.forEach((entry, index) => {
+      const parent = entry.parent;
+      hidden[index] = parent >= 0 && (collapsedKeys.has(entries[parent].key) || hidden[parent]);
+      represent[index] = hidden[index]
+        ? (hidden[parent] ? represent[parent] : parent)
+        : index;
+      if (hidden[index]) entry.item.setAttribute("hidden", "");
+      else entry.item.removeAttribute("hidden");
+      const folded = collapsedKeys.has(entry.key);
+      entry.twisty?.setAttribute("aria-expanded", folded ? "false" : "true");
+      entry.twisty?.setAttribute("aria-label", (folded ? "Unfold " : "Fold ") + entry.text);
+    });
+    track(true);
+  };
+
+  const rebuild = (): void => {
+    dirty = false;
+    const found = collect();
+    list?.remove();
+    for (const tick of ticks) tick?.remove();
+    ticks = [];
+    tickShown = -1;
+    const next = document.createElement("ol");
+    if (found.length === 0) {
+      const empty = document.createElement("p");
+      empty.setAttribute("data-sphinx-preview-toc-empty", "");
+      empty.textContent = "No headings";
+      next.appendChild(empty);
+    }
+    const shallowest = Math.min(...found.map((entry) => entry.level));
+    entries = [];
+    shown = -1;
+    for (const [position, entry] of found.entries()) {
+      const item = document.createElement("li");
+      item.setAttribute("data-sphinx-preview-toc-entry", "");
+      item.setAttribute("data-level", String(entry.level));
+      item.style.setProperty("--sphinx-preview-toc-depth", String(entry.level - shallowest));
+      // A list item is always a leaf: a heading that follows it, even a deeper one, belongs to
+      // the heading before the entry.
+      let parent = entries.length - 1;
+      while (parent >= 0 && (entries[parent].level >= entry.level || entries[parent].listItem)) {
+        parent = entries[parent].parent;
+      }
+      const key = entry.key;
+      const hasChildren = !entry.listItem && (found[position + 1]?.level ?? 0) > entry.level;
+      let twisty: HTMLElement | undefined;
+      if (hasChildren) {
+        twisty = document.createElement("button");
+        twisty.setAttribute("type", "button");
+        twisty.setAttribute("data-sphinx-preview-toc-twisty", "");
+        twisty.setAttribute("aria-label", "Fold " + entry.text);
+        twisty.addEventListener("click", (event) => {
+          event.preventDefault?.();
+          if (collapsedKeys.has(key)) collapsedKeys.delete(key);
+          else collapsedKeys.add(key);
+          const state = vscode.getState?.();
+          vscode.setState?.({
+            ...(state && typeof state === "object" ? state : {}),
+            tocCollapsed: Array.from(collapsedKeys),
+          });
+          applyCollapse();
+        });
+        item.setAttribute("data-sphinx-preview-toc-parent", "");
+        item.appendChild(twisty);
+      }
+      const target = document.createElement("button");
+      target.setAttribute("type", "button");
+      target.textContent = entry.text;
+      target.addEventListener("click", (event) => {
+        goTo(event);
+        // On a narrow pane the overlay has done its job; on a wide pane it is not an overlay.
+        if (overlayOpen) closeNow();
+      });
+      item.appendChild(target);
+      const goTo = (event: Event): void => {
+        event.preventDefault?.();
+        // Resolved at click time: a content patch may have replaced the heading since the build.
+        const live = collect().find((candidate) => candidate.key === entry.key);
+        scrollToHeading(live ? live.heading : entry.heading);
+      };
+      if (entry.listItem) {
+        // The rail shows the sections only: hundreds of list items would hide them.
+        ticks.push(undefined);
+      } else {
+        const tick = document.createElement("button");
+        tick.setAttribute("type", "button");
+        tick.setAttribute("data-sphinx-preview-toc-tick", "");
+        tick.setAttribute("data-level", String(entry.level));
+        tick.setAttribute("aria-label", entry.text);
+        tick.setAttribute("title", entry.text);
+        tick.style.setProperty("--sphinx-preview-toc-depth", String(entry.level - shallowest));
+        tick.addEventListener("click", goTo);
+        ensureRail().appendChild(tick);
+        ticks.push(tick);
+      }
+      entries.push({ ...entry, item, target, twisty, parent, top: 0 });
+      next.appendChild(item);
+    }
+    nav.appendChild(next);
+    list = next;
+    layout();
+    measureTops();
+    applyCollapse();
+  };
+
+  const remeasure = (): void => {
+    if (!open || dirty || entries.length === 0) return;
+    measureTops();
+    track();
+  };
+
+  const refresh = (): void => {
+    dirty = true;
+    if (!open || scheduled) return;
+    const run = (): void => {
+      scheduled = false;
+      if (open && dirty) rebuild();
+    };
+    scheduled = true;
+    if (typeof window.requestAnimationFrame === "function") window.requestAnimationFrame(run);
+    else if (typeof window.setTimeout === "function") window.setTimeout(run, 0);
+    else run();
+  };
+
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-033
+  const apply = (): void => {
+    document.documentElement.setAttribute("data-sphinx-preview-toc", open ? "open" : "closed");
+    if (button) {
+      const label = open ? "Hide table of contents" : "Show table of contents";
+      button.setAttribute("aria-pressed", open ? "true" : "false");
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
+      button.setAttribute("data-tooltip", label);
+    }
+    if (open) {
+      ensureRail();
+      layout();
+      if (dirty) refresh();
+    } else {
+      closeNow();
+    }
+  };
+
+  apply();
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-033
+  button?.addEventListener("click", () => {
+    open = !open;
+    apply();
+    const state = vscode.getState?.();
+    vscode.setState?.({
+      ...(state && typeof state === "object" ? state : {}),
+      viewToc: open,
+    });
+    // @implements_req SwRS-MDOKFSTUDIO-LIFE-169
+    vscode.postMessage({
+      type: "previewViewPreferenceChanged",
+      documentId: context.documentId,
+      revision: context.revision,
+      requestId: context.requestId,
+      preference: "toc",
+      value: open,
+    });
+    onChange();
+  });
+  window.addEventListener?.("resize", layout, { passive: true });
+  return {
+    open: () => open,
+    refresh,
+    rebuild,
+    layout,
+    track: () => track(),
+    remeasure,
+    collapsed: () => Array.from(collapsedKeys),
+  };
+}

@@ -1,0 +1,401 @@
+/**
+ * The hooks the integration tests use (`test/integration/`, through `bundle/extension`) and the S1
+ * host harness (`test/host/`). They read the current activation, the one documented module-level
+ * state of the extension: `src/extension.ts` sets it in `activate` and clears it in `deactivate`.
+ * The product never calls these functions.
+ */
+
+import type * as vscode from "vscode";
+
+import type { BuildQueueState } from "../core/render/buildQueue";
+import type { CommentThread } from "../core/comments/commentModel";
+import type { PaletteMode } from "../core/configuration/editingConfiguration";
+import type { HostDocument } from "../host-api/documentStore";
+import type { GroupFocusMove } from "./groupFocus";
+import type { PreviewStatus, PreviewWebviewResult } from "../session/webview";
+import type { RenderResult } from "../core/render/renderPipeline";
+import { targetChoices, type HostListAnswer } from "../session/features/hostRequests";
+import type { PreviewSession } from "../session/previewSession";
+import type { PreviewThemeMode } from "../core/state/previewTheme";
+import type { StudioActivation } from "./activation";
+import type { SelectionRecord } from "./editorJumps";
+import type { VscodePreviewPanel } from "./previewPanel";
+
+/**
+ * The activation the hooks read: set by `activate`, cleared by `deactivate`. It is the only
+ * module-level state left; the extension holds one activation at a time.
+ */
+let current: StudioActivation | undefined;
+
+/** Records the activation the hooks read (`undefined` after `deactivate`). */
+export function setCurrentActivation(activation: StudioActivation | undefined): void {
+  current = activation;
+}
+
+/** The document a test pinned as "the active preview" (see {@link pinPreviewForTests}). */
+let pinnedDocument: string | undefined;
+
+function activePreview(): PreviewSession | undefined {
+  if (pinnedDocument !== undefined) {
+    const pinned = current?.manager.latest((candidate) => candidate.documentUri === pinnedDocument);
+    if (pinned) return pinned;
+  }
+  return current?.manager.active;
+}
+
+/**
+ * Makes the preview of `documentUri` (the latest session of that document) the one the test hooks
+ * read and message, instead of the session created last; `undefined` goes back to that default.
+ * The manager's own notion of "active" is the last session created, not the tab the reader sees.
+ */
+export function pinPreviewForTests(documentUri: string | undefined): void {
+  pinnedDocument = documentUri;
+}
+
+function webviewPanelOf(preview: PreviewSession): vscode.WebviewPanel {
+  return (preview.panel as VscodePreviewPanel).panel;
+}
+
+/** The `(label)=` targets of an open document, as the palette's Reference list shows them. */
+export function listDocumentTargetsForTests(documentUri: string): HostListAnswer & { ok: true } {
+  const document = current?.host.documents.get(documentUri);
+  return targetChoices(document?.getText() ?? "");
+}
+
+/** The citation keys of the workspace's `.bib` files (bounded scan), for the palette's Citation list. */
+export async function listCitationKeysForTests(documentUri: string): Promise<{
+  items: Array<{ key: string; title?: string }>;
+}> {
+  if (!current) return { items: [] };
+  const filePath = documentUri.startsWith("file:") ? current.host.documents.pathOf(documentUri) : undefined;
+  const { items } = await current.manager.requests.listCitations(filePath);
+  return { items };
+}
+
+/** What the integration tests read of the active preview. */
+export function getActivePreviewForTests():
+  | {
+    html: string;
+    documentUri: string;
+    diagnostics: PreviewWebviewResult["diagnostics"];
+    phase: BuildQueueState<RenderResult, HostDocument>["phase"];
+    status: PreviewStatus;
+    requestId?: number;
+    /** The request id of the stage the page shows: it trails `requestId` until the show of a render ends. */
+    shownRequestId?: number;
+    documentVersion?: number;
+    outputDirectory?: string;
+    lastSourceScrollLine?: number;
+    lastRevealedSourceLine?: number;
+    /** The line marker the page was asked to draw (the jump marker of the side preview), until it is removed. */
+    markedLine?: { line: number; documentId: string };
+    sourceLine?: number;
+    scrollTop?: number;
+    descriptionsCollapsed?: boolean;
+    scrollPreviewWithEditor: boolean;
+    scrollEditorWithPreview: boolean;
+    findWidgetEnabled: boolean;
+    localResourceRoots: readonly vscode.Uri[];
+    restrictedReads: boolean;
+    restorePreviewStateCalls: number;
+    htmlAssignments: number;
+    renderedStages: number;
+    /** How many watcher events for the active document were seen (a save is one). */
+    activePathChanges: number;
+    /** How many events the per-target watchers of linked files delivered. */
+    linkedTargetEvents: number;
+    /**
+     * The linked targets the preview watches, with the state of the direct watch and the events
+     * each source delivered: what a wait for a watcher event prints when it fails.
+     */
+    linkedTargets: {
+      target: string;
+      direct: { status: "watching" | "failed" | "closed"; error?: string; events: number };
+      vscodeEvents: number;
+    }[];
+    /** How many renders and deferred updates were applied as an in-place content patch. */
+    contentPatches: number;
+    /** The last content patches (at most 10), with the source line ranges they asked to glow. */
+    updateGlowPatches: { fromVersion: number; toVersion: number; ranges: { start: number; end: number }[] }[];
+    /** The preview.incrementalUpdates setting as the preview currently holds it. */
+    incrementalUpdates: boolean;
+    /** True once the loaded webview document reported ready for the current stage. */
+    webviewReady: boolean;
+    /**
+     * True while the host still holds a timer that will update the page of the current render (the
+     * link check, the properties refresh, an in-place patch waiting for its acknowledgement): a
+     * page that opens an editor now can still be patched under it.
+     */
+    deferredWorkPending: boolean;
+    /** Seq of the last properties table posted that the page may not show yet (see PageLoadState). */
+    propertiesTableAwaited?: number;
+    /** Whether the panel is the active editor of the active group (`WebviewPanel.active`). */
+    panelActive: boolean;
+    pendingOverlayVisible: boolean;
+    pendingOverlayShown: number;
+    incomingChanges: { posts: number; last?: { enabled: boolean; ranges: { start: number; end: number }[] } };
+    /** Side-by-side diff baselines posted to the page (CR 147). */
+    baseline: { posts: number; last?: { hunks: number; htmlLength: number } };
+    /** Review comment threads posted to the page (T42). */
+    comments: { posts: number; last?: Array<CommentThread & { orphaned?: boolean }>; result?: { ok: boolean; reason?: string; kind: string; threadId?: string } };
+    /** True while the host holds an open block edit (its final save has not completed). */
+    blockEditOpen: boolean;
+    /** True while the page has an inline editor open that page updates wait for (STAB-03). */
+    pageEditorOpen: boolean;
+    /** Navigation history of the panel and the last state posted to the page. */
+    history: {
+      entries: { uri: string; line: number }[];
+      index: number;
+      posted?: { canBack: boolean; canForward: boolean };
+    };
+  }
+  | undefined {
+  const preview = activePreview();
+  if (!current || !preview) {
+    return undefined;
+  }
+  const state = preview.queue.getState();
+  const panel = webviewPanelOf(preview);
+  const { probe } = preview;
+  return {
+    html: preview.webview.html,
+    documentUri: preview.documentUri,
+    diagnostics: preview.webview.diagnostics,
+    phase: state.phase,
+    status: preview.status,
+    requestId: state.request?.requestId,
+    shownRequestId: preview.stage?.requestId,
+    documentVersion: state.request?.documentVersion,
+    outputDirectory: preview.stage?.outputDirectory,
+    lastSourceScrollLine: preview.scroll.lastSourceScrollLine,
+    lastRevealedSourceLine: preview.scroll.lastRevealedSourceLine,
+    markedLine: preview.scroll.markedLine,
+    sourceLine: preview.state?.sourceLine,
+    scrollTop: preview.state?.scrollTop,
+    descriptionsCollapsed: preview.state?.descriptionsCollapsed,
+    scrollPreviewWithEditor: preview.configuration.scrollPreviewWithEditor,
+    scrollEditorWithPreview: preview.configuration.scrollEditorWithPreview,
+    findWidgetEnabled: panel.options.enableFindWidget === true,
+    localResourceRoots: panel.webview.options.localResourceRoots ?? [],
+    restrictedReads: preview.restrictedReads,
+    restorePreviewStateCalls: probe.restoreCalls,
+    htmlAssignments: probe.htmlAssignments,
+    renderedStages: probe.renderedStages,
+    activePathChanges: probe.activePathChanges,
+    linkedTargetEvents: probe.linkedTargetEvents,
+    linkedTargets: [...preview.frontmatter.linkedTargetWatchers ?? []].map(([target, watcher]) => ({
+      target,
+      direct: watcher.direct.state(),
+      vscodeEvents: watcher.vscodeEvents,
+    })),
+    contentPatches: probe.contentPatches,
+    updateGlowPatches: probe.updateGlowPatches.map((patch) => ({ ...patch, ranges: [...patch.ranges] })),
+    incrementalUpdates: preview.configuration.incrementalUpdates,
+    webviewReady: preview.stage !== undefined
+      && preview.page.readyRequestId === preview.stage.requestId,
+    deferredWorkPending: preview.frontmatter.linkEnrichmentTimer !== undefined
+      || preview.frontmatter.refreshTimer !== undefined
+      || preview.page.contentPatchTimer !== undefined
+      || preview.overlay.timer !== undefined,
+    propertiesTableAwaited: preview.page.propertiesTableAwaited,
+    panelActive: preview.panel.active,
+    pendingOverlayVisible: preview.overlay.visible,
+    pendingOverlayShown: probe.pendingOverlayShown,
+    incomingChanges: { posts: probe.incomingPosts, last: probe.lastIncomingChanges },
+    baseline: { posts: probe.baselinePosts, last: probe.lastBaseline },
+    comments: { posts: probe.commentPosts, last: probe.lastComments, result: probe.lastCommentResult },
+    blockEditOpen: preview.edits.active !== undefined,
+    pageEditorOpen: preview.edits.lock.pageEditorOpen,
+    history: {
+      ...current.manager.history.historyOf(preview).snapshot(),
+      posted: probe.lastHistoryState,
+    },
+  };
+}
+
+/** True once the first Studio preview started the engine warm-up, the watchers and the diagnostics. */
+export function servicesStartedForTests(): boolean {
+  return current?.servicesStarted ?? false;
+}
+
+/** The edit mode the workspace remembers for the next preview (`undefined`: never stored). */
+export function storedEditModeForTests(): boolean | undefined {
+  const stored = current?.manager.choices.editMode;
+  return typeof stored === "boolean" ? stored : undefined;
+}
+
+/** Live previews and whether each follows the active editor, oldest first. */
+export function getLivePreviewRolesForTests(): { documentUri: string; followsActiveEditor: boolean; title: string }[] {
+  return [...current?.manager.sessions() ?? []].filter((preview) => !preview.disposed).map((preview) => ({
+    documentUri: preview.documentUri,
+    followsActiveEditor: preview.followsActiveEditor,
+    title: preview.panel.title,
+  }));
+}
+
+/** The webview panel of the active preview. */
+export function getActivePreviewPanelForTests(): vscode.WebviewPanel | undefined {
+  const preview = activePreview();
+  return preview ? webviewPanelOf(preview) : undefined;
+}
+
+/**
+ * Hands a message to the active preview as if its page had posted it. The host drops a message
+ * whose requestId is not the one of the shown stage, and the stage is set when the show of a
+ * render ends, after the build queue reports it ready: the message waits for the shows asked so
+ * far, as a real page does (it posts after it was shown); with no show pending it is handled at once.
+ */
+export function sendPreviewMessageForTests(message: unknown): PromiseLike<void> | undefined {
+  const preview = activePreview();
+  const activation = current;
+  if (!activation || !preview) return undefined;
+  const { manager } = activation;
+  // No show pending: handle at once, so a test that does not await reads the effect right after.
+  if (!manager.rendering.hasPendingShow(preview)) return manager.handlePageMessage(preview, message);
+  return manager.rendering.pendingShow(preview)
+    .then(() => manager.handlePageMessage(preview, message));
+}
+
+/**
+ * Holds back the source of every block editor the active preview's page opens from now on, so a
+ * test can make it arrive late on purpose. `held()` counts the sources waiting; `release()` posts
+ * them in order and stops holding. The extension and a preview must be active.
+ */
+export function holdEditSourcesForTests(): { held(): number; release(): void } {
+  const preview = activePreview();
+  if (!preview) throw new Error("holdEditSourcesForTests needs an active preview.");
+  const queue: Array<() => void> = [];
+  preview.edits.heldSources = queue;
+  return {
+    held: () => queue.length,
+    release() {
+      if (preview.edits.heldSources === queue) preview.edits.heldSources = undefined;
+      for (const post of queue.splice(0)) post();
+    },
+  };
+}
+
+/**
+ * Holds back the document write of every block edit of the active preview from now on, so a final
+ * save stays in flight on purpose. `held()` counts the writes waiting; `release()` lets them go, in
+ * order, and stops holding. The extension and a preview must be active.
+ */
+export function holdBlockEditAppliesForTests(): { held(): number; release(): void } {
+  const preview = activePreview();
+  if (!preview) throw new Error("holdBlockEditAppliesForTests needs an active preview.");
+  const queue: Array<() => void> = [];
+  preview.edits.heldApplies = queue;
+  return {
+    held: () => queue.length,
+    release() {
+      if (preview.edits.heldApplies === queue) preview.edits.heldApplies = undefined;
+      for (const go of queue.splice(0)) go();
+    },
+  };
+}
+
+/**
+ * Records every selection change of the text editors from now on, with the kind VS Code reported,
+ * the selection count, the first line and the jump the host read from it (trial J1). `stop()` ends
+ * the recording. The extension must be active.
+ */
+export function recordSelectionChangesForTests(): { records: readonly SelectionRecord[]; stop(): void } {
+  const records: SelectionRecord[] = [];
+  const jumps = current?.editorJumps;
+  jumps?.recordForTests((record) => records.push(record));
+  return { records, stop: () => jumps?.recordForTests(undefined) };
+}
+
+/** Moves the pages with the active editor, as a scroll of the editor would. */
+export function syncActiveEditorForTests(): void {
+  if (!current) return;
+  const editor = current.host.editors.active();
+  current.manager.scroll.syncEditorToPreview(editor);
+}
+
+/** Restores a side preview from a saved state, as the window restore does. */
+export async function deserializePreviewPanelForTests(
+  panel: vscode.WebviewPanel,
+  rawState: unknown,
+): Promise<void> {
+  await current?.deserializePreviewPanel(panel, rawState);
+}
+
+/**
+ * Resolves once no group unlock of a closed preview is running: from then on nothing of a closed
+ * preview moves the workbench focus. Unlocks that start while waiting are waited for too.
+ */
+export async function previewGroupUnlocksSettledForTests(): Promise<void> {
+  await current?.groups.settled();
+}
+
+/** The focus commands the group unlock ran since `since` (epoch ms), oldest first. */
+export function previewGroupFocusMovesForTests(since = 0): GroupFocusMove[] {
+  return current?.groups.moves(since) ?? [];
+}
+
+/** Closes every preview with its panel. */
+export function disposeActivePreviewForTests(): void {
+  current?.manager.disposeAll(true);
+}
+
+/**
+ * Stores workspace choices as if the user had made them in the page (theme mode, toolbar state,
+ * palette mode). Integration suites written before the fresh defaults changed pin the choices
+ * they rely on with it; the extension must be active.
+ */
+export async function storeWorkspaceChoicesForTests(choices: {
+  previewThemeMode: PreviewThemeMode;
+  toolbarCollapsed: boolean;
+  paletteMode: PaletteMode;
+}): Promise<void> {
+  await current?.manager.choices.storeChoices(choices);
+}
+
+/** Forgets the stored palette mode, so the next preview starts from the setting again. */
+export async function clearStoredPaletteModeForTests(): Promise<void> {
+  await current?.manager.choices.setPaletteMode(undefined);
+}
+
+/** Forgets the stored theme mode of the pages. */
+export async function resetPreviewThemeModeForTests(): Promise<void> {
+  await current?.manager.choices.resetPreviewThemeMode();
+}
+
+/** What the export dialog stubs of {@link stubExportDialogsForTests} recorded. */
+export interface ExportDialogRecord {
+  /** The modal warnings shown, in order: the question and its detail. */
+  confirms: { message: string; detail: string | undefined }[];
+  /** The save dialogs shown, in order: the file they proposed. */
+  saves: string[];
+}
+
+/**
+ * Answers the warning and the save dialog of "Export to HTML" without a window: `confirm` is the
+ * answer to the warning, `savePath` the file the save dialog returns (undefined: cancelled). The
+ * returned record lists what was asked; `restore` puts the real dialogs back.
+ */
+export function stubExportDialogsForTests(answers: { confirm: boolean; savePath: string | undefined }): {
+  record: ExportDialogRecord;
+  restore(): void;
+} {
+  const record: ExportDialogRecord = { confirms: [], saves: [] };
+  const ui = current?.host.ui;
+  if (!ui) return { record, restore: () => undefined };
+  const { confirm, pickSaveFile } = ui;
+  ui.confirm = (options) => {
+    record.confirms.push({ message: options.message, detail: options.detail });
+    return Promise.resolve(answers.confirm);
+  };
+  ui.pickSaveFile = (options) => {
+    record.saves.push(options.defaultPath);
+    return Promise.resolve(answers.savePath);
+  };
+  return {
+    record,
+    restore: () => {
+      ui.confirm = confirm;
+      ui.pickSaveFile = pickSaveFile;
+    },
+  };
+}

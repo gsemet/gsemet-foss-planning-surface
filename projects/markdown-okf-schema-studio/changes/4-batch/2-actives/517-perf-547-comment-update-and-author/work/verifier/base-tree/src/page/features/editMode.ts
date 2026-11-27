@@ -1,0 +1,313 @@
+/**
+ * Edit mode: the toolbar toggle, the outline of what a click would edit (the edit hover), and the
+ * editor a click or a key opens on a mapped block (its list, its table cell, the caret at the
+ * clicked text). Also reopens, after a render, the editor a save asked for (arrow-key navigation
+ * from block to block, Tab past the last cell).
+ */
+
+import { tablesIn } from "../modules/tableInContainer";
+import { inLinkThatKeepsItsBehaviour, syncLinkFollowHints } from "./linkEditing";
+import { MAPPINGS_SELECTOR, type CaretPoint, type CaretPosition, type EditMode, type PageRuntime } from "./pageRuntime";
+
+/** Edit mode of a page. */
+export function installEditMode(rt: PageRuntime): EditMode {
+  const { document, context, host, state } = rt;
+  const { editorTrace, traceFocus, traceStack } = rt.diagnostics;
+  let editHoverElement: Element | undefined;
+  // The latest element the pointer went to, until the next frame outlines what a click there edits.
+  let pointed: { target: EventTarget | null } | undefined;
+  let pointFrame = false;
+
+  function setEditHover(element: Element | undefined): void {
+    // Whatever sets the outline now is newer than a pointer move that still waits for its frame.
+    pointed = undefined;
+    if (editHoverElement === element) return;
+    editHoverElement?.removeAttribute?.("data-sphinx-preview-edit-hover");
+    editHoverElement = element;
+    editHoverElement?.setAttribute?.("data-sphinx-preview-edit-hover", "true");
+    rt.parts.figureEditButton.sync(element);
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-017
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-001
+  // The element whose outline shows what a click at this node would edit, or undefined.
+  function editHoverTarget(node: EventTarget | null): Element | undefined {
+    if (!state.editMode || !(node instanceof Element)) return undefined;
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-262
+    // A list item handle outlines the item it moves.
+    const handledItem = rt.listItemMove?.itemOf(node);
+    if (handledItem) return handledItem;
+    if (node.closest("[data-okf-properties]") || node.closest("[data-sphinx-preview-block-editor]")
+      || node.closest(".myst-tab-list")) {
+      return undefined;
+    }
+    // A link inside a block is outlined like the rest of the block, since a plain click there edits
+    // it (CR 217); a link whose click keeps its own behaviour (comment thread, ...) is not.
+    if (inLinkThatKeepsItsBehaviour(node)) return undefined;
+    const mapped = node.closest<HTMLElement>(MAPPINGS_SELECTOR);
+    if (!mapped) return undefined;
+    const cell = node.closest("td, th");
+    const editing = rt.blocks.editingElementFor(mapped).element;
+    const element = cell && cell.closest("table")
+      ? cell
+      : (editing === mapped ? (mapped.closest("pre") || mapped) : editing);
+    return element.getAttribute("data-sphinx-preview-editing") === "true" ? undefined : element;
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-017
+  // The pointer crosses many elements between two frames: the outline (and the hover actions with
+  // it) follows the latest of them, once per frame.
+  function hoverAtFrame(target: EventTarget | null): void {
+    pointed = { target };
+    if (pointFrame) return;
+    pointFrame = true;
+    rt.window.requestAnimationFrame(() => {
+      pointFrame = false;
+      if (!pointed) return;
+      const node = pointed.target as Node | null;
+      // An element that left the page since the pointer was on it gets nothing.
+      setEditHover(node?.isConnected === false ? undefined : editHoverTarget(node));
+    });
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-001
+  // @implements_req SwRS-MDOKFSTUDIO-FMEDIT-019
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-205
+  function applyEditMode(enabled: boolean): void {
+    if (!enabled) {
+      rt.selection.clearBlockSelection();
+      rt.parts.labelRename.close();
+      setEditHover(undefined);
+      if (state.editMode) editorTrace.record("edit mode off", traceFocus(), traceStack());
+      rt.frontmatter.closeFrontmatterEditor("edit mode off");
+      if (state.activeBlockEdit && typeof state.activeBlockEdit.originalText === "string") {
+        rt.blockEditor.postBlockEditSave(true);
+      } else {
+        rt.blockEditor.closeBlockEdit(false);
+      }
+    }
+    state.editMode = enabled;
+    document.documentElement?.setAttribute?.(
+      "data-sphinx-preview-edit-mode",
+      enabled ? "on" : "off",
+    );
+    const editModeButton = rt.editModeButton;
+    editModeButton?.setAttribute?.("data-edit-mode", enabled ? "on" : "off");
+    editModeButton?.setAttribute?.("aria-pressed", String(enabled));
+    const tooltip = enabled ? "Exit edit mode" : "Edit mode";
+    editModeButton?.setAttribute?.("title", tooltip);
+    editModeButton?.setAttribute?.("data-tooltip", tooltip);
+    rt.frontmatter.setFrontmatterEditCells(enabled);
+    syncLinkFollowHints(document, enabled);
+    rt.tableRowMove.refresh();
+    rt.listItemMove.refresh();
+    rt.insertPoints.refreshInsertPoints();
+    rt.blankLines.refresh();
+    // @implements_req SwRS-MDOKFSTUDIO-REVIEW-008
+    // The side-by-side diff is a read-mode view: its button is disabled and its cards go in edit mode.
+    rt.parts?.sideBySide?.sync();
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-026
+  function clickCaretContext(target: HTMLElement, eventTarget: Element, x: number, y: number): CaretPoint | undefined {
+    try {
+      if (!Number.isFinite(x) || !Number.isFinite(y)) return undefined;
+      const selectedCell = eventTarget.closest?.("td, th");
+      if (selectedCell || eventTarget.closest?.("[data-okf-properties]")) return undefined;
+      const editingElement = rt.blocks.editingElementFor(target).element;
+      let container: Node | undefined;
+      let offset: number | undefined;
+      if (typeof document.caretRangeFromPoint === "function") {
+        const range = document.caretRangeFromPoint(x, y);
+        container = range?.startContainer;
+        offset = range?.startOffset;
+      } else if (typeof document.caretPositionFromPoint === "function") {
+        const position = document.caretPositionFromPoint(x, y);
+        container = position?.offsetNode;
+        offset = position?.offset;
+      }
+      if (!container || container.nodeType !== 3 || !Number.isSafeInteger(offset)) return undefined;
+      if (!editingElement.contains?.(container)) return undefined;
+      if (typeof document.createTreeWalker !== "function") return undefined;
+      const walker = document.createTreeWalker(editingElement, 4);
+      let renderedOffset = 0;
+      let found = false;
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (node === container) {
+          renderedOffset += offset!;
+          found = true;
+          break;
+        }
+        renderedOffset += String(node.nodeValue || "").length;
+      }
+      if (!found) return undefined;
+      const text = String(editingElement.textContent || "");
+      return {
+        before: text.slice(Math.max(0, renderedOffset - 32), renderedOffset),
+        after: text.slice(renderedOffset, renderedOffset + 32),
+      };
+    } catch {
+      return undefined;
+    }
+  }
+
+  function openMappedEditor(target: HTMLElement, eventTarget: Element, initialCaretPosition: CaretPosition = "end",
+    reveal = false, exact = false): void {
+    if (eventTarget.closest?.("[data-okf-properties]")) return;
+    rt.selection.clearBlockSelection();
+    rt.selection.rememberSelectionAnchor(target);
+    if (reveal) target.scrollIntoView?.({ block: "nearest", inline: "nearest" });
+    const selectedCell = eventTarget.closest?.<HTMLTableCellElement>("td, th");
+    const table = selectedCell?.closest?.("table");
+    if (state.activeBlockEdit?.openRefused) rt.blockEditor.closeBlockEdit(false);
+    const edit = state.activeBlockEdit;
+    if (edit?.selectedCell) {
+      // @implements_req SwRS-MDOKFSTUDIO-TABLE-018
+      if (table === edit.selectedCell.closest("table")) {
+        rt.tableCellEditor.switchTableCell(edit, selectedCell!, initialCaretPosition);
+        return;
+      }
+      if (edit.finishing || !edit.tableModel) return;
+      rt.blockEditor.rememberPendingBlockNavigation(target, initialCaretPosition, selectedCell ?? undefined);
+      if (!rt.blockEditor.postBlockEditSave(true)) {
+        rt.blockEditor.clearPendingBlockNavigation();
+        openMappedEditor(target, eventTarget, initialCaretPosition, reveal, exact);
+      }
+      return;
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-041
+    if (edit) {
+      if (target === edit.target) return;
+      // A block editor is open: its text is saved first and this block opens once the save is
+      // rendered. A save already in flight is not posted again. An editor that cannot save
+      // (its source has not arrived) keeps the click from doing anything, as before.
+      rt.blockEditor.rememberPendingBlockNavigation(target, initialCaretPosition, selectedCell ?? undefined);
+      if (!edit.finishing && !rt.blockEditor.postBlockEditSave(true)) {
+        rt.blockEditor.clearPendingBlockNavigation();
+        if (!state.activeBlockEdit) openMappedEditor(target, eventTarget, initialCaretPosition, reveal, exact);
+      }
+      return;
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-001
+    if (selectedCell && table && !selectedCell.closest?.("[data-okf-properties]")) {
+      rt.blockEditor.openBlockEditor(target, selectedCell, undefined, initialCaretPosition);
+      return;
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-014
+    const editing = rt.blocks.editingElementFor(target, { exact });
+    rt.blockEditor.openBlockEditor(editing.element, undefined, editing.sourceRange, initialCaretPosition);
+  }
+
+  function resumePendingBlockNavigation(): void {
+    const pending = state.pendingBlockNavigation;
+    if (!pending || !state.editMode) return;
+    const sourceLine = Number(pending.sourceLine);
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-121
+    // The top-level blocks first, then the blocks inside them: a table inside a quote or an
+    // admonition is a mapped block of its own.
+    // A list item and its list (or its first paragraph) start on the same line: the block of the
+    // pending tag wins, and the first block of the line is the fallback (the edit may have changed
+    // the tag, a paragraph turned into a heading).
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-014
+    const isPending = (element: HTMLElement, sameTag: boolean): boolean =>
+      Boolean(pending.blockId && element.getAttribute("data-sphinx-preview-block") === pending.blockId)
+      || (!pending.blockId && Number(element.getAttribute("data-sphinx-source-line")) === sourceLine
+        && (!sameTag || !pending.tagName || element.tagName === pending.tagName));
+    const find = (sameTag: boolean): HTMLElement | undefined => {
+      const queue = [...rt.blocks.topLevelMappedBlocks()];
+      for (let block = queue.shift(); block; block = queue.shift()) {
+        if (isPending(block, sameTag)) return block;
+        queue.push(...rt.blocks.mappedChildren(block));
+      }
+      return undefined;
+    };
+    const target = find(true) ?? find(false);
+    rt.blockEditor.clearPendingBlockNavigation();
+    if (!target) return;
+    const then = pending.thenMove;
+    if (then && (then.direction === "up" || then.direction === "down")
+      && Number.isSafeInteger(then.caretOffset)) {
+      if (!rt.blockMoves.requestBlockMove(target, then.direction, "edit", then.caretOffset)) {
+        openMappedEditor(target, target, { offset: then.caretOffset }, false);
+      }
+      return;
+    }
+    const caretPosition = pending.caretPosition === "start" ? "start" : "end";
+    const table = target.closest?.("table") ?? tablesIn(target)[pending.tableRank ?? 0];
+    const cell = (table as HTMLTableElement | undefined)?.rows?.[pending.tableRowIndex!]
+      ?.cells?.[pending.tableColumnIndex!];
+    openMappedEditor(target, cell || target, caretPosition, true);
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-025
+    // The row Tab added is remembered by the editor that opens in it, for that session only.
+    const opened = state.activeBlockEdit;
+    if (pending.addedRow && cell && opened && opened.target === target && opened.selectedCell === cell) {
+      opened.tabAddedRow = pending.tableRowIndex;
+    }
+  }
+
+  return {
+    applyEditMode,
+    setEditHover,
+    openMappedEditor,
+    clickCaretContext,
+    resumePendingBlockNavigation,
+    // @implements_req SwRS-MDOKFSTUDIO-LIFE-169
+    bindButton() {
+      const setMode = (nextEditMode: boolean): void => {
+        // Posted before the toggle applies: leaving edit mode may post a block save, which stays last.
+        host.postMessage({
+          type: "previewEditModeChanged",
+          documentId: context.documentId,
+          revision: context.revision,
+          requestId: context.requestId,
+          editMode: nextEditMode,
+        });
+        applyEditMode(nextEditMode);
+        const saved = host.getState?.();
+        host.setState?.({
+          ...(saved && typeof saved === "object" ? saved : {}),
+          editMode: state.editMode,
+        });
+      };
+      rt.editModeButton?.addEventListener?.("click", () => setMode(!state.editMode));
+      // @implements_req SwRS-MDOKFSTUDIO-LIFE-172
+      // E alone, in the preview and outside any text field, switches to edit mode.
+      document.addEventListener("keydown", (event) => {
+        if (event.key?.toLowerCase() !== "e" || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+        if (!rt.editModeButton || state.editMode || event.defaultPrevented) return;
+        const element = event.target instanceof Element ? event.target : undefined;
+        if (element && (["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName)
+          || (element as HTMLElement).isContentEditable)) return;
+        event.preventDefault?.();
+        setMode(true);
+      });
+    },
+    bindHover() {
+      // @implements_req SwRS-MDOKFSTUDIO-BLOCK-109
+      // A real pointer move (not the synthetic one after a scroll, which keeps its coordinates)
+      // gives the block actions back to the hovered block; the selection ring goes away.
+      let pointerAt = "";
+      document.addEventListener("mousemove", (event) => {
+        const at = event.clientX + "," + event.clientY;
+        if (at === pointerAt) return;
+        pointerAt = at;
+        const root = document.documentElement;
+        if (root?.getAttribute?.("data-sphinx-preview-actions-owner") === "keyboard") {
+          root.setAttribute("data-sphinx-preview-actions-owner", "pointer");
+        }
+      });
+      document.addEventListener("mouseover", (event) => {
+        if (rt.parts.figureEditButton.owns(event.target)) return;
+        hoverAtFrame(event.target);
+      });
+      document.addEventListener("mouseout", (event) => {
+        if (rt.parts.figureEditButton.owns(event.relatedTarget)) return;
+        // A pointer that left the window goes to no element: the outline goes at once.
+        if (event.relatedTarget) hoverAtFrame(event.relatedTarget);
+        else setEditHover(undefined);
+      });
+      document.addEventListener("focusin", (event) => setEditHover(editHoverTarget(event.target)));
+      document.addEventListener("focusout", () => setEditHover(undefined));
+    },
+  };
+}

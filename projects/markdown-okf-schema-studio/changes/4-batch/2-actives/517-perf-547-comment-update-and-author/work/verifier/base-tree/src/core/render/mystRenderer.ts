@@ -1,0 +1,624 @@
+/**
+ * The MyST renderer: one Markdown buffer to HTML, in-process. `renderMyst` runs three ordered lists
+ * of named passes: source passes on the text before parsing, tree passes on the parsed tree (the
+ * include expansion of this file among them, then the node normalization of `mystNormalize.ts`),
+ * and HTML passes on the writer's output. Each pass lives in the module of its subject.
+ */
+
+import * as path from "../path/hostPath";
+
+import { matchFrontmatterBlock } from "../frontmatter/okfFrontmatter";
+import {
+  type ChartFiles,
+  chartDataUrls,
+  chartKindOf,
+  describeChartFileRefusal,
+  isRemoteDataUrl,
+  MAX_CHART_FILES,
+  parseChartSource,
+} from "./chartData";
+import { type CheckboxMarker, prepareCheckboxMarkers } from "./checkboxMarkers";
+import { convertCommentMarkers } from "./commentMarkers";
+import { expandSvgPictures, prepareRawSvg, restoreRawSvgBlocks } from "./svgPictures";
+import { convertRadioGroups } from "./radioGroups";
+import {
+  expandVersionAdmonitions,
+  labelLinkRoles,
+  normalizeCaptionlessReferences,
+  mapQuoteDirectives,
+  normalizeFigureCaptions,
+  normalizeRawDetailsAndKbd,
+  shiftSourcePositions,
+  wrapBareBlockImages,
+} from "./mystBlockTransforms";
+import { htmlTagLines, type Lines, mapBoxSourceLines } from "./mystBoxLines";
+import { normalizeContextTagContainers, repairGroupedContextTagHtml } from "./mystContextTags";
+import { addFootnoteLines, footnoteLabelLines } from "./mystFootnotes";
+import { showFrontmatterValues } from "./frontmatterValues";
+import { expandRawHtmlElements } from "./mystRawHtml";
+import { expandTocMarkers } from "./mystToc";
+import { loadEngine, MYST_PARSE_OPTIONS, type MystEngine } from "./mystEngine";
+import { neutralizeDirectiveErrors } from "./mystDirectiveErrors";
+import { textifyNestedBlockBreaks } from "./mystNestedBlockBreaks";
+import { splitUnclosedFences } from "./mystUnclosedFences";
+import {
+  alertLineMapper,
+  expandGithubAlerts,
+  expandGithubAlertsWithLines,
+  type ExpandedGithubAlerts,
+  mapAlertSourceLines,
+} from "./mystGithubAlerts";
+import { expandGrids, expandToctrees } from "./mystGridToctree";
+import {
+  autolinkBareUrls,
+  convertCheckboxPlaceholders,
+  expandWikiLinks,
+  prepareDollarAmounts,
+  normalizeAnchors,
+  resolveAnchorIds,
+  restoreDollarPlaceholders,
+  restoreDollarAmounts,
+} from "./mystInlineTransforms";
+import { findNode, type MystNode, sourcePositionProperties } from "./mystNode";
+import { isPlantUmlNode, plantUmlFileRequest, walk } from "./mystNormalize";
+import { detectMystSyntax, MAX_EXTENSION_WARNINGS, mystExtensionWarning } from "./mystSyntaxDetect";
+import {
+  applyTableAlignments,
+  applyTableAlignmentsToTree,
+  collectTableAlignments,
+  needsHtmlTablePass,
+  type TableAlignmentSpec,
+} from "./mystTables";
+import type { BoundedTextRead } from "../security/resource-policy";
+import type { MystIncludeSource, MystRenderContext, MystRenderResult, RenderDiagnostic } from "./mystTypes";
+import { describePlantUmlFileRefusal } from "./plantUmlIncludes";
+
+// @implements_req SwRS-MDOKFSTUDIO-CODE-001
+/**
+ * Shiki and its grammars are about 2.3 MB of the bundle and only a document with a code block needs
+ * them. The extension bundle (esbuild.mjs) points this `require` at `lazy/highlight.js`, which loads
+ * on the first highlighted document; in the unit tests it is the module itself.
+ */
+function highlightCodeBlocks(html: string): string {
+  if (!html.includes("<code")) return html;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return (require("./highlight") as typeof import("./highlight")).highlightCodeBlocks(html);
+}
+
+export { parseMystSource, preloadMystEngine } from "./mystEngine";
+export type { MystIncludeSource, MystRenderContext, MystRenderResult, RenderDiagnostic } from "./mystTypes";
+
+const MAX_INCLUDE_DEPTH = 8;
+/** Per-render ceilings on include expansion; beyond them includes stay placeholders. */
+export const INCLUDE_BUDGET_MAX_EXPANSIONS = 2000;
+/** Counts UTF-16 code units of included source text (`string.length`), not encoded bytes. */
+export const INCLUDE_BUDGET_MAX_CHARS = 10 * 1024 * 1024;
+
+// @implements_req SwRS-MDOKFSTUDIO-BLOCK-014
+/**
+ * Maps every node of an included tree to the `{include}` directive's own lines in the host
+ * document and flags it as included, so the editor never targets unrelated host lines.
+ */
+function setIncludedSourceLine(node: MystNode, line: number, endLine: number): void {
+  node.position = {
+    ...(node.position ?? {}),
+    start: { ...(node.position?.start ?? {}), line },
+    end: { ...(node.position?.end ?? {}), line: endLine },
+  };
+  node.data = { ...(node.data ?? {}), included: true };
+  for (const child of node.children ?? []) {
+    setIncludedSourceLine(child, line, endLine);
+  }
+}
+
+/** Shared by every `expandIncludes` call of one render. */
+interface IncludeBudget {
+  expansions: number;
+  bytes: number;
+  exhausted: boolean;
+  /** `resolveInclude` results by directory and request; `null` records an unresolved include. */
+  resolved: Map<string, MystIncludeSource | null>;
+  /** Parsed, not yet expanded ASTs by canonical path; cloned on every use. */
+  parsed: Map<string, MystNode>;
+}
+
+function createIncludeBudget(): IncludeBudget {
+  return { expansions: 0, bytes: 0, exhausted: false, resolved: new Map(), parsed: new Map() };
+}
+
+async function resolveIncludeOnce(
+  budget: IncludeBudget,
+  context: MystRenderContext,
+  request: string,
+  sourcePath: string,
+): Promise<MystIncludeSource | undefined> {
+  const key = `${path.dirname(sourcePath)}\0${request}`;
+  let entry = budget.resolved.get(key);
+  if (entry === undefined) {
+    entry = (await context.resolveInclude(request, sourcePath)) ?? null;
+    budget.resolved.set(key, entry);
+  }
+  return entry ?? undefined;
+}
+
+function includeBudgetDiagnostic(line: number | undefined): RenderDiagnostic {
+  return {
+    message: "Include budget exhausted: "
+      + `at most ${INCLUDE_BUDGET_MAX_EXPANSIONS} includes or `
+      + `${Math.round(INCLUDE_BUDGET_MAX_CHARS / (1024 * 1024))} Mi characters of included text are `
+      + "expanded per render; the remaining includes are shown as placeholders.",
+    severity: "warning",
+    ...(line === undefined ? {} : { line }),
+  };
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-DIAG-068
+/**
+ * Reads the diagram file of a `{uml}` / `{plantuml}` directive into its body, charged to the
+ * include budget and recorded as a dependency (a missing file inside the roots too, so the preview
+ * renders again once it appears). A refusal is kept for `normalizeNode` to show.
+ */
+async function resolvePlantUmlFile(
+  node: MystNode,
+  request: string,
+  sourcePath: string,
+  context: MystRenderContext,
+  diagnostics: RenderDiagnostic[],
+  dependencies: Set<string>,
+  budget: IncludeBudget,
+): Promise<void> {
+  const line = node.position?.start?.line;
+  const refuse = (message: string, report = true): void => {
+    node.data = { ...node.data, plantUmlFileError: message };
+    if (report) {
+      diagnostics.push({ message, severity: "warning", ...(line === undefined ? {} : { line }) });
+    }
+  };
+  if (budget.exhausted) {
+    refuse(`PlantUML file ${request} was not read: the include budget of this render is exhausted.`, false);
+    return;
+  }
+  const read: BoundedTextRead = context.readDiagramFile
+    ? await context.readDiagramFile(request, sourcePath)
+    : await (async () => {
+      const included = await context.resolveInclude(request, sourcePath);
+      return included
+        ? { ok: true as const, path: included.path, source: included.source }
+        : { ok: false as const, refusal: "missing-resource" as const };
+    })();
+  if (!read.ok) {
+    if (read.candidate) {
+      dependencies.add(read.candidate);
+    }
+    refuse(describePlantUmlFileRefusal(request, read.refusal));
+    return;
+  }
+  dependencies.add(read.path);
+  if (
+    budget.expansions >= INCLUDE_BUDGET_MAX_EXPANSIONS
+    || budget.bytes + read.source.length > INCLUDE_BUDGET_MAX_CHARS
+  ) {
+    budget.exhausted = true;
+    diagnostics.push(includeBudgetDiagnostic(line));
+    refuse(`PlantUML file ${request} was not read: the include budget of this render is exhausted.`, false);
+    return;
+  }
+  budget.expansions += 1;
+  budget.bytes += read.source.length;
+  node.value = read.source;
+  node.data = { ...node.data, plantUmlFile: request, plantUmlBase: read.path };
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-DIAG-122
+/**
+ * Reads the relative data files of a Vega-Lite or Vega chart under the rules of `{include}`,
+ * charged to the include budget and recorded as dependencies. The texts (and the reason of each
+ * refusal) are kept for `normalizeNode`; a remote url is left for the page to refuse.
+ */
+async function resolveChartFiles(
+  node: MystNode,
+  sourcePath: string,
+  context: MystRenderContext,
+  diagnostics: RenderDiagnostic[],
+  dependencies: Set<string>,
+  budget: IncludeBudget,
+): Promise<void> {
+  const parsed = parseChartSource(node.value ?? "");
+  if (!parsed.ok) return;
+  const line = node.position?.start?.line;
+  const chart: ChartFiles = { files: {}, errors: {} };
+  for (const url of chartDataUrls(parsed.spec).filter((candidate) => !isRemoteDataUrl(candidate)).slice(0, MAX_CHART_FILES)) {
+    if (budget.exhausted) {
+      chart.errors[url] = `Chart data file ${url} was not read: the include budget of this render is exhausted.`;
+      continue;
+    }
+    const read: BoundedTextRead = context.readDiagramFile
+      ? await context.readDiagramFile(url, sourcePath)
+      : { ok: false, refusal: "missing-resource" };
+    if (!read.ok) {
+      if (read.candidate) dependencies.add(read.candidate);
+      chart.errors[url] = describeChartFileRefusal(url, read.refusal);
+      diagnostics.push({ message: chart.errors[url], severity: "warning", ...(line === undefined ? {} : { line }) });
+      continue;
+    }
+    dependencies.add(read.path);
+    if (
+      budget.expansions >= INCLUDE_BUDGET_MAX_EXPANSIONS
+      || budget.bytes + read.source.length > INCLUDE_BUDGET_MAX_CHARS
+    ) {
+      budget.exhausted = true;
+      diagnostics.push(includeBudgetDiagnostic(line));
+      chart.errors[url] = `Chart data file ${url} was not read: the include budget of this render is exhausted.`;
+      continue;
+    }
+    budget.expansions += 1;
+    budget.bytes += read.source.length;
+    chart.files[url] = read.source;
+  }
+  node.data = { ...node.data, chartFiles: chart };
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-CORE-012
+// @implements_req SwRS-MDOKFSTUDIO-CORE-013
+async function expandIncludes(
+  node: MystNode,
+  sourcePath: string,
+  context: MystRenderContext,
+  mystParse: MystEngine["mystParse"],
+  diagnostics: RenderDiagnostic[],
+  dependencies: Set<string>,
+  includeStack: Set<string>,
+  budget: IncludeBudget,
+): Promise<void> {
+  if (!node.children) {
+    return;
+  }
+
+  const expandedChildren: MystNode[] = [];
+  for (const child of node.children) {
+    if (chartKindOf(child)) {
+      await resolveChartFiles(child, sourcePath, context, diagnostics, dependencies, budget);
+      expandedChildren.push(child);
+      continue;
+    }
+    const plantUmlFile = plantUmlFileRequest(child);
+    if (plantUmlFile) {
+      await resolvePlantUmlFile(child, plantUmlFile, sourcePath, context, diagnostics, dependencies, budget);
+      expandedChildren.push(child);
+      continue;
+    }
+    if (isPlantUmlNode(child) && includeStack.size > 1) {
+      // A diagram of an included document: its `!include` lines are relative to that document.
+      child.data = { ...child.data, plantUmlBase: sourcePath };
+    }
+    if (child.type === "mystDirective" && child.name === "include") {
+      const includeNode = findNode(child, "include");
+      const request = child.args?.trim() ?? includeNode?.file ?? "";
+      const unsupportedOptions = Object.keys(child.options ?? {})
+        .some((name) => name !== "class" && name !== "label");
+      const expandable = !includeNode?.literal
+        && !unsupportedOptions
+        && includeStack.size < MAX_INCLUDE_DEPTH
+        && Boolean(request);
+      if (expandable && budget.exhausted) {
+        child.data = { ...child.data, includeBudgetExhausted: true };
+        expandedChildren.push(child);
+        continue;
+      }
+      const included = expandable ? await resolveIncludeOnce(budget, context, request, sourcePath) : undefined;
+
+      if (!included || includeStack.has(included.path)) {
+        expandedChildren.push(child);
+        continue;
+      }
+
+      if (
+        budget.expansions >= INCLUDE_BUDGET_MAX_EXPANSIONS
+        || budget.bytes + included.source.length > INCLUDE_BUDGET_MAX_CHARS
+      ) {
+        budget.exhausted = true;
+        diagnostics.push(includeBudgetDiagnostic(child.position?.start?.line));
+        child.data = { ...child.data, includeBudgetExhausted: true };
+        expandedChildren.push(child);
+        continue;
+      }
+      budget.expansions += 1;
+      budget.bytes += included.source.length;
+
+      dependencies.add(included.path);
+      let parsedAst = budget.parsed.get(included.path);
+      if (!parsedAst) {
+        parsedAst = mystParse(
+          prepareDollarAmounts(expandGithubAlerts(stripFrontmatter(included.source))),
+          MYST_PARSE_OPTIONS,
+        );
+        restoreDollarPlaceholders(parsedAst);
+        budget.parsed.set(included.path, parsedAst);
+      }
+      // The expansion below mutates the tree, so every use works on its own copy.
+      const includedAst = structuredClone(parsedAst);
+      const includeLine = child.position?.start?.line;
+      if (includeLine !== undefined) {
+        setIncludedSourceLine(includedAst, includeLine, child.position?.end?.line ?? includeLine);
+      }
+      const nestedStack = new Set(includeStack);
+      nestedStack.add(included.path);
+      await expandIncludes(
+        includedAst,
+        included.path,
+        context,
+        mystParse,
+        diagnostics,
+        dependencies,
+        nestedStack,
+        budget,
+      );
+      expandedChildren.push(...(includedAst.children ?? []));
+      continue;
+    }
+
+    await expandIncludes(
+      child,
+      sourcePath,
+      context,
+      mystParse,
+      diagnostics,
+      dependencies,
+      includeStack,
+      budget,
+    );
+    expandedChildren.push(child);
+  }
+  node.children = expandedChildren;
+}
+
+/** What the passes of one render share: the inputs, the parsed tree and what the passes collect. */
+interface RenderState {
+  readonly source: string;
+  readonly context: MystRenderContext | undefined;
+  readonly mystParse: MystEngine["mystParse"];
+  readonly diagnostics: RenderDiagnostic[];
+  readonly dependencies: Set<string>;
+  /**
+   * Lines of frontmatter removed before parsing: the tree's lines are shifted back by this much.
+   */
+  readonly lineOffset: number;
+  /** The text the parser read (after the source passes). */
+  readonly parsedText: string;
+  /** The GitHub alert rewrite: the parsed text's lines mapped to the document's. */
+  readonly alerts: ExpandedGithubAlerts;
+  readonly checkboxMarkers: readonly CheckboxMarker[];
+  /** The raw `<svg>` blocks the source pass set aside (see `svgPictures.ts`). */
+  readonly rawSvgBlocks: readonly string[];
+  readonly rawSvgToken: string;
+  readonly ast: MystNode;
+  anchorLabels: ReadonlySet<string>;
+  /** The two tag lines of every HTML element written on several lines (see `mystBoxLines.ts`). */
+  htmlTagLines: readonly Lines[];
+  readonly tableAlignments: Array<TableAlignmentSpec | undefined>;
+}
+
+/** A named step of a render, run in list order. */
+interface RenderPass<Input> {
+  readonly name: string;
+  readonly run: (input: Input) => void | Promise<void>;
+}
+
+/** The tree passes, in order, from the parsed tree to the tree the HTML writer reads. */
+const TREE_PASSES: ReadonlyArray<RenderPass<RenderState>> = [
+  { name: "shift source lines", run: (state) => shiftSourcePositions(state.ast, state.lineOffset) },
+  { name: "raw svg blocks", run: (state) => restoreRawSvgBlocks(state.ast, state.rawSvgBlocks, state.rawSvgToken) },
+  {
+    name: "unclosed fences",
+    run: (state) => splitUnclosedFences(state.ast, {
+      sourceLines: state.source.split(/\r\n|\r|\n/u),
+      parsedLines: state.parsedText.split(/\r\n|\r|\n/u),
+      lineOffset: state.lineOffset,
+      parse: (fragment) => state.mystParse(fragment, MYST_PARSE_OPTIONS),
+      diagnostics: state.diagnostics,
+      sourceLine: alertLineMapper(state.alerts, state.lineOffset + 1),
+    }),
+  },
+  {
+    name: "grids",
+    run: (state) => expandGrids(
+      state.ast,
+      (fragment) => state.mystParse(fragment, MYST_PARSE_OPTIONS),
+      { lines: state.parsedText.split(/\r\n|\r|\n/u), firstLine: state.lineOffset + 1 },
+    ),
+  },
+  { name: "nested block breaks", run: (state) => textifyNestedBlockBreaks(state.ast) },
+  { name: "context tags", run: (state) => repairGroupedContextTagHtml(state.ast, state.mystParse) },
+  // The passes above read the parsed text line for line; from here on, every line is the document's.
+  { name: "alert source lines", run: (state) => mapAlertSourceLines(state.ast, state.alerts, state.lineOffset + 1) },
+  {
+    // @implements_req SwRS-MDOKFSTUDIO-MYST-072
+    name: "MyST extension check",
+    run: (state) => {
+      if (!state.context?.enabledMystExtensions) return;
+      const enabled = state.context.enabledMystExtensions;
+      detectMystSyntax(state.ast, state.source)
+        .filter((use) => !enabled.has(use.ext))
+        .slice(0, MAX_EXTENSION_WARNINGS)
+        .forEach((use) => state.diagnostics.push({
+          code: "myst-extension",
+          severity: "warning",
+          line: use.line,
+          message: mystExtensionWarning(use),
+        }));
+    },
+  },
+  {
+    name: "includes",
+    run: async (state) => {
+      const { context } = state;
+      if (!context?.sourcePath) return;
+      const includeBudget = createIncludeBudget();
+      await expandIncludes(
+        state.ast,
+        context.sourcePath,
+        context,
+        state.mystParse,
+        state.diagnostics,
+        state.dependencies,
+        new Set([context.sourcePath]),
+        includeBudget,
+      );
+    },
+  },
+  {
+    name: "toctrees",
+    run: async (state) => {
+      const { context } = state;
+      const sourcePath = context?.sourcePath ?? "";
+      await expandToctrees(state.ast, {
+        sourcePath,
+        read: (request) => (context && sourcePath ? context.resolveInclude(request, sourcePath) : undefined),
+        ...(context?.listDocuments ? { list: async (pattern) => (await context.listDocuments?.(pattern, sourcePath)) ?? [] } : {}),
+        dependencies: state.dependencies,
+      });
+    },
+  },
+  { name: "figure captions", run: (state) => normalizeFigureCaptions(state.ast) },
+  { name: "quote directive lines", run: (state) => mapQuoteDirectives(state.ast) },
+  { name: "caption-less references", run: (state) => normalizeCaptionlessReferences(state.ast) },
+  { name: "doc and download labels", run: (state) => labelLinkRoles(state.ast) },
+  {
+    name: "version admonitions",
+    run: (state) => expandVersionAdmonitions(state.ast, state.mystParse, state.source.split(/\r\n|\r|\n/u)),
+  },
+  { name: "dollar placeholders", run: (state) => restoreDollarPlaceholders(state.ast) },
+  { name: "dollar amounts", run: (state) => restoreDollarAmounts(state.ast) },
+  // Before the toc markers: a heading entry of the table of contents shows the value, not the code.
+  { name: "front matter values", run: (state) => showFrontmatterValues(state.ast, state.source, state.diagnostics) },
+  { name: "toc markers", run: (state) => expandTocMarkers(state.ast) },
+  { name: "wiki links", run: (state) => expandWikiLinks(state.ast) },
+  {
+    // Before the checkboxes: a radio marker left out of every group is restored there as text.
+    name: "radio groups",
+    run: (state) => {
+      if (state.checkboxMarkers.some((marker) => marker.kind === "radio")) {
+        convertRadioGroups(state.ast, state.checkboxMarkers, state.source.split(/\r\n|\r|\n/u));
+      }
+    },
+  },
+  {
+    name: "checkboxes",
+    run: (state) => {
+      if (state.checkboxMarkers.length > 0) {
+        convertCheckboxPlaceholders(state.ast, state.checkboxMarkers);
+      }
+    },
+  },
+  { name: "bare URLs", run: (state) => autolinkBareUrls(state.ast) },
+  {
+    name: "comment markers",
+    run: (state) => convertCommentMarkers(
+      state.ast,
+      (comment) => sourcePositionProperties(comment, comment.position?.start?.line),
+    ),
+  },
+  // Before the HTML passes replace the HTML the parser found.
+  { name: "html tag lines", run: (state) => { state.htmlTagLines = htmlTagLines(state.ast); } },
+  { name: "raw details and kbd", run: (state) => normalizeRawDetailsAndKbd(state.ast, state.mystParse) },
+  { name: "raw html elements", run: (state) => expandRawHtmlElements(state.ast) },
+  { name: "context tag containers", run: (state) => normalizeContextTagContainers(state.ast) },
+  { name: "bare block images", run: (state) => wrapBareBlockImages(state.ast) },
+  { name: "anchors", run: (state) => { state.anchorLabels = normalizeAnchors(state.ast); } },
+  {
+    name: "directive errors",
+    run: (state) => neutralizeDirectiveErrors(state.ast, state.source.split(/\r\n|\r|\n/u)),
+  },
+  { name: "svg pictures", run: (state) => expandSvgPictures(state.ast, state.diagnostics) },
+  {
+    name: "box source lines",
+    run: (state) => mapBoxSourceLines(state.ast, state.source.split(/\r\n|\r|\n/u), state.htmlTagLines),
+  },
+  { name: "normalize nodes", run: (state) => walk(state.ast, state.diagnostics) },
+  {
+    name: "table alignments",
+    run: (state) => {
+      collectTableAlignments(state.ast, state.tableAlignments);
+      if (!needsHtmlTablePass(state.tableAlignments)) {
+        // Pipe tables only: the writer emits the attributes, and the HTML needs no second parse.
+        applyTableAlignmentsToTree(state.ast);
+        state.tableAlignments.length = 0;
+      }
+    },
+  },
+];
+
+/** The HTML passes, in order, on the writer's output. */
+const HTML_PASSES: ReadonlyArray<{ readonly name: string; readonly run: (html: string, state: RenderState) => string }> = [
+  { name: "table alignments", run: (html, state) => applyTableAlignments(html, state.tableAlignments) },
+  { name: "code highlighting", run: (html) => highlightCodeBlocks(html) },
+  { name: "anchor ids", run: (html, state) => resolveAnchorIds(html, state.anchorLabels) },
+  {
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-266
+    name: "footnote lines",
+    run: (html, state) => addFootnoteLines(html, footnoteLabelLines(state.ast, state.source.split(/\r\n|\r|\n/u))),
+  },
+];
+
+// @implements_req SwRS-MDOKFSTUDIO-CORE-001
+// @implements_req SwRS-MDOKFSTUDIO-CORE-071
+/**
+ * Renders one Markdown buffer to HTML entirely in-process.
+ *
+ * Block elements carry `data-line` so the webview can align scrolling with the editor.
+ */
+export async function renderMyst(
+  source: string,
+  context?: MystRenderContext,
+): Promise<MystRenderResult> {
+  const { mystParse, mystToHtml } = await loadEngine();
+  // The source passes: frontmatter removed, checkbox markers set aside, GitHub alerts rewritten.
+  const markdown = stripFrontmatter(source);
+  const removedPrefix = source.slice(0, source.length - markdown.length);
+  const lineOffset = removedPrefix.match(/\r\n|\r|\n/gu)?.length ?? 0;
+  const rawSvg = prepareRawSvg(markdown);
+  const checkboxes = prepareCheckboxMarkers(rawSvg.text, lineOffset + 1);
+  const alerts = expandGithubAlertsWithLines(checkboxes.text);
+  const parsedText = prepareDollarAmounts(alerts.text);
+  const state: RenderState = {
+    source,
+    context,
+    mystParse,
+    diagnostics: [],
+    dependencies: new Set<string>(),
+    lineOffset,
+    parsedText,
+    alerts,
+    checkboxMarkers: checkboxes.markers,
+    rawSvgBlocks: rawSvg.sources,
+    rawSvgToken: rawSvg.token,
+    ast: mystParse(parsedText, MYST_PARSE_OPTIONS),
+    anchorLabels: new Set<string>(),
+    htmlTagLines: [],
+    tableAlignments: [],
+  };
+  for (const pass of TREE_PASSES) {
+    await pass.run(state);
+  }
+  let html = mystToHtml(state.ast);
+  for (const pass of HTML_PASSES) {
+    html = pass.run(html, state);
+  }
+  return {
+    html,
+    diagnostics: state.diagnostics,
+    dependencies: [...state.dependencies],
+  };
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-CORE-003
+// @implements_req SwRS-MDOKFSTUDIO-FMSCHEMA-001
+/**
+ * Removes a leading YAML frontmatter block; MyST would otherwise emit it as a
+ * `language-yaml` code block, duplicating the properties table above the body.
+ */
+function stripFrontmatter(source: string): string {
+  // The fence alone decides: no YAML parse here (the analysis parses the block once).
+  const match = matchFrontmatterBlock(source);
+  return match?.body ? source.slice(match.length) : source;
+}

@@ -1,0 +1,176 @@
+import { MERMAID_FONT_FAMILY, MERMAID_FONT_SIZE, MERMAID_MEASURE_CLASS } from "../../core/render/mermaidFont";
+import { createMermaidCache, diagramKey } from "./mermaidCache";
+import { showMermaidError } from "./mermaidError";
+
+const CSS_SYSTEM_COLOR_KEYWORDS = new Set([
+  "accentcolor",
+  "accentcolortext",
+  "activeborder",
+  "activetext",
+  "buttonborder",
+  "buttonface",
+  "buttontext",
+  "canvas",
+  "canvastext",
+  "field",
+  "fieldtext",
+  "graytext",
+  "highlight",
+  "highlighttext",
+  "inactiveborder",
+  "inactivecaption",
+  "inactivecaptiontext",
+  "linktext",
+  "mark",
+  "marktext",
+  "menu",
+  "menutext",
+  "scrollbar",
+  "selecteditem",
+  "selecteditemtext",
+  "visitedtext",
+  "window",
+  "windowframe",
+  "windowtext",
+]);
+
+function themeVariable(name: string, fallback: string): string {
+  const value = getComputedStyle(document.body).getPropertyValue(name).trim();
+  return value && !CSS_SYSTEM_COLOR_KEYWORDS.has(value.toLowerCase()) ? value : fallback;
+}
+
+function normalizeSvgForDataImage(svg: string): string {
+  return svg.replace(/<br>/gu, "<br />");
+}
+
+const diagramSelector = ".myst-mermaid-diagram";
+const diagrams = Array.from(document.querySelectorAll<HTMLElement>(diagramSelector));
+// Mermaid ids must be unique across every render of the page, including renders of replaced content.
+let diagramCounter = 0;
+const diagramSources = new WeakMap<HTMLElement, string>();
+// The key (theme and source) each diagram node was last drawn with, and the drawings by key
+// (PERF-07): unchanged diagrams are not drawn again by a content update or an attribute change.
+const drawnKeys = new WeakMap<HTMLElement, string>();
+const drawings = createMermaidCache();
+let initializedTheme: string | undefined;
+
+const mermaidReady = import("mermaid").then(({ default: mermaid }) => {
+  const diagramSizing = Object.fromEntries(
+    Object.entries(mermaid.mermaidAPI.getConfig())
+      .filter(([, config]) =>
+        config && typeof config === "object" && "useMaxWidth" in config)
+      .map(([name]) => [name, { useMaxWidth: false }]),
+  ) as NonNullable<Parameters<typeof mermaid.initialize>[0]>;
+
+  const renderDiagrams = async (pending: readonly HTMLElement[]): Promise<void> => {
+    // Mermaid measures label text while it draws, so wait for the page fonts: a label measured
+    // with a fallback font gets a box that is too narrow for the font shown later.
+    await document.fonts?.ready;
+    // The labels are measured in the page and drawn in an SVG image: both use the same pinned
+    // system font and size (mermaidFont.ts), not the page font, or the image cuts the labels.
+    // @implements_req SwRS-MDOKFSTUDIO-DIAG-005
+    const themeVariables = {
+      background: "transparent",
+      primaryColor: themeVariable("--studio-textCodeBlock-background", "#f0f0f0"),
+      primaryTextColor: themeVariable("--studio-editor-foreground", "#1f1f1f"),
+      primaryBorderColor: themeVariable("--sphinx-preview-border", "#808080"),
+      lineColor: themeVariable("--studio-editor-foreground", "#1f1f1f"),
+      secondaryColor: themeVariable("--studio-textBlockQuote-background", "#f0f0f0"),
+      tertiaryColor: themeVariable("--studio-editor-background", "#ffffff"),
+      fontFamily: MERMAID_FONT_FAMILY,
+      fontSize: MERMAID_FONT_SIZE,
+    };
+    const themeKey = JSON.stringify(themeVariables);
+    const ensureInitialized = (): void => {
+      if (initializedTheme === themeKey) return;
+      initializedTheme = themeKey;
+      mermaid.initialize({
+        ...diagramSizing,
+        startOnLoad: false,
+        securityLevel: "strict",
+        theme: "base",
+        fontFamily: MERMAID_FONT_FAMILY,
+        themeVariables,
+      });
+    };
+
+    // @implements_req SwRS-MDOKFSTUDIO-DIAG-001
+    const showImage = (diagram: HTMLElement, src: string): void => {
+      const image = document.createElement("img");
+      image.className = "myst-mermaid-image";
+      image.alt = "Mermaid diagram";
+      image.src = src;
+      diagram.replaceChildren(image);
+      diagram.dataset.renderState = "rendered";
+    };
+
+    // @implements_req SwRS-MDOKFSTUDIO-DIAG-009
+    await Promise.all(pending.map(async (diagram) => {
+      const source = diagramSources.get(diagram) ?? diagram.textContent?.trim() ?? "";
+      if (!source) {
+        return;
+      }
+
+      diagramSources.set(diagram, source);
+      const key = diagramKey(themeVariables, source);
+      const plan = drawings.plan(diagram.dataset.renderState === undefined ? undefined : drawnKeys.get(diagram), key);
+      if (plan.action === "keep") {
+        return;
+      }
+      drawnKeys.set(diagram, key);
+      if (plan.action === "reuse") {
+        showImage(diagram, plan.image);
+        return;
+      }
+      ensureInitialized();
+      const id = `myst-mermaid-${diagramCounter}`;
+      diagramCounter += 1;
+      // Mermaid measures and draws in this element, which the page style sheet gives the font
+      // and size of the image (`.myst-mermaid-measure`), then the element goes away.
+      const measure = document.createElement("div");
+      measure.className = MERMAID_MEASURE_CLASS;
+      document.body.appendChild(measure);
+      try {
+        const rendered = await mermaid.render(id, source, measure);
+        const src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(normalizeSvgForDataImage(rendered.svg))}`;
+        drawings.store(key, src);
+        // Defence only: passes run one at a time on `renderQueue` and a pass plans each node once, so
+        // the node's key cannot change while Mermaid draws. If passes ever ran in parallel, the
+        // drawing would stay in the cache and only the drawing of the node's current key be shown.
+        if (drawnKeys.get(diagram) === key) showImage(diagram, src);
+      } catch (err) {
+        // Defence only, as above: the key cannot change while Mermaid draws.
+        if (drawnKeys.get(diagram) !== key) return;
+        showMermaidError(diagram, err instanceof Error ? err.message : String(err));
+        diagram.dataset.renderState = "error";
+      } finally {
+        measure.remove();
+      }
+    }));
+  };
+
+  return renderDiagrams;
+});
+
+let renderQueue = mermaidReady.then((renderDiagrams) => renderDiagrams(diagrams));
+
+document.addEventListener("studio:content-replaced", () => {
+  renderQueue = renderQueue.then(async () => (await mermaidReady)(
+    Array.from(document.querySelectorAll<HTMLElement>(diagramSelector))
+      .filter((diagram) => diagram.dataset.renderState === undefined),
+  ));
+});
+
+const themeObserver = new MutationObserver(() => {
+  renderQueue = renderQueue.then(async () => (await mermaidReady)(
+    Array.from(document.querySelectorAll<HTMLElement>(diagramSelector)),
+  ));
+});
+themeObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ["data-sphinx-preview-theme-mode", "data-sphinx-preview-theme", "class", "style"],
+});
+themeObserver.observe(document.body, {
+  attributes: true,
+  attributeFilter: ["class", "style"],
+});

@@ -1,0 +1,367 @@
+/**
+ * The host request controller: what the page asks the host for while the reader writes, without
+ * editing the document itself. The copy of a code block, the palette's Reference and Citation lists,
+ * the native pickers of the `{doc}` link and image buttons, and the image or rich text pasted into
+ * the open block editor. Each answer repeats the request's identity (`<type>Result`).
+ */
+
+import { STALE_REQUEST } from "../../core/edits/sourceEdits";
+import * as path from "../../core/path/hostPath";
+
+import { IMAGE_EXTENSIONS, isImageFileName, relativeImageReference } from "../../core/mapping/imageReference";
+import { docReference, documentTargets } from "../../core/mapping/mystTargets";
+import {
+  imageTypeOfMime,
+  isBase64,
+  MAX_PASTED_IMAGE_BYTES,
+  nextImageName,
+  PASTED_IMAGE_EXTENSION,
+  sniffImage,
+} from "../../core/mapping/pastedImage";
+import { htmlToMarkdown } from "../../core/paste/htmlToMarkdown";
+import type { FileSystem } from "../../host-api/fileSystem";
+import { scanBibKeys } from "../bibScan";
+import type { HostRequestType } from "../../core/protocol/hostToPage";
+import { MAX_COPY_TEXT_LENGTH, type PageMessageOf } from "../../core/protocol/pageToHost";
+import type { PageMessageRouter } from "../pageMessages";
+import type { PreviewManager } from "../previewManager";
+import type { PreviewSession } from "../previewSession";
+import { currentPaletteDocument, isDocumentEligible, isPathWithin } from "../sessionDocuments";
+import { fireAndForget } from "../../host-api/logger";
+
+/** The answer of a palette list request. */
+export type HostListAnswer =
+  | { ok: true; items: Array<{ value: string; label: string; detail?: string }>; truncated: boolean }
+  | { ok: false; reason: string };
+
+/** The `(label)=` targets of a text, as the palette's Reference list. */
+export function targetChoices(text: string): HostListAnswer & { ok: true } {
+  const { items, truncated } = documentTargets(text);
+  return {
+    ok: true,
+    items: items.map((item) => ({ value: item.name, label: item.name, ...(item.title ? { detail: item.title } : {}) })),
+    truncated,
+  };
+}
+
+/**
+ * Writes `bytes` as the new file `fileName` of `folderPath` so that the name never shows partial
+ * bytes: a host's `writeFile` creates the file before its bytes are written (VS Code's disk
+ * provider opens it with `w`, then writes), and a reader in between sees an empty file (CI run
+ * 40016132398). The bytes go to a hidden file of the same folder, which is then renamed without
+ * overwrite, so the name appears complete and a file another writer created in between is kept.
+ * On failure the hidden file is removed and nothing is left under either name.
+ */
+ async function writeNewFileAtomically(
+  files: FileSystem,
+  folderPath: string,
+  fileName: string,
+  bytes: Uint8Array,
+): Promise<void> {
+  const partialPath = path.join(folderPath, `.${fileName}.${Math.random().toString(36).slice(2, 10)}.partial`);
+  let placed = false;
+  try {
+    await files.writeFile(partialPath, bytes);
+    await files.rename(partialPath, path.join(folderPath, fileName), { overwrite: false });
+    placed = true;
+  } finally {
+    if (!placed) await files.delete(partialPath).then(undefined, () => undefined);
+  }
+}
+
+/**
+ * Why the citation list is off when the preview has restricted reads: it searches the whole
+ * workspace folder for `.bib` files, a read beyond the folder of the document.
+ */
+export const CITATIONS_NEED_TRUST =
+  "Listing citations searches the workspace for .bib files, which needs a trusted workspace folder that holds this file.";
+
+/** A hidden file this extension writes while saving a pasted image: `.image-2.png.k3j9x0ab.partial`. */
+const STALE_PARTIAL_NAME = /^\.image(?:-\d+)?\.(?:png|jpg|gif|webp)\.[0-9a-z]{1,8}\.partial$/u;
+
+/** A hidden partial file older than this is the leftover of a save that never ended. */
+ const STALE_PARTIAL_AGE_MS = 10 * 60 * 1000;
+
+/**
+ * Deletes the leftovers of an interrupted pasted-image save from a folder: files whose name has
+ * exactly the form of `writeNewFileAtomically`'s hidden file and that were last modified more
+ * than `STALE_PARTIAL_AGE_MS` before `now`. Any other file is left alone, and a failure is ignored.
+ */
+ async function removeStalePartialFiles(
+  files: FileSystem,
+  folderPath: string,
+  entries: Array<[string, string]>,
+  now: number,
+): Promise<void> {
+  for (const [name, kind] of entries) {
+    if (kind !== "file" || !STALE_PARTIAL_NAME.test(name)) continue;
+    const target = path.join(folderPath, name);
+    try {
+      const { mtimeMs } = await files.stat(target);
+      if (mtimeMs !== undefined && now - mtimeMs > STALE_PARTIAL_AGE_MS) await files.delete(target);
+    } catch {
+      // The file vanished or cannot be removed: it is not in the way of the paste.
+    }
+  }
+}
+
+/** How many times a paste chooses a name again when another program took the chosen one. */
+const PASTE_NAME_ATTEMPTS = 5;
+
+/** The page's requests to the host that edit no document. */
+export class HostRequestController {
+  public constructor(private readonly manager: PreviewManager) {}
+
+  /** Registers the handlers of the host requests. */
+  public register(router: PageMessageRouter): void {
+    const { host } = this.manager;
+    // @implements_req SwRS-MDOKFSTUDIO-TRUST-005
+    // Copies the raw code of a code block. It does not edit anything.
+    router.on("previewCopyText", (message, preview) => this.handleCopyText(preview, message));
+    router.on("previewListTargets", (message, preview) => this.handleListTargets(preview, message));
+    router.on("previewListCitations", (message, preview) => this.handleListCitations(preview, message));
+    router.on("previewPickDocument", (message, preview) => this.handlePickDocument(preview, message));
+    router.on("previewPickImage", (message, preview) => this.handlePickImage(preview, message));
+    router.on("previewPasteImage", (message, preview) => this.handlePasteImage(preview, message));
+    router.on("previewPasteHtml", (message, preview) => this.handlePasteHtml(preview, message));
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-090
+  /** Answers a host request: `<type>Result` with the request's identity. */
+  public postHostResult(
+    preview: PreviewSession,
+    message: PageMessageOf<HostRequestType>,
+    result: HostListAnswer
+      | { ok: true; path?: string; cancelled?: boolean; fileName?: string; markdown?: string; missingImages?: number }
+      | { ok: true; id: string; text: string }
+      | { ok: false; reason: string },
+  ): void {
+    fireAndForget(this.manager.host.logger, preview.postToPage({
+      type: `${message.type}Result`,
+      documentId: message.documentId,
+      revision: message.revision,
+      requestId: message.requestId,
+      editId: message.editId,
+      ...result,
+    }), "postToPage");
+  }
+
+  /** The citation keys of the workspace's `.bib` files next to `documentPath` (bounded scan). */
+  public listCitations(documentPath: string | undefined): ReturnType<typeof scanBibKeys> {
+    return scanBibKeys(documentPath, this.manager.host);
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-CODE-019
+  /** Writes the code to the clipboard, then answers whether it was copied (always answers). */
+  private handleCopyText(preview: PreviewSession, message: PageMessageOf<"previewCopyText">): PromiseLike<void> | undefined {
+    // The flag only blocks clicks dispatched by a script; a script cannot post the message itself
+    // because the webview API handle is not exposed to it. Do not rely on the flag alone.
+    if (message.userGesture !== true) {
+      this.postHostResult(preview, message, { ok: false, reason: "Copy needs a click on the copy button." });
+      return undefined;
+    }
+    if (message.text.length > MAX_COPY_TEXT_LENGTH) {
+      this.postHostResult(preview, message, { ok: false, reason: "Too large to copy." });
+      return undefined;
+    }
+    return this.manager.host.ui.writeClipboard(message.text).then(
+      () => this.postHostResult(preview, message, { ok: true }),
+      () => this.postHostResult(preview, message, { ok: false, reason: "Could not copy." }),
+    );
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-065
+  private handleListTargets(preview: PreviewSession, message: PageMessageOf<"previewListTargets">): void {
+    const document = currentPaletteDocument(preview, message);
+    if (!document) {
+      this.postHostResult(preview, message, { ok: false, reason: STALE_REQUEST });
+      return;
+    }
+    this.postHostResult(preview, message, targetChoices(document.getText()));
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-005
+  // @implements_req SwRS-MDOKFSTUDIO-PALETTE-183
+  private handleListCitations(
+    preview: PreviewSession,
+    message: PageMessageOf<"previewListCitations">,
+  ): PromiseLike<void> | undefined {
+    if (preview.restrictedReads) {
+      this.postHostResult(preview, message, { ok: false, reason: CITATIONS_NEED_TRUST });
+      return undefined;
+    }
+    const document = currentPaletteDocument(preview, message);
+    if (!document) {
+      this.postHostResult(preview, message, { ok: false, reason: STALE_REQUEST });
+      return undefined;
+    }
+    return this.listCitations(document.path).then((scan) => {
+      this.postHostResult(preview, message, {
+        ok: true,
+        items: scan.items.map((item) => ({ value: item.key, label: item.key, ...(item.title ? { detail: item.title } : {}) })),
+        truncated: scan.truncated,
+      });
+    }, (error: unknown) => {
+      this.postHostResult(preview, message, { ok: false, reason: error instanceof Error ? error.message : String(error) });
+    });
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-PALETTE-148
+  /** Native open dialog for a `{doc}` link: answers with the path relative to the document. */
+  private handlePickDocument(
+    preview: PreviewSession,
+    message: PageMessageOf<"previewPickDocument">,
+  ): PromiseLike<void> | undefined {
+    const document = currentPaletteDocument(preview, message);
+    const documentPath = document?.path;
+    if (!document || documentPath === undefined) {
+      this.postHostResult(preview, message, { ok: false, reason: "The preview is out of date, or the document is not a file." });
+      return undefined;
+    }
+    return this.manager.host.ui.pickFile({
+      defaultDirectory: path.dirname(documentPath),
+      filters: { Markdown: ["md", "markdown"] },
+      openLabel: "Link document",
+    }).then((file) => {
+      if (!file) {
+        this.postHostResult(preview, message, { ok: true, cancelled: true });
+        return;
+      }
+      const reference = docReference(documentPath, file.path);
+      this.postHostResult(preview, message, reference === undefined
+        ? { ok: false, reason: "That file name cannot be written in a {doc} link." }
+        : { ok: true, path: reference });
+    }, (error: unknown) => {
+      this.postHostResult(preview, message, { ok: false, reason: error instanceof Error ? error.message : String(error) });
+    });
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-PALETTE-192
+  /**
+   * Native open dialog for the Image and Figure buttons: answers with the picked image as a path
+   * relative to the document. Nothing is read or written. A file outside the workspace folders, on
+   * another drive, or that is not an image is refused with a message the page shows.
+   */
+  private handlePickImage(preview: PreviewSession, message: PageMessageOf<"previewPickImage">): PromiseLike<void> | undefined {
+    const { host } = this.manager;
+    const document = currentPaletteDocument(preview, message);
+    const documentPath = document?.path;
+    if (!document || documentPath === undefined) {
+      this.postHostResult(preview, message, { ok: false, reason: "The preview is out of date, or the document is not a file." });
+      return undefined;
+    }
+    return host.ui.pickFile({
+      defaultDirectory: path.dirname(documentPath),
+      filters: { Images: IMAGE_EXTENSIONS },
+      openLabel: "Insert image",
+    }).then((file) => {
+      if (!file) {
+        this.postHostResult(preview, message, { ok: true, cancelled: true });
+        return;
+      }
+      if (!file.local || !isImageFileName(file.path)) {
+        this.postHostResult(preview, message, { ok: false, reason: "Pick a png, jpeg, gif, webp or svg image." });
+        return;
+      }
+      // A document outside every workspace folder has its own folder as its only root.
+      if (preview.workspaceFolder === undefined) {
+        if (!isPathWithin(path.dirname(documentPath), file.path)) {
+          this.postHostResult(preview, message, { ok: false, reason: "The image must be inside the folder of the document." });
+          return;
+        }
+      } else if (!host.workspace.folderOf(file.path)) {
+        this.postHostResult(preview, message, { ok: false, reason: "The image must be inside a workspace folder." });
+        return;
+      }
+      const reference = relativeImageReference(documentPath, file.path);
+      this.postHostResult(preview, message, reference === undefined
+        ? { ok: false, reason: "That image cannot be referenced from this document (another drive, or an unusual name)." }
+        : { ok: true, path: reference });
+    }, (error: unknown) => {
+      this.postHostResult(preview, message, { ok: false, reason: error instanceof Error ? error.message : String(error) });
+    });
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-PALETTE-196
+  /**
+   * An image pasted into the open block editor: saved next to the document under a name chosen
+   * here (`image.png`, `image-1.png`, …; chosen again when another program takes it meanwhile), never a name from the page. Restricted Mode and a
+   * standalone file paste like a trusted workspace (a standalone file's own folder is its root).
+   * Refused for a document that is not a saved file, for a folder that
+   * is not inside a workspace folder (symlinks resolved), for bytes that are not the announced
+   * png, jpeg, gif or webp, and above 10 MB. Only a block editor's text box posts this message (no
+   * editor open: the page ignores the paste); the host has no state for an editor that is open but
+   * not yet saved, and the editor's autosaves move the document version, so neither is checked.
+   */
+  private handlePasteImage(preview: PreviewSession, message: PageMessageOf<"previewPasteImage">): PromiseLike<void> | undefined {
+    const { host } = this.manager;
+    const refuse = (reason: string): undefined => {
+      this.postHostResult(preview, message, { ok: false, reason });
+      return undefined;
+    };
+    const document = preview.document;
+    const documentPath = document?.path;
+    if (!document || documentPath === undefined || document.id !== preview.documentUri) {
+      return refuse("Save the document before pasting an image.");
+    }
+    if (!isDocumentEligible(document)) return refuse("Pasting an image needs a Markdown file.");
+    const workspaceFolder = host.workspace.folderOf(documentPath);
+    const folderPath = path.dirname(documentPath);
+    const { canonicalPath } = this.manager;
+    // A document outside every workspace folder has its own folder as its only root.
+    const root = workspaceFolder?.path ?? (preview.workspaceFolder === undefined ? folderPath : undefined);
+    if (root === undefined || !isPathWithin(canonicalPath(root), canonicalPath(folderPath))) {
+      return refuse("The image must be saved inside a workspace folder.");
+    }
+    const announced = imageTypeOfMime(String(message.mime));
+    const encoded = String(message.dataBase64);
+    if (!announced || !isBase64(encoded)) return refuse("That clipboard image type is not supported.");
+    const bytes = Buffer.from(encoded, "base64");
+    if (bytes.length > MAX_PASTED_IMAGE_BYTES) return refuse("The image is larger than 10 MB.");
+    const sniffed = sniffImage(bytes);
+    if (sniffed === undefined || sniffed !== announced) {
+      return refuse("The clipboard data is not a png, jpeg, gif or webp image.");
+    }
+    return this.saveNewImage(host.files, folderPath, PASTED_IMAGE_EXTENSION[sniffed], bytes).then((result) => {
+      if (result === undefined) refuse("Too many pasted images next to this document.");
+      else {
+        // The image is kept until a block save wrote its reference (see `removePastedImages`).
+        preview.edits.pastedImages = [...(preview.edits.pastedImages ?? []), path.join(folderPath, result)];
+        this.postHostResult(preview, message, { ok: true, fileName: result });
+      }
+    }, (error: unknown) => {
+      refuse(error instanceof Error ? error.message : String(error));
+    });
+  }
+
+  /**
+   * Picks the next free image name and writes the bytes under it. When another program takes the
+   * chosen name between the choice and the rename, the name is chosen again from a fresh listing,
+   * up to `PASTE_NAME_ATTEMPTS` times. Resolves the file name, or `undefined` when no name is free.
+   */
+  private async saveNewImage(files: FileSystem, folderPath: string, extension: string, bytes: Uint8Array): Promise<string | undefined> {
+    await removeStalePartialFiles(files, folderPath, await files.readDirectory(folderPath).then((list) => list, () => []), Date.now());
+    for (let attempt = 1; ; attempt += 1) {
+      const entries = await files.readDirectory(folderPath);
+      const fileName = nextImageName(new Set(entries.map(([name]) => name)), extension);
+      if (fileName === undefined) return undefined;
+      try {
+        await writeNewFileAtomically(files, folderPath, fileName, bytes);
+        return fileName;
+      } catch (error) {
+        const taken = await files.stat(path.join(folderPath, fileName)).then(() => true, () => false);
+        if (!taken || attempt >= PASTE_NAME_ATTEMPTS) throw error;
+      }
+    }
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-PALETTE-213
+  /** Rich text pasted into the open block editor: the clipboard's HTML as Markdown. No file is touched. */
+  private handlePasteHtml(preview: PreviewSession, message: PageMessageOf<"previewPasteHtml">): void {
+    try {
+      this.postHostResult(preview, message, { ok: true, markdown: htmlToMarkdown(String(message.html)) });
+    } catch (error) {
+      this.postHostResult(preview, message, { ok: false, reason: error instanceof Error ? error.message : String(error) });
+    }
+  }
+}

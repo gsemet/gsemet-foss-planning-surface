@@ -1,0 +1,661 @@
+/**
+ * The cell editor of a pipe table: a one-cell text box in the clicked cell, the table toolbar above
+ * the table (rows, columns, conversion to a list-table, and the inline palette of a cell), Tab and
+ * the arrow keys from cell to cell, and the commit when the focus leaves the cell. The edit works
+ * on the parsed table model; every save writes the whole table back.
+ */
+
+import { setCellInline } from "../modules/cellInlineMarkdown";
+import { caretRectOf } from "../modules/caretRect";
+import { CELL_REVEAL_MARGIN, clearCellEditorRoom, fitCellToRoom } from "../modules/cellEditorRoom";
+import { createEditPalette } from "../modules/editPalette";
+import { createSlashMenu } from "../modules/slashMenu";
+import { stickyBarShift } from "../modules/stickyBar";
+import { createTabHint, isEmptyModelRow, isTabNewRowCell } from "../modules/tableTabRow";
+import { fillGrid, spreadsheetGrid } from "../modules/tableGridPaste";
+import { tableRankIn } from "../modules/tableInContainer";
+import { isApplePlatform } from "../pageSettings";
+import type { BlockEdit, CaretPosition, PageRuntime, TableCellEditor } from "./pageRuntime";
+
+/** The table model row of a rendered row: the model also holds the delimiter row after the header. */
+function modelRowOf(renderedRow: number): number {
+  return renderedRow === 0 ? 0 : renderedRow + 1;
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-TABLE-126
+// A table wider than the pane scrolls sideways in its own box. The selected cell and its editor
+// (the editor can be wider than the cell) are brought fully inside that box by moving only the
+// box's scrollLeft, instantly and by the smallest amount, with a margin on the side they enter
+// from. A target already inside the box does not move; a target wider than the box is aligned on
+// its start. The page itself never scrolls for it.
+function revealCellInTable(cell: HTMLTableCellElement, editor: HTMLElement): void {
+  const table = cell.closest?.("table");
+  if (!table) return;
+  const boxWidth = table.clientWidth;
+  const maxScroll = table.scrollWidth - boxWidth;
+  if (!(boxWidth > 0) || !(maxScroll > 0)) return;
+  const rightOf = (rect: { left?: number; right?: number; width?: number }): number =>
+    rect.right ?? (rect.left ?? 0) + (rect.width ?? 0);
+  const tableRect = table.getBoundingClientRect();
+  const cellRect = cell.getBoundingClientRect();
+  const editorRect = editor.getBoundingClientRect();
+  const boxLeft = (tableRect.left ?? 0) + (table.clientLeft || 0);
+  const boxRight = boxLeft + boxWidth;
+  const targetLeft = Math.min(cellRect.left ?? 0, editorRect.left ?? 0);
+  const targetRight = Math.max(rightOf(cellRect), rightOf(editorRect));
+  if (targetLeft >= boxLeft && targetRight <= boxRight) return;
+  const startAligned = targetRight - targetLeft > boxWidth - 2 * CELL_REVEAL_MARGIN || targetLeft < boxLeft;
+  const delta = startAligned
+    ? targetLeft - (boxLeft + CELL_REVEAL_MARGIN)
+    : targetRight - (boxRight - CELL_REVEAL_MARGIN);
+  const current = table.scrollLeft || 0;
+  const next = Math.max(0, Math.min(maxScroll, current + delta));
+  if (next !== current) table.scrollLeft = next;
+}
+
+/** The cell editor of a page. */
+export function installTableCellEditor(rt: PageRuntime): TableCellEditor {
+  const { document, window, state } = rt;
+  const { editorTrace, traceFocus } = rt.diagnostics;
+  const { tableTools, editActions } = rt.tools;
+  // A cell editor must never stay open without focus. A pointer press in the last 500 ms means a
+  // click is in progress and the click handlers decide what happens.
+  let lastPointerDownAt = 0;
+
+  function switchTableCell(edit: BlockEdit, selectedCell: HTMLTableCellElement, caretPosition: CaretPosition): void {
+    if (edit.finishing || !edit.tableModel || edit.selectedCell === selectedCell) return;
+    const rowIndex = (selectedCell.parentElement as HTMLTableRowElement).rowIndex;
+    const columnIndex = selectedCell.cellIndex;
+    const modelRowIndex = modelRowOf(rowIndex);
+    if (!edit.tableModel.rows[modelRowIndex] || columnIndex >= edit.tableModel.rows[modelRowIndex].length) return;
+    const previousRowIndex = modelRowOf(edit.tableRowIndex!);
+    edit.tableModel.rows[previousRowIndex]![edit.tableColumnIndex!] = edit.tableInput!.value;
+    if (edit.tableInput!.value !== edit.cellTextAtOpen) edit.keptCellChange = true;
+    rt.blockEditor.postBlockEditSave(false);
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-125
+    // The cell left shows the text just typed, not the content captured when the editor opened in
+    // it (empty for a new row), rendered as inline Markdown until the next render of the page. A
+    // cell whose text did not change keeps its full rendering.
+    if (edit.renderedCellContent && edit.tableInput!.value !== edit.cellTextAtOpen) {
+      setCellInline(document, edit.renderedCellContent, edit.tableInput!.value);
+      // @implements_req SwRS-MDOKFSTUDIO-LIFE-069
+      // The table now shows text the host never rendered: the next patch has to rebuild it, even
+      // when the buffer is back to the text its host HTML came from (an undo, a revert).
+      rt.parts.contentMorph.invalidate(edit.renderedCellContent);
+    }
+    rt.blockEditor.restoreTableCellContent(edit);
+    edit.selectedCell!.removeAttribute("data-sphinx-preview-table-cell-selected");
+    clearCellEditorRoom(edit.selectedCell!);
+    edit.element.remove();
+    edit.focusAtOpen = document.activeElement;
+    edit.selectedCell = selectedCell;
+    edit.tableRowIndex = rowIndex;
+    edit.tableColumnIndex = columnIndex;
+    edit.initialCaretPosition = caretPosition;
+    edit.renderedCellContent = rt.blockEditor.hideTableCellContent(selectedCell);
+    selectedCell.setAttribute("data-sphinx-preview-table-cell-selected", "true");
+    selectedCell.appendChild(edit.element);
+    rt.scroll.beginEditAnchor(selectedCell);
+    renderTableCellEditor(edit);
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-025
+  // Escape cancels only the cell it is pressed in. When a cell left earlier in the session holds
+  // typed text, the open cell goes back to its opening text and the table is saved and closed, so
+  // the buffer and the page keep the cells left; otherwise the whole edit is cancelled as before.
+  // A row that Tab added in the session that opened in it goes away when it is still empty once the
+  // open cell is back to its opening text: the table is saved once without it.
+  function cancelTableCellEdit(edit: BlockEdit): void {
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-025
+    // A final save in flight goes on in the background: Cancel and Escape close the editor.
+    if (edit.finishing) {
+      rt.blockEditor.cancelBlockEdit();
+      return;
+    }
+    if (edit.tabAddedRow !== undefined && edit.tabAddedRow === edit.tableRowIndex && edit.tableModel
+      && edit.tableInput && edit.cellTextAtOpen !== undefined) {
+      const addedRow = edit.tableModel.rows[modelRowOf(edit.tableRowIndex)];
+      const restored = addedRow?.map((text, column) => column === edit.tableColumnIndex ? edit.cellTextAtOpen! : text);
+      if (isEmptyModelRow(restored) && tableTools.deleteRow(edit.tableModel, edit.tableRowIndex) !== undefined) {
+        edit.tableInput.value = edit.cellTextAtOpen;
+        edit.tabAddedRow = undefined;
+        edit.convertedText = undefined;
+        rt.blockEditor.saveBlockEdit();
+        return;
+      }
+    }
+    if (edit.keptCellChange && edit.tableModel && edit.tableInput && edit.cellTextAtOpen !== undefined) {
+      edit.tableInput.value = edit.cellTextAtOpen;
+      edit.tableModel.rows[modelRowOf(edit.tableRowIndex!)]![edit.tableColumnIndex!] = edit.cellTextAtOpen;
+      edit.convertedText = undefined;
+      rt.blockEditor.saveBlockEdit();
+      return;
+    }
+    rt.blockEditor.cancelBlockEdit();
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-123
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-124
+  // Tab / Shift+Tab: next or previous rendered cell, wrapping across rows; Tab on the last cell
+  // adds a row and resumes in its first cell after the re-render.
+  function tabThroughTableCells(edit: BlockEdit, backwards: boolean): void {
+    if (edit.finishing || !edit.tableModel || !edit.selectedCell || !edit.tableInput) return;
+    const table = edit.selectedCell.closest?.("table");
+    const rows = table?.rows;
+    if (!rows || typeof rows.length !== "number") return;
+    const cellAt = (rowIndex: number, columnIndex: number): HTMLTableCellElement | undefined =>
+      rows[rowIndex]?.cells?.[columnIndex];
+    let rowIndex = edit.tableRowIndex!;
+    let columnIndex = edit.tableColumnIndex!;
+    if (backwards) {
+      columnIndex -= 1;
+      if (columnIndex < 0) {
+        rowIndex -= 1;
+        if (rowIndex < 0) return;
+        columnIndex = (rows[rowIndex]?.cells?.length ?? 0) - 1;
+      }
+    } else {
+      columnIndex += 1;
+      if (columnIndex >= (rows[rowIndex]?.cells?.length ?? 0)) {
+        rowIndex += 1;
+        columnIndex = 0;
+      }
+    }
+    if (rowIndex >= rows.length) {
+      const modelRowIndex = modelRowOf(edit.tableRowIndex!);
+      edit.tableModel.rows[modelRowIndex]![edit.tableColumnIndex!] = edit.tableInput.value;
+      const newRow = tableTools.insertRowAfter(edit.tableModel, edit.tableRowIndex!);
+      rt.blockEditor.rememberPendingBlockNavigation(edit.target, "end", undefined, {
+        tableRowIndex: newRow,
+        tableColumnIndex: 0,
+        tableRank: tableRankIn(edit.target, table),
+      }, undefined, true);
+      if (!rt.blockEditor.postBlockEditSave(true)) rt.blockEditor.clearPendingBlockNavigation();
+      return;
+    }
+    const cell = cellAt(rowIndex, columnIndex);
+    if (cell) switchTableCell(edit, cell, "end");
+  }
+
+  // Arrow keys at the edge of the field move to the neighbouring rendered cell (same row for
+  // Left/Right, same column for Up/Down) through the same switch as Tab. With no cell in that
+  // direction the event is left to the block-to-block navigation.
+  function arrowThroughTableCells(edit: BlockEdit, event: KeyboardEvent, control: HTMLTextAreaElement): boolean {
+    if (event.isComposing || edit.finishing || !edit.tableModel || !edit.selectedCell) return false;
+    const navigation = rt.textControls.boundaryNavigation(control, event);
+    if (!navigation) return false;
+    const rows = edit.selectedCell.closest?.("table")?.rows;
+    if (!rows || typeof rows.length !== "number") return false;
+    let rowIndex = edit.tableRowIndex!;
+    let columnIndex = edit.tableColumnIndex!;
+    if (event.key === "ArrowLeft") columnIndex -= 1;
+    else if (event.key === "ArrowRight") columnIndex += 1;
+    else if (event.key === "ArrowUp") rowIndex -= 1;
+    else if (event.key === "ArrowDown") rowIndex += 1;
+    else return false;
+    const cell = rows[rowIndex]?.cells?.[columnIndex];
+    if (!cell) return false;
+    // Same validity test as switchTableCell, so a cell missing from the model row falls back.
+    const modelRow = edit.tableModel.rows[modelRowOf(rowIndex)];
+    if (!modelRow || columnIndex >= modelRow.length) return false;
+    event.preventDefault?.();
+    switchTableCell(edit, cell, navigation.caretPosition);
+    return true;
+  }
+
+  function commitCellEditorOnFocusLoss(edit: BlockEdit, input: HTMLTextAreaElement): void {
+    window.setTimeout(() => {
+      if (state.activeBlockEdit !== edit || edit.finishing || edit.tableInput !== input) return;
+      if (Date.now() - lastPointerDownAt < 500) return;
+      const active = document.activeElement;
+      const documentFocused = typeof document.hasFocus === "function" ? document.hasFocus() : true;
+      const focusInside = documentFocused && active
+        && (edit.element === active || edit.element.contains?.(active)
+          || edit.tableMenu === active || edit.tableMenu?.contains?.(active));
+      if (focusInside) return;
+      rt.blockEditor.saveBlockEdit();
+    }, 0);
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-064
+  // CR 034: the table toolbar stays in view while a tall table scrolls. It keeps its place above the
+  // table (the table's text never moves) and is translated down to just under the sticky band or
+  // the preview controls, never past the table's bottom. A bar over 40% of the viewport stays put.
+  function syncTableMenuSticky(edit: BlockEdit): void {
+    const menu = edit.tableMenu;
+    const table = edit.selectedCell?.closest?.("table");
+    if (!menu || !table || edit.finishing || state.activeBlockEdit !== edit) return;
+    const bar = menu.getBoundingClientRect?.();
+    const tableRect = table.getBoundingClientRect?.();
+    if (!bar || !tableRect || !Number.isFinite(bar.top)) return;
+    const current = Number.parseFloat(menu.style?.getPropertyValue?.("--sphinx-preview-table-menu-shift")) || 0;
+    const natural = { top: bar.top - current, left: bar.left, right: bar.right, width: bar.width };
+    const small = bar.height <= window.innerHeight * 0.4;
+    // Only once the table's own top is under the band or the controls: while the table top is in
+    // view the bar keeps its place above the table and never covers a row.
+    const usable = rt.editorChrome.toolbarUsableTop(natural);
+    const shift = small && tableRect.top < usable
+      ? stickyBarShift(natural.top, bar.height, usable, tableRect.bottom)
+      : 0;
+    if (shift > 0) menu.setAttribute("data-sphinx-table-menu-stuck", "true");
+    else menu.removeAttribute("data-sphinx-table-menu-stuck");
+    menu.style?.setProperty?.("--sphinx-preview-table-menu-shift", shift + "px");
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-064
+  // A bar that opens under the floating preview controls where the page cannot scroll up enough to
+  // bring it below them (a table right under the first heading, at the top of the page) gives up the
+  // width the controls cover: its buttons wrap left of them and stay clickable. Measured when the bar
+  // is filled, never on a scroll, so scrolling never reflows the page.
+  function clearPreviewControls(menu: HTMLElement): void {
+    const property = "--sphinx-preview-table-menu-inset";
+    menu.style?.removeProperty?.(property);
+    const controls = document.querySelector?.("[data-sphinx-preview-toolbar]")?.getBoundingClientRect?.();
+    const bar = menu.getBoundingClientRect?.();
+    const parent = menu.parentElement;
+    const column = parent?.getBoundingClientRect?.();
+    if (!controls || !bar || !parent || !column || !(controls.width > 0) || !Number.isFinite(bar.top)) return;
+    const barRight = Number.isFinite(bar.right) ? bar.right : bar.left + bar.width;
+    const missing = controls.bottom + 4 - bar.top;
+    if (!(missing > window.scrollY) || bar.top >= controls.bottom || !(barRight > controls.left)) return;
+    const columnRight = (Number.isFinite(column.right) ? column.right : column.left + column.width)
+      - (Number.parseFloat(window.getComputedStyle?.(parent)?.paddingRight ?? "") || 0);
+    const inset = Math.ceil(columnRight - controls.left + 4);
+    // A narrow pane keeps the whole width: a bar squeezed under 200 px would be worse than covered.
+    if (!(inset > 0) || column.width - inset < 200) return;
+    menu.style?.setProperty?.(property, inset + "px");
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-001
+  function renderTableCellEditor(edit: BlockEdit): void {
+    const { blockEditor, textControls } = rt;
+    const { hostRequests } = rt.parts;
+    const selectedCell = edit.selectedCell!;
+    const modelRowIndex = modelRowOf(edit.tableRowIndex!);
+    const row = edit.tableModel!.rows[modelRowIndex]!;
+    edit.tableColumnIndex = Math.max(0, Math.min(edit.tableColumnIndex!, row.length - 1));
+    // The panel and popover belong to the control that is about to be replaced.
+    edit.closeLinkPanel?.(false);
+    edit.cellPalette?.closePopover();
+    edit.cellSlash?.close();
+    edit.element.textContent = "";
+
+    const input = document.createElement("textarea");
+    input.rows = 1;
+    input.setAttribute("spellcheck", "false");
+    input.setAttribute("aria-label", "Markdown table cell");
+    input.value = row[edit.tableColumnIndex]!;
+    edit.cellTextAtOpen = input.value;
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-006
+    // The cell grows with its text: the field has no scrollbar and the buttons sit beneath it.
+    const resizeInput = (): void => {
+      input.style.height = "auto";
+      input.style.height = input.scrollHeight + "px";
+    };
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-013
+    const rememberCellValue = (): void => {
+      // Any later change wins over a conversion that was not saved.
+      edit.convertedText = undefined;
+      const selectedRow = modelRowOf(edit.tableRowIndex!);
+      edit.tableModel!.rows[selectedRow]![edit.tableColumnIndex!] = input.value;
+    };
+    input.addEventListener("input", () => {
+      // A pasted or dropped line break would split the source row: it becomes a space.
+      if (/[\r\n]/u.test(input.value)) {
+        const flat = (text: string): string => text.replace(/\r\n|[\r\n]/gu, " ");
+        const caret = input.selectionStart;
+        const flatCaret = typeof caret === "number" ? flat(input.value.slice(0, caret)).length : undefined;
+        input.value = flat(input.value);
+        if (flatCaret !== undefined) input.setSelectionRange?.(flatCaret, flatCaret);
+      }
+      resizeInput();
+      rememberCellValue();
+      blockEditor.autosaveBlockEdit();
+    });
+
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-120
+    // Spreadsheet cells (text with a tab) fill the cells from this one; any other paste is native.
+    input.addEventListener("paste", (event) => {
+      const grid = spreadsheetGrid(event.clipboardData?.getData("text/plain") ?? "");
+      if (!grid || edit.finishing) return;
+      event.preventDefault();
+      structural(() => fillGrid(edit.tableModel!, tableTools, edit.tableRowIndex!, edit.tableColumnIndex!, grid));
+    });
+
+    const menu = edit.tableMenu || document.createElement("div");
+    menu.textContent = "";
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-048
+    if (!edit.tableMenu) {
+      menu.className = "sphinx-preview-table-menu";
+      menu.setAttribute("role", "toolbar");
+      menu.setAttribute("aria-label", "Table row and column actions");
+      menu.setAttribute("data-sphinx-table-menu", "true");
+      menu.addEventListener("click", (event) => event.stopPropagation?.());
+      // In the document flow, directly above the table (or its single-child wrapper), so the
+      // toolbar never covers a row. The edit anchor keeps the selected cell fixed on screen.
+      const table = selectedCell.closest?.("table");
+      let placeBefore: HTMLElement | null | undefined = table;
+      const wrapper = table?.parentElement;
+      const wrapperChildren = wrapper?.children || (wrapper as { childElements?: HTMLCollection } | null | undefined)?.childElements;
+      if (wrapper && wrapper.tagName === "DIV" && wrapperChildren && wrapperChildren.length === 1
+        && wrapper.getAttribute("data-sphinx-source-line") === null) {
+        placeBefore = wrapper;
+      }
+      if (placeBefore && placeBefore.parentElement) {
+        placeBefore.parentElement.insertBefore(menu, placeBefore);
+      } else {
+        document.body.appendChild(menu);
+      }
+      edit.tableMenu = menu;
+      // The bar rides down with the page while its table scrolls (CR 034), and follows a resize.
+      edit.tableMenuPositionListener = () => syncTableMenuSticky(edit);
+      window.addEventListener("scroll", edit.tableMenuPositionListener, true);
+      window.addEventListener("resize", edit.tableMenuPositionListener);
+      rt.scroll.applyAnchor();
+    }
+    const actionButtons: HTMLButtonElement[] = [];
+    const tableActionIcons = {
+      addRow: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3.5h16v13H4z"></path><path d="M4 8h16M9.5 3.5v13M14.5 3.5v13M12 19v4M9.5 21.5h5"></path></svg>',
+      deleteRow: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3.5h16v13H4z"></path><path d="M4 8h16M9.5 3.5v13M14.5 3.5v13M9.5 21.5h5"></path></svg>',
+      addRowAbove: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v13H4z"></path><path d="M4 16h16M9.5 7.5v13M14.5 7.5v13M12 1v4M9.5 2.5h5"></path></svg>',
+      addColumnBefore: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.5 4h13v16h-13z"></path><path d="M16 4v16M11.5 4v16M7 9H1M4 6v6"></path></svg>',
+      addColumn: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 4h13v16h-13z"></path><path d="M8 4v16M12.5 4v16M17 9h6M20 6v6"></path></svg>',
+      deleteColumn: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 4h13v16h-13z"></path><path d="M8 4v16M12.5 4v16M17 9h6"></path></svg>',
+      listTable: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v14H4z"></path><path d="M4 10h16M9 5v14M6 7.5h.01M6 14.5h.01M12 14.5h6"></path></svg>',
+    };
+    const addAction = (name: string, icon: string, label: string, handler: () => void, disabled: boolean,
+      group: string, disabledReason?: string): void => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", name);
+      button.setAttribute("title", name);
+      button.setAttribute("data-tooltip", name);
+      button.setAttribute("data-sphinx-table-operation", name);
+      button.setAttribute("data-sphinx-table-group", group);
+      button.innerHTML = icon;
+      const labelText = document.createElement("span");
+      labelText.className = "sphinx-preview-table-menu-label";
+      labelText.textContent = label;
+      button.appendChild(labelText);
+      button.disabled = disabled;
+      // A disabled button says why, in its title and its tooltip.
+      if (disabled && disabledReason) {
+        button.setAttribute("title", disabledReason);
+        button.setAttribute("data-tooltip", disabledReason);
+      }
+      button.addEventListener("click", () => {
+        rememberCellValue();
+        handler();
+        edit.focusAtOpen = document.activeElement;
+        if (!edit.finishing) renderTableCellEditor(edit);
+      });
+      menu.appendChild(button);
+      actionButtons.push(button);
+    };
+    // A structural button changes the table, so the table is saved and rendered again, and the
+    // editor reopens in the cell the press selects (the DOM of the open editor has no such cell).
+    const structural = (change: () => void): void => {
+      edit.closeLinkPanel?.(false);
+      edit.cellPalette?.closePopover();
+      edit.cellSlash?.close();
+      change();
+      blockEditor.rememberPendingBlockNavigation(edit.target, "end", undefined, {
+        tableRowIndex: edit.tableRowIndex!,
+        tableColumnIndex: edit.tableColumnIndex!,
+        tableRank: tableRankIn(edit.target, selectedCell.closest?.("table")),
+      });
+      if (!blockEditor.postBlockEditSave(true)) blockEditor.clearPendingBlockNavigation();
+    };
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Insert row before selected row", tableActionIcons.addRowAbove, "Row above", () => structural(() => {
+      const row = tableTools.insertRowBefore(edit.tableModel!, edit.tableRowIndex!);
+      if (row !== undefined) edit.tableRowIndex = row;
+    }), edit.tableRowIndex === 0, "row");
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Insert row after selected row", tableActionIcons.addRow, "Row below", () => structural(() => {
+      edit.tableRowIndex = tableTools.insertRowAfter(edit.tableModel!, edit.tableRowIndex!);
+    }), false, "row");
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Delete selected row", tableActionIcons.deleteRow, "Row −", () => structural(() => {
+      const nextRow = tableTools.deleteRow(edit.tableModel!, edit.tableRowIndex!);
+      if (nextRow !== undefined) edit.tableRowIndex = nextRow;
+    }), edit.tableRowIndex === 0 || edit.tableModel!.rows.length <= 3, "row");
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Insert column before selected column", tableActionIcons.addColumnBefore, "Col left", () => structural(() => {
+      edit.tableColumnIndex = tableTools.insertColumnBefore(edit.tableModel!, edit.tableColumnIndex!);
+    }), false, "column");
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Insert column after selected column", tableActionIcons.addColumn, "Col right", () => structural(() => {
+      edit.tableColumnIndex = tableTools.insertColumnAfter(edit.tableModel!, edit.tableColumnIndex!);
+    }), false, "column");
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-055
+    addAction("Delete selected column", tableActionIcons.deleteColumn, "Col −", () => structural(() => {
+      const nextColumn = tableTools.deleteColumn(edit.tableModel!, edit.tableColumnIndex!);
+      if (nextColumn !== undefined) edit.tableColumnIndex = nextColumn;
+    }), edit.tableModel!.rows[0]!.length <= 1, "column");
+    // Table level: the pipe table becomes a {list-table}, written back as one edit (one undo step).
+    // A table captioned by a {table} directive sits in a figure; wrapping a list-table in it is not
+    // offered.
+    const tableFigure = selectedCell.closest?.("table")?.parentElement?.tagName === "FIGURE";
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-122
+    addAction("Convert to list-table", tableActionIcons.listTable, "List table", () => {
+      const converted = tableTools.convertTable(tableTools.serialize(edit.tableModel!), "list-table");
+      if (converted && converted.ok) {
+        edit.convertedText = converted.text;
+        blockEditor.saveBlockEdit();
+      }
+    }, tableFigure || Boolean(edit.tableModel!.listTable) || Boolean(edit.tableModel!.container)
+      || Boolean(edit.tableModel!.sourceTails?.some((tail) => tail !== "")), "table",
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-121
+    edit.tableModel!.container ? "Not available for a table inside a quote or an admonition" : undefined);
+    // A list-table opened in the cell editor goes back to a pipe table from the same bar.
+    if (edit.tableModel!.listTable) {
+      addAction("Convert to pipe table", tableActionIcons.listTable, "Pipe table", () => {
+        const converted = tableTools.convertTable(tableTools.serialize(edit.tableModel!), "pipe");
+        if (converted && converted.ok) {
+          edit.convertedText = converted.text;
+          blockEditor.saveBlockEdit();
+        }
+      }, false, "table");
+    }
+
+    // The inline buttons allowed in a cell join the bar after a separator; the same group object
+    // is kept for the whole edit and only moved into each rebuilt bar.
+    const rememberAndAutosave = (): void => {
+      resizeInput();
+      rememberCellValue();
+      blockEditor.autosaveBlockEdit();
+    };
+    edit.tableInput = input;
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-085
+    if (!edit.cellPalette) {
+      edit.cellPalette = createEditPalette(document, {
+        actions: editActions,
+        scope: "cell",
+        getControl: () => edit.tableInput!,
+        getCaretRect: () => caretRectOf(document, window, edit.tableInput!),
+        applyTextEdit: (paletteEdit) => textControls.applyTextEdit(edit.tableInput!, paletteEdit, rememberAndAutosave),
+        openPanel: (action, panelName) => {
+          if ((panelName ?? action.panel) === "link") rt.editorChrome.openLinkPanel(edit.tableInput!, rememberAndAutosave);
+        },
+        caretInside: () => false,
+        mode: state.paletteMode,
+        isInsideFrame: (node) => Boolean(node)
+          && (node === edit.element || edit.element.contains(node as Node)
+            || (Boolean(edit.tableMenu) && edit.tableMenu!.contains(node as Node))),
+        requestList: (kind, done) => hostRequests.ask(
+          kind === "targets" ? "previewListTargets" : "previewListCitations", {}, {},
+          (result) => done(result.ok === true && Array.isArray(result.items)
+            ? { items: result.items, truncated: result.truncated === true }
+            : { items: [], error: typeof result.reason === "string" ? result.reason : "The list could not be read." })),
+        pickHost: (kind, done) => hostRequests.ask(
+          kind === "image" ? "previewPickImage" : "previewPickDocument", {}, { dialog: true },
+          (result) => done(result.ok === true && typeof result.path === "string" ? result.path : undefined)),
+        onLeave: () => {
+          if (hostRequests.isDialogOpen()) return;
+          if (state.activeBlockEdit === edit && !edit.finishing) blockEditor.saveBlockEdit();
+        },
+        onDone: () => {
+          if (state.activeBlockEdit === edit) blockEditor.saveBlockEdit();
+        },
+        apple: isApplePlatform(),
+      });
+    }
+    const cellPalette = edit.cellPalette;
+    // @implements_req SwRS-MDOKFSTUDIO-PALETTE-001
+    cellPalette.setMode(state.paletteMode);
+    if (!edit.cellSlash) {
+      edit.cellSlash = createSlashMenu(document, window, {
+        getControl: () => edit.tableInput!,
+        getEntries: () => cellPalette.menuEntries(),
+        run: (key, range) => cellPalette.runMenuEntry(key, range),
+        getCaretRect: () => caretRectOf(document, window, edit.tableInput!),
+        preferGroup: () => (state.paletteMode === "myst" ? "myst" : state.paletteMode === "full" ? "full" : undefined),
+      });
+    }
+    const separator = document.createElement("span");
+    separator.setAttribute("role", "separator");
+    separator.setAttribute("aria-orientation", "vertical");
+    separator.className = "sphinx-preview-table-menu-separator";
+    // The rule and the group are one flex item: when the group wraps, the rule goes with it.
+    const cellGroup = document.createElement("div");
+    cellGroup.className = "sphinx-preview-table-menu-cell-group";
+    cellGroup.appendChild(separator);
+    cellGroup.appendChild(cellPalette.element);
+    menu.appendChild(cellGroup);
+
+    const columnCount = edit.tableModel!.rows[0]!.length;
+    const columnText = "column " + (edit.tableColumnIndex + 1) + " of " + columnCount;
+    edit.status.textContent = edit.tableRowIndex === 0
+      ? "Header · " + columnText
+      : "Row " + edit.tableRowIndex + " of " + (edit.tableModel!.rows.length - 2) + " · " + columnText;
+    menu.appendChild(edit.status);
+    // The menu now has its items: check them against the floating controls. The inset is decided
+    // first, from the page as it is when the bar appears: a bar that wraps left of the controls
+    // needs no reveal, so the selected cell does not move for a scroll the wrap makes useless.
+    clearPreviewControls(menu);
+    rt.scroll.applyAnchor();
+    edit.element.appendChild(input);
+    // Done and Cancel under the field, without the status hint (the toolbar carries the position).
+    const cellActions = document.createElement("div");
+    cellActions.className = "sphinx-preview-block-editor-actions";
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-124
+    // The last cell of the table says what Tab does there; the text box is described by it.
+    if (isTabNewRowCell(selectedCell)) {
+      const hintId = "sphinx-preview-table-cell-hint-" + edit.editId;
+      cellActions.appendChild(createTabHint(document, hintId));
+      input.setAttribute("aria-describedby", hintId);
+    }
+    cellActions.appendChild(blockEditor.createEditorButtons(edit));
+    edit.element.appendChild(cellActions);
+    resizeInput();
+    syncTableMenuSticky(edit);
+    // stabilizeLayout (window and content resize) re-fits the field when the width changes.
+    edit.resizeTextarea = resizeInput;
+    edit.tableInput = input;
+    edit.actionButtons = actionButtons;
+    input.addEventListener("blur", () => {
+      edit.cellSlash?.close();
+      commitCellEditorOnFocusLoss(edit, input);
+    });
+    // Clicking or typing in the cell closes what the bar opened, as in a block editor.
+    input.addEventListener("mousedown", () => {
+      edit.cellPalette?.closePopover();
+      edit.closeLinkPanel?.(false);
+    });
+    input.addEventListener("input", (event) => {
+      edit.cellPalette?.closePopover();
+      edit.closeLinkPanel?.(false);
+      edit.cellPalette?.updateAvailability();
+      edit.cellSlash?.handleInput(event as InputEvent);
+    });
+    for (const kind of ["keyup", "mouseup", "select"]) {
+      input.addEventListener(kind, () => {
+        edit.cellPalette?.updateAvailability();
+        edit.cellSlash?.sync();
+      });
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-018
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-025
+    input.addEventListener("keydown", (event) => {
+      if (edit.cellSlash?.handleKey(event)) return;
+      if (edit.cellPalette?.handleKey(event)) return;
+      if (textControls.hostEditKey(event)) return;
+      if (textControls.keepUndoInControl(event)) return;
+      if (textControls.paletteShortcut(event, input, rememberAndAutosave)) return;
+      if (textControls.wrapSelectionInControl(event, input, () => {
+        resizeInput();
+        rememberCellValue();
+        blockEditor.autosaveBlockEdit();
+      })) return;
+      if (event.key === "Tab" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault?.();
+        tabThroughTableCells(edit, Boolean(event.shiftKey));
+        return;
+      }
+      if (arrowThroughTableCells(edit, event, input)) return;
+      if (blockEditor.navigateBlockEdit(event, input)) return;
+      if (textControls.homeEndInControl(event, input)) return;
+      if (event.key === "Escape" && !event.isComposing) {
+        event.preventDefault?.();
+        cancelTableCellEdit(edit);
+      } else if (event.key === "Enter") {
+        event.preventDefault?.();
+        blockEditor.saveBlockEdit();
+      }
+    });
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-255
+    // Same guard as the block source editor (BLOCK-255): a text field outside the editor that took
+    // the focus since the editor opened (the find field) keeps it.
+    if (textControls.focusMovedToAnotherField(edit)) {
+      editorTrace.record("cell editor left unfocused", "line=" + edit.line + " " + traceFocus());
+    } else {
+      textControls.focusTextControlAtLastContent(input, edit.initialCaretPosition);
+      editorTrace.record("cell editor focused", "line=" + edit.line + " row=" + edit.tableRowIndex
+        + " column=" + edit.tableColumnIndex + " " + traceFocus());
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-126
+    // The editor is now in its cell, so both rects are current: every open, switch and reopen
+    // brings the cell and its editor inside the table's sideways scroll box.
+    fitCellToRoom(window, selectedCell);
+    revealCellInTable(selectedCell, edit.element);
+  }
+
+  return {
+    switchTableCell,
+    renderTableCellEditor,
+    cancelTableCellEdit,
+    // @implements_req SwRS-MDOKFSTUDIO-TABLE-126
+    // A layout pass (for example a pane resize or a toolbar change) can resize the box under an
+    // open editor: the table keeps its Auto breakout and the open cell is scrolled back into view.
+    revealOpenCell() {
+      const edit = state.activeBlockEdit;
+      if (!edit || edit.finishing || !edit.selectedCell) return;
+      fitCellToRoom(window, edit.selectedCell);
+      revealCellInTable(edit.selectedCell, edit.element);
+    },
+    bindKeys() {
+      document.addEventListener("pointerdown", () => {
+        lastPointerDownAt = Date.now();
+      }, true);
+      // Escape outside an open cell editor cancels it; it also closes the frame of a refused open.
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const edit = state.activeBlockEdit;
+        if (!edit) return;
+        // The frame of a refused open has no text box: Escape anywhere closes it.
+        if (edit.openRefused) {
+          event.preventDefault?.();
+          rt.blockEditor.closeBlockEdit(false);
+          return;
+        }
+        if (!edit.selectedCell) return;
+        const inside = (node: EventTarget | null): boolean => Boolean(node)
+          && (edit.element === node || Boolean(edit.element.contains?.(node as Node)));
+        if (inside(event.target) || inside(document.activeElement)) return;
+        event.preventDefault?.();
+        cancelTableCellEdit(edit);
+      });
+    },
+  };
+}

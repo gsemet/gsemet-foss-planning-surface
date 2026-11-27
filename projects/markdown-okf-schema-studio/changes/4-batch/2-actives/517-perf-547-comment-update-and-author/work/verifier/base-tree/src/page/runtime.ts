@@ -1,0 +1,493 @@
+/**
+ * The preview page runtime: scroll sync, block and frontmatter editing, toolbar, comments, TOC and
+ * content patches. {@link startPreviewRuntime} runs once per page load with the boot context the
+ * host wrote into the page and the transport to the host (see `./main.ts`).
+ *
+ * This file only composes the page: it installs the page modules (`./modules/`) and the features
+ * (`./features/`), then binds their listeners. The features share one {@link PageRuntime} (see
+ * `./features/pageRuntime.ts`). The order of the steps below is part of the behaviour:
+ *   - listeners of the same event on the same target run in the order they were added, and some
+ *     stop the others (a checkbox or badge click never edits its block, an edit-mode click on a
+ *     link value edits it instead of navigating), so every `install…` and `bind…` call keeps its
+ *     place;
+ *   - the saved state is read after the page modules that write it at install;
+ *   - no feature runs before every slot of the runtime is filled.
+ */
+
+import { DEFAULT_EDITING_CONFIGURATION, PALETTE_MODES } from "../core/configuration/editingConfiguration";
+import type { PreviewRuntimeContext } from "../core/protocol/bootContext";
+import { createAnchorPolicy } from "../core/scroll/anchorPolicy";
+import { HIGHLIGHT_LANGUAGES } from "./buildConstants";
+import { installAnchorMode } from "./features/anchorMode";
+import { installBlockEditor } from "./features/blockEditor";
+import { installBlockMoves } from "./features/blockMoves";
+import { installBlockSelectionView } from "./features/blockSelectionView";
+import { installBlockSourceEditor } from "./features/blockSourceEditor";
+import { installCheckboxes } from "./features/checkboxes";
+import { installContentPatch } from "./features/contentPatch";
+import { installEditMode } from "./features/editMode";
+import { installEditorChrome } from "./features/editorChrome";
+import { installFileDrop } from "./features/fileDrop";
+import { installFrontmatterEditor } from "./features/frontmatterEditor";
+import { registerHostHandlers } from "./features/hostHandlers";
+import { installBlankLines } from "./features/blankLines";
+import { installInsertPoints } from "./features/insertPoints";
+import { linkActivationEdits } from "./features/linkEditing";
+import { installLinkTooltip } from "./features/linkTooltip";
+import { installListItemMove } from "./features/listItemMove";
+import { createMappedBlocks } from "./features/mappedBlocks";
+import { bindEditModeCaptureClicks, installPageInput } from "./features/pageInput";
+import type { PageRuntime, PageRuntimeState, PaletteMode, RuntimeSavedState } from "./features/pageRuntime";
+import { installRendererBridge } from "./features/rendererBridge";
+import { installLineMarker, postsASourceEdit } from "./features/lineMarker";
+import { installScrollCore } from "./features/scrollCore";
+import { installStatusRegion } from "./features/statusRegion";
+import { installStickyHeadings } from "./features/stickyHeadings";
+import { installTableCellEditor } from "./features/tableCellEditor";
+import { installTableRowMove } from "./features/tableRowMove";
+import { installTextControls } from "./features/textControls";
+import { installRawCopy } from "./features/rawCopy";
+import { installThemeMode } from "./features/themeMode";
+import { createPageHostMessages } from "./hostMessages";
+import type { HostTransport } from "./hostTransport";
+import { installAlignedFloat } from "./modules/alignedFloat";
+import { createBlockSelection } from "./modules/blockSelection";
+import { installChipToggle } from "./modules/chipToggle";
+import { installTabs } from "./modules/tabs";
+import { installExportSnapshot } from "./modules/exportSnapshot";
+import { installCodeCopy } from "./modules/codeCopy";
+import { installCommentCompose } from "./modules/commentCompose";
+import { installCommentThreads } from "./modules/commentThreads";
+import { installCommentsToggle } from "./modules/commentsToggle";
+import { installContentMorph, morphKey, planKeyedMorph } from "./modules/contentMorph";
+import { createEditActions } from "./modules/editActions";
+import { createCodeBlockTools } from "./modules/codeBlockDirective";
+import { createFigureTools } from "./modules/figureDirective";
+import { installFigureEditButton } from "./modules/figurePanel";
+import { installFirstClearance } from "./modules/firstClearance";
+import { installHistoryControls } from "./modules/historyControls";
+import { installHostRequests, type HostResult } from "./modules/hostRequests";
+import { installFindBar, type FindSourceBlock } from "./modules/findBar";
+import { matchRange, paintMatches } from "./modules/findDom";
+import { installHeadingFold } from "./modules/headingFold";
+import { installIncomingChanges } from "./modules/incomingChanges";
+import { installIncomingToggle } from "./modules/incomingToggle";
+import { installSideBySide } from "./modules/sideBySide";
+import { installInlineThreads } from "./modules/inlineThread";
+import { installLabelRename } from "./modules/labelRename";
+import { installLinkNavigation } from "./modules/linkNavigation";
+import { createMarkdownTableTools } from "./modules/markdownTable";
+import { installMotion } from "./modules/motion";
+import { installPasteHtml } from "./modules/pasteHtml";
+import { installPasteImage } from "./modules/pasteImage";
+import { installPasteUrl } from "./modules/pasteUrl";
+import { installPlantUmlFileRequests, PLANTUML_FILE_REQUEST_TIMEOUT_MS } from "./modules/plantumlFileRequests";
+import { isSafeOkfColor } from "./modules/spanColors";
+import { createTextEditingTools } from "./modules/textEditing";
+import { installTocColumn } from "./modules/tocColumn";
+import { installToolbarCollapse } from "./modules/toolbarCollapse";
+import { installViewControls } from "./modules/viewControls";
+import { installWarningBanner, warningBannerState, warningBannerText } from "./modules/warningBanner";
+import { installWidthMode } from "./modules/widthMode";
+import { createPageBus, type PageEvents } from "./pageBus";
+import { installDetachedSaves } from "./features/detachedSave";
+import { editInFlight } from "./features/detachedSaveState";
+import { installPageDiagnostics } from "./pageDiagnostics";
+import { createPageHost } from "./pageHost";
+import { applyCodeBlockSettings, pageSettings, stickyHeadingDepthOf } from "./pageSettings";
+
+/** Starts the page runtime of one page load. */
+export function startPreviewRuntime(context: PreviewRuntimeContext, transport: HostTransport): void {
+  document.documentElement.setAttribute("data-sphinx-preview-document-id", context.documentId);
+  document.documentElement.setAttribute("data-sphinx-preview-document-version", String(context.revision));
+  document.documentElement.setAttribute("data-sphinx-preview-request-id", String(context.requestId));
+  // Keyed content updates (PERF-05): the host HTML of every block, recorded before anything changes it.
+  const contentMorph = installContentMorph(document, planKeyedMorph, morphKey);
+  const initialContent = document.getElementById?.("sphinx-myst-preview-content");
+  if (initialContent) contentMorph.record(initialContent);
+  const tableTools = createMarkdownTableTools();
+  const textEditing = createTextEditingTools();
+  const blockSelection = createBlockSelection();
+  const editActions = createEditActions(HIGHLIGHT_LANGUAGES, tableTools, isSafeOkfColor, context.threadAuthor);
+  const figureTools = createFigureTools();
+  const codeBlockTools = createCodeBlockTools();
+  const anchorPolicy = createAnchorPolicy();
+  // Diagnostics only (they change nothing in the page): the editor trace, read by the tests through
+  // window.__studioDiagnostics, and the key containment of controls and editors (pageDiagnostics.ts).
+  const pageDiagnostics = installPageDiagnostics(document, window, context);
+  const settings = pageSettings(context);
+  // The sticky heading band and the reading offset it reserves (features/stickyHeadings.ts).
+  const stickyBand = installStickyHeadings(document, window, anchorPolicy, stickyHeadingDepthOf(context));
+  // Messages and the saved state, with the state write throttle of PERF-08 (see pageHost.ts).
+  // A page that posts a source edit takes the line marker off (the marker's lifetime, SwRS LIFE-179).
+  const pageHost = createPageHost({
+    getState: () => transport.getState(),
+    setState: (state) => transport.setState(state),
+    onMessage: (listener) => transport.onMessage(listener),
+    postMessage: (message) => {
+      if (postsASourceEdit(message)) rt.lineMarker?.clear();
+      transport.postMessage(message);
+    },
+  }, window);
+  const vscode = pageHost.api;
+  // Host messages: features register their handlers on this router (see hostMessages.ts).
+  const pageHostMessages = createPageHostMessages();
+  const hostMessages = pageHostMessages.router;
+  const bus = createPageBus<PageEvents>();
+  installRendererBridge(document, bus);
+  // The pending overlay and the status region (features/statusRegion.ts).
+  const statusRegion = installStatusRegion(document, hostMessages);
+  const state: PageRuntimeState = {
+    editMode: false,
+    paletteMode: DEFAULT_EDITING_CONFIGURATION.defaultPaletteMode,
+    descriptionsCollapsed: false,
+    frontmatterCollapsed: false,
+    activeBlockEdit: undefined,
+    detachedSave: undefined,
+    activeFrontmatterEdit: undefined,
+    editSequence: 0,
+    anchor: undefined,
+    editAnchor: undefined,
+    pinApplied: false,
+    flushingEditors: false,
+    applyingContentPatch: false,
+    pendingBlockSelection: undefined,
+    pendingBlockNavigation: undefined,
+    pendingMoveSelection: undefined,
+    pendingFrontmatterEdit: undefined,
+    pendingEditOpenedIn: undefined,
+    deferredPropertiesMarkup: undefined,
+    deferredPropertiesSeq: undefined,
+  };
+  // The features fill the remaining slots below, before any of them runs.
+  const rt = {
+    document,
+    window,
+    context,
+    host: vscode,
+    pageHost,
+    settings,
+    anchorPolicy,
+    diagnostics: pageDiagnostics,
+    bus,
+    hostMessages,
+    tools: { tableTools, textEditing, blockSelection, editActions, figureTools, codeBlockTools },
+    state,
+    refreshButton: undefined,
+    editModeButton: undefined,
+  } as Partial<PageRuntime> as PageRuntime;
+  // Review comments. Installed before every click handler below: a click on a highlight or badge
+  // opens the popover and must not edit the block, follow a link or reveal the source.
+  const postCommentMessage = (type: string, fields: Record<string, unknown>): void => vscode.postMessage({
+    type,
+    documentId: context.documentId,
+    revision: context.revision,
+    requestId: context.requestId,
+    ...fields,
+  });
+  const commentsEnabled = context.commentsEnabled === true;
+  const commentThreads = installCommentThreads(document, window, commentsEnabled
+    ? {
+      reply: (threadId, body) => postCommentMessage("previewCommentReply", { threadId, body }),
+      resolve: (threadId, resolved) => postCommentMessage("previewCommentResolve", { threadId, resolved }),
+      remove: (threadId) => postCommentMessage("previewCommentDelete", { threadId }),
+    }
+    : undefined,
+  // Diagnostics only: the page trace names what closed an open thread popover.
+  (event, detail) => pageDiagnostics.editorTrace.record(event, detail, pageDiagnostics.traceStack()));
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-001
+  // The Comment button of a text selection (writable previews only, T43). Not shown while a block
+  // editor is open or blocks are selected; it never changes the selection.
+  const commentCompose = commentsEnabled ? installCommentCompose(document, window, {
+    post: postCommentMessage,
+    busy: () => Boolean(editInFlight(state) || state.activeFrontmatterEdit || blockSelection.isActive()),
+    beforeOpen: () => commentThreads.close(),
+  }) : undefined;
+  bindEditModeCaptureClicks(rt);
+  const linkNavigation = installLinkNavigation(document, window, vscode, context,
+    (navigate) => rt.blockEditor.flushOpenEditorsThen(navigate),
+    (event) => linkActivationEdits(state.editMode, event));
+  const firstClearance = installFirstClearance(document, window);
+  pageDiagnostics.expose(firstClearance);
+  // The first or the last aligned float of the content moves the toolbar's float with it.
+  installAlignedFloat(document, () => firstClearance.update());
+  // The button follows the host's answer (`hostRequests` is created below, before any click).
+  const codeCopy = installCodeCopy(document, window, (text, done, userGesture) =>
+    hostRequests.ask("previewCopyText", { text, userGesture }, {}, done));
+  // A copy of a native selection puts the raw Markdown under it on the clipboard (features/rawCopy.ts).
+  installRawCopy(document, window, hostMessages, {
+    context,
+    blockSelectionActive: () => state.editMode && blockSelection.isActive(),
+  });
+  // Edit mode: the anchor icon of a label renames it. The result is matched by edit id: the edit
+  // itself moves the document version before the answer arrives.
+  const labelRename = installLabelRename(document, window, {
+    isEditMode: () => state.editMode,
+    blockedReason: () => editInFlight(state) || state.activeFrontmatterEdit
+      ? "Save or cancel the open edit before renaming a label." : undefined,
+    nextEditId: () => "label-" + context.requestId + "-" + (++state.editSequence),
+    post: (rename, editId) => vscode.postMessage({
+      type: "previewLabelRename",
+      documentId: context.documentId,
+      revision: context.revision,
+      requestId: context.requestId,
+      editId,
+      ...rename,
+    }),
+  });
+  // Host round trips of the MyST palette (labels, citation keys, the {doc} file dialog). The answer
+  // is matched by edit id. While a native dialog is open the editor's blur handlers stand down:
+  // the dialog takes the focus, which is not leaving the editor.
+  const hostRequests = installHostRequests(window, {
+    nextEditId: () => "host-" + context.requestId + "-" + (++state.editSequence),
+    post: (request) => vscode.postMessage({
+      ...request,
+      documentId: context.documentId,
+      revision: context.revision,
+      requestId: context.requestId,
+    }),
+  });
+  // Local files of PlantUML `!include` lines, read by the host for the built-in engine (its bundle
+  // asks through a document event). Requests of their own: closing an editor must not cancel them.
+  let plantUmlFileSequence = 0;
+  const plantUmlFileRequests = installHostRequests(window, {
+    nextEditId: () => "plantuml-" + (++plantUmlFileSequence),
+    post: (request) => vscode.postMessage({
+      ...request,
+      documentId: context.documentId,
+      revision: context.revision,
+      requestId: context.requestId,
+    }),
+  });
+  installPlantUmlFileRequests(document, plantUmlFileRequests, PLANTUML_FILE_REQUEST_TIMEOUT_MS);
+  // Pasting an image into the text box: the host saves it next to the document and names it.
+  const pasteImage = installPasteImage(window);
+  const pasteHtml = installPasteHtml();
+  const pasteUrl = installPasteUrl();
+  // CR 050: the conf.py warnings of a successful render, as a closable banner over the top of the page.
+  const warningBanner = installWarningBanner(document, vscode, context,
+    warningBannerState, warningBannerText);
+  // Edit mode: the "Edit figure" button over a hovered figure opens its block editor with the form.
+  const figureEditButton = installFigureEditButton(document, window, {
+    isEditMode: () => state.editMode,
+    open: (figure) => rt.editorChrome.openFigureEditor(figure as HTMLElement),
+    usableTop: (box) => rt.editorChrome.toolbarUsableTop(box),
+    obstacle: () => document.querySelector("[data-sphinx-preview-toolbar]")?.getBoundingClientRect(),
+  });
+  // Zoom changes layout only: keep the source line at the reading line across it.
+  const keepReadingLine = (): void => rt.scroll.keepReadingLine();
+  // Expanding a chip changes the height of the content: keep the reading line like zoom does.
+  const chipToggle = installChipToggle(document, vscode, context, keepReadingLine);
+  // MyST tab sets: a click or an arrow key on a tab shows its panel.
+  // A tab shown by the keyboard or its sync group re-measures the layout: the line marker places again.
+  const tabs = installTabs(document, () => rt.scroll.stabilizeLayout());
+  // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-134
+  // Export to HTML: the button of the toolbar and the command of the palette.
+  const exportHtml = installExportSnapshot(document, window, {
+    ask: (type, payload, settings, done) => hostRequests.ask(type, payload, settings, done),
+    report: (message) => statusRegion.applyStatusRegion({ status: "error", label: "Export to HTML", message, diagnostics: [] }),
+  });
+  applyCodeBlockSettings(document.documentElement, context);
+  // Green bars on blocks changed since the last commit; the host sends the ranges (T16).
+  // A click on a bar or a removed-lines marker shows the side-by-side card of that block only (CR 463).
+  const incomingChanges = installIncomingChanges(document, (target) => sideBySide.toggleSingle(target));
+  // Light motion (CR 046): soft appearance after a user action, the theme colour transition, the
+  // fade of a block an editor gives back and the glow of blocks an outside change or an undo updated.
+  const motion = installMotion(document, window);
+  installIncomingToggle(document, vscode, context);
+  // Side-by-side diff of the changed blocks (CR 147): the host sends the text at the last commit.
+  const sideBySide = installSideBySide(document, vscode, context, keepReadingLine);
+  // Toolbar Comments button: hides the chips and every review mark, which moves the content like
+  // expanding a chip does; the thread module closes its popover and updates the Tab order.
+  installCommentsToggle(document, vscode, context, () => {
+    commentThreads.visibilityChanged();
+    keepReadingLine();
+  });
+  const historyControls = installHistoryControls(document, vscode, context,
+    (navigate) => rt.blockEditor.flushOpenEditorsThen(navigate));
+  const viewControls = installViewControls(document, vscode, context, keepReadingLine);
+  // @implements_req SwRS-MDOKFSTUDIO-LAYOUT-011
+  // The toolbar changes size when rows 2 to 4 are collapsed: re-measure everything placed around it.
+  installToolbarCollapse(document, vscode, context, () => {
+    firstClearance.update();
+    stickyBand.refreshStickyHeadingPosition();
+    tocColumn.layout();
+    widthMode.update();
+  }, window);
+  // @implements_req SwRS-MDOKFSTUDIO-LAYOUT-020
+  // The width mode changes layout only as well; Auto re-measures wide elements on every layout pass.
+  const widthMode = installWidthMode(document, window, vscode, context, () => {
+    firstClearance.update();
+    keepReadingLine();
+  }, () => {
+    rt.tableRowMove?.reposition();
+    rt.listItemMove?.reposition();
+    rt.tableCellEditor?.revealOpenCell();
+  });
+  // The TOC column changes the available width: re-measure Auto and keep the reading line.
+  const tocColumn = installTocColumn(document, window, vscode, context, (heading) => rt.scroll.revealElement(heading), () => {
+    firstClearance.update();
+    widthMode.update();
+    keepReadingLine();
+  }, () => stickyBand.readingOffset());
+  // Folding of the sections under the headings (modules/headingFold.ts).
+  const headingFold = installHeadingFold(document, window, vscode, context, {
+    readingLine: () => stickyBand.readingOffset(),
+    onLayoutChange: () => {
+      keepReadingLine();
+      rt.blankLines?.refresh();
+    },
+    busy: () => state.activeBlockEdit !== undefined || state.activeFrontmatterEdit !== undefined,
+  });
+  // Find and replace in the rendered text (modules/findBar.ts). The mapped blocks tell which source
+  // lines a match belongs to; a match outside one (the front matter, an included file, a formula) is
+  // found but not replaced from the preview.
+  let findBlocks = new Set<Element>();
+  const findBar = installFindBar(document, window, {
+    content: () => document.getElementById?.("sphinx-myst-preview-content") ?? null,
+    prepare: () => { findBlocks = new Set(rt.blocks.topLevelMappedBlocks()); },
+    sourceBlockOf: (element): FindSourceBlock | undefined => {
+      if (element.closest?.(".math, .katex, svg, [data-okf-properties], [data-sphinx-preview-included]")) return undefined;
+      for (let block: Element | null = element; block; block = block.parentElement) {
+        if (findBlocks.has(block)) {
+          if (block.getAttribute("data-okf-properties") !== null || rt.blocks.isIncludedBlock(block)) return undefined;
+          return { ...rt.blocks.blockRange(block), element: block };
+        }
+      }
+      return undefined;
+    },
+    replaceBlockedReason: () => {
+      if (!rt.editModeButton) return "Editing is not available in this preview.";
+      return editInFlight(state) || state.activeFrontmatterEdit ? "Save or cancel the open edit before replacing." : undefined;
+    },
+    reveal: (target) => headingFold.reveal(target),
+    ask: (type, payload, done) => hostRequests.ask(type, payload, {}, done),
+    onLayoutChange: keepReadingLine,
+    paint: (ranges, current) => paintMatches(window, ranges, current),
+    createRange: (match) => matchRange(document, match),
+    selectedText: () => window.getSelection?.()?.toString() ?? "",
+    // @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-009
+    // Cmd/Ctrl+F from a block or table cell editor: the blur to the find field committed it, and
+    // while that final save is on its way the editor field takes no more keys (they would be lost).
+    canRestoreFocus: (target) => {
+      const edit = state.activeBlockEdit;
+      return !(edit?.finishing && (target === edit.textarea || target === edit.tableInput));
+    },
+  });
+  rt.refreshButton = document.querySelector?.<HTMLButtonElement>("[data-sphinx-preview-refresh]");
+  // The Edit button is always enabled: trust never makes a document read-only.
+  rt.editModeButton = document.querySelector?.<HTMLElement>("[data-sphinx-preview-edit-toggle]");
+  const savedState = vscode.getState?.();
+  const saved = savedState as RuntimeSavedState | undefined;
+  // @implements_req SwRS-MDOKFSTUDIO-FMSCHEMA-014
+  state.descriptionsCollapsed = (saved?.documentId === context.documentId ? saved.descriptionsCollapsed : undefined)
+    ?? context.initialState?.descriptionsCollapsed
+    ?? (window.innerWidth <= 640);
+  // The preview theme mode and the host theme kind (features/themeMode.ts).
+  const themeMode = installThemeMode(document, window, hostMessages, {
+    host: vscode,
+    context,
+    savedState,
+    themeSwitch: () => motion.themeSwitch(),
+  });
+  // Whether the page and the text editor scroll together (features/anchorMode.ts).
+  const anchorMode = installAnchorMode(document, hostMessages, { host: vscode, context, settings, savedState });
+  // @implements_req SwRS-MDOKFSTUDIO-LIFE-170
+  // @implements_req SwRS-MDOKFSTUDIO-LIFE-172
+  // A document opens in preview mode. Only the page of the same document that reloads keeps the
+  // edit mode its saved state holds; neither another document's state nor the workspace choice does.
+  const savedOfOtherDocument = saved?.documentId !== undefined && saved.documentId !== context.documentId;
+  state.editMode = rt.editModeButton && !savedOfOtherDocument
+    ? saved?.editMode === true
+    : false;
+  const paletteModes: readonly string[] = PALETTE_MODES;
+  state.paletteMode = (paletteModes.includes(saved?.paletteMode as string)
+    ? saved!.paletteMode
+    : paletteModes.includes(context.initialPaletteMode as string) ? context.initialPaletteMode
+      : DEFAULT_EDITING_CONFIGURATION.defaultPaletteMode) as PaletteMode;
+  state.pendingBlockNavigation = saved?.pendingBlockNavigation;
+  // After a move of a block selection: where the selection sits once the move is rendered (it
+  // survives a full reload of the page; a changed block count restores nothing).
+  state.pendingMoveSelection = saved?.pendingMoveSelection;
+  // After an add, the re-rendered preview opens the editor of the new field.
+  state.pendingFrontmatterEdit = saved?.pendingFrontmatterEdit;
+  state.pendingEditOpenedIn = saved?.pendingFrontmatterEditOpenedIn;
+  // Task list checkboxes (features/checkboxes.ts).
+  const checkboxes = installCheckboxes(document, hostMessages, {
+    host: vscode,
+    context,
+    openEdit: () => state.activeBlockEdit || state.activeFrontmatterEdit,
+    saveInFlight: () => state.detachedSave !== undefined,
+    nextEditSequence: () => ++state.editSequence,
+    anchorField: () => rt.scroll.anchorField(),
+  });
+  // Inline threads (<!-- THREAD): the reply box and Delete of an open thread; the host edits the file.
+  const inlineThreads = installInlineThreads(document, {
+    enabled: true,
+    blockedReason: () => editInFlight(state) || state.activeFrontmatterEdit
+      ? "Save or cancel the open edit before changing a thread." : undefined,
+    ask: (type, payload, done) => hostRequests.ask(type, payload, {}, done),
+  });
+
+  // The features (no listener yet: they are bound below, in order).
+  rt.blocks = createMappedBlocks(document, context);
+  rt.scroll = installScrollCore(rt);
+  rt.lineMarker = installLineMarker(rt);
+  rt.textControls = installTextControls(rt);
+  rt.blockEditor = installBlockEditor(rt);
+  rt.blockSourceEditor = installBlockSourceEditor(rt);
+  rt.detachedSaves = installDetachedSaves(rt);
+  rt.editorChrome = installEditorChrome(rt);
+  rt.tableCellEditor = installTableCellEditor(rt);
+  rt.frontmatter = installFrontmatterEditor(rt);
+  rt.selection = installBlockSelectionView(rt);
+  rt.insertPoints = installInsertPoints(rt);
+  rt.blankLines = installBlankLines(rt);
+  rt.fileDrop = installFileDrop(rt);
+  rt.blockMoves = installBlockMoves(rt);
+  rt.tableRowMove = installTableRowMove(rt);
+  rt.listItemMove = installListItemMove(rt);
+  rt.editMode = installEditMode(rt);
+  rt.contentPatch = installContentPatch(rt);
+  rt.input = installPageInput(rt);
+
+  rt.blockEditor.bindPageHide();
+  rt.frontmatter.bindKeys();
+  rt.tableCellEditor.bindKeys();
+  rt.insertPoints.bindKeys();
+  rt.fileDrop.bindEvents();
+  rt.selection.bindKeys();
+  rt.blockMoves.bindKeys();
+  // The tooltip of frontmatter links (features/linkTooltip.ts).
+  const linkTooltip = installLinkTooltip(document, window);
+  rt.parts = {
+    contentMorph, stickyBand, statusRegion, commentThreads, commentCompose, linkNavigation, firstClearance,
+    codeCopy, labelRename, hostRequests, plantUmlFileRequests, pasteImage, pasteHtml, pasteUrl, warningBanner,
+    figureEditButton, chipToggle, tabs, exportHtml, incomingChanges, sideBySide, motion, historyControls, viewControls, widthMode,
+    tocColumn, headingFold, find: findBar, themeMode, anchorMode, checkboxes, inlineThreads, linkTooltip,
+  };
+  rt.editorChrome.bindPaletteSticky();
+
+  themeMode.applyPreviewThemeMode(themeMode.mode());
+  anchorMode.applyAnchorMode(anchorMode.anchored());
+  anchorMode.applyPairing(context.pairedTextEditor !== false);
+  themeMode.bindButton();
+  rt.refreshButton?.addEventListener?.("click", rt.input.refreshPreview);
+  anchorMode.start();
+  rt.editMode.bindButton();
+  themeMode.applyTheme(context.themeKind);
+
+  rt.scroll.bindWindow();
+  registerHostHandlers(rt);
+  pageHostMessages.listen(transport, context, (message) => {
+    // Every other answer may close a host round trip of the palette: matched by edit id.
+    const answer = message as HostResult | null | undefined;
+    if (answer && typeof answer.type === "string" && answer.type.endsWith("Result")) {
+      hostRequests.receive(answer);
+    }
+  });
+  rt.input.bindClicks();
+  rt.scroll.observeContent();
+  rt.contentPatch.initializeContent({ restore: true });
+  rt.contentPatch.postPreviewReady();
+}

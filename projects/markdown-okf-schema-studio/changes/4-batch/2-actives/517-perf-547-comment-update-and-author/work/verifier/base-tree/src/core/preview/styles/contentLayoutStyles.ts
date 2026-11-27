@@ -1,0 +1,690 @@
+import { DEFAULT_PREVIEW_CONTENT_WIDTH } from "../../configuration/previewConfiguration";
+import { ALIGNED_FLOAT_ATTRIBUTE } from "../alignedFloat";
+
+// @implements_req SwRS-MDOKFSTUDIO-LAYOUT-007
+/** The first element of the page starts 40px below the top (read and edit mode). */
+const FIRST_ELEMENT_GAP_CSS = `/*
+ * The first-element gap: whatever opens the page starts 40px below the top. This is a margin on
+ * the first child, not padding on the column, so the column's own top never moves. It follows
+ * every rule above that sets a top margin (headings, the properties table, blocks).
+ */
+#sphinx-myst-preview-content > :first-child {
+  margin-top: 40px;
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-LAYOUT-007
+/** The first-block editor, the Start writing button and a leading properties table keep the 40px under the toolbar. */
+const FIRST_ELEMENT_CLEARANCE_CSS = `/*
+ * Every first element starts 40px below the top. Only an interactive first element that sits under
+ * the floating toolbar moves: an open first-block editor gives up the width the toolbar covers
+ * (--sphinx-preview-first-inset, its inline-end margin) and keeps the 40px; the Start writing
+ * button, a leading properties table, and a first-block editor in a pane too narrow to be narrowed
+ * add the runtime's clearance, which is 0 whenever nothing overlaps.
+ */
+#sphinx-myst-preview-content > [data-okf-properties]:first-child,
+#sphinx-myst-preview-content .sphinx-preview-block-editor--first,
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor--first,
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor-host.sphinx-preview-block-editor--first,
+#sphinx-myst-preview-content .sphinx-preview-insert-point--first {
+  margin-top: calc(40px + var(--sphinx-preview-first-clearance, 0px));
+}
+
+#sphinx-myst-preview-content > [data-okf-properties]:first-child,
+#sphinx-myst-preview-content .sphinx-preview-block-editor--first,
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor--first,
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor-host.sphinx-preview-block-editor--first {
+  margin-inline-end: var(--sphinx-preview-first-inset, 0px);
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-LAYOUT-043
+// @implements_req SwRS-MDOKFSTUDIO-REVIEW-223
+/** Text wraps around the floating toolbar where it overlaps the column; boxes start below it. */
+const TOOLBAR_FLOAT_CSS = `/*
+ * An invisible float at the start of the column, the size of the part of the toolbar inside it at the
+ * top of the document (published by the runtime, 0 when the toolbar sits beside the column, when an
+ * interactive first element has its own remedy, or when the first block is a box). A pseudo-element:
+ * :first-child rules and the 40px gap still apply to the first block, and it never takes a click.
+ * Physical right, like the toolbar and the runtime's measure.
+ */
+#sphinx-myst-preview-content::before {
+  content: "";
+  float: right;
+  width: var(--sphinx-preview-toolbar-float-width, 0px);
+  height: var(--sphinx-preview-toolbar-float-height, 0px);
+  pointer-events: none;
+}
+
+/*
+ * Only running text wraps around it. Every other top-level block (a table, figure, code block,
+ * admonition, aside, blockquote, details, grid, tab set, diagram, math block, block editor frame or
+ * its host, an image-only paragraph, a rule) would be narrowed or shifted as a whole beside the
+ * float, so it starts below the toolbar's reach. The list names what stays, not what moves, so a new
+ * kind of box is covered: paragraphs, headings, lists, definition lists, and the blocks that are no
+ * box (edit-mode insert points, label anchor rows, comment chips, hidden and folded blocks); clearing
+ * an empty one would push the text after it down too.
+ */
+main#sphinx-myst-preview-content:not([${ALIGNED_FLOAT_ATTRIBUTE}]) > :not(p:not([data-sphinx-preview-figure]), h1, h2, h3, h4, h5, h6, ul, ol, dl, [hidden], [data-okf-folded], .sphinx-preview-insert-point, .okf-anchor-row, div.okf-comment) {
+  clear: right;
+}
+
+/*
+ * A document with an image, figure or table aligned left or right (anywhere) keeps the layout it had
+ * before: no float, and no box clears (a box would clear the aligned float too, wherever it is, and a
+ * per-block "comes after an aligned float" test costs too much in a long document). The content root
+ * carries an attribute while there is one (core/preview/alignedFloat.ts): a :has() on the root would
+ * restyle the whole document at every change inside it.
+ */
+main#sphinx-myst-preview-content[${ALIGNED_FLOAT_ATTRIBUTE}]::before {
+  display: none;
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-037
+/** The TOC column on the right below the toolbar, and the rail with its overlay in a narrow pane. */
+const TOC_COLUMN_CSS = `/* TOC column (runtime-created nav, filled by the page script). Off by default; when open and the
+   pane is at least 760px wide it takes 240px plus a 16px gap from the right of the pane, so the
+   content and the sticky band narrow by 256px. Narrower panes show a rail instead (below). */
+nav[data-sphinx-preview-toc] {
+  display: none;
+}
+
+[data-sphinx-preview-toc-rail] {
+  display: none;
+}
+
+/* Narrow pane, TOC on: a thin rail on the right with one tick per heading. Hover or focus on the
+   rail opens the column as an overlay above the text (the page script sets the overlay attribute,
+   closes it 300 ms after the pointer and the focus left, or on Escape). The overlay appears at once,
+   with no animation, so prefers-reduced-motion needs no special case. */
+@media (max-width: 759px) {
+  /* The content leaves the 16px of the rail free (the overlay floats above the text and reserves nothing more). */
+  html[data-sphinx-preview-toc="open"] {
+    --sphinx-preview-toc-reserve: 16px;
+  }
+
+  html[data-sphinx-preview-toc="open"] body {
+    padding-inline-end: var(--sphinx-preview-toc-reserve);
+  }
+
+  html[data-sphinx-preview-toc="open"] [data-sphinx-preview-toc-rail] {
+    position: fixed;
+    inset-block-start: var(--sphinx-preview-toc-top, 96px);
+    inset-block-end: 16px;
+    inset-inline-end: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 2px;
+    width: 16px;
+    overflow: hidden;
+    padding: 4px 3px;
+    border-radius: 8px 0 0 8px;
+    background: color-mix(in srgb, var(--studio-editor-background, Canvas) 85%, transparent);
+    cursor: pointer;
+  }
+
+  html[data-sphinx-preview-toc="open"] [data-sphinx-preview-toc-rail]:focus-visible {
+    outline: 1px solid var(--studio-focusBorder, Highlight);
+  }
+
+  [data-sphinx-preview-toc-rail] button[data-sphinx-preview-toc-tick] {
+    flex: none;
+    box-sizing: border-box;
+    width: calc(10px - var(--sphinx-preview-toc-depth, 0) * 2px);
+    min-width: 4px;
+    height: 3px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--studio-editor-foreground, CanvasText) 45%, transparent);
+    cursor: pointer;
+  }
+
+  [data-sphinx-preview-toc-rail] button[data-sphinx-preview-toc-tick]:hover,
+  [data-sphinx-preview-toc-rail] button[data-sphinx-preview-toc-tick]:focus-visible {
+    background: var(--studio-editor-foreground, CanvasText);
+  }
+
+  [data-sphinx-preview-toc-rail] button[data-sphinx-preview-toc-tick][data-sphinx-preview-toc-tick-current] {
+    background: var(--studio-focusBorder, Highlight);
+    height: 4px;
+  }
+
+  html[data-sphinx-preview-toc="open"] nav[data-sphinx-preview-toc][data-sphinx-preview-toc-overlay="open"] {
+    position: fixed;
+    /* 40px lower than the column top: clear of the open tooltip of the TOC button. */
+    inset-block-start: calc(var(--sphinx-preview-toc-top, 96px) + 40px);
+    inset-block-end: 16px;
+    inset-inline-end: 16px;
+    z-index: 1001;
+    box-sizing: border-box;
+    display: block;
+    width: min(240px, calc(100% - 32px));
+    overflow-y: auto;
+    padding: 8px 6px;
+    border: 1px solid var(--sphinx-preview-border);
+    border-radius: 8px;
+    background: var(--studio-editor-background, Canvas);
+    color: var(--studio-editor-foreground, CanvasText);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    font-family: var(--sphinx-preview-font);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+}
+
+@media (min-width: 760px) {
+  html[data-sphinx-preview-toc="open"] {
+    --sphinx-preview-toc-reserve: 256px;
+  }
+
+  html[data-sphinx-preview-toc="open"] body {
+    padding-inline-end: var(--sphinx-preview-toc-reserve);
+  }
+
+  html[data-sphinx-preview-toc="open"] nav[data-sphinx-preview-toc] {
+    position: fixed;
+    inset-block-start: var(--sphinx-preview-toc-top, 96px);
+    inset-block-end: 16px;
+    inset-inline-end: 16px;
+    z-index: 1000;
+    box-sizing: border-box;
+    display: block;
+    width: 240px;
+    overflow-y: auto;
+    padding: 8px 6px;
+    border: 1px solid var(--sphinx-preview-border);
+    border-radius: 8px;
+    background: var(--studio-editor-background, Canvas);
+    color: var(--studio-editor-foreground, CanvasText);
+    font-family: var(--sphinx-preview-font);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-045
+/** The TOC entries: the list, the twisty, the current section mark and the empty state. */
+const TOC_ENTRIES_CSS = `nav[data-sphinx-preview-toc] ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav[data-sphinx-preview-toc] li {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding-inline-start: calc(var(--sphinx-preview-toc-depth, 0) * 12px);
+}
+
+nav[data-sphinx-preview-toc] li[hidden] {
+  display: none;
+}
+
+/* Entries without sub-entries line up with the ones that have a twisty. */
+nav[data-sphinx-preview-toc] li:not([data-sphinx-preview-toc-parent]) {
+  padding-inline-start: calc(var(--sphinx-preview-toc-depth, 0) * 12px + 20px);
+}
+
+nav[data-sphinx-preview-toc] li button[data-sphinx-preview-toc-twisty] {
+  flex: none;
+  width: 20px;
+  padding: 3px 0;
+  text-align: center;
+  opacity: 0.75;
+}
+
+nav[data-sphinx-preview-toc] li button[data-sphinx-preview-toc-twisty]::before {
+  content: "\\25BE";
+}
+
+nav[data-sphinx-preview-toc] li button[data-sphinx-preview-toc-twisty][aria-expanded="false"]::before {
+  content: "\\25B8";
+}
+
+/* The section at the reading line: a tint of the text colour plus a bar, readable in the light,
+   dark and cream themes alike. */
+nav[data-sphinx-preview-toc] li[data-sphinx-preview-toc-current] > button:not([data-sphinx-preview-toc-twisty]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border-radius: 0;
+  box-shadow: inset 3px 0 0 var(--studio-focusBorder, Highlight);
+  font-weight: 600;
+}
+
+nav[data-sphinx-preview-toc] li button {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+nav[data-sphinx-preview-toc] li button:hover,
+nav[data-sphinx-preview-toc] li button:focus-visible {
+  background: var(--studio-toolbar-hoverBackground, rgba(128, 128, 128, 0.18));
+}
+
+nav[data-sphinx-preview-toc] [data-sphinx-preview-toc-empty] {
+  margin: 0;
+  padding: 3px 6px;
+  opacity: 0.7;
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-025
+/** The Full width column variables that the sticky band padding reads, so the band text lines up with the column. */
+const BAND_FULL_WIDTH_CSS = `/* Full width: no column limit. A large pixel width keeps the sticky band padding math valid. The side
+   margin is the 16 px gutter a table keeps when it breaks out in Auto, so both modes line up. */
+html[data-sphinx-preview-width="full"] {
+  --sphinx-preview-column-width: 100000px;
+  --sphinx-preview-content-gutter: 16px;
+}`;
+
+// @implements_req SwRS-MDOKFSTUDIO-TOOLBAR-003
+/** The fold chevron in the margin of a heading, and the folded blocks that collapse to nothing. */
+const FOLD_CHEVRON_CSS = `/* CR 143: folding. The chevron hangs in the left margin of a heading that has a section; it shows
+   on hover, on focus and while the section is folded. The blocks of a folded section are
+   hidden="until-found" (the browser find still reaches their text and opens the section), so
+   their own spacing is dropped: only the heading and the next heading are left. */
+#sphinx-myst-preview-content > :is(h1, h2, h3, h4, h5, h6)[data-okf-fold] {
+  position: relative;
+}
+
+#sphinx-myst-preview-content [data-okf-fold-toggle] {
+  position: absolute;
+  top: 0.04em;
+  left: -1.5em;
+  box-sizing: border-box;
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--studio-descriptionForeground, #717171);
+  font-size: 1em;
+  line-height: 1;
+  opacity: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+#sphinx-myst-preview-content [data-okf-fold-toggle]::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  width: 0.4em;
+  height: 0.4em;
+  margin: 0 auto 0.15em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+#sphinx-myst-preview-content [data-okf-fold="closed"] > [data-okf-fold-toggle]::before {
+  margin: 0 auto 0 0.3em;
+  transform: rotate(-45deg);
+}
+
+#sphinx-myst-preview-content :is(h1, h2, h3, h4, h5, h6):hover > [data-okf-fold-toggle],
+#sphinx-myst-preview-content :is(h1, h2, h3, h4, h5, h6):focus-within > [data-okf-fold-toggle],
+#sphinx-myst-preview-content [data-okf-fold="closed"] > [data-okf-fold-toggle] {
+  opacity: 1;
+}
+
+#sphinx-myst-preview-content [data-okf-fold-toggle]:hover {
+  background: var(--studio-toolbar-hoverBackground, rgba(128, 128, 128, 0.2));
+  color: var(--studio-editor-foreground, CanvasText);
+}
+
+/* A heading that carries an anchor icon in the margin: the chevron sits left of it. */
+#sphinx-myst-preview-content :is(h1, h2, h3, h4, h5, h6):has(.okf-anchor) > [data-okf-fold-toggle] {
+  left: -2.9em;
+}
+
+#sphinx-myst-preview-content > [data-okf-folded] {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}`;
+
+/**
+ * The toolbar toggle icons, the TOC column, the width modes and the content typography (wrapping,
+ * paragraphs, lists, checkboxes).
+ *
+ * Part of the preview theme stylesheet (`PREVIEW_THEME_CSS`, `../previewStyles.ts`), which joins
+ * the parts in cascade order: moving a rule to another part changes the cascade.
+ */
+export const CONTENT_LAYOUT_CSS = `
+[data-sphinx-preview-theme-toggle] svg {
+  display: none;
+}
+
+[data-sphinx-preview-theme-toggle][data-theme-mode="current"] [data-theme-icon="current"],
+[data-sphinx-preview-theme-toggle][data-theme-mode="dark"] [data-theme-icon="dark"],
+[data-sphinx-preview-theme-toggle][data-theme-mode="white"] [data-theme-icon="white"],
+[data-sphinx-preview-theme-toggle][data-theme-mode="cream"] [data-theme-icon="cream"] {
+  display: block;
+}
+
+[data-sphinx-preview-toolbar-collapse] svg {
+  display: none;
+}
+
+[data-sphinx-preview-toolbar-collapse][aria-expanded="true"] [data-collapse-icon="hide"],
+[data-sphinx-preview-toolbar-collapse][aria-expanded="false"] [data-collapse-icon="show"] {
+  display: block;
+}
+
+[data-sphinx-preview-width-toggle] svg {
+  display: none;
+}
+
+[data-sphinx-preview-width-toggle][data-width-mode="margin"] [data-width-icon="margin"],
+[data-sphinx-preview-width-toggle][data-width-mode="auto"] [data-width-icon="auto"],
+[data-sphinx-preview-width-toggle][data-width-mode="full"] [data-width-icon="full"] {
+  display: block;
+}
+
+${TOC_COLUMN_CSS}
+
+${TOC_ENTRIES_CSS}
+
+${BAND_FULL_WIDTH_CSS}
+
+/* Auto: a table, figure, image or code block wider than the column breaks out, centred on the
+   available area (pane minus the TOC column and gutters), never wider than it. The runtime sets the extra width and the centring shift; an element under
+   edit keeps the column width. */
+html[data-sphinx-preview-width="auto"] #sphinx-myst-preview-content > [data-sphinx-preview-wide]:not([data-sphinx-preview-editing="true"]) {
+  box-sizing: border-box;
+  width: calc(100% + var(--sphinx-preview-breakout, 0px));
+  max-width: none;
+  margin-inline-start: calc(var(--sphinx-preview-breakout, 0px) / -2 + var(--sphinx-preview-breakout-shift, 0px));
+  margin-inline-end: 0;
+}
+
+/* The runtime lifts the column cap for a moment to read the natural width of a wide table; it also
+   lifts the row-handle cap (edit mode), else the measure would depend on its own result. */
+html[data-sphinx-preview-width="auto"] #sphinx-myst-preview-content :where(table, .table-wrapper)[data-sphinx-preview-measuring] {
+  max-width: none !important;
+}
+
+/* Auto: a cell of a token column (inline code, a number, a date, at most three words) never wraps
+   and is as wide as its widest cell, without the 5em floor of the other columns. */
+html[data-sphinx-preview-width="auto"] #sphinx-myst-preview-content :where(th, td)[data-sphinx-preview-token] {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Tables and figures narrower than the column are centred in every width mode, at their own
+   width. The caption is a centred paragraph inside the figure; code blocks stay left. */
+#sphinx-myst-preview-content > table,
+#sphinx-myst-preview-content > .table-wrapper {
+  margin-inline: auto;
+}
+
+#sphinx-myst-preview-content > p[data-sphinx-preview-figure] {
+  text-align: center;
+}
+
+html, body {
+  font-family: var(--sphinx-preview-font);
+  font-size: var(--sphinx-preview-zoomed-font-size);
+  line-height: var(--sphinx-preview-line-height);
+}
+
+/* Shibuya centres content in a narrow column; the preview pane is already narrow. */
+body :where(.sy-page, .sy-container, .sy-main, .sy-body, article) {
+  display: block;
+  max-width: none;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding-inline: 0;
+  grid-template-columns: none;
+}
+
+#sphinx-myst-preview-content {
+  /* Contains the first element's top margin, so the column itself never moves. */
+  display: flow-root;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--sphinx-preview-column-width, ${DEFAULT_PREVIEW_CONTENT_WIDTH}px);
+  margin-inline: auto;
+  padding: 0 var(--sphinx-preview-content-gutter) min(80vh, max(24px, calc(100vh - var(--sphinx-preview-reading-offset, 0px) - 40px)));
+}
+
+/* The content root takes the focus (tabindex -1) when the margin is clicked or the window comes back;
+   the page as a whole never shows a focus ring, the selected block does. */
+#sphinx-myst-preview-content:focus,
+#sphinx-myst-preview-content:focus-visible {
+  outline: none;
+}
+
+/* Long words and bare URLs wrap instead of widening the page; code blocks keep their own scroll. */
+#sphinx-myst-preview-content :is(p, li, dd, dt, td, th, blockquote, h1, h2, h3, h4, h5, h6, figcaption, summary, a) {
+  overflow-wrap: anywhere;
+}
+
+.sphinx-preview-table-menu button,
+.sphinx-preview-frontmatter-menu button {
+  flex-shrink: 0;
+}
+
+.sphinx-preview-frontmatter-menu button[data-tooltip]::after {
+  content: none;
+}
+
+.sphinx-preview-table-menu,
+.sphinx-preview-frontmatter-menu {
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+#sphinx-myst-preview-content .caption-number::after {
+  content: "\\00a0";
+}
+
+/* Match the preview-wide font reset's ID specificity so it cannot override
+  the OKF table sizing rules. */
+#sphinx-myst-preview-content [data-okf-properties] {
+  margin: 0 0 1.5em;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 0.85em;
+}
+
+#sphinx-myst-preview-content :where(p, li, dd, dt, td, th, blockquote, figcaption, .caption-text) {
+  font-family: var(--sphinx-preview-font);
+  font-size: var(--sphinx-preview-zoomed-font-size);
+  line-height: var(--sphinx-preview-line-height);
+}
+
+#sphinx-myst-preview-content :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--sphinx-preview-font);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 1.6em 0 0.6em;
+  color: var(--studio-editor-foreground, CanvasText);
+}
+
+#sphinx-myst-preview-content h1 {
+  font-size: 2em;
+  margin-top: 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--sphinx-preview-border);
+}
+
+#sphinx-myst-preview-content h2 {
+  font-size: 1.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--sphinx-preview-border);
+}
+
+#sphinx-myst-preview-content h3 { font-size: 1.25em; }
+#sphinx-myst-preview-content h4 { font-size: 1em; }
+
+${FOLD_CHEVRON_CSS}
+
+${FIRST_ELEMENT_GAP_CSS}
+
+#sphinx-myst-preview-content p,
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor {
+  margin: 0 0 1em;
+}
+
+#sphinx-myst-preview-content p[data-sphinx-preview-editing="true"] + .sphinx-preview-block-editor-host {
+  margin: 0 0 1em;
+}
+
+/* The host carries the spacing (and the first-element clearance) of the frame it wraps. */
+#sphinx-myst-preview-content .sphinx-preview-block-editor-host > .sphinx-preview-block-editor {
+  margin: 0;
+}
+
+/* The frame reserves the distance the sticky palette rides down (a block near the top of the page):
+   its top margin collapses with the bar's 3px, so the first lines start below the bar. */
+#sphinx-myst-preview-content .sphinx-preview-block-editor-host > .sphinx-preview-block-editor {
+  margin-top: var(--sphinx-preview-palette-reserve, 0px);
+}
+
+${FIRST_ELEMENT_CLEARANCE_CSS}
+
+${TOOLBAR_FLOAT_CSS}
+
+#sphinx-myst-preview-content :where(ul, ol) {
+  padding-inline-start: 2em;
+}
+
+#sphinx-myst-preview-content li {
+  margin: 0.2em 0;
+}
+
+/* List items wrap their content in paragraphs, whose body margin would double-space them. */
+#sphinx-myst-preview-content li > p {
+  margin-bottom: 0.3em;
+}
+
+#sphinx-myst-preview-content li > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Checkbox markers ([ ] / [x]) render as real checkboxes that toggle the source. */
+#sphinx-myst-preview-content input.myst-checkbox {
+  width: 1em;
+  height: 1em;
+  margin: 0 0.35em 0 0;
+  vertical-align: -0.125em;
+  accent-color: var(--studio-focusBorder, #007fd4);
+  cursor: pointer;
+}
+
+#sphinx-myst-preview-content input.myst-checkbox:disabled {
+  cursor: default;
+}
+
+#sphinx-myst-preview-content input.myst-checkbox[aria-busy="true"] {
+  cursor: progress;
+}
+
+#sphinx-myst-preview-content input.myst-checkbox:focus-visible {
+  outline: 1px solid var(--studio-focusBorder, #007fd4);
+  outline-offset: 2px;
+}
+
+/* Radio choice markers (( ) / (x)) render as round controls drawn like the checkboxes: the ring
+   is the text colour at half strength (readable on every theme, where the input border token is
+   too faint on Cream), the selected ring and dot the focus accent the checkboxes use. */
+#sphinx-myst-preview-content .myst-radio {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.35em 0 0;
+  vertical-align: -0.125em;
+  border: 1px solid color-mix(in srgb, currentColor 55%, transparent);
+  border-radius: 50%;
+  background: var(--studio-input-background, var(--studio-editor-background, Canvas));
+  cursor: pointer;
+}
+
+#sphinx-myst-preview-content .myst-radio[aria-checked="true"] {
+  border-color: var(--studio-focusBorder, #007fd4);
+  background: radial-gradient(circle, var(--studio-focusBorder, #007fd4) 0 38%, transparent 42%),
+    var(--studio-input-background, var(--studio-editor-background, Canvas));
+}
+
+#sphinx-myst-preview-content .myst-radio[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.6;
+}
+
+#sphinx-myst-preview-content .myst-radio[aria-busy="true"] {
+  cursor: progress;
+}
+
+#sphinx-myst-preview-content .myst-radio:focus-visible {
+  outline: 1px solid var(--studio-focusBorder, #007fd4);
+  outline-offset: 2px;
+}
+
+/* The reason of a refused toggle, shown next to its box for a few seconds. */
+#sphinx-myst-preview-content .myst-checkbox-refusal {
+  margin-inline-end: 0.5em;
+  padding: 1px 6px;
+  border: 1px solid var(--studio-editorWarning-foreground, var(--studio-charts-yellow, #b89500));
+  border-radius: 3px;
+  background: var(--studio-editorWidget-background, var(--studio-editor-background, Canvas));
+  color: var(--studio-editorWidget-foreground, var(--studio-editor-foreground, CanvasText));
+  font-size: 0.85em;
+}
+
+/* A link to a missing or blocked target keeps its look; this small icon follows it. */
+#sphinx-myst-preview-content .sphinx-preview-link-warning {
+  margin-inline-start: 0.25em;
+  color: var(--studio-editorWarning-foreground, var(--studio-charts-yellow, #b89500));
+  font-size: 0.85em;
+  cursor: help;
+  user-select: none;
+}
+
+#sphinx-myst-preview-content .sphinx-preview-link-warning::before {
+  content: "\\26A0";
+}
+
+/* Task list items show the checkbox in the bullet gutter, as GitHub does. */
+#sphinx-myst-preview-content li.task-list-item {
+  list-style: none;
+}
+
+#sphinx-myst-preview-content li.task-list-item > p:first-child > input.myst-checkbox:first-child {
+  margin-inline-start: -1.4em;
+}
+
+/* Bulleted radio choice items show the radio in the bullet gutter too (after the empty group
+   element of a group that is only a part of its list). Ordered items keep their numbers, which a
+   plan may cite ("option 2"), and show the radio after the number. */
+#sphinx-myst-preview-content ul > li.myst-radio-item {
+  list-style: none;
+}
+
+#sphinx-myst-preview-content ul > li.myst-radio-item > p:first-child > .myst-radio:first-child,
+#sphinx-myst-preview-content ul > li.myst-radio-item > p:first-child > .myst-radio-group:first-child + .myst-radio {
+  margin-inline-start: -1.4em;
+}
+`;

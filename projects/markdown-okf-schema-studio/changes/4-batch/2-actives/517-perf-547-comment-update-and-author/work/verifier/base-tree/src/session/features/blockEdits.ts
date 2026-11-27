@@ -1,0 +1,796 @@
+/**
+ * The block edit controller: the inline block editor of the page (open, autosave, final save,
+ * cancel), the edit lock that keeps page updates from destroying an open editor (STAB-02, STAB-03,
+ * STAB-06), and the flush of the page's open editors before the host switches document (CR 025).
+ */
+
+import { matchLineEndings } from "../../core/edits/lineEndings";
+import {
+  READ_ONLY_FILE, planAlertPlaceholder, planBlockTextEdit, planEmptiedBlockRemoval,
+} from "../../core/edits/sourceEdits";
+import type { HostDocument } from "../../host-api/documentStore";
+import { checkBlankLine, checkBlockLines, type BlockRangeRefusal } from "../../core/mapping/blockRange";
+import { sourceRangeForLines } from "../../core/mapping/sourceMapping";
+import { blankRunIndent } from "../../core/mapping/blankRunContainer";
+import { insertionText, planBlankRunInsertion, planInsertion, type InsertionPlan } from "../../core/mapping/insertion";
+import { FLUSH_WAIT_MS, flushRefusalMessage, waitForAnswer, waitForSettled } from "../../core/preview/flushWait";
+import type { BlockEditMessage, PageMessageOf } from "../../core/protocol/pageToHost";
+import type { Revision } from "../../core/protocol/revision";
+import { rebaseBlockRange, type BlockRangeChange } from "../../core/state/blockRange";
+import { EditLock, type SourceRange } from "../../core/state/editLock";
+import type { PageMessageRouter } from "../pageMessages";
+import type { PreviewManager } from "../previewManager";
+import type { PreviewSession } from "../previewSession";
+import { applyWrittenEdits, currentPreviewDocument, isDocumentEligible, revisionOfStage } from "../sessionDocuments";
+import { OWN_EDIT_ECHO_MS } from "./scrollSync";
+import { fireAndForget } from "../../host-api/logger";
+import { DetachedEdits, type UnsavedText } from "./detachedEdits";
+
+type RunFields = { line: number; endLine: number; itemLine?: number; containerLine?: number };
+
+/** True when a message's blank line (with its item or container line) is the line the held edit replaces (both absent counts). */
+function sameBlankRun(run: RunFields | undefined, held: RunFields | undefined): boolean {
+  return run?.line === held?.line && run?.endLine === held?.endLine && run?.itemLine === held?.itemLine
+    && run?.containerLine === held?.containerLine;
+}
+
+// @implements_req SwRS-MDOKFSTUDIO-BLOCK-268
+/** True when a blank line without an item or container line, or with one of the shape its container has above the line, can be written in. */
+function containerLineHolds(text: string, run: RunFields): boolean {
+  return (run.itemLine === undefined && run.containerLine === undefined)
+    || blankRunIndent(text, run.line, run.itemLine, run.containerLine) !== undefined;
+}
+
+/** The block edit the host holds for the page's open inline editor. */
+export interface ActiveBlockEdit {
+  editId: string;
+  documentId: string;
+  revision: Revision;
+  requestId: number;
+  line: number;
+  endLine: number;
+  sourceStartOffset: number;
+  originalText: string;
+  lastSavedText: string;
+  pendingText?: string;
+  /** Set for block insertions: where and how the new block is written. */
+  insertion?: InsertionPlan;
+  insertAfterLine?: number;
+  /**
+   * Set for a block written in place of a blank line: the line (`endLine` is `line`) and the text it held. The page
+   * never sees it (its `originalText` stays empty). An emptied editor and a cancel put this text back, byte
+   * for byte, with any separator an autosave added.
+   */
+  blankRunRegion?: { line: number; endLine: number; itemLine?: number; containerLine?: number; text: string };
+  finalRequested: boolean;
+  /** The final save asked to delete the block when its text is only whitespace (a top-level block or list item). */
+  deleteWhenEmpty?: boolean;
+  cancelRequested: boolean;
+  /** The writer cancelled the editor while this final save was in flight: the save outlives the editor (CR 475). */
+  detached?: boolean;
+  applying: boolean;
+  hasAppliedEdit: boolean;
+  lastMessage: BlockEditMessage;
+}
+
+/** The edits of one page (owned by the block edit controller). */
+export interface EditState {
+  /** Release and deferral decisions of the inline block-edit lock (STAB-02, STAB-03). */
+  lock: EditLock;
+  /** The block edit the host holds, until its final save completed. */
+  active?: ActiveBlockEdit;
+  /**
+   * Images pasted into the open editor and saved next to the document, until a block save wrote the
+   * text that refers to them (removed when the file turns out read-only, so none is left orphan).
+   */
+  pastedImages?: string[];
+  /** Frontmatter and checkbox saves whose edit is still being applied (CR 025). */
+  pendingSaves: Set<Promise<unknown>>;
+  /** Flush requests posted to the page and not answered yet, by flush id (CR 025). */
+  flushWaiters: Map<string, () => void>;
+  flushSequence: number;
+  /**
+   * The save command (CR 312) waits for the page's save request: `timer` is the bounded fallback that
+   * saves when the page never answers; `fired` marks a fallback that already saved, so the late
+   * request does not save again.
+   */
+  saveFallback?: { timer?: ReturnType<typeof setTimeout>; fired: boolean };
+  /** The text of a final save that failed, until the page says whether it shows it again (CR 475). */
+  unsaved?: UnsavedText;
+  /** An open that arrived during a detached edit, answered when that edit ends (CR 475). */
+  heldOpen?: PageMessageOf<"previewEditOpen">;
+  /** The page editor the page was asked to report the close of (`previewEditorWatch`, STAB-03). */
+  watchedPageEditorId?: string;
+  /** An explicit refresh asked for the next render: it reaches the page even over an open editor. */
+  forceNextResult?: boolean;
+  /**
+   * Test hook only (`holdEditSourcesForTests`): while set, the source of an opened block editor is
+   * queued here instead of being posted, so a real-window test can make it arrive late.
+   */
+  heldSources?: Array<() => void>;
+  /** Test hook only (`holdBlockEditAppliesForTests`): while set, a block edit's write waits here, so a final save stays in flight. */
+  heldApplies?: Array<() => void>;
+}
+
+/** A fresh {@link EditState}. */
+export function createEditState(): EditState {
+  return { lock: new EditLock(), pendingSaves: new Set(), flushWaiters: new Map(), flushSequence: 0 };
+}
+
+/** The source text a block edit replaces: the document and the offsets of the block. */
+interface BlockSource {
+  document: HostDocument;
+  start: number;
+  end: number;
+}
+
+/** The inline block edits of the page and the lock around them. */
+export class BlockEditController {
+  private readonly detached: DetachedEdits;
+
+  public constructor(private readonly manager: PreviewManager) {
+    this.detached = new DetachedEdits(manager, this);
+  }
+
+  /** Registers the handlers of the block editor's messages. */
+  public register(router: PageMessageRouter): void {
+    // The page saved its open editors and says so (CR 025); the waiting flush goes on. No document edit.
+    router.on("previewEditFlushed", (message, preview) => {
+      preview.edits.flushWaiters.get(message.flushId)?.();
+    });
+    // The page closed an inline editor the host was waiting for (STAB-03). It edits nothing.
+    router.on("previewEditClosed", (message, preview) => {
+      if (!this.detached.onClosed(preview, message)) this.closePageEditor(preview, message.editId);
+    });
+    // The page answers an error that gave back the writer's text (CR 475).
+    router.on("previewEditReopen", (message, preview) => this.detached.onReopen(preview, message));
+    router.on("previewSaveRequest", (_message, preview) => {
+      const fallback = preview.edits.saveFallback;
+      if (fallback?.fired) {
+        preview.edits.saveFallback = undefined;
+        return undefined;
+      }
+      if (fallback?.timer !== undefined) clearTimeout(fallback.timer);
+      preview.edits.saveFallback = undefined;
+      return this.saveDocument(preview);
+    });
+    router.on("previewEditOpen", (message, preview) => this.handleEditOpen(preview, message));
+    router.on("previewEditSave", (message, preview) => this.handleEditSave(preview, message));
+    router.on("previewEditCancel", (message, preview) => this.handleEditCancel(preview, message));
+  }
+
+  /** Answers a block edit message with an error the page's editor shows. */
+  public postEditSourceError(
+    preview: PreviewSession,
+    message: BlockEditMessage,
+    error: string,
+  ): void {
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-205
+    if (message.flush === true) {
+      const where = message.line !== undefined && message.endLine !== undefined
+        ? `the block at lines ${message.line}-${message.endLine}`
+        : "a block";
+      fireAndForget(this.manager.host.logger, this.manager.host.ui.showWarning(flushRefusalMessage(where, error)), "showWarning");
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-216
+    // An error answer to a final save gives the writer's text back, so the page can show it again.
+    const unsavedText = message.final === true && typeof message.editedText === "string" ? message.editedText : undefined;
+    if (unsavedText !== undefined) this.detached.keepUnsaved(preview, message.editId, unsavedText, error);
+    fireAndForget(this.manager.host.logger, preview.postToPage({
+      type: "previewEditSource",
+      documentId: message.documentId,
+      revision: message.revision,
+      requestId: message.requestId,
+      editId: message.editId,
+      error,
+      ...(unsavedText !== undefined ? { unsavedText } : {}),
+    }), "postToPage");
+  }
+
+  private currentSourceEdit(
+    preview: PreviewSession,
+    message: BlockEditMessage,
+  ): BlockSource | BlockRangeRefusal | undefined {
+    const document = currentPreviewDocument(preview, message);
+    if (!document || message.line === undefined || message.endLine === undefined) {
+      return undefined;
+    }
+    const offsets = sourceRangeForLines(document.getText(), message.line, message.endLine);
+    if (!offsets) {
+      return undefined;
+    }
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-256
+    const refusal = checkBlockLines(document.getText(), message.line, message.endLine);
+    return refusal ?? { document, start: offsets.start, end: offsets.end };
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-041
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-216
+  public handleEditOpen(preview: PreviewSession, message: PageMessageOf<"previewEditOpen">): void {
+    if (preview.edits.active?.detached) {
+      this.detached.holdOpen(preview, message);
+      return;
+    }
+    if (preview.edits.active) {
+      this.postEditSourceError(preview, message, "Another Markdown block is already being edited.");
+      return;
+    }
+    if (message.insertAfterLine !== undefined) {
+      const document = currentPreviewDocument(preview, message);
+      if (!document
+        || message.line === undefined
+        || message.endLine === undefined
+        || (message.replaceBlankRun
+          ? checkBlankLine(document.getText(), message.replaceBlankRun.line) !== undefined
+            || !containerLineHolds(document.getText(), message.replaceBlankRun)
+            || message.line !== message.replaceBlankRun.line
+            || message.endLine !== message.replaceBlankRun.endLine
+          : !planInsertion(document.getText(), message.insertAfterLine))) {
+        this.postEditSourceError(preview, message, "The preview is stale. Refresh it before editing this block.");
+        return;
+      }
+      this.openPageEditor(preview, message);
+      this.postSource(preview, () => fireAndForget(this.manager.host.logger, preview.postToPage({
+        type: "previewEditSource",
+        documentId: message.documentId,
+        revision: message.revision,
+        requestId: message.requestId,
+        editId: message.editId,
+        line: message.line,
+        endLine: message.endLine,
+        originalText: "",
+        insertAfterLine: message.insertAfterLine,
+      }), "postToPage"));
+      return;
+    }
+    const source = this.currentSourceEdit(preview, message);
+    if (source && "refused" in source) {
+      this.postEditSourceError(preview, message, source.refused);
+      return;
+    }
+    if (!source || message.line === undefined || message.endLine === undefined) {
+      this.postEditSourceError(preview, message, "The preview is stale. Refresh it before editing this block.");
+      return;
+    }
+    const originalText = source.document.getText().slice(source.start, source.end);
+    this.openPageEditor(preview, message, message.cellEditor === true
+      ? { start: source.start, length: source.end - source.start }
+      : undefined);
+    this.postSource(preview, () => fireAndForget(this.manager.host.logger, preview.postToPage({
+      type: "previewEditSource",
+      documentId: message.documentId,
+      revision: message.revision,
+      requestId: message.requestId,
+      editId: message.editId,
+      line: message.line,
+      endLine: message.endLine,
+      originalText,
+    }), "postToPage"));
+  }
+
+  /** Posts the source of an opened editor, or queues it while a test holds the sources back. */
+  private postSource(preview: PreviewSession, post: () => void): void {
+    if (preview.edits.heldSources) preview.edits.heldSources.push(post);
+    else post();
+  }
+
+  /** The page shows an inline editor from now on: page updates wait for it to close (STAB-03). */
+  private openPageEditor(preview: PreviewSession, message: BlockEditMessage, cellRange?: SourceRange): void {
+    if (typeof message.editId === "string" && message.editId !== "") {
+      preview.edits.lock.openPageEditor(message.editId, cellRange);
+    }
+  }
+
+  /** The page closed its inline editor `editId`: the page updates that waited for it run now. */
+  public closePageEditor(preview: PreviewSession, editId?: string): void {
+    const queued = preview.edits.lock.closePageEditor(editId);
+    if (!preview.edits.lock.pageEditorOpen) {
+      preview.edits.watchedPageEditorId = undefined;
+    }
+    if (!preview.disposed) {
+      queued.forEach((work) => work());
+    }
+  }
+
+  private activeBlockEditSource(
+    preview: PreviewSession,
+    edit: ActiveBlockEdit,
+  ): BlockSource | undefined {
+    const document = preview.document;
+    const endOffset = edit.sourceStartOffset + edit.lastSavedText.length;
+    if (!document
+      || document.id !== preview.documentUri
+      || endOffset > document.getText().length
+      || !isDocumentEligible(document)) {
+      return undefined;
+    }
+    return { document, start: edit.sourceStartOffset, end: endOffset };
+  }
+
+  private beginActiveBlockEdit(preview: PreviewSession, edit: ActiveBlockEdit): void {
+    preview.edits.active = edit;
+    preview.edits.lock.acquire(edit.requestId);
+    if (!preview.edits.lock.pageEditorOpen) {
+      preview.edits.lock.openPageEditor(edit.editId);
+    }
+  }
+
+  /**
+   * Ends the lock and runs the PlantUML, link-enrichment and render work that waited for it.
+   * `renderFollows`: the caller refreshes the document itself, so a queued render is dropped.
+   */
+  public releaseActiveBlockEdit(
+    preview: PreviewSession,
+    renderFollows = false,
+    alreadyReleased?: Array<() => void>,
+  ): void {
+    const wasDetached = preview.edits.active?.detached === true;
+    preview.edits.active = undefined;
+    if (renderFollows) {
+      preview.edits.lock.drop("render");
+      preview.edits.lock.drop("render-result");
+    }
+    // A detached edit frees only the host's hold: a newer page editor keeps its wait (STAB-03).
+    const queued = alreadyReleased ?? (wasDetached ? preview.edits.lock.releaseHostEdit() : preview.edits.lock.release());
+    if (!preview.edits.lock.pageEditorOpen) preview.edits.watchedPageEditorId = undefined;
+    if (!preview.disposed) {
+      queued.forEach((work) => work());
+    }
+    this.detached.resumeHeldOpen(preview);
+  }
+
+  /**
+   * The host's edit ended on an error the page shows in its still open editor: the lock is free for
+   * a new edit, but page updates keep waiting for the editor to close (STAB-03).
+   */
+  private releaseHostEditKeepingEditor(preview: PreviewSession): void {
+    const edit = preview.edits.active;
+    if (edit) preview.edits.lock.setPageCellEditorRange({ start: edit.sourceStartOffset, length: edit.lastSavedText.length });
+    preview.edits.active = undefined;
+    const queued = preview.edits.lock.releaseHostEdit();
+    if (!preview.disposed) {
+      queued.forEach((work) => work());
+    }
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-LIFE-039
+  public completeActiveBlockEdit(preview: PreviewSession, edit: ActiveBlockEdit): void {
+    if (preview.edits.active !== edit) {
+      return;
+    }
+    const refreshes = edit.hasAppliedEdit
+      && preview.document !== undefined
+      && this.manager.sourceAvailable(preview)
+      && preview.document.revision !== preview.stage?.activeDocumentRevision;
+    const pin = preview.scroll.pendingPin;
+    if (pin && preview.document) {
+      // Every apply of this edit has resolved: only a render of this version or later shows it.
+      pin.minVersion = Math.max(pin.minVersion, preview.document.revision);
+    }
+    if (preview.edits.unsaved?.editId === edit.editId) preview.edits.unsaved = undefined;
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-263
+    // A detached save has no editor to close: its answer comes first, so the page knows a render follows.
+    if (edit.detached) {
+      fireAndForget(this.manager.host.logger, preview.postToPage({
+        type: "previewEditSource",
+        documentId: edit.lastMessage.documentId,
+        revision: edit.lastMessage.revision,
+        requestId: edit.lastMessage.requestId,
+        editId: edit.editId,
+        done: true,
+        ...(refreshes ? { renderFollows: true as const } : {}),
+      }), "postToPage");
+    }
+    this.releaseActiveBlockEdit(preview, refreshes);
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-263
+    // A final save always gets an answer: with no render to follow (nothing written, the revision already rendered, or the source unavailable), the page's editor is told it is done. A cancel needs none: the page
+    // closed that editor when it posted it.
+    if (!refreshes && !edit.cancelRequested && !edit.detached) {
+      fireAndForget(this.manager.host.logger, preview.postToPage({
+        type: "previewEditSource",
+        documentId: edit.lastMessage.documentId,
+        revision: edit.lastMessage.revision,
+        requestId: edit.lastMessage.requestId,
+        editId: edit.editId,
+        done: true,
+      }), "postToPage");
+    }
+    if (refreshes && preview.document) {
+      // The writer closed the editor and waits for the block: no typing pause to wait for (LIFE-039).
+      fireAndForget(this.manager.host.logger, this.manager.rendering.refreshPreviewDocument(preview, preview.document, { immediate: true }), "refreshPreviewDocument");
+    }
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-042
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-058
+  private drainActiveBlockEdit(preview: PreviewSession, edit: ActiveBlockEdit): void {
+    if (preview.edits.active !== edit || edit.applying) {
+      return;
+    }
+    const typed = edit.pendingText === undefined
+      ? undefined
+      : matchLineEndings(edit.pendingText, edit.lastSavedText, preview.document?.getText(), true);
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-264
+    // An emptied top-level block or list item, committed: it is deleted with its separator, in one edit.
+    const deleting = typed !== undefined && edit.finalRequested && edit.deleteWhenEmpty === true
+      && !edit.insertion && !edit.cancelRequested && typed.trim() === "";
+    // @implements_req SwRS-MDOKFSTUDIO-BLOCK-264
+    // Any other emptied block of an alert body is written as the alert's prefix line.
+    const placeholder = typed?.trim() === "" && !deleting && !edit.insertion && !edit.cancelRequested && preview.document
+      ? planAlertPlaceholder(preview.document.getText(), edit.sourceStartOffset, edit.lastSavedText, edit.originalText)
+      : undefined;
+    const editedText = placeholder ?? typed;
+    if (editedText === undefined || (editedText === edit.lastSavedText && !deleting)) {
+      edit.pendingText = undefined;
+      if (edit.finalRequested) {
+        this.completeActiveBlockEdit(preview, edit);
+      }
+      return;
+    }
+    edit.pendingText = undefined;
+    const source = this.activeBlockEditSource(preview, edit);
+    if (!source || source.document.getText().slice(source.start, source.end) !== edit.lastSavedText) {
+      this.postEditSourceError(preview, edit.lastMessage, "The source block changed while it was being edited.");
+      this.releaseHostEditKeepingEditor(preview);
+      return;
+    }
+    const textEdit = (deleting
+      ? planEmptiedBlockRemoval(
+        source.document.getText(),
+        edit.sourceStartOffset,
+        edit.lastSavedText,
+        edit.originalText,
+        edit.line,
+        edit.endLine,
+      )
+      : undefined) ?? planBlockTextEdit(edit.sourceStartOffset, edit.lastSavedText, editedText);
+    if (!textEdit) {
+      this.drainActiveBlockEdit(preview, edit);
+      return;
+    }
+    edit.applying = true;
+    // @implements_req SwRS-MDOKFSTUDIO-PALETTE-021
+    // @implements_req SwRS-MDOKFSTUDIO-PALETTE-279
+    // CR 134: the text editor scrolls to the edit; the page must not follow that echo.
+    preview.scroll.ownEditUntil = Infinity;
+    const write = (): PromiseLike<boolean> => applyWrittenEdits(this.manager.host.documents, source.document, [textEdit]);
+    const held = preview.edits.heldApplies;
+    fireAndForget(this.manager.host.logger, (held ? new Promise<void>((resolve) => held.push(resolve)).then(write) : write()).then((applied) => {
+      preview.scroll.ownEditUntil = Date.now() + OWN_EDIT_ECHO_MS;
+      if (preview.edits.active !== edit) {
+        return;
+      }
+      edit.applying = false;
+      if (!applied) {
+        this.postEditSourceError(preview, edit.lastMessage, "VS Code could not apply the Markdown edit.");
+        edit.finalRequested = false;
+        return;
+      }
+      edit.lastSavedText = editedText;
+      edit.hasAppliedEdit = true;
+      preview.edits.pastedImages = undefined;
+      this.drainActiveBlockEdit(preview, edit);
+    }, (error: unknown) => {
+      preview.scroll.ownEditUntil = Date.now() + OWN_EDIT_ECHO_MS;
+      if (preview.edits.active !== edit) {
+        return;
+      }
+      edit.applying = false;
+      edit.finalRequested = false;
+      if (error instanceof Error && error.message === READ_ONLY_FILE) this.removePastedImages(preview);
+      this.postEditSourceError(
+        preview,
+        edit.lastMessage,
+        error instanceof Error ? error.message : String(error),
+      );
+    }), "applyEdits");
+  }
+
+  /** A read-only file cannot take the pasted images' references: the images would stay orphans. */
+  private removePastedImages(preview: PreviewSession): void {
+    const images = preview.edits.pastedImages ?? [];
+    preview.edits.pastedImages = undefined;
+    for (const image of images) {
+      fireAndForget(this.manager.host.logger, this.manager.host.files.delete(image).then(undefined, () => undefined), "deletePastedImage");
+    }
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-191
+  private handleEditSave(preview: PreviewSession, message: PageMessageOf<"previewEditSave">): void {
+    let edit = preview.edits.active;
+    if (!edit && message.insertAfterLine !== undefined) {
+      const document = currentPreviewDocument(preview, message);
+      const run = message.replaceBlankRun;
+      // @implements_req SwRS-MDOKFSTUDIO-BLOCK-268
+      // A save that re-creates the edit of a blank run checks the run again against the document.
+      const plan = !document ? undefined
+        : run
+          ? (checkBlankLine(document.getText(), run.line) === undefined
+            && containerLineHolds(document.getText(), run)
+            && message.line === run.line && message.endLine === run.endLine
+            ? planBlankRunInsertion(document.getText(), run.line, run.itemLine, run.containerLine)
+            : undefined)
+          : planInsertion(document.getText(), message.insertAfterLine);
+      if (!document || !plan || message.originalText === undefined || message.editedText === undefined) {
+        this.postEditSourceError(preview, message, "The preview is stale. Reopen the block before saving.");
+        return;
+      }
+      if (message.originalText !== "") {
+        this.postEditSourceError(preview, message, "The source block changed while it was being edited.");
+        return;
+      }
+      const regionText = plan.replace && document ? document.getText().slice(plan.replace.start, plan.replace.end) : "";
+      edit = {
+        editId: message.editId,
+        documentId: message.documentId,
+        revision: message.revision,
+        requestId: message.requestId,
+        line: message.line,
+        endLine: message.endLine,
+        sourceStartOffset: plan.offset,
+        originalText: "",
+        lastSavedText: regionText,
+        insertion: plan,
+        insertAfterLine: message.insertAfterLine,
+        ...(plan.replace && run ? {
+          blankRunRegion: {
+            line: run.line,
+            endLine: run.endLine,
+            ...(run.itemLine !== undefined ? { itemLine: run.itemLine } : {}),
+            ...(run.containerLine !== undefined ? { containerLine: run.containerLine } : {}),
+            text: regionText,
+          },
+        } : {}),
+        finalRequested: false,
+        cancelRequested: false,
+        applying: false,
+        hasAppliedEdit: false,
+        lastMessage: message,
+      };
+      this.beginActiveBlockEdit(preview, edit);
+    } else if (!edit) {
+      const source = this.currentSourceEdit(preview, message);
+      if (source && "refused" in source) {
+        this.postEditSourceError(preview, message, source.refused);
+        return;
+      }
+      if (!source || message.originalText === undefined || message.editedText === undefined) {
+        this.postEditSourceError(preview, message, "The preview is stale. Reopen the block before saving.");
+        return;
+      }
+      const originalText = source.document.getText().slice(source.start, source.end);
+      if (originalText !== message.originalText) {
+        this.postEditSourceError(preview, message, "The source block changed while it was being edited.");
+        return;
+      }
+      edit = {
+        editId: message.editId,
+        documentId: message.documentId,
+        revision: message.revision,
+        requestId: message.requestId,
+        line: message.line,
+        endLine: message.endLine,
+        sourceStartOffset: source.start,
+        originalText,
+        lastSavedText: originalText,
+        finalRequested: false,
+        cancelRequested: false,
+        applying: false,
+        hasAppliedEdit: false,
+        lastMessage: message,
+      };
+      this.beginActiveBlockEdit(preview, edit);
+    }
+    if (edit.cancelRequested
+      || message.editId !== edit.editId
+      || message.documentId !== edit.documentId
+      || message.revision !== edit.revision
+      || message.requestId !== edit.requestId
+      || message.line !== edit.line
+      || message.endLine !== edit.endLine
+      || message.originalText !== edit.originalText
+      || message.insertAfterLine !== edit.insertAfterLine
+      || !sameBlankRun(message.replaceBlankRun, edit.blankRunRegion)
+      || message.editedText === undefined) {
+      this.postEditSourceError(preview, message, "The preview block edit is stale. Reopen the block before saving.");
+      return;
+    }
+    edit.lastMessage = message;
+    // An emptied editor over a blank line puts the line back; the line is the empty state of the block.
+    edit.pendingText = edit.blankRunRegion && message.editedText.trim() === ""
+      ? edit.blankRunRegion.text
+      : edit.insertion
+        ? insertionText(edit.insertion, message.editedText)
+        : message.editedText;
+    edit.finalRequested = message.final !== false;
+    edit.deleteWhenEmpty = edit.finalRequested && message.deleteWhenEmpty === true && !edit.insertion;
+    if (message.final === true) {
+      this.manager.scroll.storePendingPin(preview, message, preview.document ? preview.document.revision : 0);
+    }
+    this.drainActiveBlockEdit(preview, edit);
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-053
+  private handleEditCancel(preview: PreviewSession, message: PageMessageOf<"previewEditCancel">): void {
+    const edit = preview.edits.active;
+    if (!edit
+      || message.editId !== edit.editId
+      || message.documentId !== edit.documentId
+      || message.revision !== edit.revision
+      || message.requestId !== edit.requestId
+      || message.line !== edit.line
+      || message.endLine !== edit.endLine
+      || !sameBlankRun(message.replaceBlankRun, edit.blankRunRegion)) {
+      this.postEditSourceError(preview, message, "The preview block edit is stale. Reopen the block before cancelling.");
+      return;
+    }
+    edit.lastMessage = message;
+    edit.cancelRequested = true;
+    edit.finalRequested = true;
+    edit.pendingText = edit.blankRunRegion ? edit.blankRunRegion.text : edit.originalText;
+    this.drainActiveBlockEdit(preview, edit);
+  }
+
+  /**
+   * Keeps the open block edit in step with a change made outside it (STAB-06). A change before the
+   * block moves its offset; a change inside it ends the host's edit with an explicit error in the
+   * editor, which stays open with the reader's text. Returns false when the edit cannot be tracked.
+   */
+  public trackOutsideChange(
+    preview: PreviewSession,
+    edit: ActiveBlockEdit,
+    changes: readonly BlockRangeChange[],
+  ): boolean {
+    if (edit.pendingText !== undefined || edit.finalRequested) {
+      return false;
+    }
+    const rebased = rebaseBlockRange({ start: edit.sourceStartOffset, length: edit.lastSavedText.length }, changes);
+    if (rebased === "conflict") {
+      this.postEditSourceError(preview, edit.lastMessage,
+        "The source block changed outside the preview while it was being edited. Copy your text, then reopen the block.");
+      this.releaseHostEditKeepingEditor(preview);
+      return true;
+    }
+    edit.sourceStartOffset = rebased.start;
+    return true;
+  }
+
+  /**
+   * An outside change reached a final save that is requested and not written: the host does not
+   * write it, and answers with the text so the editor shows it (CR 475). Returns false when the
+   * save carries no text to give back.
+   */
+  public keepTextOnOutsideChange(preview: PreviewSession, edit: ActiveBlockEdit): boolean {
+    const message = edit.lastMessage;
+    if (message.final !== true || typeof message.editedText !== "string") return false;
+    this.postEditSourceError(preview, message,
+      "The file changed outside the preview before your text was saved. Copy your text, then reopen the block.");
+    this.releaseHostEditKeepingEditor(preview);
+    this.manager.edits.deferWhileEditing(preview, "render", () => this.manager.rendering.refreshOpenDocument(preview));
+    return true;
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TABLE-119
+  // @implements_req SwRS-MDOKFSTUDIO-BLOCK-191
+  /**
+   * Follows the table of the page's open cell editor through a change of the document. A change
+   * that overlaps the table and comes from outside the preview (an undo, a redo, a revert, another
+   * writer) lets the render of the new buffer reach the page at once: the host edit, if any, is
+   * released without a write and the render waits for nothing, so the page's content patch closes
+   * the editor without saving it (its text was autosaved live and the buffer is the truth). A change
+   * the writer typed or the preview applied keeps today's wait. Returns true when it released.
+   */
+  public releaseCellEditorOnOutsideChange(
+    preview: PreviewSession,
+    changes: readonly BlockRangeChange[],
+    outside: boolean,
+  ): boolean {
+    const { lock, active: edit } = preview.edits;
+    if (!lock.pageCellEditorRange) return false;
+    // The range length follows the host edit's text (its autosaves resize the table): re-sync it
+    // from the edit before every tracking step, or the overlap test would use a stale length.
+    if (edit) lock.setPageCellEditorRange({ start: edit.sourceStartOffset, length: edit.lastSavedText.length });
+    if (lock.trackPageCellEditor(changes) !== "overlap") return false;
+    if (!outside) {
+      // Typed in the source over the table: nothing follows it, the editor keeps its wait.
+      lock.clearPageCellEditorRange();
+      return false;
+    }
+    this.releaseActiveBlockEdit(preview, true);
+    return true;
+  }
+
+  /** Runs `work` now, or after the open inline block edit ends: the work would replace its page. */
+  public deferWhileEditing(preview: PreviewSession, key: string, work: () => void): void {
+    if (preview.edits.lock.shouldDeferReload()) {
+      this.deferPageWork(preview, key, work);
+      return;
+    }
+    work();
+  }
+
+  /**
+   * Queues page work behind the open edit. When the page has an inline editor open, it is asked once
+   * per editor to report the close (`previewEditorWatch`): an editor closed without a change sends
+   * nothing otherwise, and the work would wait forever (STAB-03).
+   */
+  public deferPageWork(preview: PreviewSession, key: string, work: () => void, discard?: () => void): void {
+    preview.edits.lock.defer(key, work, discard);
+    this.watchPageEditor(preview);
+  }
+
+  /** Asks the page, once per editor, to report when its open inline editor closes (STAB-03). */
+  public watchPageEditor(preview: PreviewSession): void {
+    const editId = preview.edits.lock.pageEditor;
+    if (editId === undefined || preview.edits.watchedPageEditorId === editId || preview.disposed) {
+      return;
+    }
+    preview.edits.watchedPageEditorId = editId;
+    fireAndForget(this.manager.host.logger, preview.postToPage({
+      type: "previewEditorWatch",
+      documentId: preview.documentUri,
+      editId,
+    }), "postToPage");
+  }
+
+  /** Remembers a save until its edit is applied, so a navigation can wait for it (CR 025). */
+  public trackPendingSave(preview: PreviewSession, save: PromiseLike<void> | undefined): PromiseLike<void> | undefined {
+    if (!save) return save;
+    const tracked = Promise.resolve(save).finally(() => preview.edits.pendingSaves.delete(tracked));
+    preview.edits.pendingSaves.add(tracked);
+    return tracked;
+  }
+
+  /** Waits, bounded, until the block edit and the frontmatter saves of the preview reached the document. */
+  public async settleHostEdits(preview: PreviewSession): Promise<void> {
+    await waitForSettled(() => preview.disposed || (!preview.edits.active && preview.edits.pendingSaves.size === 0));
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-LIFE-173
+  /**
+   * Saves the document the preview shows, once the texts the page sent before its request reached
+   * it (CR 312). Unlike {@link settleHostEdits} it does not wait for the block edit to end: the
+   * editor stays open, so the wait is for its pending text to be applied. Bounded by `FLUSH_WAIT_MS`;
+   * a refused or cancelled save is silent.
+   */
+  public async saveDocument(preview: PreviewSession): Promise<void> {
+    await waitForSettled(() => {
+      const edit = preview.edits.active;
+      return preview.disposed || ((edit === undefined || (edit.pendingText === undefined && !edit.applying))
+        && preview.edits.pendingSaves.size === 0);
+    });
+    const document = preview.document;
+    if (preview.disposed || !document) return;
+    await this.manager.host.documents.save(document).then(() => undefined, (error: unknown) => {
+      this.manager.host.logger.warn(`save from the preview failed: ${error instanceof Error ? error.message : String(error)}`);
+    });
+  }
+
+  // @implements_req SwRS-MDOKFSTUDIO-TRUST-005
+  /**
+   * Asks the page to save and close what its open editors hold, then waits for the saves to reach the
+   * document (CR 025). Used before the host switches document on its own (tab follow, Back / Next):
+   * the page posts the final saves first and the answer after them, and messages arrive in order, so
+   * the host knows every save when the answer comes. A dead page or a refused save ends after
+   * `FLUSH_WAIT_MS`; the navigation is never blocked.
+   */
+  public async flushPageEdits(preview: PreviewSession): Promise<void> {
+    const stage = preview.stage;
+    if (!preview.disposed && stage && preview.page.readyRequestId !== undefined) {
+      const flushId = `flush-${++preview.edits.flushSequence}`;
+      const answered = new Promise<void>((resolve) => preview.edits.flushWaiters.set(flushId, resolve));
+      const posted = await preview.postToPage({
+        type: "previewFlushEdit",
+        flushId,
+        documentId: stage.activeDocumentIdentity,
+        revision: revisionOfStage(stage),
+        requestId: stage.requestId,
+      }).then((ok) => ok, () => false);
+      if (posted) {
+        await waitForAnswer(answered, FLUSH_WAIT_MS);
+      }
+      preview.edits.flushWaiters.delete(flushId);
+    }
+    await this.settleHostEdits(preview);
+  }
+}
