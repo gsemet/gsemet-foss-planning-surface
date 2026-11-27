@@ -60,6 +60,17 @@ Destination: next batch (3-ready).
 
 Spec critic: no (a removal fully decided here, cheap to undo).
 
+## 2026-11-27: review of the specification (Chief of Staff, not a decision)
+
+To fix at the next run of the writer, once the owner has answered:
+
+- Approval: `03-change-spec.md` first took the decisions above as the owner's agreement to change
+  StRS DIAG-001 and DIAG-006. That agreement was not asked; the line now says so. The question is
+  open.
+- StRS DIAG-001 (at `b9b29c5a`) needs more than its "Reading" bullet and SwRS line: the description
+  and the normative statement say "keep its source available", and the goal and the sequence diagram
+  say "the source one click away", which is no longer true of a diagram that renders.
+
 ## Similar panels (facts read in the code at `b9b29c5a`, not decisions)
 
 - The extension generates three source panels, all in `normalizeDiagram`

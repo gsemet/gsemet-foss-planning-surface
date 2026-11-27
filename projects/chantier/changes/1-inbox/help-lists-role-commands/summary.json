@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Group chantier --help and list each role's commands in help",
+  "summary": "Specified: --help in six groups, help --for <role> prints the role's commands from a new roles.yaml field, twelve old names get a new spelling (triage --abandon, order park, msg --read, journal interests, handoff --log, board serve...) and all still run. Five questions open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "62420576751c84ff7b5537737cd06812267db8ceb441ec5dbcfd19f339159ed9",
+    "02-answers.md": "506f1af6f7bf150eb5b4b5c5f0bb8002100248b7f11f808201682b11d0b2ee4a",
+    "03-change-spec.md": "23150e4d1be2dcb21542c07183de8aa8fe64ecfb71cf6299a7794636cfd62978",
+    "intake/request.md": "60e6afd4e14b7f511340e8a8c55dd17d82c55e0b136c3b36c1bf1be9bd3745f1"
+  },
+  "summarized": "2026-11-27T10:14:57Z"
+}

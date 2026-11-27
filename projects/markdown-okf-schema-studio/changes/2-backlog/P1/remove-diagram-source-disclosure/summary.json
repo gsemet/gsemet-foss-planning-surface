@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Remove the source panels under diagrams and charts",
-  "summary": "P1, grilled. Remove the Diagram source and Chart source panels from the preview and the HTML export: raw Markdown shows the source. The panel appears only when a render fails.",
+  "title": "Source panels under diagrams and charts show only on a failed render",
+  "summary": "P1, specified, automatable. Diagram source and Chart source are hidden under drawn figures in the preview and the HTML export, shown closed only on a failed render (CSS on data-render-state). StRS DIAG-001 and DIAG-006 need the owner's re-approval.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d411c82c623e2d54aa8f355b10bb481c1b4730daad5fb54442e141897c4db1fc",
-    "02-answers.md": "dd75ac50aeea88bf8388496c91547dbd6f15af618174ebfccdac7c9decf613f1",
+    "02-answers.md": "0eb86ec399da318ff63744e93990d4a3336cb0a99f6a414bc6164bff9255fc09",
+    "03-change-spec.md": "729edf08306d801682ad7364485f5a466d2c7cf6ee4965a44c6416cd82865c40",
     "intake/request.md": "fe748456da550de1089d38ba36fb37457d5cea1adb5739b21956e9a5085fbf00"
   },
-  "summarized": "2026-11-27T10:09:38Z"
+  "summarized": "2026-11-27T10:15:55Z"
 }
