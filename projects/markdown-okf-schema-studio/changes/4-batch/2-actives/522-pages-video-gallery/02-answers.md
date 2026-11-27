@@ -38,3 +38,7 @@ Destination: running batch batch-11.
 
 - The five chosen GIFs weigh about 7.3 MB together (1.1, 1.7, 1.8, 1.4 and 1.3 MB).
 - The feature clip guideline sentence « The README is not changed: it keeps its presentation video » no longer holds: the change updates it.
+
+## During the run, 2026-11-27, owner (ask A-1; `evidence/click-probe.txt`)
+
+- `vidéos-Q9` (as specified, with no script and `preload="none"`, a click on the picture starts nothing in Chromium; only the play button does): « Clic sur l'image (Recommandé) » : a few script lines make a click on the picture start the video; no video byte loads before the click (`preload="none"` stays); one more round is accepted. This replaces the specification's « with no script ».
