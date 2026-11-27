@@ -247,4 +247,68 @@ main; the posted body equals `work/pr-body.md` but for one trailing blank line (
   ... yet" and the unchecked "Evidence" and "Verified" boxes. The specification wants that
   screenshot in the PR's Deliverables: it is not there yet.
 
-VERIFIED
+Verdict of the first pass: VERIFIED (cancelled by the description pass below).
+
+## Second pass: the posted description alone - 3412cd9
+
+Head unchanged (`gh pr view 490 --json headRefOid,isDraft`: 3412cd90a3e33c3b8953e03a23b26b44bfb23227,
+draft). Only the description changed since the first pass; claims 1 to 10 were judged at 3412cd9
+and were not rerun.
+
+## 12. The posted body renders, and its image resolves - 3412cd9, PASS
+
+- `gh pr view 490 --json body -q .body` against `work/pr-body.md` (`diff`, CR stripped): one
+  trailing blank line only.
+- `gh api repos/gsemet/chantier/pulls/490 -H "Accept: application/vnd.github.full+json" -q
+  .body_html`: headings, the three tables, the Mermaid block, the code block, one `<img
+  alt="chantier live at 150 columns">` in Deliverables, one `<details>` holding Changes to
+  Internal references with nothing after it, six checked task boxes.
+- `curl -sSL` on the attachment URL into an empty scratch folder: `http 200 image/png 22256`.
+  `sha256sum` of it, `evidence/live-terminal-3412cd9-150.png` and the copy in `E/`: all
+  `9772607331e9e3ca7e9cce2e2ddb84e09a45c175105ccc76a629a99d3713561a`.
+
+## 13. The attached image shows no username or home folder - 3412cd9, PASS
+
+I opened the downloaded attachment: window title `chantier live (demo)`, header row grey after
+`chantier live`, made-up `demo-shop` data; no username, no home folder, no path.
+
+## 14. Screenshot, caption, Known gaps and Test plan - 3412cd9, PASS
+
+- The screenshot is in Deliverables with a caption naming `3412cd9`: real console window, running
+  board, made-up data, painted header (claims 5, 6). The "No screenshot" Known gap is gone; the
+  three gaps left match claims 4 and 10. No `UNVERIFIED` or `STALE` in the body.
+- Tests box (20 of 24 fail on the base, 24 pass): claim 7. Local gates box: `head -n1` and the
+  result line of `work/gates/just-check-3412cd9.log` (`2813 passed, 19 skipped in 242.60s`) and
+  `eval-dry-run-3412cd9.log` (`dry run: 26 of 26 cases as expected`).
+- Evidence box: base drawn widths in `E/event-base-vs-head.txt` and `E/base-new-cases.log`, base
+  `--once` text in `E/once-piped-base-4d12a5b.txt`; head in claims 1, 4, 6.
+- Review box: `log CR-522`: `r1 approved at 4d12a5be711e7af8b9bd59b4ec9432e18a0421de, committed as
+  3412cd90a3e33c3b8953e03a23b26b44bfb23227`.
+- Verified box: `log CR-522`: `verdict result=VERIFIED head=3412cd90...` (the first pass).
+- CI box: `gh pr checks 490`: `just check` macos, ubuntu, windows, `just eval-dry-run`, `just
+  scenario (ubuntu-latest)` all `pass`; `gh api .../actions/runs/45998818704`: head_sha
+  3412cd90a3e33c3b8953e03a23b26b44bfb23227, `success`.
+
+## 15. Impacts: "The screenshot shows the three columns at their new default widths" - 3412cd9, FAIL
+
+The posted sentence: "The screenshot shows the three columns at their new default widths on a
+150-column terminal." The body's three widened columns are the left column and the Flow's
+`Project` and `Who` (Summary, first table). The screenshot has no `Project` column: one project is
+watched, so the Flow's header is `Time`, `Who`, `Event`. Seen by opening the attachment (claim 13),
+and in the console text it was captured from:
+
+Command: `grep -n -E "Time +(Project +)?Who|^=+|150" E/terminal-drawn-3412cd9.txt`
+
+```text
+3:== start: terminal 150x28
+7:| demo-shop  batch-01 running parallel   || Time           Who             Event                         || PR CR State Age Title
+32:captured live-terminal-150.png: window 1216x487 px, client 1200x448, 150x28 cells ...
+```
+
+(box characters rewritten as `|`). `E/widths-drawn.txt`, same head: `one 141 Time 42 None 15 20`
+(project `None` with one project, at every width from there up). So the screenshot shows two of
+the three: the left column at 42 and `Who` at 15. `Project` at 20 is proven only by the drawn
+text of claim 1, in no image. Fix: narrow the sentence to the left column and `Who`, saying no
+`Project` column is drawn with one project watched.
+
+NOT VERIFIED
