@@ -1,0 +1,37 @@
+videos.html header: Markdown OKF-Schema Studio, Home, Contributing, How we ship, How we test, Gallery, Videos, Requirements
+videos.html cards: 18
+short-demo-01 | One-minute demo | paused=true autoplay=false loop=false muted-attr=false poster=docs/demo-video/short-demo-01/output/poster.png src=docs/demo-video/short-demo-01/output/short-demo-01.mp4
+advanced-renderings-tour | Mermaid diagrams, drawn in the page | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/advanced-renderings-tour/poster.png src=docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
+block-editor-modes | Click a block: its editor shows the GFM buttons | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/block-editor-modes/poster.png src=docs/demo-video/clips/block-editor-modes/block-editor-modes.webm
+comment-thread | Select a passage and comment on it in the page | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/comment-thread/poster.png src=docs/demo-video/clips/comment-thread/comment-thread.webm
+diff-side-by-side | Diff marks every block changed since the last commit | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/diff-side-by-side/poster.png src=docs/demo-video/clips/diff-side-by-side/diff-side-by-side.webm
+drag-list-item | Drag a list item by its handle, sub-items come along | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/drag-list-item/poster.png src=docs/demo-video/clips/drag-list-item/drag-list-item.webm
+export-html | A long page, with a wide table, diagrams and charts | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/export-html/poster.png src=docs/demo-video/clips/export-html/export-html.webm
+figure-editor | Edit figure opens one form for the whole figure | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/figure-editor/poster.png src=docs/demo-video/clips/figure-editor/figure-editor.webm
+keyboard-navigation | Press E, then the arrows pick a block | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/keyboard-navigation/poster.png src=docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm
+okf-frontmatter | Click a frontmatter value to edit it in place | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/okf-frontmatter/poster.png src=docs/demo-video/clips/okf-frontmatter/okf-frontmatter.webm
+okf-schema-bundle-frontmatter | The schema types each field: pick a valid value | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/okf-schema-bundle-frontmatter/poster.png src=docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.webm
+paste-spreadsheet-cells | Copy cells from a sheet, paste into a table | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/paste-spreadsheet-cells/poster.png src=docs/demo-video/clips/paste-spreadsheet-cells/paste-spreadsheet-cells.webm
+radio-buttons | Lists of ( ) and (x) become a radio group | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/radio-buttons/poster.png src=docs/demo-video/clips/radio-buttons/radio-buttons.webm
+raw-copy-balance-edges | From the preview, select and copy raw Markdown | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/raw-copy-balance-edges/poster.png src=docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm
+slash-menu-grid | Type /grid in a block to insert a card grid | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/slash-menu-grid/poster.png src=docs/demo-video/clips/slash-menu-grid/slash-menu-grid.webm
+table-anchors | Drag a row or a column by its handle | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/table-anchors/poster.png src=docs/demo-video/clips/table-anchors/table-anchors.webm
+theme-switch | One click turns the whole page to another theme | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/theme-switch/poster.png src=docs/demo-video/clips/theme-switch/theme-switch.webm
+wide-table-auto-width | In Margin, a wide table is cut at the column | paused=true autoplay=false loop=true muted-attr=true poster=docs/demo-video/clips/wide-table-auto-width/poster.png src=docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.webm
+video requests on load: 0
+failed requests: none
+card 0: after a click on the picture paused=true requests=none
+card 0: after the play button paused=false time=2.2 requests=/docs/demo-video/short-demo-01/output/short-demo-01.mp4
+card 1: after a click on the picture paused=true requests=none
+card 1: after the play button paused=false time=2.5 requests=/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
+index.html Videos links: videos.html https://gsemet.github.io/markdown-okf-schema-studio/videos.html
+undefined held at 9.6 s | Drag a row or a column by its handle. The raw table follows, each cell keeps its spacing
+undefined held at 9.2 s | Type /grid in a block to insert a card grid. A MyST card grid, rendered in place
+undefined held at 9.6 s | Edit figure opens one form for the whole figure. Apply writes the options into the file
+undefined held at 8.8 s | Diff marks every block changed since the last commit. Side-by-side shows before and after, word by word
+undefined held at 8.4 s | Lists of ( ) and (x) become a radio group. One click moves the (x) in the file
+readme-raw-markdown.png 944x635
+readme-edit-myst.png 944x2732
+readme-diff.png 944x685
+readme-radio.png 944x861
+failed requests: none

@@ -1,0 +1,1 @@
+Probe: one <video controls poster> 560 px wide, a real clip WebM, headless; center = a click in the middle of the picture, playbutton = the play button of the native controls, space = space bar on the focused video; hits = .webm requests.

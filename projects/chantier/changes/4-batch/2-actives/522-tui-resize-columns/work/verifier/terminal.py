@@ -153,6 +153,7 @@ def send(text: str) -> None:
 def resize(cols: int, rows: int = 28) -> None:
     """The window resized as a user's drag does: by its width in pixels, 8 px per cell."""
     hwnd = k32.GetConsoleWindow()
+    asked = None
     for _ in range(8):
         now_c, now_r = size()
         if (now_c, now_r) == (cols, rows):
@@ -160,7 +161,9 @@ def resize(cols: int, rows: int = 28) -> None:
         cr, wr = wintypes.RECT(), wintypes.RECT()
         u32.GetClientRect(hwnd, ctypes.byref(cr))
         u32.GetWindowRect(hwnd, ctypes.byref(wr))
-        w = wr.right - wr.left + (cols - now_c) * round(cr.right / now_c)
+        asked = (asked or wr.right - wr.left) + (cols - now_c) * 8
+        w = asked
+        print(f'resize {now_c}x{now_r} -> {cols}: client {cr.right}, window {wr.right - wr.left}, ask {w}', file=sys.__stderr__, flush=True)
         h = wr.bottom - wr.top + (rows - now_r) * round(cr.bottom / now_r)
         assert u32.SetWindowPos(hwnd, None, 0, 0, w, h, 0x16), ctypes.get_last_error()
         time.sleep(1.5)

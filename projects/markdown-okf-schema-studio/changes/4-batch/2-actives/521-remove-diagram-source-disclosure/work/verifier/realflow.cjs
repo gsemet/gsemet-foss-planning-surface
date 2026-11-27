@@ -183,7 +183,7 @@ async function exportFile(page, name) {
 
 async function editMode(page) {
   await page.locator("[data-sphinx-preview-edit-toggle]").first().evaluate((button) => button.click());
-  await page.waitForFunction(() => document.documentElement.getAttribute("data-sphinx-preview-edit-mode") === "true");
+  await page.waitForFunction(() => document.documentElement.getAttribute("data-sphinx-preview-edit-mode") === "on");
   const out = [];
   for (const word of ["wmermaidfail", "wplantrefused", "wnotedfail"]) {
     const panel = page.locator("details[class$='-source']", { hasText: word });
