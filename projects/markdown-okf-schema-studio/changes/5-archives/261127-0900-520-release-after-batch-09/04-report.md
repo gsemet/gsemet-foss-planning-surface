@@ -48,9 +48,10 @@ Both served 1.13.0 within 3 minutes of the end of the Release VSIX run.
   owner's account at 09:16:38, 21 seconds after the merge of PR #552, with no closing PR or commit,
   although the comment posted on it at 07:56 says it stays open until its reporter has tried the
   release.
-- Release comment on the issue: handled by the session that steered the release, on the owner's
-  request there; none was posted by this follow-up. Not yet on the issue when it was read back at
-  09:41, where the last comment is the one of 07:56.
+- Release comment on the issue: handled by the session that steered the release, which reports
+  that the owner approved its text there, with the choice that leaves the issue closed, and that it
+  posts it and reads it back. None was posted by this follow-up. Not yet on the issue when it was
+  read back at 09:42, where the last comment is the one of 07:56.
 - No other issue ships with this release (#485 was released and commented with 1.12.1).
 
 ## Clip
@@ -63,7 +64,6 @@ Both served 1.13.0 within 3 minutes of the end of the Release VSIX run.
 - Upload `raw-copy-balance-edges.mp4` into the release body, in place of its GIF line.
 - Post the announcement thread (`docs/releases-notes/2026-11-27-v1.13.0/tweet.md`), post 1 with
   the MP4.
-- Decide on the state of issue #547 (closed, while its last comment says it stays open).
 
 ## Note
 
