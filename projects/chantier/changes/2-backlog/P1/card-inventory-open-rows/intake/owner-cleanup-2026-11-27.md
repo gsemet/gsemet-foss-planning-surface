@@ -8,6 +8,8 @@
 
 4. Added later the same day, while the review ran: « deja tous ces cartes p1 p2 ... c'est beaucoup trop. il faut mettre dans une carte un theme. et surtout avec un nombre de carte important il faut orgnaiser le progressive disclosure efficacement, retirer tout ce qui pourra etre inferer directement par le modele, par exemple par le retour de la CLI. »
 
+5. Added next: « aussi, les cartes sous C:\Users\gaeta\Projets\chantier\skills\chantier\references\topics doivent etre agnostique du harnais (claude code ou copilot,..) sauf situation exceptionnelle. Pareil pour la forge, on sait que c est sur git, ca peut etre git ou gitlab, certain concept ont des noms differents (MR, PR, utilise PR les modeles savent faire l adaptation). certains concepts peuvent ne pas etre utilisable directement. il faut que les cartes soient assez abstraite pour laisser le modele fait l adaptation tout seul, et fournir des CLI intelligement construit pour ne pas surcharger la charge cognitive dans le contexte. »
+
 ## What is asked
 
 A big cleanup, planned by a review run on Fable:
@@ -17,7 +19,10 @@ A big cleanup, planned by a review run on Fable:
 - delete what serves nothing;
 - one page per theme, with no `-p1`, `-p2` parts;
 - organise progressive disclosure efficiently, as the number of pages is large;
-- remove everything the model can infer by itself, for example from what the CLI returns.
+- remove everything the model can infer by itself, for example from what the CLI returns;
+- topic cards agnostic of the host (Claude Code, Copilot), save exceptions;
+- the same for the forge, with one word, PR, the model adapting it; a concept a forge cannot use directly is still written abstractly;
+- cards abstract enough for the model to adapt by itself, and CLIs built so that they add little to its context.
 
 Goal: clear and effective cards, tools in logically organised CLIs, making the most of the model's progressive disclosure.
 

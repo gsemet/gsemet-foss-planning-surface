@@ -608,3 +608,174 @@ A topic is a name `help` accepts. 126 are one page; 47 are one subject cut in `-
 | init-tools | 1 | 1492 | page | KEEP-guide 1 |
 | release-evidence | 2 | 1879 | aggregate | KEEP-guide 1, DELETE-inferable 1 |
 | status-notes | 2 | 2491 | aggregate | CLI 2 |
+
+## D. Protective rules found in the pages (the checklist of plan sections 5 and 7)
+
+As the four readers listed them, by slice; "exists?" and "not verified" are theirs.
+
+### Slice A
+
+- A CR found merged at hand-back: push, edit, retarget and turn nothing; note and end. (handback-refused) Enforceable: `push`, `ship` refuse on a merged CR (exists?).
+- A CR that shows a `PR:` link at first take: never a second PR, never a new branch. (retake) Enforceable: `ship` refuses a second link for a CR.
+- A release's new attempt starts in a new worktree, never `reset --hard` of the old one. (release-ship) Partly floor 5; not enforceable.
+- Half-done irreversible release work: stop, say exactly what is out, never undo it alone. (release-ship) Not enforceable; card.
+- The main-checkout release step (the tag) is never the release driver's. (release-merged) Enforceable by the write guard on `git -C <main checkout>` writes.
+- Publication done by someone else: never run the publication command again; check read-only. (release-merged) Enforceable: `release go` answers no once `publication done:` is noted.
+- Never rerun a creating forge command after a network error without checking it took effect. (trouble-remote) Not enforceable; guide.
+- A forge refusal (4xx, protected branch, failed lease) is never retried as an infrastructure failure. (trouble-remote) Card line.
+- Never read a verdict, pass or choice into an out-of-format reply, never fix it. (trouble-worker) Enforceable in part: `verdict`/`note approved` take the reply file and check its format.
+- A second refused start of a worker is never retried without its model. (trouble-worker) No fallback (floor 3) covers it; drop.
+- Driver and workers write nothing in `.git` (`info/exclude`, `config`, `hooks`). (trouble-git) Enforceable: write guard hook.
+- The main checkout is never cleaned by force after a wrong-place git command. (trouble-git) Card line.
+- A dropped CR's PR: close with no `--delete-branch`, no comment; a CR moved to backlog: draft only. (stack-changes) Enforceable: new `cancel`/`drop` does the forge step itself (needs an AGENTS.md forge exception).
+- No forge branch protection is read; a push rejected as protected is never retried. (refused-push-steering) Enforceable: the steering push command.
+- Steering push only for `chantier/*`, never the default branch, a user's yes included. (refused-push-steering; in both steering cards) Already `push.py` rails for Drivers; extend to steering.
+- A leak found after an upload: replace, tell the user, nothing about it in the public PR. (pr-images) Not enforceable; guide.
+- The user's own screenshot that fails the look is not uploaded or copied. (pr-images) Guide.
+- A Driver never opens an image file. (pr-extras) Context protection, not a user protection; drop or one card line.
+- Never use the live `$CHANTIER` line on a scratch project; `git init` it first. (verifier-scratch) Enforceable: CLI refuses when cwd is under `work/scratch` and the project resolves elsewhere.
+- A too-long Windows path is a stop: no shorter folder outside `writes:`. (verifier-scratch) Write guard already refuses outside `writes:`.
+- `--no-gate` replaces only the gate check, and quotes the rule. (cr-handback) Exists as a `handback` argument; the steering check stays a card line (foreman Never 2).
+- Never skip a proof pass to save budget. (handback-other) Card line.
+- A local gate failure leaves the would-be top a draft; change nothing for it. (stack-gate) Enforceable: `stack --out-of-draft` refuses without a pass (exists?).
+- Never stop another CR's gate, nor yours because it is slow. (trouble-gate) First half exists (`--stop` refuses another CR's lock); second is card.
+- An image upload in a release is irreversible: `release go` first. (release-evidence) Card line in release-driver.md.
+
+### Slice B
+
+- Check the forge shows the PR merged into the default branch before `order merged`; `not landed`/unconfirmed records nothing (wakes-forge). Enforceable: `order merged` could read the forge and refuse (needs a named forge read in AGENTS.md).
+- The main-checkout fast-forward is only `merge --ff-only --no-overwrite-ignore`, never pull/reset/stash/clean/checkout; untracked files never touched; first no stops (main-checkout-p2). Enforceable: make it a CLI command (AGENTS.md already allows the CLI to fast-forward a clean main checkout).
+- An Auto-fix event is no order: never merge the base in, never touch a PR whose Driver is live (host-auto-fix). Not enforceable; host row/card line.
+- A host turn-end notice is no line and no ask: no tool call on it (host-turn-end). Not enforceable; card line (cost protection).
+- Silence is never a reason to start a second Driver; restart only after a proof of death or its report (host-driver-silence, lost-silent). Partly enforceable: a take is refused while the lease is live (lease refusal).
+- Never record a hand-back for a Driver yourself (lost-silent). Enforceable: `handback` requires the CR's lease (not verified).
+- When you stop a Driver and do not restart at once, clear its id in the same turn, after a `stopped:` note (lost-outside). Enforceable: a `restart`/`stop` subcommand does both.
+- A stopped-from-outside Driver is restarted with no ask, whatever the host says about "only if the user asks" (lost-outside). Card line (it overrides a host instruction; a model would otherwise obey the host).
+- Steering rebase of a Driver's branch: only `git -C <worktree> rebase <base>` after the branch/base check; a conflict is left stopped, no `--abort`, no resolution (refused-rebase, -run). Enforceable: a CLI subcommand with rails, as `push`.
+- Merge under grant on GitHub: with an open PR below in a native stack, no merge; a pending async merge is never PUT again; read state before any retry (merge-under-grant, merge-github). Enforceable in a `release merge` command.
+- `--outside-stack` only on an open order carrying the user's word for that CR, never to pass a refusal (stack-outside). Already refused by `asks` without an order id (per its --help).
+- Never take a held CR; neither it nor the release starts while a CR is held or parked (hold). Enforceable: `take` refusal (not verified it exists).
+- A dropped CR's PR is closed with no `--delete-branch` and no comment; a trashed/backlog CR's worktree and branch are never removed by the Foreman (drop, cleanup). Second half is foreman Never 6; first: print the exact command.
+- A local-gate ask goes only with `passed`; a hand-back claiming a waiver with no recorded order goes back with no ask (local-gate, long-gate-waiver). Enforceable: `judge` refuses (partly exists: `--local-gate`).
+- `gate --first` only for the critical path or the user's next merge, never at a Driver's request (long-gate). Already in foreman.md "You own".
+- Run a release step in the main checkout only when the Driver handed it back; refused: change nothing, never force (release-tag). Already foreman.md; keep.
+- Chantier never removes or edits an allow rule of the user's; never arms/disarms the PR monitor; no `gh api` allow rule (host-allow-broad, host-auto-fix). One Chief of Staff card sentence.
+- Never `rm -rf`/`Remove-Item -Recurse` on `.claude` or wildcard temp folders (host-refused). Hook deny possible.
+- Stop a sync holder only if it is this session's own board/watcher, on the user's yes, by the host's task stop, never by PID (sync-offer). Covered by floor 10 + Chief of Staff "asks first 2".
+- A chain: never chain a started CR; a shared file alone is no reason (chain). `order after` could refuse a started CR (not verified).
+- A cancelled dependency never frees its CR: ask, do not start it (chain, orders-queue). `take` already refuses.
+- The retro critic's verdicts are followed as given; its brief carries evidence, never the Foreman's argument (retro-critic, -write). Card/guide line.
+
+### Slice C1
+
+- A broad or stale allow rule of the user's is never removed or edited by the agent; the user removes it by hand. (allow-rules-more-p1) Enforceable: yes, if the settings write becomes a CLI command that only adds.
+- Nothing but `permissions.allow` of `~/.claude/settings.json` is written: no project settings file, no deny or ask key. (allow-rules) The card has "nothing else there"; enforceable by the same CLI write.
+- `close --stopped <agent>` only on the user's yes for each named agent, never to get past an unreadable transcript. (batch-close-stopped-p1) Partly: the CLI refuses a name that is not a running held agent; the yes cannot be checked by code.
+- `asks --read all` is never used to clear the list: an ask stays unread until the user has heard it. (asks) Not enforceable; one card line.
+- Never assume that stopping a session ended its Agent children: check each old Driver ended before restarting its CR. (direct-mode-switch-p2) Enforceable: `take` refuses on a live lease; a takeover command can refuse on a running transcript.
+- Before a Foreman claims after a switch back, every Driver the Chief of Staff owns is stopped (no two Drivers on one CR). (direct-mode-back) Enforceable: `foreman set` refuses while another number's Driver leases are live (new rail).
+- A Foreman session is stopped by the user, or by the Chief of Staff on the yes and only by the host's named means. (direct-mode-switch-p2) In the card (asks first, 2).
+- A long-gate waiver is recorded with the user's own words (`order waive --note`), a follow-up CR filed first; never a note in a brief. (batch-plan-show-p2) Enforceable: `order waive` takes `--note` and `--follow-up` (stack form not verified).
+- On a failed preflight condition: start nothing, offer no other way. (batch-plan) In the card.
+- A forced steering mode is never swapped silently. (batch-plan-mode-p3) Enforceable: preflight refusal.
+- Record every answer or decision in `02-answers.md` at once, with the date and the user's words; nothing waits in the conversation. (grill-backlog-p1) Not enforceable; a card line.
+- Never decide alone that a CR is grilled enough; ask only after a full restatement. (grill-restate) Not enforceable; a card line.
+- The spec critic never edits the specification and runs once, never in a loop. (grill-critic) Enforceable in part: its agent has no Write tool.
+- A critic finding that touches behaviour, scope or risk is a question to the user, never fixed silently. (grill-critic-steps) Judgement; a guide line.
+- An outside PR is archived only on the user's word, never from a forge read of the agent's own. (grill-outside-pr) Floor 7 covers it.
+- Another project's CR: `file`'s "grill the CR here" is not followed; no launch (`order add`, `open`) even on "grill it here". (grill-surface) Enforceable: `order add`/`open` could refuse a CR of another project (not verified).
+- A project's clone on a surface is touched only by `git -C <clone>`; a missing clone is cloned only on the user's word. (grill-surface) Partly enforceable (preflight names it).
+- A Griller in a surface worktree commits nothing, opens no PR, runs no `triage` or `summary` there. (griller-worktree) Enforceable: those commands can refuse in a surface worktree.
+- An install (`gh`, its extension) only on the user's yes; `gh auth login` stays the user's; chantier changes no forge setting. (init-tools) In the card.
+- `long_gate` lines are written to `chantier.yaml` only on the user's yes. (init-checks) The card has "project file writes" under asks first.
+- A demo fixture is prepared outside the repository's tracked files and removed at the end; a Chief of Staff's own subagent never commits, pushes or writes in a CR worktree. (demo-p1, demo-p2) Second half in the card; enforceable by the write guard (`writes:` line).
+- The board is never stopped by the agent except by `serve --restart`, one yes per restart; a refused restart's stop command is printed, never run. (board-restart, board-lines) In the card and floor 10.
+- A delivery time is never promised without the floor; none is stated when the gate's time is unknown; no gate is run to measure it. (delivery-time-p2) In the card; moot once the CLI prints `floor:` or `unknown`.
+- A local gate `not run` or `failed` is quoted to the user before "can be merged"; merging anyway is the user's choice, never refused. (merge-gaps-p1) Enforceable: `judge` words it.
+
+### Slice C2
+
+- "You can merge it" is said only after the `ready-to-merge` / `stack-ready-to-merge` line reached you, never on a green CI or a draft (merge-words-p2). Partly enforceable: `judge`/`status` word a held state; the sentence itself is card text.
+- A draft on another CR's branch is never called ready: merging it lands in that branch, not the default one (merge-words-p1). CLI: `label` already distinguishes; keep the word in `judge`'s output.
+- An uploaded image that showed the username or home folder: tell the user the old attachment may stay reachable (merge-gaps-p2). Not enforceable; one guide line.
+- A screenshot asked of the user uses made-up paths, no username or home folder (merge-gaps-p2). Extends floor 8 to the user's own screenshot; guide line.
+- `publication done:` is recorded only from the user's own quoted words; never guessed from the forge or from silence (release-chief-after-p1). CLI could require the quoted form; else card (near ask-first 3).
+- "auto" covers one release only: never the announcement, a fix's start or merge, `order confirm` or a budget raise (release-chief-auto-p2). `order grant` rails; the scope sentence stays in the guide.
+- No grant lets a steering session merge a stack that holds the release PR; the user merges a stack (merge-series-stack-p2). A refusal in `release go` is possible; not verified.
+- Never choose a dropped CR's destination for the user (order-drop). Enforced: `order drop` refuses without `--note` (per the page).
+- A public chantier issue holds no project name, private path, code, CR number, batch id or person's data (retro-route-chantier-p1). A lint in a new `retro issue` command could catch patterns; judgement remains.
+- A tracker comment holds no CR number, slug, batch, role, cost, private path or internal link; posted only on a recorded yes for that ticket, by the Chief of Staff only (ticket-summary-p1/p2). Card holds the core; a lint could enforce the patterns.
+- A failed post is never retried another way; if an artifact fails, the comment is not posted (ticket-summary-post-p1). Floor 9 covers the first half.
+- No agent closes or reopens an issue by hand; only the PR's closing line does (ticket-summary-post-p2). Already in the CoS and CR Driver cards.
+- A refused push of a non-`chantier/*` or default branch is never pushed, even on a yes (refused-push-chief-p1). In the card rail; best as a refusal of a steering push command.
+- A refused push or rebase: once, unchanged, never `--force`, never another form, never a change to the permission settings (refused-forge-chain, refused-push-chief-more-p2). "Never change the permission settings to get through" deserves one card line.
+- The seat moves only on the user's word and the new session's explicit acknowledgement; a running Driver is never stopped or moved for it (seat-handover). Card has the first half.
+- Two live Chiefs of Staff: do no Chief of Staff work until the user chooses (seat-p2). Whether commands refuse on a seat held by another session: not verified.
+- The watcher and the board start only on the session's one yes; after a no, never start one; never stop another session's watcher (watcher). Guide line.
+- The board's network exposure (`board.host: network`) only on the user's word (remote-login). One line.
+- `cancel` only after a drop the user ordered, never to stop a CR that goes on (recovery). Already in the CoS card.
+- The board's `running-batch` mark is a go only for a CR whose specification is final (watcher-board-p1). `order add` already refuses a CR with no specification.
+- "Rescan" decides nothing: still ask before opening a batch (watcher-board-p2). Floor 7.
+- A trial refusal is said at once with its exact text; a pass proves nothing for a Driver (trials-p2). Guide line.
+- A `chantier.yaml` long-gate entry is written in the main checkout only on the user's yes (project-rules-p2). Card ask-first 1.
+- Before proposing to move a session off a worktree, check nothing is left behind (session-start). `preflight` could print the two counts.
+- Rounds exception: only for a red the batch caused, +1 per cause, never above `max_rounds` + 2; every other grant is the user's (rounds-exception). A cap rail on `order rounds` is easy; the cause stays judgement.
+
+## E. Contradictions and stale text found
+
+### Slice A
+
+- cr-proof.md repeats its last line twice.
+- verifier-images.md and pr-images.md hold the same definitions; they can drift.
+- checkpoints.md and cr-ship.md both state the commit-message rule.
+- ci.md says "a Monitor tool used from a subagent is unproved"; steering-messages.md and session-shell-p1 treat a host monitor as a normal background task.
+- lease.md says a Driver "never reclaims"; lease-steering.md says a Driver settles `claim lost` "with `take --reclaim`'s output": unclear wording.
+- handback-other.md justifies a rule by an incident ("a turn that ended to wait for a worker's reply had broken …"): history in a card.
+- cr-driver.md says hand off at 115,000 "at the VERIFIED of the pushed head"; closing.md also hands off on `context: not measured`, while the card says `context: not measured`: go on.
+- Marked unproved: ci-beside-gate (GitLab, Copilot, `glab ci status --live`), ci.md (Monitor from a subagent), conflicts.md (the forge's own rebase action), pr-gitlab.md (all three lines), release-merged (`glab release view`), release-notes (`glab mr update` file form), retake-notes (`folded:`, GitLab only), stack-make (GitLab chain checks, `glab mr update --ready`), refused-push-steering (GitLab protected-branch text), refused-push-gate (pipeline job as long gate on GitLab).
+- cr-workers.md and cr-prompt.md describe prompt lines (`Note:`, `Needs:`, `Steering:`) around `brief`'s output; CR-510's known gaps say some of these sentences describe output the CLI no longer prints. Not checked here.
+- session-shell and worker-shell exist as two pages (three files) for the same eight shell rules.
+- The matrix probe (matrix.md, verifier-delta-matrix.md, cr-ship.md, inspector-audit.md, spec-writer-extras.md) is spread over five pages for a case concepts.md defines elsewhere.
+
+### Slice B
+
+- wakes-p1 says the watcher "outlives heartbeat and pause"; wakes-p2 and foreman.md say stop every background task before ending the heartbeat ("none outlives the heartbeat"). Already a known retro point.
+- host-heartbeat: "A 55-minute wake is unproved"; lost-driver uses "55 minutes by default" as the suspect interval; the batch-31 handover says the host now caps a Monitor at 30 minutes.
+- host-driver-silence says no `pong` can come from a Claude Driver; lost-silent builds the proof of death on a missing `pong`, and foreman.md lists `pong` as a byte-for-byte reply. The ping is near-useless on Claude Code.
+- host-auto-mode and host-auto-mode-steering describe a Driver's raw `git -C <worktree> push --force-with-lease` and a `Rewrites:` prompt line (`concepts.md`, "A Driver's prompt"); Drivers now publish only by `chantier push`, and the prompt is a brief. Stale.
+- refused-rebase step 2 and host-auto-mode-steering have the Foreman read P10's rule list and refuse to try (`push not tried: route rule missing`); floor 9 and the Chief of Staff card say run it and report a refusal. Two policies.
+- merge-github is numbered "4." alone (a cut continuation of merge-under-grant): a byte-budget split artefact, like main-checkout-p1/p2, mode-switch-p1/p2, sync-offer-p1/p2, wakes-p1/p2, refused-rebase/-run.
+- retro-lines' last bullet (an order that adds work; a batch born paused) repeats orders-queue and has nothing to do with the retro.
+- release-tag is titled "the tag, a stale release, a fix" but holds only the tag; release-stale holds the rest.
+- Marked unproved inside these pages: nearly every host-* page, GitLab stacks (conflict-check, stack-run, stack-merge, stack-checks), `glab mr update --draft` (drop), `glab ci status` (long-gate), the GitHub merge under grant "by an agent" (merge-under-grant), the Copilot heartbeat and everything Copilot.
+- host-claude-only, host-allow-rules-copilot, host-compact-copilot, host-sessions-copilot, host-configuration-copilot exist only to say "nothing is known on Copilot".
+- stack-run and qa-order restate foreman.md's "pass the `brief:` output unchanged": three copies.
+
+### Slice C1
+
+- **Unproved, by the pages' own words:** forge-permissions-gitlab ("All unproved"); batch-plan-mode-p1 (a stack on GitLab); grill-outside-pr (`glab mr view`); allow-rules (whether the running session picks up new rules); direct-mode-switch-p2 (stopping a session from the phone); foreman-start-p2 ("I have not tested this path"); board-lines (LAN reach untested); batch-close-stopped-p1/p2 (Copilot leases, "until the close end event lands").
+- **Stale prompt form:** demo-p1 builds the demo-explorer's prompt by hand (a `Read <skill>/references/demo-explorer.md;` line, "the prompt of Starting an agent"); grill-specify-p1 and grill-critic-steps likewise ("its prompt names the card and the CR folder"), while the other roles start from `brief`.
+- **foreman-start-p2** assembles the Foreman prompt by hand (`CLI:`, `Team:`, `Needs:`) though the prompt's own first step is `brief foreman`: two sources for one prompt.
+- **board-p1 against the chief card:** the page gives `taskkill /PID <pid> /T /F` / `kill <pid>` to stop the board on the user's word; the card says "never by name, pattern or PID".
+- **batch-close-p1 against AGENTS.md's spirit:** the Chief of Staff runs `git worktree remove --force` and `git branch -D` by hand; the CLI's own batch-end cleanup is "with no `--force`". Two cleanup paths, the agent's the more forceful.
+- **direct-mode-switch-p4** ends by pointing at itself ("The switch to Foreman mode undoes it (`help direct-mode-switch`)"); the page meant is direct-mode-back.
+- **first-turn-p1 against direct-mode-accept-p1:** the first says a CR joins a direct batch "once the others are handled and the batch is paused"; the second says a CR added while it runs "is queued by `order add` (taken when a slot frees)".
+- **batch-plan-mode-p2:** `open` defaults to parallel while the page forbids ever taking the default.
+- **direct-mode-epoch-p2:** the cost attribution depends on the agent writing four files with the Write/Edit tool and not a shell: a hidden coupling kept as an instruction.
+- **Split residue:** cost (295 B), griller-cost (231 B), allow-rules-more-p2 (387 B), batch-close-stopped-p2 (498 B), direct-mode-p3 (538 B), board-p2 (531 B), demo-p2 (540 B): pointer or leftover pages made by the 1,500-byte page budget.
+- **compacting-p1/p2 ("tips"):** a feature that lives only in card text (no trace of tips found in the CLI source by grep); 1.9 KB.
+- **delivery-time-p1:** "The name in the card is this topic; no other word for it": residue of a naming dispute.
+
+### Slice C2
+
+- Marked unproved in the text: merge-stack-gitlab (whole page, merge train), ticket-summary-post-p1 (GitHub artifacts, GitLab, Jira: all three routes), options ("unproved from Remote Control"), steering-reports-p1 (the Foreman's error notice).
+- refused-forge-chain, refused-push-chief-more-p2 and parts of refused-push-chief-p1/p2 repeat the Chief of Staff card's "Settles alone" block and rail nearly word for word.
+- recovery repeats the card's `cancel` rule; ticket-summary-post-p2 repeats the card's issue rule; steering-reports-p1's turn-end notice repeats topics/host-turn-end.md.
+- merge-recorded and watcher-events-p1 both give the "forge saw merged" procedure with different detail; merge-words-p2 and merge-recorded both say an early merge is recorded as any merge.
+- rounds-exception and refusals-to-say-more row G state the same exception twice.
+- release-chief-approve-p2 exists only to dodge a CLI quirk ("an `order note` on a ready CR is a take"): the text documents a tool defect.
+- refused-push-chief-p2's "The route rule's P10 read is no step of yours" and `push not tried: route rule missing` read as residue of an earlier procedure.
+- Watcher restarts are worded three ways: watcher-lines-p2 ("after a notification there is no restart; after an end, run the printed command"; and "2 h end with no batch: start it again at once"), watcher-events-p2 ("start an ended watcher again from its last line"). None knows the host's 30-minute Monitor cap the handover reports.
+- project-rules-p1 and session-start both describe the session's first preflight (`preflight` against `preflight --direct`) and the first message; the first-turn pages (another slice) are likely a third copy.
+- session-start-surface-p2 is chantier's own dev-mode rule (AGENTS.md), shipped to every project.
+- CLI source, by grep only: no source string for `Destination:`, `Permission trials`, `rounds exception`, `publication done` or `chantier-issue`: these formats live only in cards, so the CLI neither writes nor checks them today. `partial stack mergeable` and `forge saw merged` are printed by the CLI.
