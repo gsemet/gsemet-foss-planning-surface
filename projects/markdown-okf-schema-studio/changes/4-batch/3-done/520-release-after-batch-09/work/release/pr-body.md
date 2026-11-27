@@ -11,7 +11,7 @@ Everything merged since 1.12.1 is on `main` but reaches no user before a release
 
 - Version 1.13.0 in the npm manifest, the lock file, the two plugin manifests and the plugin catalog.
 - `CHANGELOG.md`: the `Unreleased` lines move under `1.13.0 - 2026-11-27`.
-- Pictures: `admonition-block-edit-before-after.png` joins the before and after captures of the merged change, both cropped to the same region at the same scale (composed with Pillow); `chart-hover.png` is a crop of a capture of the hover box. The clip's GIF and MP4 are copies of the approved clip `raw-copy-balance-edges`.
+- Pictures: `admonition-block-edit-before-after.png` joins the before and after captures of the merged change, both cropped to the same region at the same scale (composed with Pillow); `chart-hover.png` is a crop of a capture of the hover box. `comment-render-speed.png` is a chart of the real-window measures reported in #549 and #550 (3,109 to 4 elements restyled by one new comment; highlight drawn in 53 ms before, 46 ms with #549, the further effect of #550 within runner noise). The clip's GIF and MP4 are copies of the approved clip `raw-copy-balance-edges`.
 - No dedicated hero scenario, to keep code out of the version commit. The clip is the picture of the thread.
 
 ## Impacts
@@ -29,10 +29,10 @@ Grade: 3
 - [ ] New or changed tests (they fail on the previous code): none, version and notes only
 - [x] Requirements: no behaviour change
 - [x] Changelog: the lines move under the version heading
-- [x] Local gates: `just preflight` passed (on Windows, the static stage only; CI runs the others), `just release-notes-check` passed
+- [ ] Local gates: `just release-notes-check` and the release tests passed at `4222c324`; `just preflight` running
 - [x] Heavy CI of the released code: run [45958381383](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45958381383) on `b1e23cc`, every job green
 - [ ] Review: the owner reviews the notes folder
-- [x] CI green: every job that runs on the pull request passes at `3fefbd67`; the real VS Code jobs are skipped there and run on the version push
+- [ ] CI green: running at `4222c324`; the real VS Code jobs are skipped there and run on the version push
 
 ## Internal references
 
@@ -45,7 +45,7 @@ CR-520.
 <h1 align="center">Markdown OKF-Schema Studio 1.13</h1>
 
 <p align="center">
-  <b>Copy a selection as Markdown, edit one block inside an admonition, hover a chart to read its values.</b><br>
+  <b>Render comments faster on large documents, copy a selection as Markdown, edit one block inside an admonition.</b><br>
   <sub>96 changes since 1.12.1 · VS Code 1.95 or later · MIT</sub>
 </p>
 
@@ -59,23 +59,29 @@ CR-520.
 
 ---
 
+## ⚡ See comments rendered faster on large documents
+
+On a large test document, a new comment now restyles 4 elements of the page instead of about 3,100, and its highlight appears about 14% sooner. Adding, answering, resolving or deleting a comment updates only the marks that change, and the **Comment** button, the copy button and the edit mode outline follow the selection or the pointer at most once per frame.
+
+![Bar chart: elements restyled by one new comment drop from 3,109 to 4, and the time until its highlight is drawn from 53 ms to 46 ms](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/4222c324a362490a23e6d735644075a46390fc35/docs/releases-notes/2026-11-27-v1.13.0/comment-render-speed.png)
+
 ## 📋 Copy a selection as Markdown
 
 Select text in the preview and press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>C</kbd> to paste its Markdown in a text editor, or the rendered text in a rich editor. Turn on the setting `markdownOkfSchemaStudio.preview.rawCopy.balanceEdges` (off by default, in the VS Code settings) to also get the markers and fence lines of what the selection cuts through, as in this clip.
 
-![A selection copied from the preview and pasted as Markdown, with the fence lines of an admonition and a warning added](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/3fefbd671199fa1233a8f9a8fb161a61be1c622b/docs/releases-notes/2026-11-27-v1.13.0/raw-copy-balance-edges.gif)
+![A selection copied from the preview and pasted as Markdown, with the fence lines of an admonition and a warning added](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/4222c324a362490a23e6d735644075a46390fc35/docs/releases-notes/2026-11-27-v1.13.0/raw-copy-balance-edges.gif)
 
 ## ✏️ Edit one block inside an admonition or alert
 
 In edit mode, a click or <kbd>Enter</kbd> on a paragraph, a list item or a directive inside an admonition or a GitHub alert edits that block only. The title or the frame still opens the whole box.
 
-![A click in a note that opened the whole directive source, then the same click opening only the second paragraph inside the note](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/3fefbd671199fa1233a8f9a8fb161a61be1c622b/docs/releases-notes/2026-11-27-v1.13.0/admonition-block-edit-before-after.png)
+![A click in a note that opened the whole directive source, then the same click opening only the second paragraph inside the note](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/4222c324a362490a23e6d735644075a46390fc35/docs/releases-notes/2026-11-27-v1.13.0/admonition-block-edit-before-after.png)
 
 ## 📊 Hover a chart to read its values
 
 Hover a mark of a Vega-Lite chart in the preview to see its values.
 
-![A grouped bar chart with a box showing the quarter, revenue and product line of the hovered bar](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/3fefbd671199fa1233a8f9a8fb161a61be1c622b/docs/releases-notes/2026-11-27-v1.13.0/chart-hover.png)
+![A grouped bar chart with a box showing the quarter, revenue and product line of the hovered bar](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/4222c324a362490a23e6d735644075a46390fc35/docs/releases-notes/2026-11-27-v1.13.0/chart-hover.png)
 
 ## 🛠 Smoother editing
 
@@ -87,13 +93,12 @@ Hover a mark of a Vega-Lite chart in the preview to see its values.
 <details><summary><b>🐞 All fixes</b></summary>
 
 - In Auto width, a code block whose longest line is a little wider than the column widens until the line fits, instead of keeping a scroll bar, with or without a caption.
-- Saving a review comment on a large document does much less work, and the Comment button, the copy button and the edit mode outline follow the selection or the pointer at most once per frame.
-- Adding, answering, resolving or deleting a review comment updates only the marks that change, and no longer redraws the others.
 
 </details>
 
 <details><summary><b>🔎 Details</b></summary>
 
+- The comment speed figures come from a generated test document in VS Code on a Linux CI runner, so your times depend on your document and your machine. The time to select text did not change measurably.
 - The raw Markdown copy works in reading and edit mode.
 - Inside an admonition or an alert, a diagram, a formula or a code block opens whole. <kbd>Enter</kbd> on the admonition selected as a whole opens all of it.
 - <kbd>Alt</kbd>+<kbd>Up</kbd> and <kbd>Alt</kbd>+<kbd>Down</kbd> move a block of the body inside its box, the arrow keys keep the caret at the edges of its lists, and erasing a block of an alert keeps the alert.
@@ -121,9 +126,9 @@ Hover a mark of a Vega-Lite chart in the preview to see its values.
 
 ## 1/
 
-A coding agent had written a runbook, and I wanted to send one part of it back with a question. A copy from the preview gave me the rendered text, so the table and the warning lost their Markdown. In 1.13, Ctrl+C in the preview gives the Markdown under the selection, and one setting adds the fence lines and markers that the selection cuts through. I can also edit a single paragraph inside a note without opening the whole box, and hover a chart to read its values.
+A coding agent had written a runbook, and I wanted to send one part of it back with a question. A copy from the preview gave me the rendered text, so the table and the warning lost their Markdown. In 1.13, Ctrl+C in the preview gives the Markdown under the selection, and one setting adds the fence lines and markers that the selection cuts through. Commenting renders faster too: on a large test document, a new comment restyles 4 elements instead of about 3,100, and its highlight shows up about 14% sooner. I can also edit a single paragraph inside a note without opening the whole box.
 
-Video: [raw-copy-balance-edges.mp4](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/3fefbd671199fa1233a8f9a8fb161a61be1c622b/docs/releases-notes/2026-11-27-v1.13.0/raw-copy-balance-edges.mp4)
+Video: [raw-copy-balance-edges.mp4](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/4222c324a362490a23e6d735644075a46390fc35/docs/releases-notes/2026-11-27-v1.13.0/raw-copy-balance-edges.mp4)
 
 ## 2/
 
