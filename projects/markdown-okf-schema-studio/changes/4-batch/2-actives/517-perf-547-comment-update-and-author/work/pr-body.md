@@ -11,15 +11,14 @@ slow on a large document).
 ## Deliverables
 
 A posted thread list now goes through a read-only plan of where every thread belongs, then only the
-elements that differ are changed:
+elements that differ are changed (arrows are calls):
 
 ```mermaid
 flowchart LR
-  host[extension host<br/>posts the threads] --> handlers[page host handlers]
-  handlers --> threads[comment threads module]
-  threads --> plan[commentPlan.ts<br/>place of every thread,<br/>blocks read once]
-  plan --> place[commentPlacements.ts<br/>changes only what differs]
-  place -->|a badge below a block<br/>was added, moved or removed| measure[measure the page again]
+  handlers[page host handlers<br/>receive the posted threads] --> threads[comment threads module]
+  threads --> place[commentPlacements.ts<br/>changes only what differs]
+  place --> plan[commentPlan.ts<br/>place of every thread,<br/>blocks read once]
+  handlers -->|only when a badge below a block<br/>was added, moved or removed| measure[measure the page again]
 ```
 
 | After a comment write | Before | After |
@@ -52,12 +51,12 @@ When the extension host runs these two functions, as read in the code (nothing t
 |---|---|
 | First preview of a document that has comments, or a preview switching to one | index and re-anchor all threads |
 | Preview page reloaded or restored | threads posted again; re-anchored only when no result is kept for that text |
-| Comment created, answered, resolved or deleted | index and re-anchor all threads, once per write; nothing when the last thread is deleted |
+| Comment created, answered, resolved or deleted | index and re-anchor all threads, once per write for each preview of the document; nothing when the last thread is deleted |
 | Comments file created or changed outside the preview | index and re-anchor all threads |
 | First change of a document with no unsaved changes (first keystroke or paste, reload, revert) | index and re-anchor all threads |
 | Undo or redo | index and re-anchor all threads |
 | Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
-| Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor |
+| Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor. A save that moves stored lines while a thread is orphaned indexes a second time, to place the orphans again |
 
 While a document has unsaved changes and no thread is orphaned, further typing does not index again.
 
