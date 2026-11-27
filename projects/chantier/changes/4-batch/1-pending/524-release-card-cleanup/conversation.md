@@ -37,3 +37,14 @@ and after the batch, and the choices made for the owner.
 
 *Chief of Staff (summary):* ten change requests joined batch-32; the Foreman started the first two,
 the inventory's last reading and the wider columns of `live`.
+
+## Drivers handing over
+
+**Owner:** « c'est quoi cette histoire ? je croyais avoir fixer ca avec autocompact ? »
+
+*Chief of Staff (summary):* a Driver's card makes it hand over before the host compacts it; the
+request to change that limit is still in the backlog.
+
+## First pull request
+
+*Chief of Staff (summary):* the wider columns of `live` are the first change request ready to merge.
