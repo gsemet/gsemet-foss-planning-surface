@@ -45,4 +45,4 @@ Critic, 2026-11-27: 4 findings; 4 applied as fixes (the job-name commands of the
 contributing guides, the `ci-stress` signature in two documents, a "What CR-519 then adapts" list,
 the unproved matrix-result claim now to be proved), 0 asked.
 
-Destination: running batch batch-09.
+Destination: backlog P1 (item 7; replaces the running batch).

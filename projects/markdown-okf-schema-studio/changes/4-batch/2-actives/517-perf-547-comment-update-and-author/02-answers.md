@@ -55,3 +55,8 @@ split changes no behaviour of them).
    merger ce qui reste rapidement et on clos le batch vite. On fera les teste visuels lourd dans un
    second batch". Applied: this CR is finished and shipped now with CR-516, before anything else
    (order O-208).
+
+9. The owner's instruction (2026-11-27, Chief of Staff session), verbatim: "Il faut rebase. Après en
+   P1 tu mets une CR sur un plan d'optimisation des check locau et CI. Parallisarion, test lourd que
+   après merge ou optionnellelenr sur les PR". Applied by the Chief of Staff: after the merge of
+   PR 549, GitHub had already rebased this CR's PR 550 onto `main`; no rebase by an agent was needed.

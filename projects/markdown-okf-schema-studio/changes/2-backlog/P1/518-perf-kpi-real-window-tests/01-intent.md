@@ -12,3 +12,5 @@ median time in milliseconds and its ratio to the maximum. The site shows the lat
 This CR sits above `perf-547-slow-comment-selection`, which fixes the issue and adds the real-window
 measure of selection and comment creation on that document, with its generator; this CR builds on
 that measure and does not repeat it.
+
+formerly CR-518 of batch-09

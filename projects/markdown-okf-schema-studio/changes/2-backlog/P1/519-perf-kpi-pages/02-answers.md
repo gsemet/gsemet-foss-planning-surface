@@ -43,3 +43,10 @@ Spec critic: no (the page was in the specification the critic checked before the
 7. The owner's instruction (2026-11-27), verbatim: "Fait ce qu'il faut pour merger ce qui reste
    rapidement et on clos le batch vite. On fera les teste visuels lourd dans un second batch". Which
    CRs leave batch-09 is being confirmed (close-Q1).
+
+8. close-Q1 (2026-11-27, Chief of Staff session), "do I take CR-518 and CR-519 out of batch-09?",
+   choices "A. yes, to the next batch (recommended)", "B. no, finish them in batch-09". Answer,
+   verbatim: "Les 2 dernière je ferais plus tard sur les tests de perf en pages, met en P1". Applied:
+   this CR leaves batch-09 for the backlog P1.
+
+Destination: backlog P1 (item 8; replaces the running batch).
