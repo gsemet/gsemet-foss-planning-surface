@@ -52,7 +52,8 @@ comment creation time measured in a real window by the same runs.
 | 464 lines, 65 KB, 9 threads | 1.41, 1.41, 1.04 | 1.96, 1.74, 1.35 | 32.4, 35.4, 23.7 (this document) |
 | 1856 lines, 261 KB, 36 threads | 5.62, 5.48, 4.20 | 8.94, 8.35, 6.37 | not measured at this size |
 
-When the extension host runs these two functions, as read in the code (nothing there changes):
+When the extension host runs these two functions, as read in the code (this pull request does not
+change when they run):
 
 | User action, on a previewed document | What runs |
 |---|---|
@@ -65,9 +66,10 @@ When the extension host runs these two functions, as read in the code (nothing t
 | Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
 | Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor. A save that moves stored lines while a thread is orphaned indexes a second time, to place the orphans again |
 
-Where a row indexes or re-anchors, it does so once for each open preview of the document; only the
-first index of a save is shared by all of them. While a document has unsaved changes and no thread
-is orphaned, further typing does not index again.
+A save indexes and re-anchors once, however many previews of the document are open; everything
+else in the table, the second index of a save included, runs once for each open preview. Apart from
+the save, a document without comment threads runs neither function. While a document has unsaved
+changes and no thread is orphaned, further typing does not index again.
 
 ## Changes
 

@@ -64,7 +64,8 @@ At 7d24547 (same code of the index): 1.77/2.11, 1.41/1.75, 1.21/1.55 and 7.00/10
 
 ## User actions on which the host runs these two functions
 
-As read in the code (`src/session/features/comments.ts`; this change alters nothing there).
+As read in the code (`src/session/features/comments.ts`; this change does not alter when the two
+functions run, it only times the Git name wait in that file).
 `createDocumentIndex` is "index", `reanchorThreads` (which indexes too) is "re-anchor".
 
 | User action, on a previewed document | What runs |
@@ -78,9 +79,10 @@ As read in the code (`src/session/features/comments.ts`; this change alters noth
 | Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
 | Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor. A save that moves stored lines while a thread is orphaned indexes a second time, to place the orphans again |
 
-Where a row indexes or re-anchors, it does so once for each open preview of the document; only the
-first index of a save is shared by all of them. While a document has unsaved changes and no thread
-is orphaned, further typing does not index again.
+A save indexes and re-anchors once, however many previews of the document are open; everything
+else in the table, the second index of a save included, runs once for each open preview. Apart from
+the save, a document without comment threads runs neither function. While a document has unsaved
+changes and no thread is orphaned, further typing does not index again.
 
 Raw reports: `perf-547-run-<run id>.json` in this folder. Run URLs:
 `https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/<run id>`.
