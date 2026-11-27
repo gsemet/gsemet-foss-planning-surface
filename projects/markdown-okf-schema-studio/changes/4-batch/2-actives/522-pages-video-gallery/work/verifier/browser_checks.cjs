@@ -188,8 +188,8 @@ async function run(label, launch, base) {
       for (const v of home) console.log(`     index.html video ${v.src} autoplay=${v.autoplay} loop=${v.loop} muted=${v.muted} paused=${v.paused} t=${v.time.toFixed(1)}`);
       const five = ["table-anchors", "slash-menu-grid", "figure-editor", "diff-side-by-side", "radio-buttons"].map((c) => `${c}.webm`);
       check(JSON.stringify(home.map((v) => v.src)) === JSON.stringify(five) && home.every((v) => v.autoplay && v.loop && v.muted), "index.html: the five README clips are autoplay, loop, muted videos, in README order");
-      for (const name of five) {
-        const v = page.locator(`video:has(source[src$="${name}"])`);
+      for (const [index, name] of five.entries()) {
+        const v = page.locator("video").nth(index);
         await v.scrollIntoViewIfNeeded();
         await sleep(page, 1200);
         const s = await state(v);
