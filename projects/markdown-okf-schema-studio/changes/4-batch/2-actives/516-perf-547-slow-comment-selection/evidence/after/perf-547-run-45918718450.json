@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "scenario": "perf-547",
+  "generatedAt": "2026-11-27T00:48:49.907Z",
+  "environment": {
+    "vscode": "1.148.0",
+    "platform": "linux",
+    "previewViewport": {
+      "width": 671,
+      "height": 799
+    }
+  },
+  "document": {
+    "lines": 464,
+    "tables": 22,
+    "rows": 197,
+    "images": 11,
+    "threads": 9,
+    "elements": 3114
+  },
+  "interactions": {
+    "selectionRelease": {
+      "unit": "ms",
+      "samples": [
+        15.7,
+        6.9,
+        17.8,
+        17.1,
+        17.6,
+        17.4,
+        17.8,
+        18.2,
+        17.1,
+        26.5,
+        16.5,
+        17.7,
+        17.7,
+        27
+      ],
+      "median": 17.65
+    },
+    "commentCreate": {
+      "unit": "ms",
+      "samples": [
+        45.8,
+        44.5,
+        46.6,
+        47.6,
+        30.9,
+        44.6,
+        46.5,
+        47.7,
+        45.9
+      ],
+      "median": 45.9
+    },
+    "dragTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.68,
+        2.42,
+        2.69,
+        3.03,
+        2.66,
+        2.34,
+        2.86
+      ],
+      "median": 2.68
+    },
+    "dragCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        3.55,
+        3.04,
+        3.4,
+        4.67,
+        2.53,
+        3.7,
+        2.45
+      ],
+      "median": 3.4
+    },
+    "releaseTextLongestTask": {
+      "unit": "ms",
+      "samples": [
+        2.54,
+        2.55,
+        2.7,
+        2.39,
+        2.45,
+        2.65,
+        2.62
+      ],
+      "median": 2.55
+    },
+    "releaseCellsLongestTask": {
+      "unit": "ms",
+      "samples": [
+        3.11,
+        2.58,
+        3.25,
+        2.83,
+        2.92,
+        3.05,
+        2.53
+      ],
+      "median": 2.92
+    }
+  },
+  "commentCreateRestyledElements": {
+    "unit": "elements",
+    "samples": [
+      40,
+      41,
+      44
+    ],
+    "median": 41,
+    "largestRecalc": [
+      38,
+      40,
+      42
+    ]
+  },
+  "threads": {
+    "before": 9,
+    "after": 21
+  }
+}

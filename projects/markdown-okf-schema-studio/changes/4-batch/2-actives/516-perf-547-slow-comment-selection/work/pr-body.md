@@ -52,20 +52,31 @@ No visual change: the layout around aligned images and tables is the same, and t
 button, the hover outline and the copy button appear and disappear in the same situations, at the
 next frame.
 
-Real VS Code window on a Linux CI runner, before the change (median of each of three runs):
+Real VS Code window on a Linux CI runner, three runs before and three after the change on the same
+generated document. A run value is the median of its samples:
 
-| Measure | Run 1 | Run 2 | Run 3 | Median of runs |
+| Measure | Before, 3 runs | After, 3 runs | Median of runs | Reading |
 |---|---|---|---|---|
-| Elements restyled by one comment creation | 3109 | 3109 | 3109 | 3109 |
-| Selection release to **Comment** button shown (ms) | 17.8 | 18.45 | 17.75 | 17.8 |
-| Comment save to highlight drawn (ms) | 53.4 | 51.0 | 53.9 | 53.4 |
-| Longest task, drag over text (ms) | 2.65 | 2.46 | 2.66 | 2.65 |
-| Longest task, drag across cells (ms) | 2.64 | 2.62 | 2.69 | 2.64 |
-| Longest task, release over text (ms) | 2.28 | 2.41 | 2.17 | 2.28 |
-| Longest task, release across cells (ms) | 2.62 | 2.79 | 2.60 | 2.62 |
+| Elements restyled by one comment creation | 3109, 3109, 3109 | 41, 41, 41 | 3109 to 41 | drops |
+| Comment save to highlight drawn (ms) | 53.4, 51.0, 53.9 | 47.1, 45.9, 37.1 | 53.4 to 45.9 | faster, the runs do not overlap |
+| Selection release to **Comment** button shown (ms) | 17.8, 18.45, 17.75 | 18.2, 17.65, 18.05 | 17.8 to 18.05 | not separable from runner noise |
+| Longest task, drag over text (ms) | 2.65, 2.46, 2.66 | 2.72, 2.68, 2.62 | 2.65 to 2.68 | not separable from runner noise |
+| Longest task, drag across cells (ms) | 2.64, 2.62, 2.69 | 2.54, 3.40, 2.71 | 2.64 to 2.71 | not separable from runner noise |
+| Longest task, release over text (ms) | 2.28, 2.41, 2.17 | 2.41, 2.55, 2.92 | 2.28 to 2.55 | not separable from runner noise |
+| Longest task, release across cells (ms) | 2.62, 2.79, 2.60 | 2.73, 2.92, 2.91 | 2.62 to 2.91 | not separable from runner noise |
 
-The slowness of a text selection was not reproduced there: no drag or release blocked the page for
-more than 50 ms (largest sample 12.26 ms).
+The two release tasks have medians about 0.3 ms higher after the change; the two sets of runs touch
+or overlap, and no sample of any drag or release takes more than 4.9 ms after the change. The
+slowness of a text selection was not reproduced in a real window: before the change, no drag or
+release blocked the page for more than 50 ms (largest sample 12.26 ms).
+
+Runs before:
+[1](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45895473044),
+[2](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45895477080),
+[3](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45896724578). Runs after:
+[1](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45918715713),
+[2](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45918718450),
+[3](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45918721402).
 
 ## Blast radius
 
@@ -99,7 +110,6 @@ Autonomous decisions:
 Known gaps:
 
 - No local real-window run: the real-window stages do not run on Windows.
-- The real-window runs after the change are not done yet.
 
 ## Internal references
 
