@@ -48,17 +48,18 @@ the commit that adds the measure and changes no behaviour.
 
 When the extension host runs these two functions, as read in the code (nothing there changes):
 
-| User action | What runs |
+| User action, on a previewed document | What runs |
 |---|---|
 | First preview of a document that has comments, or a preview switching to one | index and re-anchor all threads |
 | Preview page reloaded or restored | threads posted again; re-anchored only when no result is kept for that text |
-| Comment created, answered, resolved or deleted | index and re-anchor all threads, once per write |
+| Comment created, answered, resolved or deleted | index and re-anchor all threads, once per write; nothing when the last thread is deleted |
 | Comments file created or changed outside the preview | index and re-anchor all threads |
-| Reload, revert, undo or redo of the document | index and re-anchor all threads |
-| Typing while a thread is orphaned | index, and re-anchor the orphaned threads |
-| Every save of a previewed document | index, even with no comments file; re-anchor when the comments file is valid |
+| First change of a document with no unsaved changes (first keystroke or paste, reload, revert) | index and re-anchor all threads |
+| Undo or redo | index and re-anchor all threads |
+| Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
+| Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor |
 
-Typing with no orphaned thread does not index again.
+While a document has unsaved changes and no thread is orphaned, further typing does not index again.
 
 ## Changes
 
