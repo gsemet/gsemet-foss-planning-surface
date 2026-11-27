@@ -35,4 +35,8 @@ Short name: `ci-split`
 
 Spec critic: yes (it changes which jobs gate a release tag, in several files that must agree).
 
+Critic, 2026-11-27: 4 findings; 4 applied as fixes (the job-name commands of the release and
+contributing guides, the `ci-stress` signature in two documents, a "What CR-519 then adapts" list,
+the unproved matrix-result claim now to be proved), 0 asked.
+
 Destination: running batch batch-09.

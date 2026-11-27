@@ -154,9 +154,14 @@ This script plays the role of `scripts/select-acceptance-attempts.mjs` for the i
     newest attempt of each part.
 
   Rule 14 does not change.
-- `AGENTS.md`, "Main targets": `just ci-integration [PART]`. `CONTRIBUTING.md` changes wherever it
-  describes the two jobs or their targets. `docs/how-we-test.md` (rule 16) changes wherever it
-  describes how the two jobs run.
+- `AGENTS.md`, "Main targets": `just ci-integration [PART]` and `just ci-stress [REPEAT] [SHARD]`.
+  `CONTRIBUTING.md` changes wherever it describes the two jobs or their targets.
+  `docs/how-we-test.md` (rule 16) changes wherever it describes how the two jobs run, and shows
+  `just ci-stress [REPEAT] [SHARD]` (line 56).
+- The commands that read a heavy run by job name must list the legs `integration (1)`,
+  `integration (2)`, `stress (1)` and `stress (2)`: `.agents/guidelines/release-process.guidelines.md`
+  (step 4, lines 66-72, and the stack variant near line 166) and `CONTRIBUTING.md` near line 668. As
+  written today they would list no red leg.
 
 ## Decisions (`02-answers.md`)
 
@@ -231,9 +236,14 @@ After the push: one heavy dispatch on this CR's branch,
   the campaign and the hang-dump `ps.txt` is written by both parts.
 
 Only the first CI run can prove the durations, the pattern download layout, the matrix job names
-returned by the API, and that both parts start on separate runners. A red leg turning
-`needs.<job>.result` to `failure` is GitHub's documented behaviour for matrix jobs, and is not forced
-in this run. No host or default matrix applies: no product behaviour changes.
+returned by the API, and that both parts start on separate runners. No host or default matrix
+applies: no product behaviour changes.
+
+That one red leg turns `needs.<job>.result` to `failure` is expected GitHub behaviour that this
+repository does not prove (its only matrix has one leg). It matters most for `stress` on a version
+change, whose only gate at `tag-release` is `needs.stress.result`. The Coder cites the GitHub
+documentation sentence in the PR; if none says it, one dispatch with a forced red integration leg
+(reverted afterwards) must show `gallery` skipped.
 
 ## What CR-518 then adapts
 
@@ -252,13 +262,18 @@ The gate expressions and job names stay, so CR-518's design holds. Its rebase me
 - The `heavy` input description: it adds the perf job to the new durations.
 - Its heavy runs: with `perf` about as long as a part, the run's length stays about the same.
 
-## Questions for the Chief of Staff
+## What CR-519 then adapts
 
-1. `visual-2` (11.9 min) then becomes the longest job, and `report` and `gallery` follow it, so a
-   heavy run should end in about 13 to 14 min, not 10. Splitting `visual-2` is out of scope in the
-   intent. Is about 13 to 14 min acceptable as "about half", or should a follow-up CR split the
-   visual parts?
-2. If `integration (1)` measures clearly above 11 min (scroll-sync plus trusted launch 1 plus the
-   setup), the options are a third integration part (scroll-sync and the short suites on their own)
-   or moving `scroll-sync-suite` to part 2. Is that the Coder's call within this CR from the measured
-   run, or a question back to you?
+CR-519 `perf-kpi-pages` is written with the bare job names. Its rebase must:
+
+- write `REQUIRED_JOBS` and its S6 rows in the leg form (`integration (1)`/`(2)`, `stress (1)`/`(2)`),
+  never putting the bare names back;
+- place its `perf` download step beside the integration pattern download in `report`;
+- add its rule 13 sentence on the report downloads to the wording this CR leaves.
+
+## Settled questions (`02-answers.md`, items 4 and 5)
+
+- The visual jobs stay out of this CR; a heavy run of about 13 to 14 min is accepted.
+- If a part measures clearly above 11 min, it is the Coder's call from the measured run (move a suite
+  to the other part, or add a third part), with the same tests, repetitions, gates and local targets,
+  and the choice written in the PR.
