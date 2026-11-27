@@ -1,0 +1,11 @@
+D-010 a [a step not read] A rule you did not read still binds you; read its section before you act
+D-039 a [git] Never `git branch -a` or `git branch --list` with no pattern, nor `git status` outside your worktree
+D-078 a [recording a restack] `$CHANTIER stack` before a take's first rebase: its `head` values are the old heads
+C-098 e [The project] Say also that a Driver's force push was refused once with these rules set (batch-23);
+H-433 b [Rules] Every role holds this rule: [startup core](startup-core.md).
+H-459 e [The rules] They do not know the backlog, and `.agents/changes/` is not in git (but see the archive below).
+H-854 b [Review step] Work only in the CR's worktree (`cd` there first).
+H-1187 e [Auto mode] Seen otherwise for a subagent.
+H-1215 e [Auto mode] What a trial before the go can and cannot prove (the Chief of Staff's trials, "Capabilities and their commands"):
+H-1547 b [Chantier startup core] Report role, project, checked state, blocked actions and causes, pending permissions, authorized effects, evidence limits (failed, unavailable, not performed, available, documented, exercised, server-announced, not tested, skipped).
+H-1549 b [Chantier startup core] Before an action, read every reading the manifest lists for it; an unreadable one blocks that action only.

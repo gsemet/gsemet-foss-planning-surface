@@ -20,12 +20,12 @@ const CASES = {
   eParens: ["error", ebnf("a = ((( ;")],
   eBarEnd: ["error", ebnf('a = "x" | ;')],
   eNoComma: ["error", ebnf("a = b c ;")],
-  eTitled: ["error", ebnf("title Grammar", 'a = "x" ;', 'b = "y" ;;')],
+  eTitled: ["rendered", ebnf("title Grammar", 'a = "x" ;', 'b = "y" ;;')],
   eGoodThenBad: ["error", ebnf('good = "x", { "y" } ;', 'bad = [ "x" ;')],
   eDigit: ["error", ebnf("bar = digit, { digit } ;", 'digit = "0" | "1" | ;;')],
   eThreeGoodThenBad: ["error", ebnf('a = "x" ;', 'b = "y", a ;', "c = { a | b } ;", "d = ( a ;")],
   eUnclosedBrace: ["error", ebnf('a = { "x" ;')],
-  eDoubleSemi: ["error", ebnf('a = "x" ;;')],
+  eDoubleSemi: ["rendered", ebnf('a = "x" ;;')],
   eBadThenGood: ["error", ebnf('a = [ "x" ;', 'b = "y" ;')],
   eStyled: ["error", ebnf("<style>", "element { FontColor red }", "</style>", 'a = [ "x" ;')],
   eTitleThenBad: ["error", ebnf("title Grammar", 'a = [ "x" ;')],
@@ -72,6 +72,31 @@ const CASES = {
   dEbnfTerminalStyled: ["rendered", ebnf("<style>", "element { Margin 0 }", "</style>", 'a = "Syntax error!" ;')],
   dEbnfNameAndWords: ["rendered", ebnf('a = "x" ;', '(* Syntax error! *)', 'b = "y" ;')],
   dUmlTextAtZero: ["rendered", uml("skinparam defaultFontName sans-serif", "skinparam backgroundColor transparent", "skinparam padding 0", "skinparam shadowing false", 'rectangle "Syntax error!" #transparent;line:transparent')],
+  dCommentTwoLines: ["rendered", ebnf("(* first", "Syntax error! *)", 'a = "x" ;')],
+  dCommentTwoLinesLast: ["rendered", ebnf('a = "x" ;', "(* first", "Syntax error! *)")],
+  dCommentNewline: ["rendered", ebnf("(* first\\nSyntax error! *)", 'a = "x" ;')],
+  dTerminalNewline: ["rendered", ebnf('a = "first\\nSyntax error!" ;')],
+  dTitleTwoLines: ["rendered", ebnf("title first\\nSyntax error!", 'a = "x" ;')],
+  dTitlePlain: ["rendered", ebnf("<style>", "title { FontStyle plain }", "</style>", "title Syntax error!", 'a = "x" ;')],
+  dTitlePlainOnly: ["error", ebnf("<style>", "title { FontStyle plain; Margin 0; Padding 0 }", "</style>", "title Syntax error!")],
+  dHeaderPlain: ["rendered", ebnf("header Syntax error!", 'a = "x" ;')],
+  dLegendWords: ["rendered", ebnf("legend left", "Syntax error!", "endlegend", 'a = "x" ;')],
+  dCaptionWords: ["rendered", ebnf("caption Syntax error!", 'a = "x" ;')],
+  dCommentNoBox: ["rendered", ebnf("<style>", "note { BackGroundColor transparent; LineColor transparent; FontSize 14; Padding 0; Margin 0 }", "</style>", "(* Syntax error! *)")],
+  dRuleNamePlain: ["rendered", ebnf("<style>", "element { FontStyle plain }", "</style>", 'Syntax_error = "x" ;')],
+  dEmptyName: ["error", ebnf('= "Syntax error!" ;')],
+  dCreoleInComment: ["rendered", ebnf("(* <font:sans-serif>Syntax error!</font> *)")],
+  dChoice: ["rendered", ebnf('a = "Syntax error!" | "y" ;')],
+  dChoiceLast: ["rendered", ebnf('a = "y" | "Syntax error!" ;')],
+  dRepeat: ["rendered", ebnf('a = { "Syntax error!" } ;')],
+  dOption: ["rendered", ebnf('a = [ "Syntax error!" ] ;')],
+  dGroup: ["rendered", ebnf('a = ( "Syntax error!" | b ), c ;')],
+  dNonTerminal: ["rendered", ebnf("a = Syntax_error ;")],
+  dSpecialExact: ["rendered", ebnf("a = ?Syntax error!? ;")],
+  dRepeatThenRule: ["rendered", ebnf('a = { "x" } ;', '(* Syntax error! *)', 'b = "y" ;')],
+  dCommentAfterChoice: ["rendered", ebnf('a = "x" | "y" ;', '(* Syntax error! *)')],
+  eEmpty: ["error", ebnf()],
+  eEmptyTitled: ["error", ebnf("title Grammar")],
   dJson: ["rendered", ["@startjson", '"Syntax error!"', "@endjson"]],
   dRegex: ["rendered", ["@startregex", "Syntax error!", "@endregex"]],
 };
@@ -106,7 +131,7 @@ const CASES = {
           const texts = [...result.svg.matchAll(/<text[^>]*>([^<]*)<\/text>/gu)].map((m) => m[1]);
           let verdict = "";
           if (matcher) {
-            const got = matcher(result.svg) ? "error" : "rendered";
+            const got = matcher(result.svg, lines.join(String.fromCharCode(10))) ? "error" : "rendered";
             verdict = `${got === expected ? "OK " : "WRONG "}${got} (expected ${expected})`;
             if (got !== expected) wrong += 1;
           }

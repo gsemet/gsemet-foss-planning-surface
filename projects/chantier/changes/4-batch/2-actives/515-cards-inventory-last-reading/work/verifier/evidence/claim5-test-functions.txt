@@ -1,0 +1,9 @@
+$ compare top-level definitions of skills/chantier/scripts/cli/tests/test_card_homes.py (ast), fbdb53d2 against HEAD
+FLOOR: changed
+HOMES: changed
+REFS: unchanged
+_file_gone: unchanged
+_gone: unchanged
+test_a_home_that_is_gone_is_named: unchanged
+test_every_rule_pinned_in_a_removed_card_has_its_home: unchanged
+test_the_floor_reads_word_for_word: added

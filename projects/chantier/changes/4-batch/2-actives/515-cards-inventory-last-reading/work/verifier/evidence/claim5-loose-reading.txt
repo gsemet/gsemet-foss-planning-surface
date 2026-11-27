@@ -1,0 +1,9 @@
+test_role_cards_split direct-mode -> named pages: ['direct-mode-back', 'direct-mode-switch-p2']
+test_role_cards_split lost-driver -> named pages: ['lost-outside', 'lost-silent']
+test_role_cards_split stack -> named pages: ['stack-outside']
+test_role_cards_split stack-make -> named pages: ['stack-gate']
+test_session_start_split wakes -> named pages: ['wakes-forge']
+test_stack_shape stack -> named pages: ['stack-outside']
+test_came_back refused-push-route -> named pages: ['refused-push-run']
+test_came_back retro -> named pages: ['retro-critic', 'retro-critic-write']
+dropped homes a looser reading would keep: 8

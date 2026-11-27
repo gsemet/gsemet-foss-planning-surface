@@ -182,6 +182,7 @@ Grade: **1**. Documentation, tests and the eval kit only; no card, command or ho
 - Some `to add` lines name no step of the cleanup plan, because no step brings them; each says so.
 - Three listed rules (lines `N1`, `N7` and `C4`) are held only by topic pages planned for deletion; the changes that delete those pages have to move each rule and update its line.
 - No test guards `docs/protective-rules.md`, by choice, so it can drift.
+- Line `P15/C8` states the long-gate waiver of a single change; the waiver of a whole stack files no follow-up, since the gate of the stack's top change validates it, and the line does not say so.
 - The long scenario was not run locally on Windows for this change (CI ran it on Linux); a later change of the same stack validates it.
 - In line `B18` the quoted span stops at a line wrap, before the word `wildcard`; the rule beside it is whole.
 
@@ -212,7 +213,7 @@ No visual change. Eval cases may name floor rules, scorecard `J` rows and `R-nnn
 - [x] Local gates at `22ccbe0`: `just check` (2785 passed, 19 skipped) and `just eval-dry-run` (26 of 26 cases), on Windows
 - [x] Evidence: before at `fbdb53d`, after at `22ccbe0`: `git grep -nE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id"` finds the removed names in six files before and prints nothing after
 - [x] Review: approved at `22ccbe0` (carried from `5d7549e`)
-- [ ] Verified at `<sha7>`
+- [x] Verified at `22ccbe0`
 - [x] CI green at `22ccbe0`: `just check` on Linux, macOS and Windows, `just eval-dry-run` and `just scenario` on Linux
 
 ## Internal references
