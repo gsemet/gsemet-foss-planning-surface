@@ -16,14 +16,23 @@ sections 4.3 and 6), one of the seven CRs of the cleanup batch.
   "grilled enough"; the scope is the plan and the five answers of
   `2-backlog/P1/card-inventory-open-rows/02-answers.md`. The Chief of Staff's reading of that go
   is still to confirm by the owner (question 1).
-- `02-answers.md` 2: the batch is a stack. This CR shares no code with the other cleanup CRs but
-  `test_help_topics.py` (step 1 deletes topics; see "Risks").
+- `02-answers.md` 2: the batch is a stack. This CR shares three things with the other cleanup
+  CRs (see "Risks"): `test_help_topics.py` (step 1 deletes topics); `roles_data.py`, which
+  `brief-host-row-names` also edits (its `Role` docstring); and the role cards that
+  `cards-delete-pages-chief` (`chief-of-staff.md`, `foreman.md`) and `cards-delete-pages-crew`
+  (`cr-driver.md`, `verifier.md` and the other crew cards) edit, which the new `test_roles_data.py`
+  check reads at the head under test.
 - `02-answers.md` 3 (card-cleanup-Q5, « A. Étapes 1 à 3 »): this is one of the small CRs of steps
   1 to 3; the new version is the batch's, not this CR's; steps 4 to 7 wait.
 - The request's reading, to confirm by the owner (question 2): only a fold that is a second name
   for the same code belongs here. `access` folded into the refusals, `phase` set by other
   commands, and the plan's new commands (`restart`, `ci`, `pr`, steering `push` and `rebase`) are
   later steps.
+- Answered by the Chief of Staff (2026-11-27), the specification's choices accepted:
+  `msg --read` with no value lists the unread messages (today's `inbox`) and `msg --read SEQ|all`
+  marks them read (today's `inbox --read`); `access` goes to the session group, `phase` and
+  `release` to the unit group; `help --for` lists a fold by its new spelling (`board watch`) while
+  the cards keep the old name until a later step rewrites them.
 
 ## What changes
 
@@ -38,7 +47,7 @@ with their own `--help`.
 | `abandon <item>` | `triage <item> --abandon` | `--abandon` joins `triage`'s required one-of group (`--priority`, `--ready`, `--inbox`, `--running-batch`) |
 | `restore <item> [--slug S]` | `triage <item> --restore [--slug S]` | `--slug` is accepted with `--restore` only |
 | `park <cr> [--wait …] [--note …]` | `order park <cr> [--wait …] [--note …]` | records no order (O-k): it is `park`, run under `order`'s name |
-| `inbox [--read SEQ\|all]` | `msg --read` (lists, as `inbox`) and `msg --read SEQ\|all` (marks, as `inbox --read`) | `--epoch` as for `inbox`; `msg steering …` unchanged (question 3) |
+| `inbox [--read SEQ\|all]` | `msg --read` (lists, as `inbox`) and `msg --read SEQ\|all` (marks, as `inbox --read`) | `--epoch` as for `inbox`; `msg steering …` unchanged |
 | `interests [--kind K] [--json]` | `journal interests [--kind K] [--json]` | a second action beside `journal add` |
 | `log <cr> [--lease N]` | `handoff <cr> --log [--lease N]` | |
 | `serve …` | `board serve …` | every option of `serve` |
@@ -68,7 +77,11 @@ by `args.cmd` or argv in `skills/chantier/scripts/cli/src/chantier/`:
   `--epoch 3 park CR-1`); `EPOCH_COMMANDS` stays equal to the parser's (its test,
   `test_the_epoch_commands_are_the_parsers`, is kept true).
 - The board server's `cli.run` reads a new spelling as the CLI does (it parses with the same
-  `normalize` and `_parser`), so `test_the_server_reads_the_same_forms_as_the_cli` covers them.
+  `normalize` and `_parser`). `tests/test_near_misses.py`
+  `test_the_server_reads_the_same_forms_as_the_cli` checks two fixed argvs only today; it is
+  extended with the new spellings that run through the server (`triage x --abandon`,
+  `triage x --restore`, `order park CR-1`, `msg --read`, `--epoch 3 msg --read`,
+  `journal interests`, `handoff CR-1 --log`), each read by `cli_run.judge` as accepted.
 
 The mechanism (nested subparsers with the old `cmd` set as a default, or a rewrite of argv in
 `near_misses.normalize` before parsing, or both) is the Driver's choice; the behaviour above is
@@ -94,7 +107,7 @@ commands that exist today; the plan's `restart`, `ci` and `pr` are not listed.
 
 Against the plan's table: `access`, `phase` and `release` exist today and the plan's table leaves
 them out (`access` and `phase` because it folds them later); they go to session, unit and unit
-(question 4). The plan's `link` is `webui` today and keeps its name.
+(answered: accepted). The plan's `link` is `webui` today and keeps its name.
 
 A last block, "old names, still accepted", lists the twelve old names, one line each, with their
 new spelling (`abandon <item>  = triage <item> --abandon`).
@@ -126,21 +139,30 @@ The lists are written from the role's card: every chantier command the card name
 `$CHANTIER <cmd>`, or as a backticked command the role itself runs), plus `help`, mapped to the
 new spelling. A starting point, read from the cards at this base and to be checked card by card
 by the Driver (a backticked word that is a step and not a command the role runs, as `conflicts`
-in `cr-driver.md`'s list of topics, is left out):
+in `cr-driver.md`'s list of topics, is left out; so is a topic name in a card's "Rare cases" list,
+as `asks`, `cost` and `seat` in `chief-of-staff.md`, and a file, as `summary.json`):
 
 | role | commands |
 |---|---|
 | cr-driver | take, round, note, phase, gate, push, ship, handback, handoff, lease, wait, msg, next, host, help |
 | release-driver | take, note, phase, gate, push, ship, release, handback, handoff, lease, wait, msg, host, help |
 | stack-driver | take, note, gate, push, ship, stack, forge-stack, handback, handoff, lease, msg, next, host, help |
-| qa-driver | lease, gate, host, help |
+| qa-driver | lease, host, help |
 | verifier | gate, verdict, handoff, help |
 | spec-writer | summary, help |
 | board-griller | summary, access, rules |
 | griller | seat, access, rules, file, triage, summary, help |
 | foreman | foreman, next, status, asks, judge, conflicts, agents, msg --read, take, handoff, order, gate, pause, playbook, release, retro, note, stack, forge-stack, push, board watch, host, help |
-| chief-of-staff | the session, backlog, batch and board groups whole, with next, judge, conflicts, agents, msg --read, stack, forge-stack, pause, take, note, gate, push, handoff, wait, release |
+| chief-of-staff | init, playbook, brief, open, order, status, note, triage, close, cancel, foreman, next, msg, help |
 | coder, conflict-resolver, debugger, inspector, investigator, spec-critic, retro-critic, demo-explorer | help |
+
+The chief-of-staff row follows the same rule as the others, read from `chief-of-staff.md`: `note`,
+`playbook`, `brief`, `status` and `init` (as `$CHANTIER`), `close`, `cancel`, `order`, `open`,
+`foreman` (`foreman set`), `next` and `msg` (`msg steering`, in its direct-mode paragraph), and
+`abandon` and `restore`, which map to `triage` (`triage --abandon`, `triage --restore`). No group
+is taken whole: `journal`, `login`, `logout`, `live`, `serve`, `webui` and `watch` are out, since
+the card names none of them as a command (it names the board and the watcher only through
+`help board` and `help watcher`).
 
 ### 4. What does not change
 
@@ -192,6 +214,13 @@ in `cr-driver.md`'s list of topics, is left out):
   only; the board-griller case prints its commands line then `no topic for board-griller; help
   lists them all`.
 - `test_command_names.py` as in section 4.
+- `tests/test_serve_webui.py` `test_a_command_named_board_is_an_invalid_choice` (it runs
+  `chantier board --port 0` and expects `invalid choice: 'board'`) is updated, and renamed
+  `test_board_with_no_action_is_refused_with_its_usage`: the same argv still exits `USAGE`, starts
+  no server, and its stderr holds `board`'s own usage (`usage: chantier board`, naming `serve`)
+  and no longer `invalid choice: 'board'`.
+- `tests/test_near_misses.py` `test_the_server_reads_the_same_forms_as_the_cli` extended as in
+  section 1.
 - `just check` passes; `just roles` passes; `just test` stays within its time budget; the long
   gate `scenario` passes (a CLI change), unchanged since every name it types still runs.
 
@@ -199,6 +228,13 @@ in `cr-driver.md`'s list of topics, is left out):
 
 - Step 1's CRs delete topics and edit `topics.json` in the same batch: `test_help_topics.py`
   changes on both sides; in the stack the later CR rebases on the earlier one.
+- `brief-host-row-names` edits `roles_data.py` (the `Role` docstring) where this CR adds the
+  `commands` field to `Role` and `FIELDS`: the later CR in the stack rebases on the earlier one.
+- `cards-delete-pages-chief` (`chief-of-staff.md`, `foreman.md`) and `cards-delete-pages-crew`
+  (`cr-driver.md`, `verifier.md` and the other crew cards) edit the role cards that the new
+  `test_roles_data.py` check reads at the head under test: a `$CHANTIER <cmd>` they add or remove
+  changes what each role's `commands` list must hold, so the lists are checked again against the
+  cards at this CR's rebased head.
 - `board` was the server's own name before v0.10; reviving it as a group is the plan's choice
   (section 4.3) and the request's; an old `chantier board --seat` line is refused, never run as
   the server.
@@ -209,11 +245,3 @@ in `cr-driver.md`'s list of topics, is left out):
    the owner?
 2. Only the folds that are a second name for the same code (the twelve of section 1), with
    `access`, `phase` and the new commands left to later steps: confirmed?
-3. `msg --read` with no value lists the unread messages (today's `inbox`) and with `SEQ|all` marks
-   them read (today's `inbox --read`): is that the reading of the plan's "`inbox` into
-   `msg --read`", or should `msg --read` alone mark nothing and a separate spelling list?
-4. `access` in session, `phase` and `release` in unit, which the plan's table leaves out: right
-   groups?
-5. `help --for` lists a fold by its new spelling (`board watch`) while the cards still say the old
-   name (`watch`): acceptable until a later step rewrites the cards, or should the list use the
-   cards' names for now?
