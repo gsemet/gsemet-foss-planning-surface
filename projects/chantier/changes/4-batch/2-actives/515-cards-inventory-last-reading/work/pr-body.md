@@ -96,7 +96,7 @@ a CLI path is relative to the CLI package.
 - G-017: A grill session proposes a grouping or order, never makes it. `griller-skill.md` "You may propose a grouping or order of prepared CRs in your reply"
 - H-009: Explaining a refusal permits nothing: the refusal is not worked around. `floor.md` "Report a refusal with its exact text; never work around it."
 - H-010: A refusal stays the refusing command's. `floor.md` "Report a refusal with its exact text; never work around it."
-- H-071: Local scratch and logs are never published. CLI `core/files.py` ""**/work/scratch/", "**/work/**/artifacts-*/", "*.log","
+- H-071: Local scratch and logs are never published. CLI `core/files.py` ""**/work/scratch/","
 - H-111: No internal reference in a PR's title or body text. `pr-template.md` "No internal reference in the title or the body text"
 - H-301: A missing skill or tool is said, never replaced; a missing CLI stops. `floor.md` "4. A CLI that cannot run is a stop."
 - H-313: A worker's prompt without its `writes:` line is not guarded. `concepts.md` "a prompt without the line is not guarded"
@@ -173,7 +173,7 @@ Grade: **1**. Documentation, tests and the eval kit only; no card, command or ho
 
 - A home in `test_card_homes.py` is kept for a topic when a listed line names that page (or one of its numbered parts), for a card when a line quotes it, for a skill or host row when a line names it; every floor home stays.
 - A rule held today only by pages planned for deletion is listed as held there, so the change that deletes them has to place it.
-- Rows carrying a rule that protects the user or the repository were judged a second time, which counted 19 more as protective than the first judging; all are held. Their rules without a line of their own got the new lines `N2` to `N10`, or fall under an existing line.
+- Rows carrying a rule that protects the user or the repository were judged a second time, which counted 19 more as protective than the first judging; all are held. Their rules without a line of their own got new lines among `N2` to `N10`, or fall under an existing line; `N5` states the rule of row `H-855`.
 - Lines of the list that stated one rule twice are merged, and the new lines carry ids of their own (`N1` to `N10`), since the list carries no inventory row id.
 - The draft's remarks on where the cleanup plan's claims differ from the code are not carried into the list, except where a line needs one to be read right (the note on `B6` among them): each line's state and home already say what holds at the head.
 
