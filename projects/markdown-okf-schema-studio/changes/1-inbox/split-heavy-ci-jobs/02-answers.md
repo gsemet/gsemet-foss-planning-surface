@@ -18,6 +18,17 @@ Short name: `ci-split`
 
 3. The owner's night instruction still holds for this CR: at most 6 rounds.
 
+4. Ruling of the Chief of Staff on the specification's open question 2 (2026-11-27): if a part
+   measures clearly above 11 min, it is the Coder's call within this CR, from the measured run (move
+   a suite to the other part, or add a third part), with the same tests, repetitions, gates and local
+   targets, and the choice written in the PR.
+
+5. Ruling of the Chief of Staff on the specification's open question 1 (2026-11-27), told to the
+   owner: the visual jobs stay out of this CR, as the intent says; a heavy run of about 13 to 14 min
+   is accepted. In the heavy run 45951664534 of CR-517 `visual-2` took 7.8 min and `static-windows`
+   12 min (`visual-2` 11.9 min and `static-windows` 7 min in run 45893802335), so splitting the
+   visual jobs alone would not surely shorten a run.
+
 Spec critic: yes (it changes which jobs gate a release tag, in several files that must agree).
 
 Destination: running batch batch-09.

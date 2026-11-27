@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The heavy CI finishes faster: integration and stress run in two parts",
+  "summary": "Batch-09, above CR-517, below CR-518: heavy integration and stress jobs become 2-leg matrices (same names, same gates); integration splits by launch, stress shares scenarios not rounds; report merges parts by newest attempt. Specified; 2 open questions (visual-2 floor, part 1 length).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3eb48e8abfd364502c8950699f62963e1be37688a7142a021b8fe3855518c5a6",
+    "02-answers.md": "41ecfe0340a21cc460903f671ae31f62ca2e87b5d7e004b34d7ec44c9b091b1c",
+    "03-change-spec.md": "ef4c0beb7c09bcf46cfd5937faf895532813e968c1dbf26a3c20c6ee3949d710",
+    "intake/request.md": "94b7fdc1b2c9a7be03627ec85295be192888845a69ae0c2f4257505aa5979412"
+  },
+  "summarized": "2026-11-27T06:44:02Z"
+}
