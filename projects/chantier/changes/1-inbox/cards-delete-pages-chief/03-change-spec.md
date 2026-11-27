@@ -163,14 +163,16 @@ Byte ceilings. `test_brief_bytes.py` measures each role's whole brief (card, flo
 rows). At `4d12a5b` the measures are `chief-of-staff` 24,351 of 24,400 (49 bytes free) and
 `foreman` 22,554 of 22,600 (46 bytes free); `cards-inventory-last-reading` may change both before
 this CR's base. The additions above do not fit that room as plain additions (about 150 bytes net on
-`chief-of-staff.md`, about 100 on `foreman.md`). The ceilings are not raised: the Driver fits each
+`chief-of-staff.md`, about 100 on `foreman.md`). The ceilings are not raised: the Driver first fits each
 addition by tightening the wording of the line that receives it (the "Rail:" sentence, the
 "Progress and Completion reports" line, the Rare-cases list; the "Starting Drivers" and "Heartbeat
 and watcher" items), no rule of those lines dropped, and quotes the before and after measures in the
 PR. The check at this CR's head counts both this CR's and `cards-delete-pages-crew`'s additions when
-that CR is below this one; when this CR is below, the crew CR's Driver counts them. If no tightening
-of those lines makes them fit, stop and tell the steering session before any other edit to the card
-(see question 1).
+that CR is below this one; when this CR is below, the crew CR's Driver counts them. If tightening
+the receiving lines is not enough, the Driver tightens other lines of the same two cards, no rule
+dropped. Only if that fails too, it moves the Foreman's four added rules (part 3, `orders-queue` and
+`wakes-p1`) out of `foreman.md` into a kept page the Foreman reads, and the PR's table names that
+page as their home. The ceilings are never raised (the Chief of Staff's call, 2026-11-27).
 
 `skills/chantier/references/griller-skill.md`: drop "(`help griller-cost`)" after "Your cost is in
 no batch".
@@ -354,10 +356,4 @@ All read the shipped files at the head under test.
 
 ## Questions for the Chief of Staff
 
-1. The byte room is small: 49 bytes on `chief-of-staff` and 46 on `foreman` at `4d12a5b`, against
-   about 150 and 100 bytes of additions, before `cards-delete-pages-crew`'s `chief-of-staff.md`
-   lines. This specification has the Driver tighten only the lines that receive the additions and
-   stop if they still do not fit. If they cannot fit, which do you prefer: tightening other lines of
-   the two cards (no rule dropped), moving the Foreman's four rules to a kept page it reads (for
-   instance `topics/wakes-p2.md` and `topics/orders.md`) instead of its card, or raising the two
-   figures with the before and after named in the PR's Known gaps?
+None: the byte-ceiling question was answered (part 4, "Byte ceilings").

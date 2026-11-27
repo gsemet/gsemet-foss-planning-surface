@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Source panels under diagrams and charts show only on a failed render",
-  "summary": "P1, specified, automatable. Diagram source and Chart source are hidden under drawn figures in the preview and the HTML export, shown closed only on a failed render (CSS on data-render-state). StRS DIAG-001 and DIAG-006 need the owner's re-approval.",
+  "summary": "P1, specified, automatable. Diagram source and Chart source are hidden under drawn figures in the preview and the HTML export, shown closed only on a failed render. Owner's agreement to change approved StRS DIAG-001 and DIAG-006 recorded.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d411c82c623e2d54aa8f355b10bb481c1b4730daad5fb54442e141897c4db1fc",
-    "02-answers.md": "0eb86ec399da318ff63744e93990d4a3336cb0a99f6a414bc6164bff9255fc09",
-    "03-change-spec.md": "729edf08306d801682ad7364485f5a466d2c7cf6ee4965a44c6416cd82865c40",
+    "02-answers.md": "ff28073c6fb8137d23537f530c0f3e6631717cf943ec700a4b61df26492a8256",
+    "03-change-spec.md": "7e27d9190d8df7f1be99f57139ef1d9fa583f44b50dd6f92762ae374f89bc217",
     "intake/request.md": "fe748456da550de1089d38ba36fb37457d5cea1adb5739b21956e9a5085fbf00"
   },
-  "summarized": "2026-11-27T10:15:55Z"
+  "summarized": "2026-11-27T10:21:14Z"
 }

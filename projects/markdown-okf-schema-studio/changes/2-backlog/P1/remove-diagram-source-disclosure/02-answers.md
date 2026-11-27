@@ -71,6 +71,27 @@ To fix at the next run of the writer, once the owner has answered:
   and the normative statement say "keep its source available", and the goal and the sequence diagram
   say "the source one click away", which is no longer true of a diagram that renders.
 
+## 2026-11-27: the two approved requirements may change
+
+Question: « Acceptes-tu la modification des StRS approuvées DIAG-001 et DIAG-006 ? » The changes
+shown with it:
+
+- DIAG-001, normative statement and description: the source stays available **when the diagram
+  fails** (today « keep its source available »).
+- DIAG-001, goal and sequence diagram: « the source one click away » leaves what concerns a diagram
+  that renders.
+- DIAG-001, « Reading » bullet and SwRS line: the source panel shows only on a failure.
+- DIAG-006, « Reading » bullet: the source panel shows only on a failure. The rest of DIAG-006
+  already promises the source only on a failure.
+
+The owner's answer, in French:
+
+> « Oui, d'accord »
+
+Decided: agreed. This is the agreement `requirements/guidelines/project.guidelines.md` ("Approved
+requirements") asks for, for StRS DIAG-001 and DIAG-006 and these changes. It closes the question
+the review above left open.
+
 ## Similar panels (facts read in the code at `b9b29c5a`, not decisions)
 
 - The extension generates three source panels, all in `normalizeDiagram`

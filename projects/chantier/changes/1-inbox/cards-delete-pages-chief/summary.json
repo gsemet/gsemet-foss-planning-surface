@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Delete the Chief of Staff side's 33 dead help pages, rules moved first",
-  "summary": "Deletes 33 Chief of Staff help pages and 16 topic names. Each protective rule moves first to a card, kept page, floor item or CLI refusal, within the brief byte ceilings; board-p1's stop by PID goes. Pointers and tests are fixed, plus a test that every help pointer names a topic.",
+  "summary": "Deletes 33 Chief of Staff help pages and 16 topic names. Each protective rule moves first to a card, kept page, floor item or CLI refusal, within the unchanged brief byte ceilings; board-p1's stop by PID goes. Pointers and tests are fixed, plus a test that every help pointer names a topic.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "651798b922278496360b695283ad94269b25aeb1a470cd9dbb1bbf13502a688b",
     "02-answers.md": "8474d773d63de20f7a9871ee19e8aa719dfc2f8579c25d727ba00c22ec37fdf5",
-    "03-change-spec.md": "7382b7b50f4537f2aaef91e4c0bf35cecc0682cd66399a4a9de0a2170fbcd7a7",
+    "03-change-spec.md": "09542749324a5ddb780b4e36ab8f340bd1de60771ab902da9aadedf7712cacce",
     "intake/request.md": "ce0a4976c1ddbcc937f3132e536825dda4d4d27e3f94c4880564b77a131a6000"
   },
-  "summarized": "2026-11-27T10:17:50Z"
+  "summarized": "2026-11-27T10:19:41Z"
 }

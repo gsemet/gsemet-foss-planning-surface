@@ -18,8 +18,9 @@ Facts read at `origin/main` `b9b29c5a`. Automatable; the owner does not review t
 4. One rule everywhere, preview and export, diagrams and charts: the source panel appears only when
    the render fails. A failed chart in the preview now shows its **Chart source** (changes SwRS
    DIAG-123).
-5. StRS DIAG-001 and DIAG-006 are `approved` and change: the owner re-approves them (see
-   "Requirements").
+5. The owner agreed (2026-11-27, « Oui, d'accord ») to change the approved StRS DIAG-001 and
+   DIAG-006, for the changes listed with the question and no more (see "Requirements" >
+   "Approval").
 
 ## The rule
 
@@ -57,31 +58,54 @@ Facts read at `origin/main` `b9b29c5a`. Automatable; the owner does not review t
 Update in place, with markers and `@tests_req` on each test that checks the new text,
 `just requirements-update`, and a dated entry in `requirements/tiers/log.md`.
 
-- StRS DIAG-001 (approved): "Reading" bullet and the SwRS DIAG-001 line say the source panel is
-  shown only when the diagram fails; "Failure" keeps "the source stays available".
-- StRS DIAG-006 (approved): same for the "Reading" bullet; "Failure" unchanged.
-- Approval: the project asks for the owner's explicit agreement before an approved requirement
-  changes (`requirements/guidelines/project.guidelines.md`, "Approved requirements"); it is **not
-  yet recorded** for these two. With it, the coder sets `approved_by` to the owner's email and
-  `approved_at` to the time of the change on both, the PR body lists them under "Approved
-  requirements changed", and the agent that opens the PR requests the owner's review.
-- SwRS DIAG-001 (Mermaid) and DIAG-023 (PlantUML): description and S1 say the collapsed
-  "Diagram source" disclosure is hidden unless the render state is `error` or `unavailable`, in the
-  preview and the HTML export; DIAG-023 S4 and S7 (rendered picture: no disclosure shown; disclosure
-  style applies to a shown one). Add `src/core/preview/styles/contentBlockStyles.ts`,
-  `src/core/export/exportStyles.ts` and `src/page/modules/findIndex.ts` to their implementation where
-  marked.
-- SwRS DIAG-121 (charts): description and S4 become "a collapsed Chart source section shown, in the
-  preview and the HTML export, only when the chart fails to render"; the find bar does not match a
-  hidden one.
+- StRS DIAG-001 (approved), the agreed changes only:
+  - description and normative statement: "keep its source available" becomes "keep its source
+    available when the diagram fails to render";
+  - goal (`user_need`): ", with the source one click away" is removed;
+  - use case diagram: the valid-syntax reply "picture with its source one click away" becomes
+    "picture" (the invalid-syntax branch keeps "source kept");
+  - "Reading" bullet and the Path S1 line of SwRS DIAG-001: the source sits in a collapsed
+    "Diagram source" disclosure shown only when the diagram fails to render.
+  - Not changed: "Failure" bullet and Path S2 ("the source stays available", still true);
+    "Preserved stakeholder intent" ("with the text still reachable", still true through the
+    Markdown and on a failure).
+- StRS DIAG-006 (approved), the agreed change only: the "Reading" bullet says the collapsed
+  "Diagram source" disclosure shows only when the diagram fails to render. The description,
+  normative statement, "Failure" bullet and diagram already promise the source on a failure only.
+- Approval: the owner's explicit agreement to these changes of StRS DIAG-001 and DIAG-006 is
+  recorded in `02-answers.md` ("2026-11-27: the two approved requirements may change", answer « Oui,
+  d'accord »), as `requirements/guidelines/project.guidelines.md` ("Approved requirements") asks.
+  The coder makes those changes and no other on these two, sets `approved_by` to the owner's email
+  (`default_owner_email` of each file) and `approved_at` to the date and time of the change with its
+  UTC offset, the PR body lists both under "Approved requirements changed", and the agent that opens
+  the PR requests the owner's review.
+- SwRS DIAG-001 (Mermaid): description, normative statement and S1 say the collapsed "Diagram
+  source" disclosure is shown, in the preview and the HTML export, only when the render state is
+  `error` or `unavailable`.
+- SwRS DIAG-023 (PlantUML): the same in the description, normative statement and S1; S4 ("the
+  source disclosure stays below") becomes "the source disclosure is present and not shown"; S7 and
+  its criteria: the disclosure style applies to a shown disclosure.
+- On both, add `src/core/preview/styles/contentBlockStyles.ts`, `src/core/export/exportStyles.ts`
+  and `src/page/modules/findIndex.ts` to the implementation where marked.
+- SwRS DIAG-121 (charts): description, normative statement, S4 (title and steps), verification
+  method and criteria become "a collapsed Chart source section shown, in the preview and the HTML
+  export, only when the chart fails to render"; the find bar does not match a hidden one. S1 (the
+  markup holds the section) stays.
 - SwRS DIAG-123 S3: a failed chart shows the message and the reason, and its **Chart source**
   section, closed, under it, in the preview.
 - SwRS DIAG-105 S3 ("... the expandable source disclosure is kept"): a rendered diagram keeps the
   disclosure in the markup and does not show it.
-- Still true, check only: DIAG-015 S1, DIAG-032 S1, DIAG-089 (missing command row); BLOCK-014 rows
-  on "Diagram source" reworded to "of a failed Mermaid or PlantUML figure".
-- StRS DIAG-015 (proposed): "chart with its source section" and "a source section kept for the HTML
-  export" become the failure-only rule. StRS DIAG-009 "the expandable source": add "when it fails".
+- SwRS DIAG-068 (PlantUML file): description and normative statement, "as the expandable source"
+  becomes "as the expandable source shown when the diagram fails to render".
+- StRS DIAG-015 (proposed): the diagram line "chart with its source section" becomes "chart", and
+  the Path line of SwRS DIAG-121 "a source section kept for the HTML export" becomes "a source
+  section shown only when the chart fails". Its "lead from a click on a picture to its source" is
+  the editor click (SwRS DIAG-127), unchanged.
+- StRS DIAG-009 (proposed), "PUML files" bullet: "the expandable source" becomes "the expandable
+  source when it fails to render".
+- Still true, check only: SwRS DIAG-015 S1, DIAG-032 S1, DIAG-089 (missing command row); BLOCK-014
+  rows on "Diagram source" reworded to "of a failed Mermaid or PlantUML figure".
+- Generated Links blocks are not hand-edited (`just requirements-update`).
 - Deprecated, not touched: SwRS DIAG-029, DIAG-083, DIAG-092, DIAG-111, DIAG-112, CODE-022.
 
 ## Documentation
