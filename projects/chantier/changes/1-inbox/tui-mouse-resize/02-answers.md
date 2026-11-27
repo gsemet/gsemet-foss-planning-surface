@@ -15,3 +15,5 @@ Short name: `tui-mouse`
 9. Chief of Staff's call (2026-11-27), on the specification's question 1: `live` gives each mouse query its own short timeout of 1 second, so a terminal that answers nothing never holds the keys for longer than that per query.
 10. Chief of Staff's call (2026-11-27), on its question 2: without the left column, the right column takes spare columns back toward its kept width, after Project and Who.
 11. Chief of Staff's call (2026-11-27), on its question 3: during a drag the other side column keeps the width drawn, the border follows the pointer down to a minimum, and the release keeps the width drawn.
+12. Chief of Staff's call (2026-11-27): on a drag's release, `live.json` keeps the dragged column's width as drawn and leaves the other column's saved value unchanged.
+13. Chief of Staff's call (2026-11-27), told to the owner: `docs/surface-server.svg` changes in this change request: in the `chantier live` box, "terminal, reads only" becomes "terminal, reads the server only" (`live` now writes `live.json`); any other line or description of that diagram that this change makes false changes with it.

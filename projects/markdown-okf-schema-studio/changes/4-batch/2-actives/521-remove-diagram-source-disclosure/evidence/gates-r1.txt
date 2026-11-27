@@ -2,8 +2,10 @@ CR-521, round 1: gate results (Windows, worktree batch-11-CR-521, base origin/ma
 
 just dev                         pass (new worktree)
 just requirements-update         pass (2 index files updated)
-just requirements-lint           pass, exit 0; rerun after the line-ending normalisation. W2 "Broken cross-link"
-                                 warnings are printed for requirement files this change does not edit
+just requirements-lint           pass, exit 0; last run on the final worktree, after the line-ending normalisation
+                                 and a heading restored in requirements/tiers/log.md (both after preflight). W2
+                                 "Broken cross-link" warnings are printed for requirement files this change does
+                                 not edit
 just check                       pass, exit 0
   clip-kit                       56 tests, 56 pass
   unit                           5569 tests, 5561 pass, 0 fail, 8 skipped
