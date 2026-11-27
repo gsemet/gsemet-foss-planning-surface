@@ -120,3 +120,12 @@ own).
     keep CR-518 and CR-519 with lighter rounds, or change nothing?", answered later in the same
     session, verbatim: "Mais fini tout les 3 autres." Read by the Chief of Staff: CR-517, this CR and
     CR-519 stay in batch-09 and are finished. No lighter rule was chosen: the rigor is unchanged.
+
+15. local-Q1 (2026-11-27, Chief of Staff session), "lighten the local tests for CR-518 and CR-519?",
+    choices "A. yes (recommended)" (no visual tests on the owner's PC, left to CI; `just check` once
+    per round, not re-run by the reviewer; targeted tests during the work), "B. no". Answer,
+    verbatim: "Oui découpe la CI maintenant juste après celle que tu fini il faut pouvoir aller vite."
+
+    Applied by the Chief of Staff: A for this CR (replaces the last sentence of item 14). The CR
+    `split-heavy-ci-jobs` comes after CR-517 and before this one, which then adapts its job to the
+    split workflow.

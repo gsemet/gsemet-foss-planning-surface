@@ -34,3 +34,8 @@ Spec critic: no (the page was in the specification the critic checked before the
 5. fin-batch-Q1 (2026-11-27, Chief of Staff session), "how do I finish batch-09?", answer, verbatim:
    "Mais fini tout les 3 autres." Read by the Chief of Staff: CR-517, CR-518 and this CR stay in
    batch-09 and are finished; the rigor is unchanged.
+
+6. local-Q1 (2026-11-27), "lighten the local tests for CR-518 and CR-519?", answer, verbatim: "Oui
+   découpe la CI maintenant juste après celle que tu fini il faut pouvoir aller vite." Applied: no
+   visual tests on the owner's PC (CI runs them), `just check` once per round and not re-run by the
+   reviewer, targeted tests during the work (replaces "the rigor is unchanged" of item 5).
