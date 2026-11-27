@@ -30,3 +30,10 @@ Open points for the grill:
 - Existing tests first: extend or merge partial tests into whole walks, their SwRS markers kept, before writing new ones.
 - How a path that goes through the host can count under "Tested by": a simulated bench running the real host logic, or another rule for that column.
 - 2026-11-27, the owner, asked whether both columns are filled for every path (156) or once per StRS (95): « Chaque parcours ». Every declared path of every live StRS shows a "Tested by" and an "Accepted by"; this settles the first open point on "every StRS".
+- 2026-11-27, the owner, on what cannot be tested: « pour les req qui sont pas testable il y a un systeme de waiver ».
+
+Facts for that point (`origin/main` `b9b29c5a`, 2026-11-27, not decisions):
+
+- The waiver is `acceptance_exemption: true` with a non-blank `acceptance_exemption_reason`, on a whole StRS (`requirements/tiers/_schema/strs.schema.yaml`); the owner's agreement is needed, and being slow or expensive is not a reason (`.agents/skills/okfreq/references/operations.md`). No StRS carries it today.
+- The site shows "waived" and the reason in place of "Accepted by"; "Tested by" still shows its files or its count (`test/site/requirementsViewer/pages.ts`, SwRS-MDOKFSTUDIO-CORE-080 S4).
+- CR-505 (Q32, D15): a waiver is only for a StRS with no step that can be automated, with no candidate then. The owner's answer of 2026-11-26 above asks for tests, not a waiver, on the three paths CR-505 could not accept.

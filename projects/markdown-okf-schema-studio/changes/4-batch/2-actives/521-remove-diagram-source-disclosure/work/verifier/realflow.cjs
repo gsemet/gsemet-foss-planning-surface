@@ -270,6 +270,11 @@ async function editMode(page) {
       }));
       await clipped(page, path.join(root, "syntax-light.png"));
       report.syntax.pageErrors = problems;
+      const exported = await exportFile(page, "syntax");
+      const reader = await noJs.newPage();
+      await reader.goto(pathToFileURL(exported.target).href);
+      report.syntax.exported = await rows(reader);
+      await reader.close();
       await page.close();
     } else {
       const pagePath = await buildPage("shots", "builtin", true);

@@ -312,3 +312,68 @@ text of claim 1, in no image. Fix: narrow the sentence to the left column and `W
 `Project` column is drawn with one project watched.
 
 NOT VERIFIED
+
+## Third pass: the posted description alone - 3412cd9
+
+Head unchanged (`gh pr view 490 --json headRefOid,isDraft,state,mergeable,updatedAt`:
+3412cd90a3e33c3b8953e03a23b26b44bfb23227, draft, OPEN, MERGEABLE, 2026-11-27T13:01:05Z; the
+worktree's `git rev-parse HEAD` is the same, `git status --short` empty). The code claims were not
+rerun. The second pass above stays as written; its claim 15 is replaced by claim 17.
+
+## 16. Only the Impacts sentence changed since the last description pass - 3412cd9, PASS
+
+Command: `gh api graphql` on `pullRequest(number:490){userContentEdits{nodes{editedAt diff}}}`,
+then a unified diff of the two latest versions (12:59:13Z, the one judged by the second pass, and
+13:01:05Z, posted now):
+
+```text
+@@ -83 +83 @@
+-... The screenshot shows the three columns at their new default widths on a 150-column terminal.
++... The screenshot shows the left column and `Who` at their new default widths on a 150-column terminal with one project watched, where no `Project` column is drawn.
+```
+
+(the rest of line 83 is identical on both sides). `diff` of `gh pr view 490 --json body` (CR
+stripped) with `work/pr-body.live.md`: exit 0; with `work/pr-body.md`: one trailing blank line.
+Claims 12 to 14, but for what is checked again below, are carried from 3412cd9: same head, no
+other line of the body changed.
+
+## 17. Impacts: the screenshot sentence - 3412cd9, PASS
+
+The posted sentence: "The screenshot shows the left column and `Who` at their new default widths
+on a 150-column terminal with one project watched, where no `Project` column is drawn."
+
+Command: a short script on the first screen of `E/terminal-drawn-3412cd9.txt` (the console text
+the image was captured from), measuring the top border and the Flow's header:
+
+```text
+terminal columns: 150
+left column cells: 42
+Who column cells: 15
+Project in Flow header: False
+```
+
+I opened the downloaded attachment: Projects and Agents boxes on the left (42 cells of 8 px), the
+Flow's header `Time`, `Who`, `Event` with `chief-of-staff` whole, one project (`demo-shop`) in the
+Projects box, no `Project` column. 42 and 15 are the body's "After" widths (claim 1). The other two
+sentences of Impacts are unchanged (claims 1, 4; `E/event-base-vs-head.txt`).
+
+## 18. Rendering, image, no username, marks, role names, CI - 3412cd9, PASS
+
+- `gh api repos/gsemet/chantier/pulls/490 -H "Accept: application/vnd.github.full+json" -q
+  .body_html`: 10 `<h2>` (Summary to Internal references), 2 tables (the body has two; claim 12's
+  "three" was a miscount), the Mermaid container, 2 `<pre>`, 1 `<img>`, 1 `<details>` with nothing
+  after its end, 6 checked task boxes; the new sentence is in the rendered Impacts paragraph.
+- `curl -sSL` of the attachment into an empty scratch folder: `http 200 image/png 22256`;
+  `sha256sum` of it, `evidence/live-terminal-3412cd9-150.png` and the copy in `E/`: all
+  `9772607331e9e3ca7e9cce2e2ddb84e09a45c175105ccc76a629a99d3713561a`. Seen: window title
+  `chantier live (demo)`, header row grey after `chantier live`; no username, home folder or path.
+- `grep -c -E "STALE|UNVERIFIED"` on the posted body: 0. A word search for the role names above
+  "Internal references": no match (grep exit 1).
+- `gh pr checks 490`: `just check` macos, ubuntu, windows, `just eval-dry-run`, `just scenario
+  (ubuntu-latest)` all `pass` (run 45998818704, head_sha checked in claim 14).
+- `head -n1` and the result lines of `work/gates/just-check-3412cd9.log` (`uvx ruff@0.17.5 format
+  --check skills scripts`; `2813 passed, 19 skipped in 242.60s`) and `eval-dry-run-3412cd9.log`
+  (`uv run --locked python evals/kit/dry_run.py`; `dry run: 26 of 26 cases as expected`);
+  `handoff CR-522`: both `before first push at 3412cd9` passes, `gate: waived (O-15, stack)`.
+
+VERIFIED

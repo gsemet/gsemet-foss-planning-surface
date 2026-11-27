@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "title": "Use case walks: every StRS path shows Tested by and Accepted by",
-  "summary": "P1. Every declared path of every StRS shows Tested by and Accepted by (owner). At b9b29c5a, 150 of 156 paths lack a simulated walk, 134 an acceptance; 59 of 68 StRS with no walk have a partial test. One change per e2e group, mode switch last.",
+  "summary": "P1. Every declared path shows Tested by and Accepted by; what cannot be tested takes the waiver (owner). At b9b29c5a, 150 of 156 paths lack a simulated walk, 134 an acceptance; 59 of 68 StRS with no walk have a partial test. One change per e2e group, mode switch last.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "3dd61ccfa7b9ccef03ed7fe2666fb1b6366eb46c0c613efcfd1a1c58167d7078",
+    "02-answers.md": "e4c89a22508d5d16d24b4329d174c79e603303c8f9b8b451d6c594601b7aacd6",
     "intake/request.md": "13d7d9fcc5ce15e78339e3f44d734e75787e4537668be2ddad970580f51fb243"
   },
-  "summarized": "2026-11-27T12:57:39Z"
+  "summarized": "2026-11-27T13:01:57Z"
 }
