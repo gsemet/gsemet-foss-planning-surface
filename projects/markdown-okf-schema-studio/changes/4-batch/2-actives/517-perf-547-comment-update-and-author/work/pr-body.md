@@ -183,7 +183,8 @@ Grade: 2
 - [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows: the static stage, which
   includes `just check`; CI runs the other stages)
 - [x] Review: the changes are reviewed and approved, committed as 44a2e93
-- [ ] CI green
+- [x] CI green: the pull request checks pass at 44a2e93 (real VS Code jobs are skipped on pull
+  requests, see Known gaps)
 
 ## Internal references
 
