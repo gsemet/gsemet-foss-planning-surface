@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "How we test page: simpler test table and a clearer level name",
+  "summary": "P1, filed 2026-11-27. Remove the Where column of the test table and rename Simulated bench to Simulated VS Code host (owner's answer how-test-Q1).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "c84110b67beb7ca88acf6b250b70b1bf9fdbb5d4c011e469b995bf3e456c3425",
+    "intake/request.md": "ca1ebbe638757a8cfdb08e199fccca833d0f89a53221f4850a3e2732a8580550"
+  },
+  "summarized": "2026-11-27T12:33:48Z"
+}
