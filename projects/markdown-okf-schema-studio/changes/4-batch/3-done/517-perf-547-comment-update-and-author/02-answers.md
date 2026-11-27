@@ -64,3 +64,7 @@ split changes no behaviour of them).
 10. perf547b-Q2 (2026-11-27, Chief of Staff session), "do you merge PR 550 now, or a heavy CI on
     c308596 first?", choices "A. now (recommended)", "B. heavy CI first". No written answer: the owner
     merged PR 550 at 07:25:40Z (merge commit b1e23cc, same tree as 44a2e93 and c308596).
+
+11. perf547-Q6 (2026-11-27, Chief of Staff session): "do I post this comment on issue 547?" (the text of `work/issue-comment.md`, no plan, no demo), choices "A. yes, as is (recommended)", "B. yes, with your edits", "C. no". Asked after the owner's message, verbatim: "Ok. Tu as mis un commentaire dans l'issue pour dire qu'elle a été pris en compte et comment ?". Answer, verbatim: "Ok pour Q6. Laisse le batch en pause si un fix est nécessaire pour la ci lourde".
+
+    Posted on https://github.com/gsemet/markdown-okf-schema-studio/issues/547, 2026-11-27: comment https://github.com/gsemet/markdown-okf-schema-studio/issues/547#issuecomment-7212966120; plan none; demo none.
