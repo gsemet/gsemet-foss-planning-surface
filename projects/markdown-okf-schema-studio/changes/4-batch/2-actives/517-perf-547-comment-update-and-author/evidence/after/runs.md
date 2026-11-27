@@ -62,6 +62,26 @@ which the decision not to cache the name was taken: 10.74, 8.69, 6.79 ms (median
 At 7d24547 (same code of the index): 1.77/2.11, 1.41/1.75, 1.21/1.55 and 7.00/10.28, 5.53/8.36,
 4.79/7.70.
 
+## User actions on which the host runs these two functions
+
+As read in the code (`src/session/features/comments.ts`; this change alters nothing there).
+`createDocumentIndex` is "index", `reanchorThreads` (which indexes too) is "re-anchor".
+
+| User action, on a previewed document | What runs |
+| --- | --- |
+| First preview of a document that has comments, or a preview switching to one | index and re-anchor all threads |
+| Preview page reloaded or restored | threads posted again; re-anchored only when no result is kept for that text |
+| Comment created, answered, resolved or deleted | index and re-anchor all threads, once per write for each preview of the document; nothing when the last thread is deleted |
+| Comments file created or changed outside the preview | index and re-anchor all threads |
+| First change of a document with no unsaved changes (first keystroke or paste, reload, revert) | index and re-anchor all threads |
+| Undo or redo | index and re-anchor all threads |
+| Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
+| Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor. A save that moves stored lines while a thread is orphaned indexes a second time, to place the orphans again |
+
+Where a row indexes or re-anchors, it does so once for each open preview of the document; only the
+first index of a save is shared by all of them. While a document has unsaved changes and no thread
+is orphaned, further typing does not index again.
+
 Raw reports: `perf-547-run-<run id>.json` in this folder. Run URLs:
 `https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/<run id>`.
 

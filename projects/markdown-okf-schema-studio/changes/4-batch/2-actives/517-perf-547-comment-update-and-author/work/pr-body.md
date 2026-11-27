@@ -65,7 +65,9 @@ When the extension host runs these two functions, as read in the code (nothing t
 | Later typing while a thread is orphaned | index, and re-anchor the orphaned threads |
 | Every save | index, even with no comments file; re-anchor when the comments file is valid; nothing when the comments file has unsaved changes in an editor. A save that moves stored lines while a thread is orphaned indexes a second time, to place the orphans again |
 
-While a document has unsaved changes and no thread is orphaned, further typing does not index again.
+Where a row indexes or re-anchors, it does so once for each open preview of the document; only the
+first index of a save is shared by all of them. While a document has unsaved changes and no thread
+is orphaned, further typing does not index again.
 
 ## Changes
 
@@ -180,8 +182,8 @@ Grade: 2
   `just requirements-update`; no stakeholder requirement text changes (two gain the generated link
   to the new requirement)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows: the static stage, which
-  includes `just check`; CI runs the other stages)
+- [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows, where it runs the static
+  stage only, `just check` included)
 - [x] Review: the changes are reviewed and approved, committed as 44a2e93
 - [x] CI green: the pull request checks pass at 44a2e93 (real VS Code jobs are skipped on pull
   requests, see Known gaps)
