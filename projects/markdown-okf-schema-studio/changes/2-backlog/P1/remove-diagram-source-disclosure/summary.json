@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Remove the \"Diagram source\" disclosure under diagrams",
+  "summary": "P1, to grill. Remove the collapsed source panel under diagrams, which the owner finds useless. Open: HTML export too or preview only as for charts, and whether a failed diagram keeps its source.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a306ae955c61ca23b45da6722121cf861d8f2e2ab1b738c81055c8b0d28693e6",
+    "intake/request.md": "fe748456da550de1089d38ba36fb37457d5cea1adb5739b21956e9a5085fbf00"
+  },
+  "summarized": "2026-11-27T09:51:56Z"
+}
