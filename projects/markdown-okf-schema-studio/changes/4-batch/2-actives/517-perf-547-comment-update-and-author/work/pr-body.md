@@ -167,8 +167,6 @@ Grade: 2
   comment of the comment threads module still says threads are placed "again from nothing", and the
   repeat-apply criterion of SwRS-MDOKFSTUDIO-REVIEW-017 does not cover text nodes that sit side by
   side.
-- The real VS Code integration and acceptance jobs do not run at this pull request's head: they run
-  once, at the last commit of the stack of pull requests this one ships with.
 
 ## Test plan
 
@@ -178,8 +176,9 @@ Grade: 2
   shown and hidden; the 21 others check "same result as before" and the measures that stay),
   `test/build/perf547ThreadIndex.test.ts` for the new measure,
   `test/session/reviewReqComments.requirements.test.ts` for the recorded wait for the Git user name,
-  and the pinned stylesheet text of `test/core/preview/commentStyles.test.ts`, updated for a
-  corrected stylesheet comment
+  the pinned stylesheet text of `test/core/preview/commentStyles.test.ts`, updated for a
+  corrected stylesheet comment, and `test/build/test_workflows.py`, which now requires the
+  `perf-547` job to time the thread index after the window run
 - [x] Requirements: SwRS-MDOKFSTUDIO-REVIEW-224 added, markers in code and tests,
   `just requirements-update`; no stakeholder requirement text changes (two gain the generated link
   to the new requirement)
@@ -187,8 +186,10 @@ Grade: 2
 - [x] Local gates: `just preflight` passes at 44a2e93 (run on Windows, where it runs the static
   stage only, `just check` included)
 - [x] Review: the changes are reviewed and approved, committed as 44a2e93
-- [x] CI green: the pull request checks pass at 44a2e93 (real VS Code jobs are skipped on pull
-  requests, see Known gaps)
+- [x] CI green: the pull request checks pass at 44a2e93
+- [x] Real VS Code jobs: the full CI run at 44a2e93, which covers the commits of #549 under it,
+  passes, integration, acceptance and stress included
+  ([run 45951664534](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45951664534))
 
 ## Internal references
 
