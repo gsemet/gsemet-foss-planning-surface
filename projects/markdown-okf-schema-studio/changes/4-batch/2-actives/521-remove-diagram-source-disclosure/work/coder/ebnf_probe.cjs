@@ -97,6 +97,21 @@ const CASES = {
   dCommentAfterChoice: ["rendered", ebnf('a = "x" | "y" ;', '(* Syntax error! *)')],
   eEmpty: ["error", ebnf()],
   eEmptyTitled: ["error", ebnf("title Grammar")],
+  // the verifier's sources (kinds.cjs errors, errors2, errors3)
+  vIssueDoc: ["error", ebnf("title Number", "number = digit, { digit } ;", 'digit = "0" | "1" | ;;')],
+  vTitleBad: ["error", ebnf("title Grammar", "a = ;;; =")],
+  vUnclosed: ["error", ebnf('a = "x", { "y" ;')],
+  vSecond: ["error", ebnf('a = "x" ;', "b = (( ;")],
+  vMissingRhs: ["rendered", ebnf("a = ;")],
+  vGood: ["rendered", ebnf('a = "x", { "y" } ;')],
+  // harder imitations
+  dCommentLegend: ["rendered", ebnf("legend", "L", "endlegend", "(* Syntax error! *)")],
+  dTwoComments: ["rendered", ebnf('a = "x" ;', "(* a *)", "(* Syntax error! *)")],
+  dCommentPadding: ["rendered", ebnf("<style>", "note { Padding 0; Margin 0; FontSize 14; BackGroundColor transparent; LineColor transparent }", "element { Margin 0 }", "</style>", "legend", "L", "endlegend", "(* Syntax error! *)", 'b = "y" ;')],
+  dPreprocTerminal: ["rendered", ebnf('!$w = "Syntax error!"', 'a = "$w" ;')],
+  dCommentThenRuleSameWords: ["rendered", ebnf("(* Syntax error! *)", "(* Syntax error! *)")],
+  dLegendRight: ["error", ebnf("legend right", "Syntax error!", "endlegend")], // no rule: the engine adds its own "Syntax error!"
+  dNoteStyleLeft: ["rendered", ebnf("skinparam noteFontSize 14", "skinparam noteBorderColor transparent", "skinparam noteBackgroundColor transparent", "(* Syntax error! *)")],
   dJson: ["rendered", ["@startjson", '"Syntax error!"', "@endjson"]],
   dRegex: ["rendered", ["@startregex", "Syntax error!", "@endregex"]],
 };

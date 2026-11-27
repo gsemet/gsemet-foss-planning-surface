@@ -11,9 +11,9 @@ const ENGINE_ERROR_PICTURE = new RegExp(
   "u",
 );
 const EBNF_SOURCE = /^\s*@startebnf\b/iu;
-const EBNF_LABEL_GROUP = /<g class="[^"]*"[^>]*>(?:(?!<\/?g\b)[^])*<\/g>/gu;
-const EBNF_NOTE = /<path\b[^>]*\/><path d="M([\d.]+),([\d.]+) L\1,[\d.]+ L[\d.]+,[\d.]+ L\1,\2"[^>]*\/>(?:<text\b[^>]*>[^<]*<\/text>)+/gu;
-const EBNF_ERROR_LINE = /^<svg\b[^>]*><defs\/><g>(?:<[^>]*>[^<]*)*?(?:<g>|<\/text>|<path\b[^>]*\/>)<text\b(?![^>]*\bfont-weight=)[^>]*>Syntax error!<\/text>(?=<\?plantuml-src|<text\b|<\/g>)/u;
+const EBNF_LABEL_GROUP = /<g class="[^"]*"[^>]*>(?:(?!<\/?g\b)[\s\S])*<\/g>/gu;
+const EBNF_NOTE = /<path\b[^>]*\/><path d="M([\d.]+),([\d.]+) L\1,[\d.]+ L[\d.]+,[\d.]+ L\1,\2"[^>]*\/><text x="([\d.]+)"[^>]*>[^<]*<\/text>(?:<text x="\3"[^>]*>[^<]*<\/text>)*/gu;
+const EBNF_ERROR_LINE = /^<svg\b[^>]*><defs\/>(?:<[^>]*>[^<]*)*?(?:<g>|<\/text>|<path\b[^>]*\/>)<text\b(?![^>]*\bfont-weight=)[^>]*>Syntax error!<\/text>(?=<\?plantuml-src|<text\b|<\/g>)/u;
 
 module.exports = (svg, source) => {
   if (ENGINE_ERROR_PICTURE.test(svg)) return true;

@@ -94,7 +94,7 @@ Grade: 2. The configuration folder, used by most commands to find `profiles.json
 - [ ] Evidence: before and after
 - [x] Review: approved at `d8397a4` (carried from `7fd7eec`)
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `d8397a4`: `just check` (Linux, macOS, Windows), `just eval-dry-run` (Linux), `just scenario` (Linux)
 
 ## Internal references
 
