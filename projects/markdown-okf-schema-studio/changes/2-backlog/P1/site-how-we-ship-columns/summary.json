@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "How we ship page: the table columns are too narrow",
+  "summary": "P1 bug, filed 2026-11-27, not grilled. On the published How we ship page, the first column of the tables is so narrow that the role and step names wrap; the owner wants wider columns.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "511ff746a153f69c27e418b7f03cab7d5d942049c589b079713818e5ca5051b7"
+  },
+  "summarized": "2026-11-27T12:29:52Z"
+}

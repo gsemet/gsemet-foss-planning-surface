@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Requirement pages: the Tested by list has no side margin",
+  "summary": "P1 bug, filed 2026-11-27, not grilled. On the published site's requirement pages, the Tested by heading, file paths and test tags of a scenario card touch the card's borders.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "e93418ed96bcc175b7200968408b7e51c6e04e5f304a68e040b81b08b9d92ad7"
+  },
+  "summarized": "2026-11-27T12:29:31Z"
+}
