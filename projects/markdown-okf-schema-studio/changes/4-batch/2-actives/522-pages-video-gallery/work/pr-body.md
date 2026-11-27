@@ -62,8 +62,9 @@ next release.
       `test/site/videoGalleryPage.test.ts`, `test/site/videoGallery.browser.test.ts`; the header
       requirement: `test/site/siteHeader.ts` and the header link tests)
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
+- [x] Local gates: `just check` (298 release tests among them) and `just preflight` (static stage on
+      Windows) pass at 5ed8550
+- [x] Review: approved at 5ed8550 (carried from 7e9c0d8)
 - [ ] CI green
 
 ## Autonomous decisions
