@@ -38,6 +38,10 @@ The left column is now drawn from this terminal width (before: 100 in every case
 | Several projects | 133 | 162 |
 | Several boards | 135 | 164 |
 
+At 150 columns, after the change, at `3412cd9`: `chantier live` in a real console window, on a running board with made-up data. The header row after `chantier live` is painted grey, because the served path it prints lies under the home folder (the version, transport and time of that row are hidden with it).
+
+![chantier live at 150 columns](https://github.com/user-attachments/assets/8614ce7e-afcd-4f7b-b779-9cb53b50bc83)
+
 ## Blast radius
 
 Grade: 1. Only the layout of the terminal live view changes; it writes nothing and adds no dependency. A plain `git revert` restores the previous layout.
@@ -53,7 +57,6 @@ Grade: 1. Only the layout of the terminal live view changes; it writes nothing a
 ## Known gaps
 
 - With one project watched, `chantier live --once` with no terminal size (120 columns, for instance piped) no longer draws the Projects and Agents boxes, since the left column now needs 122 columns. Raising the default print width would close it.
-- No screenshot of `chantier live` in a real terminal on a running board yet.
 - The end-to-end scenario was not run locally on Windows for this change; CI runs it on Linux, and the Windows run is left to the pull request stacked on this one.
 - In `--once` output a blocked item's reason can be cut: the Tasks box counts one line for an item drawn on two. This predates the change and is visible in the docs capture.
 
@@ -77,16 +80,16 @@ Grade: 1. Only the layout of the terminal live view changes; it writes nothing a
 
 ## Impacts
 
-Wider left, `Project` and `Who` columns on large terminals; on terminals between 100 and 121 columns (more with several projects) the left column is no longer drawn. Where the left column still shows, `Event` can be narrower than before: with one project at 141 columns it goes from 39 to 20.
+Wider left, `Project` and `Who` columns on large terminals; on terminals between 100 and 121 columns (more with several projects) the left column is no longer drawn. Where the left column still shows, `Event` can be narrower than before: with one project at 141 columns it goes from 39 to 20. The screenshot shows the three columns at their new default widths on a 150-column terminal.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [x] New or changed tests (they fail on the previous code): at `3412cd9`, 20 of the 24 new cases fail on the previous code (the 4 others are widths where it already drew the expected columns); all 24 pass with the change
 - [x] Local gates at `3412cd9`: `just check` pass (2813 passed, 19 skipped); `just eval-dry-run` pass (26 of 26 cases)
-- [ ] Evidence: the live view at `3412cd9`
+- [x] Evidence: before at `4d12a5b` (drawn widths and the text of `chantier live --once`), after at `3412cd9` (the same, and the screenshot above)
 - [x] Review: approved at `3412cd9`
-- [ ] Verified
-- [ ] CI green
+- [x] Verified at `3412cd9`
+- [x] CI green at `3412cd9`: `just check` (Linux, macOS, Windows), `just eval-dry-run` (Linux), `just scenario` (Linux)
 
 ## Internal references
 
