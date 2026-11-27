@@ -1,0 +1,3 @@
+docs: name the pull request in the changelog line
+
+Assisted-by: Claude:Sonnet-5.5

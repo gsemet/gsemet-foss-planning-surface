@@ -64,7 +64,7 @@ next release.
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just check` (298 release tests among them) and `just preflight` (static stage on
       Windows) pass at 5ed8550
-- [ ] Review
+- [x] Review: approved at 8541bed
 - [ ] CI green
 
 ## Autonomous decisions
