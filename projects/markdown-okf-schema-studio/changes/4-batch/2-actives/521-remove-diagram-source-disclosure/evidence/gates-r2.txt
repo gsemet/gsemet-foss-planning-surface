@@ -1,0 +1,27 @@
+CR-521, round 2: gate results (Windows, worktree batch-11-CR-521, round 2 edits uncommitted on 17f6bb86)
+
+All runs below are on the final worktree. Logs are in work/gates/ (*-r2.log).
+
+just requirements-update         pass (0 indexes updated, 0 projections updated)
+just requirements-lint           pass, exit 0; W2 "Broken cross-link" warnings are printed for requirement files
+                                 this change does not edit
+just check                       pass, exit 0
+  clip-kit                       56 tests, 56 pass
+  unit                           5569 tests, 5562 pass, 0 fail, 7 skipped
+  contracts                      0 tests run (as the glob stands; not changed here)
+  security                       116 tests, 116 pass
+  main paths                     96 StRS checked, 625 SwRS citations, all valid
+just preflight                   pass, exit 0: "ci-static: passed"; unit 5561 pass, 0 fail, 8 skipped in this run.
+                                 On Windows the visual, viewer-graph, integration, acceptance, report and
+                                 gallery jobs are skipped
+npm run visual:render            pass
+test/visual/capture.py           diagrams v04-v07, v10-v14, v18: 8 passed, 2 failed
+  diagrams v04, v05              fail: PlantUML is not installed here. Each reports "requires a loaded image
+                                 without an error" and, as the disclosure of the failed figure is displayed, the
+                                 new "must not display its source disclosure"
+work/scratch/probe_success_check.py
+                                 pass on the v04 and v05 pages: with a picture put in by the probe (state
+                                 rendered) the real PAGE_CHECKS report no PlantUML failure; with the display:none
+                                 rule of the panel removed in the browser they report only "PlantUML diagram 1
+                                 must not display its source disclosure"
+not run                          v04 and v05 with a real PlantUML; the rest of the visual campaign; real VS Code jobs
