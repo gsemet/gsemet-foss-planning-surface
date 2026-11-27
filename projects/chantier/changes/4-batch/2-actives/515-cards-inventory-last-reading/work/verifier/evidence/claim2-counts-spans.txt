@@ -1,0 +1,7 @@
+$ python count.py
+rows 329 unique 329 {'a': 62, 'b': 139, 'c': 1, 'd': 11, 'e': 112, 'f': 4}
+pr lines 112 unique 112
+not open: []
+per kind {'a': 52, 'b': 15, 'c': 1, 'd': 2, 'e': 42}
+$ python rowspans.py   (cwd worktree)
+checked 112

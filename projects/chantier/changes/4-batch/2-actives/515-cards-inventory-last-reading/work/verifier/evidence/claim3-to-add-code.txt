@@ -1,0 +1,233 @@
+HEAD 22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6; C=skills/chantier/scripts/cli/src/chantier; run from the worktree
+## P2-code, P11: no command prints a refused push command, no preflight --add-rules
+$ git grep -n -e add.rules -e add_rules -- C
+exit=1
+$ sed -n 1,40p C/commands/push.py | grep refus
+29:    _refuse_branch(repo, c)
+36:    _refuse_worktree(c, wt)
+82:def _refuse_branch(repo: Repo, c: CrEntry) -> None:
+91:def _refuse_worktree(c: CrEntry, wt: Path) -> None:
+126:            f"push {c.id}: git refused the push of {c.branch}; nothing recorded "
+127:            "(`help refused-push`)\n" + (p.stderr or p.stdout).strip(),
+## P3-code: no hook rule on stash, reset --hard, add -A
+$ git grep -nE "stash|reset --hard|add -A" -- hooks
+exit=1
+$ ls hooks; cat hooks/hooks.json
+hooks.json
+register.test.tsx
+register.tsx
+{
+  "modules": ["./register.tsx"]
+}
+## P12-code: no secret or pattern check in a posting step
+$ git grep -niE "pattern check|secret.*pattern|def .*secret|credential.*(scan|check)|redact" -- C
+exit=1
+## P13-restart: restart is only a flag take logs, no command
+$ git grep -n "restart = \|\"restart\": True" -- C/commands/driver.py
+skills/chantier/scripts/cli/src/chantier/commands/driver.py:150:    restart = c.status == "working"  # a new Driver on a CR already working
+skills/chantier/scripts/cli/src/chantier/commands/driver.py:165:        **({"restart": True} if restart else {}),
+## P13-seat: foreman set checks the epoch only
+$ sed -n 24,63p C/commands/seat.py
+def foreman(args: argparse.Namespace) -> list[str]:
+    repo = Repo.find()
+    batch = resolve_batch(repo, args.batch)
+    if args.action == "get":
+        d = read_batch(repo, batch)
+        return [f"{d.foreman or 'none'} epoch {d.foreman_epoch}"]
+    if args.action == "set":
+        if not args.value:
+            raise ChantierError("foreman set <session-id> --epoch <n>", EXIT_USAGE)
+        require_epoch(args.epoch, "foreman set <session-id> --epoch <n>")
+    else:
+        require_epoch(args.epoch, "foreman transcript <uuid> --epoch <n>")
+    with RenderedBatch(repo, batch, actor="foreman") as b:
+        if args.action == "set":
+            return _claim(b, args)
+        check_epoch(b, args.epoch)
+        return _transcript(repo, b, args)
+
+
+def _claim(b: RenderedBatch, args: argparse.Namespace) -> list[str]:
+    current = b.record.foreman_epoch
+    if args.epoch != current + 1:  # one number per Foreman: the first to claim it runs it
+        raise ChantierError(
+            f"Foreman n°{args.epoch} of {b.id} cannot be claimed: the batch is at "
+            f"Foreman n°{current}; stop now",
+            EXIT_CONFLICT,
+        )
+    b.record.foreman = args.value
+    b.record.foreman_epoch = args.epoch
+    b.record.foreman_transcript = None
+    b.log("foreman", None, session=args.value, epoch=b.record.foreman_epoch)
+    epoch = b.record.foreman_epoch
+    return [
+        f"foreman {args.value} epoch {epoch}",
+        f"next: $CHANTIER brief foreman --batch {b.id} --epoch {epoch}",
+    ]
+
+
+def _transcript(repo: Repo, b: RenderedBatch, args: argparse.Namespace) -> list[str]:
+    if not args.value:
+## A23-code: no local gate check on stack --out-of-draft
+$ sed -n 347,376p C/commands/delivery.py
+def _check_out_of_draft(d: BatchRecord, crs: list[CrEntry], repo: Repo) -> None:
+    """Refuse (nothing written) a CR not handed back ready, one with a draft under it (the CRs
+    named before it count as out of draft), and, after those, the first CR (bottom up) whose
+    recorded head does not hold its CR below's recorded head (`branch not based on`: put the
+    PRs back to draft, restack, ship, stack --out-of-draft again)."""
+    named = {c.id for c in crs}
+    place = chain(d)
+    ids = [x.id for x in place]
+    for c in crs:
+        if is_held(c):
+            raise ChantierError(
+                f"{c.id} is held out of the stack (order {c.held}): unhold it first "
+                f"(`order unhold {c.id}`)",
+                EXIT_PRECONDITION,
+            )
+        refuse_out_of_stack(d, c)
+        if c.status != "ready" or not c.pr:
+            raise ChantierError(
+                f"{c.id}: only a CR handed back ready leaves draft", EXIT_PRECONDITION
+            )
+        under = place[: ids.index(c.id)] if c.id in ids else []
+        drafts = [x.id for x in under if x.pr_draft is not False and x.id not in named]
+        if drafts:
+            raise ChantierError(f"{c.id}: under it is a draft: {drafts[-1]}", EXIT_PRECONDITION)
+    check_chain(repo, d, crs)
+
+
+def _check_place(place: dict[str, int], rest: list[str], cr: str, after: list[str]) -> None:
+    """Refuse a CR placed below a dependency, or a dependency left out of the order."""
+    below = [a for a in after if place.get(a, 0) > place[cr]]
+## A24-code: gate --stop returns before any lease check
+$ sed -n 32,47p C/commands/gate.py; sed -n 298,312p
+def _gate_stop(args: argparse.Namespace, repo: Repo, batch: str, wt: Path) -> tuple[list[str], int]:
+    """`gate <cr> --stop`: stop this CR's running long gate (its suite, its slot's lock) and
+    record the run `stopped`: no pass, no failure. Nothing else of the CR changes, and no other
+    slot is touched."""
+    v = slot_of(repo, args.cr)
+    if v is None or v.holder is None:
+        running = running_crs(repo)
+        if not running:
+            return [f"no long gate running for {args.cr}: nothing to stop"], 0
+        return [
+            f"no long gate of {args.cr} running (running: {', '.join(running)}): not stopped"
+        ], EXIT_PRECONDITION
+    with RenderedBatch(repo, batch, actor="driver") as b:
+        s = stop_gate(v.slot, v.holder, b, git("rev-parse", "HEAD", cwd=wt))
+    where = f" (pg{s.pg})" if s.pg is not None else ""
+    return [f"stopped the long gate of {args.cr} at {short_head(s.head)}{where}"], 0
+...
+    batch, data, c = batch_cr(repo, args.cr, args.batch)
+    wt = cr_worktree(c)
+    if args.first:
+        return _gate_first(args, repo, batch)
+    names = _names(args)
+    if args.stop:
+        return _gate_stop(args, repo, batch, wt)
+    found = _long_gate(repo)  # a bad key, then no entry, then a word that is no name: refused
+    cmds = _commands(args, names, found)
+    leases.renewed_in_session(repo, batch, c.id, args.lease, what=f"gate {c.id}", required=False)
+    if dirty_files(wt):  # a gate binds to a commit: nothing runs, nothing is logged
+        raise ChantierError(
+            f"{c.id}: the worktree has uncommitted changes or untracked files: "
+            "a gate binds to a commit, commit first",
+            EXIT_PRECONDITION,
+## D16-code: the commands that refuse on another session's seat
+$ git grep -n "the seat is held by" -- C
+skills/chantier/scripts/cli/src/chantier/commands/seat.py:120:        raise ChantierError(f"the seat is held by {held.session}", EXIT_PRECONDITION)
+skills/chantier/scripts/cli/src/chantier/commands/seat.py:149:            f"the seat is held by {held.session} "
+$ sed -n 114,121p C/commands/seat.py
+
+def _leave(repo: Repo, path: Path, session: str) -> list[str]:
+    held = read_seat(repo)
+    if not held:
+        return ["seat none"]
+    if held.session != session:
+        raise ChantierError(f"the seat is held by {held.session}", EXIT_PRECONDITION)
+    path.unlink()
+## D20-code: order add checks the specification file exists, not that it is final
+$ sed -n 160,179p C/lifecycle/stages.py
+        return store.is_file(rel_in(store.root, path))
+
+    if not is_file(specification) and directory.name.startswith("qa-"):
+        raise ChantierError(
+            f"{directory} is a QA report: an item to triage and split into CRs, not to open",
+            EXIT_PRECONDITION,
+        )
+    if (
+        not is_file(specification)
+        and in_ready
+        and store.is_dir(rel_in(store.root, supplied))
+        and is_file(directory / "intake" / "request.md")
+    ):
+        specification = directory / "intake" / "request.md"  # automatable: the request as received
+    if not is_file(specification):
+        raise ChantierError(
+            f"missing Change Specification: {specification}; grill the CR first", EXIT_PRECONDITION
+        )
+    return specification
+
+## P15-code: judge refuses status, epoch, no ask; nothing on a claimed waiver
+$ sed -n 64,103p C/commands/judge.py
+def judge(args: argparse.Namespace) -> list[str]:
+    repo = Repo.find()
+    cr = args.cr
+    require_epoch(args.epoch, f"judge {cr} --epoch <n>")
+    try:
+        batch = find_cr_batch(repo, cr, args.batch)
+    except ChantierError as e:
+        raise ChantierError(f"judge {cr}: {e}; `status` shows the batch", EXIT_PRECONDITION) from e
+    d = read_batch(repo, batch)
+    stale_epoch(d.id, d.foreman_epoch, args.epoch)
+    c = _cr(d, cr)
+    events = read_events(repo.store, repo.batch_dir(batch))
+    if c.status not in ("ready", "blocked"):
+        raise ChantierError(
+            f"judge {cr}: {cr} is {c.status}, not handed back; nothing to word yet; `status` "
+            "shows the batch",
+            EXIT_PRECONDITION,
+        )
+    stopped = stopped_agents(repo, d, events)
+    text = ask_text(repo, d, c, events, stopped, args.local_gate)
+    out: list[str] = []
+    why = ""
+    if text is None:
+        why, facts = _no_ask(repo, d, c, events, args.local_gate)
+        out += facts
+    else:
+        out += [f"ask: {text}", ready_line(repo, d, c, events, stopped)]
+    if (waits := wait_line(repo, d, c)) is not None:
+        out.append(waits)
+    if args.record is None:
+        if text is not None:
+            out.append(DECIDE.format(cr=cr, n=args.epoch))
+        return out
+    if text is None:
+        raise ChantierError(
+            f'judge {cr} --record: no ask to record ({why}); `asks "<text>"` records your own',
+            EXIT_PRECONDITION,
+        )
+    return _record(repo, batch, args)  # the lines `asks` prints, in place of the ask and facts
+
+## three listcheck misses (parsing artifacts), found by hand
+$ git grep -n -F "is not a CR in the configured inbox" -- C
+skills/chantier/scripts/cli/src/chantier/lifecycle/stages.py:150:            f"{directory} is not a CR in the configured inbox, priority backlog or 3-ready",
+$ git grep -n -F (host row name-env-holders words) -- references/hosts
+skills/chantier/references/hosts/claude-code.json:336:never `Stop-Process`, `taskkill` or `kill` on a holder
+$ grep -n "P10 allow rules" chief-of-staff.md AGENTS.md
+AGENTS.md:42:  on the user's yes, the Chief of Staff adds to `~/.claude/settings.json` the allow rules preflight's P10 named, and nothing else
+skills/chantier/references/chief-of-staff.md:3:You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help 
+skills/chantier/references/chief-of-staff.md:12:Asks first, each only on the user's yes in this turn:
+skills/chantier/references/chief-of-staff.md:13:1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file 
+$ B19 quoted spans, each searched (whitespace folded) in griller SKILL.md, the host rows and the cards
+"Never stop a process by name or pattern; use `close --yes` only on the user's yes." -> ['skills/chantier/references/floor.md']
+'never by name, pattern or PID (floor 10)' -> ['skills/chantier/references/chief-of-staff.md']
+'never stop or kill a process' -> ['skills/chantier/references/sync-checkout.md']
+"by the host's stop of their background shell (never by a" -> ['skills/chantier/references/topics/sync-offer-p2.md']
+'Never stop or kill a process for a sync, nor ask anyone to' -> ['skills/chantier/SKILL.md', 'skills/chief-of-staff/SKILL.md', 'skills/griller/SKILL.md', 'skills/status/SKILL.md']
+'Never stop or kill a process for a sync, nor ask anyone to' -> ['skills/chantier/SKILL.md', 'skills/chief-of-staff/SKILL.md', 'skills/griller/SKILL.md', 'skills/status/SKILL.md']
+'Never stop or kill a process for a sync, nor ask anyone to' -> ['skills/chantier/SKILL.md', 'skills/chief-of-staff/SKILL.md', 'skills/griller/SKILL.md', 'skills/status/SKILL.md']
+'never `Stop-Process`, `taskkill` or `kill` on a holder' -> ['skills/chantier/references/hosts/claude-code.json']
+'never a stop or a kill of a holder' -> ['skills/chantier/references/hosts/copilot.json']

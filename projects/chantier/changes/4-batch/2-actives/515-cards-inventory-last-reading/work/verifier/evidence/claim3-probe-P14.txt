@@ -1,0 +1,9 @@
+run from <export of HEAD> with: pytest -c pytest.ini -s -q test_zz_probe.py (project and remote are pytest tmp folders)
+PROBE mode parallel first push: exit 0: 'pushed chantier/batch-01/cr-101-cr-a at ccc4f14 (new branch on origin)'; status=working pr=None
+PROBE ship first link: exit 0: 'recorded https://github.com/acme/demo/pull/7 (base main, head ccc4f14, out of draft)'; status=working pr=https://github.com/acme/demo/pull/7
+PROBE ship second link, working: exit 0: 'recorded https://github.com/acme/demo/pull/8 (base main, head ccc4f14, out of draft)'; status=working pr=https://github.com/acme/demo/pull/8
+PROBE order merged: exit 0: 'merged CR-101: moved to 3-done'; status=merged pr=https://github.com/acme/demo/pull/8
+PROBE push on merged CR: exit 0: 'pushed chantier/batch-01/cr-101-cr-a at e2cb588 (was ccc4f14)'; status=merged pr=https://github.com/acme/demo/pull/8
+PROBE ship on merged CR, third link: exit 0: 'recorded https://github.com/acme/demo/pull/9 (base main, head e2cb588, out of draft)'; status=merged pr=https://github.com/acme/demo/pull/9
+PROBE remote tip == worktree head: True
+1 passed in 4.48s

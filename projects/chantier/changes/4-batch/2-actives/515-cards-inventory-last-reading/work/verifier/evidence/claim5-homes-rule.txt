@@ -1,0 +1,8 @@
+base 18 210 head 16 127
+mismatches against the rule: []
+homes added: []
+removed keys: {'test_triage_moves': ['topic session-shell'], 'test_board_running_lane': ['topic where-cr-goes']}
+['A home stays when it is a floor line, or when a held line of the list names it. After each home:', "the ids of the list's lines it holds. 210 homes before, 127 kept,", '83 dropped.']
+   floor with no line: test_cli_stop floor 4 a floor line, every one stays
+   floor with no line: test_launch_modes floor 4 a floor line, every one stays
+keys in PR list 16 missing set() errors 0

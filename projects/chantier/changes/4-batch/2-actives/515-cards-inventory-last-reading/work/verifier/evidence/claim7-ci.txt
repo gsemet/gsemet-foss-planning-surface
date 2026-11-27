@@ -1,0 +1,16 @@
+$ gh pr checks 491
+just check (macos-latest)	pass	4m7s	https://github.com/gsemet/chantier/actions/runs/46017348690/job/140567753662	
+just check (ubuntu-latest)	pass	1m30s	https://github.com/gsemet/chantier/actions/runs/46017348690/job/140567753754	
+just check (windows-latest)	pass	8m9s	https://github.com/gsemet/chantier/actions/runs/46017348690/job/140567753865	
+just eval-dry-run (ubuntu-latest)	pass	1m44s	https://github.com/gsemet/chantier/actions/runs/46017348690/job/140567753645	
+just scenario (ubuntu-latest)	pass	7m46s	https://github.com/gsemet/chantier/actions/runs/46017348690/job/140567753370	
+exit=0
+$ gh pr view 491 --json baseRefName,headRefOid,isDraft,state
+{"baseRefName":"main","headRefOid":"22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6","isDraft":true,"state":"OPEN"}
+$ gh run view 46017348690 --json headSha,conclusion
+{"conclusion":"success","headSha":"22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6"}
+$ gh run view 46017348690 --log | grep (test counts, dry run total)
+just eval-dry-run (ubuntu-latest)	Run just eval-dry-run	2026-11-27T14:37:33.0069138Z dry run: 26 of 26 cases as expected
+just check (macos-latest)	Run just check	2026-11-27T14:39:52.9129110Z 2781 passed, 23 skipped in 189.68s (0:03:09)
+just check (ubuntu-latest)	Run just check	2026-11-27T14:37:18.2710912Z 2781 passed, 23 skipped in 65.00s (0:01:04)
+just check (windows-latest)	Run just check	2026-11-27T14:43:54.1375907Z 2785 passed, 19 skipped in 432.39s (0:07:12)

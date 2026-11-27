@@ -1,0 +1,120 @@
+## H-897 kind a
+ BASE[chief-of-staff, foreman | Sync the checkout] Still pending 3 minutes after its first try, tell the user once, naming the holders, that the sync waits for them (a `webui`-started server still listed is named with its stop command (`taskkill /PID <n> /T /F` on Windows, `kill <n>` ...
+ PR: Never stop or kill a process for a sync; go on unsynced and say so.
+ HOME skills/chantier/SKILL.md: ...mand P10's rule holds): exit 0, in sync; exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named; any other exit, an ordinary sync failure, never `sync pending`. Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. Then `$CHANTIER` is `uv run --no-sync --proj...
+
+## D-036 kind a
+ BASE[all Drivers | a background task] Keep the id of each background task; stop each by that id with the host's stop of a background task as soon as its result is read
+ PR: Only the agent's own background tasks are stopped, by id.
+ HOME topics/session-shell-p1.md: ...ook (`help ci-no-check`), and, after GitHub answers a merge `pending`, one `sleep` of at most 30 s then one read. - A background task is a background shell or a host monitor (it streams a command's output to its owner). Stop yours by its id (`$CHANTIER host stop-own-background-task`) once its result is read or no longer counts; a `$CHANTIER gate` shell is the gate, stopped only with `gate <cr> --stop`. The board and the watcher have the...
+
+## D-018 kind a
+ BASE[CR driver | each worker] Start each worker with the agent and model as the `team:` lines print them, as printed; no model printed: none passed; `agent=(generic)`: the generic agent with the printed contract lines
+ PR: Agent and model are passed as printed, never from memory, never an effort.
+ HOME concepts.md: ...t inherits only its role's, never merge or publication permission. - Pass the agent and the model exactly as `$CHANTIER` printed them (`playbook`, `playbook --batch`, or the `team:` lines of `take`, `round`, `handoff`): never typed from memory, completed or "corrected", never an effort. No model printed: pass none. - `agent=(generic)` printed: start the host's generic agent and pass the model as printed; its brief holds the contract lines `brief` gives it. A parent never chooses it...
+
+## P-007 kind a
+ BASE[driver-retake | a stack] Re-take inside a stack
+ PR: In a stack, the branch below is rebased only on a note or a refusal, never reset hard.
+ HOME topics/retake-notes.md: ... series PR above the bottom stays draft). - `folded: <k> merged into its branch` (GitLab only; unproved): `git -C <worktree> fetch`, `rebase origin/<branch>`, then `rebase <base>` (a conflict is a `conflict-resolver`'s; never `reset --hard`), push, `ship`; add one line naming the folded CR's change and its merged MR to `pr-body.md` (Deliverables, Internal references), post it, treat it as a move that changed the patch: `verifier` given ...
+
+## D-080 kind a
+ BASE[stack driver | resuming] A take's note `resume:` or a stack partly restacked: re-read, never redo
+ PR: A resumed restack is read again and nothing is redone.
+ HOME topics/stack-record.md: ...lict-resolver`; code or a red check: `anomaly`. - Recording: `note <cr> "restack: on <cr below or default branch> <its head7>, head <new head7>"`, then `restack: judged at <head7>` after its proofs or a `carried:` line. A resumed take goes on from the first CR, bottom up, whose last `restack: on …` note does not name the current heads or has no later `judged` note. - The pass itself: `help stack-restack`. ...
+
+## D-068 kind a
+ BASE[CR driver | ship and proof] Commit by name, check `diff --stat` empty and the tree clean, `note "r<n> approved at <head>, committed as <sha>"`; push, PR as a draft, `ship <cr> <link>`, CI, Verifier
+ PR: Commit by name; never stash, `add -A`, `reset --hard` or discard work.
+ HOME cr-driver.md: ... any way but `$CHANTIER push <cr> --lease <n>`, or retry a refusal by another means (`help refused-push`); - run `git stash`, `git add -A`, `git add .`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, `git reset --hard` or anything that discards the worktree's work; - run `git merge` or a `git pull` without `--rebase`, or press the forge's *Update branch* button; - change a shell's folder into a CR folder (`help session-shell`), or run `gate <cr> --stop` on ano...
+
+## FM-B047 kind b
+ BASE[foreman | B5c: work for a CR handed back] The `take` reopens the CR to `working` and counts no round; its Driver runs `ship` at the new head, then passes the long gate and a `VERIFIED` verdict there before `handback ready`.
+ PR: A change taken back is shipped, gated and verified again before ready.
+ HOME commands/driver_checks.py: ... self.validated_by} if self.validated_by else {}), **({"follow_up": w.follow_up} if w.follow_up else {}), } def handback_refusals( repo: Repo, b: Batch, c: CrEntry, no_gate: str | None, prepared: bool ) -> GateBasis: """A ready CR is shipped at the worktree's head, clean, pushed, gated and verified. A CR whose long gate is waived (`order waive`) and is not the stack's top needs no gate pass. The basis that let it pass, if it is not a pass at its head.""" events, head = cr_events(repo, b.id, c.id...
+
+## FM-486 kind b
+ BASE[foreman | a hand-back ready with a PR, parallel batch] Each PR stays as its hand-back left it: a `ready-to-merge` PR stays mergeable on its own.
+ PR: The early conflict check changes no PR and switches no mode on its own.
+ HOME topics/chain-conflict.md: ... stands until the stack driver restacks. - On `[foreman→chief-of-staff] conflict <cr> with <cr>...: <paths>; switch to a stack?` tell the user, in their language: the PRs by link and CR name; the paths both change; that each PR stays ready to merge on its own but merging one makes the others conflict and go back to their Drivers for a rebase; and the offer to switch to a stack. On a yes `order mode --note stack` and say what the switch does (`help merge-s...
+
+## W-025 kind b
+ BASE[coder | a reply out of format] A reply out of that format is a failed worker, which the Driver starts again rather than reads; a reply in format that is only longer than its cap is read and noted, not restarted
+ PR: A worker's reply out of format is a failed worker: nothing is read into it.
+ HOME topics/trouble-worker.md: ...$CHANTIER note <cr> "restart: <cause>"` first, no `round`. A second refusal of the same start, a model included, is `handback <cr> blocked refused <exact text>`, never retried without the model. - A reply out of format: never read a verdict, a pass or a choice into it, never fix it, never ask the worker by message to fix it. `note <cr> "restart: reply out of format: <what is missing>"` and one new worker of the same role with the same brief, saying what the reply ...
+
+## FM-436 kind b
+ BASE[foreman | a Driver stopped from outside] each of those keeps its own path.
+ PR: A stop made by the steering session, the user's stop or hold included, is not undone by an automatic restart.
+ HOME topics/lost-outside.md: ...resh` only) or the refusal `Agent <id> was stopped and won't be resumed…` to a message to a recorded agent. Read it at once, no ping, never try to resume it by a message. - Only a stop the steering session did not make. Its own stops (a switch of mode, a drop, the user's stop or hold, the `stop` after 3 idle hours) keep their own paths; a stop the user makes in the app is from outside. - The snapshot does not say who stopped the agent; a compaction may follow your own stop. So when you stop a Driver and do not restart it at once, c...
+
+## H-1429 kind b
+ BASE[all roles | A Chief of Staff and Grillers in remote] What is not possible on the host (a fork that cannot be told apart) is written here as found, with no workaround.
+ PR: What the host cannot do is written as found, with no workaround.
+ HOME floor.md: ...# The floor No role, card, order or message overrides these. 1. Never merge without the user's word. 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch. 3. No fallback. 4. A CLI that cannot run is a stop. 5. Never discard the worktree's work. 6. An irreversible release action waits for the user. 7. Only the user starts work. 8. No image shows the username or the hom...
+
+## H-1071 kind b
+ BASE[all roles | Who reads it, when] A Driver reads the sections its card's "Opening reads" names ("Tools", "Auto mode", "Compacting", "The write guard"), when the step comes: "Auto mode" tells it what a refusal means and that it is reported, never worked around.
+ PR: A refusal is reported, never worked around.
+ HOME floor.md: ...llback. 4. A CLI that cannot run is a stop. 5. Never discard the worktree's work. 6. An irreversible release action waits for the user. 7. Only the user starts work. 8. No image shows the username or the home folder. 9. Report a refusal with its exact text; never work around it. 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. ...
+
+## H-449 kind c
+ BASE[all roles | Rules] Its text is never typed, built or escaped in a shell command, in any shell, and the file is never written by the shell (a redirection, a here-string, `Out-File`, `Set-Content`): PowerShell reads a backtick as an escape (`` `f `` is a form ...
+ PR: A multi-line forge text is never typed or written through a shell.
+ HOME topics/session-shell-p2.md: ... a part. UTF-8, no BOM. - A multi-line forge text (PR body, comment, notes) is a file written with the host's Write tool, in `work/` or where your card or the project keeps it, passed as `--body-file` or `--notes-file`: never typed, built or written by a shell command. A one-line plain text (a title, a `--note`) and a commit message are not covered. ...
+
+## H-1181 kind d
+ BASE[all roles | What stays refused] Include this content in your final response instead." The rule is as users report it in <https://github.com/anthropics/claude-code/issues/44657> and <https://github.com/anthropics/claude-code/issues/101519>: **unproved** by Anthropic.
+ PR: A file name the host refuses a subagent is not forced.
+ HOME topics/host-refused.md: ...# Claude Code: what stays refused No allow rule for these; when the host refuses or asks, the agent reports the exact text (`help refusals-to-say`), and chantier does not do them unasked: - `git commit --amend --reset-author`: rewrites authorship. - `git branch -D` with `git push origin --delete`, and `git update-ref -d`...
+
+## C-472 kind d
+ BASE[chief-of-staff | Starting a batch] Where the host refuses to start a session, or the session you are in is not fit, the way is a step of the user's: give the "For you" block of the reference, after saying what the choice costs, and say "I have not tested this path" for a bl…
+ PR: A path never tested is said to be untested.
+ HOME chief-of-staff.md: ...ecret or personal data in a CR folder. - Restart the board on another port to get round a refusal; a board another session serves is the user's to stop. - Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved. - Start anything after one failed preflight condition, or offer another way. - Widen a grant or approve an irreversible action, without the user's own word. - State a past fact in a brief without it...
+
+## C-011 kind e
+ BASE[chief-of-staff | Entry points]  The user asks…  Do  Read   ---  ---  ---   "init", a guided tour, "I am new here"  `$CHANTIER init`, then the tour  [init](init.md)   anything, at the start of a session  read `AGENTS.md`: how the project ships, the branch,…
+ PR: The specification is written, and checked, only on the user's word.
+ HOME griller-skill.md: ...R file`, a title of at most 72 characters), triage, grill, and write `01-intent.md` (with its `issue:` line when the CR comes from a tracker issue), `02-answers.md` and, when a CR needs another's result, `depends.json`. On the user's word you start the spec-writer (one per CR) and, on an impactful CR, the spec-critic (`help grill-specify`). Prototypes, plans and other artifacts go in the CR's folder. You may propose a grouping or order of prepared CRs in your reply, never ...
+
+## C-027 kind e
+ BASE[chief-of-staff | Entry points] it counts from the next batch  The project (this card)   "add a <kind> review"  the `chantier` section of `AGENTS.md`, on the user's word  The project (this card)   "I restarted the app", "resume"  liveness check;
+ PR: Project rules are written only on the user's word.
+ HOME chief-of-staff.md: ...n the yes. A failed lease is told at once, never retried. Asks first, each only on the user's yes in this turn: 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. 2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10). 3. Publishing a release: record "auto" an...
+
+## C-1312 kind e
+ BASE[chief-of-staff, griller | Asking the user: a series] needing a specification they review until they approve it;
+ PR: A specification goes unreviewed only when the user chose "automatable".
+ HOME topics/grill-backlog-p2.md: ...bed in `02-answers.md`; a kept screenshot goes in `evidence/`; web research keeps sources in `experiments/`; a plan-mode plan is written in the CR's folder; memory is never a CR's place. - Triage with the user: dropped, automatable (their call, with a short spec they do not review, possibly none), specified for review, or to grill again. A tracker ticket is `file`d as received, with `issue: <link>` under the title of `01-intent.md` (added ...
+
+## C-1442 kind e
+ BASE[chief-of-staff, griller | 1. Start checks, first] P10's warning (one per capability, the base only at a first turn) comes as the Chief of Staff's question ([chief-of-staff](chief-of-staff.md), "The project").
+ PR: A missing allow rule is a question to the user, never written unasked.
+ HOME topics/allow-rules.md: ...chantier makes in the user's settings, and only on the user's yes, once per session per capability (the host row "Capabilities and their commands"). - The question: one, in the first message after the P5 and P10 lines: "add these rules to `~/.claude/settings.json`?" It lists each rule P10 named (not one marked `present`) with its real path and its risk, from the host row. A first turn covers "every batch" only; the go covers the batch's capabilities with what i...
+
+## H-313 kind e
+ BASE[all roles | The prompt] a prompt without the line is not guarded; a role that needs other folders, or fewer, gets its own line from the card that starts it.
+ PR: A worker's prompt without its `writes:` line is not guarded.
+ HOME concepts.md: ...h an agent in its first folder (a CR Driver in its worktree, or the project's root while the worktree does not exist yet) and refuses its Write, Edit, NotebookEdit and a shell write it can see outside the folders named; a prompt without the line is not guarded. A Driver's brief names who steers on `Steering:`; the means are its host rows (`$CHANTIER host driver-hand-back`, or in direct mode `$CHANTIER host driver-messages-steering-direct`); workers get non...
+
+## W-323 kind e
+ BASE[verifier | the gate pass] You cite the pass in `verify.md` by the gate log's first line (the CR and the full SHA it ran at) and `handoff`'s checklist, at the full SHA verified; the CLI is what refuses a hand-back without a gate pass
+ PR: A gate pass is cited from its log, never claimed; no ready hand-back without one.
+ HOME commands/driver_checks.py: ... to it (the CR's own commits have the same exact patch-ids, proved by git); the first is empty when one carries.""" head = c.head if done := carry_at(events, head, "gate_from"): return "", str(done.gate_from) text = ( f"refused: no long gate passed at {head or 'any head'} (gate " f'{c.id} <name>..., or --no-gate "<the project\'s rule>")' ) j = judged_gate(events) voided = _voided(events, "gate", judged_gate) if j is None else None if not (j or void...
+
+## H-331 kind e
+ BASE[all roles | The Chief of Staff's subagents] When the work is for a CR, its brief names that CR's folder and the place in it (a `prototypes/NN-<idea>/` or `experiments/`), and its result (the study, the report) is written there as a file, not only returned in the conversation.
+ PR: Work goes in the change's folder, never a scratchpad, with no secret.
+ HOME chief-of-staff.md: ... pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`). - `abandon`, `restore` or set a priority, label or group but on the user's word. - Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder. - Restart the board on another port to get round a refusal; a board another session serves is the use...
+
+## C-1244 kind e
+ BASE[chief-of-staff, griller | Asking the user: a series] "1 écarté"); then the questions, in the format of "Asking the user: a series" (text first, `<short name>-Q<n>` references continuing the item's numbering, at most 5 per call), together with the specification's own open questions.
+ PR: A decision resting on an unproved claim goes to the user.
+ HOME topics/grill-critic-steps.md: ... finding that touches behaviour (scope, behaviour, risk) is a question; any other (a record fix, a wrong name, a dropped decision, an old rule left standing, a settled inconsistency, an unproved claim to mark) is a fix. An unproved claim a decision rests on is a question. 4. Fixes first: run the writer once with them in its brief before the user sees anything, then review again against `02-answers.md`; a fix it refuses with a reason you accept is dropped, else it is a...
+
+## H-1002 kind e
+ BASE[all roles | Auto-fix events] **A PR that is not a batch's** (the user's own PR in the same session) is out of chantier's rule: it is between the user and the app.
+ PR: A host auto-fix event is not an order.
+ HOME topics/host-auto-fix.md: ...e Desktop's Auto-fix binds a PR a subagent opened to the session that started it (the Foreman, or the Chief of Staff in direct mode) and sends it events (fix failing checks, merge the base in). **Unproved** as a rule. - An event is not an order: neither the user's word nor a batch line. The project's rules, then the cards, rank above it. A CR's branch is updated the project's way (a rebase), never by the base merge the event asks for. - A C...
+

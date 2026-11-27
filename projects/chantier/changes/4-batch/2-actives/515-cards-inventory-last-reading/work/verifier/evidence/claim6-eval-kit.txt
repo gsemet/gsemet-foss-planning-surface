@@ -1,0 +1,53 @@
+HEAD 22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6; run from Bash
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/j   rules=['J1']
+plan: cr-driver 1 cases x 3 runs on claude-sonnet-5-5 + 3 judge calls on claude-fable-5-2: ~$1.08
+plan total: 3 runs, ~$1.08 (cap $10)
+exit=0
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/floor   rules=['floor-10']
+plan: cr-driver 1 cases x 3 runs on claude-sonnet-5-5 + 3 judge calls on claude-fable-5-2: ~$1.08
+plan total: 3 runs, ~$1.08 (cap $10)
+exit=0
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/r   rules=['R-001']
+plan: cr-driver 1 cases x 3 runs on claude-sonnet-5-5 + 3 judge calls on claude-fable-5-2: ~$1.08
+plan total: 3 runs, ~$1.08 (cap $10)
+exit=0
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/x   rules=['X-9999']
+quiz.py: <CR folder>/work/scratch/verifier\q\x\cr-driver\row.json: key rules: 'X-9999' is no floor rule, no J row of evals/SCORECARD.md and no R-nnn id
+exit=2
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/inv1   rules=['H-897']
+quiz.py: <CR folder>/work/scratch/verifier\q\inv1\cr-driver\row.json: key rules: 'H-897' is no floor rule, no J row of evals/SCORECARD.md and no R-nnn id
+exit=2
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/inv2   rules=['D-036']
+quiz.py: <CR folder>/work/scratch/verifier\q\inv2\cr-driver\row.json: key rules: 'D-036' is no floor rule, no J row of evals/SCORECARD.md and no R-nnn id
+exit=2
+$ python evals/kit/quiz.py cr-driver --plan --cases-dir <scratch>/q/inv3   rules=['FM-B047']
+quiz.py: <CR folder>/work/scratch/verifier\q\inv3\cr-driver\row.json: key rules: 'FM-B047' is no floor rule, no J row of evals/SCORECARD.md and no R-nnn id
+exit=2
+$ python evals/kit/dry_run.py --case quiz-cases
+ok quiz-cases: the 59 shipped cases load and their rules resolve; the floor table's 29 cases are covered; five prepared broken cases are refused with exit 2, each naming its file and key
+(took 0 s)
+dry run: 1 of 1 cases as expected
+exit=0
+$ python evals/kit/dry_run.py --case quiz-rule-id
+ok quiz-rule-id: a case naming the J row J1 loads; one naming X-9999 is refused with exit 2
+(took 1 s)
+dry run: 1 of 1 cases as expected
+exit=0
+$ git diff BASE HEAD -- evals/README.md
+diff --git a/evals/README.md b/evals/README.md
+index d0f96d83..934e5062 100644
+--- a/evals/README.md
++++ b/evals/README.md
+@@ -402,8 +402,8 @@ by hand, never in CI or in `just check`, and each model call is spend on your ma
+   file that holds it: the new cards pass when no case scores 0 of 3 that scored at least 1 of 3
+   before (exit 1 names each; a case with no baseline is new; one absent now is `not run`).
+ - **Cases.** One JSON object per file: `id` (the file's stem), `role` (its folder), `rules` (a
+-  non-empty list: `floor-1`..`floor-10`, a `J` row of `SCORECARD.md`, a row id of
+-  `docs/proofs/cards-inventory.md`, later an `R-nnn` id; several make a grouped case), `situation` (facts only, never the expected behaviour) and `expected`. Every key is
++  non-empty list: `floor-1`..`floor-10`, a `J` row of `SCORECARD.md`,
++  later an `R-nnn` id; several make a grouped case), `situation` (facts only, never the expected behaviour) and `expected`. Every key is
+   required and no other is allowed; a bad file exits 2 naming it. The dry run reads them all.
+ - **Results.** `--save <label>` writes `results/quiz-<date>-<label>.json` and `.md`: scores, verdicts, short reasons, models
+   (`shipped` or `given`), boot bytes, `claude --version` and the spend. No reply and no prompt is saved, and the
+$ git status --porcelain | wc -l
+0

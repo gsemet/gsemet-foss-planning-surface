@@ -1,0 +1,23 @@
+export of HEAD 22ccbe0 under <CR folder>/work/scratch/verifier/x (git archive); the worktree is never edited. Run from Bash.
+export test file equals head but for line endings (git archive writes CRLF here; cmp after tr -d CR): yes
+export floor.md equals head: yes
+$ pytest test_card_homes.py  (unmodified)
+18 passed in 1.25s
+floor line 1 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.28s
+floor line 2 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.32s
+floor line 3 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.19s
+floor line 4 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.21s
+floor line 5 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.19s
+floor line 6 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.18s
+floor line 7 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.20s
+floor line 8 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.19s
+floor line 9 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.18s
+floor line 10 altered: 1 line changed; -k word_for_word: 1 failed, 17 deselected in 0.21s
+eleventh line added: 1 failed, 17 deselected in 0.19s
+line 2 removed, whole file:
+FAILED skills/chantier/scripts/cli/tests/test_card_homes.py::test_the_floor_reads_word_for_word
+1 failed, 17 passed in 1.36s
+$ pytest (restored)
+18 passed in 1.31s
+$ git -C <worktree> status --porcelain | wc -l
+0

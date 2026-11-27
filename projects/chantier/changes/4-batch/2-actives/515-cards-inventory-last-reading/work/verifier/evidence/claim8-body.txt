@@ -1,0 +1,17 @@
+HEAD 22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6
+$ gh pr view 491 --json body --jq .body | diff - <CR folder>/work/pr-body.md
+225d224
+< 
+exit=1
+patch-id of 5d7549e: d8fd174a45571e4314af81f844fcf40da487fe8e
+patch-id of 22ccbe0: d8fd174a45571e4314af81f844fcf40da487fe8e
+$ git range-diff 5d7549e~1..5d7549e 22ccbe0~1..22ccbe0
+1:  5d7549ed = 1:  22ccbe0b docs(cards): list the protective rules and remove the old cards' inventory
+5d7549e parent: 4d12a5b  22ccbe0 parent: fbdb53d
+$ grep -cE "inventory row id pattern" docs/protective-rules.md
+0
+$ git grep -n "protective-rules" -- skills/chantier/scripts evals tests
+skills/chantier/scripts/cli/tests/test_card_homes.py:1:"""Each protective rule of `docs/protective-rules.md` that lives in a card, a skill, the floor or a
+$ head and tail of <CR folder>/work/scratch/driver-eval-dry-run-22ccbe0.log
+uv run --locked python evals/kit/dry_run.py
+dry run: 26 of 26 cases as expected

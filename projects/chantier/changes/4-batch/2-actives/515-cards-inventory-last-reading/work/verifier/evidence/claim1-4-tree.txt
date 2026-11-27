@@ -1,0 +1,39 @@
+HEAD 22ccbe0b1679de7e56bfb5795b2d2c3681c2acb6  BASE fbdb53d2a2860a95257235dc7f592ab0e75ce45e
+$ git status --porcelain | wc -l
+0
+$ git diff --name-status BASE HEAD
+D	docs/proofs/cards-inventory-open.tsv
+D	docs/proofs/cards-inventory.md
+A	docs/protective-rules.md
+M	evals/README.md
+M	evals/kit/dry_run.py
+M	evals/kit/quiz.py
+D	skills/chantier/scripts/cli/tests/cards_inventory.py
+M	skills/chantier/scripts/cli/tests/test_card_homes.py
+D	skills/chantier/scripts/cli/tests/test_cards_inventory.py
+$ git diff --shortstat BASE HEAD
+ 9 files changed, 269 insertions(+), 8036 deletions(-)
+$ git grep -nE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id"   (head)
+exit=1
+$ git grep -lE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id" BASE
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:docs/proofs/cards-inventory.md
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:evals/README.md
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:evals/kit/dry_run.py
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:evals/kit/quiz.py
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:skills/chantier/scripts/cli/tests/cards_inventory.py
+fbdb53d2a2860a95257235dc7f592ab0e75ce45e:skills/chantier/scripts/cli/tests/test_cards_inventory.py
+exit=0
+$ git grep -ohE "cards-inventory|cards_inventory|inventory_rows|quiz-row-id" BASE | sort | uniq -c
+     12 cards-inventory
+      3 cards_inventory
+      3 inventory_rows
+      4 quiz-row-id
+git cat-file -e docs/proofs/cards-inventory.md: base yes, head no
+git cat-file -e docs/proofs/cards-inventory-open.tsv: base yes, head no
+git cat-file -e skills/chantier/scripts/cli/tests/cards_inventory.py: base yes, head no
+git cat-file -e skills/chantier/scripts/cli/tests/test_cards_inventory.py: base yes, head no
+$ git ls-files docs/proofs
+docs/proofs/claude-code.md
+docs/proofs/copilot.md
+$ git diff --quiet BASE HEAD -- skills/chantier/references
+exit=0
