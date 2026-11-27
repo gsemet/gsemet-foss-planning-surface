@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v1.13.0",
+  "summary": "Prepare release 1.13.0 of everything on main since v1.12.1, by the project's release procedure.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d278334e6899638103a7bc04cfc034fefecadf9019f742c6d68b0a7e916028ad",
+    "02-answers.md": "266ab2e4a4d964903daf4b06c7c1dc2716e1b7bf839dc99758cf366d93e85d83",
+    "03-change-spec.md": "7bb8d0a7e2731ed6221c048a82c3218689c2d8a211d6f958088b19c5e7b2081f",
+    "intake/request.md": "3c7287f7425648d047ec18aefcd5912b23f3fcf98a570c81319b65c140f260e8"
+  },
+  "summarized": "2026-11-27T07:33:54Z"
+}
