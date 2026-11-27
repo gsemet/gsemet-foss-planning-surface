@@ -60,3 +60,7 @@ split changes no behaviour of them).
    P1 tu mets une CR sur un plan d'optimisation des check locau et CI. Parallisarion, test lourd que
    après merge ou optionnellelenr sur les PR". Applied by the Chief of Staff: after the merge of
    PR 549, GitHub had already rebased this CR's PR 550 onto `main`; no rebase by an agent was needed.
+
+10. perf547b-Q2 (2026-11-27, Chief of Staff session), "do you merge PR 550 now, or a heavy CI on
+    c308596 first?", choices "A. now (recommended)", "B. heavy CI first". No written answer: the owner
+    merged PR 550 at 07:25:40Z (merge commit b1e23cc, same tree as 44a2e93 and c308596).
