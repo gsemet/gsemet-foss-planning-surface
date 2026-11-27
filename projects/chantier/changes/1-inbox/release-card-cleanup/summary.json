@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v0.16.0: the card cleanup and the live view",
+  "summary": "Release this batch as 0.16.0 on top of its stack: notes with the server diagram, claims file with no campaign before publishing, version PR the owner merges; tag and publication wait for the owner's approvals.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "38ae3de9f691d2e4a20da38856c91407796babdefd4f0dfd098ab6182a311673",
+    "02-answers.md": "95aad5a8086e1991c29cb9a668cb089fdfd0a4a6ea9a46b63538fd25285656c4",
+    "03-change-spec.md": "8a33872cc3b972d01eb9e5effd48957b7f341ac98168803f3cce3bb375f3c64a",
+    "intake/request.md": "f3d2f986f0e3943ce45e739182fb99bc78c6c6c09f32080e1e02f6f6fb222918"
+  },
+  "summarized": "2026-11-27T11:28:36Z"
+}

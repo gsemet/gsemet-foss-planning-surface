@@ -19,3 +19,15 @@ Destination: running batch batch-11.
 - `vidéos-Q2` (where it lives): « Page à part » : a new page of the site with its own « Videos » link in the header.
 - `vidéos-Q3` (how a video plays): « Au clic » : a still picture; the video starts on a click.
 - `vidéos-Q4` (the light GIFs in the README): « Dans ce CR » : the videos are chosen now, in this change request.
+
+## Series 2, 2026-11-27, owner
+
+- `vidéos-Q5` (editing clips shown as GIFs in the README, several choices): `slash-menu-grid`, `table-anchors`, `figure-editor`. (`paste-spreadsheet-cells`, offered and recommended, was not chosen.)
+- `vidéos-Q6` (review and OKF clips shown as GIFs in the README, several choices): `diff-side-by-side`, `radio-buttons`. (`comment-thread`, offered and recommended, was not chosen.)
+- `vidéos-Q7` (weight): « Tels quels » : the existing clip GIFs, at most 3 MB each, none regenerated.
+- `vidéos-Q8` (placement in the README, the one-minute demo video staying at the top): the owner answered « No preference ». The Chief of Staff takes the recommended option as a routine gap: each GIF goes in the section of its feature, in place of the still picture that shows the same thing, else added to that section.
+
+## What follows from these answers
+
+- The five chosen GIFs weigh about 7.3 MB together (1.1, 1.7, 1.8, 1.4 and 1.3 MB).
+- The feature clip guideline sentence « The README is not changed: it keeps its presentation video » no longer holds: the change updates it.

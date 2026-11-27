@@ -1,5 +1,5 @@
 Destination: next batch (3-ready).
-Spec critic: judged once the specification is written (the Chief of Staff writes it).
+Spec critic: no: it follows the project's release procedure, changes no code or card, and each irreversible step waits for the owner (Chief of Staff's judgment, 2026-11-27).
 Short name: `card-release`
 
 ## Answers
