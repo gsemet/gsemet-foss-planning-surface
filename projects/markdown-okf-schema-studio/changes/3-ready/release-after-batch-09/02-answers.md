@@ -15,6 +15,12 @@ Short name: `release113`
   is already the release CR of batch-09; a batch has one. Put the second release in the next batch,
   once this one is closed".
 
+- 2026-11-27, the owner (Chief of Staff session), verbatim: "Met le CR de release en ready pour le
+  prochain batch. En attendant monitor bien la CI et assure toi que tout soit vert pour la release (CI
+  lourd). Fox dans une nouvelle CR si nécessaire dans ce batch". Applied: this CR stays in 3-ready for
+  the next batch; batch-09 stays open until the heavy CI of `main` is green, and a fix it needs is a
+  new CR in batch-09.
+
 Destination: next batch (3-ready), as its release CR.
 
 Spec critic: no (the project's procedure rules; the specification only fixes the scope, the version
