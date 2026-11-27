@@ -59,7 +59,14 @@ const SYNTAX = [
   uml("wplantsyntaxarrow", ["Alice ->>>>x<< : ", "}}}"]),
   uml("wplantsyntaxclass", ["class A {", "  +x : int", "activate ??? !!"]),
 ];
-const figures = mode === "shots" ? FIGURES.filter((f) => SHOT_WORDS.includes(f.word)) : mode === "syntax" ? SYNTAX : FIGURES;
+// Mode "ebnf": a valid EBNF grammar and two with a syntax error, built-in engine.
+const ebnf = (word, heading, lines) => ({ word, kind: "plantuml", want: "?", md: ["## " + heading, "", ...fence("plantuml", ["@startebnf", ...lines, "@endebnf"])] });
+const EBNF = [
+  ebnf("wplantebnfgood", "A valid grammar", ["wplantebnfgood = \"x\", { \"y\" } ;"]),
+  ebnf("wplantebnfbad", "A grammar with an unclosed bracket", ["wplantebnfbad = [ \"x\" ;"]),
+  ebnf("wplantebnfbar", "A grammar with a doubled semicolon", ["wplantebnfbar = digit, { digit } ;", "digit = \"0\" | \"1\" | ;;"]),
+];
+const figures = mode === "shots" ? FIGURES.filter((f) => SHOT_WORDS.includes(f.word)) : mode === "syntax" ? SYNTAX : mode === "ebnf" ? EBNF : FIGURES;
 const MARKDOWN = ["# Figures", "", ...figures.flatMap((f) => f.md), "The text after the figures.", ""].join("\n");
 
 const root = path.resolve(outDir);
@@ -259,12 +266,12 @@ async function editMode(page, words = ["wmermaidfail", "wplantrefused", "wnotedf
       await pending.page.waitForTimeout(1500);
       report.pending = { preview: await rows(pending.page), find: await find(pending.page) };
       await pending.page.close();
-    } else if (mode === "syntax") {
-      const pagePath = await buildPage("syntax", "builtin", true);
+    } else if (mode === "syntax" || mode === "ebnf") {
+      const pagePath = await buildPage(mode, "builtin", true);
       for (const themeId of ["light", "dark"]) {
         const { page, problems } = await openPage(browser, pagePath, themeId);
         await settle(page);
-        const result = report["syntax-" + themeId] = { preview: await rows(page) };
+        const result = report[mode + "-" + themeId] = { preview: await rows(page) };
         result.pictures = await page.evaluate(() => [...document.querySelectorAll(".myst-plantuml-diagram")].map((d) => {
           const src = d.querySelector("img")?.getAttribute("src");
           const svg = src ? decodeURIComponent(src.slice(src.indexOf(",") + 1)) : "";
@@ -273,18 +280,18 @@ async function editMode(page, words = ["wmermaidfail", "wplantrefused", "wnotedf
         const height = await page.evaluate(() => document.documentElement.scrollHeight);
         await page.setViewportSize({ width: 900, height: Math.min(height + 20, 3000) });
         await page.waitForTimeout(1500);
-        await clipped(page, path.join(root, `syntax-${themeId}.png`));
+        await clipped(page, path.join(root, `${mode}-${themeId}.png`));
         result.clicks = await clickOpens(page);
         result.find = await find(page);
-        const exported = await exportFile(page, "syntax-" + themeId);
+        const exported = await exportFile(page, mode + "-" + themeId);
         result.export = { ok: exported.ok, scripts: (fs.readFileSync(exported.target, "utf8").match(/<script/giu) || []).length };
         const reader = await noJs.newPage();
         await reader.goto(pathToFileURL(exported.target).href);
         result.export.rows = await rows(reader);
-        await clipped(reader, path.join(root, `syntax-export-${themeId}.png`));
+        await clipped(reader, path.join(root, `${mode}-export-${themeId}.png`));
         result.export.clicks = await clickOpens(reader);
         await reader.close();
-        if (themeId === "light") result.editMode = await editMode(page, ["wplantsyntaxline", "wplantsyntaxarrow"]);
+        if (themeId === "light" && mode === "syntax") result.editMode = await editMode(page, ["wplantsyntaxline", "wplantsyntaxarrow"]);
         result.pageErrors = problems;
         await page.close();
       }
