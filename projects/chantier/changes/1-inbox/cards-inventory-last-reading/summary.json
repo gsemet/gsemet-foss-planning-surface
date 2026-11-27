@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Read the open inventory rows once more, then remove the inventory",
+  "summary": "Specified: read the 329 open inventory rows one by one, restore missing protective rules in the floor or a card, commit docs/protective-rules.md, then delete the inventory, its tests and the eval kit's use of it. Three open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "366e9c8934550f20a1725785b3269386cfcea3198a1da1c6d4ed4d0606a7bed5",
+    "02-answers.md": "4b0b19b3d91b42cf65f56d266b65b91e7c97a4e80109361a297edbc5e2d426ef",
+    "03-change-spec.md": "44308b176571db19382ff85259eae7995dbdd837f272a9219ac423f4b600f35f",
+    "intake/request.md": "95fda0bd7d922c76c817719ee2a571579453223236c8b088f3abecbc594e853c"
+  },
+  "summarized": "2026-11-27T09:55:20Z"
+}

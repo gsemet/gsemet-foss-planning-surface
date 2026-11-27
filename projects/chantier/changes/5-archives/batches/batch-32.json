@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "batch": "batch-32",
+  "number": 32,
+  "state": "running",
+  "opened": "2026-11-27T09:54:58Z",
+  "closed": null,
+  "mode": "stack",
+  "steering": "foreman",
+  "host": "claude",
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [],
+  "cost_receipt": null,
+  "report": null
+}
