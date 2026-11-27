@@ -53,3 +53,13 @@ of the new CI job, what "faster" means on hosted runners), 3 asked below.
    the last commit of the final stack, which covers this CR's "a heavy CI run of the head is green"
    (no heavy run at this CR's own head). The targeted `perf_547` dispatches of the "after" runs stay:
    they run the measure only, not the long pipeline (Chief of Staff's reading).
+
+7. livraison-Q1 (2026-11-27, Chief of Staff session), question: "le correctif de performance (CR-516
+   terminée, CR-517 en vérification finale) peut partir sans attendre la campagne de KPI et sa page
+   (CR-518, CR-519, pas commencées). La CI lourde dure environ 20 min. Je le livre maintenant ?",
+   choices "A. Livrer maintenant (reco.)", "B. Une seule CI à la fin". Answer, verbatim:
+   "A. Livrer maintenant (reco.)".
+
+   Applied by the Chief of Staff: replaces item 6's deferral for this CR. The heavy run that covers it
+   is the one at CR-517's final head, once CR-517 is verified; then this PR leaves draft for the owner
+   to merge.

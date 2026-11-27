@@ -25,3 +25,8 @@ Spec critic: no (the page was in the specification the critic checked before the
    Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
    the last commit of the final stack. This CR is the top: that run is this specification's "heavy run
    on the branch", and its run id goes in the PR's test plan.
+
+4. livraison-Q1 (2026-11-27, Chief of Staff session), "deliver the performance fix (CR-516, CR-517)
+   now, without waiting for CR-518 and CR-519?", answer, verbatim: "A. Livrer maintenant (reco.)".
+   CR-516 and CR-517 get their own heavy CI and are merged first; item 3 stays for CR-518 and this CR:
+   one heavy run at this CR's head, the second of the night's work.

@@ -110,3 +110,8 @@ own).
     three launches, with room. The final heavy run is the "second run": `perf` green, both ratios at
     most 1; if it is red or the job is near its timeout, fix at cause and run again at the new last
     commit.
+
+13. livraison-Q1 (2026-11-27, Chief of Staff session), "deliver the performance fix (CR-516, CR-517)
+    now, without waiting for CR-518 and CR-519?", answer, verbatim: "A. Livrer maintenant (reco.)".
+    CR-516 and CR-517 get their own heavy CI and are merged first; item 12 stays for this CR: no heavy
+    run at its head, the next heavy run is the one at CR-519's head.

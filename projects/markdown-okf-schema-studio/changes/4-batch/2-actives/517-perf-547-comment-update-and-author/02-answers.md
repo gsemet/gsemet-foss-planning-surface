@@ -39,3 +39,14 @@ split changes no behaviour of them).
    Applied by the Chief of Staff: round limit 6; no question to the owner; one heavy CI run only, at
    the last commit of the final stack, which covers this CR's "a heavy CI run of the head is green"
    (no heavy run at this CR's own head). Targeted measure dispatches stay.
+
+7. livraison-Q1 (2026-11-27, Chief of Staff session), question: "le correctif de performance (CR-516
+   terminée, CR-517 en vérification finale) peut partir sans attendre la campagne de KPI et sa page
+   (CR-518, CR-519, pas commencées). La CI lourde dure environ 20 min. Je le livre maintenant ?",
+   choices "A. Livrer maintenant (reco.)" (once CR-517 is verified: a heavy CI on its head, then the
+   owner merges PR 549 and PR 550; CR-518 and CR-519 follow with a second heavy CI), "B. Une seule CI
+   à la fin". Answer, verbatim: "A. Livrer maintenant (reco.)".
+
+   Applied by the Chief of Staff: replaces, for CR-516 and this CR, the single heavy run of item 6. One
+   heavy CI at this CR's final head once verified (it covers CR-516, under it); then both PRs leave
+   draft for the owner to merge, in order. CR-518 and CR-519 keep their one heavy run at CR-519's head.
