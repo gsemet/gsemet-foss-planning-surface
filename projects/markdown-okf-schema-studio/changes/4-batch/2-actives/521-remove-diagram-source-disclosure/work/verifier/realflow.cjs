@@ -53,7 +53,7 @@ const FIGURES = [
 ];
 const SHOT_WORDS = ["wmermaiddrawn", "wmermaidfail", "wlitedrawn", "wlitefail"];
 // Mode "syntax": PlantUML sources the built-in engine cannot understand.
-const uml = (word, lines) => ({ word, kind: "plantuml", want: "?", md: ["## " + word, "", ...fence("plantuml", ["@startuml", "' " + word, ...lines, "@enduml"])] });
+const uml = (word, lines) => ({ word, kind: "plantuml", want: "?", md: ["## A source the engine cannot draw", "", ...fence("plantuml", ["@startuml", "' " + word, ...lines, "@enduml"])] });
 const SYNTAX = [
   uml("wplantsyntaxline", ["Alice -> Bob: hello", "this is not plantuml ((( ###"]),
   uml("wplantsyntaxarrow", ["Alice ->>>>x<< : ", "}}}"]),
@@ -199,11 +199,11 @@ async function clipped(page, file) {
   await page.screenshot({ path: file, fullPage: true, clip: { x: 0, y: 0, width: 900, height: Math.ceil(box.y + box.height + 28) } });
 }
 
-async function editMode(page) {
+async function editMode(page, words = ["wmermaidfail", "wplantrefused", "wnotedfail"]) {
   await page.locator("[data-sphinx-preview-edit-toggle]").first().evaluate((button) => button.click());
   await page.waitForFunction(() => document.documentElement.getAttribute("data-sphinx-preview-edit-mode") === "on");
   const out = [];
-  for (const word of ["wmermaidfail", "wplantrefused", "wnotedfail"]) {
+  for (const word of words) {
     const panel = page.locator("details[class$='-source']", { hasText: word });
     const visible = await panel.isVisible();
     await page.evaluate(() => { window.__posted.length = 0; });
@@ -260,22 +260,34 @@ async function editMode(page) {
       report.pending = { preview: await rows(pending.page), find: await find(pending.page) };
       await pending.page.close();
     } else if (mode === "syntax") {
-      const { page, problems } = await openPage(browser, await buildPage("syntax", "builtin", true), "light");
-      await settle(page);
-      report.syntax = { preview: await rows(page) };
-      report.syntax.pictures = await page.evaluate(() => [...document.querySelectorAll(".myst-plantuml-diagram")].map((d) => {
-        const src = d.querySelector("img")?.getAttribute("src");
-        const svg = src ? decodeURIComponent(src.slice(src.indexOf(",") + 1)) : "";
-        return { state: d.getAttribute("data-render-state"), picture: Boolean(src), says: [...new DOMParser().parseFromString(svg || "<svg/>", "image/svg+xml").querySelectorAll("text")].map((e) => e.textContent).join(" ").slice(0, 260), message: d.querySelector("p")?.textContent?.slice(0, 200) };
-      }));
-      await clipped(page, path.join(root, "syntax-light.png"));
-      report.syntax.pageErrors = problems;
-      const exported = await exportFile(page, "syntax");
-      const reader = await noJs.newPage();
-      await reader.goto(pathToFileURL(exported.target).href);
-      report.syntax.exported = await rows(reader);
-      await reader.close();
-      await page.close();
+      const pagePath = await buildPage("syntax", "builtin", true);
+      for (const themeId of ["light", "dark"]) {
+        const { page, problems } = await openPage(browser, pagePath, themeId);
+        await settle(page);
+        const result = report["syntax-" + themeId] = { preview: await rows(page) };
+        result.pictures = await page.evaluate(() => [...document.querySelectorAll(".myst-plantuml-diagram")].map((d) => {
+          const src = d.querySelector("img")?.getAttribute("src");
+          const svg = src ? decodeURIComponent(src.slice(src.indexOf(",") + 1)) : "";
+          return { dark: d.getAttribute("data-plantuml-dark"), state: d.getAttribute("data-render-state"), picture: Boolean(src), says: [...new DOMParser().parseFromString(svg || "<svg/>", "image/svg+xml").querySelectorAll("text")].map((e) => e.textContent).join(" ").slice(0, 260), message: d.querySelector("p")?.textContent?.slice(0, 200) };
+        }));
+        const height = await page.evaluate(() => document.documentElement.scrollHeight);
+        await page.setViewportSize({ width: 900, height: Math.min(height + 20, 3000) });
+        await page.waitForTimeout(1500);
+        await clipped(page, path.join(root, `syntax-${themeId}.png`));
+        result.clicks = await clickOpens(page);
+        result.find = await find(page);
+        const exported = await exportFile(page, "syntax-" + themeId);
+        result.export = { ok: exported.ok, scripts: (fs.readFileSync(exported.target, "utf8").match(/<script/giu) || []).length };
+        const reader = await noJs.newPage();
+        await reader.goto(pathToFileURL(exported.target).href);
+        result.export.rows = await rows(reader);
+        await clipped(reader, path.join(root, `syntax-export-${themeId}.png`));
+        result.export.clicks = await clickOpens(reader);
+        await reader.close();
+        if (themeId === "light") result.editMode = await editMode(page, ["wplantsyntaxline", "wplantsyntaxarrow"]);
+        result.pageErrors = problems;
+        await page.close();
+      }
     } else {
       const pagePath = await buildPage("shots", "builtin", true);
       for (const themeId of ["light", "dark"]) {
