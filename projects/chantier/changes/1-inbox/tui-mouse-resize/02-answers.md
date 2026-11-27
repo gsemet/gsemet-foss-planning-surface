@@ -17,3 +17,9 @@ Short name: `tui-mouse`
 11. Chief of Staff's call (2026-11-27), on its question 3: during a drag the other side column keeps the width drawn, the border follows the pointer down to a minimum, and the release keeps the width drawn.
 12. Chief of Staff's call (2026-11-27): on a drag's release, `live.json` keeps the dragged column's width as drawn and leaves the other column's saved value unchanged.
 13. Chief of Staff's call (2026-11-27), told to the owner: `docs/surface-server.svg` changes in this change request: in the `chantier live` box, "terminal, reads only" becomes "terminal, reads the server only" (`live` now writes `live.json`); any other line or description of that diagram that this change makes false changes with it.
+14. Chief of Staff's call (2026-11-27), recorded after the second critic pass: on a terminal too narrow for the kept widths, a right column kept wider than 44 gives way first, down to 44, before the left column. With the default widths nothing differs from `tui-resize-columns`.
+15. Chief of Staff's call (2026-11-27): a wheel event does nothing while the help is open or while a filter is being typed.
+16. Chief of Staff's call (2026-11-27): when the footer lacks room, the mouse words give way first; the typed filter text stays visible.
+17. Chief of Staff's call (2026-11-27): a `live.json` that cannot be read or holds a wrong value, an unknown key included, refuses the start with one line; `--once` reads no `live.json`, writes nothing and draws the defaults.
+18. Chief of Staff's call (2026-11-27): the Windows Terminal hand run must prove mouse support, else the change request stops and reports.
+19. Chief of Staff's call (2026-11-27), on the critic's import point: the check that `clients/tui/` imports nothing else of chantier stays as it is; the configuration folder reaches the new module from outside `clients/tui/`.
